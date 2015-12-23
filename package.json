@@ -1,0 +1,29 @@
+{
+  "name": "abroadwith-frontend",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "express": "^4.13.3",
+	"jquery":"^2.1.4",
+	"react":"^0.14.3",
+	"react-dom":"^0.14.3",
+    "browserify": "^12.0.1",
+	"babelify":"^7.2.0",
+	"babel-preset-react":"^6.3.13",
+    "nunjucks": "^2.2.0",
+	"material-design-lite":"^1.0.6",
+    "gsap": "^1.18.0",
+    "uglify-js": "^2.6.1",
+    "node-sass": "^3.4.2"
+  },
+  "scripts": {
+	"make": "mkdir build && cd build && mkdir backend",
+	"neuralyzer": "rm -rf node_modules build",
+	"clean": "rm -rf build",
+	"export": "cp -R mockups/* build/backend",
+	"bundle": "browserify -t [ babelify --presets [ react ] ]  src/main.js -o build/bundle.js",
+    "build": "npm run clean && npm run make && npm run export && npm run bundle",
+	"start": "node server.js",
+	"fullstart": "npm run build && npm run start"
+  }
+}
