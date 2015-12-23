@@ -6,7 +6,7 @@ nunjucks.configure('templates');
 
 app.use(express.static('build'));
 
-app.get('/index.html', function (req, res) {
+app.get('/', function (req, res) {
   res.send(nunjucks.render('index.html'));
 });
 
