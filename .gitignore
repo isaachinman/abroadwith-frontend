@@ -2,3 +2,4 @@ node_modules
 build
 locales
 *.log
+.DS_Store
