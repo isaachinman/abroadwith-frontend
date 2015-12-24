@@ -21,8 +21,9 @@
     "neuralyzer": "rm -rf node_modules build",
     "clean": "rm -rf build",
     "export": "cp -R mockups/* build/backend",
+    "compile": "node-sass -o css/ css/",
     "bundle": "browserify -t [ babelify --presets [ react ] ]  src/main.js -o build/bundle.js",
-    "build": "npm run clean && npm run make && npm run export && npm run bundle",
+    "build": "npm run clean && npm run make && npm run export && npm run compile && npm run bundle",
     "start": "node server.js",
     "fullstart": "npm run build && npm run start"
   },
