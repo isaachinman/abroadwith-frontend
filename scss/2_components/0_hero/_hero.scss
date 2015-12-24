@@ -19,8 +19,17 @@
   }
   &--home {
     background-image: url('http://blog.incrediblue.com/wp-content/uploads/2014/10/Fotolia_47262519_Subscription_Monthly_M.jpg');
+    background-size: cover;
   }
   .search {
     margin: 100px 0 50px 0;
+    button {
+      opacity: .9;
+      &:hover {
+        opacity: 1;
+      }
+      @extend .mdl-color-text--grey-500;
+      @extend .mdl-color--white;
+    }
   }
 }
