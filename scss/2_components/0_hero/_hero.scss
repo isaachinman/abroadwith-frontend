@@ -1,0 +1,26 @@
+.hero {
+  div:first-child {
+    margin-top: 100px;
+  }
+  button {
+    color: inherit;
+    border: 1px solid white;
+  }
+  img.bg {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+  }
+  &--top {
+    margin-top: -64px
+  }
+  &--home {
+    background-image: url('http://blog.incrediblue.com/wp-content/uploads/2014/10/Fotolia_47262519_Subscription_Monthly_M.jpg');
+  }
+  .search {
+    margin: 100px 0 50px 0;
+  }
+}
