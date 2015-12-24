@@ -299,3 +299,7 @@
 .material-icons {
   @include typo-icon;
 }
+
+.text-shadow {
+  text-shadow: 2px 2px 2px rgba(50, 50, 50, .8);
+}
