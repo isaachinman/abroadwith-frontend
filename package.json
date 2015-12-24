@@ -17,37 +17,21 @@
     "node-sass": "^3.4.2"
   },
   "scripts": {
-    "make": "mkdir build && cd build && mkdir backend",
+    "directories": "mkdir build && cd build && mkdir backend",
     "neuralyzer": "rm -rf node_modules build",
     "clean": "rm -rf build",
     "export": "cp -R mockups/* build/backend",
-    "compile": "node-sass -o css/ css/",
-    "bundle": "browserify -t [ babelify --presets [ react ] ]  src/main.js -o build/bundle.js",
-    "build": "npm run clean && npm run make && npm run export && npm run compile && npm run bundle",
+    "sass": "node-sass -o build/css/ scss/",
+    "bundle:search": "browserify -t [ babelify --presets [ react ] ]  src/search/search.js -o build/search-bundle.js",
+    "bundle": "npm run bundle:search",
+    "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
     "start": "node server.js",
     "fullstart": "npm run build && npm run start"
   },
   "main": "server.js",
-  "dependencies": {
-    "babel-preset-react": "^6.3.13",
-    "browserify": "^12.0.1",
-    "babelify": "^7.2.0",
-    "gsap": "^1.18.2",
-    "express": "^4.13.3",
-    "jquery": "^2.1.4",
-    "material-design-lite": "^1.0.6",
-    "node-sass": "^3.4.2",
-    "nunjucks": "^2.2.0",
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3",
-    "uglify-js": "^2.6.1"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://isaac_abroadwith@bitbucket.org/abroadwith/frontend.git"
+    "url": "https://bitbucket.org/abroadwith/frontend.git"
   },
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/abroadwith/frontend#readme",
-  "description": ""
+  "homepage": "https://bitbucket.org/abroadwith/frontend#readme"
 }

@@ -1,7 +1,7 @@
 var React = require('react');
 var $ = require('jquery');
-var SearchItem = require('./searchItem');
-var SearchForm = require('./searchForm');
+var SearchItem = require('./searchItem.react');
+var SearchForm = require('./searchForm.react');
 
 module.exports = React.createClass({
   loadSearchFromServer: function() {

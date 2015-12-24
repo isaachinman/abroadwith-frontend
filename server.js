@@ -2,22 +2,20 @@ var express = require('express');
 var nunjucks = require('nunjucks');
 var app = express();
 
-nunjucks.configure('templates');
+nunjucks.configure('src');
 
 app.use(express.static('build'));
 
-app.use('/css', express.static(__dirname + '/css'));
-
 app.get('/', function (req, res) {
-  res.send(nunjucks.render('index.html'));
+  res.send(nunjucks.render('index/index.html'));
 });
 
-app.get('/alternate.html', function (req, res) {
-  res.send(nunjucks.render('alternate.html'));
+app.get('/homes/*', function (req, res) {
+  res.send(nunjucks.render('homes/homes.html'));
 });
 
 app.get('/search.html', function (req, res) {
-  res.send(nunjucks.render('search.html'));
+  res.send(nunjucks.render('search/search.html'));
 });
 
 var server = app.listen(3000, function () {
