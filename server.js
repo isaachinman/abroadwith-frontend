@@ -2,7 +2,7 @@ var express = require('express');
 var nunjucks = require('nunjucks');
 var app = express();
 
-nunjucks.configure('src');
+nunjucks.configure('src',{watch:true});
 
 app.use(express.static('build'));
 
