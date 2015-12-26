@@ -7,6 +7,10 @@
     color: white;
     border-color: white;
   }
+  &--grey {
+    color: $grey;
+    border-color: $grey;
+  }
   &--small {
     font-size: 0.8rem;
     line-height: 1rem;

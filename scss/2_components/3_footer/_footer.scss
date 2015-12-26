@@ -1,4 +1,9 @@
 footer {
+  a {
+    &:hover {
+      color: white;
+    }
+  }
   .social {
     .fa {
       background-color: #333;
@@ -10,6 +15,9 @@ footer {
       width: 50px;
       font-size: 25px;
       text-align: center;
+      &:hover {
+        background-color: $havelock-blue;
+      }
     }
   }
 }

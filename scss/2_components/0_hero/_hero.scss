@@ -2,38 +2,36 @@
   margin-left: 0;
   margin-right: 0;
   width: 100vw;
-  div:first-child {
+  position: relative;
+  .top {
     margin-top: 100px;
   }
   button {
     color: inherit;
-    border: 1px solid white;
-    margin-bottom: 5px;
-  }
-  img.bg {
-    z-index: -1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    min-height: 100%;
   }
   &--top {
-    margin-top: -64px
+    margin-top: -64px;
   }
   &--home {
     background-image: url('http://blog.incrediblue.com/wp-content/uploads/2014/10/Fotolia_47262519_Subscription_Monthly_M.jpg');
     background-size: cover;
   }
-  .search {
+  .input-strip {
+    position: relative;
+    z-index: 2;
     margin: 100px 0 50px 0;
-    button {
-      opacity: .95;
-      &:hover {
-        opacity: 1;
-      }
-      @extend .mdl-color-text--grey-500;
-      @extend .mdl-color--white;
+    color: $grey;
+    div {
+      background-color: white;
+      border-radius: 2px;
+      display: inline-block;
+      width: auto;
     }
+    button {
+      margin-bottom: 0;
+    }
+    // &:hover + .overlay {
+    //   opacity: 0.5;
+    // }
   }
 }
