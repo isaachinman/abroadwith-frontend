@@ -1,4 +1,5 @@
 .square {
+  @extend .text-shadow;
   color: white;
   background-image: url('https://picjumbo.imgix.net/HNCK3562.jpg');
   background-size: cover;
@@ -6,5 +7,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  &--stay {
+    background-image: url('http://publicdomainarchive.com/wp-content/uploads/2014/03/public-domain-images-free-stock-photos-high-quality-resolution-downloads-around-the-house-5-1000x666.jpg');
+  }
+  &--tandem {
+    background-image: url('https://tookapic.imgix.net/photos/2015/156/9/7/974e7b8e24c7d245868e6a31d9ae493a.jpg?w=1540&q=90&s=a20cdb686a42a263496d85f2b6d605e6');
+  }
+  &--teacher {
+    background-image: url('https://s3-us-west-1.amazonaws.com/photos.snapwi.re/Week+28/SW_PamelaWebb.jpg');
+  }
 }
