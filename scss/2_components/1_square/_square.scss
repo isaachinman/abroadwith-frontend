@@ -1,7 +1,8 @@
 .square {
+  position: relative;
   @extend .text-shadow;
   color: white;
-  background-image: url('https://picjumbo.imgix.net/HNCK3562.jpg');
+  background-image: url('https://farm8.staticflickr.com/7574/15792315221_9ac4eb705a_o.jpg');
   background-size: cover;
   min-height: 300px;
   display: flex;
