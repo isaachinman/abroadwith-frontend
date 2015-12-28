@@ -30,7 +30,7 @@ app.get('/search.html', function (req, res) {
 // Create an HTTP service.
 // Redirect from http port to https
 http.createServer(function (req, res) {
-    console.log("Crap -- "+"https://" + req.headers['host'].replace("8080","8443") + req.url);
+    console.log("Redirect -- "+"https://" + req.headers['host'].replace("8080","8443") + req.url);
     res.writeHead(301, { "Location": "https://" + req.headers['host'].replace("8080","8443") + req.url });
     res.end();
 }).listen(8080);
