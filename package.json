@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "express": "^4.13.3",
+    "basic-auth-connect": "^1.0.0",
     "jquery": "^2.1.4",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",

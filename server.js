@@ -1,4 +1,5 @@
 var express = require('express');
+var basicAuth = require('basic-auth-connect');
 var http = require('http');
 var https = require('https');
 var nunjucks = require('nunjucks');
@@ -12,6 +13,8 @@ var options = {
 var app = express();
 
 nunjucks.configure('src',{watch:true});
+
+app.use(basicAuth('abroadwith', 'betahaus'));
 
 app.use(express.static('build'));
 
