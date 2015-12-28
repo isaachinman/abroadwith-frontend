@@ -23,6 +23,7 @@
     "clean": "rm -rf build",
     "export": "cp -R mockups/* build/backend",
     "sass": "node-sass -o build/css/ scss/",
+    "sass-watch": "node-sass -w -o build/css/ scss/",
     "bundle:search": "browserify -t [ babelify --presets [ react ] ]  src/search/search.js -o build/search-bundle.js",
     "bundle": "npm run bundle:search",
     "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
