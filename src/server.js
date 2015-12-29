@@ -5,6 +5,7 @@ var https = require('https');
 var nunjucks = require('nunjucks');
 var fs = require('fs');
 var searchRouter = require('./search/Router');
+var mainRouter = require('./main/Router');
 
 var options = {
   key: fs.readFileSync('test-key.pem'),
@@ -31,9 +32,7 @@ app.get('/', function (req, res) {
   res.end();
 });
 
-app.get(['/home','/:language/home'], function (req, res) {
-  res.send(nunjucks.render('index/index.html'));
-});
+app.get(['/home','/:language/home'],mainRouter);
 
 app.get(['/homes/*','/:language/homes/*'], function (req, res) {
   res.send(nunjucks.render('homes/homes.html'));
