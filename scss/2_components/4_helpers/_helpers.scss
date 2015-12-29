@@ -55,4 +55,8 @@
   height: 1px;
   margin: 10px 20px;
   background-color: #eee;
+  &--light {
+    background-color: #eee;
+    opacity: .25;
+  }
 }
