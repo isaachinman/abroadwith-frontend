@@ -11,15 +11,24 @@
   -ms-transition: opacity .1s ease-in-out;
   -o-transition: opacity .1s ease-in-out;
   transition: opacity .1s ease-in-out;
-  &--black {
+  &--colour {
     z-index: 0;
-    background-color: black;
     opacity: 0;
   }
+  &--page-bg {
+    z-index: -1;
+  }
+  &--black {
+    background-color: black;
+  }
   &--blue {
-    z-index: 0;
     background-color: $havelock-blue;
-    opacity: 0;
+  }
+  &--light {
+    background-color: #F7F7FF;
+  }
+  &--light-two {
+    background-color: #F2F2F9;
   }
 }
 .show-on-hover {
@@ -58,5 +67,13 @@
   &--light {
     background-color: #eee;
     opacity: .25;
+  }
+}
+.page-section {
+  margin: 0;
+  width: 100%;
+  padding-bottom: 50px;
+  button {
+    margin-bottom: 50px;
   }
 }
