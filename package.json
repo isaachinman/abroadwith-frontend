@@ -27,7 +27,7 @@
     "bundle:search": "browserify -t [ babelify --presets [ react ] ]  src/search/search.js -o build/search-bundle.js",
     "bundle": "npm run bundle:search",
     "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
-    "start": "node server.js",
+    "start": "node src/server.js",
     "fullstart": "npm run build && npm run start"
   },
   "main": "server.js",

@@ -4,6 +4,7 @@ var http = require('http');
 var https = require('https');
 var nunjucks = require('nunjucks');
 var fs = require('fs');
+var searchRouter = require('./search/Router');
 
 var options = {
   key: fs.readFileSync('test-key.pem'),
@@ -26,9 +27,7 @@ app.get('/homes/*', function (req, res) {
   res.send(nunjucks.render('homes/homes.html'));
 });
 
-app.get('/search.html', function (req, res) {
-  res.send(nunjucks.render('search/search.html'));
-});
+app.use('/search',searchRouter);
 
 // Create an HTTP service.
 // Redirect from http port to https
