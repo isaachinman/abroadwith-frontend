@@ -10,6 +10,11 @@
     background-color: black;
     opacity: 0;
   }
+  &--blue {
+    z-index: 0;
+    background-color: $havelock-blue;
+    opacity: 0;
+  }
 }
 
 .show-on-hover {

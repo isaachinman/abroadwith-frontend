@@ -397,7 +397,7 @@
         display: block;
         color: $layout-header-text-color;
         line-height: $layout-header-desktop-row-height;
-        padding: 0 24px;
+        padding: 0 24px 0 0;
 
         @media screen and (max-width: $layout-screen-size-threshold) {
           line-height: $layout-header-mobile-row-height;

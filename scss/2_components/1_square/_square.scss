@@ -9,14 +9,15 @@
   align-items: center;
   justify-content: center;
   &:hover {
-    .overlay--black {
-      opacity: .5;
+    .overlay--blue {
+      opacity: 1;
     }
   }
   p {
     text-shadow: none;
-    margin: auto 20px;
-    font-size: 1.5rem;
+    text-align: left;
+    margin: auto 50px;
+    font-size: 1.25rem;
     line-height: 2.5rem;
   }
   &--stay {
