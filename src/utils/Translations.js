@@ -6,7 +6,7 @@ for(var i = 0; i < languages.length; i++){
   translations[languages[i]]= {};
   translations[languages[i]].common = require('../../locales/'+languages[i]+"/common.json");
   translations[languages[i]].search = require('../../locales/'+languages[i]+"/search.json");
-  translations[languages[i]].search = require('../../locales/'+languages[i]+"/main.json");
+  translations[languages[i]].main = require('../../locales/'+languages[i]+"/main.json");
 }
 
 module.exports = translations;

@@ -32,7 +32,7 @@ app.get('/', function (req, res) {
   res.end();
 });
 
-app.get(['/home','/:language/home'],mainRouter);
+app.use(['/home','/:language/home'],mainRouter);
 
 app.get(['/homes/*','/:language/homes/*'], function (req, res) {
   res.send(nunjucks.render('homes/homes.html'));
