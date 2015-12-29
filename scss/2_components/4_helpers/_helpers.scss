@@ -28,3 +28,10 @@
     }
   }
 }
+
+.divider {
+  width: calc(100% - 40px);
+  height: 1px;
+  margin: 10px 20px;
+  background-color: #eee;
+}
