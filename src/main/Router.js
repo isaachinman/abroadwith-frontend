@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
     context = { translations: translations[req.language]};
   else
     context = { translations: translations['en']};
-  res.send(nunjucks.render('search/search.html',context));
+  res.send(nunjucks.render('index/index.html',context));
 });
 
 module.exports = router;

@@ -19,15 +19,27 @@ app.use(basicAuth('abroadwith', 'betahaus'));
 
 app.use(express.static('build'));
 
+app.param('language', function (req, res, next, value) {
+  console.log("Called for language "+value);
+  //TODO validate language.
+  if(value) req.language = value;
+  next();
+});
+
 app.get('/', function (req, res) {
+  res.writeHead(301, { "Location": "https://" + req.headers['host'] + "/home" });
+  res.end();
+});
+
+app.get(['/home','/:language/home'], function (req, res) {
   res.send(nunjucks.render('index/index.html'));
 });
 
-app.get('/homes/*', function (req, res) {
+app.get(['/homes/*','/:language/homes/*'], function (req, res) {
   res.send(nunjucks.render('homes/homes.html'));
 });
 
-app.use('/search',searchRouter);
+app.use(['/search','/:language/search'],searchRouter);
 
 // Create an HTTP service.
 // Redirect from http port to https
