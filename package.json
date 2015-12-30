@@ -13,6 +13,7 @@
     "babel-preset-react": "^6.3.13",
     "nunjucks": "^2.2.0",
     "material-design-lite": "^1.0.6",
+    "react-modal": "^0.6.1",
     "gsap": "^1.18.0",
     "uglify-js": "^2.6.1",
     "node-sass": "^3.4.2"
@@ -35,5 +36,5 @@
     "type": "git",
     "url": "https://bitbucket.org/abroadwith/frontend.git"
   },
-  "homepage": "https://bitbucket.org/abroadwith/frontend#readme"
+  "homepage": "https://bitbucket.org/abroadwith/frontend#readme",
 }
