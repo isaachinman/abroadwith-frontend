@@ -10,4 +10,32 @@ modal {
 }
 .ReactModal__Overlay {
   z-index: 10;
+  h1, h2, h3, h4, h5, h6 {
+    width: 100%;
+  }
+  i.fa-5x {
+    font-size: 10rem;
+    margin: 10px 0;
+    color: $havelock-blue;
+  }
+  .divider {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+button.close {
+  color: $grey;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  i {
+    font-size: 2rem;
+    opacity: 0.8;
+    &:hover {
+      opacity: 1;
+    }
+  }
 }

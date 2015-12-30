@@ -22,9 +22,40 @@ var App = React.createClass({
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal} >
 
-          <h2>Hello</h2>
-          <button onClick={this.closeModal}>close</button>
-          <div>I am a modal</div>
+          <button onClick={this.closeModal} className='close'><i className='fa fa-times'></i></button>
+
+          <div className='mdl-grid mdl-cell mdl-cell--12-col mdl-typography--text-center'>
+
+            <h2>How does it work?</h2>
+
+            <div className='mdl-grid mdl-cell mdl-cell--12-col'>
+              <div className='mdl-cell mdl-cell--4-col'>
+                <h5>Discover</h5>
+                <div className='divider'></div>
+                <i className="fa fa-globe fa-5x"></i>
+                <div className='divider'></div>
+                <p>
+                  Choose between hundreds of cities and hosts. Find hosts with common interests to immerse in a new culture and language.
+                </p>
+              </div>
+              <div className='mdl-cell mdl-cell--4-col'>
+                <h5>Book an immersion programme</h5>
+                <div className='divider'></div>
+                <i className="fa fa-language fa-5x"></i>
+                <div className='divider'></div>
+                <p>
+                  Pick a program: <strong>stay</strong>, <strong>tandem</strong> and <strong>teacher’s stay</strong>. Connect with our hosts, confirm your dates and book your stay.
+                </p>
+              </div>
+              <div className='mdl-cell mdl-cell--4-col'>
+                <h5>Book a language course</h5>
+                <div className='divider'></div>
+                <i className="fa fa-graduation-cap fa-5x"></i>
+                <div className='divider'></div>
+                <p>Optionally book a language course close to your new home. Decide how many hours and what level suits you. Travel to your new destination, learn, immerse and enjoy.</p>
+              </div>
+            </div>
+          </div>
         </Modal>
       </div>
     );
