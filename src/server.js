@@ -16,7 +16,7 @@ var app = express();
 
 nunjucks.configure('src',{watch:true});
 
-app.use(basicAuth('abroadwith', 'betahaus'));
+//app.use(basicAuth('abroadwith', 'betahaus'));
 
 app.use(express.static('build'));
 
