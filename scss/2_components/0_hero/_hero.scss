@@ -6,7 +6,12 @@
   height: auto;
   position: relative;
   .section {
+    display: block;
+    float: left;
+    margin-top: 0;
+    padding-top: 0;
     height: 100%;
+    min-height: 36px;
     width: auto;
     border-right: 1px solid #eee;
   }
@@ -23,24 +28,49 @@
     background-image: url(http://blog.incrediblue.com/wp-content/uploads/2014/10/Fotolia_47262519_Subscription_Monthly_M.jpg);
     background-size: cover;
   }
+  #language-wrap {
+    width: 280px;
+  }
   .mdl-textfield {
+    min-height: 36px;
+    padding: 0 10px;
+    input {
+      border: 0;
+      height: 100%;
+      min-height: 36px;
+      padding: 0;
+      font-size: 1rem;
+    }
+    &__label {
+      text-overflow: ellipsis;
+      font-size: 1rem;
+      font-weight: 400;
+      color: $grey;
+      top: 8px;
+      left: 10px;
+      width: calc(100% - 20px);
+    }
+  }
+  #locationField {
     width: 200px !important;
+    height: 100%;
+    min-height: 36px;
     padding: 0;
     box-shadow: none !important;
   }
   #autocomplete {
     margin: 0 10px;
     width: calc(100% - 20px);
+    height: 100%;
+    min-height: 34px;
+    padding: 0;
     text-overflow: ellipsis;
     border: none;
   }
   .input-strip {
     text-shadow: none;
-    font-size: 1.1rem;
-    font-weight: 300;
-    input::-webkit-input-placeholder, .mdl-textfield__input {
-      font-size: 1rem;
-    }
+    font-size: 1rem;
+    font-weight: 400;
     position: relative;
     z-index: 2;
     margin: 100px 0 50px;

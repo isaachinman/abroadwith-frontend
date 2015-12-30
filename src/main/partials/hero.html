@@ -12,14 +12,20 @@
     <div class='mdl-cell mdl-cell--12-col input-strip'>
       <div class='wrap'>
         <div class='section'>
-          <button class="mdl-button mdl-js-button">
-            What language
-            <span class='mdl-cell--hide-phone'> do you want to learn</span>?
-          </button>
+          <div id='language-wrap' class="mdl-textfield mdl-js-textfield mdl-cell--hide-phone">
+            <input id='language' class="mdl-textfield__input" type="text">
+            <label class="mdl-textfield__label" for="language">
+              What language
+              <span class='mdl-cell--hide-phone'> do you want to learn</span>?
+            </label>
+          </div>
         </div>
         <div class='section'>
           <div id='locationField' class="mdl-textfield mdl-js-textfield mdl-cell--hide-phone">
-            <input class="mdl-textfield__input" type="text" id="autocomplete" placeholder="Where?">
+            <input class="mdl-textfield__input" type="text" id="autocomplete" placeholder="">
+            <label class="mdl-textfield__label" for="language">
+              Where?
+            </label>
           </div>
         </div>
         <div class='section'>
