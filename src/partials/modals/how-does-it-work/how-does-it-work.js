@@ -24,12 +24,13 @@ var App = React.createClass({
 
           <button onClick={this.closeModal} className='close'><i className='fa fa-times'></i></button>
 
-          <div className='mdl-grid mdl-cell mdl-cell--12-col mdl-typography--text-center'>
+          <div className='mdl-grid mdl-cell mdl-cell--12-col mdl-typography--text-center how-does-it-work'>
 
             <h2>How does it work?</h2>
 
             <div className='mdl-grid mdl-cell mdl-cell--12-col'>
               <div className='mdl-cell mdl-cell--4-col'>
+                <h3>1</h3>
                 <h5>Discover</h5>
                 <div className='divider'></div>
                 <i className="fa fa-globe fa-5x"></i>
@@ -39,6 +40,7 @@ var App = React.createClass({
                 </p>
               </div>
               <div className='mdl-cell mdl-cell--4-col'>
+                <h3>2</h3>
                 <h5>Book an immersion programme</h5>
                 <div className='divider'></div>
                 <i className="fa fa-language fa-5x"></i>
@@ -48,6 +50,7 @@ var App = React.createClass({
                 </p>
               </div>
               <div className='mdl-cell mdl-cell--4-col'>
+                <h3>3</h3>
                 <h5>Book a language course</h5>
                 <div className='divider'></div>
                 <i className="fa fa-graduation-cap fa-5x"></i>
