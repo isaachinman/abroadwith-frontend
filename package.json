@@ -13,6 +13,7 @@
     "babel-preset-react": "^6.3.13",
     "nunjucks": "^2.2.0",
     "material-design-lite": "^1.0.6",
+    "react-modal": "^0.6.1",
     "gsap": "^1.18.0",
     "uglify-js": "^2.6.1",
     "node-sass": "^3.4.2"
@@ -25,7 +26,8 @@
     "sass": "node-sass -o build/css/ scss/",
     "sass-watch": "node-sass -w -o build/css/ scss/",
     "bundle:search": "browserify -t [ babelify --presets [ react ] ]  src/search/search.js -o build/search-bundle.js",
-    "bundle": "npm run bundle:search",
+    "bundle:modal": "browserify -t [ babelify --presets [ react ] ]  src/partials/modals/how-does-it-work/how-does-it-work.js -o build/modal-bundle.js",
+    "bundle": "npm run bundle:search && npm run bundle:modal",
     "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
     "start": "node src/server.js",
     "fullstart": "npm run build && npm run start"
