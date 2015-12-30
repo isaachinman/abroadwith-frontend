@@ -10,31 +10,70 @@
     {% include "../../partials/modals/how-does-it-work/how-does-it-work.html" %}
 
     <div class='mdl-cell mdl-cell--12-col input-strip'>
-      <div>
-        <button class="mdl-button mdl-js-button">
-          What language<span class ='mdl-cell--hide-phone'> do you want to learn</span>?
-        </button>
-        <button class="mdl-button mdl-js-button mdl-cell--hide-phone mdl-cell--hide-tablet">
-          Where?
-        </button>
+      <div class='wrap'>
+        <div class='section'>
+          <button class="mdl-button mdl-js-button">
+            What language
+            <span class='mdl-cell--hide-phone'> do you want to learn</span>?
+          </button>
+        </div>
+        <div class='section'>
+          <div id='locationField' class="mdl-textfield mdl-js-textfield mdl-cell--hide-phone">
+            <input class="mdl-textfield__input" type="text" id="autocomplete" placeholder="Where?">
+          </div>
+        </div>
+        <div class='section'>
         <button class="mdl-button mdl-js-button mdl-cell--hide-phone mdl-cell--hide-tablet">
           Arrival
         </button>
+      </div>
+      <div class='section'>
         <button class="mdl-button mdl-js-button mdl-cell--hide-phone mdl-cell--hide-tablet">
           Check out
         </button>
+      </div>
+      <div class='section'>
         <button class="mdl-button mdl-js-button mdl-cell--hide-phone mdl-cell--hide-tablet">
           1 guest
         </button>
+      </div>
+      <div class='section'>
         <button class="mdl-button mdl-js-button submit">
           Submit
         </button>
       </div>
+      </div>
     </div>
-
-    <!-- <div class='overlay overlay--black'>
-
-    </div> -->
 
   </div>
 </div>
+
+<script>
+  var placeSearch, autocomplete;
+
+  function initAutocomplete() {
+    autocomplete = new google.maps.places.Autocomplete(
+      (document.getElementById('autocomplete'))
+    );
+
+    // This is where we can write a custom callback when user selects a location
+    // autocomplete.addListener();
+  }
+
+  function geolocate() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var geolocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        var circle = new google.maps.Circle({
+          center: geolocation,
+          radius: position.coords.accuracy
+        });
+        autocomplete.setBounds(circle.getBounds());
+      });
+    }
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
