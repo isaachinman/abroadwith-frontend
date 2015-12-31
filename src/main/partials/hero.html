@@ -7,7 +7,7 @@
 
     <div id='how-does-it-work'></div>
 
-    {% include "../../partials/modals/how-does-it-work/how-does-it-work.html" %}
+    <!-- {% include "../../partials/modals/how-does-it-work/how-does-it-work.html" %} -->
 
     <div class='mdl-cell mdl-cell--12-col input-strip'>
       <div class='wrap'>
@@ -22,32 +22,34 @@
         </div>
         <div class='section'>
           <div id='locationField' class="mdl-textfield mdl-js-textfield mdl-cell--hide-phone">
-            <input class="mdl-textfield__input" type="text" id="autocomplete" placeholder="">
-            <label class="mdl-textfield__label" for="language">
+            <input id='autocomplete' class="mdl-textfield__input" type="text" placeholder="">
+            <label class="mdl-textfield__label" for="location">
               Where?
             </label>
           </div>
         </div>
         <div class='section'>
-        <button class="mdl-button mdl-js-button mdl-cell--hide-phone mdl-cell--hide-tablet">
-          Arrival
-        </button>
-      </div>
-      <div class='section'>
-        <button class="mdl-button mdl-js-button mdl-cell--hide-phone mdl-cell--hide-tablet">
-          Check out
-        </button>
-      </div>
-      <div class='section'>
-        <button class="mdl-button mdl-js-button mdl-cell--hide-phone mdl-cell--hide-tablet">
-          1 guest
-        </button>
-      </div>
-      <div class='section'>
-        <button class="mdl-button mdl-js-button submit">
-          Submit
-        </button>
-      </div>
+          <input id='arrival' type="date" placeholder="">
+          <label class="mdl-textfield__label" for="language">
+            Arrival
+          </label>
+        </div>
+        <div class='section'>
+          <input id='arrival' type="date" placeholder="">
+          <label class="mdl-textfield__label" for="language">
+            Checkout
+          </label>
+        </div>
+        <div class='section'>
+          <button class="mdl-button mdl-js-button mdl-cell--hide-phone mdl-cell--hide-tablet">
+            1 guest
+          </button>
+        </div>
+        <div class='section'>
+          <button class="mdl-button mdl-js-button submit">
+            Submit
+          </button>
+        </div>
       </div>
     </div>
 
