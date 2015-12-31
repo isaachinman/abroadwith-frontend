@@ -27,8 +27,8 @@
     "sass": "node-sass -o build/css/ scss/",
     "sass-watch": "node-sass -w -o build/css/ scss/",
     "bundle:search": "browserify -t [ babelify --presets [ react ] ]  src/search/search.js -o build/search-bundle.js",
-    "bundle:modal": "browserify -t [ babelify --presets [ react ] ]  src/partials/modals/how-does-it-work/how-does-it-work.js -o build/modal-bundle.js",
-    "bundle": "npm run bundle:search && npm run bundle:modal",
+    "bundle:main": "browserify -t [ babelify --presets [ react ] ]  src/main/main.js -o build/main-bundle.js",
+    "bundle": "npm run bundle:search && npm run bundle:main",
     "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
     "start": "node src/server.js",
     "fullstart": "npm run build && npm run start"
@@ -38,5 +38,5 @@
     "type": "git",
     "url": "https://bitbucket.org/abroadwith/frontend.git"
   },
-  "homepage": "https://bitbucket.org/abroadwith/frontend#readme",
+  "homepage": "https://bitbucket.org/abroadwith/frontend#readme"
 }

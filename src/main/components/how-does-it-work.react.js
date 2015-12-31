@@ -2,9 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Modal = require('react-modal');
 
-var appElement = document.getElementById('how-does-it-work');
-
-var App = React.createClass({
+module.exports = React.createClass({
   getInitialState: function() {
     return { modalIsOpen: false };
   },
@@ -64,5 +62,3 @@ var App = React.createClass({
     );
   }
 });
-
-ReactDOM.render(<App/>, appElement);
