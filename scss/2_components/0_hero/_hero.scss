@@ -6,6 +6,7 @@
   height: auto;
   position: relative;
   .section {
+    position: relative;
     display: block;
     float: left;
     margin-top: 0;
@@ -33,7 +34,7 @@
   }
   .mdl-textfield {
     min-height: 36px;
-    padding: 0 10px;
+    padding: 0;
     input {
       border: 0;
       height: 100%;
@@ -58,7 +59,7 @@
     padding: 0;
     box-shadow: none !important;
   }
-  #autocomplete {
+  input {
     margin: 0 10px;
     width: calc(100% - 20px);
     height: 100%;
@@ -66,6 +67,9 @@
     padding: 0;
     text-overflow: ellipsis;
     border: none;
+  }
+  input[type=date] {
+    max-width: 80px;
   }
   .input-strip {
     text-shadow: none;
