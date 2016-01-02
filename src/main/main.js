@@ -44,11 +44,18 @@ ReactDOM.render(
   document.getElementById('how-does-it-work')
 );
 
+// Get dates
+var today = new Date();
+var tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+
+
 // Render arrival datepicker
 ReactDOM.render(
   <DatePicker
+  minDate={today}
   hintText='Arrival'
   textFieldStyle ={datepickerStyle}
+  autoOk='true'
   />,
   document.getElementById('arrival')
 );
@@ -56,8 +63,10 @@ ReactDOM.render(
 // Render checkout datepicker
 ReactDOM.render(
   <DatePicker
+  minDate={tomorrow}
   hintText='Checkout'
   textFieldStyle ={datepickerStyle}
+  autoOk='true'
   />,
   document.getElementById('checkout')
 );
