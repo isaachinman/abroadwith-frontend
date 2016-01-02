@@ -6,11 +6,6 @@
   width: 100%;
   height: 100%;
   z-index: 2;
-  -webkit-transition: opacity .1s ease-in-out;
-  -moz-transition: opacity .1s ease-in-out;
-  -ms-transition: opacity .1s ease-in-out;
-  -o-transition: opacity .1s ease-in-out;
-  transition: opacity .1s ease-in-out;
   &--colour {
     z-index: 0;
     opacity: 0;
@@ -76,4 +71,7 @@
   button {
     margin-bottom: 50px;
   }
+}
+i {
+  vertical-align: middle;
 }

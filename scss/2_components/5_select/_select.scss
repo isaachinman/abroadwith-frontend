@@ -1,4 +1,4 @@
-select {
+footer select {
   font-family: inherit;
   background-color: transparent;
   width: 100%;
@@ -8,4 +8,17 @@ select {
   border: 1px solid $grey;
   font-size: 1.25rem;
   color: inherit;
+}
+.hero select {
+  appearance:none;
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  padding: 0 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: transparent;
+  height: 34px;
+  border: none;
 }
