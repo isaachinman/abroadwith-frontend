@@ -26,7 +26,7 @@ app.param('language', function (req, res, next, value) {
 });
 
 app.get('/', function (req, res) {
-  res.writeHead(307, { "Location": req.headers['host'].replace("3000","3443") + "/home" });
+  res.writeHead(307, { "Location": "https://" + req.headers['host'].replace("3000","3443") + "/home" });
   res.end();
 });
 
