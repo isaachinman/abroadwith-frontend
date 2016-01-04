@@ -17,7 +17,8 @@
     "react-modal": "^0.6.1",
     "gsap": "^1.18.0",
     "uglify-js": "^2.6.1",
-    "node-sass": "^3.4.2"
+    "node-sass": "^3.4.2",
+    "react-tap-event-plugin":"^0.2.1"
   },
   "scripts": {
     "directories": "mkdir build && cd build && mkdir backend",
