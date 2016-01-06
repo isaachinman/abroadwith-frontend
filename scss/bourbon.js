@@ -3,6 +3,6 @@ var paths = bourbon.includePaths;
 
 module.exports = function() {
   return {
-     paths
+    paths
   };
 };
