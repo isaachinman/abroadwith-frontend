@@ -12,13 +12,13 @@
     "babelify": "^7.2.0",
     "babel-preset-react": "^6.3.13",
     "nunjucks": "^2.2.0",
-    "material-design-lite": "^1.0.6",
-    "material-ui": "^0.14.0",
+    "bourbon": "^4.2.6",
+    "bourbon-neat": "^1.7.2",
     "react-modal": "^0.6.1",
     "gsap": "^1.18.0",
     "uglify-js": "^2.6.1",
     "node-sass": "^3.4.2",
-    "react-tap-event-plugin":"^0.2.1"
+    "react-tap-event-plugin": "^0.2.1"
   },
   "scripts": {
     "directories": "mkdir build && cd build && mkdir backend",
