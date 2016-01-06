@@ -25,7 +25,7 @@
     "neuralyzer": "rm -rf node_modules build",
     "clean": "rm -rf build",
     "export": "cp -R mockups/* build/backend",
-    "sass": "node-sass --output-style compressed -o build/css/ scss/",
+    "sass": "node-sass --output-style compressed --importer 'scss/bourbon.js' -o build/css/ scss/",
     "sass-watch": "node-sass --output-style compressed -w -o build/css/ scss/",
     "bundle:search": "browserify -t [ babelify --presets [ react ] ]  src/search/search.js -o build/search-bundle.js",
     "bundle:main": "browserify -t [ babelify --presets [ react ] ]  src/main/main.js -o build/main-bundle.js",
