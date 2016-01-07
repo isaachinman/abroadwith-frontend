@@ -11,7 +11,7 @@ html {
 @import "variables";
 
 // Neat Settings -- uncomment if using Neat -- must be imported before Neat
-// @import "grid-settings";
+@import "grid-settings";
 
 @import "buttons";
 @import "forms";

@@ -1,3 +1,18 @@
 nav {
-  @include span-columns(12);
+  float: left;
+  width: 100%;
+  background: #776B68;
+  color: white;
+  div {
+    margin: 1em;
+  }
+  .logo {
+    float: left;
+  }
+  .links {
+    float: right;
+    a {
+      color: white;
+    }
+  }
 }
