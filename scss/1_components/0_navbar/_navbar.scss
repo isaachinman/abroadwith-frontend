@@ -1,6 +1,9 @@
 nav {
+  top: 0;
+  position: fixed;
   float: left;
   width: 100%;
+  height: 50px;
   background: #776B68;
   color: white;
   div {
@@ -12,7 +15,20 @@ nav {
   .links {
     float: right;
     a {
+      margin-left: 1em;
       color: white;
     }
+  }
+}
+
+main {
+  margin-top: 50px;
+}
+@include media($medium-screen) {
+  nav {
+    position: relative;
+  }
+  main {
+    margin-top: 0;
   }
 }
