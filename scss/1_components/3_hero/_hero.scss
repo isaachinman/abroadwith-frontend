@@ -1,0 +1,13 @@
+.hero {
+  padding: 5rem 0;
+  h1 {
+    margin-bottom: 0;
+  }
+  .input-strip {
+    margin: 1rem;
+    input, div, select {
+      display: inline-block;
+      max-width: 200px;
+    }
+  }
+}
