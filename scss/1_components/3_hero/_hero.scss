@@ -1,5 +1,6 @@
 .hero {
   padding: 5rem 0;
+  color: white;
   h1 {
     margin-bottom: 0;
   }
@@ -9,5 +10,9 @@
       display: inline-block;
       max-width: 200px;
     }
+  }
+  // Set background images
+  &--homepage {
+    @include background-image(url('http://blog.incrediblue.com/wp-content/uploads/2014/10/Fotolia_47262519_Subscription_Monthly_M.jpg'));
   }
 }
