@@ -1,5 +1,4 @@
 .immersion-options, .language-options {
-  @include span-columns(12);
   margin: 2rem 0 1rem 0;
   padding: 0 2rem;
   h4 {
@@ -9,6 +8,7 @@
     display: block;
   }
   .stay, .tandem, .teacher-stay, .english, .spanish, .french {
+    color: white;
     @include span-columns(12);
     @include media($medium-screen) {
       @include span-columns(4);
@@ -20,5 +20,11 @@
     .hover {
        @include transform(translate(0, -100%));
     }
+  }
+  .teacher-stay, .french {
+    @include omega;
+  }
+  .btn-blue {
+    margin-top: 2rem;
   }
 }

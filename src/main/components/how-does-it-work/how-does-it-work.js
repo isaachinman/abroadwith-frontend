@@ -15,14 +15,14 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        <button onClick={this.openModal} className='mdl-button mdl-js-button button--ghost button--white text-shadow'>How does it work?</button>
+        <button onClick={this.openModal}>How does it work?</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal} >
 
           <button onClick={this.closeModal} className='close'><i className='fa fa-times'></i></button>
 
-          <div className='mdl-grid mdl-cell mdl-cell--12-col mdl-typography--text-center how-does-it-work'>
+          <div className='how-does-it-work'>
 
             <h2>How does it work?</h2>
 

@@ -12,10 +12,12 @@
     "express": "^4.13.3",
     "gsap": "^1.18.0",
     "jquery": "^2.1.4",
+    "materialize-css": "^0.97.5",
     "node-sass": "^3.4.2",
     "nunjucks": "^2.2.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-materialize": "^0.1.0",
     "react-modal": "^0.6.1",
     "react-tap-event-plugin": "^0.2.1",
     "uglify-js": "^2.6.1"

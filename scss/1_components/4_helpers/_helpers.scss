@@ -78,3 +78,8 @@ i {
 a {
   cursor: pointer;
 }
+.hide-on-mobile {
+  @include media(max-width $medium-screen) {
+    display: none;
+  }
+}

@@ -1,4 +1,4 @@
-#{$all-buttons} {
+#{$all-buttons}, a.btn {
   appearance: none;
   background-color: transparent;
   border: 1px solid $action-color;
@@ -34,20 +34,37 @@
   }
 }
 
-.blue-btn {
+a.btn-blue {
+  background-color: transparent;
+  border: 1px solid $havelock-blue;
+  border-radius: $base-border-radius;
   color: $havelock-blue;
-  border-color: $havelock-blue;
-}
+  cursor: pointer;
+  display: inline-block;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 600;
+  line-height: 1;
+  padding: $small-spacing $base-spacing;
+  text-decoration: none;
+  transition: background-color $base-duration $base-timing;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
 
-.btn {
-  color: $havelock-blue;
-  border: 1px solid;
-  border-radius: 2px;
-  padding: .5rem;
-  background: transparent;
-  &:hover {
-    background: $havelock-blue;
-    border-color: $havelock-blue;
-    color: white;
+  &:hover,
+  &:focus {
+    background-color: $havelock-blue;
+    color: #fff;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      background-color: $havelock-blue;
+    }
   }
 }
