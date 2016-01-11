@@ -3,9 +3,9 @@ nav {
   position: fixed;
   float: left;
   width: 100%;
-  height: 50px;
-  background: #776B68;
-  color: white;
+  min-height: 50px;
+  background: white;
+  color: $havelock-blue;
   div {
     margin: 1em;
   }
@@ -15,8 +15,8 @@ nav {
   .links {
     float: right;
     a {
+      color: inherit;
       margin-left: 1em;
-      color: white;
     }
   }
 }

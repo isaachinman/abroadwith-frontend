@@ -1,0 +1,24 @@
+.immersion-options, .language-options {
+  @include span-columns(12);
+  margin: 2rem 0 1rem 0;
+  padding: 0 2rem;
+  h4 {
+    margin-bottom: .25rem;
+  }
+  span {
+    display: block;
+  }
+  .stay, .tandem, .teacher-stay, .english, .spanish, .french {
+    @include span-columns(12);
+    @include media($medium-screen) {
+      @include span-columns(4);
+    }
+    @extend .hover-tile-outer;
+    margin-top: 1rem;
+    min-height: 16rem;
+    background-color: $havelock-blue;
+    .hover {
+       @include transform(translate(0, -100%));
+    }
+  }
+}

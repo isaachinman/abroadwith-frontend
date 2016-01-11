@@ -20,7 +20,7 @@
 
   &:hover,
   &:focus {
-    background-color: shade($action-color, 20%);
+    background-color: $havelock-blue;
     color: #fff;
   }
 
@@ -29,7 +29,25 @@
     opacity: 0.5;
 
     &:hover {
-      background-color: $action-color;
+      background-color: $havelock-blue;
     }
+  }
+}
+
+.blue-btn {
+  color: $havelock-blue;
+  border-color: $havelock-blue;
+}
+
+.btn {
+  color: $havelock-blue;
+  border: 1px solid;
+  border-radius: 2px;
+  padding: .5rem;
+  background: transparent;
+  &:hover {
+    background: $havelock-blue;
+    border-color: $havelock-blue;
+    color: white;
   }
 }
