@@ -8,7 +8,7 @@ injectTapEventPlugin();
 
 // Modal deps
 var modal = require('react-modal');
-var HowDoesItWork = require('./components/how-does-it-work.react');
+//var HowDoesItWork = require('./components/how-does-it-work.react');
 
 // // Render modal
 // ReactDOM.render(
