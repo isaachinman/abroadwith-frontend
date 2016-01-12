@@ -74,7 +74,6 @@ $switch-checked-lever-bg: desaturate(lighten($secondary-color, 25%), 25%) !defau
 $switch-unchecked-bg: #F1F1F1 !default;
 $switch-unchecked-lever-bg: #818181 !default;
 
-
 /*** Global ***/
 // Media Query Ranges
 $small-screen-up: 601px !default;
@@ -97,8 +96,8 @@ $element-top-margin: $gutter-width/3 !default;
 $element-bottom-margin: ($gutter-width*2)/3 !default;
 
 /*** Navbar ***/
-$navbar-height: 64px !default;
-$navbar-height-mobile: 56px !default;
+$navbar-height: 50px !default;
+$navbar-height-mobile: 50px !default;
 $navbar-font-color: #fff !default;
 $navbar-brand-font-size: 2.1rem !default;
 
@@ -106,11 +105,6 @@ $navbar-brand-font-size: 2.1rem !default;
 $sidenav-bg-color: #fff !default;
 $sidenav-padding-right: 15px !default;
 $sidenav-item-height: 64px !default;
-
-/*** Photo Slider ***/
-$slider-bg-color: color('grey', 'base') !default;
-$slider-bg-color-light: color('grey', 'lighten-2') !default;
-$slider-indicator-color: color('green', 'base') !default;
 
 /*** Spinners | Loaders ***/
 $spinner-default-color: $secondary-color !default;
