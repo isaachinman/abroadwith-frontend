@@ -2,10 +2,22 @@
 // var React = require('react');
 // var ReactDOM = require('react-dom');
 // var materialize = require('materialize');
+// var autocomplete = require('jquery-ui/autocomplete')
 
 // Tap events
 // var injectTapEventPlugin = require("react-tap-event-plugin");
 // injectTapEventPlugin();
+
+// Languages
+var languages = [
+  "English",
+  "Spanish",
+  "Portugese"
+];
+
+$( "#language" ).autocomplete({
+  source: languages
+});
 
 // Materialize initialisations
 $(document).ready(function() {
@@ -28,7 +40,10 @@ $(document).ready(function() {
   // Datepicker
   if ($('.datepicker').length) {
     $('.datepicker').pickadate({
-      min: 1
+      min: 1,
+      onSet: function () {
+        this.close();
+      }
     });
   }
 

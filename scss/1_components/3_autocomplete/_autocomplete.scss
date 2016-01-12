@@ -1,0 +1,20 @@
+.ui-autocomplete {
+  max-width: 200px;
+  @extend .z-depth-1;
+  background-color: #fff;
+  li {
+    max-width: 200px;
+    font-size: 1.2rem;
+    color: #26a69a; // Teal color
+    line-height: 1.5rem;
+    padding: 1rem;
+    &:hover {
+      background: #eee;
+    }
+  }
+}
+// Remove unwanted text comming from plugin
+.ui-helper-hidden-accessible {
+  display: none;
+  visibility: hidden;
+}

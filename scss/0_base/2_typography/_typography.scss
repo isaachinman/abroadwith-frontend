@@ -67,6 +67,9 @@ small { font-size: 75%; }
 }
 
 .card {
+  .activator {
+    cursor: pointer;
+  }
   i {
     position: absolute;
     top: 1rem;
