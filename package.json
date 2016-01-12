@@ -7,18 +7,33 @@
     "babelify": "^7.2.0",
     "basic-auth-connect": "^1.0.0",
     "browserify": "^12.0.1",
+    "browserify-shim": "^3.8.12",
     "express": "^4.13.3",
     "gsap": "^1.18.0",
     "jquery": "^2.1.4",
     "materialize-css": "^0.97.5",
     "node-sass": "^3.4.2",
     "nunjucks": "^2.2.0",
+    "pickadate": "^3.5.6",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-materialize": "^0.1.0",
     "react-modal": "^0.6.1",
     "react-tap-event-plugin": "^0.2.1",
     "uglify-js": "^2.6.1"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.min.js",
+    "materialize": "./node_modules/materialize-css/bin/materialize.js"
+  },
+  "browserify-shim": {
+    "jquery": "$",
+    "materialize": "materialize"
   },
   "scripts": {
     "directories": "mkdir build && cd build && mkdir backend",

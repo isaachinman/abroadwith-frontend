@@ -1,17 +1,35 @@
-var $ = require('jquery');
-var React = require('react');
-var ReactDOM = require('react-dom');
+// var $ = require('jquery');
+// var React = require('react');
+// var ReactDOM = require('react-dom');
+// var materialize = require('materialize');
 
 // Tap events
-var injectTapEventPlugin = require("react-tap-event-plugin");
-injectTapEventPlugin();
+// var injectTapEventPlugin = require("react-tap-event-plugin");
+// injectTapEventPlugin();
 
-// Modal deps
-var modal = require('react-modal');
-var HowDoesItWork = require('./components/how-does-it-work.react');
+// Materialize initialisations
+$(document).ready(function() {
 
-// // Render modal
-// ReactDOM.render(
-//   <HowDoesItWork />,
-//   document.getElementById('how-does-it-work')
-// );
+  // Modal
+  if ($('.modal-trigger').length) {
+    $('.modal-trigger').leanModal();
+  }
+
+  // Select
+  if ($('select').length) {
+    $('select').material_select();
+  }
+
+  // Sidenav
+  if ($('.button-collapse').length) {
+    $(".button-collapse").sideNav();
+  }
+
+  // Datepicker
+  if ($('.datepicker').length) {
+    $('.datepicker').pickadate({
+      min: 1
+    });
+  }
+
+});

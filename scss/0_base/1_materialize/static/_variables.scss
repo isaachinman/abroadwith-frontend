@@ -3,20 +3,20 @@ $primary-color: $havelock-blue !default;
 $primary-color-light: $havelock-blue !default;
 $primary-color-dark: $havelock-blue !default;
 
-$secondary-color: $grey-chateau !default;
+$secondary-color: $ziggurat !default;
 $success-color: $grey-chateau !default;
 $error-color: $grey-chateau !default;
-$link-color: $grey-chateau !default;
+$link-color: $ziggurat !default;
 
 /*** Badges ***/
 $badge-bg-color: $secondary-color !default;
 
 /*** Buttons ***/
 $button-bg-color-disabled: #DFDFDF !default;
-$button-color: $secondary-color !default;
+$button-color: lighten($secondary-color, 20%) !default;
 $button-color-disabled: #9F9F9F !default;
 $button-color-flat: #343434 !default;
-$button-color-raised: #fff !default;
+$button-color-raised: $americano !default;
 $button-floating-size: 37px !default;
 $button-height: 36px !default;
 $button-font-size-shared: 1.3rem !default;
@@ -38,22 +38,20 @@ $collapsible-border-color: #ddd !default;
 $chip-bg-color: #e4e4e4 !default;
 
 /*** Date Picker ***/
-$datepicker-weekday-bg: darken($secondary_color, 7%) !default;
-$datepicker-date-bg: $secondary_color !default;
+$datepicker-weekday-bg: darken($grey-chateau, 7%) !default;
+$datepicker-date-bg: $grey-chateau !default;
 $datepicker-year: rgba(255, 255, 255, .4) !default;
 $datepicker-focus: rgba(0,0,0, .05) !default;
-$datepicker-selected: $secondary-color !default;
-$datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !default;
+$datepicker-selected: $grey-chateau !default;
+$datepicker-selected-outfocus: desaturate(lighten($grey-chateau, 35%), 15%) !default;
 
 /*** Dropdown ***/
 $dropdown-bg-color: #fff !default;
 $dropdown-hover-bg-color: #eee !default;
-$dropdown-color: $secondary-color !default;
+$dropdown-color: $americano !default;
 $dropdown-item-height: 50px !default;
 
 /*** Fonts ***/
-$roboto-font-path: "../font/roboto/" !default;
-$icons-font-path: "../font/material-design-icons/" !default;
 
 /*** Forms ***/
 // Text Inputs + Textarea
