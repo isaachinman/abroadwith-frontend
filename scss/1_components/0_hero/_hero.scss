@@ -1,16 +1,14 @@
 .hero {
   color: white;
-  @extend .text-shadow;
   a.btn {
-    text-shadow: none;
     margin-top: 5px;
   }
   .title {
+    @extend .text-shadow;
     margin: 80px 0 50px 0;
   }
   .input-strip {
     color: $americano;
-    text-shadow: none;
     margin-top: 100px;
     padding-top: 25px;
     background: rgba(50,50,50,.65);
@@ -43,8 +41,11 @@
       margin-top: 0;
     }
     span.caret {
-      color: black;
-      margin-left: -50px;
+      z-index: 1;
+      color: $americano;
+      position: absolute;
+      left: 80%;
+      opacity: .5;
     }
   }
   &--homepage {
