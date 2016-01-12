@@ -1,45 +1,46 @@
-<div class='hero hero--homepage'>
-
-  <h1>Go abroad</h1>
-
-  <h5>Learn a language and discover a new culture as a local</h5>
-
-  <div id='how-does-it-work'></div>
-
-  <div class='input-strip'>
-
-    <input id='language'type="text" placeholder='What language do you want to learn?'>
-
-    <input id='autocomplete' type="text" placeholder="Where?">
-
-    <div id='arrival'></div>
-
-    <div id='checkout' type='date'></div>
-
-    <select id='guests'>
-      <option value='1'>
-        1 guest
-      </option>
-      <option value='2'>
-        2 guests
-      </option>
-      <option value='3'>
-        3 guests
-      </option>
-      <option value='4'>
-        4 guests
-      </option>
-      <option value='5'>
-        5 guests
-      </option>
-    </select>
-
-    <button class="mdl-button mdl-js-button submit">
-      Submit
-    </button>
-
+<div class='row hero hero--homepage'>
+  <div class='col s12 title'>
+    <h2>Go abroad</h2>
+    <h5>Learn a language and discover a new culture as a local</h5>
   </div>
-
+  <div class='col s12'>
+    <a class='btn modal-trigger' href='#how-does-it-work-modal'>How does it work?</a>
+  </div>
+  <div class='col s12 input-strip'>
+    <form class='col s12 m10 offset-m1 l10 offset-l1'>
+      <div class='row'>
+        <div class="col s6 m2 l2">
+          <input placeholder="What language?" id="language" type="text" class="validate">
+        </div>
+        <div class="col s6 m3 l2">
+          <input placeholder="Where?" id="location" type="text" class="validate">
+        </div>
+        <div class='col s6 m2 l2'>
+          <input type="date" class="datepicker">
+        </div>
+        <div class='col s6 m2 l2'>
+          <input type="date" class="datepicker">
+        </div>
+        <div class="col s6 m2 l2">
+          <select>
+            <option value="1" selected>1 guest</option>
+            <option value="2">2 guests</option>
+            <option value="3">3 guests</option>
+          </select>
+        </div>
+        <script>
+        $(document).ready(function() {
+          if ($('select').length) {
+            $('select').material_select();
+          }
+        });
+        </script>
+        <div class='col s12 m2 l2'>
+          <a class='btn'>Search</a>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 <script>
@@ -47,7 +48,7 @@
 
   function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(
-      (document.getElementById('autocomplete'))
+      (document.getElementById('location'))
     );
 
     // This is where we can write a custom callback when user selects a location

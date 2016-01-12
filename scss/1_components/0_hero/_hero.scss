@@ -1,0 +1,24 @@
+.hero {
+  .title {
+    margin-top: 50px;
+  }
+  .input-strip {
+    color: black;
+    margin-top: 100px;
+    padding-top: 25px;
+    background: rgba(50,50,50,.5);
+    .col {
+      padding: 0;
+    }
+    input {
+      width: 100%;
+      background: white;
+      margin: 0;
+    }
+  }
+  &--homepage {
+    background: url(http://blog.incrediblue.com/wp-content/uploads/2014/10/Fotolia_47262519_Subscription_Monthly_M.jpg);
+    background-size: cover;
+    background-attachment: scroll;
+  }
+}
