@@ -1,12 +1,19 @@
-var languages = ["en","pt","es"];
+var languages = {
+    eng: "English",
+    por: "Português",
+    spa: "Español"
+};
+
 var translations = {};
 
 //FIXME load properly, with character encoding correctly set.
-for(var i = 0; i < languages.length; i++){
-  translations[languages[i]]= {};
-  translations[languages[i]].common = require('../../locales/'+languages[i]+"/common.json");
-  translations[languages[i]].search = require('../../locales/'+languages[i]+"/search.json");
-  translations[languages[i]].main = require('../../locales/'+languages[i]+"/main.json");
+for(var i in languages){
+  translations[i]= {};
+  translations[i].common = require('../../locales/'+i+"/common.json");
+  translations[i].search = require('../../locales/'+i+"/search.json");
+  translations[i].main = require('../../locales/'+i+"/main.json");
 }
+
+translations.original = languages;
 
 module.exports = translations;
