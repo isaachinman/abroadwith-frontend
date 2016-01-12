@@ -1,12 +1,12 @@
 .hero {
   color: white;
-  text-shadow: 2px 2px 2px rgba(50,50,50,.35);
+  @extend .text-shadow;
   a.btn {
     text-shadow: none;
     margin-top: 5px;
   }
   .title {
-    margin: 80px 0 25px 0;
+    margin: 80px 0 50px 0;
   }
   .input-strip {
     color: $americano;
