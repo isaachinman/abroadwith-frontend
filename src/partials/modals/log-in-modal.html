@@ -1,0 +1,62 @@
+<div id="log-in-modal" class="modal center-align">
+  <div class="modal-content">
+    <h4>Log in</h4>
+
+    <ul class="collapsible no-shadow" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header active">Email</div>
+        <div class="collapsible-body">
+
+          <div class='row'>
+
+            <form>
+
+              <div class='input-field col s10 offset-s1'>
+                <input id="email" type="email" class="validate">
+                <label for="email">Email</label>
+              </div>
+
+              <div class="input-field col s10 offset-s1">
+                <input id="password" type="password" class="validate">
+                <label for="password">Password</label>
+              </div>
+
+              <a class='btn'>Log in</a>
+
+            </form>
+
+          </div>
+
+          <div class='row'>
+
+            <div class='col s10 offset-s1 grey-text'>
+              Don’t have an account yet? <a href='#' onclick="$('#log-in-modal').closeModal();$('#sign-up-modal').openModal()">Sign up</a>
+            </div>
+
+          </div>
+
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header"></i>Facebook</div>
+        <div class="collapsible-body">
+
+          <div class='row'>
+
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+
+          </div>
+
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header"></i>Google</div>
+        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+      </li>
+    </ul>
+
+  </div>
+
+</div>
+
+</div>
