@@ -15,13 +15,13 @@ var languages = [
   "Portugese"
 ];
 
-// $(document).ready(function() {
-//
-//   $( "#language" ).autocomplete({
-//     source: languages
-//   });
-//
-// });
+$(document).ready(function() {
+
+  $( "#language" ).autocomplete({
+    source: languages
+  });
+
+});
 
 
 
