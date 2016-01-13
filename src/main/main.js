@@ -15,9 +15,15 @@ var languages = [
   "Portugese"
 ];
 
-$( "#language" ).autocomplete({
-  source: languages
+$(document).ready(function() {
+
+  $( "#language" ).autocomplete({
+    source: languages
+  });
+
 });
+
+
 
 // Materialize initialisations
 $(document).ready(function() {
