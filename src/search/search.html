@@ -3,6 +3,39 @@
 {% block title %} {{ translations.search.title }} {% endblock %}
 
 {% block content %}
+
+<div class='row no-margin'>
+  <div class='col s12 m7 l7 no-padding'>
+    <nav class='light'>
+      <div class="nav-wrapper">
+        <form>
+          <div class="input-field">
+            <input id="search" type="search" autofocus>
+            <label for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons">close</i>
+          </div>
+        </form>
+      </div>
+    </nav>
+  </div>
+  <div class='col s12 m5 l5 no-padding' style='height:100vh;'>
+
+      <div id="map" style='width: 100%; height: 100%;position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);'></div>
+
+    <script>
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 8
+      });
+    }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?&callback=initMap"
+    async defer></script>
+  </div>
+</div>
+
 <h1>{{ translations.search.description }}</h1>
 
 <div id="content-search"></div>

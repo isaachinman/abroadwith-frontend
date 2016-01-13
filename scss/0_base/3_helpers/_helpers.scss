@@ -1,3 +1,6 @@
+.no-padding {
+  padding: 0;
+}
 .no-margin {
   margin: 0;
 }
@@ -27,4 +30,10 @@ i.circle {
 }
 .no-shadow {
   box-shadow: none;
+}
+nav.light {
+  background: lighten($grey-chateau, 30%);
+  i.material-icons {
+    color: darken($ziggurat, 20%);
+  }
 }
