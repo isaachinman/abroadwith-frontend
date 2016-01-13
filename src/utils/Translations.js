@@ -1,7 +1,7 @@
 var languages = {
-    eng: "English",
-    por: "Português",
-    spa: "Español"
+    en: "English",
+    pt: "Português",
+    es: "Español"
 };
 
 var translations = {};
