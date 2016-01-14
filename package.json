@@ -10,6 +10,7 @@
     "browserify-shim": "^3.8.12",
     "express": "^4.13.3",
     "gsap": "^1.18.0",
+    "i18next": "^2.0.20",
     "jquery": "^2.1.4",
     "jquery-ui": "^1.10.5",
     "materialize-css": "^0.97.5",
@@ -19,6 +20,7 @@
     "react-dom": "^0.14.3",
     "react-materialize": "^0.1.0",
     "react-modal": "^0.6.1",
+    "react-nouislider": "^1.7.0",
     "react-tap-event-plugin": "^0.2.1",
     "uglify-js": "^2.6.1"
   },

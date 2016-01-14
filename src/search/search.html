@@ -4,9 +4,9 @@
 
 {% block content %}
 
-<div class='row no-margin'>
-  <div class='col s12 m7 l7 no-padding'>
-    <nav class='light'>
+<div class='row left-align'>
+  <div class='col s12 m7 l7 no-padding-sides'>
+    <nav class='light row'>
       <div class="nav-wrapper">
         <form>
           <div class="input-field">
@@ -17,6 +17,70 @@
         </form>
       </div>
     </nav>
+    <div class='row valign-wrapper'>
+      <div class='col s2'>
+        <h5>Price</h5>
+      </div>
+      <div id='price-slider' class='col s10 valign'></div>
+    </div>
+    <div class='row valign-wrapper'>
+      <div class='col s2'>
+        <h5>Dates</h5>
+      </div>
+      <div class='col s5 valign'>
+        Arrival
+      </div>
+      <div class='col s5 valign'>
+        Departure
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col s2'>
+        <h5>Language</h5>
+      </div>
+      <div class='col s10'>
+        <input placeholder="What language?" id="language" type="text" class="validate border-radius-left" value='English'>
+      </div>
+    </div>
+    <div class='row valign-wrapper'>
+      <div class='col s3'>
+        <h5>Immersion</h5>
+      </div>
+      <div class='col s3 valign'>
+          <input type="checkbox" id="stay" />
+          <label for="stay">Stay</label>
+      </div>
+      <div class='col s3 valign'>
+        <input type="checkbox" id="tandem" />
+        <label for="tandem">Tandem</label>
+      </div>
+      <div class='col s3 valign'>
+        <input type="checkbox" id="teacher" />
+        <label for="teacher">Teacher</label>
+      </div>
+    </div>
+    <div class='row'>
+      <ul class="collapsible no-shadow" data-collapsible="accordion">
+        <li>
+          <div class="collapsible-header">More filters</div>
+          <div class="collapsible-body">
+            <div class='row'>
+              Neighborhood
+            </div>
+            <div class='row'>
+              Ammenities
+            </div>
+            <div class='row'>
+              Meal plans
+            </div>
+            <div class='row'>
+              Other
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
   </div>
   <div class='col s12 m5 l5 no-padding' style='height:100vh;'>
 
