@@ -6,7 +6,7 @@
   }
   .input-strip {
     color: $americano;
-    margin-top: 100px;
+    margin-top: 20vh;
     padding-top: 25px;
     background: rgba(50,50,50,.65);
     a.btn {
@@ -28,7 +28,6 @@
       -moz-border-radius-bottomleft: 3px;
       border-top-left-radius: 3px;
       border-bottom-left-radius: 3px;
-      overflow: hidden;
     }
     .col {
       padding: 0;
@@ -38,6 +37,7 @@
       background: white;
       margin: 0;
       padding: 10px;
+      border-bottom: none;
       &::-webkit-input-placeholder {
         color: $americano;
       }
