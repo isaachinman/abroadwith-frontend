@@ -23,8 +23,6 @@ $(document).ready(function() {
 
 });
 
-
-
 // Materialize initialisations
 $(document).ready(function() {
 
@@ -63,7 +61,6 @@ $(document).ready(function() {
     });
   }
 
-
   // Tabs
   if ($('ul.tabs')) {
     $(document).ready(function(){
@@ -71,4 +68,24 @@ $(document).ready(function() {
     });
   }
 
+});
+
+// Hacked together absolute disgrace to demo hover cards
+$(document).ready(function() {
+  $('.card-reveal').mouseleave(function() {
+      // Make Reveal animate down and display none
+      $(this).closest('.card-reveal').velocity(
+        {translateY: 0}, {
+          duration: 225,
+          queue: false,
+          easing: 'easeInOutQuad',
+          complete: function() { $(this).css({ display: 'none'}); }
+        }
+      );
+  });
+  $(document).on('mouseenter.card', '.card', function (e) {
+      $(e.target).closest('.card').css('overflow', 'hidden');
+      $(this).find('.card-reveal').css({ display: 'block'}).velocity("stop", false).velocity({translateY: '-100%'}, {duration: 300, queue: false, easing: 'easeInOutQuad'});
+    })
+    $('.card-reveal').closest('.card').css('overflow', 'hidden');
 });
