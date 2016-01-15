@@ -1,29 +1,30 @@
+// Deps
 var React = require('react');
 var ReactDOM = require('react-dom');
 var SearchList = require('./components/searchList.react');
 var Nouislider = require('react-nouislider');
 
-ReactDOM.render(
-  <SearchList />,
-  document.getElementById('content-search')
-);
+// Render search
+if ($('#content-search').length) {
+  ReactDOM.render(
+    <SearchList />,
+    document.getElementById('content-search')
+  );
+}
 
-ReactDOM.render(
-  <Nouislider
-    range={{min: 0, max: 2000}}
-    start={[1200, 1800]}
-    tooltips
-  />, document.querySelector('#price-slider')
-);
+// Price slider
+if ($('#price-slider').length) {
 
-// Booking datepicker
-$(document).ready(function() {
-  if ($('.datepicker').length) {
-    $('.datepicker').pickadate({
-      min: 1,
-      onSet: function () {
-        this.close();
-      }
-    });
-  }
-})
+  // Price vars
+  var priceMin = 0;
+  var priceMax = 2000;
+
+  ReactDOM.render(
+    <Nouislider
+      range={{min: 0, max: 2000}}
+      margin={100}
+      start={[1200, 1800]}
+      tooltips
+    />, document.querySelector('#price-slider')
+  );
+}

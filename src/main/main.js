@@ -1,13 +1,3 @@
-// var $ = require('jquery');
-// var React = require('react');
-// var ReactDOM = require('react-dom');
-// var materialize = require('materialize');
-// var autocomplete = require('jquery-ui/autocomplete')
-
-// Tap events
-// var injectTapEventPlugin = require("react-tap-event-plugin");
-// injectTapEventPlugin();
-
 // Languages
 var languages = [
   "English",
