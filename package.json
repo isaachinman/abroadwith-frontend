@@ -24,7 +24,8 @@
     "react-modal": "^0.6.1",
     "react-nouislider": "^1.7.0",
     "react-tap-event-plugin": "^0.2.1",
-    "uglify-js": "^2.6.1"
+    "uglify-js": "^2.6.1",
+    "wnumb": "^1.0.2"
   },
   "browserify": {
     "transform": [

@@ -63,7 +63,14 @@ small { font-size: 75%; }
     margin-top: 2rem;
   }
 }
-
 .container {
   width: 90%;
+}
+.collapsible {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

@@ -1,8 +1,4 @@
-{% extends "layout.html" %}
-
-{% block title %} {{ translations.search.title }} {% endblock %}
-
-{% block content %}
+{% extends "layout.html" %} {% block title %} {{ translations.search.title }} {% endblock %} {% block content %}
 
 <div class='row left-align'>
   <div class='col s12 m7 l7 no-padding-sides'>
@@ -10,98 +6,183 @@
       <div class="nav-wrapper">
         <form>
           <div class="input-field">
-            <input id="search" type="search" autofocus>
-            <label for="search"><i class="material-icons">search</i></label>
+            <input id="search" type="search" class='grey-text text-darken-1' value='Syndey, Australia'>
+            <label for="search"><i class="material-icons grey-text text-darken-1">search</i></label>
             <i class="material-icons">close</i>
           </div>
         </form>
       </div>
     </nav>
-    <div class='row valign-wrapper'>
-      <div class='col s2'>
-        <h5>Price</h5>
+
+    <div class='container'>
+
+      <div class='row valign-wrapper section'>
+        <div class='col s2 grey-text'>
+          <h6>Price</h6>
+        </div>
+        <div id='price-slider' class='col s10 valign'></div>
       </div>
-      <div id='price-slider' class='col s10 valign'></div>
+
+      <div class='divider'></div>
+
+      <div class='row valign-wrapper section'>
+        <div class='input-field col s2 grey-text'>
+          <h6>Dates</h6>
+        </div>
+        <div class='input-field col s3 valign'>
+          <input id='arrival' type="date" class="datepicker-arrival">
+          <label for='arrival'>Arrival</label>
+        </div>
+        <div class='input-field col s3 valign'>
+          <input id='departure' type="date" class="datepicker-departure">
+          <label for='departure'>Departure</label>
+        </div>
+        <div class='input-field col s4'>
+          <select>
+            <option value="1" selected>1 guest</option>
+            <option value="2">2 guests</option>
+            <option value="3">3 guests</option>
+            <option value="4">4 guests</option>
+            <option value="5">5 guests</option>
+          </select>
+        </div>
+      </div>
+
+      <div class='divider'></div>
+
+      <div class='row section valign-wrapper'>
+        <div class='col s2 grey-text'>
+          <h6>Language</h6>
+        </div>
+        <div class='col s3'>
+          <input placeholder="What language?" id="language" type="text" class="validate border-radius-left" value='English'>
+        </div>
+
+        <div class='col s2 grey-text'>
+          <h6>Immersion</h6>
+        </div>
+
+        <div class='col s5'>
+          <select multiple>
+            <option value="stay" selected>Stay</option>
+            <option value="tandem">Tandem</option>
+            <option value="teacher">Teacher's stay</option>
+          </select>
+        </div>
+
+      </div>
+
     </div>
-    <div class='row valign-wrapper'>
-      <div class='col s2'>
-        <h5>Dates</h5>
-      </div>
-      <div class='col s5 valign'>
-        Arrival
-      </div>
-      <div class='col s5 valign'>
-        Departure
-      </div>
-    </div>
-    <div class='row'>
-      <div class='col s2'>
-        <h5>Language</h5>
-      </div>
-      <div class='col s10'>
-        <input placeholder="What language?" id="language" type="text" class="validate border-radius-left" value='English'>
-      </div>
-    </div>
-    <div class='row valign-wrapper'>
-      <div class='col s3'>
-        <h5>Immersion</h5>
-      </div>
-      <div class='col s3 valign'>
-          <input type="checkbox" id="stay" />
-          <label for="stay">Stay</label>
-      </div>
-      <div class='col s3 valign'>
-        <input type="checkbox" id="tandem" />
-        <label for="tandem">Tandem</label>
-      </div>
-      <div class='col s3 valign'>
-        <input type="checkbox" id="teacher" />
-        <label for="teacher">Teacher</label>
-      </div>
-    </div>
+
     <div class='row'>
       <ul class="collapsible no-shadow" data-collapsible="accordion">
         <li>
           <div class="collapsible-header">More filters</div>
           <div class="collapsible-body">
-            <div class='row'>
-              Neighborhood
+
+            <div class='row section'>
+              <div class='col s2 grey-text'>
+                Amenities
+              </div>
+              <div class='col s3 valign'>
+                <input type="checkbox" id="wifi" />
+                <label for="wifi">Wifi</label>
+              </div>
+              <div class='col s3 valign'>
+                <input type="checkbox" id="pool" />
+                <label for="pool">Pool</label>
+              </div>
+              <div class='col s3 valign'>
+                <input type="checkbox" id="kitchen" />
+                <label for="kitchen">Kitchen</label>
+              </div>
             </div>
-            <div class='row'>
-              Ammenities
+
+            <div class='divider'></div>
+
+            <div class='row section'>
+              <div class='col s2 grey-text'>
+                Meal plans
+              </div>
+              <div class='col s3 valign'>
+
+                <input type="checkbox" id="meal-full" />
+                <label for="meal-full">Full board</label>
+
+              </div>
+
+              <div class='col s3 valign'>
+
+                <input type="checkbox" id="meal-half" />
+                <label for="meal-half">Half board</label>
+
+              </div>
+
+              <div class='col s3 valign'>
+
+                <input type="checkbox" id="bed-and-breakfast" />
+                <label for="bed-and-breakfast">Bed and breakfast</label>
+
+              </div>
+
             </div>
-            <div class='row'>
-              Meal plans
-            </div>
-            <div class='row'>
-              Other
-            </div>
+
           </div>
         </li>
       </ul>
     </div>
 
+    <div class='row'>
+
+      <div class='col s12 m6 l6'>
+        <div class='card'>
+          <div class="card-image">
+            <img src="https://a0.muscache.com/airbnb/static/landing_pages/pretzel/stills/paris-ac2c9c35b05b19e65af7c8eee89f2fae.jpg">
+            <span class="card-title">Tandem</span>
+          </div>
+        </div>
+      </div>
+
+      <div class='col s12 m6 l6'>
+        <div class='card'>
+          <div class="card-image">
+            <img src="http://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2014/05/02/101637563-airbnb.1910x1000.jpg">
+            <span class="card-title">Stay</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <h1>{{ translations.search.description }}</h1>
+
+    <div id="content-search"></div>
+
   </div>
   <div class='col s12 m5 l5 no-padding' style='height:100vh;'>
 
-      <div id="map" style='width: 100%; height: 100%;position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);'></div>
+    <div id="map" class='big-map'></div>
 
     <script>
-    var map;
-    function initMap() {
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
-      });
-    }
+      var map;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          options: {
+            scrollwheel: false
+          },
+          center: {
+            lat: -34.397,
+            lng: 150.644
+          },
+          zoom: 8
+        });
+      }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?&callback=initMap"
-    async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?&callback=initMap" async defer></script>
   </div>
 </div>
-
-<h1>{{ translations.search.description }}</h1>
-
-<div id="content-search"></div>
 
 {% endblock %}

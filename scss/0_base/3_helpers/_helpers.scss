@@ -36,10 +36,7 @@ i.circle {
   box-shadow: none;
 }
 nav.light {
-  background: lighten($grey-chateau, 30%);
-  i.material-icons {
-    color: darken($ziggurat, 20%);
-  }
+  background: lighten($ziggurat, 16.5%);
 }
 .translucent {
   opacity: .95;
