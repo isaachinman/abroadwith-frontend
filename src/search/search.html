@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block title %} {{ translations.search.title }} {% endblock %} {% block content %}
 
 <div class='row left-align'>
-  <div class='col s12 m7 l7 no-padding-sides'>
+  <div class='col s12 m7 l7 no-padding-sides fixed-100-vh fixed-100-vh--scroll'>
     <nav class='light row'>
       <div class="nav-wrapper">
         <form>
@@ -161,7 +161,7 @@
     <div id="content-search"></div>
 
   </div>
-  <div class='col s12 m5 l5 no-padding' style='height:100vh;'>
+  <div class='col s12 m5 l5 no-padding fixed-100-vh'>
 
     <div id="map" class='big-map'></div>
 

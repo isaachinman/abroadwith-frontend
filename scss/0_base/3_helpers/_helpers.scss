@@ -41,3 +41,10 @@ nav.light {
 .translucent {
   opacity: .95;
 }
+.fixed-100-vh {
+  height: calc(100vh - 50px);
+  overflow: hidden;
+  &--scroll {
+    overflow-y: scroll;
+  }
+}
