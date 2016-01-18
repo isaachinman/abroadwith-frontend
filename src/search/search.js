@@ -20,6 +20,20 @@ if ($('.collapsible-header i').length) {
   })
 }
 
+// If user selects Tandem, show them Tandem Language input
+if ($('select#immersion').length && ($('input#tandem-language').length)) {
+  var immersionSelect = $('select#immersion');
+  var tandemInput = $('input#tandem-language');
+  var tandemNodes = $('.tandem-language');
+  immersionSelect.change(function() {
+    if (immersionSelect.val().indexOf('tandem') >= 0 && tandemNodes.hasClass('hide')) {
+      $('.tandem-language').removeClass('hide');
+    } else if (!(immersionSelect.val().indexOf('tandem')) >= 0 && !(tandemNodes.hasClass('hide'))) {
+      $('.tandem-language').addClass('hide');
+    }
+  })
+}
+
 // Render search
 if ($('#content-search').length) {
   ReactDOM.render(
