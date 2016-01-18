@@ -99,11 +99,21 @@
           <div class="collapsible-body container">
 
             <div class='row section valign-wrapper'>
-              <div class='col s4 grey-text'>
-                <h6>Language school course</h6>
+              <div class='col s6 grey-text'>
+                <h6>Integrate a language course</h6>
               </div>
-              <div class='col s2'>
-                <select id='language-school'>
+              <div class='col s3'>
+                <div class="switch">
+                  <label>
+                    No
+                    <input id='language-switch' type="checkbox">
+                    <span class="lever"></span>
+                    Yes
+                  </label>
+                </div>
+              </div>
+              <div class='col s3'>
+                <select id='language-school' disabled>
                   <option value="a1" selected>A1</option>
                   <option value="a2">A2</option>
                   <option value="b1">B1</option>
@@ -112,18 +122,35 @@
                   <option value="c2">C2</option>
                 </select>
               </div>
-              <div class='col s2 grey-text'>
-                <h6>House type</h6>
+            </div>
+
+            <div class='divider'></div>
+
+            <div class='row section valign-wrapper'>
+              <div class='col s6 grey-text'>
+                <h6>I want a meal plan</h6>
               </div>
               <div class='col s4'>
-                <select id='house-type'>
-                  <option value="flat" selected>Flat</option>
-                  <option value="house">House</option>
-                  <option value="loft">Loft</option>
-                  <option value="dorm">Dorm</option>
-                  <option value="cabin">Cabin</option>
-                  <option value="chalet">Chalet</option>
-                  <option value="other">Other</option>
+                <div class="switch">
+                  <label>
+                    No
+                    <input id='language-switch' type="checkbox">
+                    <span class="lever"></span>
+                    Yes
+                  </label>
+                </div>
+              </div>
+              <div class='col s2'>
+                <select id='meal-plan' multiple>
+                  <option value="none" selected>None</option>
+                  <option value="house">Vegetarian</option>
+                  <option value="loft">Vegan</option>
+                  <option value="dorm">Halal</option>
+                  <option value="cabin">Kosher</option>
+                  <option value="chalet">Nut free</option>
+                  <option value="other">Lactose free</option>
+                  <option value="other">Gluten free</option>
+                  <option value="other">Sugar free</option>
                 </select>
               </div>
             </div>

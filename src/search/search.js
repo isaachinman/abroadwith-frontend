@@ -33,6 +33,21 @@ if ($('select#immersion').length && ($('input#tandem-language').length)) {
   })
 }
 
+// If user toggles language school, toggle disabled on language school dropdown
+if ($('#language-switch').length && $('#language-school').length) {
+  var languageSwitch = $('input#language-switch');
+  var languageSelect = $('select#language-school');
+  languageSwitch.change(function() {
+    if (languageSwitch.is(':checked') && languageSelect.prop('disabled', true)) {
+      languageSelect.prop('disabled', false);
+      languageSelect.material_select();
+    } else if (languageSwitch.not(':checked') && languageSelect.prop('disabled', false)) {
+      languageSelect.prop('disabled', true);
+      languageSelect.material_select();
+    }
+  })
+}
+
 // Render search
 if ($('#content-search').length) {
   ReactDOM.render(
