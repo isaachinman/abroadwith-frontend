@@ -1,6 +1,64 @@
 .search-result {
   @extend .card;
+  cursor: pointer;
   height: 200px;
   background-image: url('https://static1.squarespace.com/static/528d2d78e4b0c3afb6331b99/52a0577be4b0dbf53fa9bba3/52a05787e4b0dfa4e476e9d7/1386239880578/2-DSC_8541.jpg');
   background-size: cover;
+  .tag {
+    position: absolute;
+    top:0;
+    left: 0;
+    color: white;
+    font-size: .8rem;
+    line-height: 1.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.15px;
+    opacity: .8;
+    .stay, .tandem, .teacher {
+      position: relative;
+      display: block;
+      padding: 0 .25rem;
+      min-width: 60px;
+    }
+    .stay {
+      background: blue;
+    }
+    .tandem {
+      background: red;
+    }
+    .teacher {
+      background: orange;
+    }
+  }
+  .price {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 .25rem;
+    font-size: 1.25rem;
+    color: white;
+    background: rgba(0,0,0,.25);
+  }
+  .title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: .5rem;
+    line-height: 1rem;
+    background: lighten($grey-chateau, 35%);
+    color: grey;
+  }
+  .host {
+    @extend .z-depth-1;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 80px;
+    height: 80px;
+    border-radius: 80px;
+    background-image: url('https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png');
+    background-size: cover;
+  }
 }

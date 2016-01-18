@@ -149,10 +149,13 @@
                   <option value="cabin">Kosher</option>
                 </select>
               </div>
+              <div class='col s1 valign'>
+                <i class="fa fa-exclamation-circle fa-2x grey-text text-lighten-1"></i>
+              </div>
               <!-- Dietary restrictions selection -->
-              <div class='col s6'>
-                <select id='dietary-restrictions' multiple disabled>
-                  <option value="none" selected>No dietary restrictions</option>
+              <div class='col s5'>
+                <select id='dietary-restrictions' multiple>
+                  <option value="none" disabled selected>No dietary restrictions</option>
                   <option value="chalet">Nut free</option>
                   <option value="other">Lactose free</option>
                   <option value="other">Gluten free</option>
@@ -201,18 +204,53 @@
     </div>
 
     <div class='row section white'>
-      <div class='col s12 m6 l6'>
+      <div class='col s12 m12 l6'>
         <div class='search-result'>
-          
+          <div class='tag'>
+            <div class='stay'>
+              Stay
+            </div>
+            <div class='tandem'>
+              Tandem
+            </div>
+            <div class='teacher'>
+              Teacher
+            </div>
+          </div>
+          <div class='price'>
+            €1245
+          </div>
+          <div class='title'>
+            Jose's home - Cabin
+          </div>
+          <div class='host'>
+          </div>
+        </div>
+      </div>
+      <div class='col s12 m12 l6'>
+        <div class='search-result'>
+          <div class='tag'>
+            <div class='stay'>
+              Stay
+            </div>
+          </div>
+          <div class='price'>
+            €995
+          </div>
+          <div class='title'>
+            Jose's home - Cabin
+          </div>
+          <div class='host'>
+          </div>
         </div>
       </div>
     </div>
 
-    <div id="content-search" class='white'></div>
+    <!-- <div id="content-search" class='white'></div> -->
 
     {% include "partials/navigation/footer.html" %}
 
-  </div>
+    </div>
   <div class='col s12 m5 l5 no-padding fixed-100-vh'>
 
     <div id="map" class='big-map'></div>
