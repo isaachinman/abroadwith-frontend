@@ -8,13 +8,14 @@
     position: absolute;
     top:0;
     left: 0;
-    color: white;
+    color: lighten($grey-chateau, 35%);;
     font-size: .8rem;
+    font-weight: 400;
     line-height: 1.5rem;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1.15px;
-    opacity: .8;
+    opacity: .7;
     .stay, .tandem, .teacher {
       position: relative;
       display: block;
@@ -22,13 +23,13 @@
       min-width: 60px;
     }
     .stay {
-      background: blue;
+      background: #9D94E5;
     }
     .tandem {
-      background: red;
+      background: #EA3546;
     }
     .teacher {
-      background: orange;
+      background: #43C59E;
     }
   }
   .price {
