@@ -1,8 +1,14 @@
 var languages = {
-    en: "English",
-    pt: "Português",
-    es: "Español"
+    eng: "English",
+    por: "Português",
+    spa: "Español"
 };
+
+var converted_iso = {
+    en: "eng",
+    es: "spa",
+    pt: "por"
+}
 
 var translations = {};
 
@@ -15,5 +21,6 @@ for(var i in languages){
 }
 
 translations.original = languages;
+translations.iso = converted_iso;
 
 module.exports = translations;

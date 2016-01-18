@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
   if(req.language && translations[req.language])
     context = { translations: translations[req.language]};
   else
-    context = { translations: translations['en']};
+    context = { translations: translations['eng']};
   res.send(nunjucks.render('main/main.html',context));
 });
 
