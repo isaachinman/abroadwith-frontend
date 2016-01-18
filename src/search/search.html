@@ -16,6 +16,7 @@
 
     <div class='container'>
 
+      <!-- Price slider -->
       <div class='row valign-wrapper section'>
         <div class='col s2 grey-text'>
           <h6>Price</h6>
@@ -25,6 +26,7 @@
 
       <div class='divider'></div>
 
+      <!-- Date pickers -->
       <div class='row valign-wrapper section'>
         <div class='input-field col s2 grey-text'>
           <h6>Dates</h6>
@@ -37,6 +39,7 @@
           <input id='departure' type="date" class="datepicker-departure">
           <label for='departure'>Departure</label>
         </div>
+      <!-- Guest number picker -->
         <div class='input-field col s4'>
           <select>
             <option value="1" selected>1 guest</option>
@@ -50,6 +53,7 @@
 
       <div class='divider'></div>
 
+      <!-- Language picker -->
       <div class='row section valign-wrapper'>
         <div class='col s2 grey-text'>
           <h6>Language</h6>
@@ -62,6 +66,7 @@
           <h6>Immersion</h6>
         </div>
 
+        <!-- Immersion picker -->
         <div class='col s5'>
           <select id='immersion' multiple>
             <option value="stay" selected>Stay</option>
@@ -80,6 +85,7 @@
           <h6>Your tandem language</h6>
         </div>
 
+        <!-- Tandem language picker -->
         <div class='col s9'>
           <input placeholder="What language are you teaching?" id="tandem-language" type="text" class="validate border-radius-left">
         </div>
@@ -88,8 +94,8 @@
 
     </div>
 
-    <div class='row'>
-      <ul class="collapsible no-shadow" data-collapsible="accordion">
+    <div class='row no-margin'>
+      <ul class="collapsible no-shadow no-margin" data-collapsible="accordion">
         <li>
           <div class="collapsible-header grey-text no-padding">
             <div class='container'>
@@ -99,7 +105,10 @@
           <div class="collapsible-body container">
 
             <div class='row section valign-wrapper'>
-              <div class='col s6 grey-text'>
+              <div class='col s1 valign'>
+                <i class="fa fa-pencil fa-2x grey-text text-lighten-1"></i>
+              </div>
+              <div class='col s5 grey-text'>
                 <h6>Integrate a language course</h6>
               </div>
               <div class='col s3'>
@@ -114,12 +123,12 @@
               </div>
               <div class='col s3'>
                 <select id='language-school' disabled>
-                  <option value="a1" selected>A1</option>
-                  <option value="a2">A2</option>
-                  <option value="b1">B1</option>
-                  <option value="b2">B2</option>
-                  <option value="c1">C1</option>
-                  <option value="c2">C2</option>
+                  <option value="a1" selected>English A1</option>
+                  <option value="a2">English A2</option>
+                  <option value="b1">English B1</option>
+                  <option value="b2">English B2</option>
+                  <option value="c1">English C1</option>
+                  <option value="c2">English C2</option>
                 </select>
               </div>
             </div>
@@ -127,26 +136,23 @@
             <div class='divider'></div>
 
             <div class='row section valign-wrapper'>
-              <div class='col s6 grey-text'>
-                <h6>I want a meal plan</h6>
+              <div class='col s1 valign'>
+                <i class="fa fa-cutlery fa-2x grey-text text-lighten-1"></i>
               </div>
-              <div class='col s4'>
-                <div class="switch">
-                  <label>
-                    No
-                    <input id='language-switch' type="checkbox">
-                    <span class="lever"></span>
-                    Yes
-                  </label>
-                </div>
-              </div>
-              <div class='col s2'>
-                <select id='meal-plan' multiple>
-                  <option value="none" selected>None</option>
+              <!-- Meal plan selection -->
+              <div class='col s5'>
+                <select id='meal-plan'>
+                  <option value="none" selected>No meal plan</option>
                   <option value="house">Vegetarian</option>
                   <option value="loft">Vegan</option>
                   <option value="dorm">Halal</option>
                   <option value="cabin">Kosher</option>
+                </select>
+              </div>
+              <!-- Dietary restrictions selection -->
+              <div class='col s6'>
+                <select id='dietary-restrictions' multiple disabled>
+                  <option value="none" selected>No dietary restrictions</option>
                   <option value="chalet">Nut free</option>
                   <option value="other">Lactose free</option>
                   <option value="other">Gluten free</option>
@@ -157,51 +163,36 @@
 
             <div class='divider'></div>
 
-            <div class='row section'>
-              <div class='col s2 grey-text'>
-                Amenities
+            <!-- Amenities selection -->
+            <div class='row section valign-wrapper'>
+              <div class='col s1 valign'>
+                <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
               </div>
-              <div class='col s3 valign'>
-                <input type="checkbox" id="wifi" />
-                <label for="wifi">Wifi</label>
+              <div class='col s5'>
+                <select id='ammenities' multiple>
+                  <option value="essentials" selected>Essentials</option>
+                  <option value="ac">Air conditioning</option>
+                  <option value="airport">Airport pickup</option>
+                  <option value="tv">TV</option>
+                  <option value="cable">Cable</option>
+                  <option value="washer">Washer</option>
+                  <option value="pool">Pool</option>
+                </select>
               </div>
-              <div class='col s3 valign'>
-                <input type="checkbox" id="pool" />
-                <label for="pool">Pool</label>
+              <div class='col s1 valign'>
+                <i class="fa fa-home fa-2x grey-text text-lighten-1"></i>
               </div>
-              <div class='col s3 valign'>
-                <input type="checkbox" id="kitchen" />
-                <label for="kitchen">Kitchen</label>
+              <div class='col s5'>
+                <select id='accomodation-type' multiple>
+                  <option value="flat" selected>Flat</option>
+                  <option value="house">House</option>
+                  <option value="loft">Loft</option>
+                  <option value="chalet">Chalet</option>
+                  <option value="dorm">Dorm</option>
+                  <option value="cabin">Cabin</option>
+                  <option value="other">Other</option>
+                </select>
               </div>
-            </div>
-
-            <div class='divider'></div>
-
-            <div class='row section'>
-              <div class='col s2 grey-text'>
-                Meal plans
-              </div>
-              <div class='col s3 valign'>
-
-                <input type="checkbox" id="meal-full" />
-                <label for="meal-full">Full board</label>
-
-              </div>
-
-              <div class='col s3 valign'>
-
-                <input type="checkbox" id="meal-half" />
-                <label for="meal-half">Half board</label>
-
-              </div>
-
-              <div class='col s3 valign'>
-
-                <input type="checkbox" id="bed-and-breakfast" />
-                <label for="bed-and-breakfast">Bed and breakfast</label>
-
-              </div>
-
             </div>
 
           </div>
@@ -209,17 +200,15 @@
       </ul>
     </div>
 
-    <div class='row'>
-
-
-
+    <div class='row section white'>
+      <div class='col s12 m6 l6'>
+        <div class='search-result'>
+          
+        </div>
+      </div>
     </div>
 
-
-
-    <h1>{{ translations.search.description }}</h1>
-
-    <div id="content-search"></div>
+    <div id="content-search" class='white'></div>
 
     {% include "partials/navigation/footer.html" %}
 

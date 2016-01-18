@@ -1,4 +1,6 @@
 .search-result {
   @extend .card;
-  height: 300px;
+  height: 200px;
+  background-image: url('https://static1.squarespace.com/static/528d2d78e4b0c3afb6331b99/52a0577be4b0dbf53fa9bba3/52a05787e4b0dfa4e476e9d7/1386239880578/2-DSC_8541.jpg');
+  background-size: cover;
 }

@@ -48,6 +48,22 @@ if ($('#language-switch').length && $('#language-school').length) {
   })
 }
 
+// If user selects meal plan, toggle disabled on dietary restrictions dropdown
+if ($('#meal-plan').length && $('#dietary-restrictions').length) {
+  var mealPlan = $('#meal-plan');
+  var dietaryRestrictions = $('#dietary-restrictions');
+  mealPlan.change(function() {
+    if (mealPlan.val() != 'none' && dietaryRestrictions.prop('disabled', true)) {
+      dietaryRestrictions.prop('disabled', false);
+      dietaryRestrictions.material_select();
+    } else if (mealPlan.val() == 'none' && dietaryRestrictions.prop('disabled', false)) {
+      dietaryRestrictions.val('none');
+      dietaryRestrictions.prop('disabled', true);
+      dietaryRestrictions.material_select();
+    }
+  })
+}
+
 // Render search
 if ($('#content-search').length) {
   ReactDOM.render(
