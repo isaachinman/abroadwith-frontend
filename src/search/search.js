@@ -16,7 +16,6 @@ if ($('.collapsible-header i').length) {
       caret.removeClass('fa-caret-up');
       caret.addClass('fa-caret-down');
     }
-
   })
 }
 
@@ -57,6 +56,7 @@ if ($('#price-slider').length) {
       start={[1200, 1800]}
       tooltips
       format={wNumb({
+        prefix: currency,
         decimals: 0
       })}
       step={10}
