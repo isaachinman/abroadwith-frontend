@@ -5,6 +5,21 @@ var SearchList = require('./components/searchList.react');
 var Nouislider = require('react-nouislider');
 require('wnumb');
 
+// Toggle more filters caret
+if ($('.collapsible-header i').length) {
+  var caret = $('.collapsible-header i');
+  $('.collapsible-header').click(function() {
+    if (caret.hasClass('fa-caret-down')) {
+      caret.removeClass('fa-caret-down');
+      caret.addClass('fa-caret-up');
+    } else if (caret.hasClass('fa-caret-up')) {
+      caret.removeClass('fa-caret-up');
+      caret.addClass('fa-caret-down');
+    }
+
+  })
+}
+
 // Render search
 if ($('#content-search').length) {
   ReactDOM.render(

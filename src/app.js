@@ -12,6 +12,7 @@ require('../node_modules/materialize-css/js/jquery.hammer');
 require('../node_modules/materialize-css/js/sideNav');
 require('../node_modules/materialize-css/js/velocity.min');
 require('../node_modules/materialize-css/js/collapsible');
+require('../node_modules/materialize-css/js/cards');
 
 // Pickadate
 require('../node_modules/pickadate/lib/compressed/picker.js');
