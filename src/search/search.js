@@ -25,9 +25,13 @@ if ($('select#immersion').length && ($('input#tandem-language').length)) {
   var tandemInput = $('input#tandem-language');
   var tandemNodes = $('.tandem-language');
   immersionSelect.change(function() {
-    if (immersionSelect.val().indexOf('tandem') >= 0 && tandemNodes.hasClass('hide')) {
-      $('.tandem-language').removeClass('hide');
-    } else if (!(immersionSelect.val().indexOf('tandem')) >= 0 && !(tandemNodes.hasClass('hide'))) {
+    if (immersionSelect.val() != null) {
+      if (immersionSelect.val().indexOf('tandem') >= 0 && tandemNodes.hasClass('hide')) {
+        $('.tandem-language').removeClass('hide');
+      } else if (immersionSelect.val().indexOf('tandem') == -1 && !(tandemNodes.hasClass('hide'))) {
+        $('.tandem-language').addClass('hide');
+      }
+    } else if (tandemNodes.hasClass('hide')) {
       $('.tandem-language').addClass('hide');
     }
   })
