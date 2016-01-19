@@ -35,13 +35,11 @@ i.circle {
 .no-shadow {
   box-shadow: none;
 }
-nav.light {
-  background: lighten($ziggurat, 20%);
-}
 .translucent {
   opacity: .95;
 }
 .fixed-100-vh {
+  position: relative;
   height: calc(100vh - 50px);
   overflow: hidden;
   &--scroll {

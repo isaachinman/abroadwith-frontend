@@ -2,29 +2,8 @@
 
 <div class='row left-align no-margin'>
   <div class='col s12 m7 l7 no-padding-sides fixed-100-vh fixed-100-vh--scroll'>
-    <nav class='light row'>
-      <div class="nav-wrapper">
-        <form>
-          <div class="input-field">
-            <input id="search" type="search" class='grey-text text-darken-1' value='Syndey, Australia'>
-            <label for="search"><i class="material-icons grey-text text-darken-1">search</i></label>
-            <i class="material-icons">close</i>
-          </div>
-        </form>
-      </div>
-    </nav>
 
     <div class='container'>
-
-      <!-- Price slider -->
-      <div class='row valign-wrapper section'>
-        <div class='col s2 grey-text'>
-          <h6>Price</h6>
-        </div>
-        <div id='price-slider' class='col s10 valign'></div>
-      </div>
-
-      <div class='divider'></div>
 
       <!-- Date pickers -->
       <div class='row valign-wrapper section'>
@@ -92,6 +71,47 @@
 
       </div>
 
+      <div class='divider'></div>
+
+      <!-- Price slider -->
+      <div class='row valign-wrapper section'>
+        <div class='col s2 grey-text'>
+          <h6>Price</h6>
+        </div>
+        <div id='price-slider' class='col s10 valign'></div>
+      </div>
+
+      <div class='divider'></div>
+
+      <div class='row section valign-wrapper'>
+        <div class='col s1 valign'>
+          <i class="fa fa-pencil fa-2x grey-text text-lighten-1"></i>
+        </div>
+        <div class='col s5 grey-text'>
+          <h6>Integrate a language course</h6>
+        </div>
+        <div class='col s3'>
+          <div class="switch">
+            <label>
+              No
+              <input id='language-switch' type="checkbox">
+              <span class="lever"></span>
+              Yes
+            </label>
+          </div>
+        </div>
+        <div class='col s3'>
+          <select id='language-school' disabled>
+            <option value="a1" selected>English A1</option>
+            <option value="a2">English A2</option>
+            <option value="b1">English B1</option>
+            <option value="b2">English B2</option>
+            <option value="c1">English C1</option>
+            <option value="c2">English C2</option>
+          </select>
+        </div>
+      </div>
+
     </div>
 
     <div class='row no-margin'>
@@ -115,37 +135,6 @@
                   <option value="pets">Pets allowed</option>
                   <option value="family">Family friendly</option>
                   <option value="wheelchair">Wheelchair accessible</option>
-                </select>
-              </div>
-            </div>
-
-            <div class='divider'></div>
-
-            <div class='row section valign-wrapper'>
-              <div class='col s1 valign'>
-                <i class="fa fa-pencil fa-2x grey-text text-lighten-1"></i>
-              </div>
-              <div class='col s5 grey-text'>
-                <h6>Integrate a language course</h6>
-              </div>
-              <div class='col s3'>
-                <div class="switch">
-                  <label>
-                    No
-                    <input id='language-switch' type="checkbox">
-                    <span class="lever"></span>
-                    Yes
-                  </label>
-                </div>
-              </div>
-              <div class='col s3'>
-                <select id='language-school' disabled>
-                  <option value="a1" selected>English A1</option>
-                  <option value="a2">English A2</option>
-                  <option value="b1">English B1</option>
-                  <option value="b2">English B2</option>
-                  <option value="c1">English C1</option>
-                  <option value="c2">English C2</option>
                 </select>
               </div>
             </div>
@@ -282,6 +271,18 @@
     </div>
   <div class='col s12 m5 l5 no-padding fixed-100-vh'>
 
+    <nav class='overlay light row no-margin'>
+      <div class="nav-wrapper">
+        <form>
+          <div class="input-field">
+            <input id="search" type="search" class='grey-text text-darken-1' value='Syndey, Australia'>
+            <label for="search"><i class="material-icons grey-text text-darken-1">search</i></label>
+            <i class="material-icons">close</i>
+          </div>
+        </form>
+      </div>
+    </nav>
+
     <div id="map" class='big-map'></div>
 
     <script>
@@ -290,7 +291,8 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           options: {
-            scrollwheel: false
+            scrollwheel: false,
+            mapTypeControl: false
           },
           center: {
             lat: -34.397,
