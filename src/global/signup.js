@@ -1,35 +1,26 @@
-{
-  "name": "Isaac",
-  "last-name": "Hinman",
-  "email": "isaac@abroadwith.com",
-  "birthday": "05/18/1993",
-  "languages": {
-    "beginner": [
-      "German"
-    ],
-    "elementary": [ null ],
-    "intermediate-low": [ null ],
-    "intermediate-high": [ null ],
-    "advanced": [ null ],
-    "proficient": [ null ],
-    "native": [
-      "English"
-    ]
-  },
-  "city": "Eisenbahnstr. 19, Berlin 10997, Germany",
-  "profile-photo": "img.abroadwith.com/photo",
-  "school": null,
-  "work": null,
-  "phone": "+49015221448052",
-  "bio": "This is a user bio",
-  "emergency-contact": {
-    "name": "Santa Claus",
-    "phone": "+180080080000",
-    "email": "santa@northpole.com",
-    "relationship": "Father"
-  },
-  "interests": [
-    "JSON",
-    "User signups"
-  ]
+var select2 = require('select2');
+
+if ($('a#add-language').length && $('#language-learning').length && $('#language-level').length && $('#language-chips').length) {
+  var addLanguage = $('a#add-language');
+  addLanguage.click(function() {
+    var languageToAdd = $('#language-learning').val();
+    var languageLevel = $('#language-level').val();
+    console.log(languageToAdd + languageLevel);
+    if (languageToAdd != null && languageLevel != null) {
+      var newLanguageChip = '<div class="chip">' + languageToAdd + ' (' + languageLevel + ')' + '<i class="material-icons">close</i></div>';
+      $('#language-chips').append(newLanguageChip);
+    }
+  })
+}
+
+if ($('select#language-learning').length) {
+  $('select#language-learning').select2({
+    placeholder: "What languages do you want to learn?"
+  });
+}
+
+if ($('select#language-level').length) {
+  $('select#language-level').select2({
+    placeholder: "What languages do you know?"
+  });
 }

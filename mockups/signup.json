@@ -1,0 +1,35 @@
+{
+  "firstName": "Isaac",
+  "lastName": "Hinman",
+  "email": "isaac@abroadwith.com",
+  "birthday": "18/05/1993",
+  "languages": {
+    "beginner": [
+      "German"
+    ],
+    "elementary": [ null ],
+    "intermediateLow": [ null ],
+    "intermediateHigh": [ null ],
+    "advanced": [ null ],
+    "proficient": [ null ],
+    "native": [
+      "English"
+    ]
+  },
+  "city": "Eisenbahnstr. 19, Berlin 10997, Germany",
+  "profilePhoto": "img.abroadwith.com/photo",
+  "school": null,
+  "work": null,
+  "phone": "+49015221448052",
+  "bio": "This is a user bio",
+  "emergencyContact": {
+    "name": "Santa Claus",
+    "phone": "+180080080000",
+    "email": "santa@northpole.com",
+    "relationship": "Father"
+  },
+  "interests": [
+    "JSON",
+    "User signups"
+  ]
+}

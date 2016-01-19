@@ -18,19 +18,19 @@ label {
 
 // Style Placeholders
 ::-webkit-input-placeholder {
-   color: lighten($input-border-color, 20%);
+   color: #9e9e9e;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   color: lighten($input-border-color, 20%);
+   color: #9e9e9e;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-   color: lighten($input-border-color, 20%);
+   color: #9e9e9e;
 }
 
 :-ms-input-placeholder {
-   color: lighten($input-border-color, 20%);
+   color: #9e9e9e;
 }
 
 // Text inputs
@@ -176,7 +176,6 @@ textarea.materialize-textarea {
   width: calc(100% - 4rem);
 
   &:focus {
-    background-color: $input-bg-color;
     border: 0;
     box-shadow: none;
     color: #444;

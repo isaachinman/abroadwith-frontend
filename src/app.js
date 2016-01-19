@@ -13,13 +13,17 @@ require('../node_modules/materialize-css/js/sideNav');
 require('../node_modules/materialize-css/js/velocity.min');
 require('../node_modules/materialize-css/js/collapsible');
 require('../node_modules/materialize-css/js/cards');
+require('../node_modules/materialize-css/js/chips');
 
 // Pickadate
 require('../node_modules/pickadate/lib/compressed/picker.js');
 require('../node_modules/pickadate/lib/compressed/picker.date.js')
 
-// Homepage script
+// Home page
 require('./main/main');
 
-// Search page script
+// Search page
 require('./search/search');
+
+// Signup
+require('./global/signup')
