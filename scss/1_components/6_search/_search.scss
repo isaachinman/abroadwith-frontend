@@ -8,9 +8,9 @@
     position: absolute;
     top:0;
     left: 0;
-    color: lighten($grey-chateau, 35%);;
+    color: lighten($grey-chateau, 32.5%);;
     font-size: .8rem;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.5rem;
     text-align: center;
     text-transform: uppercase;
@@ -23,13 +23,13 @@
       min-width: 60px;
     }
     .stay {
-      background: #9D94E5;
+      background: #225795;
     }
     .tandem {
-      background: #EA3546;
+      background: #E76E63;
     }
     .teacher {
-      background: #43C59E;
+      background: #528465;
     }
   }
   .price {
@@ -46,7 +46,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: .5rem;
+    padding: .75rem;
     line-height: 1rem;
     background: lighten($grey-chateau, 35%);
     color: grey;
