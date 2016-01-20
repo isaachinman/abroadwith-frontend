@@ -5,7 +5,10 @@ var nunjucks = require('nunjucks');
 var fs = require('fs');
 var searchRouter = require('./search/Router');
 var mainRouter = require('./main/Router');
-var languages = require('./utils/Translations')
+
+/** Middlewares **/
+var languageSettings = require('./global/middlewares/LanguageSettings');
+var authentication = require('./global/middlewares/Authentication');
 
 var app = express();
 
@@ -18,19 +21,9 @@ nunjucks.configure('src',{watch:true});
 
 app.use(express.static('build'));
 
-app.use('/*', function (req, res, next) {
-  var prefix = req.hostname.substring(0,2);
-  var value = languages.iso[prefix];
+app.use('/*', languageSettings);
 
-  if(value) {
-    req.language = value;
-    console.log("Called for language "+value);
-  }
-  else{
-    req.language = "eng";
-  }
-  next();
-});
+app.use('/*', authentication);
 
 app.use(['/home','/'],mainRouter);
 
