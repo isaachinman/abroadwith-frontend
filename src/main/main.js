@@ -1,14 +1,26 @@
+var select2 = require('select2')
+
 // Languages
 var languages = [
-  "English",
-  "Spanish",
-  "Portugese"
+  {
+    id: 0,
+    text: 'English'
+  },
+  {
+    id: 1,
+    text: 'Spanish'
+  },
+  {
+    id: 2,
+    text: 'Portuguese'
+  }
 ];
 
 $(document).ready(function() {
 
-  $( "#language" ).autocomplete({
-    source: languages
+  $( "#language" ).select2({
+    placeholder: "What language do you want to learn?",
+    data: languages
   });
 
 });
