@@ -54,84 +54,60 @@ if ($('select#language-known').length) {
 // Add language-learn click handler
 if ($('a#add-language').length && $('#language-learning').length && $('#language-level').length && $('#language-chips').length) {
 
-  var addLanguage = $('a#add-language');
-  var chipContainer = $('#language-chips');
+  $(function() {
+    var addLanguage = $('a#add-language');
+    var chipContainer = $('#language-chips');
 
-  addLanguage.click(function() {
+    addLanguage.click(function() {
 
-    var languageLearning = $('#language-learning');
-    var levelLearning =  $('#language-level');
+      var languageLearning = $('#language-learning');
+      var levelLearning =  $('#language-level');
 
-    var languageCode = $('#language-learning option:selected').attr('data-lang');
-    var levelCode =  $('#language-level option:selected').attr('data-level');
+      var languageCode = $('#language-learning option:selected').attr('data-lang');
+      var levelCode =  $('#language-level option:selected').attr('data-level');
 
-    if (languageLearning.val() != '' && levelLearning.val() != '') {
+      if (languageLearning.val() != '' && levelLearning.val() != '') {
 
-      var newLanguage = '<div class="language-known-chip chip" data-lang="' + languageCode + '" data-level="' + levelCode + '">' + languageLearning.val() + ' (' + levelLearning.val() + ')<i class="material-icons">close</i></div>'
-      chipContainer.append(newLanguage);
+        var newLanguage = '<div class="language-chip chip" data-lang="' + languageCode + '" data-level="' + levelCode + '">' + languageLearning.val() + ' (' + levelLearning.val() + ')<i class="material-icons">close</i></div>'
+        chipContainer.append(newLanguage);
 
-      languageLearning.select2('val', '');
-      languageLearning.val('');
-      levelLearning.select2('val', '');
-      levelLearning.val('');
+        languageLearning.select2('val', '');
+        languageLearning.val('');
+        levelLearning.select2('val', '');
+        levelLearning.val('');
 
-    }
+      }
+    })
   })
 }
 
 // Language known click handler
 if ($('a#add-language-known').length && $('#language-known').length && $('#language-known-chips').length) {
 
-  var addLanguage = $('a#add-language-known');
-  var chipContainer = $('#language-known-chips');
+  $(function() {
+    var addLanguage = $('a#add-language-known');
+    var chipContainer = $('#language-known-chips');
 
-  addLanguage.click(function() {
+    addLanguage.click(function() {
 
-    var languageLearning = $('#language-known');
+      var languageKnown = $('#language-known');
 
-    var languageCode = $('#language-known option:selected').attr('data-lang');
+      var languageKnownCode = $('#language-known option:selected').attr('data-lang');
 
-    if (languageLearning.val() != '') {
+      if (languageKnown.val() != '') {
 
-      var newLanguage = '<div class="language-chip chip" data-lang="' + languageCode + '">' + languageLearning.val() + ' (Native)<i class="material-icons">close</i></div>'
-      chipContainer.append(newLanguage);
+        var newLanguage = '<div class="language-known chip" data-lang="' + languageKnownCode + '">' + languageKnown.val() + ' (Native)<i class="material-icons">close</i></div>'
+        chipContainer.append(newLanguage);
 
-      languageLearning.select2('val', '');
-      languageLearning.val('');
+        languageKnown.select2('val', '');
+        languageKnown.val('');
 
-    }
+      }
+    })
   })
+
+
 }
-
-
-// Add language click handler
-// if ($('a#add-language').length && $('#language-learning').length && $('#language-level').length && $('#language-chips').length) {
-//   var addLanguage = $('a#add-language');
-//   addLanguage.click(function() {
-//     var languageLearning = $('#language-learning');
-//     var levelLearning =  $('#language-level');
-//
-//     if (languageLearning.val() != '' && levelLearning.val() != '') {
-//
-// 			chipsArray.push({
-// 				languageLearning: languageLearning.val(),
-// 				levelLearning: levelLearning.val()
-// 			})
-//
-// 			ReactDOM.render(
-//       <LanguageChips chipsArray={chipsArray} />,
-//       document.getElementById('language-chips')
-//     	);
-//
-//       languageLearning.select2('val', '');
-// 			languageLearning.val('');
-//       levelLearning.select2('val', '');
-// 			levelLearning.val('');
-//
-//     }
-// 		console.log(chipsArray);
-//   })
-// }
 
 // Form submit
 if ($('form#signup').length) {
@@ -140,15 +116,10 @@ if ($('form#signup').length) {
 
   createUser.click(function() {
 
-    if ($('form#signup input').length && $('.language-chip').length) {
+    if ($('form#signup input').length && $('.language-chip').length && $('.language-known').length) {
 
       // Get all inputs
       var signupForm = $('form#signup input');
-
-      // Get all languages
-      var languages = $('.language-chip');
-
-      console.log(languages.length)
 
       // Create signup object
       var newUser = {};
@@ -174,12 +145,12 @@ if ($('form#signup').length) {
         newUser.userLearningLanguages.push(newLanguage);
       })
 
-      $('.language-known-chip').each(function() {
-        var newLanguage = {
+      $('.language-known').each(function() {
+        var newLanguageKnown = {
           "language": $(this).attr('data-lang'),
           "level": "MOTHER_TONGUE"
         }
-        newUser.userKnownLanguages.push(newLanguage);
+        newUser.userKnownLanguages.push(newLanguageKnown);
       })
 
       var letsSee = JSON.stringify(newUser);
