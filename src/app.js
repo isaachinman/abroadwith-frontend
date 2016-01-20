@@ -1,6 +1,9 @@
 require('jquery');
 require('jquery-ui-browserify');
 
+var React = window.React = require('react');
+var ReactDOM = window.ReactDOM = require('react-dom');
+
 // Materialize
 require('../node_modules/materialize-css/js/global');
 require('../node_modules/materialize-css/js/leanModal');

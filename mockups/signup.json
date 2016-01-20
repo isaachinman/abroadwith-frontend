@@ -2,25 +2,44 @@
   "firstName": "Isaac",
   "lastName": "Hinman",
   "email": "isaac@abroadwith.com",
-  "birthday": "18/05/1993",
-  "languages": {
-    "beginner": [
-      "German"
-    ],
-    "elementary": [ null ],
-    "intermediateLow": [ null ],
-    "intermediateHigh": [ null ],
-    "advanced": [ null ],
-    "proficient": [ null ],
-    "native": [
-      "English"
-    ]
-  },
-  "city": "Eisenbahnstr. 19, Berlin 10997, Germany",
-  "profilePhoto": "img.abroadwith.com/photo",
-  "school": null,
-  "work": null,
-  "phone": "+49015221448052",
+  "isEmailVerified": false,
+  "birthDate": [
+    1993,
+    5,
+    2
+  ],
+  "userKnownLanguages": [
+    {
+      "language": "en",
+      "level": "MOTHER_TONGUE"
+    }
+  ],
+  "userLearningLanguages": [
+    {
+      "language": "de",
+      "level": "BEGINNER"
+    }
+  ],
+  "gender": "MALE",
+  "profilePhoto": "profile.jpg",
+  "phoneNumbers": [
+    {
+      "id": 1,
+      "phoneNumber": "004917541743948",
+      "isVerified": false
+    }
+  ],
+  "addresses": [
+    {
+      "id": 1,
+      "street": "Perchel 25",
+      "city": "Matalascabrillas",
+      "postcode": "12345",
+      "country": "uk",
+      "latitude": 41.2222,
+      "longitude": 70.2222
+    }
+  ],
   "bio": "This is a user bio",
   "emergencyContact": {
     "name": "Santa Claus",
@@ -29,7 +48,11 @@
     "relationship": "Father"
   },
   "interests": [
-    "JSON",
-    "User signups"
+    {
+      "interest": "JSON"
+    },
+    {
+      "interest": "READING"
+    }
   ]
 }

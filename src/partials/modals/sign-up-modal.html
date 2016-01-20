@@ -9,31 +9,42 @@
 
           <div class='row'>
 
-            <form>
+            <form id='signup'>
 
               <div class='input-field col s10 offset-s1'>
-                <input id="first-name" type="text" class="validate no-margin">
+                <input id="first-name" type="text" class="validate no-margin" name='firstName'>
                 <label for="first-name">First name</label>
               </div>
 
               <div class='input-field col s10 offset-s1'>
-                <input id="last-name" type="text" class="validate no-margin">
+                <input id="last-name" type="text" class="validate no-margin" name='lastName'>
                 <label for="last-name">Last name</label>
               </div>
 
               <div class='input-field col s10 offset-s1'>
-                <input id="email" type="email" class="validate no-margin">
+                <input id="email" type="email" class="validate no-margin" name='email'>
                 <label for="email">Email</label>
               </div>
 
               <div class="input-field col s10 offset-s1">
-                <input id="password" type="password" class="validate no-margin">
+                <input id="password" type="password" class="validate no-margin" name='password'>
                 <label for="password">Password</label>
               </div>
 
-              <div class='row no-margin'>
-                <div id='language-chips' class='col s10 offset-s1'>
+              <div class='row'>
 
+              </div>
+
+              <div class='row'>
+
+                <div class='col s10 offset-s1 left-align grey-text'>
+                  <h6>Add some languages to learn:</h6>
+                </div>
+
+                <div id='language-chips' class='col s10 offset-s1 left-align section'>
+                  <div>
+
+                  </div>
                 </div>
                 <!-- languages to learn -->
                 <div class='input-field col s4 offset-s1'>
@@ -57,13 +68,8 @@
                 </div>
               </div>
 
-              <!-- languages known -->
-              <div class='input-field col s10 offset-s1'>
-
-              </div>
-
               <div class="input-field col s10 offset-s1">
-                <input id='birthday' type="date" class="datepicker-birthday no-margin">
+                <input id='birthday' type="date" class="datepicker-birthday no-margin" name='birthDate'>
                 <label for="birthday">Birthday</label>
               </div>
 
@@ -73,7 +79,7 @@
                 </p>
               </div>
 
-              <a class='btn'>Submit</a>
+              <a id='create-user' class='btn'>Submit</a>
 
             </form>
 
