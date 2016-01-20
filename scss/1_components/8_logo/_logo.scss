@@ -1,0 +1,20 @@
+nav {
+  a.brand-logo {
+    margin-left: 0;
+    @media #{$large-and-up} {
+      margin-left: 15px;
+    }
+  }
+  span.logo-container {
+    position: relative;
+    margin-left: -2.5px;
+    img.logo {
+      position: absolute;
+      top: 2.5px;
+      left: 0;
+      max-width: 30px;
+      max-height: 30px;
+    }
+  }
+
+}

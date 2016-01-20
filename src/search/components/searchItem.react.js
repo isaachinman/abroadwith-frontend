@@ -7,10 +7,10 @@ var searchResultBgImage = {
 module.exports = React.createClass({
   render: function() {
     return (
-      <div class='col s12 m6 l6'>
-        <div class='search-result' style='{searchResultBgImage}'>
-          <div class="card-image">
-            <span class="card-title">Tandem</span>
+      <div className='col s12 m6 l6'>
+        <div className='search-result' style='{searchResultBgImage}'>
+          <div className="card-image">
+            <span className="card-title">Tandem</span>
           </div>
         </div>
       </div>
