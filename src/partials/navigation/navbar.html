@@ -1,3 +1,9 @@
+{% if server.user %}
+
+{% include "navbar--logged-in.html" %}
+
+{% else %}
+
 <div class='navbar-fixed'>
   <nav>
     <div class="nav-wrapper">
@@ -27,3 +33,5 @@
 {% include "../modals/sign-up-modal.html" %}
 
 {% include "../modals/log-in-modal.html" %}
+
+{% endif %}
