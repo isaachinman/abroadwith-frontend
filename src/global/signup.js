@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-require('select2');
+var select2 = require('select2');
 var LanguageChip = require('./components/language-chip.react');
 
 // Language select
@@ -44,10 +44,12 @@ if ($('a#add-language').length && $('#language-learning').length && $('#language
 // Form submit
 if ($('form#signup').length) {
 
-  var signupForm = $('form#signup input');
   var createUser = $('a#create-user');
 
   createUser.click(function() {
+
+    // Get all inputs
+    var signupForm = $('form#signup input');
 
     // Create signup object
     var newUser = {};
@@ -58,8 +60,6 @@ if ($('form#signup').length) {
         newUser[input.name] = input.value;
       }
     }
-
-    console.log(signupForm.length)
 
     console.log(newUser);
 
