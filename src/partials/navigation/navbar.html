@@ -17,18 +17,20 @@
       <ul class="right hide-on-med-and-down">
         <li><a href="/help">Help</a></li>
         <li><a data-target="log-in-modal" class='modal-trigger'>Log in</a></li>
-        <li><a data-target="sign-up-modal" class='modal-trigger'>Sign up</a></li>
-        <li><a data-target="sign-up-modal" class='modal-trigger'>Become a host</a></li>
+        <li><a data-target="choose-languages-modal" class='modal-trigger'>Sign up</a></li>
+        <li><a data-target="choose-languages-modal" class='modal-trigger'>Become a host</a></li>
       </ul>
       <ul class="side-nav" id="mobile">
         <li><a href="/help">Help</a></li>
         <li><a data-target="log-in-modal" class='modal-trigger'>Log in</a></li>
-        <li><a data-target="sign-up-modal" class='modal-trigger'>Sign up</a></li>
-        <li><a data-target="sign-up-modal" class='modal-trigger'>Become a host</a></li>
+        <li><a data-target="choose-languages-modal" class='modal-trigger'>Sign up</a></li>
+        <li><a data-target="choose-languages-modal" class='modal-trigger'>Become a host</a></li>
       </ul>
     </div>
   </nav>
 </div>
+
+{% include "../modals/choose-languages-modal.html" %}
 
 {% include "../modals/0_signup/sign-up-modal.html" %}
 

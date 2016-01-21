@@ -1,0 +1,81 @@
+<div id="choose-languages-modal" class="modal center-align">
+  <div class="modal-content">
+
+    <h4>First, tell us about yourself</h4>
+
+    <div class='divider'></div>
+
+    <div class='row'>
+
+      <div class='col s10 offset-s1 left-align grey-text'>
+        <h5>Language(s) you are learning:</h5>
+      </div>
+
+      <div id='language-chips' class='col s10 offset-s1 left-align section'>
+        <div class='chip initial'>
+          Choose at least one
+          <i class="material-icons">close</i>
+        </div>
+      </div>
+      <!-- languages to learn -->
+      <div class='col s4 offset-s1'>
+        <select id="language-learning" type="text" class="validate no-margin">
+          <option></option>
+          {% for langCode, language in translations.languages %}
+            <option data-lang={{ langCode }}>{{ language }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class='col s4'>
+        <select id="language-level" type="text" class="validate no-margin">
+          <option></option>
+          {% for levelCode, level in translations.common.levels %}
+            <option data-level={{ levelCode }}>{{ level }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class='col s3'>
+        <a id='add-language' class='btn-floating'>+</a>
+      </div>
+    </div>
+
+    <div class='row section'>
+
+      <div class='col s10 offset-s1 left-align grey-text'>
+        <h5>Language(s) you know:</h5>
+      </div>
+
+      <div id='language-known-chips' class='col s10 offset-s1 left-align section'>
+        <div class='chip initial'>
+          Choose at least one
+          <i class="material-icons">close</i>
+        </div>
+      </div>
+      <!-- languages known -->
+
+      <div class='col s4 offset-s1'>
+        <select id="language-known" type="text" class="validate no-margin">
+          <option></option>
+          {% for langCode, language in translations.languages %}
+            <option data-lang={{ langCode }}>{{ language }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class='col s3 offset-s4'>
+        <a id='add-language-known' class='btn-floating'>+</a>
+      </div>
+    </div>
+
+    <div class='divider'></div>
+
+    <a id='apply-languages' class='btn'>Next</a>
+
+    <div id='languages-not-valid' class='col s10 offset-s1 hide'>
+      <strong>Please choose at least one language to learn and one native language</strong>
+    </div>
+
+  </div>
+
+</div>

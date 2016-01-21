@@ -20,6 +20,9 @@
       -moz-border-radius-bottomleft: 0;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
+      @media #{$medium-and-down} {
+        border-radius: 0;
+      }
     }
     .border-radius-left {
       -webkit-border-top-left-radius: 3px;

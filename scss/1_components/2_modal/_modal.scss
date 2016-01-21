@@ -3,7 +3,15 @@
     color: $havelock-blue;
   }
 }
-#not-valid {
+#not-valid, #languages-not-valid {
   margin-top: 2rem;
   color: red;
+}
+#language-chips, #language-known-chips {
+  height: 50px;
+}
+.modal {
+  .divider {
+    margin: 2rem 0;
+  }
 }

@@ -8,7 +8,7 @@ var converted_iso = {
     en: "eng",
     es: "spa",
     pt: "por"
-}
+};
 
 var translations = {};
 

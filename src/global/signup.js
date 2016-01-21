@@ -40,6 +40,11 @@ if ($('a#add-language').length && $('#language-learning').length && $('#language
 
       if (languageLearning.val() != '' && levelLearning.val() != '' && $('.chip[data-lang="'+languageCode+'"]').length <= 0) {
 
+        // Remove initial chip
+        if ($('#language-chips').find($('.initial').length)) {
+          $('#language-chips').find($('.initial')).remove();
+        }
+
         var newLanguage = '<div class="language-chip chip" data-lang="' + languageCode + '" data-level="' + levelCode + '">' + languageLearning.val() + ' (' + levelLearning.val() + ')<i class="material-icons">close</i></div>'
         chipContainer.append(newLanguage);
 
@@ -70,6 +75,11 @@ if ($('a#add-language-known').length && $('#language-known').length && $('#langu
 
       if (languageKnown.val() != '' && $('.chip[data-lang="'+languageKnownCode+'"]').length <= 0) {
 
+        // Remove initial chip
+        if ($('#language-known-chips').find($('.initial').length)) {
+          $('#language-known-chips').find($('.initial')).remove();
+        }
+
         var newLanguage = '<div class="language-known chip" data-lang="' + languageKnownCode + '">' + languageKnown.val() + ' (Native)<i class="material-icons">close</i></div>'
         chipContainer.append(newLanguage);
 
@@ -84,12 +94,67 @@ if ($('a#add-language-known').length && $('#language-known').length && $('#langu
 // Form submit
 if ($('form#signup').length && $('a#create-user').length && $('#not-valid').length) {
 
+  // Create signup object
+  newUser = {};
+
+  //  Initialise and setup facebook js sdk
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '144997212531478',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+
+    FB.getLoginStatus(function(response) {
+      if (response.status === 'connected') {
+        // Connected
+      } else if (response.status === 'not_authorized') {
+        // Not authorised
+      } else {
+        // Not logged into Facebook
+      }
+    });
+
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+   $('#fb-login').click(function() {
+     fbLogin();
+   })
+
+   // This calls for login, do this if the user is not logged in yet
+   function fbLogin() {
+     FB.login(function(response) {
+       if (response.status === 'connected') {
+         console.log(response.authResponse.accessToken);
+         FB.api('/me', {fields: 'first_name,last_name,email,birthday,gender,age_range'}, function(response) {
+           newUser["firstName"] = response.first_name;
+           newUser["lastName"] = response.last_name;
+           newUser["email"] = response.email;
+           newUser["birthday"] = (response.birthday).substring(3,5)+'/'+(response.birthday).substring(0,2)+'/'+(response.birthday).substring(6,10);
+           console.log(newUser);
+         })
+       } else if (response.status === 'not_authorized') {
+         // Not authorised
+       } else {
+         // Not logged into Facebook
+       }
+     }, {scope: 'public_profile,email,user_birthday'} )
+   }
+
+  // Set permanent vars
   var createUser = $('a#create-user');
-
   var notValid = $('#not-valid');
-
   var formValid;
 
+  // This function is called when a user hasn't fully filled in the form
   function formNotValid() {
     if (notValid.hasClass('hide')) {
       notValid.removeClass('hide');
@@ -97,21 +162,57 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
     formValid = false;
   }
 
-  createUser.click(function() {
+  // Language submit
+  function applyLanguages() {
 
-    if ($('form#signup input').length && $('#language-chips').find('.language-chip').length && $('#language-known-chips').find('.language-known').length && $('input#birthday').val() != undefined) {
-
-      // Get inputs
-      var signupForm = $('form#signup input.validate');
-
-      // Create signup object
-      var newUser = {};
+    if ($('#language-chips').find('.language-chip').length && $('#language-known-chips').find('.language-known').length) {
 
       // Mandatory learnt languages
       newUser["userLearningLanguages"] = [];
 
       // Mandatory known languages
       newUser["userKnownLanguages"] = [];
+
+      // Get learning languages
+      $('.language-chip').each(function() {
+        var newLanguage = {
+          "language": $(this).attr('data-lang'),
+          "level": $(this).attr('data-level')
+        }
+        newUser.userLearningLanguages.push(newLanguage);
+      })
+
+      // Get native languages
+      $('.language-known').each(function() {
+        var newLanguageKnown = {
+          "language": $(this).attr('data-lang'),
+          "level": "MOTHER_TONGUE"
+        }
+        newUser.userKnownLanguages.push(newLanguageKnown);
+      })
+
+      console.log(newUser);
+
+      $('#choose-languages-modal').closeModal();
+      $('#sign-up-modal').openModal();
+
+    } else {
+      if ($('#languages-not-valid').hasClass('hide')) {
+        $('#languages-not-valid').removeClass('hide');
+      }
+    }
+  }
+
+  $('#apply-languages').click(function() {
+    applyLanguages();
+  });
+
+  createUser.click(function() {
+
+    if ($('form#signup input').length && $('input#birthday').val() != undefined) {
+
+      // Get inputs
+      var signupForm = $('form#signup input.validate');
 
       // Loop through text inputs and add values to object
       for (var i=0, ii = signupForm.length; i<ii; i++) {
@@ -132,25 +233,6 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
       } else {
         formNotValid();
       }
-
-
-      // Get learning languages
-      $('.language-chip').each(function() {
-        var newLanguage = {
-          "language": $(this).attr('data-lang'),
-          "level": $(this).attr('data-level')
-        }
-        newUser.userLearningLanguages.push(newLanguage);
-      })
-
-      // Get native languages
-      $('.language-known').each(function() {
-        var newLanguageKnown = {
-          "language": $(this).attr('data-lang'),
-          "level": "MOTHER_TONGUE"
-        }
-        newUser.userKnownLanguages.push(newLanguageKnown);
-      })
 
       // If form is valid, POST object
       if (formValid == true) {
