@@ -1,34 +1,4 @@
-// var React = require('react');
-// var ReactDOM = require('react-dom');
 var select2 = require('select2');
-// var LanguageChip = require('./components/language-chip.react');
-//
-// // Chip array
-// var chipsArray = [];
-//
-// // Language chip area
-// var LanguageChips = React.createClass({
-//   render: function() {
-//     return (
-//       <div>
-//         {
-//           (this.props.chipsArray).map(function(chip, index) {
-//             return <LanguageChip
-//               key={index}
-//               language={chip.languageLearning}
-//               level={chip.levelLearning}
-//             />
-//           })
-//         }
-//       </div>
-//     );
-//   }
-// });
-//
-// ReactDOM.render(
-//   <LanguageChips chipsArray={chipsArray} />,
-//   document.getElementById('language-chips')
-// );
 
 // Language-learn select
 if ($('select#language-learning').length) {
@@ -66,7 +36,7 @@ if ($('a#add-language').length && $('#language-learning').length && $('#language
       var languageCode = $('#language-learning option:selected').attr('data-lang');
       var levelCode =  $('#language-level option:selected').attr('data-level');
 
-      if (languageLearning.val() != '' && levelLearning.val() != '') {
+      if (languageLearning.val() != '' && levelLearning.val() != '' && $('.chip[data-lang="'+languageCode+'"]').length <= 0) {
 
         var newLanguage = '<div class="language-chip chip" data-lang="' + languageCode + '" data-level="' + levelCode + '">' + languageLearning.val() + ' (' + levelLearning.val() + ')<i class="material-icons">close</i></div>'
         chipContainer.append(newLanguage);
@@ -94,7 +64,7 @@ if ($('a#add-language-known').length && $('#language-known').length && $('#langu
 
       var languageKnownCode = $('#language-known option:selected').attr('data-lang');
 
-      if (languageKnown.val() != '') {
+      if (languageKnown.val() != '' && $('.chip[data-lang="'+languageKnownCode+'"]').length <= 0) {
 
         var newLanguage = '<div class="language-known chip" data-lang="' + languageKnownCode + '">' + languageKnown.val() + ' (Native)<i class="material-icons">close</i></div>'
         chipContainer.append(newLanguage);
@@ -105,18 +75,27 @@ if ($('a#add-language-known').length && $('#language-known').length && $('#langu
       }
     })
   })
-
-
 }
 
 // Form submit
-if ($('form#signup').length) {
+if ($('form#signup').length && $('a#create-user').length && $('#not-valid').length) {
 
   var createUser = $('a#create-user');
 
+  var notValid = $('#not-valid');
+
+  var formValid;
+
+  function formNotValid() {
+    if (notValid.hasClass('hide')) {
+      notValid.removeClass('hide');
+      formValid = false;
+    }
+  }
+
   createUser.click(function() {
 
-    if ($('form#signup input').length && $('.language-chip').length && $('.language-known').length) {
+    if ($('form#signup input').length && $('#language-chips .language-chip').length && $('#language-known-chips .language-known').length && $('input#birthday').val() != undefined) {
 
       // Get all inputs
       var signupForm = $('form#signup input');
@@ -132,8 +111,12 @@ if ($('form#signup').length) {
 
       for (var i=0, ii = signupForm.length; i<ii; i++) {
         var input = signupForm[i];
-        if (input.name) {
+        if (input.name && input.value != '') {
           newUser[input.name] = input.value;
+          formValid = true;
+        } else {
+          formNotValid();
+          break;
         }
       }
 
@@ -153,9 +136,13 @@ if ($('form#signup').length) {
         newUser.userKnownLanguages.push(newLanguageKnown);
       })
 
-      var letsSee = JSON.stringify(newUser);
-      console.log(letsSee);
+      if (formValid == true) {
+        var letsSee = JSON.stringify(newUser);
+        console.log(letsSee);
+      }
 
+    } else {
+      formNotValid();
     }
 
   });

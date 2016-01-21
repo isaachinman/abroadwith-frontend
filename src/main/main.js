@@ -46,6 +46,7 @@ $(document).ready(function() {
   // Booking datepicker
   if ($('.datepicker').length) {
     $('.datepicker').pickadate({
+      format: 'dd/mm/yyyy',
       min: 1,
       onSet: function () {
         this.close();
@@ -56,6 +57,7 @@ $(document).ready(function() {
   // Birthday datepicker
   if ($('.datepicker-birthday').length) {
     $('.datepicker-birthday').pickadate({
+      format: 'dd/mm/yyyy',
       container: 'body',
       onSet: function () {
         this.close();
