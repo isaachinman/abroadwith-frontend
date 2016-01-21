@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="google-signin-client_id" content="1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com">
   <title>{% block title %} Document {% endblock %}</title>
   <link rel="stylesheet" href="/css/app.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -12,6 +13,9 @@
   {% include "partials/navigation/navbar.html" %}
 
   <main>
+    <div class='row section'>
+      {% include "partials/modals/0_signup/google-sign-up.html" %}
+    </div>
     {% block content %} {% endblock %}
   </main>
 

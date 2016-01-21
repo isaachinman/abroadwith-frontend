@@ -97,26 +97,16 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
   // Create signup object
   newUser = {};
 
-  //  Initialise and setup facebook js sdk
+  //  Initialise and setup Facebook js sdk
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '144997212531478',
       xfbml      : true,
       version    : 'v2.5'
     });
-
-    FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
-        // Connected
-      } else if (response.status === 'not_authorized') {
-        // Not authorised
-      } else {
-        // Not logged into Facebook
-      }
-    });
-
   };
 
+  // More Facebook init stuff
   (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
@@ -129,7 +119,7 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
      fbLogin();
    })
 
-   // This calls for login, do this if the user is not logged in yet
+   // Open log in/authorise dialog, fill fields if response is returned as connected
    function fbLogin() {
      FB.login(function(response) {
        if (response.status === 'connected') {
