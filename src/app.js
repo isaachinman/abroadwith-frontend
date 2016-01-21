@@ -29,4 +29,7 @@ require('./main/main');
 require('./search/search');
 
 // Signup
-require('./global/signup')
+require('./global/signup');
+
+// Facebook scripts
+require('./global/facebook')

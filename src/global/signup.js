@@ -25,14 +25,16 @@ if ($('select#language-known').length) {
 if ($('a#add-language').length && $('#language-learning').length && $('#language-level').length && $('#language-chips').length) {
 
   $(function() {
+
+    // Set permanent vars
     var addLanguage = $('a#add-language');
     var chipContainer = $('#language-chips');
+    var languageLearning = $('#language-learning');
+    var levelLearning =  $('#language-level');
 
     addLanguage.click(function() {
 
-      var languageLearning = $('#language-learning');
-      var levelLearning =  $('#language-level');
-
+      // Set conditional vars
       var languageCode = $('#language-learning option:selected').attr('data-lang');
       var levelCode =  $('#language-level option:selected').attr('data-level');
 
@@ -55,13 +57,15 @@ if ($('a#add-language').length && $('#language-learning').length && $('#language
 if ($('a#add-language-known').length && $('#language-known').length && $('#language-known-chips').length) {
 
   $(function() {
+
+    // Set permanent vars
     var addLanguage = $('a#add-language-known');
     var chipContainer = $('#language-known-chips');
+    var languageKnown = $('#language-known');
 
     addLanguage.click(function() {
 
-      var languageKnown = $('#language-known');
-
+      // Set conditional vars
       var languageKnownCode = $('#language-known option:selected').attr('data-lang');
 
       if (languageKnown.val() != '' && $('.chip[data-lang="'+languageKnownCode+'"]').length <= 0) {
@@ -89,16 +93,16 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
   function formNotValid() {
     if (notValid.hasClass('hide')) {
       notValid.removeClass('hide');
-      formValid = false;
     }
+    formValid = false;
   }
 
   createUser.click(function() {
 
-    if ($('form#signup input').length && $('#language-chips .language-chip').length && $('#language-known-chips .language-known').length && $('input#birthday').val() != undefined) {
+    if ($('form#signup input').length && $('#language-chips').find('.language-chip').length && $('#language-known-chips').find('.language-known').length && $('input#birthday').val() != undefined) {
 
-      // Get all inputs
-      var signupForm = $('form#signup input');
+      // Get inputs
+      var signupForm = $('form#signup input.validate');
 
       // Create signup object
       var newUser = {};
@@ -109,17 +113,28 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
       // Mandatory known languages
       newUser["userKnownLanguages"] = [];
 
+      // Loop through text inputs and add values to object
       for (var i=0, ii = signupForm.length; i<ii; i++) {
         var input = signupForm[i];
-        if (input.name && input.value != '') {
+        if (input.value != '') {
           newUser[input.name] = input.value;
           formValid = true;
         } else {
+          console.log('tripping')
           formNotValid();
           break;
         }
       }
 
+      // Get birthday
+      if ($('input#birthday').val() != '') {
+        newUser['birthDate'] = $('input#birthday').val();
+      } else {
+        formNotValid();
+      }
+
+
+      // Get learning languages
       $('.language-chip').each(function() {
         var newLanguage = {
           "language": $(this).attr('data-lang'),
@@ -128,6 +143,7 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
         newUser.userLearningLanguages.push(newLanguage);
       })
 
+      // Get native languages
       $('.language-known').each(function() {
         var newLanguageKnown = {
           "language": $(this).attr('data-lang'),
@@ -136,6 +152,7 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
         newUser.userKnownLanguages.push(newLanguageKnown);
       })
 
+      // If form is valid, POST object
       if (formValid == true) {
         var letsSee = JSON.stringify(newUser);
         console.log(letsSee);
