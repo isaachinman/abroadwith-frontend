@@ -1,26 +1,11 @@
-var select2 = require('select2')
-
-// Languages
-var languages = [
-  {
-    id: 0,
-    text: 'English'
-  },
-  {
-    id: 1,
-    text: 'Spanish'
-  },
-  {
-    id: 2,
-    text: 'Portuguese'
-  }
-];
+var select2 = require('select2-browserify');
+require('hammerjs')
+require('materialize-css');
 
 $(document).ready(function() {
 
   $( "#language" ).select2({
-    placeholder: "What language do you want to learn?",
-    data: languages
+    placeholder: "What language do you want to learn?"
   });
 
 });

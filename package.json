@@ -13,7 +13,7 @@
     "hammerjs": "^2.0.6",
     "i18next": "^2.0.20",
     "jquery": "^2.2.0",
-    "jquery-ui-browserify": "^1.11.0-pre-seelio",
+    "jsonwebtoken": "^5.5.4",
     "materialize-css": "^0.97.5",
     "node-sass": "^3.4.2",
     "nunjucks": "^2.2.0",
@@ -23,10 +23,9 @@
     "react-materialize": "^0.1.0",
     "react-nouislider": "^1.7.0",
     "react-tap-event-plugin": "^0.2.1",
-    "select2": "^4.0.1",
+    "select2-browserify": "^3.4.5",
     "uglify-js": "^2.6.1",
-    "wnumb": "^1.0.2",
-    "jsonwebtoken":"^5.5.4"
+    "wnumb": "^1.0.2"
   },
   "browserify": {
     "transform": [
@@ -39,8 +38,7 @@
   },
   "browserify-shim": {
     "jquery": "$",
-    "materialize": "materialize",
-    "autocomplete": "jquery-ui/autocomplete"
+    "materialize": "materialize"
   },
   "scripts": {
     "directories": "mkdir build && cd build && mkdir backend",
@@ -49,7 +47,8 @@
     "export": "cp -R mockups/* build/backend",
     "sass": "node-sass --include-path node_modules/bourbon/app/assets/stylesheets --include-path node_modules/bourbon-neat/app/assets/stylesheets --output-style compressed -o build/css/ scss/",
     "sass-watch": "node-sass --include-path node_modules/bourbon/app/assets/stylesheets --include-path node_modules/bourbon-neat/app/assets/stylesheets --output-style compressed -w -o build/css/ scss/",
-    "bundle": "browserify -t [ babelify --presets [ react ] ]  src/app.js | uglifyjs > build/app.js",
+    "bundle": "browserify -t [ babelify --presets [ react ] ]  src/app.js build/app.js",
+    "bundle-min": "browserify -t [ babelify --presets [ react ] ]  src/app.js | uglifyjs > build/app.js",
     "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
     "start": "node src/server.js",
     "fullstart": "npm run build && npm run start"
