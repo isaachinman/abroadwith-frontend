@@ -15,8 +15,8 @@ $(document).ready(function() {
   }
 
   // Select
-  if ($('select').length) {
-    $('select').material_select();
+  if ($('select.material').length) {
+    $('select.material').material_select();
   }
 
   // Sidenav
@@ -27,23 +27,24 @@ $(document).ready(function() {
   // Booking datepicker
   if ($('.datepicker').length) {
     $('.datepicker').pickadate({
-      // format: 'dd/mm/yyyy',
-      // min: 1,
-      // onSet: function () {
-      //   this.close();
-      // }
-    });
-  }
-
-  // Birthday datepicker
-  if ($('.datepicker-birthday').length) {
-    $('.datepicker-birthday').pickadate({
-      format: 'dd/mm/yyyy',
-      container: 'body',
       onSet: function () {
         this.close();
       }
     });
+  }
+
+  // Fix stupid focus issue with datepickers
+  $.each($('.datepicker') , function(index , item) {
+    $(item).on('click' , function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).pickadate('picker').open();
+    });
+  });
+
+  // Birthday datepicker
+  if ($('.datepicker-birthday').length) {
+    $('.datepicker-birthday').pickadate();
   }
 
   // Tabs
