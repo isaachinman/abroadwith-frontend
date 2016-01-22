@@ -1,23 +1,23 @@
-// Language-learn select
-if ($('select#language-learning').length) {
-  $('select#language-learning').select2({
-    placeholder: "Pick a language"
-  });
-}
-
-// Level select
-if ($('select#language-level').length) {
-  $('select#language-level').select2({
-    placeholder: "Level"
-  });
-}
-
-// Language-known select
-if ($('select#language-known').length) {
-  $('select#language-known').select2({
-    placeholder: "Pick a language"
-  });
-}
+// // Language-learn select
+// if ($('select#language-learning').length) {
+//   $('select#language-learning').select2({
+//     placeholder: "Pick a language"
+//   });
+// }
+//
+// // Level select
+// if ($('select#language-level').length) {
+//   $('select#language-level').select2({
+//     placeholder: "Level"
+//   });
+// }
+//
+// // Language-known select
+// if ($('select#language-known').length) {
+//   $('select#language-known').select2({
+//     placeholder: "Pick a language"
+//   });
+// }
 
 // Add language-learn click handler
 if ($('a#add-language').length && $('#language-learning').length && $('#language-level').length && $('#language-chips').length) {

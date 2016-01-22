@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  $( "#language" ).select2({
+  $("select#language").select2({
     placeholder: "What language do you want to learn?"
   });
 
@@ -27,11 +27,11 @@ $(document).ready(function() {
   // Booking datepicker
   if ($('.datepicker').length) {
     $('.datepicker').pickadate({
-      format: 'dd/mm/yyyy',
-      min: 1,
-      onSet: function () {
-        this.close();
-      }
+      // format: 'dd/mm/yyyy',
+      // min: 1,
+      // onSet: function () {
+      //   this.close();
+      // }
     });
   }
 
