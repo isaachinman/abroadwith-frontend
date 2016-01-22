@@ -14,7 +14,7 @@
     "i18next": "^2.0.20",
     "jquery": "^2.2.0",
     "jsonwebtoken": "^5.5.4",
-    "materialize-css": "git://github.com/SourceComb/materialize.git",
+    "materialize-css": "git+https://github.com/SourceComb/materialize.git",
     "node-sass": "^3.4.2",
     "nunjucks": "^2.2.0",
     "pickadate": "^3.5.6",
