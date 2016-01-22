@@ -1,0 +1,31 @@
+
+<script>
+// Google maps autocomplete
+var placeSearch, autocomplete;
+function initAutocomplete() {
+  var options = {
+    types: ["(regions)"]
+  }
+  autocomplete = new google.maps.places.Autocomplete(
+    document.getElementById('location'), options
+  );
+  // This is where we can write a custom callback when user selects a location
+  // autocomplete.addListener();
+}
+function geolocate() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var geolocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      var circle = new google.maps.Circle({
+        center: geolocation,
+        radius: position.coords.accuracy
+      });
+      autocomplete.setBounds(circle.getBounds());
+    });
+  }
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete&types=(cities)" async defer></script>
