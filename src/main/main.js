@@ -1,7 +1,3 @@
-var select2 = require('select2-browserify');
-require('hammerjs')
-require('materialize-css');
-
 $(document).ready(function() {
 
   $( "#language" ).select2({

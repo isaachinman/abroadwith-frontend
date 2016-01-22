@@ -1,7 +1,5 @@
 require('jquery');
-
-var React = window.React = require('react');
-var ReactDOM = window.ReactDOM = require('react-dom');
+var select2 = require('select2-browserify');
 
 require('materialize-css');
 

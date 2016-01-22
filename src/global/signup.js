@@ -1,5 +1,3 @@
-var select2 = require('select2-browserify');
-
 // Language-learn select
 if ($('select#language-learning').length) {
   $('select#language-learning').select2({
