@@ -1,23 +1,25 @@
 <div class='row hero hero--homepage'>
   <div class='col s12 title'>
-    <h1>Go abroad</h1>
-    <h5>Learn a language and discover a new culture as a local</h5>
+    <h1>{{translations.common.main_hero_h1}}</h1>
+    <h5>{{translations.common.main_hero_subtitle}}</h5>
   </div>
   <div class='col s12'>
-    <a class='btn modal-trigger' data-target='how-does-it-work-modal'>How does it work?</a>
+    <a class='btn modal-trigger' data-target='how-does-it-work-modal'>{{translations.common.how_does_it_work}}</a>
   </div>
   <div class='col s12 input-strip'>
     <form class='col s12 m10 offset-m1 l10 offset-l1'>
       <div class='row'>
         <div class="col s6 m3 l2">
           <select id="language" type="text" class="validate border-radius-left">
-            <option>
-
-            </option>
+            <option></option>
+            {% for langCode, language in translations.languages %}
+              <option data-lang={{ langCode }}>{{ language }}</option>
+            {% endfor %}
           </select>
         </div>
         <div class="col s6 m3 l2">
           <input placeholder="Where?" id="location" type="text" class="validate">
+          {% include "../../global/components/google-maps-autocomplete.html" %}
         </div>
         <div class='col s6 m2 l2 input-field hide-on-small-only'>
           <input id='arrival' type="date" placeholder='Arrival' class="datepicker">
@@ -27,15 +29,15 @@
         </div>
         <div class="col s6 m2 l2 hide-on-small-only">
           <select>
-            <option value="1" selected>1 guest</option>
-            <option value="2">2 guests</option>
-            <option value="3">3 guests</option>
-            <option value="4">4 guests</option>
-            <option value="5">5 guests</option>
+            <option value="1" selected>1 {{translations.common.guest}}</option>
+            <option value="2">2 {{translations.common.guest}}</option>
+            <option value="3">3 {{translations.common.guest}}</option>
+            <option value="4">4 {{translations.common.guest}}</option>
+            <option value="5">5 {{translations.common.guest}}</option>
           </select>
         </div>
         <div class='col s12 m12 l2 left-align'>
-          <a class='btn'>Search</a>
+          <a class='btn'>{{translations.common.search}}</a>
         </div>
       </div>
     </form>
@@ -44,21 +46,21 @@
 
 <div id="how-does-it-work-modal" class="modal bottom-sheet">
   <div class="modal-content">
-    <h4>How does it work?</h4>
+    <h4>{{translations.common.how_does_it_work}}</h4>
     <div class='row'>
 
       <div class='col s12 m4 l4'>
-        <h5>Discover</h5>
+        <h5>{{translations.common.discover}}</h5>
         <div class='divider'></div>
         <i class="fa fa-globe fa-5x section"></i>
         <div class='divider'></div>
         <p>
-          Choose between hundreds of cities and hosts. Find hosts with common interests to immerse in a new culture and language.
+          {{translations.common.discover_description}}
         </p>
       </div>
 
       <div class='col s12 m4 l4'>
-        <h5>Book an immersion programme</h5>
+        <h5>{{translations.common.book_immersion}}</h5>
         <div class='divider'></div>
         <i class="fa fa-language fa-5x section"></i>
         <div class='divider'></div>
@@ -68,46 +70,15 @@
       </div>
 
       <div class='col s12 m4 l4'>
-        <h5>Book a language course and go</h5>
+        <h5>{{translations.common.book_language_course}}</h5>
         <div class='divider'></div>
         <i class="fa fa-graduation-cap fa-5x section"></i>
         <div class='divider'></div>
         <p>
-          Optionally book a language course close to your new home. Decide how many hours and what level suits you. Travel to your new destination, learn, immerse and enjoy.
+          {{translations.common.book_language_course_description}}
         </p>
       </div>
 
     </div>
   </div>
 </div>
-
-<script>
-// Google maps autocomplete
-var placeSearch, autocomplete;
-function initAutocomplete() {
-  var options = {
-    types: ["(regions)"]
-  }
-  autocomplete = new google.maps.places.Autocomplete(
-    document.getElementById('location'), options
-  );
-  // This is where we can write a custom callback when user selects a location
-  // autocomplete.addListener();
-}
-function geolocate() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var geolocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      var circle = new google.maps.Circle({
-        center: geolocation,
-        radius: position.coords.accuracy
-      });
-      autocomplete.setBounds(circle.getBounds());
-    });
-  }
-}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete&types=(cities)" async defer></script>
