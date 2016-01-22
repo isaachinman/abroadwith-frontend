@@ -5,6 +5,7 @@
   "devDependencies": {
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
+    "uglifyify ":"^3.0.1",
     "basic-auth-connect": "^1.0.0",
     "browserify": "^12.0.1",
     "browserify-shim": "^3.8.12",
@@ -24,7 +25,6 @@
     "react-nouislider": "^1.7.0",
     "react-tap-event-plugin": "^0.2.1",
     "select2-browserify": "^3.4.5",
-    "uglify-js": "^2.6.1",
     "wnumb": "^1.0.2"
   },
   "browserify": {
@@ -48,7 +48,7 @@
     "sass": "node-sass --include-path node_modules/bourbon/app/assets/stylesheets --include-path node_modules/bourbon-neat/app/assets/stylesheets --output-style compressed -o build/css/ scss/",
     "sass-watch": "node-sass --include-path node_modules/bourbon/app/assets/stylesheets --include-path node_modules/bourbon-neat/app/assets/stylesheets --output-style compressed -w -o build/css/ scss/",
     "bundle": "browserify -t [ babelify --presets [ react ] ]  src/app.js > build/app.js",
-    "bundle-min": "browserify -t [ babelify --presets [ react ] ]  src/app.js | uglifyjs > build/app.js",
+    "bundle-min": "browserify -t [ babelify --presets [ react ] ] -g [ uglifyify ] src/app.js > build/app.js",
     "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
     "start": "node src/server.js",
     "fullstart": "npm run build && npm run start"
