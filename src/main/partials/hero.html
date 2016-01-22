@@ -18,14 +18,14 @@
           </select>
         </div>
         <div class="col s6 m3 l2">
-          <input placeholder="Where?" id="location" type="text" class="validate">
+          <input placeholder="{{translations.common.where}}" id="location" type="text" class="validate">
           {% include "../../global/components/google-maps-autocomplete.html" %}
         </div>
         <div class='col s6 m2 l2 input-field hide-on-small-only'>
-          <input id='arrival' type="date" placeholder='Arrival' class="datepicker">
+          <input id='arrival' type="date" placeholder='{{translations.common.arrival}}' class="datepicker">
         </div>
         <div class='col s6 m2 l2 input-field hide-on-small-only'>
-          <input id='checkout' type="date" placeholder='Checkout' class="datepicker">
+          <input id='departure' type="date" placeholder='{{translations.common.departure}}' class="datepicker">
         </div>
         <div class="col s6 m2 l2 hide-on-small-only">
           <select>
@@ -65,7 +65,7 @@
         <i class="fa fa-language fa-5x section"></i>
         <div class='divider'></div>
         <p>
-          Pick a program: <strong>stay</strong>, <strong>tandem</strong> and <strong>teacher’s stay</strong>. Connect with our hosts, confirm your dates and book your stay.
+          {{translations.common.pick_a_programme}} <strong>{{translations.common.stay}}</strong>, <strong>{{translations.common.tandem}}</strong> and <strong>{{translations.common.teachers_stay}}</strong>. {{translations.common.connect_with_host}}
         </p>
       </div>
 
