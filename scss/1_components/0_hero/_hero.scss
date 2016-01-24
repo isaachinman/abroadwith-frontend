@@ -35,15 +35,12 @@
     .col {
       padding: 0;
     }
-    .select2 {
+    .select2-choice {
+      padding: 0 10px;
       background: white;
     }
-    .select2-container--default .select2-selection--single {
-      border: none;
-      padding-left: 10px;
-
-    }
-    .select2-container--default .select2-selection--single .select2-selection__placeholder {
+    .select2-container {
+      border-bottom: 1px solid #eee;
       color: $americano;
     }
     input {
@@ -65,7 +62,7 @@
         color: $americano;
       }
     }
-    input, select {
+    input, select, .select2-container {
       box-sizing: border-box;
       border-right: 1px solid #eee;
     }
