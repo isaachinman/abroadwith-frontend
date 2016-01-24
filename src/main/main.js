@@ -24,12 +24,21 @@ $(document).ready(function() {
     $(".button-collapse").sideNav();
   }
 
-  // Booking datepicker
-  if ($('.datepicker').length) {
-    $('.datepicker').pickadate({
-      onSet: function () {
-        this.close();
-      }
+  // Arrival datepicker
+  if ($('#arrival').length) {
+    var today = new Date();
+    var tomorrow = new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000);
+    $('#arrival').pickadate({
+      min:tomorrow
+    });
+  }
+
+  // Departure datepicker
+  if ($('#departure').length) {
+    var today = new Date();
+    var weekToday = new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000);
+    $('#departure').pickadate({
+      min:weekToday
     });
   }
 
