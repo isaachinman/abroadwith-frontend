@@ -95,6 +95,22 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
   // Create signup object
   newUser = {};
 
+  // Get date for 18 years ago
+  var eighteenYearsAgo = new Date();
+  eighteenYearsAgo.setTime(eighteenYearsAgo.valueOf() - 18 * 365 * 24 * 60 * 60 * 1000);
+  require('../../src/utils/date-object-to-yyyymmdd');
+  eighteenYearsAgo = eighteenYearsAgo.yyyymmdd();
+
+  // Birthday datepicker
+  if ($('.datepicker-birthday').length) {
+    $('.datepicker-birthday').pickadate({
+      max: eighteenYearsAgo,
+      container: 'body',
+      selectYears: true,
+      format: 'yyyy-mm-dd'
+    });
+  }
+
   //  Initialise and setup Facebook js sdk
   window.fbAsyncInit = function() {
     FB.init({
@@ -126,7 +142,7 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
            newUser["firstName"] = response.first_name;
            newUser["lastName"] = response.last_name;
            newUser["email"] = response.email;
-           newUser["birthday"] = (response.birthday).substring(3,5)+'/'+(response.birthday).substring(0,2)+'/'+(response.birthday).substring(6,10);
+           newUser["birthday"] = (response.birthday).substring(6,10)+'-'+(response.birthday).substring(3,5)+'-'+(response.birthday).substring(0,2);
            console.log(newUser);
          })
        } else if (response.status === 'not_authorized') {
@@ -140,14 +156,16 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
    // Google signup function
    window.onSignIn = function(googleUser) {
      var profile = googleUser.getBasicProfile();
-     console.log(profile);
      newUser["firstName"] = profile.getGivenName();
      newUser["lastName"] = profile.getFamilyName();
      newUser["email"] = profile.getEmail();
+     newUser["birthDate"] = eighteenYearsAgo;
+     var letsSee = JSON.stringify(newUser);
+     console.log(letsSee);
    }
 
   // Set permanent vars
-  var createUser = $('a#create-user');
+  var emailSignup = $('a#email-signup');
   var notValid = $('#not-valid');
   var formValid;
 
@@ -161,7 +179,7 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
 
   require('./language-chips.js');
 
-  createUser.click(function() {
+  emailSignup.click(function() {
 
     if ($('form#signup input').length && $('input#birthday').val() != undefined) {
 
@@ -199,4 +217,27 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
     }
 
   });
+
+  function validateUserAndSend() {
+    if (
+      newUser.hasOwnProperty('firstName')
+      && newUser.hasOwnProperty('lastName')
+      && newUser.hasOwnProperty('email')
+      && newUser.hasOwnProperty('birthDate')
+    ) {
+      $.ajax({
+         url: 'https://admin.abroadwith.com/users',
+         processData: false,
+         type: "POST",
+         success: function(response){
+           location.reload();
+         },
+         error: function(response) {
+           alert('Something went wrong');
+           console.log(response);
+         }
+      });
+    }
+  }
+
 }
