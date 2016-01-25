@@ -1,12 +1,31 @@
 .search-result {
   @extend .card;
-
+  position: relative;
   cursor: pointer;
-  height: 200px;
-  background-image: url('https://static1.squarespace.com/static/528d2d78e4b0c3afb6331b99/52a0577be4b0dbf53fa9bba3/52a05787e4b0dfa4e476e9d7/1386239880578/2-DSC_8541.jpg');
-  background-size: cover;
+  height: 280px;
+  .wallop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+  }
+  .Wallop-buttonPrevious, .Wallop-buttonNext {
+    position: absolute;
+    top: 50%;
+    opacity: .75;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .Wallop-buttonPrevious {
+    left: 10px;
+  }
+  .Wallop-buttonNext {
+    right: 10px;
+  }
   .tag {
-    @extend .z-depth-1;
     position: absolute;
     top:0;
     left: 0;
@@ -43,12 +62,21 @@
     color: white;
     background: rgba(0,0,0,.25);
   }
-  .title {
+  .info {
     position: absolute;
     bottom: 0;
     left: 0;
+    height: 60px;
     width: 100%;
     padding: .75rem;
+    .title {
+      font-size: 1.15rem;
+      line-height: 1.5rem;
+    }
+    .subtitle {
+      font-size: .8rem;
+      @extend .grey-text;
+    }
     line-height: 1rem;
     background: white;
     color: grey;

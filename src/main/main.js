@@ -1,3 +1,5 @@
+var Wallop = require('Wallop');
+
 var pageContext = {
   "arrival": "2016-02-20",
   "departure": "2016-04-20",
@@ -6,6 +8,18 @@ var pageContext = {
 
 // Materialize initialisations
 $(document).ready(function() {
+
+  if ($('.wallop').length) {
+    var wallopEl = document.querySelector('.wallop');
+    var slider = new Wallop(wallopEl);
+  }
+
+  // Carousel
+  if ($('.carousel').length) {
+    $('.carousel').carousel({
+      dist: 0,
+    });
+  }
 
   // Select2 language
   $("select#language").select2({
@@ -68,7 +82,7 @@ $(document).ready(function() {
     var weekToday = new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000);
     $('#departure').pickadate({
       min:weekToday,
-      // If arrival date exists, set as default
+      // If departure date exists, set as default
       onStart: function() {
         if (pageContext.departure) {
           $('#departure').val(pageContext.departure);
