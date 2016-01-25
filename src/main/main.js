@@ -28,8 +28,20 @@ $(document).ready(function() {
   if ($('#arrival').length) {
     var today = new Date();
     var tomorrow = new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000);
+    var yearToday = new Date(today.getTime() + 365 * 24 * 60 * 60 * 1000);
     $('#arrival').pickadate({
-      min:tomorrow
+      min:tomorrow,
+      max:yearToday,
+      onSet: function(e) {
+        if (e.select) {
+          var dateString = ($('#arrival').val()).split('-').join('/');
+          dateObj = new Date(dateString);
+          var arrivalPlusOne = new Date(dateObj.getTime() + + 1 * 24 * 60 * 60 * 1000);
+          departurePicker.set('clear');
+          departurePicker.set('min', arrivalPlusOne);
+          this.close();
+        }
+      }
     });
   }
 
@@ -40,6 +52,7 @@ $(document).ready(function() {
     $('#departure').pickadate({
       min:weekToday
     });
+    var departurePicker = $('#departure').pickadate('picker');
   }
 
   // Fix stupid focus issue with datepickers
@@ -50,11 +63,6 @@ $(document).ready(function() {
         $(this).pickadate('picker').open();
     });
   });
-
-  // Birthday datepicker
-  if ($('.datepicker-birthday').length) {
-    $('.datepicker-birthday').pickadate();
-  }
 
   // Tabs
   if ($('ul.tabs')) {
