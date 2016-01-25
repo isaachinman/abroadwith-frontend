@@ -73,6 +73,7 @@ if ($('#price-slider').length) {
       range={{min: 100, max: 2000}}
       margin={100}
       start={[1200, 1800]}
+      connect={true}
       tooltips
       format={wNumb({
         prefix: currency,
@@ -81,35 +82,4 @@ if ($('#price-slider').length) {
       step={10}
     />, document.querySelector('#price-slider')
   );
-}
-
-// Datepickers
-var dateArrival = new Date();
-var dateDeparture = new Date();
-dateDeparture.setDate(dateDeparture.getDate() + 10);
-// Arrival datepicker
-if ($('.datepicker-arrival').length) {
-  $('.datepicker-arrival').pickadate({
-    min: 1,
-    onStart: function () {
-      this.set('select', dateArrival)
-    },
-    onSet: function () {
-      this.close();
-    }
-
-  });
-}
-// Arrival datepicker
-if ($('.datepicker-departure').length) {
-  $('.datepicker-departure').pickadate({
-    min: 1,
-    onStart: function () {
-      this.set('select', dateDeparture)
-    },
-    onSet: function () {
-      this.close();
-    }
-
-  });
 }

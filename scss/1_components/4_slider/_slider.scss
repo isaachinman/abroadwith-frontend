@@ -88,7 +88,6 @@
 	box-shadow: inset 0 1px 1px #f0f0f0;
 }
 .noUi-connect {
-	background: #3FB8AF;
 	box-shadow: inset 0 0 3px rgba(51,51,51,0.45);
 -webkit-transition: background 450ms;
 	transition: background 450ms;
@@ -159,7 +158,7 @@
  */
 [disabled].noUi-connect,
 [disabled] .noUi-connect {
-	background: #B8B8B8;
+	background: $americano;
 }
 [disabled].noUi-origin,
 [disabled] .noUi-handle {
@@ -179,7 +178,7 @@
 .noUi-background {
   height: 3px;
   top: 6px;
-  background-color: #bfbfbf;
+  background-color: lighten($ziggurat, 5%);
 }
 .noUi-horizontal {
   height: 3px;
@@ -187,7 +186,7 @@
 .noUi-connect {
   height: 3px;
   top: 6px;
-  background-color: #26A69A;
+  background-color: lighten($havelock-blue, 17%);
   box-shadow: none;
 }
 
@@ -257,6 +256,7 @@
 }
 
 .noUi-tooltip {
+	cursor: pointer;
 	line-height: 50px;
 	text-indent: -10px;
 }

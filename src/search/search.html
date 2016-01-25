@@ -8,19 +8,19 @@
       <!-- Date pickers -->
       <div class='row valign-wrapper section'>
         <div class='input-field col s2 grey-text'>
-          <h6>Dates</h6>
+          <div class='chip chip-grey'>Dates</div>
         </div>
         <div class='input-field col s3 valign'>
-          <input id='arrival' type="date" class="datepicker-arrival">
+          <input id='arrival' type="date" class="datepicker">
           <label for='arrival'>Arrival</label>
         </div>
         <div class='input-field col s3 valign'>
-          <input id='departure' type="date" class="datepicker-departure">
+          <input id='departure' type="date" class="datepicker">
           <label for='departure'>Departure</label>
         </div>
       <!-- Guest number picker -->
         <div class='input-field col s4'>
-          <select>
+          <select class='material'>
             <option value="1" selected>1 guest</option>
             <option value="2">2 guests</option>
             <option value="3">3 guests</option>
@@ -35,19 +35,24 @@
       <!-- Language picker -->
       <div class='row section valign-wrapper'>
         <div class='col s2 grey-text'>
-          <h6>Language</h6>
+          <div class='chip chip-grey'>Language</div>
         </div>
         <div class='col s3'>
-          <input placeholder="What language?" id="language" type="text" class="validate border-radius-left" value='English'>
+          <select id="language" type="text" class="validate border-radius-left">
+            <option></option>
+            {% for langCode, language in translations.languages %}
+              <option data-lang={{ langCode }}>{{ language }}</option>
+            {% endfor %}
+          </select>
         </div>
 
         <div class='col s2 grey-text'>
-          <h6>Immersion</h6>
+          <div class='chip chip-grey'>Immersion</div>
         </div>
 
         <!-- Immersion picker -->
         <div class='col s5'>
-          <select id='immersion' multiple>
+          <select id='immersion' class='material' multiple>
             <option value="stay" selected>Stay</option>
             <option value="tandem">Tandem</option>
             <option value="teacher">Teacher's stay</option>
@@ -76,7 +81,7 @@
       <!-- Price slider -->
       <div class='row valign-wrapper section'>
         <div class='col s2 grey-text'>
-          <h6>Price</h6>
+          <div class='chip chip-grey'>Price</div>
         </div>
         <div id='price-slider' class='col s10 valign'></div>
       </div>
@@ -84,11 +89,8 @@
       <div class='divider'></div>
 
       <div class='row section valign-wrapper'>
-        <div class='col s1 valign'>
-          <i class="fa fa-pencil fa-2x grey-text text-lighten-1"></i>
-        </div>
         <div class='col s5 grey-text'>
-          <h6>Integrate a language course</h6>
+          <div class='chip chip-grey'>Add a language course</div>
         </div>
         <div class='col s3'>
           <div class="switch">
@@ -100,8 +102,8 @@
             </label>
           </div>
         </div>
-        <div class='col s3'>
-          <select id='language-school' disabled>
+        <div class='col s4'>
+          <select id='language-school' class='material' disabled>
             <option value="a1" selected>English A1</option>
             <option value="a2">English A2</option>
             <option value="b1">English B1</option>
@@ -129,7 +131,7 @@
                 <i class="fa fa-user fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s11'>
-                <select id='lifestyle' multiple>
+                <select id='lifestyle' class='material' multiple>
                   <option value="lgbt" selected disabled>LGBT friendly</option>
                   <option value="smoking">Smoking allowed</option>
                   <option value="pets">Pets allowed</option>
@@ -147,7 +149,7 @@
               </div>
               <!-- Meal plan selection -->
               <div class='col s5'>
-                <select id='meal-plan'>
+                <select id='meal-plan' class='material'>
                   <option value="none" selected>No meal plan</option>
                   <option value="house">Vegetarian</option>
                   <option value="loft">Vegan</option>
@@ -160,7 +162,7 @@
               </div>
               <!-- Dietary restrictions selection -->
               <div class='col s5'>
-                <select id='dietary-restrictions' multiple>
+                <select id='dietary-restrictions' class='material' multiple>
                   <option value="none" disabled selected>No dietary restrictions</option>
                   <option value="chalet">Nut free</option>
                   <option value="other">Lactose free</option>
@@ -178,7 +180,7 @@
                 <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
-                <select id='ammenities' multiple>
+                <select id='ammenities' class='material' multiple>
                   <option value="essentials" selected>Essentials</option>
                   <option value="ac">Air conditioning</option>
                   <option value="airport">Airport pickup</option>
@@ -192,7 +194,7 @@
                 <i class="fa fa-home fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
-                <select id='accomodation-type' multiple>
+                <select id='accomodation-type' class='material' multiple>
                   <option value="flat" selected>Flat</option>
                   <option value="house">House</option>
                   <option value="loft">Loft</option>
@@ -233,6 +235,7 @@
           </div>
         </div>
       </div>
+      
       <div class='col s12 m12 l6'>
         <div class='search-result'>
           <div class='tag'>

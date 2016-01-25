@@ -541,7 +541,7 @@ form p:last-child {
 }
 
 .switch label input[type=checkbox]:checked + .lever {
-    background-color: $switch-checked-lever-bg;
+    background-color: lighten($ziggurat, 10%);
 }
 
 .switch label input[type=checkbox]:checked + .lever:after {
