@@ -34,6 +34,7 @@
       "longitude":62.000,
       "rating":3,
       "reviewCount":22,
+      "nearbySchools":2,
       "profilePhoto":"example.com/jose.jpg",
       "roomPhotos":[
         {
