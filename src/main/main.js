@@ -6,12 +6,14 @@ var pageContext = {
   "guests": 1
 }
 
-// Materialize initialisations
+// Initialisations
 $(document).ready(function() {
 
   if ($('.wallop').length) {
-    var wallopEl = document.querySelector('.wallop');
-    var slider = new Wallop(wallopEl);
+    $('.wallop').each(function() {
+      var wallopEl = this;
+      var slider = new Wallop(wallopEl);
+    })
   }
 
   // Carousel
