@@ -12,8 +12,8 @@
     "arrival":"2016-02-20",
     "departure":"2016-04-20",
     "location": {
-      "latitude":41.000,
-      "longitude": 62.000
+      "lat":41.000,
+      "lng": 62.000
     },
     "guests":1,
     "houseType":[
@@ -41,8 +41,8 @@
       "price":1245,
       "houseType":"Cabin",
       "location": {
-        "latitude":41.000,
-        "longitude": 62.000
+        "lat":41.000,
+        "lng": 62.000
       },
       "rating":3,
       "reviewCount":22,
