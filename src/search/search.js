@@ -90,10 +90,11 @@ if ($('#price-slider').length) {
 
 ReactDOM.render(
   <SearchContainer
-  source='/backend/search'
+  source='/search'
   />, document.querySelector('#search-container')
 )
 
-$.post('/search?default', function(response) {
-  console.log(response);
+$.post('/search?default', function(data) {
+  var response = JSON.parse(data);
+  console.log(data);
 })

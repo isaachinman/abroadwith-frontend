@@ -3,15 +3,34 @@ var React = require('react');
 module.exports = React.createClass({
   getInitialState: function(){
     return {
-      minPrice: ''
+      // State will be populated by POST
     }
   },
   componentDidMount: function() {
-    $.get(this.props.source, function(response) {
-      var _minPrice = response.resultDetails.minPrice;
+    $.post(this.props.source, function(data) {
+
+      // Parse the response
+      var response = JSON.parse(data);
+
       if (this.isMounted()) {
         this.setState({
-          minPrice: _minPrice
+
+          // Set initial state vars
+          minPrice:         response.resultDetails.minPrice,
+          maxPrice:         response.resultDetails.maxPrice,
+          numberOfResults:  response.resultDetails.numberOfResults,
+          currency:         response.params.currency,
+          immersion:        response.params.immersion,
+          arrival:          response.params.arrival,
+          departure:        response.params.departure,
+          latitude:         response.params.location.lat,
+          longitude:        response.params.location.lng,
+          guests:           response.params.guests,
+          houseType:        response.params.houseType,
+          language:         response.params.language,
+          course:           response.params.languageCourse.level,
+          filters:          response.params.filters
+
         });
       }
     }.bind(this));
