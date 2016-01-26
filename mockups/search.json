@@ -18,9 +18,11 @@
       "language":"English",
       "level":"A1"
     },
-    "LGBTFriendly":true,
-    "vegan":true,
-    "airportPickup":true
+    "filters": [
+      "LGBTFriendly",
+      "vegan",
+      "airportPickup"
+    ],
   },
   "results":[
     {
