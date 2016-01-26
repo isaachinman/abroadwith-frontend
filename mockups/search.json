@@ -6,16 +6,16 @@
   },
   "params": {
     "currency":"EUR",
-    "immersion":"Stay",
+    "immersion": [
+      "stay",
+    ],
     "arrival":"2016-02-20",
     "departure":"2016-04-20",
     "latitude":42.000,
     "longitude":60.000,
     "guests":1,
-    "language":"English",
+    "language":"eng",
     "languageCourse":{
-      "selected":true,
-      "language":"English",
       "level":"A1"
     },
     "filters": [
@@ -27,20 +27,24 @@
   "results":[
     {
       "host":"Jose",
-      "stay":true,
-      "tandem":true,
-      "teacher":true,
+      "immsersion": [
+        "stay",
+        "tandem",
+        "teacher"
+      ],
       "price":1245,
       "houseType":"Cabin",
-      "latitude":41.000,
-      "longitude":62.000,
+      "location": {
+        "latitude":41.000,
+        "longitude": 62.000
+      },
       "rating":3,
       "reviewCount":22,
       "nearbySchools":2,
-      "profilePhoto":"example.com/jose.jpg",
+      "profilePhoto":"/jose.jpg",
       "roomPhotos":[
         {
-          "url":"example.com/kitchen.jpg"
+          "url":"/kitchen.jpg"
         }
       ]
     }
