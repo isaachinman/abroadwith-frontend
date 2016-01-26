@@ -72,18 +72,27 @@
     top: 0;
     right: 0;
     padding: 0 .25rem;
+    text-align: right;
     font-size: 1.25rem;
     color: white;
     background: rgba(0,0,0,.5);
     border-bottom-left-radius: 3px;
+    .course-added {
+      i {
+        margin-right: 3px;
+      }
+      display: none;
+      margin-top: -5px;
+      margin-bottom: 5px;
+      font-size: .6rem;
+    }
   }
   .info {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 60px;
-    width: calc(100% + 8px);
-    padding: .75rem;
+    width: calc(100% - 8px);
+    padding: .75rem .5rem .5rem .5rem;
     .title {
       float: left;
       display: inline-block;
@@ -95,7 +104,7 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       .subtitle {
-        height: 20px;
+        height: 16px;
         width: 100%;
         font-size: .8rem;
         @extend .grey-text;

@@ -41,13 +41,16 @@ if ($('select#immersion').length && ($('input#tandem-language').length)) {
 if ($('#language-switch').length && $('#language-school').length) {
   var languageSwitch = $('input#language-switch');
   var languageSelect = $('select#language-school');
+  var courseFees = $('.price').find('.course-added');
   languageSwitch.change(function() {
     if (languageSwitch.is(':checked') && languageSelect.prop('disabled', true)) {
       languageSelect.prop('disabled', false);
       languageSelect.material_select();
+      courseFees.show();
     } else if (languageSwitch.not(':checked') && languageSelect.prop('disabled', false)) {
       languageSelect.prop('disabled', true);
       languageSelect.material_select();
+      courseFees.hide();
     }
   })
 }
