@@ -94,8 +94,6 @@ ReactDOM.render(
   />, document.querySelector('#search-container')
 )
 
-$.ajax({
-  url: '/backend/search'
-}).done(function(data) {
-  console.log(data)
+$.post('/search?default', function(response) {
+  console.log(response);
 })

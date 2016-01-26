@@ -7,7 +7,7 @@ module.exports = React.createClass({
     }
   },
   componentDidMount: function() {
-    $.get(this.state.source, function(response) {
+    $.get(this.props.source, function(response) {
       var _minPrice = response.resultDetails.minPrice;
       if (this.isMounted()) {
         this.setState({
