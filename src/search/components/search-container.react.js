@@ -1,10 +1,16 @@
 var React = require('react');
+var Test = require('./search-node-test.react');
 
 module.exports = React.createClass({
   getInitialState: function(){
     return {
       // State will be populated by POST
     }
+  },
+  handleClick: function(){
+      this.setState({
+          minPrice: 900
+      });
   },
   componentDidMount: function() {
     $.post(this.props.source, function(data) {
@@ -65,6 +71,12 @@ module.exports = React.createClass({
         Course: {this.state.languageCourse} /
 
         Filters: {this.state.filters}
+
+        <Test
+          minPrice= {this.state.minPrice}
+        />
+
+        <input type="submit" onClick={this.handleClick} />
 
       </div>
     );
