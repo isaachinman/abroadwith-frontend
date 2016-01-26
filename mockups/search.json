@@ -30,6 +30,7 @@
       "latitude":41.000,
       "longitude":62.000,
       "rating":3,
+      "reviewCount":22,
       "profilePhoto":"example.com/jose.jpg",
       "roomPhotos":[
         {
