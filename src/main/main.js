@@ -23,10 +23,21 @@ $(document).ready(function() {
     });
   }
 
-  // Select2 language
-  $("select#language").select2({
-    placeholder: "What language do you want to learn?"
-  });
+  // Select2 language to learn
+  if ($('select#language').length) {
+    $("select#language").select2({
+      placeholder: "What language do you want to learn?"
+    });
+  }
+
+  // Select2 language to teach
+  if ($('select#language-teach').length) {
+    $("select#language-teach").select2({
+      placeholder: "What language do you want to teach?"
+    });
+  }
+
+
 
   // Modal
   if ($('.modal-trigger').length) {

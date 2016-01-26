@@ -2,6 +2,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var SearchList = require('./components/searchList.react');
+var SearchMap = require('./components/search-map.react');
+var SearchContainer = require('./components/search-container.react');
 var Nouislider = require('react-nouislider');
 require('wnumb');
 
@@ -20,9 +22,8 @@ if ($('.collapsible-header i').length) {
 }
 
 // If user selects Tandem, show them Tandem Language input
-if ($('select#immersion').length && ($('input#tandem-language').length)) {
+if ($('select#immersion').length && ($('select#language-teach').length)) {
   var immersionSelect = $('select#immersion');
-  var tandemInput = $('input#tandem-language');
   var tandemNodes = $('.tandem-language');
   immersionSelect.change(function() {
     if (immersionSelect.val() != null) {
@@ -86,3 +87,15 @@ if ($('#price-slider').length) {
     />, document.querySelector('#price-slider')
   );
 }
+
+ReactDOM.render(
+  <SearchContainer
+  source='/backend/search'
+  />, document.querySelector('#search-container')
+)
+
+$.ajax({
+  url: '/backend/search'
+}).done(function(data) {
+  console.log(data)
+})
