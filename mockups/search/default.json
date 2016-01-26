@@ -1,0 +1,53 @@
+{
+  "resultDetails":{
+    "minPrice":800,
+    "maxPrice":1245,
+    "numberOfResults": 2
+  },
+  "results":[
+    {
+      "host":"Jose",
+      "immsersion": [
+        "stay",
+        "tandem",
+        "teacher"
+      ],
+      "price":1245,
+      "houseType":"Cabin",
+      "location": {
+        "latitude":41.000,
+        "longitude": 62.000
+      },
+      "rating":3,
+      "reviewCount":22,
+      "nearbySchools":2,
+      "profilePhoto":"/jose.jpg",
+      "roomPhotos":[
+        {
+          "url":"/kitchen.jpg"
+        }
+      ]
+    },
+    {
+      "host":"Matheus",
+      "immsersion": [
+        "teacher"
+      ],
+      "price":800,
+      "houseType":"House",
+      "location": {
+        "latitude":41.000,
+        "longitude": 62.000
+      },
+      "rating":4,
+      "reviewCount":22,
+      "nearbySchools":2,
+      "profilePhoto":"/jose.jpg",
+      "roomPhotos":[
+        {
+          "url":"/kitchen.jpg"
+        }
+      ]
+    }
+  ]
+}
