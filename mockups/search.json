@@ -11,9 +11,15 @@
     ],
     "arrival":"2016-02-20",
     "departure":"2016-04-20",
-    "latitude":42.000,
-    "longitude":60.000,
+    "location": {
+      "latitude":41.000,
+      "longitude": 62.000
+    },
     "guests":1,
+    "houseType":[
+      "Cabin",
+      "Flat"
+    ],
     "language":"eng",
     "languageCourse":{
       "level":"A1"
