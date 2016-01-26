@@ -1,13 +1,16 @@
 {
-  "numberOfResults":100,
-  "numberOfPages":4,
-  "params": {
-    "currency":"EUR",
+  "resultDetails":{
     "minPrice":800,
     "maxPrice":4000,
+    "numberOfResults": 100
+  },
+  "params": {
+    "currency":"EUR",
     "immersion":"Stay",
     "arrival":"2016-02-20",
     "departure":"2016-04-20",
+    "latitude":42.000,
+    "longitude":60.000,
     "guests":1,
     "language":"English",
     "languageCourse":{
