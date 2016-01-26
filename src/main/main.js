@@ -1,4 +1,4 @@
-var Wallop = require('Wallop');
+var Wallop = require('wallop');
 
 var pageContext = {
   "arrival": "2016-02-20",
