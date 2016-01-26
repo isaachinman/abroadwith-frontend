@@ -83,22 +83,33 @@
     width: calc(100% + 8px);
     padding: .75rem;
     .title {
-      font-size: 1.15rem;
-      line-height: 1.5rem;
-    }
-    .subtitle {
-      font-size: .8rem;
-      @extend .grey-text;
-      display: inline-block;
       float: left;
+      display: inline-block;
+      font-size: 1.15rem;
+      line-height: 1.25rem;
       max-width: calc(100% - 180px);
-      height: 15px;
       overflow: hidden;
       word-break: break-all;
       white-space: nowrap;
       text-overflow: ellipsis;
+      .subtitle {
+        height: 20px;
+        width: 100%;
+        font-size: .8rem;
+        @extend .grey-text;
+        display: block;
+        overflow: hidden;
+        word-break: break-all;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
     .rating {
+      .count {
+        color: lighten($havelock-blue, 15%);
+        line-height: 1.35rem;
+        font-size: .8rem;
+      }
       color: lighten($havelock-blue, 10%);
       font-size: .85rem;
       width: 70px;
