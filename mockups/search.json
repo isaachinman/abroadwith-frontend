@@ -1,0 +1,41 @@
+{
+  "numberOfResults":100,
+  "numberOfPages":4,
+  "params": {
+    "currency":"EUR",
+    "minPrice":800,
+    "maxPrice":4000,
+    "immersion":"Stay",
+    "arrival":"2016-02-20",
+    "departure":"2016-04-20",
+    "guests":1,
+    "language":"English",
+    "languageCourse":{
+      "selected":true,
+      "language":"English",
+      "level":"A1"
+    },
+    "LGBTFriendly":true,
+    "vegan":true,
+    "airportPickup":true
+  },
+  "results":[
+    {
+      "host":"Jose",
+      "stay":true,
+      "tandem":true,
+      "teacher":true,
+      "price":1245,
+      "houseType":"Cabin",
+      "latitude":41.000,
+      "longitude":62.000,
+      "rating":3,
+      "profilePhoto":"example.com/jose.jpg",
+      "roomPhotos":[
+        {
+          "url":"example.com/kitchen.jpg"
+        }
+      ]
+    }
+  ]
+}
