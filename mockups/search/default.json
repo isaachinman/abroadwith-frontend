@@ -10,6 +10,10 @@
       "stay",
       "tandem"
     ],
+    "offeredLanguages":[
+      "eng",
+      "spa"
+    ],
     "location":{
       "lat":42.000,
       "lng":62.000
@@ -18,9 +22,6 @@
     "departure":"2016-04-20",
     "guests":1,
     "language":"eng",
-    "languageCourse":{
-      "level":"b2"
-    },
     "houseType":[
       "Flat",
       "Cabin"
@@ -38,6 +39,9 @@
         "tandem",
         "teacher"
       ],
+      "discount":{
+        "eng":50
+      },
       "price":1245,
       "houseType":"Cabin",
       "location": {
