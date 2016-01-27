@@ -20,17 +20,8 @@ module.exports = React.createClass({
       }
     })
 
-    languageSwitch.change();
-
   },
   render: function() {
-
-    var toggle;
-    if (this.props.language !== null) {
-      toggle = <input id='language-switch' type="checkbox" defaultChecked='checked' />
-    } else {
-      toggle = <input id='language-switch' type="checkbox" defaultChecked='checked' />
-    }
 
     return (
       <div className='row section valign-wrapper'>
@@ -41,7 +32,7 @@ module.exports = React.createClass({
           <div className="switch">
             <label>
               No
-              {toggle}
+              <input id='language-switch' type="checkbox" />
               <span className="lever"></span>
               Yes
             </label>

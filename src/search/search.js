@@ -1,7 +1,6 @@
 // Deps
 var React = require('react');
 var ReactDOM = require('react-dom');
-var SearchList = require('./components/searchList.react');
 var SearchMap = require('./components/search-map.react');
 var SearchContainer = require('./components/search-container.react');
 
@@ -15,23 +14,6 @@ if ($('.collapsible-header i').length) {
     } else if (caret.hasClass('fa-caret-up')) {
       caret.removeClass('fa-caret-up');
       caret.addClass('fa-caret-down');
-    }
-  })
-}
-
-// If user selects Tandem, show them Tandem Language input
-if ($('select#immersion').length && ($('select#language-teach').length)) {
-  var immersionSelect = $('select#immersion');
-  var tandemNodes = $('.tandem-language');
-  immersionSelect.change(function() {
-    if (immersionSelect.val() != null) {
-      if (immersionSelect.val().indexOf('tandem') >= 0 && tandemNodes.hasClass('hide')) {
-        $('.tandem-language').removeClass('hide');
-      } else if (immersionSelect.val().indexOf('tandem') == -1 && !(tandemNodes.hasClass('hide'))) {
-        $('.tandem-language').addClass('hide');
-      }
-    } else if (tandemNodes.hasClass('hide')) {
-      $('.tandem-language').addClass('hide');
     }
   })
 }

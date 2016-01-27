@@ -3,6 +3,7 @@ var Dates = require('./search-dates.react');
 var Language = require('./search-language.react');
 var Price = require('./search-price.react');
 var LanguageCourse = require('./search-language-course.react');
+var Tandem = require('./search-tandem.react');
 
 
 module.exports = React.createClass({
@@ -41,26 +42,27 @@ module.exports = React.createClass({
       // Parse the response
       var response = JSON.parse(data);
 
+      var newState = {
+        // Set initial state vars
+        minPrice:         response.resultDetails.minPrice,
+        maxPrice:         response.resultDetails.maxPrice,
+        numberOfResults:  response.resultDetails.numberOfResults,
+        currency:         response.params.currency,
+        immersion:        response.params.immersion,
+        arrival:          response.params.arrival,
+        departure:        response.params.departure,
+        latitude:         response.params.location.lat,
+        longitude:        response.params.location.lng,
+        guests:           response.params.guests,
+        houseType:        response.params.houseType,
+        language:         response.params.language,
+        tandem:           response.params.offeredLanguages ? response.params.offeredLanguages : null,
+        course:           response.params.languageCourse ? response.params.languageCourse.level : null,
+        filters:          response.params.filters
+      }
+
       if (this.isMounted()) {
-        this.setState({
-
-          // Set initial state vars
-          minPrice:         response.resultDetails.minPrice,
-          maxPrice:         response.resultDetails.maxPrice,
-          numberOfResults:  response.resultDetails.numberOfResults,
-          currency:         response.params.currency,
-          immersion:        response.params.immersion,
-          arrival:          response.params.arrival,
-          departure:        response.params.departure,
-          latitude:         response.params.location.lat,
-          longitude:        response.params.location.lng,
-          guests:           response.params.guests,
-          houseType:        response.params.houseType,
-          language:         response.params.language,
-          course:           response.params.languageCourse.level,
-          filters:          response.params.filters
-
-        });
+        this.setState(newState);
       }
     }.bind(this));
   },
@@ -107,6 +109,12 @@ module.exports = React.createClass({
         <Language
           language={this.state.language}
           immersion={this.state.immersion}
+        />
+
+        <div className='divider tandem-language hide'></div>
+
+        <Tandem
+          tandem={this.state.tandem}
         />
 
         <div className='divider'></div>

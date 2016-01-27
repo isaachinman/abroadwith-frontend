@@ -9,39 +9,9 @@
 
     <div class='container'>
 
-      <!-- Date pickers -->
-      <div id='dates'></div>
-
-      <div class='divider'></div>
-
       <!-- Language picker -->
 
       <div class='divider tandem-language hide'></div>
-
-      <div class='row section valign-wrapper tandem-language hide'>
-
-        <div class='col s3 grey-text'>
-          <div class='chip chip-grey'>Your tandem language</div>
-        </div>
-
-        <!-- Tandem language picker -->
-        <div class='col s9'>
-          <select id='language-teach' type='text' class="validate border-radius-left">
-            <option></option>
-            {% for langCode, language in translations.languages %}
-              <option data-lang={{ langCode }}>{{ language }}</option>
-            {% endfor %}
-          </select>
-        </div>
-
-      </div>
-
-      <div class='divider'></div>
-
-      <!-- Price slider -->
-
-
-      <div class='divider'></div>
 
       
 
