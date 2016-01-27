@@ -1,6 +1,6 @@
 var React = require('react');
-var Test = require('./search-node-test.react');
-var Dates = require('./search-dates.react')
+var Dates = require('./search-dates.react');
+var Language = require('./search-language.react');
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -17,7 +17,9 @@ module.exports = React.createClass({
     this.setState({
       arrival: document.getElementById('arrival').value,
       departure: document.getElementById('departure').value,
-      guests: document.getElementById('guests').value
+      guests: document.getElementById('guests').value,
+      language: document.getElementById('language').value,
+      immersion: $('#immersion').val()
     })
   },
   componentDidMount: function() {
@@ -25,6 +27,8 @@ module.exports = React.createClass({
     $('#arrival').change(this.handleChange);
     $('#departure').change(this.handleChange);
     $('#guests').change(this.handleChange);
+    $('#language').change(this.handleChange);
+    $('#immersion').change(this.handleChange);
 
     $.post(this.props.source, function(data) {
 
@@ -91,6 +95,11 @@ module.exports = React.createClass({
           guests={this.state.guests}
           handleChange={this.handleChange}
         />
+
+      <Language
+        language={this.state.language}
+        immersion={this.state.immersion}
+      />
 
       </div>
     );

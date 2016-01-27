@@ -15,33 +15,6 @@
       <div class='divider'></div>
 
       <!-- Language picker -->
-      <div class='row section valign-wrapper'>
-        <div class='col s2 grey-text'>
-          <div class='chip chip-grey'>Language</div>
-        </div>
-        <div class='col s3'>
-          <select id="language" type="text" class="validate border-radius-left">
-            <option></option>
-            {% for langCode, language in translations.languages %}
-              <option data-lang={{ langCode }}>{{ language }}</option>
-            {% endfor %}
-          </select>
-        </div>
-
-        <div class='col s2 grey-text'>
-          <div class='chip chip-grey'>Immersion</div>
-        </div>
-
-        <!-- Immersion picker -->
-        <div class='col s5'>
-          <select id='immersion' class='material' multiple>
-            <option value="stay" selected>Stay</option>
-            <option value="tandem">Tandem</option>
-            <option value="teacher">Teacher's stay</option>
-          </select>
-        </div>
-
-      </div>
 
       <div class='divider tandem-language hide'></div>
 
