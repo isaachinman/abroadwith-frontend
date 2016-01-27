@@ -7,12 +7,7 @@
   "params":{
     "currency":"EUR",
     "immersion":[
-      "stay",
-      "tandem"
-    ],
-    "offeredLanguages":[
-      "eng",
-      "spa"
+      "stay"
     ],
     "location":{
       "lat":42.000,

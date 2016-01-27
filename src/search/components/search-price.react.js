@@ -12,8 +12,7 @@ module.exports = React.createClass({
         </div>
         <div id='price-slider' className='col s10 valign'>
           <Nouislider
-            range={{min: 0, max: 2000}}
-            margin={100}
+            range={{'min': [100], '30%':[500], '70%':[3000], 'max': 20000}}
             start={[this.props.minPrice, this.props.maxPrice]}
             connect={true}
             tooltips
