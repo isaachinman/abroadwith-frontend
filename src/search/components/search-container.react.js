@@ -1,6 +1,9 @@
 var React = require('react');
 var Dates = require('./search-dates.react');
 var Language = require('./search-language.react');
+var Price = require('./search-price.react');
+var LanguageCourse = require('./search-language-course.react');
+
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -19,7 +22,8 @@ module.exports = React.createClass({
       departure: document.getElementById('departure').value,
       guests: document.getElementById('guests').value,
       language: document.getElementById('language').value,
-      immersion: $('#immersion').val()
+      immersion: $('#immersion').val(),
+      course: $('#language-switch').is(':checked') ? $('#language-school').val() : null
     })
   },
   componentDidMount: function() {
@@ -29,6 +33,8 @@ module.exports = React.createClass({
     $('#guests').change(this.handleChange);
     $('#language').change(this.handleChange);
     $('#immersion').change(this.handleChange);
+    $('#language-switch').change(this.handleChange);
+    $('#language-school').change(this.handleChange);
 
     $.post(this.props.source, function(data) {
 
@@ -85,7 +91,7 @@ module.exports = React.createClass({
 
         Language: {this.state.language} /
 
-        Course: {this.state.languageCourse} /
+        Course: {this.state.course} /
 
         Filters: {this.state.filters}
 
@@ -96,10 +102,26 @@ module.exports = React.createClass({
           handleChange={this.handleChange}
         />
 
-      <Language
-        language={this.state.language}
-        immersion={this.state.immersion}
-      />
+        <div className='divider'></div>
+
+        <Language
+          language={this.state.language}
+          immersion={this.state.immersion}
+        />
+
+        <div className='divider'></div>
+
+        <Price
+          minPrice={this.state.minPrice}
+          maxPrice={this.state.maxPrice}
+          handleChange={this.handleChange}
+        />
+
+        <div className='divider'></div>
+
+        <LanguageCourse
+          course={this.state.course}
+        />
 
       </div>
     );

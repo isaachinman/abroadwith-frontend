@@ -4,7 +4,6 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div className='row section valign-wrapper'>
-
         <div className='col s2 grey-text'>
           <div className='chip chip-grey'>Language</div>
         </div>

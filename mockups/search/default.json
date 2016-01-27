@@ -11,7 +11,7 @@
       "tandem"
     ],
     "location":{
-      "lat":41.000,
+      "lat":42.000,
       "lng":62.000
     },
     "arrival":"2016-02-20",
@@ -19,7 +19,7 @@
     "guests":1,
     "language":"eng",
     "languageCourse":{
-      "level":"A1"
+      "level":"b2"
     },
     "houseType":[
       "Flat",
