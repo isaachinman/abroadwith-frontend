@@ -1,7 +1,6 @@
 var React = require('react');
 var $ = require('jquery');
 var SearchItem = require('./searchItem.react');
-var SearchForm = require('./searchForm.react');
 
 module.exports = React.createClass({
   loadSearchFromServer: function() {
@@ -30,7 +29,6 @@ module.exports = React.createClass({
     });
     return (
       <div className="search">
-        <SearchForm onSearch={this.loadSearchFromServer} />
         <h1>Search Results</h1>
         <div className="search__list">
 		  {searchNodes}

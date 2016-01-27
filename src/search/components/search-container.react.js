@@ -1,5 +1,6 @@
 var React = require('react');
 var Test = require('./search-node-test.react');
+var Dates = require('./search-dates.react')
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -8,11 +9,23 @@ module.exports = React.createClass({
     }
   },
   handleClick: function(){
-      this.setState({
-          minPrice: 900
-      });
+    this.setState({
+      minPrice: 900
+    });
+  },
+  handleChange: function() {
+    this.setState({
+      arrival: document.getElementById('arrival').value,
+      departure: document.getElementById('departure').value,
+      guests: document.getElementById('guests').value
+    })
   },
   componentDidMount: function() {
+
+    $('#arrival').change(this.handleChange);
+    $('#departure').change(this.handleChange);
+    $('#guests').change(this.handleChange);
+
     $.post(this.props.source, function(data) {
 
       // Parse the response
@@ -72,11 +85,12 @@ module.exports = React.createClass({
 
         Filters: {this.state.filters}
 
-        <Test
-          minPrice= {this.state.minPrice}
+        <Dates
+          arrival={this.state.arrival}
+          departure={this.state.departure}
+          guests={this.state.guests}
+          handleChange={this.handleChange}
         />
-
-        <input type="submit" onClick={this.handleClick} />
 
       </div>
     );
