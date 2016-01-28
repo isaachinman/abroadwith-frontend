@@ -23,7 +23,6 @@ module.exports = React.createClass({
                 return a === 2000 ? a + '+' : a;
               }
             })}
-
             step={10}
           />
         </div>
