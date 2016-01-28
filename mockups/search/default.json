@@ -24,9 +24,19 @@
       "Cabin"
     ],
     "filters":{
+      "mealPlan":"breakfast",
+      "mealPref":"kosher",
+      "diets":[
+        "lactose",
+        "celiac"
+      ],
       "ammenities":[
         "essentials",
         "tv"
+      ],
+      "specialPrefs":[
+        "smoking",
+        "family"
       ],
       "extras":[
         "hot_tub",
