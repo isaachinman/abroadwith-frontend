@@ -4,6 +4,7 @@ var Language = require('./search-language.react');
 var Price = require('./search-price.react');
 var LanguageCourse = require('./search-language-course.react');
 var Tandem = require('./search-tandem.react');
+var MoreFilters = require('./search-more-filters.react');
 
 
 module.exports = React.createClass({
@@ -24,18 +25,37 @@ module.exports = React.createClass({
       guests: document.getElementById('guests').value,
       language: document.getElementById('language').value,
       immersion: $('#immersion').val(),
-      course: $('#language-switch').is(':checked') ? $('#language-school').val() : null
+      course: $('#language-switch').is(':checked') ? $('#language-school').val() : null,
+      specialPrefs: $('#special-prefs').val(),
+      mealPlan: $('#meal-plan').val(),
+      mealPref: $('#meal-pref').val(),
+      dietRestrictions: $('#diet-restrictions').val(),
+      ammenities: $('#ammenities').val(),
+      houseType: $('#house-type').val()
     })
   },
   componentDidMount: function() {
 
-    $('#arrival').change(this.handleChange);
-    $('#departure').change(this.handleChange);
-    $('#guests').change(this.handleChange);
-    $('#language').change(this.handleChange);
-    $('#immersion').change(this.handleChange);
-    $('#language-switch').change(this.handleChange);
-    $('#language-school').change(this.handleChange);
+    var activeNodes = [
+      $('#arrival'),
+      $('#departure'),
+      $('#guests'),
+      $('#language'),
+      $('#immersion'),
+      $('#language-switch'),
+      $('#special-prefs'),
+      $('#meal-plan'),
+      $('#meal-pref'),
+      $('#diet-restrictions'),
+      $('#ammenities'),
+      $('#house-type')
+    ];
+
+    var handleChange = this.handleChange;
+
+    for (var i=0; i<activeNodes.length; i++) {
+      activeNodes[i].change(handleChange);
+    }
 
     $.post(this.props.source, function(data) {
 
@@ -58,7 +78,10 @@ module.exports = React.createClass({
         language:         response.params.language,
         tandem:           response.params.offeredLanguages ? response.params.offeredLanguages : null,
         course:           response.params.languageCourse ? response.params.languageCourse.level : null,
-        filters:          response.params.filters
+        ammenities:       response.params.filters.ammenities,
+        extras:           response.params.filters.extras,
+        preferences:      response.params.filters.specialPrefs
+
       }
 
       if (this.isMounted()) {
@@ -95,40 +118,59 @@ module.exports = React.createClass({
 
         Course: {this.state.course} /
 
-        Filters: {this.state.filters}
+        Filters: {this.state.filters} /
 
-        <Dates
-          arrival={this.state.arrival}
-          departure={this.state.departure}
-          guests={this.state.guests}
-          handleChange={this.handleChange}
-        />
+        Special Prefs: {this.state.specialPrefs} /
 
-        <div className='divider'></div>
+        Meal Plan: {this.state.mealPlan} /
 
-        <Language
-          language={this.state.language}
-          immersion={this.state.immersion}
-        />
+        Meal Pref: {this.state.mealPref} /
 
-        <div className='divider tandem-language hide'></div>
+        Diet Restrictions: {this.state.dietRestrictions} /
 
-        <Tandem
-          tandem={this.state.tandem}
-        />
+        Ammenities: {this.state.ammenities} /
 
-        <div className='divider'></div>
+        House Type: {this.state.houseType} /
 
-        <Price
-          minPrice={this.state.minPrice}
-          maxPrice={this.state.maxPrice}
-          handleChange={this.handleChange}
-        />
+        <div className='container'>
 
-        <div className='divider'></div>
+          <Dates
+            arrival={this.state.arrival}
+            departure={this.state.departure}
+            guests={this.state.guests}
+            handleChange={this.handleChange}
+          />
 
-        <LanguageCourse
-          course={this.state.course}
+          <div className='divider'></div>
+
+          <Language
+            language={this.state.language}
+            immersion={this.state.immersion}
+          />
+
+          <div className='divider tandem-language hide'></div>
+
+          <Tandem
+            tandem={this.state.tandem}
+          />
+
+          <div className='divider'></div>
+
+          <Price
+            minPrice={this.state.minPrice}
+            maxPrice={this.state.maxPrice}
+            handleChange={this.handleChange}
+          />
+
+          <div className='divider'></div>
+
+          <LanguageCourse
+            course={this.state.course}
+          />
+
+        </div>
+
+        <MoreFilters
         />
 
       </div>
