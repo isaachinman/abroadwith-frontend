@@ -93,7 +93,7 @@ module.exports = React.createClass({
                   <i className="fa fa-bed fa-2x grey-text text-lighten-1"></i>
                 </div>
                 <div className='col s5'>
-                  <select id='ammenities' className='material' value={this.props.ammenities} multiple>
+                  <select id='amenities' className='material' value={this.props.amenities} multiple>
                     <option value="essentials" disabled>Essentials</option>
                     <option value="ac">Air conditioning</option>
                     <option value="airport">Airport pickup</option>
