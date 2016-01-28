@@ -54,7 +54,7 @@ module.exports = React.createClass({
                 </div>
                 <div className='col s5'>
                   <select id='meal-pref' className='material' value='none'>
-                    <option value="none">No meal preference</option>
+                    <option value="">No meal preference</option>
                     <option value="vegetarian">Vegetarian</option>
                     <option value="vegan">Vegan</option>
                     <option value="halal">Halal</option>

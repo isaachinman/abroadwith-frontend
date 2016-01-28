@@ -8,12 +8,12 @@ module.exports = React.createClass({
           <div className='chip chip-grey'>Dates</div>
         </div>
         <div className='input-field col s3 valign'>
-          <input id='arrival' type="date" className='datepicker' value={this.props.arrival} />
-          <label htmlFor='arrival' className='active'>Arrival</label>
+          <input id='arrival' type="text" className='datepicker' value={this.props.arrival} />
+          <label htmlFor='arrival'>Arrival</label>
         </div>
         <div className='input-field col s3 valign'>
-          <input id='departure' type="date" className="datepicker" value={this.props.departure} />
-          <label htmlFor='departure' className='active'>Departure</label>
+          <input id='departure' type="text" className="datepicker" value={this.props.departure} />
+          <label htmlFor='departure'>Departure</label>
         </div>
         <div className='input-field col s4'>
           <select id='guests' className='material' value={this.props.guests} >
