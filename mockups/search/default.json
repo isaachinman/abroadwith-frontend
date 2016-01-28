@@ -2,7 +2,9 @@
   "resultDetails":{
     "minPrice":800,
     "maxPrice":1245,
-    "numberOfResults": 2,
+    "numberOfResults": 200,
+    "pageOffset":0,
+    "pageSize": 25,
     "neighbourhood":[
       "kreuzberg",
       "mitte"
