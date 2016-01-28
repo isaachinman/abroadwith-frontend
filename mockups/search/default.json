@@ -2,7 +2,11 @@
   "resultDetails":{
     "minPrice":800,
     "maxPrice":1245,
-    "numberOfResults": 2
+    "numberOfResults": 2,
+    "neighbourhood":[
+      "kreuzberg",
+      "mitte"
+    ]
   },
   "params":{
     "currency":"EUR",
