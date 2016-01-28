@@ -2,6 +2,7 @@ var React = require('react');
 
 module.exports = React.createClass({
   render: function() {
+
     return (
       <div className='row valign-wrapper section' onChange={this.handleChange}>
         <div className='input-field col s2 grey-text'>

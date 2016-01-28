@@ -74,14 +74,16 @@ module.exports = React.createClass({
         latitude:         response.params.location.lat,
         longitude:        response.params.location.lng,
         guests:           response.params.guests,
-        houseType:        response.params.houseType,
         language:         response.params.language,
         tandem:           response.params.offeredLanguages ? response.params.offeredLanguages : null,
         course:           response.params.languageCourse ? response.params.languageCourse.level : null,
-        ammenities:       response.params.filters.ammenities,
         extras:           response.params.filters.extras,
-        preferences:      response.params.filters.specialPrefs
-
+        specialPrefs:     response.params.filters.specialPrefs,
+        mealPlan:         response.params.filters.mealPlan,
+        mealPref:         response.params.filters.mealPref,
+        dietRestrictions: response.params.filters.dietRestrictions,
+        ammenities:       response.params.filters.ammenities,
+        houseType:        response.params.houseType
       }
 
       if (this.isMounted()) {
@@ -171,6 +173,12 @@ module.exports = React.createClass({
         </div>
 
         <MoreFilters
+          specialPrefs={this.state.specialPrefs}
+          mealPlan={this.state.mealPlan}
+          mealPref={this.state.mealPref}
+          dietRestrictions={this.state.dietRestrictions}
+          amenities={this.state.amenities}
+          houseType={this.state.houseType}
         />
 
       </div>

@@ -24,8 +24,7 @@ module.exports = React.createClass({
                   <i className="fa fa-user fa-2x grey-text text-lighten-1"></i>
                 </div>
                 <div className='col s5'>
-                  <select id='special-prefs' className='material' value={['lgbt']} multiple>
-                    <option value="lgbt" disabled>LGBT friendly</option>
+                  <select id='special-prefs' className='material' value={this.props.specialPrefs} multiple>
                     <option value="smoking">Smoking allowed</option>
                     <option value="pets">Pets allowed</option>
                     <option value="family">Family friendly</option>
@@ -37,7 +36,7 @@ module.exports = React.createClass({
                   <i className="fa fa-cutlery fa-2x grey-text text-lighten-1"></i>
                 </div>
                 <div className='col s5'>
-                  <select id='meal-plan' className='material' value='breakfast'>
+                  <select id='meal-plan' className='material' value={this.props.mealPlan}>
                     <option value="breakfast">Breakfast</option>
                     <option value="halfBoard">Half board</option>
                     <option value="fullBoard">Full board</option>
@@ -53,7 +52,7 @@ module.exports = React.createClass({
                   <i className="fa fa-asterisk fa-2x grey-text text-lighten-1"></i>
                 </div>
                 <div className='col s5'>
-                  <select id='meal-pref' className='material' value='none'>
+                  <select id='meal-pref' className='material' value={this.props.mealPref}>
                     <option value="">No meal preference</option>
                     <option value="vegetarian">Vegetarian</option>
                     <option value="vegan">Vegan</option>
@@ -66,7 +65,7 @@ module.exports = React.createClass({
                   <i className="fa fa-exclamation-circle fa-2x grey-text text-lighten-1"></i>
                 </div>
                 <div className='col s5'>
-                  <select id='diet-restrictions' className='material' value={['none']} multiple>
+                  <select id='diet-restrictions' className='material' value={this.props.dietRestrictions} multiple>
                     <option value="none" disabled>No dietary restrictions</option>
                     <option value="nutFree">Nut free</option>
                     <option value="lactoseFree">Lactose free</option>
@@ -83,7 +82,7 @@ module.exports = React.createClass({
                   <i className="fa fa-bed fa-2x grey-text text-lighten-1"></i>
                 </div>
                 <div className='col s5'>
-                  <select id='ammenities' className='material' value={['essentials']} multiple>
+                  <select id='ammenities' className='material' value={this.props.ammenities} multiple>
                     <option value="essentials" disabled>Essentials</option>
                     <option value="ac">Air conditioning</option>
                     <option value="airport">Airport pickup</option>
@@ -97,7 +96,7 @@ module.exports = React.createClass({
                   <i className="fa fa-home fa-2x grey-text text-lighten-1"></i>
                 </div>
                 <div className='col s5'>
-                  <select id='house-type' className='material' value={['all']} multiple>
+                  <select id='house-type' className='material' value={this.props.houseType} multiple>
                     <option value='all' disabled>All house types</option>
                     <option value="flat">Flat</option>
                     <option value="house">House</option>
