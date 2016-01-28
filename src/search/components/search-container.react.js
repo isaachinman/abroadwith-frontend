@@ -167,51 +167,6 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        Min price: {this.state.minPrice} /
-
-        Max price: {this.state.maxPrice} /
-
-        Num of results: {this.state.numberOfResults} /
-
-        Currency: {this.state.currency} /
-
-        Immersion: {this.state.immersion} /
-
-        Arrival: {this.state.arrival} /
-
-        Departure: {this.state.departure} /
-
-        MinLat: {this.state.minLat} /
-        MinLng: {this.state.minLng} /
-        MaxLat: {this.state.maxLat} /
-        MaxLng: {this.state.maxLng} /
-
-        Latitude: {this.state.latitude} /
-
-        Longitude: {this.state.longitude} /
-
-        Guests: {this.state.guests} /
-
-        House Type: {this.state.houseType} /
-
-        Language: {this.state.language} /
-
-        Course: {this.state.course} /
-
-        Filters: {this.state.filters} /
-
-        Special Prefs: {this.state.specialPrefs} /
-
-        Meal Plan: {this.state.mealPlan} /
-
-        Meal Pref: {this.state.mealPref} /
-
-        Diet Restrictions: {this.state.dietRestrictions} /
-
-        Amenities: {this.state.amenities} /
-
-        House Type: {this.state.houseType} /
-
         <div className='container'>
 
           <Dates
