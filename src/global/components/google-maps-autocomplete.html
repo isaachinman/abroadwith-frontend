@@ -11,8 +11,8 @@ function initAutocomplete() {
   // This is where we can write a custom callback when user selects a location
   // autocomplete.addListener();
   if (document.getElementById('map')) {
-    var map;
-    map = new google.maps.Map(document.getElementById('map'), {
+    window.bigMap;
+    bigMap = new google.maps.Map(document.getElementById('map'), {
       options: {
         scrollwheel: false,
         mapTypeControl: false

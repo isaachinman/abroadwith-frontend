@@ -19,6 +19,14 @@ module.exports = React.createClass({
     });
   },
   handleChange: function() {
+
+    // Get map data
+    var bounds = bigMap.getBounds();
+    var NE;
+    var SW;
+    bounds !== undefined ? SW = (bounds.getNorthEast()) : null;
+    bounds !== undefined ? NE = (bounds.getSouthWest()) : null;
+
     this.setState({
       arrival: document.getElementById('arrival').value,
       departure: document.getElementById('departure').value,
@@ -31,7 +39,11 @@ module.exports = React.createClass({
       mealPref: $('#meal-pref').val(),
       dietRestrictions: $('#diet-restrictions').val(),
       ammenities: $('#ammenities').val(),
-      houseType: $('#house-type').val()
+      houseType: $('#house-type').val(),
+      minLat: SW !== undefined ? SW.lat() : null,
+      minLng: SW !== undefined ? SW.lng() : null,
+      maxLat: NE !== undefined ? NE.lat() : null,
+      maxLng: NE !== undefined ? NE.lng() : null
     })
   },
   componentDidMount: function() {
@@ -71,8 +83,10 @@ module.exports = React.createClass({
         immersion:        response.params.immersion,
         arrival:          response.params.arrival,
         departure:        response.params.departure,
-        latitude:         response.params.location.lat,
-        longitude:        response.params.location.lng,
+        minLat:           response.params.location.minLat,
+        minLng:           response.params.location.minLng,
+        maxLat:           response.params.location.maxLat,
+        maxLng:           response.params.location.maxLng,
         guests:           response.params.guests,
         language:         response.params.language,
         tandem:           response.params.offeredLanguages ? response.params.offeredLanguages : null,
@@ -107,6 +121,11 @@ module.exports = React.createClass({
         Arrival: {this.state.arrival} /
 
         Departure: {this.state.departure} /
+
+        MinLat: {this.state.minLat} /
+        MinLng: {this.state.minLng} /
+        MaxLat: {this.state.maxLat} /
+        MaxLng: {this.state.maxLng} /
 
         Latitude: {this.state.latitude} /
 
