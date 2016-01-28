@@ -10,8 +10,10 @@
       "stay"
     ],
     "location":{
-      "lat":42.000,
-      "lng":62.000
+      "minLat":42.000,
+      "minLng":62.000,
+      "maxLat":42.200,
+      "maxLat":61.880,
     },
     "arrival":"2016-02-20",
     "departure":"2016-04-20",
@@ -21,10 +23,16 @@
       "Flat",
       "Cabin"
     ],
-    "filters":[
-      "LGBTFriendly",
-      "Vegan"
-    ]
+    "filters":{
+      "ammenities":[
+        "essentials",
+        "tv"
+      ],
+      "extras":[
+        "hot_tub",
+        "washer"
+      ]
+    }
   },
   "results":[
     {
