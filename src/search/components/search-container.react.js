@@ -5,6 +5,8 @@ var Price = require('./search-price.react');
 var LanguageCourse = require('./search-language-course.react');
 var Tandem = require('./search-tandem.react');
 var MoreFilters = require('./search-more-filters.react');
+var Results = require('./search-results.react');
+var Pagination = require('./search-pagination.react');
 
 
 module.exports = React.createClass({
@@ -12,11 +14,6 @@ module.exports = React.createClass({
     return {
       // State will be populated by POST
     }
-  },
-  handleClick: function(){
-    this.setState({
-      minPrice: 900
-    });
   },
   handleChange: function() {
 
@@ -72,7 +69,7 @@ module.exports = React.createClass({
     $.post(url, function(data) {
       var response = JSON.parse(data);
       var newState = {
-        // Set initial state vars
+        // Set new state vars
         minPrice:         response.resultDetails.minPrice,
         maxPrice:         response.resultDetails.maxPrice,
         numberOfResults:  response.resultDetails.numberOfResults,
@@ -125,6 +122,7 @@ module.exports = React.createClass({
       activeNodes[i].change(handleChange);
     }
 
+    // Map events
     bigMap.addListener('zoom_changed', handleChange);
     bigMap.addListener('dragend', handleChange);
 
@@ -138,6 +136,8 @@ module.exports = React.createClass({
         minPrice:         response.resultDetails.minPrice,
         maxPrice:         response.resultDetails.maxPrice,
         numberOfResults:  response.resultDetails.numberOfResults,
+        pageOffset:       response.resultDetails.pageOffset,
+        pageSize:         response.resultDetails.pageSize,
         currency:         response.params.currency,
         immersion:        response.params.immersion,
         arrival:          response.params.arrival,
@@ -212,6 +212,14 @@ module.exports = React.createClass({
           dietRestrictions={this.state.dietRestrictions}
           amenities={this.state.amenities}
           houseType={this.state.houseType}
+        />
+
+        <Results />
+
+        <Pagination
+          numberOfResults={this.state.numberOfResults}
+          pageSize={this.state.pageSize}
+          pageOffset={this.state.pageOffset}
         />
 
       </div>

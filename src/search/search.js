@@ -10,8 +10,3 @@ ReactDOM.render(
   source='/search'
   />, document.querySelector('#search-container')
 )
-
-$.post('/search?default', function(data) {
-  var response = JSON.parse(data);
-  console.log(data);
-})

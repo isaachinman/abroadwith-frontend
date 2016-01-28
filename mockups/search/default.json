@@ -3,7 +3,7 @@
     "minPrice":800,
     "maxPrice":1245,
     "numberOfResults": 200,
-    "pageOffset":50,
+    "pageOffset":25,
     "pageSize": 25,
     "neighbourhood":[
       "kreuzberg",
