@@ -9,11 +9,11 @@ module.exports = React.createClass({
         </div>
         <div className='input-field col s3 valign'>
           <input id='arrival' type="text" className='datepicker' value={this.props.arrival} />
-          <label htmlFor='arrival'>Arrival</label>
+          <label htmlFor='arrival' className='active'>Arrival</label>
         </div>
         <div className='input-field col s3 valign'>
           <input id='departure' type="text" className="datepicker" value={this.props.departure} />
-          <label htmlFor='departure'>Departure</label>
+          <label htmlFor='departure' className='active'>Departure</label>
         </div>
         <div className='input-field col s4'>
           <select id='guests' className='material' value={this.props.guests} >
