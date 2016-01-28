@@ -22,8 +22,7 @@ module.exports = React.createClass({
 
     // Get map data
     var bounds = bigMap.getBounds();
-    var NE;
-    var SW;
+    var NE, SW;
     bounds !== undefined ? SW = (bounds.getNorthEast()) : null;
     bounds !== undefined ? NE = (bounds.getSouthWest()) : null;
 
@@ -97,7 +96,7 @@ module.exports = React.createClass({
         mealPref:         response.params.filters.mealPref,
         dietRestrictions: response.params.filters.dietRestrictions,
         ammenities:       response.params.filters.ammenities,
-        houseType:        response.params.houseType
+        houseType:        response.params.filters.houseType
       }
 
       if (this.isMounted()) {

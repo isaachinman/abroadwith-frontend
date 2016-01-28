@@ -12,14 +12,18 @@ module.exports = React.createClass({
         </div>
         <div id='price-slider' className='col s10 valign'>
           <Nouislider
-            range={{'min': [100], '30%':[500], '70%':[3000], 'max': 20000}}
+            range={{min: 0, max: 2000}}
             start={[this.props.minPrice, this.props.maxPrice]}
             connect={true}
             tooltips
             format={wNumb({
-              prefix: 'Eur',
-              decimals: 0
+              prefix: '€',
+              decimals: 0,
+              encoder: function(a) {
+                return a === 2000 ? a + '+' : a;
+              }
             })}
+
             step={10}
           />
         </div>

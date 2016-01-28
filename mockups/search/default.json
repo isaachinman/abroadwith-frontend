@@ -41,8 +41,8 @@
         "washer"
       ],
       "houseType":[
-        "Flat",
-        "Cabin"
+        "flat",
+        "cabin"
       ],
       "neighbourhood":[
         "kreuzberg",
