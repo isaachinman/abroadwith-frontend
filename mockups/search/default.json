@@ -24,23 +24,25 @@
       "Cabin"
     ],
     "filters":{
+      "specialPrefs":[
+        "smoking",
+        "family"
+      ],
       "mealPlan":"breakfast",
       "mealPref":"kosher",
-      "diets":[
+      "dietRestrictions":[
         "lactose",
         "celiac"
       ],
       "ammenities":[
         "essentials",
-        "tv"
-      ],
-      "specialPrefs":[
-        "smoking",
-        "family"
-      ],
-      "extras":[
+        "tv",
         "hot_tub",
         "washer"
+      ],
+      "neighbourhood":[
+        "kreuzberg",
+        "mitte"
       ]
     }
   },
