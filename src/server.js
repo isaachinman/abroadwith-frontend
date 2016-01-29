@@ -5,6 +5,7 @@ var nunjucks = require('nunjucks');
 var fs = require('fs');
 var searchRouter = require('./search/Router');
 var mainRouter = require('./main/Router');
+var manageHomeRouter = require('./manage-home/Router');
 
 /** Middlewares **/
 var languageSettings = require('./global/middlewares/LanguageSettings');
@@ -32,5 +33,7 @@ app.get('/homes/*', function (req, res) {
 });
 
 app.use('/search',searchRouter);
+
+app.use('/manage-home',manageHomeRouter);
 
 http.createServer(app).listen(3000);
