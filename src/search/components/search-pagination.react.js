@@ -10,8 +10,6 @@ module.exports = React.createClass({
 
     var activePage = Math.ceil(pageOffset/pageSize)+1;
 
-    console.log(activePage)
-
     var pageContainer = $('ul#pagination');
 
     for (var i=1; i<=totalPages; i++) {
@@ -25,7 +23,6 @@ module.exports = React.createClass({
     })
 
     pageContainer.find('li:nth-child(' + activePage + ')').addClass('active');
-    console.log(totalPages);
 
     return (
 

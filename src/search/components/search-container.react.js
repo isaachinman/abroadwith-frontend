@@ -55,6 +55,12 @@ module.exports = React.createClass({
       }
     }
 
+    // Get price data
+    var minPrice = (($('.noUi-handle-lower').find('.noUi-tooltip').html()).substring(1));
+    minPrice != undefined ? url = url + '&minPrice=' + minPrice : null;
+    var maxPrice = ($('.noUi-handle-upper').find('.noUi-tooltip').html()).substring(1);
+    maxPrice != undefined ? url = url + '&maxPrice=' + maxPrice : null;
+
     // Get course
     var course = 'course=' + $('#language-switch').is(':checked') ? url = url + '&course=' + ($('#language-school').val()) : null;
 
@@ -116,7 +122,7 @@ module.exports = React.createClass({
       $('#house-type')
     ];
 
-    var handleChange = this.handleChange;
+    window.handleChange = this.handleChange;
 
     for (var i=0; i<activeNodes.length; i++) {
       activeNodes[i].change(handleChange);

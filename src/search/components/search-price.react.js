@@ -24,6 +24,10 @@ module.exports = React.createClass({
               }
             })}
             step={10}
+            onChange={function() {
+                handleChange();
+              }
+            }
           />
         </div>
       </div>
