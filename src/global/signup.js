@@ -8,7 +8,7 @@ if ($('select#language-learning').length) {
 // Level select
 if ($('select#language-level').length) {
   $('select#language-level').select2({
-    placeholder: "Level"
+    placeholder: "Choose a level"
   });
 }
 

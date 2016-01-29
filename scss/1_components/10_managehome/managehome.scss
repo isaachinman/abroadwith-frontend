@@ -1,0 +1,35 @@
+.manage-home-section {
+  @extend .section;
+  padding-bottom: 0;
+  background: white;
+  border: 1px solid #ddd
+}
+.immersions-collapsible {
+  .collapsible-header {
+    text-indent: 130px;
+    display: inline-block;
+    position: relative;
+    width: calc(100% - 130px);
+    position: relative;
+    font-size: 1.5rem;
+    height: 4rem;
+    line-height: 4rem;
+  }
+  .switch {
+    background: white;
+    height: 4rem;
+    width: 130px;
+    line-height: 4rem;
+    padding: 0 auto;
+    float: right;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+  }
+  box-shadow: none;
+}
+input#home-address {
+  border: none;
+}
+#immersions #language-chips {
+  height: auto;
+}

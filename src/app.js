@@ -14,5 +14,8 @@ require('./search/search');
 // Signup
 require('./global/signup');
 
+// Manage home
+require('./manage-home/manage-home');
+
 // Facebook scripts
 require('./global/facebook')

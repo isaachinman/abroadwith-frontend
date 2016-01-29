@@ -1,0 +1,128 @@
+<div id="immersions" class="col s12 m10 offset-m1 l10 offset-l1" style='display:none'>
+
+  <div class='row'>
+    <h4>What immersions do you want to host?</h4>
+  </div>
+
+  <ul class="collapsible immersions-collapsible" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header">
+        Stay
+      </div>
+      <div class="switch">
+        <label>
+          Off
+          <input type="checkbox" class='immersion-switch'>
+          <span class="lever"></span>
+          On
+        </label>
+      </div>
+      <div class="collapsible-body">
+
+        <div class='row section'>
+          <div class='col s10 m4 l2 input-field'>
+            <select class='material'>
+              <option value="" disabled selected>Hours per week</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+            </select>
+            <label>Hours per week</label>
+          </div>
+        </div>
+
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">
+        Tandem
+      </div>
+      <div class="switch">
+        <label>
+          Off
+          <input type="checkbox" class='immersion-switch'>
+          <span class="lever"></span>
+          On
+        </label>
+      </div>
+      <div class="collapsible-body">
+
+        <div class='row section'>
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-clock-o fa-2x"></i>
+          </div>
+          <div class='col s10 m2 l2 input-field'>
+            <select class='material'>
+              <option value="" disabled selected>Hours per week</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="14">15</option>
+              <option value="14">16</option>
+              <option value="14">17</option>
+              <option value="14">18</option>
+              <option value="14">19</option>
+              <option value="14">20</option>
+              <option value="14">21</option>
+            </select>
+            <label>Hours per week</label>
+          </div>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-language fa-2x"></i>
+          </div>
+          <div class='col s5 m3 l3 input-field'>
+            <select id="tandem-language" type="text" class="validate material">
+              <option>English</option>
+              <option>Spanish</option>
+              <option>Dutch</option>
+            </select>
+            <label>Language you will teach</label>
+          </div>
+
+          <div class='col s2 input-field'>
+            <a id='add-language' class='btn-floating'>+</a>
+          </div>
+
+          <div id='language-chips' class='col s3 left-align input-field'>
+            <div class='chip initial'>
+              {{ translations.common.choose_one }}
+              <i class="material-icons">close</i>
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">
+        Teacher's stay
+      </div>
+      <div class="switch">
+        <label>
+          Off
+          <input type="checkbox" class='immersion-switch'>
+          <span class="lever"></span>
+          On
+        </label>
+      </div>
+      <div class="collapsible-body">
+        <p>Lorem ipsum dolor sit amet.</p>
+      </div>
+    </li>
+  </ul>
+
+</div>

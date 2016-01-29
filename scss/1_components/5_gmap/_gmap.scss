@@ -18,3 +18,17 @@ nav.overlay {
 nav .input-field label {
   left: 1rem;
 }
+#home-address {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+.update-home-address {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  height: 3rem;
+  line-height: 3rem;
+  box-shadow: none;
+  z-index: 9;
+}

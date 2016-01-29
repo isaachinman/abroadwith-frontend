@@ -31,7 +31,7 @@
 .collapsible-body {
   display: none;
   box-sizing: border-box;
-
+  border-bottom: 1px solid $collapsible-border-color;
   p {
     margin: 0;
     padding: 2rem;

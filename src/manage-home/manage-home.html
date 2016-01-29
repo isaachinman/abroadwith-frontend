@@ -1,6 +1,26 @@
 {% extends "layout.html" %} {% block title %} {{ translations.search.title }} {% endblock %} {% block content %}
 
-{% include "partials/navigation/footer.html" %}
+<div class="row">
+  <div class="col s12 no-padding-sides">
+    <ul class="tabs">
+      <li class="tab"><a class='active' href="#basics">Basics</a></li>
+      <li class="tab"><a href="#immersions">Immersions</a></li>
+      <li class="tab"><a href="#location">Location</a></li>
+      <li class="tab"><a href="#description">Description</a></li>
+      <li class="tab"><a href="#photos">Photos</a></li>
+      <li class="tab"><a href="#rooms">Rooms</a></li>
+      <li class="tab"><a href="#pricing">Pricing</a></li>
+    </ul>
+  </div>
 
+  {% include "./tabs/basics.html" %}
+  {% include "./tabs/immersions.html" %}
+  {% include "./tabs/location.html" %}
+  {% include "./tabs/description.html" %}
+  {% include "./tabs/photos.html" %}
+  {% include "./tabs/rooms.html" %}
+  {% include "./tabs/pricing.html" %}
+
+</div>
 
 {% endblock %}
