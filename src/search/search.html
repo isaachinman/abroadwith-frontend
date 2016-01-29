@@ -17,7 +17,7 @@
             <input id="location" type="search" class='grey-text text-darken-1' value='Syndey, Australia'>
             {% include "../global/components/google-maps-autocomplete.html" %}
             <label for="search"><i class="material-icons grey-text text-darken-1">search</i></label>
-            <i class="material-icons">close</i>
+            <i class="material-icons" onclick='$("#location").val("")'>close</i>
           </div>
         </form>
       </div>
