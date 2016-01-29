@@ -1,12 +1,12 @@
-var React = require('react');
-var Dates = require('./search-dates.react');
-var Language = require('./search-language.react');
-var Price = require('./search-price.react');
-var LanguageCourse = require('./search-language-course.react');
-var Tandem = require('./search-tandem.react');
-var MoreFilters = require('./search-more-filters.react');
-var Results = require('./search-results.react');
-var Pagination = require('./search-pagination.react');
+var React =           require('react');
+var Dates =           require('./search-dates.react');
+var Language =        require('./search-language.react');
+var Price =           require('./search-price.react');
+var LanguageCourse =  require('./search-language-course.react');
+var Tandem =          require('./search-tandem.react');
+var MoreFilters =     require('./search-more-filters.react');
+var Results =         require('./search-results.react');
+var Pagination =      require('./search-pagination.react');
 
 
 module.exports = React.createClass({
