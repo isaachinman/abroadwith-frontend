@@ -7,7 +7,7 @@
   <div class='row relative no-margin'>
     <input id="home-address" class="controls" type="text" placeholder="What's your address?" style='background:white'>
 
-    <a class='btn update-home-address'>Save address</a>
+    <a class='btn update-home-address' onclick="Materialize.toast('Home address updated', 4000)">Save address</a>
 
     <div class='row' style='min-height:50vh;position:relative'>
       <div id="home-map" class='big-map' style='min-height:400px'></div>
@@ -19,12 +19,16 @@
       var map = new google.maps.Map(document.getElementById('home-map'), {
         center: {
           lat: 60,
-          lng: 0
+          lng: 180
         },
         zoom: 2,
         scrollwheel: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        disableDefaultUI: true
+        zoomControl: true,
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        rotateControl: false
       });
 
       // Create the search box and link it to the UI element.

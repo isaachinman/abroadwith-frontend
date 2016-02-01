@@ -7,6 +7,10 @@
   background: white;
   border: 1px solid #ddd;
   border-radius: 3px;
+  .card {
+    box-shadow: none;
+    margin: 0 0 1rem 0;
+  }
 }
 .rooms-collapsible {
   border-radius: 3px;
@@ -22,7 +26,7 @@
   .edit {
     height: 4rem;
     width: 130px;
-    line-height: 4rem;
+    line-height: 4.5rem;
     position: absolute;
     top: 0;
     right: 0;
@@ -41,7 +45,7 @@
     height: 4rem;
     line-height: 4rem;
   }
-  .switch {
+  .switch-absolute {
     background: white;
     height: 4rem;
     width: 130px;
@@ -65,4 +69,13 @@ input#home-address {
   margin: 3rem 0 -20px 0;
   padding: 1rem 0;
   background: lighten($havelock-blue, 35%);
+}
+.secondary-content {
+  label {
+    left: 0;
+  }
+}
+.extra-charges-collection {
+  border-right: 0;
+  border-bottom: 0;
 }

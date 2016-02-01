@@ -9,7 +9,7 @@
       <div class="collapsible-header">
         Stay
       </div>
-      <div class="switch">
+      <div class="switch switch-absolute">
         <label>
           Off
           <input type="checkbox" class='immersion-switch'>
@@ -24,7 +24,7 @@
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
             <i class="fa fa-clock-o fa-2x"></i>
           </div>
-          <div class='col s10 m2 l2 input-field'>
+          <div class='col s10 m4 l4 input-field'>
             <select class='material'>
               <option value="" disabled selected>Hours per week</option>
               <option value="7">7</option>
@@ -46,10 +46,10 @@
             <label>Hours per week</label>
           </div>
 
-          <div class='col s2 m1 offset-m1 l1 offset-l1 input-field center-align grey-text text-lighten-1'>
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
             <i class="fa fa-language fa-2x"></i>
           </div>
-          <div class='col s10 m7 l6 input-field'>
+          <div class='col s10 m6 l6 input-field'>
             <select class='material' multiple>
               <option value="" disabled selected>Languages offered</option>
               <option value="eng">English</option>
@@ -61,8 +61,6 @@
             <label>Languages offered</label>
           </div>
 
-
-
         </div>
 
       </div>
@@ -71,7 +69,7 @@
       <div class="collapsible-header">
         Tandem
       </div>
-      <div class="switch">
+      <div class="switch switch-absolute">
         <label>
           Off
           <input type="checkbox" class='immersion-switch'>
@@ -85,7 +83,7 @@
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
             <i class="fa fa-clock-o fa-2x"></i>
           </div>
-          <div class='col s10 m2 l2 input-field'>
+          <div class='col s10 m4 l4 input-field'>
             <select class='material'>
               <option value="" disabled selected>Hours per week</option>
               <option value="7">7</option>
@@ -110,23 +108,47 @@
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
             <i class="fa fa-language fa-2x"></i>
           </div>
-          <div class='col s5 m3 l3 input-field'>
-            <select id="tandem-language" type="text" class="validate material">
-              <option>English</option>
-              <option>Spanish</option>
-              <option>Dutch</option>
+          <div class='col s10 m6 l6 input-field'>
+            <select class='material' multiple>
+              <option value="" disabled selected>Languages offered</option>
+              <option value="eng">English</option>
+              <option value="spa">Spanish</option>
+              <option value="por">Portuguese</option>
+              <option value="ger" disabled data-placeholder='German' data-content='<a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>'>German</option>
+
             </select>
-            <label>Language you will teach</label>
+            <label>Languages offered</label>
           </div>
 
-          <div class='col s2 input-field'>
+        </div>
+
+        <div class='divider'></div>
+
+        <div class='row section'>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-eye fa-2x"></i>
+          </div>
+          <div class='col s10 m4 l4 input-field'>
+            <select id="language-sought" type="text" class="validate no-margin">
+              <option></option>
+              {% for langCode, language in translations.languages %}
+                <option data-lang={{ langCode }}>{{ language }}</option>
+              {% endfor %}
+            </select>
+            <label class='active'>Language(s) sought</label>
+          </div>
+          <div class='col s8 m2 l2 input-field'>
+            <input id="discount" type="text" class="validate no-margin" placeholder='20%'/>
+            <label class='active'>Discount</label>
+          </div>
+          <div class='col s2 m2 l2 input-field'>
             <a id='add-language' class='btn-floating'>+</a>
           </div>
+          <div class='col s2 m3 l3 input-field left-align'>
 
-          <div id='language-chips' class='col s3 left-align input-field'>
-            <div class='chip initial'>
-              {{ translations.common.choose_one }}
-              <i class="material-icons">close</i>
+            <div id='language-chips'>
+
             </div>
           </div>
 
@@ -140,7 +162,7 @@
       <div class="collapsible-header">
         Teacher's stay
       </div>
-      <div class="switch">
+      <div class="switch switch-absolute">
         <label>
           Off
           <input type="checkbox" class='immersion-switch'>
@@ -155,7 +177,7 @@
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
             <i class="fa fa-clock-o fa-2x"></i>
           </div>
-          <div class='col s10 m3 l3 input-field'>
+          <div class='col s10 m5 l5 input-field'>
             <select class='material' multiple>
               <option value="" disabled selected>Packages offered</option>
               <option value="5">5hrs/week</option>
@@ -165,6 +187,58 @@
             <label>Packages offered</label>
           </div>
 
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-hourglass-half fa-2x"></i>
+          </div>
+          <div class='col s10 m2 l2 input-field'>
+            <input type="text" class="validate no-margin" placeholder='€15'/>
+            <label class='active'>Hourly rate</label>
+          </div>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-money fa-2x"></i>
+          </div>
+          <div class='col s10 m2 l2 input-field'>
+            <input type="text" class="validate no-margin" placeholder='€25'/>
+            <label class='active'>Material costs</label>
+          </div>
+
+        </div>
+
+        <div class='divider'></div>
+
+        <div class='row section'>
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-language fa-2x"></i>
+          </div>
+          <div class='col s10 m5 l5'>
+            <select class='material' multiple>
+              <option value="" disabled selected>Languages offered</option>
+              <option value="eng">English</option>
+              <option value="spa">Spanish</option>
+              <option value="por">Portuguese</option>
+              <option value="ger" disabled data-placeholder='German' data-content='<a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>'>German</option>
+
+            </select>
+            <label>Languages offered</label>
+          </div>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-graduation-cap fa-2x"></i>
+          </div>
+          <div class='col s10 m5 l5'>
+            <form action="#">
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span><small>Upload certification</small></span>
+                  <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
 
       </div>

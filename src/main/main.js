@@ -31,8 +31,6 @@ $(document).ready(function() {
     });
   }
 
-
-
   // Modal
   if ($('.modal-trigger').length) {
     $('.modal-trigger').leanModal();
