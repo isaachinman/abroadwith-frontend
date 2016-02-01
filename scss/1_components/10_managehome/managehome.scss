@@ -1,10 +1,36 @@
+.manage-home {
+  min-height: calc(100vh - 155px);
+}
 .manage-home-section {
   @extend .section;
   padding-bottom: 0;
   background: white;
-  border: 1px solid #ddd
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+.rooms-collapsible {
+  border-radius: 3px;
+  box-shadow: none;
+  li {
+    position: relative;
+  }
+  .collapsible-header {
+    font-size: 1.5rem;
+    height: 4rem;
+    line-height: 4rem;
+  }
+  .edit {
+    height: 4rem;
+    width: 130px;
+    line-height: 4rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-bottom: 1px solid #ddd;
+  }
 }
 .immersions-collapsible {
+  border-radius: 3px;
   .collapsible-header {
     text-indent: 130px;
     display: inline-block;
@@ -32,4 +58,11 @@ input#home-address {
 }
 #immersions #language-chips {
   height: auto;
+}
+.manage-home-info-text {
+  position: relative;
+  @extend .grey-text;
+  margin: 3rem 0 -20px 0;
+  padding: 1rem 0;
+  background: lighten($havelock-blue, 35%);
 }

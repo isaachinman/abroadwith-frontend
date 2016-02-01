@@ -111,11 +111,4 @@ $(document).ready(function() {
     });
   });
 
-  // Tabs
-  if ($('ul.tabs')) {
-    $(document).ready(function(){
-      $('ul.tabs').tabs();
-    });
-  }
-
 });

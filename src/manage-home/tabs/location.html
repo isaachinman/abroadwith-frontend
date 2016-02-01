@@ -1,21 +1,27 @@
-<div id="location" class="col s12 m10 offset-m1 l10 offset-l1 relative" style='display:none'>
+<div id="location" class="col s12 m10 offset-m1 l10 offset-l1 relative">
 
-  <input id="home-address" class="controls" type="text" placeholder="What's your address?" style='background:white'>
+  <div class='row'>
+    <h4>What's your address?</h4>
+  </div>
 
-  <a class='btn update-home-address'>Save address</a>
+  <div class='row relative no-margin'>
+    <input id="home-address" class="controls" type="text" placeholder="What's your address?" style='background:white'>
 
-  <div class='row' style='min-height:50vh;position:relative'>
-    <div id="home-map" class='big-map' style='min-height:500px'></div>
+    <a class='btn update-home-address'>Save address</a>
+
+    <div class='row' style='min-height:50vh;position:relative'>
+      <div id="home-map" class='big-map' style='min-height:400px'></div>
+    </div>
   </div>
 
   <script>
     function initAutocomplete() {
       var map = new google.maps.Map(document.getElementById('home-map'), {
         center: {
-          lat: -33.8688,
-          lng: 151.2195
+          lat: 60,
+          lng: 0
         },
-        zoom: 13,
+        zoom: 2,
         scrollwheel: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDefaultUI: true
@@ -28,6 +34,10 @@
       // Bias the SearchBox results towards current map's viewport.
       map.addListener('bounds_changed', function() {
         searchBox.setBounds(map.getBounds());
+      });
+
+      google.maps.event.addListenerOnce(map, 'idle', function() {
+         google.maps.event.trigger(map, 'resize');
       });
 
       var markers = [];
@@ -74,6 +84,11 @@
         });
         map.fitBounds(bounds);
       });
+    }
+    document.getElementById('location-tab').addEventListener('click', initHiddenMap)
+    function initHiddenMap(e) {
+      document.getElementById('location-tab').removeEventListener('click', initHiddenMap)
+      initAutocomplete();
     }
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete" async defer></script>
