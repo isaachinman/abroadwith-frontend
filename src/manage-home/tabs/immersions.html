@@ -115,7 +115,6 @@
               <option value="spa">Spanish</option>
               <option value="por">Portuguese</option>
               <option value="ger" disabled data-placeholder='German' data-content='<a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>'>German</option>
-
             </select>
             <label>Languages offered</label>
           </div>
@@ -148,6 +147,10 @@
           <div class='col s2 m3 l3 input-field left-align'>
 
             <div id='language-chips'>
+              <div class='chip initial'>
+                {{ translations.common.choose_one }}
+                <i class="material-icons">close</i>
+              </div>
 
             </div>
           </div>
