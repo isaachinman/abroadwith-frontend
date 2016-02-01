@@ -41,3 +41,11 @@ if ($('a#add-language').length && $('#language-sought').length && $('#discount')
     })
   })
 }
+
+// Home photos
+if ($('.home-photo').length) {
+  var photos = $('.home-photo');
+  photos.find('.delete').click(function() {
+    $(this).parentsUntil('.col').remove()
+  })
+}

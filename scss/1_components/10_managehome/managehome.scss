@@ -79,3 +79,22 @@ input#home-address {
   border-right: 0;
   border-bottom: 0;
 }
+.manage-home-photos {
+  .home-photo {
+    position: relative;
+    opacity: .65;
+    &:hover {
+      opacity: 1;
+    }
+    &:hover .delete {
+      display: block;
+    }
+    .delete {
+      display: none;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      color: white;
+    }
+  }
+}
