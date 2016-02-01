@@ -9,13 +9,11 @@
 </head>
 <body>
 
-  {% include "partials/navigation/navbar--logged-in.html" %}
+  {% include "partials/navigation/navbar.html" %}
 
   <main>
     {% block content %} {% endblock %}
   </main>
-
-  {% include "partials/navigation/footer.html" %}
 
   <script async defer src="app.js"></script>
 

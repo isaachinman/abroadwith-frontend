@@ -5,6 +5,9 @@
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+.no-padding-bottom {
+  padding-bottom: 0 !important;
+}
 .no-margin {
   margin: 0;
 }
@@ -53,4 +56,10 @@ a.overlay {
   left: 0;
   width: 100%;
   height: 100%;
+}
+.divider-light {
+  background: #eee;
+}
+.relative {
+  position: relative;
 }

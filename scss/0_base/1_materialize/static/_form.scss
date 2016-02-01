@@ -627,6 +627,9 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after {
     margin: 0;
     padding: 0;
     display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   span.caret {

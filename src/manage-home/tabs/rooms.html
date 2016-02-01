@@ -1,0 +1,99 @@
+<div id="rooms" class="col s12 m10 offset-m1 l10 offset-l1" style='display:none'>
+
+  <div class='row'>
+    <div class="col s12 m4 l4 input-field">
+      <input id="room-name" type="text" class="validate" placeholder='Eg. "Master bedroom"'>
+      <label for="room-name">Room name</label>
+    </div>
+    <div class='col s12 m4 l4 input-field'>
+      <select class='material'>
+        <option value="" disabled selected>Choose a room type</option>
+        <option value="essentials">Essentials</option>
+        <option value="tv">TV</option>
+        <option value="cable">Cable TV</option>
+        <option value="ac">Air conditioning</option>
+        <option value="heating">Heating</option>
+        <option value="sharedKitchen">Shared Kitchen</option>
+        <option value="internet">Internet</option>
+        <option value="wifi">Wifi</option>
+      </select>
+      <label>Room type</label>
+    </div>
+    <div class='col s12 m4 l4 input-field'>
+      <input type="checkbox" id="shared" />
+      <label for="shared">This is a shared room</label>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col s12 m6 l6 input-field'>
+      <select class='material'>
+        <option value="" disabled selected>Choose a bed type</option>
+        <option value="essentials">Essentials</option>
+        <option value="tv">TV</option>
+        <option value="cable">Cable TV</option>
+        <option value="ac">Air conditioning</option>
+        <option value="heating">Heating</option>
+        <option value="sharedKitchen">Shared Kitchen</option>
+        <option value="internet">Internet</option>
+        <option value="wifi">Wifi</option>
+      </select>
+      <label>Bed type</label>
+    </div>
+    <div class='col s12 m6 l6 input-field'>
+      <select class='material'>
+        <option value="" disabled selected>How many people?</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <label>Vacancies</label>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col s12 input-field'>
+      <select class='material'>
+        <option value="" disabled selected>What facilities does the room have?</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <label>Facilities</label>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class="col s12 input-field">
+      <textarea id="room-description" class="materialize-textarea" length='255' placeholder='Tell us about the room'></textarea>
+      <label for="room-description">Description</label>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col s12 left-align'>
+      <form action="#">
+        <div class="file-field input-field">
+          <div class="btn col s4">
+            <span>Choose a room picture</span>
+            <input type="file">
+          </div>
+          <div class='col s8'>
+            <input class="file-path validate" type="text">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='btn col s12'>
+      Add room
+    </div>
+  </div>
+
+</div>
