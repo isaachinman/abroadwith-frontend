@@ -10,9 +10,9 @@
       <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
         <i class="fa fa-home fa-2x"></i>
       </div>
-      <div class='col s10 m4 l4 input-field'>
+      <div class='col s10 m2 l2 input-field'>
         <select class='material'>
-          <option value="" disabled selected>Choose a house type</option>
+          <option value="" disabled selected>House type</option>
           <option value="flat">Flat</option>
           <option value="house">House</option>
           <option value="loft">Loft</option>
@@ -22,15 +22,28 @@
           <option value="other">Other</option>
         </select>
         <label>House type</label>
-
       </div>
+
+      <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+        <i class="fa fa-life-ring fa-2x"></i>
+      </div>
+      <div class='col s10 m3 l3 input-field'>
+        <select class='material' multiple>
+          <option value="" disabled selected>House safety</option>
+          <option value="firstAid">First aid</option>
+          <option value="fireExtinguisher">Fire extinguisher</option>
+          <option value="safetyCard">Safety card</option>
+        </select>
+        <label>House safety</label>
+      </div>
+
       <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
         <i class="fa fa-wifi fa-2x"></i>
       </div>
-      <div class='col s10 m6 l6 input-field'>
+      <div class='col s10 m4 l4 input-field'>
 
         <select class='material' multiple>
-          <option value="" disabled selected>Choose your amenities</option>
+          <option value="" disabled selected>Amenities</option>
           <option value="essentials">Essentials</option>
           <option value="tv">TV</option>
           <option value="cable">Cable TV</option>
@@ -50,24 +63,39 @@
     <div class='row section'>
 
       <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-        <i class="fa fa-life-ring fa-2x"></i>
+        <i class="fa fa-cutlery fa-2x"></i>
       </div>
-      <div class='col s10 m4 l4 input-field'>
-
+      <div class='col s10 m2 l2 input-field'>
         <select class='material' multiple>
-          <option value="" disabled selected>Choose your house safety</option>
-          <option value="firstAid">First aid</option>
-          <option value="fireExtinguisher">Fire extinguisher</option>
-          <option value="safetyCard">Safety card</option>
+          <option value="breakfast" disabled selected>Breakfast</option>
+          <option value="halfBoard">Half board</option>
+          <option value="fullBoard">Full board</option>
         </select>
-        <label>House safety</label>
+        <label>Menus offered</label>
+      </div>
 
+      <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+        <i class="fa fa-asterisk fa-2x"></i>
+      </div>
+      <div class='col s10 m3 l3 input-field'>
+        <select class='material' multiple>
+          <option value="" disabled selected>Choose your offered diets</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="vegan">Vegan</option>
+          <option value="halal">Halal</option>
+          <option value="kosher">Kosher</option>
+          <option value="diabetic">Diabetic</option>
+          <option value="glutenFree">Gluten free</option>
+          <option value="lactoseIntolerant">Lactose intolerant</option>
+          <option value="nutAllergy">Nut allergy</option>
+        </select>
+        <label>Diets offered</label>
       </div>
 
       <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
         <i class="fa fa-fire fa-2x"></i>
       </div>
-      <div class='col s10 m6 l6 input-field'>
+      <div class='col s10 m4 l4 input-field'>
         <select class='material' multiple>
           <option value="" disabled selected>Choose your extras</option>
           <option value="hotTub">Hot tub</option>
@@ -87,51 +115,12 @@
     <div class='divider'></div>
 
     <div class='row section'>
-      <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-        <i class="fa fa-asterisk fa-2x"></i>
-      </div>
-      <div class='col s10 m4 l4 input-field'>
-
-        <select class='material' multiple>
-          <option value="" disabled selected>Choose your offered diets</option>
-          <option value="vegetarian">Vegetarian</option>
-          <option value="vegan">Vegan</option>
-          <option value="halal">Halal</option>
-          <option value="kosher">Kosher</option>
-          <option value="diabetic">Diabetic</option>
-          <option value="glutenFree">Gluten free</option>
-          <option value="lactoseIntolerant">Lactose intolerant</option>
-          <option value="nutAllergy">Nut allergy</option>
-        </select>
-        <label>Diets offered</label>
-
-      </div>
-
-      <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-        <i class="fa fa-cutlery fa-2x"></i>
-      </div>
-      <div class='col s10 m6 l6 input-field'>
-        <select class='material' multiple>
-          <option value="breakfast" disabled selected>Breakfast</option>
-          <option value="halfBoard">Half board</option>
-          <option value="fullBoard">Full board</option>
-        </select>
-        <label>Menus offered</label>
-
-      </div>
-    </div>
-
-    <div class='divider '></div>
-
-    <div class='row section'>
 
       <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
         <i class="fa fa-users fa-2x"></i>
       </div>
-      <div class='col s5 m2 l2 input-field left-align'>
-        We are a family
-      </div>
-      <div class='col s5 m2 l2 right-align'>
+      <div class='col s5 m2 l2 left-align'>
+        <label>This is a family home</label>
         <div class="switch" style='margin-top:1rem'>
           <label>
             No
@@ -145,8 +134,7 @@
       <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
         <i class="fa fa-user fa-2x"></i>
       </div>
-
-      <div class='col s8 m6 l6 input-field'>
+      <div class='col s8 m6 l8 input-field'>
         <select class='material' multiple>
           <option value="" disabled selected>Choose your lifestyle preferences</option>
           <option value="smokingAllowed">Smoking allowed</option>
