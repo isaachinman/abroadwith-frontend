@@ -31,8 +31,6 @@ $(document).ready(function() {
     });
   }
 
-
-
   // Modal
   if ($('.modal-trigger').length) {
     $('.modal-trigger').leanModal();
@@ -110,12 +108,5 @@ $(document).ready(function() {
         $(this).pickadate('picker').open();
     });
   });
-
-  // Tabs
-  if ($('ul.tabs')) {
-    $(document).ready(function(){
-      $('ul.tabs').tabs();
-    });
-  }
 
 });
