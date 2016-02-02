@@ -12,6 +12,9 @@ nav.overlay {
   height: 100%;
   z-index: 0 !important;
 }
+.medium-map {
+  min-height:340px;
+}
 #ssIFrame_google {
   display: none !important;
 }
@@ -19,9 +22,14 @@ nav .input-field label {
   left: 1rem;
 }
 #home-address {
+  background: white;
   width: 100%;
   box-sizing: border-box;
   padding: 0 10px;
+}
+.your-address-row {
+  min-height:340px;
+  position:relative;
 }
 .update-home-address {
   position: absolute;

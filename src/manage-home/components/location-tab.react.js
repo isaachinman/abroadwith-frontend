@@ -1,21 +1,9 @@
-<div id="location" class="col s12 m10 offset-m1 l10 offset-l1 relative" style='display:none'>
+var React = require('react');
 
-  <div class='row'>
-    <h4>What's your address?</h4>
-  </div>
+module.exports = React.createClass({
+  componentDidMount: function() {
 
-  <div class='row relative no-margin'>
-    <input id="home-address" class="controls" type="text" placeholder="What's your address?" style='background:white'>
-
-    <a class='btn update-home-address' onclick="Materialize.toast('Home address updated', 4000)">Save address</a>
-
-    <div class='row' style='min-height:340px;position:relative'>
-      <div id="home-map" class='big-map' style='min-height:340px'></div>
-    </div>
-  </div>
-
-  <script>
-    function initAutocomplete() {
+    window.initAutocomplete = function() {
       var map = new google.maps.Map(document.getElementById('home-map'), {
         center: {
           lat: 60,
@@ -94,7 +82,36 @@
       document.getElementById('location-tab').removeEventListener('click', initHiddenMap)
       initAutocomplete();
     }
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete" async defer></script>
 
-</div>
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete';
+    $("#location").append(script);
+
+  },
+  render: function() {
+
+    return (
+
+      <div id="location" className="col s12 m10 offset-m1 l10 offset-l1 relative">
+
+        <div className='row'>
+          <h4>What's your address?</h4>
+        </div>
+
+        <div className='row relative no-margin'>
+          <input id="home-address" className="controls" type="text" placeholder="What's your address?" />
+
+          <a className='btn update-home-address' onclick="Materialize.toast('Home address updated', 4000)">Save address</a>
+
+          <div className='row your-address-row'>
+            <div id="home-map" className='medium-map'></div>
+          </div>
+        </div>
+
+      </div>
+
+
+    );
+  }
+});

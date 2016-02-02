@@ -1,39 +1,5 @@
 {% extends "layout.html" %} {% block title %} {{ translations.search.title }} {% endblock %} {% block content %}
 
-<div class="row manage-home">
-  <div class="col s12 no-padding-sides">
-    <ul class="tabs">
-      <li class="tab"><a class='active' href="#basics" data-next='immersions'>Basics</a></li>
-      <li class="tab"><a href="#immersions" data-next='location'>Immersions</a></li>
-      <li id='location-tab' class="tab"><a href="#location" data-next='description'>Location</a></li>
-      <li class="tab"><a href="#description" data-next='rooms'>Description</a></li>
-      <li class="tab"><a href="#rooms" data-next='photos'>Rooms</a></li>
-      <li class="tab"><a href="#photos" data-next='pricing'>Photos</a></li>
-      <li class="tab"><a href="#pricing">Pricing</a></li>
-    </ul>
-  </div>
-
-  {% include "./tabs/basics.html" %}
-  {% include "./tabs/immersions.html" %}
-  {% include "./tabs/location.html" %}
-  {% include "./tabs/description.html" %}
-  {% include "./tabs/photos.html" %}
-  {% include "./tabs/rooms.html" %}
-  {% include "./tabs/pricing.html" %}
-
-</div>
-
-<div class='row'>
-  <div class='col s6 offset-s3'>
-    <a class='btn btn-primary save-btn'>Save</a>
-  </div>
-  <div class='col s3 right-align'>
-    <a id='next-btn'><i class="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>
-  </div>
-</div>
-
-<div class='manage-home-info-text'>
-  <h6>Now managing your home in Berlin</h6>
-</div>
+<div id='manage-home-container'></div>
 
 {% endblock %}
