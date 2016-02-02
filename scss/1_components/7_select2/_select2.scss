@@ -16,6 +16,10 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
 .select2-search,
 .select2-search input {
 
+  -webkit-box-sizing: border-box; /* webkit */
+     -moz-box-sizing: border-box; /* firefox */
+          box-sizing: border-box; /* css3 */
+
 }
 
 .select2-container .select2-choice {

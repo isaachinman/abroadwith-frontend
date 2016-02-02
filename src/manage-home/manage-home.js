@@ -49,3 +49,18 @@ if ($('.home-photo').length) {
     $(this).parentsUntil('.col').remove()
   })
 }
+
+// Next button
+if ($('a#next-btn').length) {
+
+    $('a#next-btn').click(function() {
+      var activeTab = $('li.tab a.active');
+      if (activeTab.attr('data-next')) {
+        var next = activeTab.data('next');
+        $('ul.tabs').tabs('select_tab', next);
+        console.log('switched')
+      }
+    })
+
+
+}
