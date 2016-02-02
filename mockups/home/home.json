@@ -1,0 +1,116 @@
+{
+  "basics":{
+    "propertyType":"flat",
+    "safety":[
+      "firstAid"
+    ],
+    "ammenities":[
+      "TV"
+    ],
+    "mealPlan":[
+      "breakfast",
+      "halfBoard"
+    ],
+    "mealOption":[
+      "vegetarian",
+      "vegan"
+    ],
+    "extras":[
+      "hotTub",
+      "washer"
+    ],
+    "family":false,
+    "preferences":[
+      "smoking",
+      "petsAllowed"
+    ]
+  },
+  "immersions":{
+    "stay":{
+      "hours":10,
+      "languagesOffered":[
+        "eng",
+        "spa"
+      ]
+    },
+    "tandem":{
+      "hours":10,
+      "languagesOffered":[
+        "eng",
+        "spa"
+      ],
+      "languagesInterested":{
+        "ger": 20,
+        "por": 10
+      }
+    },
+    "teacher":{
+      "packages":[
+        5,
+        10
+      ],
+      "hourly":15,
+      "materials":40,
+      "languagesOffered":[
+        "spa"
+      ],
+      "certifications":{
+        "cert1":{
+          "name":"Bachelor degree in Spanish",
+          "img":"/certifications/12345.jpg"
+        }
+      }
+    }
+  },
+  "location":{
+    "street":"123 Oranienstrasse",
+    "complement":"Flat 2",
+    "postalCode":10997,
+    "state":null,
+    "city":"Berlin",
+    "country":"Germany",
+    "geo":{
+      "lat":30.222,
+      "lng":60.222
+    }
+  },
+  "description":{
+    "summary":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "rules":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "neighbourhood":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "video":"youtube.com/video"
+  },
+  "rooms":{
+    "masterBedroom":{
+      "bed":"futon",
+      "vacancies":2,
+      "facilities":[
+        "desk"
+      ],
+      "shared":false,
+      "img":"/rooms/12345.jpg",
+      "description":"Lorem ipsum.",
+      "price":150
+    }
+  },
+  "photos":{
+    "1":"/homes/jose/1.jpg",
+    "2":"/homes/jose/2.jpg"
+  },
+  "pricing":{
+    "currency":"eur",
+    "discounts":{
+      "oneMonth":5,
+      "threeMonth":7,
+      "sixMonth":14
+    },
+    "extraCharges":{
+      "extraGuest":20,
+      "fullBoard":30,
+      "halfBoard":20,
+      "laundry":10,
+      "cleaning":10,
+      "airport":35
+    }
+  }
+}
