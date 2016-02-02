@@ -1,116 +1,116 @@
 {
-  "basics":{
-    "propertyType":"flat",
-    "safety":[
-      "firstAid"
+  "BASICS":{
+    "HOME_TYPE":"FLAT",
+    "SAFETY":[
+      "FIRST_AID"
     ],
-    "ammenities":[
+    "AMMENITIES":[
       "TV"
     ],
-    "mealPlan":[
-      "breakfast",
-      "halfBoard"
+    "MEAL_PLAN":[
+      "ONLY_BREAKFAST",
+      "HALF_BOARD"
     ],
-    "mealOption":[
-      "vegetarian",
-      "vegan"
+    "FOOD_OPTION":[
+      "VEGETARIAN",
+      "VEGAN"
     ],
-    "extras":[
-      "hotTub",
-      "washer"
+    "EXTRAS":[
+      "HOT_TUB",
+      "WASHER"
     ],
-    "family":false,
-    "preferences":[
-      "smoking",
-      "petsAllowed"
+    "FAMILY":false,
+    "PREFERENCES":[
+      "SMOKING_ALLOWED",
+      "PETS_ALLOWED"
     ]
   },
-  "immersions":{
-    "stay":{
-      "hours":10,
-      "languagesOffered":[
+  "IMMERSIONS":{
+    "STAY":{
+      "HOURS":10,
+      "LANGUAGES_OFFERED":[
         "eng",
         "spa"
       ]
     },
-    "tandem":{
-      "hours":10,
-      "languagesOffered":[
+    "TANDEM":{
+      "HOURS":10,
+      "LANGUAGES_OFFERED":[
         "eng",
         "spa"
       ],
-      "languagesInterested":{
+      "LANGUAGES_INTERESTED":{
         "ger": 20,
         "por": 10
       }
     },
-    "teacher":{
-      "packages":[
+    "TEACHER":{
+      "PACKAGES":[
         5,
         10
       ],
-      "hourly":15,
-      "materials":40,
-      "languagesOffered":[
+      "HOURLY":15,
+      "MATERIALS":40,
+      "LANGUAGES_OFFERED":[
         "spa"
       ],
-      "certifications":{
-        "cert1":{
-          "name":"Bachelor degree in Spanish",
-          "img":"/certifications/12345.jpg"
+      "CERTIFICATIONS":{
+        "1":{
+          "NAME":"Bachelor degree in Spanish",
+          "IMG":"/certifications/12345.jpg"
         }
       }
     }
   },
-  "location":{
-    "street":"123 Oranienstrasse",
-    "complement":"Flat 2",
-    "postalCode":10997,
-    "state":null,
-    "city":"Berlin",
-    "country":"Germany",
-    "geo":{
-      "lat":30.222,
-      "lng":60.222
-    }
+  "LOCATION":{
+    "STREET":"123 Oranienstrasse",
+    "COMPLEMENT":"Flat 2",
+    "ZIP_CODE":10997,
+    "STATE":null,
+    "CITY":"Berlin",
+    "COUNTRY":"DE",
+    "LAT":30.222,
+    "LNG":60.222
   },
-  "description":{
-    "summary":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "rules":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "neighbourhood":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "video":"youtube.com/video"
+  "DESCRIPTION":{
+    "SUMMARY":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "RULES":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "NEIGHBOURHOOD":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "VIDEO":"youtube.com/video"
   },
-  "rooms":{
-    "masterBedroom":{
-      "bed":"futon",
-      "vacancies":2,
-      "facilities":[
-        "desk"
+  "ROOMS":{
+    "1":{
+      "ID":1,
+      "NAME": "Master bedroom",
+      "BED":"FUTON",
+      "VACANCIES":2,
+      "FACILITIES":[
+        "DESK"
       ],
-      "shared":false,
-      "img":"/rooms/12345.jpg",
-      "description":"Lorem ipsum.",
-      "price":150
+      "SHARED":false,
+      "IMG":"/rooms/12345.jpg",
+      "DESCRIPTION":"Lorem ipsum.",
+      "PRICE":150
     }
   },
-  "photos":{
+  "PHOTOS":{
     "1":"/homes/jose/1.jpg",
     "2":"/homes/jose/2.jpg"
   },
-  "pricing":{
-    "currency":"eur",
-    "discounts":{
-      "oneMonth":5,
-      "threeMonth":7,
-      "sixMonth":14
+  "PRICING":{
+    "CURRENCY":"eur",
+    "DISCOUNTS":{
+      "ONE_MONTH":5,
+      "THREE_MONTH":7,
+      "SIX_MONTH":14
     },
-    "extraCharges":{
-      "extraGuest":20,
-      "fullBoard":30,
-      "halfBoard":20,
-      "laundry":10,
-      "cleaning":10,
-      "airport":35
+    "EXTRAS":{
+      "EXTRA_GUEST":20,
+      "FULL_BOARD":30,
+      "HALF_BOARD":20,
+      "LAUNDRY":10,
+      "CLEANING":10,
+      "AIRPORT_PICKUP":35
     }
   }
 }
