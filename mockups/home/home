@@ -4,7 +4,7 @@
     "SAFETY":[
       "FIRST_AID"
     ],
-    "amenities":[
+    "AMENITIES":[
       "TV"
     ],
     "MEAL_PLAN":[
@@ -50,7 +50,7 @@
         "eng",
         "spa"
       ],
-      "languagesInterested":[
+      "languagesSought":[
         {
           "lang":"ger",
           "discount":20
