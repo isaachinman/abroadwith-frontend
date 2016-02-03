@@ -25,24 +25,41 @@
       "PETS_ALLOWED"
     ]
   },
+  "location":{
+    "street":"123 oranienstrasse",
+    "complement":"flat 2",
+    "zipCode":10997,
+    "state":null,
+    "city":"berlin",
+    "country":"de",
+    "lat":52.503709,
+    "lng":13.434223,
+    "neighbourhood":"kreuzberg"
+  },
   "immersions":{
     "stay":{
       "hours":10,
-      "languages_offered":[
+      "languagesOffered":[
         "eng",
         "spa"
       ]
     },
     "tandem":{
       "hours":10,
-      "languages_offered":[
+      "languagesOffered":[
         "eng",
         "spa"
       ],
-      "languages_interested":{
-        "ger": 20,
-        "por": 10
-      }
+      "languagesInterested":[
+        {
+          "lang":"ger",
+          "discount":20
+        },
+        {
+          "lang":"por",
+          "discount":10
+        }
+      ]
     },
     "teacher":{
       "packages":[
@@ -51,7 +68,7 @@
       ],
       "hourly":15,
       "materials":40,
-      "languages_offered":[
+      "languagesOffered":[
         "spa"
       ],
       "certifications":{
@@ -61,16 +78,6 @@
         }
       }
     }
-  },
-  "location":{
-    "street":"123 oranienstrasse",
-    "complement":"flat 2",
-    "zipCode":10997,
-    "state":null,
-    "city":"berlin",
-    "country":"de",
-    "lat":30.222,
-    "lng":60.222
   },
   "description":{
     "summary":"lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -100,9 +107,9 @@
   "pricing":{
     "currency":"eur",
     "discounts":{
-      "one_month":5,
-      "three_month":7,
-      "six_month":14
+      "oneMonthDiscount":5,
+      "threeMonthDiscount":7,
+      "sixMonthDiscount":14
     },
     "extras":{
       "EXTRA_GUEST":20,

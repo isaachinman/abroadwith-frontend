@@ -2,14 +2,47 @@ var React = require('react');
 
 module.exports = React.createClass({
   componentDidMount: function() {
+  },
+  handleClick: function() {
+
+    // Modify home object, using new location object
+    if (typeof homeObj !== 'undefined') {
+      homeObj.location = newLocationObj;
+    }
+
+    // POST new home object, refresh state upon success
+    console.log(homeObj)
+
+  },
+  render: function() {
+
+    window.mapLat;
+    window.mapLng;
+    window.mapZoom;
+
+    if (this.props.location) {
+
+      var fullAddress = this.props.location.street + ', ' + this.props.location.complement + ', ' + this.props.location.city + ' ' + this.props.location.zipCode + ', ' + this.props.location.country;
+      mapLat = this.props.location.lat;
+      mapLng = this.props.location.lng;
+      mapZoom = 16;
+      console.log(mapLat + ' ' + mapLng)
+
+      $('#home-address').val(fullAddress);
+
+    } else {
+      mapLat = 60;
+      mapLng = 180;
+      mapZoom = 2;
+    }
 
     window.initAutocomplete = function() {
       var map = new google.maps.Map(document.getElementById('home-map'), {
         center: {
-          lat: 60,
-          lng: 180
+          lat: mapLat+.0025,
+          lng: mapLng-.0125
         },
-        zoom: 2,
+        zoom: mapZoom,
         scrollwheel: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         zoomControl: true,
@@ -18,6 +51,19 @@ module.exports = React.createClass({
         streetViewControl: false,
         rotateControl: false
       });
+
+      var markers = [];
+
+      if (mapLat !== 60 && mapLng !== 180) {
+        // Create a marker for each place.
+        markers.push(new google.maps.Marker({
+          map: map,
+          position: {
+            lat: mapLat,
+            lng: mapLng
+          }
+        }));
+      }
 
       // Create the search box and link it to the UI element.
       var input = document.getElementById('home-address');
@@ -32,7 +78,6 @@ module.exports = React.createClass({
          google.maps.event.trigger(map, 'resize');
       });
 
-      var markers = [];
       // Listen for the event fired when the user selects a prediction and retrieve
       // more details for that place.
       searchBox.addListener('places_changed', function() {
@@ -73,11 +118,29 @@ module.exports = React.createClass({
           } else {
             bounds.extend(place.geometry.location);
           }
+
+          window.newCoordinates = place.geometry.location;
+
+          var googleResponse = place.address_components;
+
+          var googleResponseParsed={};
+          $.each(googleResponse, function(k,v1) {jQuery.each(v1.types, function(k2, v2){googleResponseParsed[v2]=v1.long_name});})
+
+          window.newLocationObj = {
+            "street":googleResponseParsed.street_number+' '+googleResponseParsed.route,
+            "zipCode":googleResponseParsed.postal_code,
+            "city":googleResponseParsed.locality,
+            "country":googleResponseParsed.country,
+            "neighbourhood":googleResponseParsed.sublocality_level_2,
+            "lat":place.geometry.location.lat(),
+            "lng":place.geometry.location.lng()
+          }
+
         });
         map.fitBounds(bounds);
       });
     }
-    document.getElementById('location-tab').addEventListener('click', initHiddenMap)
+    $('#location-tab').click(initHiddenMap)
     function initHiddenMap(e) {
       document.getElementById('location-tab').removeEventListener('click', initHiddenMap)
       initAutocomplete();
@@ -88,35 +151,33 @@ module.exports = React.createClass({
     script.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete';
     $("#location").append(script);
 
-  },
-  render: function() {
-
-    if (this.props.location) {
-      var street = this.props.location.street;
-      var complement = this.props.location.complement;
-      var zipCode = this.props.location.zipCode;
-      var state = this.props.location.state;
-      var city = this.props.location.city;
-      var country = this.props.location.country;
-      var lat = this.props.location.lat;
-      var lng = this.props.location.lng;
-    }
 
     return (
 
       <div id="location" className="col s12 m10 offset-m1 l10 offset-l1 relative">
 
-        <div className='row'>
-          <h4>What's your address?</h4>
+        <div className='manage-home-block'>
+
+          <div className='row'>
+            <h4>What's your address?</h4>
+          </div>
+
+          <div className='row relative no-margin'>
+            <input id="home-address" className="controls" type="text" placeholder="What's your address?"/>
+            <a className='btn update-home-address' onclick="Materialize.toast('Home address updated', 4000)">Save address</a>
+
+            <div className='row your-address-row'>
+              <div id="home-map" className='medium-map'></div>
+            </div>
+          </div>
         </div>
 
-        <div className='row relative no-margin'>
-          <input id="home-address" className="controls" type="text" placeholder="What's your address?" />
-
-          <a className='btn update-home-address' onclick="Materialize.toast('Home address updated', 4000)">Save address</a>
-
-          <div className='row your-address-row'>
-            <div id="home-map" className='medium-map'></div>
+        <div className='row'>
+          <div className='col s6 offset-s3'>
+            <a id='location-save' className='btn btn-primary save-btn' onClick={this.handleClick}>Save</a>
+          </div>
+          <div className='col s3 right-align'>
+            <a id='next-btn'><i className="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>
           </div>
         </div>
 

@@ -1,5 +1,12 @@
-.manage-home {
-  min-height: calc(100vh - 210px);
+.manage-home-block {
+  margin-bottom: 1rem;
+  @media only screen and (max-width: $large-screen) {
+    min-height: calc(100vh - 282px);
+  }
+  @media only screen and (min-width: $large-screen-up) {
+    min-height: calc(100vh - 290px);
+  }
+
 }
 .manage-home-section {
   @extend .section;
@@ -66,7 +73,7 @@ input#home-address {
 .manage-home-info-text {
   position: relative;
   @extend .grey-text;
-  margin: 3rem 0 -20px 0;
+  margin: 2rem 0 -20px 0;
   padding: 1rem 0;
   background: lighten($havelock-blue, 35%);
 }

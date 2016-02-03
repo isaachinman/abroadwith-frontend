@@ -15,8 +15,6 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
-    console.log('mounted');
-
     // Language-known select
       $('select#language-sought').select2({
         placeholder: "Choose a language you want to learn"
@@ -70,6 +68,8 @@ module.exports = React.createClass({
       // Parse the response
       var response = JSON.parse(data);
 
+      window.homeObj = response;
+
       var newState = {
 
         // Conditionally set up state per category
@@ -80,30 +80,7 @@ module.exports = React.createClass({
         rooms:                response.rooms ? response.rooms : null,
         photos:               response.photos ? response.photos : null,
         pricing:              response.pricing ? response.pricing : null,
-
-        // description
-        summary:              response.description.summary,
-        rules:                response.description.rules,
-        neighbourhood:        response.description.neighbourhood,
-        video:                response.description.video,
-
-        // rooms
-        rooms:                response.rooms,
-
-        // photos
-        photos:               response.photos,
-
-        // pricing
-        currency:             response.pricing.currency,
-        oneMonthDiscount:     response.pricing.discounts.ONE_MONTH,
-        threeMonthDiscount:   response.pricing.discounts.THREE_MONTH,
-        sixMonthDiscount:     response.pricing.discounts.SIX_MONTH,
-        extraGuest:           response.pricing.extras.EXTRA_GUEST,
-        fullBoard:            response.pricing.extras.FULL_BOARD,
-        halfBoard:            response.pricing.extras.HALF_BOARD,
-        laundry:              response.pricing.extras.LAUNDRY,
-        cleaning:             response.pricing.extras.CLEANING,
-        airportPickup:        response.pricing.extras.AIRPORT_PICKUP
+        currency:             response.pricing ? response.pricing.currency : null
 
       }
       if (this.isMounted()) {
@@ -135,24 +112,15 @@ module.exports = React.createClass({
 
           <ImmersionsTab
             immersions={this.state.immersions}
+            currency={this.state.currency}
           />
 
           <LocationTab
-            street={this.state.street}
-            complement={this.state.complement}
-            zipCode={this.state.zipCode}
-            state={this.state.state}
-            city={this.state.city}
-            country={this.state.country}
-            lat={this.state.lat}
-            lng={this.state.lng}
+            location={this.state.location}
           />
 
           <DescriptionTab
-            summary={this.state.summary}
-            rules={this.state.rules}
-            neighbourhood={this.state.neighbourhood}
-            video={this.state.video}
+            description={this.state.description}
           />
 
           <RoomsTab
@@ -164,32 +132,15 @@ module.exports = React.createClass({
           />
 
           <PricingTab
-            currency={this.state.currency}
-            oneMonthDiscount={this.state.oneMonthDiscount}
-            threeMonthDiscount={this.state.threeMonthDiscount}
-            sixMonthDiscount={this.state.sixMonthDiscount}
-            extraGuest={this.state.extraGuest}
-            fullBoard={this.state.fullBoard}
-            halfBoard={this.state.halfBoard}
-            laundry={this.state.laundry}
-            cleaning={this.state.cleaning}
-            airportPickup={this.state.airportPickup}
+            pricing={this.state.pricing}
           />
 
-        </div>
-
-        <div className='row'>
-          <div className='col s6 offset-s3'>
-            <a className='btn btn-primary save-btn'>Save</a>
-          </div>
-          <div className='col s3 right-align'>
-            <a id='next-btn'><i className="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>
-          </div>
         </div>
 
         <div className='manage-home-info-text'>
           <h6>Now managing your home in Berlin</h6>
         </div>
+        
       </div>
 
     );
