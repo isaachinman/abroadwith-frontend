@@ -161,7 +161,7 @@ module.exports = React.createClass({
         mealPlan:         response.params.filters.mealPlan,
         mealPref:         response.params.filters.mealPref,
         dietRestrictions: response.params.filters.dietRestrictions,
-        amenities:       response.params.filters.amenities,
+        amenities:        response.params.filters.amenities,
         houseType:        response.params.filters.houseType
       }
 

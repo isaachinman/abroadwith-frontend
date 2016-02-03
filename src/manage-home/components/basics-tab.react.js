@@ -3,6 +3,17 @@ var React = require('react');
 module.exports = React.createClass({
   render: function() {
 
+    if (this.props.basics) {
+      var homeType = this.props.basics.homeType;
+      var safety = this.props.basics.SAFETY;
+      var amenities = this.props.basics.amenities;
+      var mealPlan = this.props.basics.MEAL_PLAN;
+      var foodOption = this.props.basics.FOOD_OPTION;
+      var extras = this.props.basics.EXTRAS;
+      var family = this.props.basics.family;
+      var preferences = this.props.basics.PREFERENCES;
+    }
+
     return (
       <div id="basics" className="col s12 m10 offset-m1 l10 offset-l1">
 
@@ -17,7 +28,7 @@ module.exports = React.createClass({
               <i className="fa fa-home fa-2x"></i>
             </div>
             <div className='col s10 m2 l2 input-field'>
-              <select className='material' defaultValue=''>
+              <select className='material' value={homeType} defaultValue=''>
                 <option value="" disabled>House type</option>
                 <option value="flat">Flat</option>
                 <option value="house">House</option>
@@ -35,7 +46,7 @@ module.exports = React.createClass({
               <i className="fa fa-life-ring fa-2x"></i>
             </div>
             <div className='col s10 m3 l3 input-field'>
-              <select className='material' multiple defaultValue={[]}>
+              <select className='material' multiple value={safety} defaultValue={[]}>
                 <option value="" disabled>House safety</option>
                 <option value="firstAid">First aid</option>
                 <option value="fireExtinguisher">Fire extinguisher</option>
@@ -49,7 +60,7 @@ module.exports = React.createClass({
             </div>
             <div className='col s10 m4 l4 input-field'>
 
-              <select className='material' multiple defaultValue={[]}>
+              <select className='material' multiple value={amenities} defaultValue={[]}>
                 <option value="" disabled>Amenities</option>
                 <option value="essentials">Essentials</option>
                 <option value="tv">TV</option>
@@ -73,7 +84,7 @@ module.exports = React.createClass({
               <i className="fa fa-cutlery fa-2x"></i>
             </div>
             <div className='col s10 m2 l2 input-field'>
-              <select className='material' multiple defaultValue={['breakfast']}>
+              <select className='material' multiple value={mealPlan} defaultValue={['breakfast']}>
                 <option value="breakfast" disabled>Breakfast</option>
                 <option value="halfBoard">Half board</option>
                 <option value="fullBoard">Full board</option>
@@ -85,7 +96,7 @@ module.exports = React.createClass({
               <i className="fa fa-asterisk fa-2x"></i>
             </div>
             <div className='col s10 m3 l3 input-field'>
-              <select className='material' multiple defaultValue={[]}>
+              <select className='material' multiple value={foodOption} defaultValue={[]}>
                 <option value="" disabled>Choose your offered diets</option>
                 <option value="vegetarian">Vegetarian</option>
                 <option value="vegan">Vegan</option>
@@ -103,7 +114,7 @@ module.exports = React.createClass({
               <i className="fa fa-fire fa-2x"></i>
             </div>
             <div className='col s10 m4 l4 input-field'>
-              <select className='material' multiple defaultValue={[]}>
+              <select className='material' multiple value={extras} defaultValue={[]}>
                 <option value="" disabled>Choose your extras</option>
                 <option value="hotTub">Hot tub</option>
                 <option value="washer">Washer</option>
@@ -131,7 +142,7 @@ module.exports = React.createClass({
               <div className="switch">
                 <label>
                   No
-                  <input id='family' type="checkbox" />
+                  <input id='family' type="checkbox" checked={family}/>
                   <span className="lever"></span>
                   Yes
                 </label>
@@ -142,7 +153,7 @@ module.exports = React.createClass({
               <i className="fa fa-user fa-2x"></i>
             </div>
             <div className='col s8 m6 l8 input-field'>
-              <select className='material' multiple defaultValue={[]}>
+              <select className='material' multiple value={preferences} defaultValue={[]}>
                 <option value="" disabled>Choose your lifestyle preferences</option>
                 <option value="smokingAllowed">Smoking allowed</option>
                 <option value="petsAllowed">Pets allowed</option>

@@ -2,7 +2,6 @@ var React = require('react');
 
 module.exports = React.createClass({
   render: function() {
-
     return (
       <div id="immersions" className="col s12 m10 offset-m1 l10 offset-l1">
 

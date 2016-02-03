@@ -10,27 +10,12 @@ var PricingTab =          require('./pricing-tab.react');
 module.exports = React.createClass({
   getInitialState: function(){
     return {
-      // State will be populated by POST
+      // state will be populated by GET
     }
-  },
-  handleChange: function() {
-
-    console.log(url);
-
-    $.post(url, function(data) {
-      var response = JSON.parse(data);
-      var newState = {
-        // Set new state vars
-      }
-
-      if (this.isMounted()) {
-        this.setState(newState);
-      }
-    })
   },
   componentDidMount: function() {
 
-    window.handleChange = this.handleChange;
+    console.log('mounted');
 
     // Language-known select
       $('select#language-sought').select2({
@@ -70,7 +55,6 @@ module.exports = React.createClass({
       $(this).parentsUntil('.col').remove()
     })
 
-
     // Next button
     $('a#next-btn').click(function() {
       var activeTab = $('li.tab a.active');
@@ -81,18 +65,51 @@ module.exports = React.createClass({
       }
     })
 
-    $.post(this.props.source, function(data) {
+    $.get(this.props.source, function(data) {
 
       // Parse the response
       var response = JSON.parse(data);
 
       var newState = {
-        // Set initial state vars
-      }
 
+        // Conditionally set up state per category
+        basics:               response.basics ? response.basics : null,
+        immersions:           response.immersions ? response.immersions : null,
+        location:             response.location ? response.location : null,
+        description:          response.description ? response.description : null,
+        rooms:                response.rooms ? response.rooms : null,
+        photos:               response.photos ? response.photos : null,
+        pricing:              response.pricing ? response.pricing : null,
+
+        // description
+        summary:              response.description.summary,
+        rules:                response.description.rules,
+        neighbourhood:        response.description.neighbourhood,
+        video:                response.description.video,
+
+        // rooms
+        rooms:                response.rooms,
+
+        // photos
+        photos:               response.photos,
+
+        // pricing
+        currency:             response.pricing.currency,
+        oneMonthDiscount:     response.pricing.discounts.ONE_MONTH,
+        threeMonthDiscount:   response.pricing.discounts.THREE_MONTH,
+        sixMonthDiscount:     response.pricing.discounts.SIX_MONTH,
+        extraGuest:           response.pricing.extras.EXTRA_GUEST,
+        fullBoard:            response.pricing.extras.FULL_BOARD,
+        halfBoard:            response.pricing.extras.HALF_BOARD,
+        laundry:              response.pricing.extras.LAUNDRY,
+        cleaning:             response.pricing.extras.CLEANING,
+        airportPickup:        response.pricing.extras.AIRPORT_PICKUP
+
+      }
       if (this.isMounted()) {
         this.setState(newState);
       }
+      $('select.material').material_select();
     }.bind(this));
   },
   render: function() {
@@ -112,13 +129,52 @@ module.exports = React.createClass({
             </ul>
           </div>
 
-          <BasicsTab />
-          <ImmersionsTab />
-          <LocationTab />
-          <DescriptionTab />
-          <PhotosTab />
-          <RoomsTab />
-          <PricingTab />
+          <BasicsTab
+            basics={this.state.basics}
+          />
+
+          <ImmersionsTab
+            immersions={this.state.immersions}
+          />
+
+          <LocationTab
+            street={this.state.street}
+            complement={this.state.complement}
+            zipCode={this.state.zipCode}
+            state={this.state.state}
+            city={this.state.city}
+            country={this.state.country}
+            lat={this.state.lat}
+            lng={this.state.lng}
+          />
+
+          <DescriptionTab
+            summary={this.state.summary}
+            rules={this.state.rules}
+            neighbourhood={this.state.neighbourhood}
+            video={this.state.video}
+          />
+
+          <RoomsTab
+            rooms={this.state.rooms}
+          />
+
+          <PhotosTab
+            photos={this.state.photos}
+          />
+
+          <PricingTab
+            currency={this.state.currency}
+            oneMonthDiscount={this.state.oneMonthDiscount}
+            threeMonthDiscount={this.state.threeMonthDiscount}
+            sixMonthDiscount={this.state.sixMonthDiscount}
+            extraGuest={this.state.extraGuest}
+            fullBoard={this.state.fullBoard}
+            halfBoard={this.state.halfBoard}
+            laundry={this.state.laundry}
+            cleaning={this.state.cleaning}
+            airportPickup={this.state.airportPickup}
+          />
 
         </div>
 

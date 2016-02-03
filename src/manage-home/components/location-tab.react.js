@@ -91,6 +91,17 @@ module.exports = React.createClass({
   },
   render: function() {
 
+    if (this.props.location) {
+      var street = this.props.location.street;
+      var complement = this.props.location.complement;
+      var zipCode = this.props.location.zipCode;
+      var state = this.props.location.state;
+      var city = this.props.location.city;
+      var country = this.props.location.country;
+      var lat = this.props.location.lat;
+      var lng = this.props.location.lng;
+    }
+
     return (
 
       <div id="location" className="col s12 m10 offset-m1 l10 offset-l1 relative">

@@ -1,0 +1,116 @@
+{
+  "basics":{
+    "homeType":"cabin",
+    "SAFETY":[
+      "FIRST_AID"
+    ],
+    "amenities":[
+      "TV"
+    ],
+    "MEAL_PLAN":[
+      "ONLY_BREAKFAST",
+      "HALF_BOARD"
+    ],
+    "FOOD_OPTION":[
+      "vegetarian",
+      "vegan"
+    ],
+    "EXTRAS":[
+      "HOT_TUB",
+      "WASHER"
+    ],
+    "family":true,
+    "PREFERENCES":[
+      "SMOKING_ALLOWED",
+      "PETS_ALLOWED"
+    ]
+  },
+  "immersions":{
+    "stay":{
+      "hours":10,
+      "languages_offered":[
+        "eng",
+        "spa"
+      ]
+    },
+    "tandem":{
+      "hours":10,
+      "languages_offered":[
+        "eng",
+        "spa"
+      ],
+      "languages_interested":{
+        "ger": 20,
+        "por": 10
+      }
+    },
+    "teacher":{
+      "packages":[
+        5,
+        10
+      ],
+      "hourly":15,
+      "materials":40,
+      "languages_offered":[
+        "spa"
+      ],
+      "certifications":{
+        "1":{
+          "name":"bachelor degree in spanish",
+          "img":"/certifications/12345.jpg"
+        }
+      }
+    }
+  },
+  "location":{
+    "street":"123 oranienstrasse",
+    "complement":"flat 2",
+    "zipCode":10997,
+    "state":null,
+    "city":"berlin",
+    "country":"de",
+    "lat":30.222,
+    "lng":60.222
+  },
+  "description":{
+    "summary":"lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "rules":"lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "neighbourhood":"lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "video":"youtube.com/video"
+  },
+  "rooms":{
+    "1":{
+      "id":1,
+      "name": "master bedroom",
+      "bed":"futon",
+      "vacancies":2,
+      "facilities":[
+        "DESK"
+      ],
+      "shared":false,
+      "img":"/rooms/12345.jpg",
+      "description":"lorem ipsum.",
+      "price":150
+    }
+  },
+  "photos":{
+    "1":"/homes/jose/1.jpg",
+    "2":"/homes/jose/2.jpg"
+  },
+  "pricing":{
+    "currency":"eur",
+    "discounts":{
+      "one_month":5,
+      "three_month":7,
+      "six_month":14
+    },
+    "extras":{
+      "EXTRA_GUEST":20,
+      "FULL_BOARD":30,
+      "HALF_BOARD":20,
+      "LAUNDRY":10,
+      "CLEANING":10,
+      "AIRPORT_PICKUP":35
+    }
+  }
+}

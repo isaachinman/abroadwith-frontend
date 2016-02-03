@@ -8,7 +8,7 @@ if ($('#manage-home-container').length) {
   // Search parent
   ReactDOM.render(
     <ManageHomeContainer
-    source='/search'
+    source='./backend/home/home'
     />, document.querySelector('#manage-home-container')
   )
 }
