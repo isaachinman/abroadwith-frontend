@@ -11,7 +11,8 @@ module.exports = React.createClass({
     }
 
     // POST new home object, refresh state upon success
-    console.log(homeObj)
+    console.log(homeObj);
+
 
   },
   render: function() {
@@ -164,7 +165,7 @@ module.exports = React.createClass({
 
           <div className='row relative no-margin'>
             <input id="home-address" className="controls" type="text" placeholder="What's your address?"/>
-            <a className='btn update-home-address' onclick="Materialize.toast('Home address updated', 4000)">Save address</a>
+            <a className='btn update-home-address'>Save address</a>
 
             <div className='row your-address-row'>
               <div id="home-map" className='medium-map'></div>

@@ -4,21 +4,24 @@ module.exports = React.createClass({
   handleClick: function() {
 
     // Create new basics object
-    var newBasicsObject = {};
-    newBasicsObject.homeType = $('#home-type').val();
-    newBasicsObject.SAFETY = $('#safety').val();
-    newBasicsObject.amenities = $('#amenities').val();
-    newBasicsObject.MEAL_PLAN = $('#meal-plan').val();
-    newBasicsObject.FOOD_OPTION = $('#food-option').val();
-    newBasicsObject.EXTRAS = $('#extras').val();
-    newBasicsObject.family = $('#family').val();
-    newBasicsObject.PREFERENCES = $('#preferences').val();
+    var newBasicsObj = {};
+    newBasicsObj.homeType = $('#home-type').val();
+    newBasicsObj.SAFETY = $('#safety').val();
+    newBasicsObj.amenities = $('#amenities').val();
+    newBasicsObj.MEAL_PLAN = $('#meal-plan').val();
+    newBasicsObj.FOOD_OPTION = $('#food-option').val();
+    newBasicsObj.EXTRAS = $('#extras').val();
+    newBasicsObj.family = $('#family').val();
+    newBasicsObj.PREFERENCES = $('#preferences').val();
 
     // Modify home object, using new basics object
     if (typeof homeObj !== 'undefined') {
-      homeObj.basics = newBasicsObject;
+      homeObj.basics = newBasicsObj;
       console.log(homeObj)
     }
+
+    // POST new home object
+    Materialize.toast('Basics updated', 4000);
 
   },
   render: function() {
