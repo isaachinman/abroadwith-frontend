@@ -1,6 +1,58 @@
 var React = require('react');
 
 module.exports = React.createClass({
+  handleClick: function() {
+
+    // Only proceed if at least one immersion is turned on
+    if ($('.immersion-switch:checked').length > 0) {
+
+      // Create new immersions object
+      var newImmersionsObj = {};
+
+      if ($('#stay-switch').is(':checked')) {
+
+        // Compile stay object
+        newImmersionsObj.stay = {};
+        newImmersionsObj.stay.hours = $('#stay-hours').val();
+        newImmersionsObj.stay.languagesOffered = $('#stay-languages-offered').val();
+
+      }
+
+      if ($('#tandem-switch').is(':checked')) {
+
+        // Compile tandem object
+        newImmersionsObj.tandem = {};
+        newImmersionsObj.tandem.hours = $('#tandem-hours').val();
+        newImmersionsObj.tandem.languagesOffered = $('#tandem-languages-offered');
+        newImmersionsObj.tandem.languagesInterested = [];
+        $('#language-chips .chip[data-lang]').each(function() {
+          newImmersionsObj.tandem.languagesInterested.push($(this).attr('data-lang'))
+        })
+
+      }
+
+      if ($('#teacher-switch').is(':checked')) {
+
+        // Compile teacher object
+        newImmersionsObj.teacher = {};
+        newImmersionsObj.teacher.packages = $('#packages').val();
+        newImmersionsObj.teacher.materials = $('#material-costs').val();
+        newImmersionsObj.teacher.languagesOffered = $('#teacher-languages-offered').val();
+
+      }
+
+      // Modify home object, using new immersions object
+      if (typeof homeObj !== 'undefined') {
+        homeObj.immersions = newImmersionsObj;
+        console.log(homeObj)
+      }
+
+      // POST new home object
+      Materialize.toast('Immersions updated', 4000);
+
+    }
+
+  },
   render: function() {
 
     if (this.props.immersions) {
@@ -53,7 +105,7 @@ module.exports = React.createClass({
               <div className="switch switch-absolute">
                 <label>
                   No
-                  <input type="checkbox" className='immersion-switch' />
+                  <input id='stay-switch' type="checkbox" className='immersion-switch' />
                   <span className="lever"></span>
                   Yes
                 </label>
@@ -66,7 +118,7 @@ module.exports = React.createClass({
                     <i className="fa fa-clock-o fa-2x"></i>
                   </div>
                   <div className='col s10 m4 l4 input-field'>
-                    <select className='material' defaultValue='' value={stayHours}>
+                    <select id='stay-hours' className='material' defaultValue='' value={stayHours}>
                       <option value="" disabled>Hours per week</option>
                       <option value="7">7</option>
                       <option value="8">8</option>
@@ -91,7 +143,7 @@ module.exports = React.createClass({
                     <i className="fa fa-language fa-2x"></i>
                   </div>
                   <div className='col s10 m6 l6 input-field'>
-                    <select className='material' multiple defaultValue={[]} value={stayLanguagesOffered}>
+                    <select id='stay-languages-offered' className='material' multiple defaultValue={[]} value={stayLanguagesOffered}>
                       <option value="" disabled>Languages offered</option>
                       <option value="eng">English</option>
                       <option value="spa">Spanish</option>
@@ -113,7 +165,7 @@ module.exports = React.createClass({
               <div className="switch switch-absolute">
                 <label>
                   No
-                  <input type="checkbox" className='immersion-switch' />
+                  <input id='tandem-switch' type="checkbox" className='immersion-switch' />
                   <span className="lever"></span>
                   Yes
                 </label>
@@ -125,7 +177,7 @@ module.exports = React.createClass({
                     <i className="fa fa-clock-o fa-2x"></i>
                   </div>
                   <div className='col s10 m4 l4 input-field'>
-                    <select className='material' defaultValue='' value={tandemHours}>
+                    <select id='tandem-hours' className='material' defaultValue='' value={tandemHours}>
                       <option value="" disabled>Hours per week</option>
                       <option value="7">7</option>
                       <option value="8">8</option>
@@ -150,7 +202,7 @@ module.exports = React.createClass({
                     <i className="fa fa-language fa-2x"></i>
                   </div>
                   <div className='col s10 m6 l6 input-field'>
-                    <select className='material' multiple defaultValue={[]} value={tandemLanguagesOffered}>
+                    <select id='tandem-languages-offered' className='material' multiple defaultValue={[]} value={tandemLanguagesOffered}>
                       <option value="" disabled>Languages offered</option>
                       <option value="eng">English</option>
                       <option value="spa">Spanish</option>
@@ -203,7 +255,7 @@ module.exports = React.createClass({
               <div className="switch switch-absolute">
                 <label>
                   No
-                  <input type="checkbox" className='immersion-switch' />
+                  <input id='teacher-switch' type="checkbox" className='immersion-switch' />
                   <span className="lever"></span>
                   Yes
                 </label>
@@ -216,7 +268,7 @@ module.exports = React.createClass({
                     <i className="fa fa-clock-o fa-2x"></i>
                   </div>
                   <div className='col s10 m5 l5 input-field'>
-                    <select className='material' multiple defaultValue={[]} value={teacherPackages}>
+                    <select id='packages' className='material' multiple defaultValue={[]} value={teacherPackages}>
                       <option value="" disabled>Packages offered</option>
                       <option value="5">5hrs/week</option>
                       <option value="10">10hrs/week</option>
@@ -229,7 +281,7 @@ module.exports = React.createClass({
                     <i className="fa fa-hourglass-half fa-2x"></i>
                   </div>
                   <div className='col s10 m2 l2 input-field'>
-                    <input type="text" className="validate no-margin" placeholder='€15' value={teacherRate} />
+                    <input id='teacher-rate' type="text" className="validate no-margin" placeholder='€15' value={teacherRate} />
                     <label className='active'>Hourly rate</label>
                   </div>
 
@@ -237,7 +289,7 @@ module.exports = React.createClass({
                     <i className="fa fa-money fa-2x"></i>
                   </div>
                   <div className='col s10 m2 l2 input-field'>
-                    <input type="text" className="validate no-margin" placeholder='€25' value={teacherMaterialCost} />
+                    <input id='material-costs' type="text" className="validate no-margin" placeholder='€25' value={teacherMaterialCost} />
                     <label className='active'>Material costs</label>
                   </div>
 
@@ -250,7 +302,7 @@ module.exports = React.createClass({
                     <i className="fa fa-language fa-2x"></i>
                   </div>
                   <div className='col s10 m5 l5'>
-                    <select className='material' multiple defaultValue={[]} value={teacherLanguagesOffered} >
+                    <select id='teacher-languages-offered' className='material' multiple defaultValue={[]} value={teacherLanguagesOffered} >
                       <option value="" disabled>Languages offered</option>
                       <option value="eng">English</option>
                       <option value="spa">Spanish</option>
@@ -287,7 +339,7 @@ module.exports = React.createClass({
 
         <div className='row'>
           <div className='col s6 offset-s3'>
-            <a id='immersions-save' className='btn btn-primary save-btn'>Save</a>
+            <a id='immersions-save' className='btn btn-primary save-btn' onClick={this.handleClick}>Save</a>
           </div>
           <div className='col s3 right-align'>
             <a><i className="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>

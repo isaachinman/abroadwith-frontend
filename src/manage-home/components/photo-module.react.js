@@ -5,6 +5,7 @@ module.exports = React.createClass({
   handleClick: function() {
 
     // Send deletion request to API, then reload state upon success
+    Materialize.toast('Photo deleted', 4000);
 
   },
   render: function() {

@@ -9,7 +9,6 @@ module.exports = React.createClass({
         return <PhotoModule src={url} key={url} />
       })
 
-      console.log(this.props.photos)
     }
     return (
 

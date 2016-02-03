@@ -42,7 +42,6 @@ module.exports = React.createClass({
 
         languageSought.select2('val', '');
         languageSought.val('');
-        discount.select2('val', '');
 
       }
     })
@@ -140,7 +139,7 @@ module.exports = React.createClass({
         <div className='manage-home-info-text'>
           <h6>Now managing your home in Berlin</h6>
         </div>
-        
+
       </div>
 
     );

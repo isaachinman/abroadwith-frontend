@@ -7,7 +7,7 @@ module.exports = React.createClass({
     var newBasicsObj = {};
     newBasicsObj.homeType = $('#home-type').val();
     newBasicsObj.SAFETY = $('#safety').val();
-    newBasicsObj.amenities = $('#amenities').val();
+    newBasicsObj.AMENITIES = $('#amenities').val();
     newBasicsObj.MEAL_PLAN = $('#meal-plan').val();
     newBasicsObj.FOOD_OPTION = $('#food-option').val();
     newBasicsObj.EXTRAS = $('#extras').val();
@@ -17,7 +17,7 @@ module.exports = React.createClass({
     // Modify home object, using new basics object
     if (typeof homeObj !== 'undefined') {
       homeObj.basics = newBasicsObj;
-      console.log(homeObj)
+      console.log(homeObj);
     }
 
     // POST new home object
@@ -29,7 +29,7 @@ module.exports = React.createClass({
     if (this.props.basics) {
       var homeType = this.props.basics.homeType;
       var safety = this.props.basics.SAFETY;
-      var amenities = this.props.basics.amenities;
+      var amenities = this.props.basics.AMENITIES;
       var mealPlan = this.props.basics.MEAL_PLAN;
       var foodOption = this.props.basics.FOOD_OPTION;
       var extras = this.props.basics.EXTRAS;
