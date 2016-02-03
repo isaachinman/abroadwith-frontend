@@ -1,7 +1,62 @@
 var React = require('react');
+var RoomModule = require('./room-module.react')
 
 module.exports = React.createClass({
+  handleClick: function() {
+
+    // Create new rooms object
+    var newRoomsObj = [];
+
+    $('.existing-room').each(function() {
+
+      // Set up new object for each room
+      var room = {};
+
+      // Find params
+      room.id = $(this).attr('data-id');
+      room.name = $(this).find('.room-name').val();
+      room.bed = $(this).find('select.bed-type').val();
+      room.vacancies = $(this).find('.vacancies').val();
+      room.facilities = $(this).find('select.facilities').val();
+      room.shared = $(this).find('input.shared-switch').val();
+      room.img = $(this).find('.file-path').val();
+      room.description = $(this).find('.room-description').val();
+
+      newRoomsObj.push(room);
+    })
+
+    // Modify home object, using new rooms object
+    if (typeof homeObj !== 'undefined') {
+      homeObj.rooms = newRoomsObj;
+      console.log(homeObj);
+    }
+
+    // POST new home object
+    Materialize.toast('Rooms updated', 4000);
+
+  },
   render: function() {
+
+    if (this.props.rooms) {
+
+      var rooms = [];
+
+      this.props.rooms.forEach(function(obj) {
+        var room = <RoomModule
+            id={obj.id}
+            roomName={obj.name}
+            bed={obj.bed}
+            vacancies={obj.vacancies}
+            facilities={obj.facilities}
+            shared={obj.shared}
+            img={obj.img}
+            description={obj.description}
+            price={obj.price}
+          />;
+        rooms.push(room);
+      })
+
+    }
 
     return (
 
@@ -157,39 +212,16 @@ module.exports = React.createClass({
           </div>
 
           <ul className="collapsible rooms-collapsible" data-collapsible="accordion">
-            <li>
-              <div className="collapsible-header">
-                Master bedroom
-              </div>
-              <div className="edit grey-text text-lighten-1">
-                <i className="fa fa-pencil fa-2x"></i>
-              </div>
-              <div className="collapsible-body">
 
-                Same form as above
+            {rooms}
 
-              </div>
-            </li>
-            <li>
-              <div className="collapsible-header">
-                Kids room
-              </div>
-              <div className="edit grey-text text-lighten-1">
-                <i className="fa fa-pencil fa-2x"></i>
-              </div>
-              <div className="collapsible-body">
-
-                Same form as above
-
-              </div>
-            </li>
           </ul>
 
         </div>
 
         <div className='row'>
           <div className='col s6 offset-s3'>
-            <a id='rooms-save' className='btn btn-primary save-btn'>Save</a>
+            <a id='rooms-save' className='btn btn-primary save-btn' onClick={this.handleClick}>Save</a>
           </div>
           <div className='col s3 right-align'>
             <a><i className="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>

@@ -85,10 +85,10 @@
     "neighbourhood":"lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "video":"youtube.com/video"
   },
-  "rooms":{
-    "1":{
+  "rooms":[
+    {
       "id":1,
-      "name": "master bedroom",
+      "name": "Master bedroom",
       "bed":"futon",
       "vacancies":2,
       "facilities":[
@@ -99,7 +99,7 @@
       "description":"lorem ipsum.",
       "price":150
     }
-  },
+  ],
   "photos":[
     "http://www.carnival.com/~/media/Images/explore/staterooms/room-type-tiles/interior-cruise-room.ashx",
     "https://www.hochschober.com/fileadmin/_processed_/csm__DSC9095_ced629437d.jpg",
