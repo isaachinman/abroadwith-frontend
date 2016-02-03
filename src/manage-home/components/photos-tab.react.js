@@ -1,8 +1,16 @@
 var React = require('react');
+var PhotoModule = require('./photo-module.react')
 
 module.exports = React.createClass({
   render: function() {
+    if (this.props.photos) {
 
+      var photos = this.props.photos.map(function(url) {
+        return <PhotoModule src={url} key={url} />
+      })
+
+      console.log(this.props.photos)
+    }
     return (
 
       <div id="photos" className="col s12 m10 offset-m1 l10 offset-l1">
@@ -46,32 +54,7 @@ module.exports = React.createClass({
 
             <div className='row manage-home-photos'>
 
-              <div className="col s12 m6 l4">
-                <div className="card home-photo">
-                  <div className="card-image">
-                    <img src="http://www.carnival.com/~/media/Images/explore/staterooms/room-type-tiles/interior-cruise-room.ashx"></img>
-                  </div>
-                  <a className='delete'><i className="fa fa-times fa-2x"></i></a>
-                </div>
-              </div>
-
-              <div className="col s12 m6 l4">
-                <div className="card home-photo">
-                  <div className="card-image">
-                    <img src="https://www.hochschober.com/fileadmin/_processed_/csm__DSC9095_ced629437d.jpg"></img>
-                  </div>
-                  <a className='delete'><i className="fa fa-times fa-2x"></i></a>
-                </div>
-              </div>
-
-              <div className="col s12 m6 l4">
-                <div className="card home-photo">
-                  <div className="card-image">
-                    <img src="http://www.carnival.com/~/media/Images/explore/staterooms/room-type-tiles/ocean-view-cruise-room.ashx"></img>
-                  </div>
-                  <a className='delete'><i className="fa fa-times fa-2x"></i></a>
-                </div>
-              </div>
+              {photos}
 
             </div>
 
@@ -84,7 +67,7 @@ module.exports = React.createClass({
             <a id='photos-save' className='btn btn-primary save-btn'>Save</a>
           </div>
           <div className='col s3 right-align'>
-            <a><i className="fa fa-chevron-right grey-text text-lighten-1 save-btn"></i></a>
+            <a><i className="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>
           </div>
         </div>
 

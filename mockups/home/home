@@ -100,10 +100,11 @@
       "price":150
     }
   },
-  "photos":{
-    "1":"/homes/jose/1.jpg",
-    "2":"/homes/jose/2.jpg"
-  },
+  "photos":[
+    "http://www.carnival.com/~/media/Images/explore/staterooms/room-type-tiles/interior-cruise-room.ashx",
+    "https://www.hochschober.com/fileadmin/_processed_/csm__DSC9095_ced629437d.jpg",
+    "http://www.carnival.com/~/media/Images/explore/staterooms/room-type-tiles/ocean-view-cruise-room.ashx"
+  ],
   "pricing":{
     "currency":"eur",
     "discounts":{

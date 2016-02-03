@@ -229,7 +229,7 @@ module.exports = React.createClass({
             <a id='pricing-save' className='btn btn-primary save-btn'>Save</a>
           </div>
           <div className='col s3 right-align'>
-            <a><i className="fa fa-chevron-right grey-text text-lighten-1 save-btn"></i></a>
+            <a><i className="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>
           </div>
         </div>
 
