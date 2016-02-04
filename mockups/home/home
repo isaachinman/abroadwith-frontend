@@ -107,18 +107,45 @@
   ],
   "pricing":{
     "currency":"eur",
-    "discounts":{
-      "oneMonthDiscount":5,
-      "threeMonthDiscount":7,
-      "sixMonthDiscount":14
-    },
-    "extras":{
-      "EXTRA_GUEST":20,
-      "FULL_BOARD":30,
-      "HALF_BOARD":20,
-      "LAUNDRY":10,
-      "CLEANING":10,
-      "AIRPORT_PICKUP":35
-    }
+    "discounts":[
+      {
+        "name":"oneMonthDiscount",
+        "amount":5
+      },
+      {
+        "name":"threeMonthDiscount",
+        "amount":7
+      },
+      {
+        "name":"sixMonthDiscount",
+        "amount":14
+      }
+    ],
+    "extras":[
+      {
+        "service":"EXTRA_GUEST",
+        "cost":20
+      },
+      {
+        "service":"FULL_BOARD",
+        "cost":30
+      },
+      {
+        "service":"HALF_BOARD",
+        "cost":10
+      },
+      {
+        "service":"LAUNDRY",
+        "cost":10
+      },
+      {
+        "service":"CLEANING",
+        "cost":10
+      },
+      {
+        "service":"AIRPORT_PICKUP",
+        "cost":35
+      }
+    ]
   }
 }

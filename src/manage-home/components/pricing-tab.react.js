@@ -68,23 +68,42 @@ module.exports = React.createClass({
     // Create new pricing object
     if (this.props.pricing) {
 
-      var newPricingObj = [];
-      newPricingObj.discounts = {}
-      newPricingObj.extras = {}
+      var newPricingObj = {};
+      newPricingObj.discounts = [];
+      newPricingObj.extras = [];
 
       newPricingObj.currency = $('select#currency').val();
-      newPricingObj.discounts.oneMonthDiscount = $('input#one-month-discount').val();
-      newPricingObj.discounts.threeMonthDiscount = $('input#three-month-discount').val();
-      newPricingObj.discounts.sixMonthDiscount = $('input#six-month-discount').val();
-      newPricingObj.extras.EXTRA_GUEST = $('input#extra-guest').val();
-      newPricingObj.extras.FULL_BOARD = $('input#full-board').val();
-      newPricingObj.extras.HALF_BOARD = $('input#half-board').val();
-      newPricingObj.extras.LAUNDRY = $('input#laundry').val();
-      newPricingObj.extras.CLEANING = $('input#cleaning').val();
-      newPricingObj.extras.AIRPORT_PICKUP = $('input#airport-pickup').val();
+      newPricingObj.discounts.oneMonthDiscount = {};
+      newPricingObj.discounts.oneMonthDiscount.name = "oneMonthDiscount";
+      newPricingObj.discounts.oneMonthDiscount.amount = $('input#one-month-discount').val();
+      newPricingObj.discounts.threeMonthDiscount = {};
+      newPricingObj.discounts.threeMonthDiscount.name = "threeMonthDiscount";
+      newPricingObj.discounts.threeMonthDiscount.amount = $('input#three-month-discount').val();
+      newPricingObj.discounts.sixMonthDiscount = {};
+      newPricingObj.discounts.sixMonthDiscount.name = "sixMonthDiscount";
+      newPricingObj.discounts.sixMonthDiscount.amount = $('input#six-month-discount').val();
+      newPricingObj.extras.EXTRA_GUEST = {};
+      newPricingObj.extras.EXTRA_GUEST.service = "EXTRA_GUEST";
+      newPricingObj.extras.EXTRA_GUEST.cost = $('input#extra-guest').val();
+      newPricingObj.extras.FULL_BOARD = {};
+      newPricingObj.extras.FULL_BOARD.service = "FULL_BOARD";
+      newPricingObj.extras.FULL_BOARD.cost = $('input#full-board').val();
+      newPricingObj.extras.HALF_BOARD = {};
+      newPricingObj.extras.HALF_BOARD.service = "HALF_BOARD";
+      newPricingObj.extras.HALF_BOARD.cost = $('input#half-board').val();
+      newPricingObj.extras.LAUNDRY = {};
+      newPricingObj.extras.LAUNDRY.service = "LAUNDRY";
+      newPricingObj.extras.LAUNDRY.cost = $('input#laundry').val();
+      newPricingObj.extras.CLEANING = {};
+      newPricingObj.extras.CLEANING.service = "CLEANING";
+      newPricingObj.extras.CLEANING.cost = $('input#cleaning').val();
+      newPricingObj.extras.AIRPORT_PICKUP = {};
+      newPricingObj.extras.AIRPORT_PICKUP.service = "AIRPORT_PICKUP";
+      newPricingObj.extras.AIRPORT_PICKUP.cost = $('input#airport-pickup').val();
 
       // Modify home object, using new pricing object
       if (typeof homeObj !== 'undefined') {
+        console.log(newPricingObj)
         homeObj.pricing = newPricingObj;
       }
 
@@ -99,17 +118,17 @@ module.exports = React.createClass({
   render: function() {
 
     // Set price vars
-    if (this.props.pricing) {
-      var currency = this.props.pricing.currency;
-      var oneMonthDiscount = this.props.pricing.discounts.oneMonthDiscount + '%';
-      var threeMonthDiscount = this.props.pricing.discounts.threeMonthDiscount + '%';
-      var sixMonthDiscount = this.props.pricing.discounts.sixMonthDiscount + '%';
-      var extraGuest = this.props.pricing.extras.EXTRA_GUEST;
-      var fullBoard = this.props.pricing.extras.FULL_BOARD;
-      var halfBoard = this.props.pricing.extras.HALF_BOARD;
-      var laundry = this.props.pricing.extras.LAUNDRY;
-      var cleaning = this.props.pricing.extras.CLEANING;
-      var airportPickup = this.props.pricing.extras.AIRPORT_PICKUP;
+    if (this.props.pricing && this.props.pricing.currency) {
+      $('select#currency').val(this.props.pricing.currency);
+      $('input#one-month-discount').val(this.props.pricing.discounts.oneMonthDiscount + '%');
+      $('input#three-month-discount').val(this.props.pricing.discounts.threeMonthDiscount + '%');
+      $('input#six-month-discount').val(this.props.pricing.discounts.sixMonthDiscount + '%');
+      $('input#extra-guest').val(this.props.pricing.extras.EXTRA_GUEST);
+      $('input#full-board').val(this.props.pricing.extras.FULL_BOARD);
+      $('input#half-board').val(this.props.pricing.extras.HALF_BOARD);
+      $('input#laundry').val(this.props.pricing.extras.LAUNDRY);
+      $('input#cleaning').val(this.props.pricing.extras.CLEANING);
+      $('input#airport-pickup').val(this.props.pricing.extras.AIRPORT_PICKUP);
     }
 
     // Create room modules if rooms exist
@@ -118,13 +137,14 @@ module.exports = React.createClass({
 
       this.props.rooms.forEach(function(obj) {
         var room = <RoomPriceModule
-            id={obj.id}
-            roomName={obj.name}
-            bed={obj.bed}
-            vacancies={obj.vacancies}
-            img={obj.img}
-            price={obj.price}
-            currency={currency}
+          key={obj.id}
+          id={obj.id}
+          roomName={obj.name}
+          bed={obj.bed}
+          vacancies={obj.vacancies}
+          img={obj.img}
+          price={obj.price}
+          currency={currency}
           />;
         rooms.push(room);
       })
@@ -145,9 +165,10 @@ module.exports = React.createClass({
 
       this.props.immersions.tandem.languagesInterested.forEach(function(obj) {
         var tandem = <TandemDiscountModule
-            lang={obj.lang}
-            discount={obj.discount}
-          />;
+          key={obj.lang}
+          lang={obj.lang}
+          discount={obj.discount}
+        />;
         tandemDiscounts.push(tandem);
       })
 
@@ -178,7 +199,7 @@ module.exports = React.createClass({
                 <i className="fa fa-credit-card fa-2x"></i>
               </div>
               <div className='col s10 m2 l2 input-field'>
-                <select id='currency' className='material' value={currency}>
+                <select id='currency' className='material'>
                   <option value="eur">EUR</option>
                   <option value="usd">USD</option>
                   <option value="gbp">GBP</option>
@@ -190,15 +211,15 @@ module.exports = React.createClass({
                 <i className="fa fa-calendar-o fa-2x"></i>
               </div>
               <div className='col s2 m2 l2 left-align input-field'>
-                <input id='one-month-discount' type="text" className="validate no-margin" placeholder='5%' value={oneMonthDiscount} />
+                <input id='one-month-discount' type="text" className="validate no-margin" placeholder='5%' />
                 <label className='active'>1 month discount</label>
               </div>
               <div className='col s2 m2 l2 left-align input-field'>
-                <input id='three-month-discount' type="text" className="validate no-margin" placeholder='7%' value={threeMonthDiscount} />
+                <input id='three-month-discount' type="text" className="validate no-margin" placeholder='7%' />
                 <label className='active'>3 month discount</label>
               </div>
               <div className='col s2 m2 l2 left-align input-field'>
-                <input id='six-month-discount' type="text" className="validate no-margin" placeholder='14%' value={sixMonthDiscount} />
+                <input id='six-month-discount' type="text" className="validate no-margin" placeholder='14%' />
                 <label className='active'>6+ month discount</label>
               </div>
             </div>
@@ -238,7 +259,7 @@ module.exports = React.createClass({
                         <i className="fa fa-user-plus fa-2x"></i>
                       </div>
                       <div className='col s9 input-field'>
-                        <input id='extra-guest' type="text" className="validate no-margin" placeholder='€20' value={extraGuest} />
+                        <input id='extra-guest' type="text" className="validate no-margin" placeholder='€20' />
                         <label className='active'>Extra guest charge</label>
                       </div>
                     </div>
@@ -250,7 +271,7 @@ module.exports = React.createClass({
                         <i className="fa fa-cutlery fa-2x"></i>
                       </div>
                       <div className='col s9 input-field'>
-                        <input id='full-board' type="text" className="validate no-margin" placeholder='€20' value={fullBoard} />
+                        <input id='full-board' type="text" className="validate no-margin" placeholder='€20' />
                         <label className='active'>Full board price</label>
                       </div>
                     </div>
@@ -262,7 +283,7 @@ module.exports = React.createClass({
                         <i className="fa fa-adjust fa-2x"></i>
                       </div>
                       <div className='col s9 input-field'>
-                        <input id='half-board' type="text" className="validate no-margin" placeholder='€20' value={halfBoard} />
+                        <input id='half-board' type="text" className="validate no-margin" placeholder='€20' />
                         <label className='active'>Half board price</label>
                       </div>
                     </div>
@@ -274,7 +295,7 @@ module.exports = React.createClass({
                         <i className="fa fa-shopping-basket fa-2x"></i>
                       </div>
                       <div className='col s9 input-field'>
-                        <input id='laundry' type="text" className="validate no-margin" placeholder='€20' value={laundry} />
+                        <input id='laundry' type="text" className="validate no-margin" placeholder='€20' />
                         <label className='active'>Laundry service price</label>
                       </div>
                     </div>
@@ -286,7 +307,7 @@ module.exports = React.createClass({
                         <i className="fa fa-trash-o fa-2x"></i>
                       </div>
                       <div className='col s9 input-field'>
-                        <input id='cleaning' type="text" className="validate no-margin" placeholder='€20' value={cleaning} />
+                        <input id='cleaning' type="text" className="validate no-margin" placeholder='€20' />
                         <label className='active'>Cleaning service price</label>
                       </div>
                     </div>
@@ -298,7 +319,7 @@ module.exports = React.createClass({
                         <i className="fa fa-plane fa-2x"></i>
                       </div>
                       <div className='col s9 input-field'>
-                        <input id='airport-pickup' type="text" className="validate no-margin" placeholder='€20' value={airportPickup} />
+                        <input id='airport-pickup' type="text" className="validate no-margin" placeholder='€20' />
                         <label className='active'>Airport pickup price</label>
                       </div>
                     </div>

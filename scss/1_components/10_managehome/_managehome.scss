@@ -78,6 +78,7 @@ input#home-address {
   background: lighten($havelock-blue, 35%);
 }
 .secondary-content {
+  color: inherit;
   label {
     left: 0;
   }
