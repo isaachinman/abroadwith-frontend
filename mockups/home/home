@@ -89,7 +89,7 @@
     {
       "id":1,
       "name": "Master bedroom",
-      "bed":"futon",
+      "bed":"Futon",
       "vacancies":2,
       "facilities":[
         "DESK"

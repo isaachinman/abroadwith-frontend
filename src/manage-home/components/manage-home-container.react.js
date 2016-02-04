@@ -131,6 +131,8 @@ module.exports = React.createClass({
           />
 
           <PricingTab
+            rooms={this.state.rooms}
+            immersions={this.state.immersions}
             pricing={this.state.pricing}
           />
 

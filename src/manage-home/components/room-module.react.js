@@ -94,7 +94,7 @@ module.exports = React.createClass({
               <div className="switch">
                 <label>
                   No
-                  <input type="checkbox shared-switch" defaultValue={this.props.shared} />
+                  <input type="checkbox" className='shared-switch' defaultValue={this.props.shared} />
                   <span className="lever"></span>
                   Yes
                 </label>

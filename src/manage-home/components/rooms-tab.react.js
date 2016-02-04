@@ -37,13 +37,13 @@ module.exports = React.createClass({
   },
   render: function() {
 
+    var rooms = [];
     if (this.props.rooms) {
-
-      var rooms = [];
 
       this.props.rooms.forEach(function(obj) {
         var room = <RoomModule
             id={obj.id}
+            key={obj.id}
             roomName={obj.name}
             bed={obj.bed}
             vacancies={obj.vacancies}
@@ -56,6 +56,8 @@ module.exports = React.createClass({
         rooms.push(room);
       })
 
+    } else {
+      rooms = <li className='white'><div id='name' className="collapsible-header">Your rooms will appear here</div><div className="edit grey-text text-lighten-1"></div></li>
     }
 
     return (
