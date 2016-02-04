@@ -4,12 +4,12 @@ var translations = require('../utils/Translations');
 
 var router = express.Router();
 
-router.get('/*', function (req, res) {
+router.get('/', function (req, res) {
   if(req.language && translations[req.language])
     context = { translations: translations[req.language]};
   else
     context = { translations: translations['eng']};
-  res.send(nunjucks.render('homes/homes.html',context));
+  res.send(nunjucks.render('test/test.html',context));
 });
 
 module.exports = router;

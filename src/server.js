@@ -7,6 +7,7 @@ var searchRouter = require('./search/Router');
 var mainRouter = require('./main/Router');
 var manageHomeRouter = require('./manage-home/Router');
 var homesRouter = require('./homes/Router');
+var testRouter = require('./test/Router');
 
 /** Middlewares **/
 var languageSettings = require('./global/middlewares/LanguageSettings');
@@ -29,9 +30,9 @@ app.use('/*', authentication);
 
 app.use(['/home','/'],mainRouter);
 
-app.get('/homes/*', function (req, res) {
-  res.send(nunjucks.render('homes/homes.html'));
-});
+app.use('/homes', homesRouter);
+
+app.use('/test', testRouter);
 
 app.use('/search',searchRouter);
 

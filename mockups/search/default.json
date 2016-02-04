@@ -11,46 +11,6 @@
     ]
   },
   "params":{
-    "currency":"EUR",
-    "immersion":[
-      "stay"
-    ],
-    "location":{
-      "minLat":42.000,
-      "minLng":62.000,
-      "maxLat":42.200,
-      "maxLng":61.880
-    },
-    "arrival":"2016-02-20",
-    "departure":"2016-04-20",
-    "guests":1,
-    "lang":"eng",
-    "filters":{
-      "specialPrefs":[
-        "smoking",
-        "family"
-      ],
-      "mealPlan":"breakfast",
-      "mealPref":"kosher",
-      "dietRestrictions":[
-        "lactose",
-        "celiac"
-      ],
-      "ammenities":[
-        "essentials",
-        "tv",
-        "hot_tub",
-        "washer"
-      ],
-      "houseType":[
-        "flat",
-        "cabin"
-      ],
-      "neighbourhood":[
-        "kreuzberg",
-        "mitte"
-      ]
-    }
   },
   "results":[
     {
