@@ -69,8 +69,8 @@ module.exports = React.createClass({
     if (this.props.pricing) {
 
       var newPricingObj = {};
-      newPricingObj.discounts = [];
-      newPricingObj.extras = [];
+      newPricingObj.discounts = {};
+      newPricingObj.extras = {};
 
       newPricingObj.currency = $('select#currency').val();
       newPricingObj.discounts.oneMonthDiscount = {};
@@ -120,20 +120,22 @@ module.exports = React.createClass({
     // Set price vars
     if (this.props.pricing && this.props.pricing.currency) {
       $('select#currency').val(this.props.pricing.currency);
-      $('input#one-month-discount').val(this.props.pricing.discounts.oneMonthDiscount + '%');
-      $('input#three-month-discount').val(this.props.pricing.discounts.threeMonthDiscount + '%');
-      $('input#six-month-discount').val(this.props.pricing.discounts.sixMonthDiscount + '%');
-      $('input#extra-guest').val(this.props.pricing.extras.EXTRA_GUEST);
-      $('input#full-board').val(this.props.pricing.extras.FULL_BOARD);
-      $('input#half-board').val(this.props.pricing.extras.HALF_BOARD);
-      $('input#laundry').val(this.props.pricing.extras.LAUNDRY);
-      $('input#cleaning').val(this.props.pricing.extras.CLEANING);
-      $('input#airport-pickup').val(this.props.pricing.extras.AIRPORT_PICKUP);
+      $('input#one-month-discount').val(this.props.pricing.discounts.oneMonthDiscount.amount + '%');
+      $('input#three-month-discount').val(this.props.pricing.discounts.threeMonthDiscount.amount + '%');
+      $('input#six-month-discount').val(this.props.pricing.discounts.sixMonthDiscount.amount + '%');
+      $('input#extra-guest').val(this.props.pricing.extras.EXTRA_GUEST.cost);
+      $('input#full-board').val(this.props.pricing.extras.FULL_BOARD.cost);
+      $('input#half-board').val(this.props.pricing.extras.HALF_BOARD.cost);
+      $('input#laundry').val(this.props.pricing.extras.LAUNDRY.cost);
+      $('input#cleaning').val(this.props.pricing.extras.CLEANING.cost);
+      $('input#airport-pickup').val(this.props.pricing.extras.AIRPORT_PICKUP.cost);
     }
 
     // Create room modules if rooms exist
     var rooms = [];
     if (this.props.rooms && this.props.pricing) {
+
+      var currency = this.props.pricing.currency;
 
       this.props.rooms.forEach(function(obj) {
         var room = <RoomPriceModule

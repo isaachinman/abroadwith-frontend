@@ -1,6 +1,6 @@
 {
   "basics":{
-    "homeType":"cabin",
+    "homeType":"CABIN",
     "SAFETY":[
       "FIRST_AID"
     ],
@@ -12,8 +12,8 @@
       "HALF_BOARD"
     ],
     "FOOD_OPTION":[
-      "vegetarian",
-      "vegan"
+      "VEGETARIAN",
+      "VEGAN"
     ],
     "EXTRAS":[
       "HOT_TUB",
@@ -40,23 +40,23 @@
     "stay":{
       "hours":10,
       "languagesOffered":[
-        "eng",
-        "spa"
+        "ENG",
+        "SPA"
       ]
     },
     "tandem":{
       "hours":10,
       "languagesOffered":[
-        "eng",
-        "spa"
+        "ENG",
+        "SPA"
       ],
       "languagesInterested":[
         {
-          "lang":"ger",
+          "lang":"GER",
           "discount":20
         },
         {
-          "lang":"por",
+          "lang":"POR",
           "discount":10
         }
       ]
@@ -89,7 +89,7 @@
     {
       "id":1,
       "name": "Master bedroom",
-      "bed":"Futon",
+      "bed":"FUTON",
       "vacancies":2,
       "facilities":[
         "DESK"
@@ -107,45 +107,45 @@
   ],
   "pricing":{
     "currency":"eur",
-    "discounts":[
-      {
+    "discounts":{
+      "oneMonthDiscount":{
         "name":"oneMonthDiscount",
         "amount":5
       },
-      {
+      "threeMonthDiscount":{
         "name":"threeMonthDiscount",
         "amount":7
       },
-      {
+      "sixMonthDiscount":{
         "name":"sixMonthDiscount",
         "amount":14
       }
-    ],
-    "extras":[
-      {
+    },
+    "extras":{
+      "EXTRA_GUEST":{
         "service":"EXTRA_GUEST",
         "cost":20
       },
-      {
+      "FULL_BOARD":{
         "service":"FULL_BOARD",
         "cost":30
       },
-      {
+      "HALF_BOARD":{
         "service":"HALF_BOARD",
         "cost":10
       },
-      {
+      "LAUNDRY":{
         "service":"LAUNDRY",
         "cost":10
       },
-      {
+      "CLEANING":{
         "service":"CLEANING",
         "cost":10
       },
-      {
+      "AIRPORT_PICKUP":{
         "service":"AIRPORT_PICKUP",
         "cost":35
-      }
-    ]
+      }  
+    }
   }
 }

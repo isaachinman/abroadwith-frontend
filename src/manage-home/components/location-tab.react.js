@@ -125,7 +125,7 @@ module.exports = React.createClass({
           var googleResponse = place.address_components;
 
           var googleResponseParsed={};
-          $.each(googleResponse, function(k,v1) {jQuery.each(v1.types, function(k2, v2){googleResponseParsed[v2]=v1.long_name});})
+          $.each(googleResponse, function(k,v1) {jQuery.each(v1.types, function(k2, v2){googleResponseParsed[v2]=v1.short_name});})
 
           window.newLocationObj = {
             "street":googleResponseParsed.street_number+' '+googleResponseParsed.route,
