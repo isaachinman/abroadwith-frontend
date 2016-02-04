@@ -8,13 +8,18 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
     position: relative;
     display: inline-block;
     width: 100%;
-    height: calc(3rem + 1px);
+    margin-right: -1px;
+    height: 3rem;
 }
 
 .select2-container,
 .select2-drop,
 .select2-search,
 .select2-search input {
+
+  -webkit-box-sizing: border-box; /* webkit */
+     -moz-box-sizing: border-box; /* firefox */
+          box-sizing: border-box; /* css3 */
 
 }
 

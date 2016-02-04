@@ -1,5 +1,12 @@
-.manage-home {
-  min-height: calc(100vh - 155px);
+.manage-home-block {
+  margin-bottom: 1rem;
+  @media only screen and (max-width: $large-screen) {
+    min-height: calc(100vh - 282px);
+  }
+  @media only screen and (min-width: $large-screen-up) {
+    min-height: calc(100vh - 290px);
+  }
+
 }
 .manage-home-section {
   @extend .section;
@@ -66,11 +73,12 @@ input#home-address {
 .manage-home-info-text {
   position: relative;
   @extend .grey-text;
-  margin: 3rem 0 -20px 0;
+  margin: 2rem 0 -20px 0;
   padding: 1rem 0;
   background: lighten($havelock-blue, 35%);
 }
 .secondary-content {
+  color: inherit;
   label {
     left: 0;
   }
@@ -97,4 +105,16 @@ input#home-address {
       color: white;
     }
   }
+}
+.next-btn {
+  font-size: 2.25rem !important;
+  margin-right: 2rem;
+  opacity: .8;
+  &:hover {
+    opacity: 1;
+  }
+}
+.no-tandem {
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd !important;
 }
