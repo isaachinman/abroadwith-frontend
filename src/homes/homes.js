@@ -1,14 +1,8 @@
-// Deps
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ManageHomeContainer = require('./components/manage-home-container.react');
-
-
-if ($('#manage-home-container').length) {
-  // Search parent
-  ReactDOM.render(
-    <ManageHomeContainer
-      source='backend/home/home'
-    />, document.querySelector('#manage-home-container')
-  )
+if ($('#book-a-room').length) {
+  $('#book-a-room').click(function() {
+    console.log('click')
+    $('html, body').animate({
+        scrollTop: $('#booking-row').offset().top - 50
+    }, 250);
+  })
 }

@@ -13,7 +13,17 @@
     <a class="Wallop-buttonPrevious white-text"><i class="fa fa-chevron-circle-left fa-2x"></i></a>
     <a class="Wallop-buttonNext white-text"><i class="fa fa-chevron-circle-right fa-2x"></i></a>
   </div>
-  <a class='btn btn-primary'>Find a room</a>
+  <div class='immersion-types'>
+    <div class='tag'>
+      <div class='stay'>
+        Stay
+      </div>
+      <div class='tandem'>
+        Tandem
+      </div>
+    </div>
+  </div>
+  <a id='book-a-room' class='btn btn-primary'>Book a room</a>
 </div>
 
 <div class='user-image'>
@@ -23,7 +33,6 @@
 <div class='home-title row'>
   <div class='row no-margin'>
     <h1>Jose's family home</h1>
-
   </div>
 
   <div class='home-details'>
@@ -149,7 +158,7 @@
 
   <div class='home-section-divider'></div>
 
-  <div class='row left-align section'>
+  <div id='booking-row' class='row left-align section no-margin-bottom'>
 
     <div class='col s12 m3 l3'>
       <div class='card home-card'>
@@ -171,13 +180,13 @@
           <div class='col s12 m12 l6'>
             <div class='input-field '>
               <input id='arrival' type="text" class='datepicker' value='' placeholder='yyyy-mm-dd' />
-              <label htmlFor='arrival' class='active'>Arrival</label>
+              <label htmlFor='arrival' class='active left'>Arrival</label>
             </div>
           </div>
           <div class='col s12 m12 l6'>
             <div class='input-field '>
               <input id='departure' type="text" class="datepicker" value='' placeholder='yyyy-mm-dd' />
-              <label htmlFor='departure' class='active'>Departure</label>
+              <label htmlFor='departure' class='active left'>Departure</label>
             </div>
           </div>
         </div>
@@ -260,7 +269,6 @@
 
           </div>
           <div class='col s4 right-align bottom'>
-            <label>from €1100</label><br>
             <a class='btn btn-primary'>Book now</a>
           </div>
         </div>
@@ -270,9 +278,9 @@
 
   </div>
 
-  <div class='divider'></div>
+  <div class='home-section-divider'></div>
 
-  <div class='row section left-align'>
+  <div class='row section no-margin-bottom left-align'>
 
     <div class='col s12 m12 l5'>
       <div class='card home-card home-card--fixed-height-tall'>
@@ -399,6 +407,37 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class='home-section-divider'></div>
+
+  <div class='row section no-margin-bottom left-align'>
+
+    <div class='col s12'>
+      <div class='card home-card'>
+        <div class='row'>
+          <div class='col s12'>
+            <i class="fa fa-map-marker fa-2x grey-text text-lighten-1"></i>
+            <span class='title'>Location</span>
+          </div>
+        </div>
+        <div class='row section no-margin-bottom'>
+           <div id="map" style='height:300px;width:100%'></div>
+          <script>
+          var map;
+            function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: -34.397, lng: 150.644},
+              zoom: 8
+            });
+          }
+          </script>
+          <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
         </div>
       </div>
     </div>

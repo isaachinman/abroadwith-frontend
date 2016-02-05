@@ -7,6 +7,41 @@
     height: auto;
     width: 100%;
   }
+  .immersion-types {
+    position: absolute;
+    left: 240px;
+    bottom: 0;
+    .tag {
+      color: white;
+      width: 100px;
+      text-indent: 10px;
+      font-size: .8rem;
+      font-weight: 600;
+      line-height: 1.5rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1.15px;
+      opacity: .95;
+      div:first-child {
+        border-top-right-radius: 3px;
+      }
+      .stay, .tandem, .teacher {
+        position: relative;
+        display: block;
+        padding: 0 .25rem;
+        min-width: 60px;
+      }
+      .stay {
+        background: $stay;
+      }
+      .tandem {
+        background: $tandem;
+      }
+      .teacher {
+        background: $teacher;
+      }
+    }
+  }
   a.btn-primary {
     position: absolute;
     right: 5vw;
@@ -48,45 +83,13 @@
     overflow: hidden;
     display: inline-block;
     font-size: 2.5rem;
-    margin: 20px 0 0 0;
+    margin: 15px 0 0 0;
   }
   float:left;
   text-align: left;
   .type, .location {
     @extend .grey-text;
     @extend .text-darken-1;
-  }
-  .immersion-types {
-    float: right;
-    .tag {
-      color: lighten($grey-chateau, 35%);;
-      font-size: .8rem;
-      font-weight: 600;
-      line-height: 1.5rem;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 1.15px;
-      opacity: .95;
-      div:last-child {
-        border-bottom-right-radius: 3px;
-        border-bottom-left-radius: 3px;
-      }
-      .stay, .tandem, .teacher {
-        position: relative;
-        display: block;
-        padding: 0 .25rem;
-        min-width: 60px;
-      }
-      .stay {
-        background: $stay;
-      }
-      .tandem {
-        background: $tandem;
-      }
-      .teacher {
-        background: $teacher;
-      }
-    }
   }
 }
 .home-details {
@@ -98,7 +101,7 @@
     margin: 0 5px;
   }
   .rating {
-    float: right;
+    margin-left: 10px;
   }
 }
 .home-card {
@@ -152,7 +155,7 @@ i.certified-language {
   color: lighten($havelock-blue, 10%);
 }
 .rating {
-  color: lighten($havelock-blue, 10%);
+  color: lighten($havelock-blue, 15%);
 }
 .review {
   img.host-picture {

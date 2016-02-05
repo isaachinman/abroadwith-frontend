@@ -17,5 +17,8 @@ require('./global/signup');
 // Manage home
 require('./manage-home/manage-home');
 
+// Home profile
+require('./homes/homes');
+
 // Facebook scripts
 require('./global/facebook')
