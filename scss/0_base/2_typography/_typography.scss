@@ -72,6 +72,9 @@ small { font-size: 75%; }
     margin-top: 2rem;
   }
 }
+label.left {
+  left: 0 !important;
+}
 .container {
   width: 90%;
 }
@@ -87,4 +90,18 @@ small { font-size: 75%; }
   color: white;
   font-size: .95rem;
   background: darken($ziggurat, 15%);
+}
+strong {
+  font-weight: 600;
+}
+ul.bullets {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  margin-top: -.75rem;
+  li {
+    list-style-type: circle;
+    list-style-position: inside;
+    text-indent: 2rem;
+
+  }
 }

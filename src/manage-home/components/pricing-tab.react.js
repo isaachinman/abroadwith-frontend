@@ -53,7 +53,7 @@ module.exports = React.createClass({
       $('li.tandem-discount').each(function() {
 
         var lang = $(this).find('input.discount').attr('data-lang');
-        var discount = $(this).find('input.discount').val();
+        var discount = $('#tandem-discount').val();
         changeDiscount(lang, discount);
 
       })
@@ -200,7 +200,7 @@ module.exports = React.createClass({
               <div className='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
                 <i className="fa fa-credit-card fa-2x"></i>
               </div>
-              <div className='col s10 m2 l2 input-field'>
+              <div className='col s10 m1 l1 input-field'>
                 <select id='currency' className='material'>
                   <option value="eur">EUR</option>
                   <option value="usd">USD</option>
@@ -224,13 +224,25 @@ module.exports = React.createClass({
                 <input id='six-month-discount' type="text" className="validate no-margin" placeholder='14%' />
                 <label className='active'>6+ month discount</label>
               </div>
+
+              <div className='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+                <i className="fa fa-circle-o-notch fa-2x"></i>
+              </div>
+              <div className='col s2 m2 l2 left-align input-field'>
+                <input id='tandem-discount' type="text" className="validate no-margin" placeholder='20%' />
+                <label className='active'>Tandem discount</label>
+              </div>
             </div>
+
+
+
+
 
             <div className='divider'></div>
 
-            <div className='row section'>
+            <div className='row section no-margin'>
 
-              <div className='col s12 m12 l6 left-align'>
+              <div className='col s12 m12 l4 left-align'>
 
                 <label>Room rates (weekly)</label>
 
@@ -240,89 +252,81 @@ module.exports = React.createClass({
 
                 </ul>
 
-                <label>Tandem discounts</label>
-
-                <ul className="collection with-header extra-charges-collection">
-
-                  {tandemDiscounts}
-
-                </ul>
-
               </div>
 
-              <div className='col s12 m12 l6 left-align'>
+              <div className='col s12 m12 l8 left-align'>
                 <label>Extra charges</label>
 
                 <ul className="collection with-header extra-charges-collection">
 
-                  <li className="collection-header col s12 m6 l6 border-right">
+                  <li className="collection-header col s12 m6 l4 border-right">
                     <div className='row'>
                       <div className='col s3 input-field center-align grey-text text-lighten-1'>
                         <i className="fa fa-user-plus fa-2x"></i>
                       </div>
                       <div className='col s9 input-field'>
                         <input id='extra-guest' type="text" className="validate no-margin" placeholder='€20' />
-                        <label className='active'>Extra guest charge</label>
+                        <label className='active'>Extra guest</label>
                       </div>
                     </div>
                   </li>
 
-                  <li className="collection-header col s12 m6 l6 border-right">
+                  <li className="collection-header col s12 m6 l4 border-right">
                     <div className='row'>
                       <div className='col s3 input-field center-align grey-text text-lighten-1'>
                         <i className="fa fa-cutlery fa-2x"></i>
                       </div>
                       <div className='col s9 input-field'>
                         <input id='full-board' type="text" className="validate no-margin" placeholder='€20' />
-                        <label className='active'>Full board price</label>
+                        <label className='active'>Full board</label>
                       </div>
                     </div>
                   </li>
 
-                  <li className="collection-header col s12 m6 l6 border-right">
+                  <li className="collection-header col s12 m6 l4 border-right">
                     <div className='row'>
                       <div className='col s3 input-field center-align grey-text text-lighten-1'>
                         <i className="fa fa-adjust fa-2x"></i>
                       </div>
                       <div className='col s9 input-field'>
                         <input id='half-board' type="text" className="validate no-margin" placeholder='€20' />
-                        <label className='active'>Half board price</label>
+                        <label className='active'>Half board</label>
                       </div>
                     </div>
                   </li>
 
-                  <li className="collection-header col s12 m6 l6 border-right">
+                  <li className="collection-header col s12 m6 l4 border-right">
                     <div className='row'>
                       <div className='col s3 input-field center-align grey-text text-lighten-1'>
                         <i className="fa fa-shopping-basket fa-2x"></i>
                       </div>
                       <div className='col s9 input-field'>
                         <input id='laundry' type="text" className="validate no-margin" placeholder='€20' />
-                        <label className='active'>Laundry service price</label>
+                        <label className='active'>Laundry service</label>
                       </div>
                     </div>
                   </li>
 
-                  <li className="collection-header col s12 m6 l6 border-right">
+                  <li className="collection-header col s12 m6 l4 border-right">
                     <div className='row'>
                       <div className='col s3 input-field center-align grey-text text-lighten-1'>
                         <i className="fa fa-trash-o fa-2x"></i>
                       </div>
                       <div className='col s9 input-field'>
                         <input id='cleaning' type="text" className="validate no-margin" placeholder='€20' />
-                        <label className='active'>Cleaning service price</label>
+                        <label className='active'>Cleaning service</label>
                       </div>
                     </div>
                   </li>
 
-                  <li className="collection-header col s12 m6 l6 border-right">
+                  <li className="collection-header col s12 m6 l4 border-right">
                     <div className='row'>
                       <div className='col s3 input-field center-align grey-text text-lighten-1'>
                         <i className="fa fa-plane fa-2x"></i>
                       </div>
                       <div className='col s9 input-field'>
                         <input id='airport-pickup' type="text" className="validate no-margin" placeholder='€20' />
-                        <label className='active'>Airport pickup price</label>
+                        <label className='active'>Airport pickup</label>
                       </div>
                     </div>
                   </li>

@@ -1,4 +1,4 @@
-{% extends "layout--no-footer.html" %} {% block content %}
+{% extends "layout.html" %} {% block content %}
 
 <div class='profile-slider'>
   <div class="wallop">
@@ -6,10 +6,14 @@
       <div class="Wallop-item Wallop-item--current">
         <img src="http://thetaleoftwotings.com/wp-content/uploads/2014/01/P1160797.jpg" />
       </div>
+      <div class='Wallop-item'>
+        <img src="http://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2014/05/02/101637563-airbnb.1910x1000.jpg" />
+      </div>
     </div>
     <a class="Wallop-buttonPrevious white-text"><i class="fa fa-chevron-circle-left fa-2x"></i></a>
     <a class="Wallop-buttonNext white-text"><i class="fa fa-chevron-circle-right fa-2x"></i></a>
   </div>
+  <a class='btn btn-primary'>Find a room</a>
 </div>
 
 <div class='user-image'>
@@ -19,16 +23,7 @@
 <div class='home-title row'>
   <div class='row no-margin'>
     <h1>Jose's family home</h1>
-    <div class='immersion-types'>
-      <div class='tag'>
-        <div class='stay'>
-          Stay
-        </div>
-        <div class='tandem'>
-          Tandem
-        </div>
-      </div>
-    </div>
+
   </div>
 
   <div class='home-details'>
@@ -58,51 +53,54 @@
 
   <div class='row left-align'>
 
-    <div class='col s12 m4 l3'>
-      <div class='card home-card'>
+    <div class='col s12 m12 l3'>
+      <div class='card home-card home-card--fixed-height'>
         <div class='row'>
           <div class='col s12'>
             <i class="fa fa-globe fa-2x grey-text text-lighten-1"></i>
             <span class='title'>Languages</span>
           </div>
         </div>
-        <div class='row'>
-          <div class='col s12'>
-            <table class='responsive-table bordered'>
-              <thead>
-                <tr>
-                  <th data-field="id">Learning</th>
-                  <th data-field="name">Known</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr>
-                  <td>English</td>
-                  <td>Spanish</td>
-                </tr>
-                <tr>
-                  <td>German</td>
-                </tr>
-                <tr>
-                  <td>Portuguese</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class='row content'>
+          <div class='col s12 m6 l12'>
+            <p>
+              <strong>Learning:</strong>
+            </p>
+            <ul class="collection">
+              <li class="collection-item">German</li>
+              <li class="collection-item">Spanish</li>
+            </ul>
+          </div>
+          <div class='col s12 m6 l12'>
+            <p>
+              <strong>Speaks:</strong>
+            </p>
+            <ul class="collection no-margin-bottom">
+              <li class="collection-item">English</li>
+              <li class="collection-item">Portuguese</li>
+            </ul>
+          </div>
+          <div class='col s12 m6 l12'>
+            <p>
+              <strong>Teaches:</strong>
+            </p>
+            <ul class="collection no-margin-bottom">
+              <li class="collection-item">English<a href="#!" class="secondary-content tooltipped" data-position="bottom" data-delay="50" data-tooltip="Certified"><i class="fa fa-certificate certified-language"></i></a></li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
 
     <div class='col s12 m6 l6'>
-      <div class='card home-card'>
+      <div class='card home-card home-card--fixed-height'>
         <div class='row'>
           <div class='col s12'>
             <i class="fa fa-user fa-2x grey-text text-lighten-1"></i>
             <span class='title'>About</span>
           </div>
         </div>
-        <div class='row'>
+        <div class='row content'>
           <div class='col s12'>
             <p>
               Lorem ipsum dolor sit amet, tamquam meliore te qui, est ea dico feugiat. Ut brute dicat appetere has. Pri facer platonem ne, pro reque appellantur an. Vim ad postea suscipiantur. No vim expetenda eloquentiam vituperatoribus. Duo augue putent ponderum ea, eu qui sale ullum integre.
@@ -115,27 +113,158 @@
       </div>
     </div>
 
-    <div class='col s12 m2 l3'>
-      <div class='card home-card'>
+    <div class='col s12 m6 l3'>
+      <div class='card home-card home-card--fixed-height'>
         <div class='row'>
           <div class='col s12'>
             <i class="fa fa-envelope fa-2x grey-text text-lighten-1"></i>
             <span class='title'>Details</span>
           </div>
         </div>
+        <div class='row content bottom-align-column'>
+          <div class='col s12'>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>25, Male
+            </p>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>Member since Oct 2014
+            </p>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>Berlin, Germany
+            </p>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Family home
+            </p>
+            <div class='divider'></div>
+          </div>
+          <div class='col s12 bottom center-align'>
+            <a class='btn btn-secondary '>Contact host</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class='home-section-divider'></div>
+
+  <div class='row left-align section'>
+
+    <div class='col s12 m3 l3'>
+      <div class='card home-card'>
+        <div class='row'>
+          <div class='col s12'>
+            <i class="fa fa-calendar-o fa-2x grey-text text-lighten-1"></i>
+            <span class='title'>Booking</span>
+          </div>
+        </div>
         <div class='row'>
           <div class='col s12'>
             <p>
-              Stay: €1300/month
-            </p>
-            <p>
-              Tandem: €1100/month
-            </p>
-            <p>
-              <a class='btn'>Contact host</a>
+              Choose your dates:
             </p>
           </div>
         </div>
+
+        <div class='row'>
+          <div class='col s12 m12 l6'>
+            <div class='input-field '>
+              <input id='arrival' type="text" class='datepicker' value='' placeholder='yyyy-mm-dd' />
+              <label htmlFor='arrival' class='active'>Arrival</label>
+            </div>
+          </div>
+          <div class='col s12 m12 l6'>
+            <div class='input-field '>
+              <input id='departure' type="text" class="datepicker" value='' placeholder='yyyy-mm-dd' />
+              <label htmlFor='departure' class='active'>Departure</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class='col s12 m9 l9'>
+      <div class='card home-card'>
+        <div class='row'>
+
+          <div class='col s12'>
+            <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
+            <span class='title'>Master bedroom</span>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col s12 m4 l5'>
+            <p>
+
+            </p>
+            <img class='home-room-image' src='http://images2.roomstogo.com/is/image/roomstogo/br_rm_gardenia_white_nostack~Gardenia-White-5-Pc-Queen-Platform-Bedroom.jpeg?$PDP_Primary_525x366$' />
+          </div>
+          <div class='col s6 m6 l2'>
+            <p class='grey-text text-darken-1'>
+              <strong>Basics:</strong>
+            </p>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Sleeps: 1
+            </p>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Shared: No
+            </p>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>Bed type: 1
+            </p>
+          </div>
+          <div class='col s6 m6 l2'>
+            <p class='grey-text text-darken-1'>
+              <strong>Facilities:</strong>
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></span></i>Heating
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></span></i>Mirror
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></span></i>Lock
+            </p>
+          </div>
+          <div class='col s6 m12 l3'>
+            <p class='grey-text text-darken-1'>
+              <strong>Price:</strong>
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Stay: <span class='right'>€110/week</span>
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Tandem: <span class='right'>€90/week</span>
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-university grey-text text-lighten-1"></span></i>Teacher: <span class='right'>€200/week</span>
+            </p>
+
+          </div>
+        </div>
+
+        <div class='row section'>
+          <div class='col s12'>
+            <div class='divider'></div>
+          </div>
+        </div>
+
+        <div class='row bottom-align-row'>
+          <div class='col s8'>
+            <label>Room description</label><br>
+
+              Comfort, Bright , space, comfort room in a two bedroom apartment. One block from 1 train and 20 mins from plaza de Cataluña. Full access to kitchen and bathroom.
+
+          </div>
+          <div class='col s4 right-align bottom'>
+            <label>from €1100</label><br>
+            <a class='btn btn-primary'>Book now</a>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -143,27 +272,132 @@
 
   <div class='divider'></div>
 
-  <div class='row left-align section'>
+  <div class='row section left-align'>
 
-    <div class='col s12 m6 l4'>
-      <div class='card home-card'>
+    <div class='col s12 m12 l5'>
+      <div class='card home-card home-card--fixed-height-tall'>
         <div class='row'>
           <div class='col s12'>
-            <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
-            <span class='title'>Master bedroom</span>
+            <i class="fa fa-home fa-2x grey-text text-lighten-1"></i>
+            <span class='title'>Home details</span>
           </div>
         </div>
-        <div class='row'>
-          <div class='col s12'>
-            <p>
-              Stay: €1300/month
+        <div class='row content'>
+          <div class='col s12 m6 l6'>
+            <p class='grey-text text-darken-1'>
+              <strong>Amentities:</strong>
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></span></i>Heating
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></span></i>Mirror
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></span></i>Lock
+            </p>
+          </div>
+          <div class='col s12 m6 l6'>
+            <p class='grey-text text-darken-1'>
+              <strong>Services:</strong>
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></span></i>Heating
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></span></i>Mirror
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></span></i>Lock
+            </p>
+          </div>
+          <div class='col s12 m6 l6'>
+            <p class='grey-text text-darken-1'>
+              <strong>Preferences:</strong>
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></span></i>Heating
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></span></i>Mirror
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></span></i>Lock
+            </p>
+          </div>
+          <div class='col s12 m6 l6'>
+            <p class='grey-text text-darken-1'>
+              <strong>Rules:</strong>
             </p>
             <p>
-              Tandem: €1100/month
+              Lorem ipsum dolor sit amet, tamquam meliore te qui, est ea dico feugiat. Ut brute dicat appetere has.
             </p>
-            <p>
-              <a class='btn'>Contact host</a>
-            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='col s12 m12 l7'>
+      <div class='card home-card home-card--fixed-height-tall'>
+        <div class='row bottom-align-row'>
+          <div class='col s9'>
+            <i class="fa fa-star-o fa-2x grey-text text-lighten-1"></i>
+            <span class='title'>Reviews</span>
+          </div>
+          <div class='col s3 bottom right-align'>
+            <span class='rating'>
+              <span class='count'>
+                (22)
+              </span>
+              <span class='stars'>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+                <i class="fa fa-star-o"></i>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class='row no-margin'>
+          <div class='col s12 content'>
+            <div class='card home-card review'>
+              <div class='row'>
+                <div class='col s2 center-align'>
+                  <img class='circle host-picture' src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
+                  <br>
+                  Isaac
+                </div>
+                <div class='col s10'>
+                  <p>
+                    Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.
+                  </p>
+                </div>
+                <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
+                  05/01/2016
+                </div>
+              </div>
+            </div>
+            <div class='card home-card review'>
+              <div class='row'>
+                <div class='col s2 center-align'>
+                  <img class='circle host-picture' src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
+                  <br>
+                  Isaac
+                </div>
+                <div class='col s10'>
+                  <p>
+                    Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.
+                  </p>
+                  <p>
+                    Enim adolescens ea pri, quo veniam labore alienum ut. Alienum disputationi vix at, vis dictas corpora te, has audire sententiae id. Per ad animal timeam latine, est augue mucius ridens ex. Ei utroque accumsan est, vix et minim dicunt commune. Has ei quod dico nullam.
+                  </p>
+                </div>
+                <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
+                  05/01/2016
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

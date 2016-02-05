@@ -79,9 +79,6 @@ input#home-address {
 }
 .secondary-content {
   color: inherit;
-  label {
-    left: 0;
-  }
 }
 .extra-charges-collection {
   border-right: 0;
@@ -117,4 +114,17 @@ input#home-address {
 .no-tandem {
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd !important;
+}
+.room {
+  span.title {
+    display: inline-block;
+    max-width: calc(100% - 100px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .secondary-content {
+    max-width: 80px;
+  }
+
 }

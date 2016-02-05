@@ -14,7 +14,7 @@ module.exports = React.createClass({
         </p>
         <div className="secondary-content input-field">
           <input type="text" className="validate no-margin room-price" placeholder='€70' defaultValue={this.props.price+this.props.currency} />
-          <label className='active'>Weekly rate</label>
+          <label className='active left'>Weekly rate</label>
         </div>
       </li>
 

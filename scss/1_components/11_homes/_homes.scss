@@ -1,10 +1,18 @@
 .profile-slider {
+  position: relative;
   .wallop, .Wallop-list {
     max-height: 400px;
   }
   img {
     height: auto;
     width: 100%;
+  }
+  a.btn-primary {
+    position: absolute;
+    right: 5vw;
+    bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 }
 .user-image {
@@ -25,21 +33,22 @@
 }
 .home-title {
   @extend .row;
-  @extend .z-depth-1;
   position: relative;
   float: left;
-  background: lighten($grey-chateau, 31.5%);
+  background: lighten($grey-chateau, 32.5%);
   width: 100vw;
-  padding: 0 10px 15px 250px;
+  padding: 0 5vw 25px 250px;
+  margin-bottom: 25px;
   @media #{$small-and-down} {
     padding-left: 10px;
   }
   h1 {
+    color: darken($americano, 5%);
     max-width: calc(100% - 70px);
     overflow: hidden;
     display: inline-block;
     font-size: 2.5rem;
-    margin: 10px 0 0 0;
+    margin: 20px 0 0 0;
   }
   float:left;
   text-align: left;
@@ -89,12 +98,11 @@
     margin: 0 5px;
   }
   .rating {
-    color: lighten($havelock-blue, 15%);
     float: right;
   }
 }
 .home-card {
-  padding: 20px;
+  padding: 20px 20px 30px 20px;
   box-shadow: none;
   border: 1px solid #ddd;
   .fa-2x {
@@ -112,4 +120,52 @@
   a.btn {
     box-shadow: none;
   }
+  &--fixed-height {
+    .content {
+      height: 250px;
+      overflow: scroll;
+    }
+  }
+  &--fixed-height-tall {
+    .content {
+      height: 350px;
+      overflow: scroll;
+    }
+  }
+}
+img.home-room-image {
+  max-width: 100%;
+}
+p.home-details {
+  height: 22px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  span.icon {
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+    margin-right: 5px;
+  }
+}
+i.certified-language {
+  color: lighten($havelock-blue, 10%);
+}
+.rating {
+  color: lighten($havelock-blue, 10%);
+}
+.review {
+  img.host-picture {
+    width: 50px;
+  }
+  p:first-child {
+    margin-top: 0;
+  }
+}
+
+.home-section-divider {
+  width: 100vw;
+  height: 1px;
+  margin: 0 0 10px -5vw;
+  background: #ddd;
 }
