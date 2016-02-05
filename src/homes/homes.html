@@ -1,7 +1,177 @@
-{% extends "layout--no-footer.html" %}  
+{% extends "layout--no-footer.html" %} {% block content %}
 
-{% block content %}
+<div class='profile-slider'>
+  <div class="wallop">
+    <div class="Wallop-list">
+      <div class="Wallop-item Wallop-item--current">
+        <img src="http://thetaleoftwotings.com/wp-content/uploads/2014/01/P1160797.jpg" />
+      </div>
+    </div>
+    <a class="Wallop-buttonPrevious white-text"><i class="fa fa-chevron-circle-left fa-2x"></i></a>
+    <a class="Wallop-buttonNext white-text"><i class="fa fa-chevron-circle-right fa-2x"></i></a>
+  </div>
+</div>
 
-  Homes
+<div class='user-image'>
+  <img src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
+</div>
+
+<div class='home-title row'>
+  <div class='row no-margin'>
+    <h1>Jose's family home</h1>
+    <div class='immersion-types'>
+      <div class='tag'>
+        <div class='stay'>
+          Stay
+        </div>
+        <div class='tandem'>
+          Tandem
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='home-details'>
+    <span class='type'>
+      Cabin
+    </span>
+    <span class='home-details__divider'><i class="fa fa-chevron-right"></i></span>
+    <span class='location'>
+      Berlin
+    </span>
+    <span class='rating'>
+      <span class='count'>
+        (22)
+      </span>
+      <span class='stars'>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+      </span>
+    </span>
+  </div>
+</div>
+
+<div class='container'>
+
+  <div class='row left-align'>
+
+    <div class='col s12 m4 l3'>
+      <div class='card home-card'>
+        <div class='row'>
+          <div class='col s12'>
+            <i class="fa fa-globe fa-2x grey-text text-lighten-1"></i>
+            <span class='title'>Languages</span>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col s12'>
+            <table class='responsive-table bordered'>
+              <thead>
+                <tr>
+                  <th data-field="id">Learning</th>
+                  <th data-field="name">Known</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>English</td>
+                  <td>Spanish</td>
+                </tr>
+                <tr>
+                  <td>German</td>
+                </tr>
+                <tr>
+                  <td>Portuguese</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='col s12 m6 l6'>
+      <div class='card home-card'>
+        <div class='row'>
+          <div class='col s12'>
+            <i class="fa fa-user fa-2x grey-text text-lighten-1"></i>
+            <span class='title'>About</span>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col s12'>
+            <p>
+              Lorem ipsum dolor sit amet, tamquam meliore te qui, est ea dico feugiat. Ut brute dicat appetere has. Pri facer platonem ne, pro reque appellantur an. Vim ad postea suscipiantur. No vim expetenda eloquentiam vituperatoribus. Duo augue putent ponderum ea, eu qui sale ullum integre.
+            </p>
+            <p>
+              Animal petentium assentior vim no. Pri doming oblique accumsan id, unum dictas vituperata ius et. Sea aeque epicuri invidunt ad. Affert quaestio qui in. Ea pri aliquam officiis perpetua, id quo purto deleniti. Et usu graeci repudiare. Ex dicunt atomorum eum, mei modo vero no.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='col s12 m2 l3'>
+      <div class='card home-card'>
+        <div class='row'>
+          <div class='col s12'>
+            <i class="fa fa-envelope fa-2x grey-text text-lighten-1"></i>
+            <span class='title'>Details</span>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col s12'>
+            <p>
+              Stay: €1300/month
+            </p>
+            <p>
+              Tandem: €1100/month
+            </p>
+            <p>
+              <a class='btn'>Contact host</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class='divider'></div>
+
+  <div class='row left-align section'>
+
+    <div class='col s12 m6 l4'>
+      <div class='card home-card'>
+        <div class='row'>
+          <div class='col s12'>
+            <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
+            <span class='title'>Master bedroom</span>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col s12'>
+            <p>
+              Stay: €1300/month
+            </p>
+            <p>
+              Tandem: €1100/month
+            </p>
+            <p>
+              <a class='btn'>Contact host</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
 
 {% endblock %}

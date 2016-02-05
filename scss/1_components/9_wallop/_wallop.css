@@ -1,3 +1,22 @@
+.wallop {
+  position: relative;
+}
+  .Wallop-buttonPrevious, .Wallop-buttonNext {
+    position: absolute;
+    top: 50%;
+    opacity: .5;
+    z-index: 11;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .Wallop-buttonPrevious {
+    left: 10px;
+  }
+  .Wallop-buttonNext {
+    right: 10px;
+  }
+
 .Wallop-list {
   position: relative;
   overflow: hidden;

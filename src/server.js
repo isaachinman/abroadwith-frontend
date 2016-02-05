@@ -30,9 +30,9 @@ app.use('/*', authentication);
 
 app.use(['/home','/'],mainRouter);
 
-app.use('/homes', homesRouter);
+app.use('/homes',homesRouter);
 
-app.use('/test', testRouter);
+app.use('/test',testRouter);
 
 app.use('/search',searchRouter);
 

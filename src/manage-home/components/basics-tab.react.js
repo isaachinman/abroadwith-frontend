@@ -35,7 +35,13 @@ module.exports = React.createClass({
       var extras = this.props.basics.EXTRAS;
       var family = this.props.basics.family;
       var preferences = this.props.basics.PREFERENCES;
+      $('#family').prop('checked', this.props.basics.family);
     }
+
+
+
+
+
 
     return (
       <div id="basics" className="col s12 m10 offset-m1 l10 offset-l1">
@@ -167,7 +173,7 @@ module.exports = React.createClass({
                 <div className="switch">
                   <label>
                     No
-                    <input id='family' type="checkbox" checked={family}/>
+                    <input id='family' type="checkbox"/>
                     <span className="lever"></span>
                     Yes
                   </label>

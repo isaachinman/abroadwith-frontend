@@ -1,0 +1,115 @@
+.profile-slider {
+  .wallop, .Wallop-list {
+    max-height: 400px;
+  }
+  img {
+    height: auto;
+    width: 100%;
+  }
+}
+.user-image {
+  @extend .z-depth-1;
+  position: absolute;
+  overflow: hidden;
+  float: left;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  margin: -160px 0 0 10px;
+  @media #{$small-and-down} {
+    display: none;
+  }
+  z-index: 1;
+  background: black;
+  border: 5px solid white;
+}
+.home-title {
+  @extend .row;
+  @extend .z-depth-1;
+  position: relative;
+  float: left;
+  background: lighten($grey-chateau, 31.5%);
+  width: 100vw;
+  padding: 0 10px 15px 250px;
+  @media #{$small-and-down} {
+    padding-left: 10px;
+  }
+  h1 {
+    max-width: calc(100% - 70px);
+    overflow: hidden;
+    display: inline-block;
+    font-size: 2.5rem;
+    margin: 10px 0 0 0;
+  }
+  float:left;
+  text-align: left;
+  .type, .location {
+    @extend .grey-text;
+    @extend .text-darken-1;
+  }
+  .immersion-types {
+    float: right;
+    .tag {
+      color: lighten($grey-chateau, 35%);;
+      font-size: .8rem;
+      font-weight: 600;
+      line-height: 1.5rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1.15px;
+      opacity: .95;
+      div:last-child {
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+      .stay, .tandem, .teacher {
+        position: relative;
+        display: block;
+        padding: 0 .25rem;
+        min-width: 60px;
+      }
+      .stay {
+        background: $stay;
+      }
+      .tandem {
+        background: $tandem;
+      }
+      .teacher {
+        background: $teacher;
+      }
+    }
+  }
+}
+.home-details {
+  width: 100%;
+  display: block;
+  &__divider {
+    @extend .grey-text;
+    opacity: .6;
+    margin: 0 5px;
+  }
+  .rating {
+    color: lighten($havelock-blue, 15%);
+    float: right;
+  }
+}
+.home-card {
+  padding: 20px;
+  box-shadow: none;
+  border: 1px solid #ddd;
+  .fa-2x {
+    font-size: 1.65rem !important;
+  }
+  .row {
+    margin: 0;
+  }
+  .title {
+    @extend .grey-text;
+    @extend .text-darken-1;
+    margin-left: 10px;
+    font-size: 1.65rem;
+  }
+  a.btn {
+    box-shadow: none;
+  }
+}
