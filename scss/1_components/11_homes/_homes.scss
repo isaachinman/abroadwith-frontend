@@ -126,11 +126,13 @@
   &--fixed-height {
     .content {
       height: 250px;
+      overflow-y: scroll;
     }
   }
   &--fixed-height-tall {
     .content {
       height: 350px;
+      overflow-y: scroll;
     }
   }
 }
