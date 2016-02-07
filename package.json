@@ -46,7 +46,7 @@
     "sass-watch": "node-sass --output-style compressed -w -o build/css/ scss/",
     "bundle": "browserify -t [ babelify --presets [ react ] ]  src/app.js > build/app.js",
     "bundle-min": "browserify -t [ babelify --presets [ react ] ] -g [ uglifyify ] src/app.js > build/app.js",
-    "discify": "discify build/app.js > build/disc.html --open",
+    "discify": "browserify -t [ babelify --presets [ react ] ] -g [ uglifyify ] src/app.js > build/app.js --full-paths && discify build/app.js > build/disc.html --open",
     "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
     "start": "node src/server.js",
     "fullstart": "npm run build && npm run start"
