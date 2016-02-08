@@ -1,6 +1,8 @@
 // Scroll to bottom of conversation thread
 if ($('.message-body').length) {
-  $('.message-body').scrollTop($('.message-body')[0].scrollHeight);
+  $('.message-body').each(function() {
+    $(this).scrollTop($(this)[0].scrollHeight);
+  })
 }
 
 // Hide and show conversations
@@ -12,6 +14,7 @@ if ($('ul.message-list').length) {
       var target = $(this).attr('data-target');
       $('.message-body').removeClass('active');
       $('#'+target).addClass('active');
+      $('#'+target).scrollTop($('#'+target)[0].scrollHeight);
     }
   })
 }
