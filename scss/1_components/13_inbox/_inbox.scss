@@ -1,6 +1,8 @@
 .inbox {
+  float: left;
   position: relative;
   min-height: 75vh;
+  height: calc(100vh - 50px);
   margin-bottom: -20px;
 }
 ul.message-list {
@@ -13,13 +15,13 @@ ul.message-list {
     max-height: 200px;
     height: auto;
   }
-  float: left;
+  display: block;
   position: relative;
+  float: left;
   width: 240px;
   @media #{$medium-and-up} {
-    min-height: 75vh;
+    height: 100%;
   }
-  top: 0;
   margin: 0;
   background-color: $sidenav-bg-color;
   overflow-y: auto;
@@ -45,14 +47,19 @@ ul.message-list {
   }
 }
 .message-body {
+  display: none;
+  &.active {
+    display: block;
+  }
   position: relative;
   float: left;
   text-align: left;
   width: 100vw;
+  height: calc(100% - 70px);
+  overflow-y: scroll;
   @media #{$medium-and-up} {
     width: calc(100vw - 240px);
   }
-  min-height: calc(75vh - 70px);
   padding: 20px;
   .msg {
     padding: 0 0 20px 0;
@@ -76,6 +83,12 @@ ul.message-list {
       background: white;
       padding: 10px;
       border: 1px solid #ddd;
+      .timestamp {
+        margin-top: 10px;
+        text-align: right;
+        @extend .grey-text;
+        opacity: .6;
+      }
     }
     &--received {
       text-align: left;

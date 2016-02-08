@@ -20,5 +20,8 @@ require('./manage-home/manage-home');
 // Home profile
 require('./homes/homes');
 
+// Inbox
+require('./inbox/inbox');
+
 // Facebook scripts
 require('./global/facebook')

@@ -1,13 +1,13 @@
-{% extends "layout.html" %} {% block content %}
+{% extends "layout--no-footer.html" %} {% block content %}
 
-<div class='inbox'>
+<div id='inbox' class='inbox'>
   <ul class="message-list">
-    <li class='active'><a href="#!">Conversation with Jose</a></li>
-    <li><a href="#!">Conversation with Amanda</a></li>
+    <li class='active' data-target='conversation-1'><a href="#!">Conversation with Jose</a></li>
+    <li data-target='conversation-2'><a href="#!">Conversation with Amanda</a></li>
     <li><a href="#!">Conversation with Luis</a></li>
   </ul>
 
-  <div class='message-body'>
+  <div id='conversation-1' class='message-body active'>
 
     <div class='msg msg--received'>
       <div class='user'>
@@ -15,6 +15,9 @@
       </div>
       <div class='contents'>
         Oporteat dissentias vel eu, an graece ridens per. Congue doctus convenire qui id, cu dolores conceptam repudiandae mei, vel zril aliquid ex. Illum eruditi recusabo qui an. Ei nullam graeco mel, pri ut omnesque perpetua vulputate. Et noluisse accommodare vis. Exerci signiferumque vituperatoribus no sit, vitae iisque nusquam ne per, duis erant ius ea. Mel at quodsi explicari, usu tale diam accommodare ne.
+        <div class='timestamp'>
+          2016/01/18
+        </div>
       </div>
     </div>
 
@@ -26,6 +29,9 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.
         <br><br>
         Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh.
+        <div class='timestamp'>
+          2016/01/20
+        </div>
       </div>
     </div>
 
@@ -35,6 +41,25 @@
       </div>
       <div class='contents'>
         Oporteat dissentias vel eu, an graece ridens per.
+        <div class='timestamp'>
+          2016/01/25
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id='conversation-2' class='message-body'>
+
+    <div class='msg msg--received'>
+      <div class='user'>
+        <img src="https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png" class="circle responsive-img">
+      </div>
+      <div class='contents'>
+        Oporteat dissentias vel eu, an graece ridens per. Congue doctus convenire qui id, cu dolores conceptam repudiandae mei, vel zril aliquid ex. Illum eruditi recusabo qui an. Ei nullam graeco mel, pri ut omnesque perpetua vulputate. Et noluisse accommodare vis. Exerci signiferumque vituperatoribus no sit, vitae iisque nusquam ne per, duis erant ius ea. Mel at quodsi explicari, usu tale diam accommodare ne.
+        <div class='timestamp'>
+          2016/01/18
+        </div>
       </div>
     </div>
 
