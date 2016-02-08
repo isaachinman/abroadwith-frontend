@@ -20,7 +20,7 @@
     "react-nouislider": "^1.7.0",
     "react-tap-event-plugin": "^0.2.1",
     "select2-browserify": "^3.4.5",
-    "uglifyify ": "^3.0.1",
+    "uglifyify": "^3.0.1",
     "wallop": "^2.2.3",
     "wnumb": "^1.0.2"
   },

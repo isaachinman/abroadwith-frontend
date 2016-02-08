@@ -1,11 +1,12 @@
 .user-image {
   @extend .z-depth-1;
-  position: relative;
+  position: absolute;
   overflow: hidden;
   float: left;
   width: 240px;
   height: 240px;
   border-radius: 50%;
+  margin: 0 0 0 20px;
   @media #{$small-and-down} {
     display: none;
   }
@@ -14,6 +15,9 @@
 }
 .user-profile-info {
   padding: 20px 0;
+  @media #{$small-and-down} {
+    padding: 0;
+  }
   background: $accent-bg;
   h1 {
     color: darken($americano, 5%);
@@ -21,5 +25,12 @@
     display: inline-block;
     font-size: 2.5rem;
     margin: 15px 0 0 0;
+  }
+  .info {
+    @extend .row;
+    margin-left: 270px;
+    @media #{$small-and-down} {
+      margin: 0;
+    }
   }
 }

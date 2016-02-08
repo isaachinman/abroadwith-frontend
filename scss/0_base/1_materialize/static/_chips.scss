@@ -9,6 +9,15 @@
   margin: 5px 5px 5px 0;
   border-radius: 16px;
   background-color: $chip-bg-color;
+  &--learning {
+    background-color: lighten($havelock-blue, 10%);
+  }
+  &--speaks {
+    background-color: darken($ziggurat, 25%);
+  }
+  &--teaches {
+    background-color: darken($sulu, 27.5%);
+  }
   color: white;
 
   img {
