@@ -3,15 +3,15 @@
 <script>
 console.log("OIE!");
 console.log(document.domain);
-document.domain = "abroadwith.com";
+//document.domain = "abroadwith.com";
 console.log(document.domain);
 $.ajax({
   method: "GET",
   xhrFields: {
     withCredentials: true
   },
-  beforeSend: function (xhr) {
-      xhr.setRequestHeader('Authorization', 'Basic ' + btoa('abroadwith:betahaus'));
+  headers: {
+      'Authorization': 'Basic ' + btoa('abroadwith:betahaus')
   },
   url: "https://api.abroadwith.com/status"
 })
