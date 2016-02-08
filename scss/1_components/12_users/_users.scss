@@ -32,5 +32,17 @@
     @media #{$small-and-down} {
       margin: 0;
     }
+    .rating {
+      display: inline-block;
+      vertical-align: bottom;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      margin: 15px 0 0 10px;
+    }
   }
+}
+ul.user-profile-tabs {
+  margin: 0;
+  background: white;
+  @extend .z-depth-1;
 }

@@ -10,6 +10,9 @@
   .immersion-types {
     position: absolute;
     left: 240px;
+    @media #{$small-and-down} {
+      left: 5vw;
+    }
     bottom: 0;
     .tag {
       color: white;
@@ -24,6 +27,9 @@
       opacity: .95;
       div:first-child {
         border-top-right-radius: 3px;
+        @media #{$small-and-down} {
+          border-top-left-radius: 3px;
+        }
       }
       .stay, .tandem, .teacher {
         position: relative;
@@ -134,6 +140,12 @@
       overflow-y: scroll;
     }
   }
+  &--fixed-height-short {
+    .content {
+      height: 200px;
+      overflow-y: scroll;
+    }
+  }
 }
 img.home-room-image {
   width: 100%;
@@ -163,6 +175,9 @@ i.certified-language {
   }
   p:first-child {
     margin-top: 0;
+  }
+  .relationship {
+    margin-bottom: 10px;
   }
 }
 
