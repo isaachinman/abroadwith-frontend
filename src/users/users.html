@@ -1,92 +1,75 @@
 {% extends "layout.html" %} {% block content %}
 
-<div class='row left-align user-profile-info'>
+<div class='user-profile-info'>
+  <div class='container row left-align'>
 
-  <div class='user-image'>
-    <img src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
-  </div>
+    <div class='user-image'>
+      <img src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
+    </div>
 
-  <div class='info'>
-    <div class='col s12'>
-      <h1>Jose</h1>
+    <div class='info'>
+      <div class='col s12'>
+        <h1>Jose</h1>
 
-      <span class='rating'>
-        <span class='count'>
-          (22)
+        <span class='rating'>
+          <span class='count'>
+            (22)
+          </span>
+          <span class='stars'>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+          </span>
         </span>
-        <span class='stars'>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-          <i class="fa fa-star-o"></i>
-        </span>
-      </span>
-
-    </div>
-
-    <div class='col s6 m6 l3'>
-
-      <p class='home-details'>
-        <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>25, Male
-      </p>
-      <p class='home-details'>
-        <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>Member since Oct 2014
-      </p>
-      <p class='home-details'>
-        <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>Berlin, Germany
-      </p>
-      <p class='home-details'>
-        <span class='icon'><i class="fa fa-check-circle grey-text text-lighten-1"></span></i>Verified
-      </p>
-
-    </div>
-
-    <div class='col s6 m6 l7'>
-
-      <p class='home-details'>
-        <span class='icon'><i class="fa fa-briefcase grey-text text-lighten-1"></span></i>Electrician
-      </p>
-      <p class='home-details'>
-        <span class='icon'><i class="fa fa-quote-right grey-text text-lighten-1"></span></i>5 references
-      </p>
-      <p class='home-details'>
-        <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>Host
-      </p>
-      <p class='home-details'>
-        <span class='icon'><i class="fa fa-graduation-cap grey-text text-lighten-1"></span></i>Master's degree
-      </p>
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class='container'>
-
-  <div class='row left-align no-margin-bottom'>
-    <div class='col s12 m12 l12'>
-      <div class='row'>
-
-        <div class='col s12'>
-
-            <div class='row no-margin-bottom'>
-              <div class='col s12'>
-                <ul class="tabs user-profile-tabs">
-                  <li class="tab col s3"><a href="#about" class='active'>About</a></li>
-                  <li class="tab col s3"><a href="#reviews"><span class='hide-on-small-and-down'>References & </span>reviews</a></li>
-                  <li class="tab col s3"><a href="#stay">Stay</a></li>
-                </ul>
-              </div>
-            </div>
-
-        </div>
 
       </div>
-    </div>
-  </div>
 
+      <div class='col s10 quick-facts'>
+
+        <p class='home-details'>
+          <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>25, Male
+        </p>
+        <p class='home-details'>
+          <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>Member since Oct 2014
+        </p>
+        <p class='home-details'>
+          <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>Berlin, Germany
+        </p>
+        <p class='home-details'>
+          <span class='icon'><i class="fa fa-briefcase grey-text text-lighten-1"></span></i>Electrician
+        </p>
+        <p class='home-details'>
+          <span class='icon'><i class="fa fa-check-circle grey-text text-lighten-1"></span></i>Verified
+        </p>
+        <p class='home-details'>
+          <span class='icon'><i class="fa fa-quote-right grey-text text-lighten-1"></span></i>5 references
+        </p>
+        <p class='home-details'>
+          <span class='icon'><i class="fa fa-graduation-cap grey-text text-lighten-1"></span></i>Master's degree
+        </p>
+        <p class='home-details'>
+          <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>Host
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class='row no-margin-bottom'>
+      <div class='col s12'>
+        <ul class="tabs user-profile-tabs">
+          <li class="tab col s3"><a href="#about" class='active'>About</a></li>
+          <li class="tab col s3"><a href="#reviews"><span class='hide-on-small-and-down'>References & </span>reviews</a></li>
+          <li class="tab col s3"><a href="#stay">Stay</a></li>
+        </ul>
+      </div>
+    </div>
+
+
+  </div>
 </div>
 
 <div id='about' class='container'>
@@ -323,6 +306,124 @@
 
       </div>
     </div>
+  </div>
+</div>
+
+<div id='stay' class='container left-align'>
+  <div class='row no-margin'>
+
+    <div class='col s12 m3 l3'>
+      <div class='card home-card home-card--fixed-height-short'>
+        <div class='row'>
+          <div class='col s12'>
+            <i class="fa fa-home fa-2x grey-text text-lighten-1"></i>
+            <span class='title'>Home info</span>
+          </div>
+        </div>
+
+        <div class='row content bottom-align-column'>
+          <div class='col s12'>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>Cabin
+            </p>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>Berlin, Germany
+            </p>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Family home
+            </p>
+            <div class='divider'></div>
+          </div>
+          <div class='col s12 bottom center-align'>
+            <a class='btn btn-secondary '>View home</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class='col s12 m9 l9'>
+      <div class='card home-card'>
+        <div class='row'>
+
+          <div class='col s12'>
+            <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
+            <span class='title'>Master bedroom</span>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col s12 m4 l5'>
+            <p>
+
+            </p>
+            <img class='home-room-image materialboxed' src='http://images2.roomstogo.com/is/image/roomstogo/br_rm_gardenia_white_nostack~Gardenia-White-5-Pc-Queen-Platform-Bedroom.jpeg?$PDP_Primary_525x366$' />
+          </div>
+          <div class='col s6 m6 l2'>
+            <p class='grey-text text-darken-1'>
+              <strong>Basics:</strong>
+            </p>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Sleeps: 1
+            </p>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Shared: No
+            </p>
+            <p class='home-details'>
+              <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>Bed type: 1
+            </p>
+          </div>
+          <div class='col s6 m6 l2'>
+            <p class='grey-text text-darken-1'>
+              <strong>Facilities:</strong>
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></span></i>Heating
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></span></i>Mirror
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></span></i>Lock
+            </p>
+          </div>
+          <div class='col s6 m12 l3'>
+            <p class='grey-text text-darken-1'>
+              <strong>Price:</strong>
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Stay: <span class='right'>€110/week</span>
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Tandem: <span class='right'>€90/week</span>
+            </p>
+            <p class='home-details'>
+            <span class='icon'><i class="fa fa-university grey-text text-lighten-1"></span></i>Teacher: <span class='right'>€200/week</span>
+            </p>
+
+          </div>
+        </div>
+
+        <div class='row section'>
+          <div class='col s12'>
+            <div class='divider'></div>
+          </div>
+        </div>
+
+        <div class='row bottom-align-row'>
+          <div class='col s8'>
+            <label>Room description</label><br>
+
+              Comfort, Bright , space, comfort room in a two bedroom apartment. One block from 1 train and 20 mins from plaza de Cataluña. Full access to kitchen and bathroom.
+
+          </div>
+          <div class='col s4 right-align bottom'>
+            <a class='btn btn-primary'>Book now</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>
 

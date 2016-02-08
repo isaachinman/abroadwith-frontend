@@ -14,7 +14,8 @@
   border: 5px solid white;
 }
 .user-profile-info {
-  padding: 20px 0;
+  @extend .z-depth-1;
+  padding: 20px 0 0 0;
   @media #{$small-and-down} {
     padding: 0;
   }
@@ -27,9 +28,10 @@
     margin: 15px 0 0 0;
   }
   .info {
-    @extend .row;
     margin-left: 270px;
+    min-height: 240px;
     @media #{$small-and-down} {
+      min-height: 0;
       margin: 0;
     }
     .rating {
@@ -43,6 +45,26 @@
 }
 ul.user-profile-tabs {
   margin: 0;
-  background: white;
-  @extend .z-depth-1;
+  background: inherit;
+}
+.quick-facts {
+  @media #{$small-and-down} {
+    display: none;
+  }
+  @media #{$medium-and-down} {
+    -webkit-column-width: 100px;
+    -moz-column-width: 100px;
+    column-width: 100px;
+  }
+  -webkit-column-width: 200px;
+  -moz-column-width: 200px;
+  column-width: 200px;
+  p {
+    display: inline-block;;
+    padding: 20px 0;
+    -webkit-margin-before: 0px;
+    -webkit-margin-after: 0px;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+  }
 }
