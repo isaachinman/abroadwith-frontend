@@ -1,0 +1,158 @@
+.inbox {
+  position: relative;
+  min-height: 75vh;
+  margin-bottom: -20px;
+}
+ul.message-list {
+  a {
+    display: block;
+    text-align: left;
+  }
+  @media #{$small-and-down} {
+    width: 100vw;
+    max-height: 200px;
+    height: auto;
+  }
+  float: left;
+  position: relative;
+  width: 240px;
+  @media #{$medium-and-up} {
+    min-height: 75vh;
+  }
+  top: 0;
+  margin: 0;
+  background-color: $sidenav-bg-color;
+  overflow-y: auto;
+  box-shadow: 2px 0 6px 0 rgba(0,0,0,0.12),2px 0 10px 0 rgba(0,0,0,0.12);
+  li {
+    float: none;
+    padding: 0 $sidenav-padding-right;
+    &:hover,
+    &.active {
+      background-color: #ddd;
+    }
+  }
+  a {
+    color: #444;
+    display: block;
+    font-size: 1rem;
+    height: 64px;
+    line-height: 64px;
+    padding: 0 $sidenav-padding-right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+.message-body {
+  position: relative;
+  float: left;
+  text-align: left;
+  width: 100vw;
+  @media #{$medium-and-up} {
+    width: calc(100vw - 240px);
+  }
+  min-height: calc(75vh - 70px);
+  padding: 20px;
+  .msg {
+    padding: 0 0 20px 0;
+    position: relative;
+    @extend .row;
+    .user {
+      float: left;
+      width: 80px;
+      img {
+        @extend .z-depth-1;
+        overflow: hidden;
+        max-width: 60px;
+        border: 2px solid $havelock-blue;
+      }
+    }
+    .contents {
+      position: relative;
+      float: left;
+      max-width: calc(100% - 80px);
+      border-radius: 3px;
+      background: white;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    &--received {
+      text-align: left;
+      .contents {
+        &:after,
+        &:before {
+          right: 100%;
+          top: 20px;
+          border: solid transparent;
+          content: " ";
+          height: 0;
+          width: 0;
+          position: absolute;
+          pointer-events: none;
+        }
+        &:after {
+          border-color: rgba(255, 255, 255, 0);
+          border-right-color: #fff;
+          border-width: 10px;
+          margin-top: -10px;
+        }
+        &:before {
+          border-color: rgba(221, 221, 221, 0);
+          border-right-color: #ddd;
+          border-width: 11px;
+          margin-top: -11px;
+        }
+      }
+    }
+    &--sent {
+      text-align: right;
+      .user {
+        float: right;
+      }
+      .contents {
+        text-align: left;
+        &:after,
+        &:before {
+          left: 100%;
+          top: 20px;
+          border: solid transparent;
+          content: " ";
+          height: 0;
+          width: 0;
+          position: absolute;
+          pointer-events: none;
+        }
+        &:after {
+          border-color: rgba(255, 255, 255, 0);
+          border-left-color: #fff;
+          border-width: 10px;
+          margin-top: -10px;
+        }
+        &:before {
+          border-color: rgba(221, 221, 221, 0);
+          border-left-color: #ddd;
+          border-width: 11px;
+          margin-top: -11px;
+        }
+      }
+    }
+  }
+}
+.send-message {
+  width: 100vw;
+  @media #{$medium-and-up} {
+    width: calc(100vw - 240px);
+  }
+  float: left;
+  height: 70px;
+  background: white;
+  input {
+    float: left;
+    margin: 10px 30px;
+    width: calc(100% - 185px);
+  }
+  a.btn {
+    margin: 15px 20px 15px 0;
+  }
+}
