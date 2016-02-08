@@ -8,6 +8,7 @@ var mainRouter = require('./main/Router');
 var manageHomeRouter = require('./manage-home/Router');
 var homesRouter = require('./homes/Router');
 var usersRouter = require('./users/Router');
+var inboxRouter = require('./inbox/Router');
 var testRouter = require('./test/Router');
 
 /** Middlewares **/
@@ -34,6 +35,8 @@ app.use(['/home','/'],mainRouter);
 app.use('/homes',homesRouter);
 
 app.use('/users',usersRouter);
+
+app.use('/inbox',inboxRouter);
 
 app.use('/test',testRouter);
 
