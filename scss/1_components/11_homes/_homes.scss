@@ -50,7 +50,7 @@
     border-bottom-right-radius: 0;
   }
 }
-.user-image {
+.home-user-image {
   @extend .z-depth-1;
   position: absolute;
   overflow: hidden;
@@ -63,14 +63,13 @@
     display: none;
   }
   z-index: 1;
-  background: black;
   border: 5px solid white;
 }
 .home-title {
   @extend .row;
   position: relative;
   float: left;
-  background: lighten($grey-chateau, 32.5%);
+  background: $accent-bg;
   width: 100vw;
   padding: 0 5vw 25px 250px;
   margin-bottom: 25px;
