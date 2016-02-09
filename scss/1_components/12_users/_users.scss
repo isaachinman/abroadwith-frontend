@@ -30,6 +30,7 @@
   .info {
     margin-left: 270px;
     min-height: 240px;
+    margin-bottom: 10px;
     @media #{$small-and-down} {
       min-height: 0;
       margin: 0;
