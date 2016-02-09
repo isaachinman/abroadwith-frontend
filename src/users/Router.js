@@ -17,7 +17,6 @@ router.get('/*', function (req, res) {
     user_path += 1;
   }
   context.user = require(user_path);
-  console.log(context);
   res.send(nunjucks.render('users/users.html',context));
 });
 

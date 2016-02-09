@@ -11,7 +11,6 @@ router.get('/', function (req, res) {
     context = { translations: translations['eng']};
   var user_path = "../../mockups/users/1";
   context.user = require(user_path);
-  console.log(context);
   res.send(nunjucks.render('users-edit/users-edit.html',context));
 });
 
