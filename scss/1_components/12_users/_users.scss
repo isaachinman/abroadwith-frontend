@@ -97,12 +97,7 @@ ul.user-profile-tabs {
   }
 }
 .save-changes {
-  position: fixed;
   text-align: center;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
+  width: 100%;
   padding: 20px;
-  background: rgba(0,0,0,.65);
-  z-index: 10;
 }
