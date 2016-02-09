@@ -37,7 +37,7 @@ app.use('/homes',homesRouter);
 
 app.use('/users',usersRouter);
 
-app.use('/users-edit',usersRouter);
+app.use('/users-edit',usersEditRouter);
 
 app.use('/inbox',inboxRouter);
 

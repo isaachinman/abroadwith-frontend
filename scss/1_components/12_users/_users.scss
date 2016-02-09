@@ -2,7 +2,6 @@
   @extend .z-depth-1;
   position: absolute;
   overflow: hidden;
-  float: left;
   width: 240px;
   height: 240px;
   border-radius: 50%;
@@ -12,6 +11,31 @@
   }
   z-index: 1;
   border: 5px solid white;
+  &--editable {
+    opacity: .85;
+    &:hover {
+      opacity: 1;
+    }
+    .upload-new-photo {
+      font-size: 4rem;
+      text-align: center;
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    input {
+      cursor: pointer;
+      z-index: 1;
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
 }
 .user-profile-info {
   @extend .z-depth-1;
@@ -42,6 +66,9 @@
       line-height: 2.5rem;
       margin: 15px 0 0 10px;
     }
+    &--disabled {
+      opacity: .45;
+    }
   }
 }
 ul.user-profile-tabs {
@@ -68,4 +95,14 @@ ul.user-profile-tabs {
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
   }
+}
+.save-changes {
+  position: fixed;
+  text-align: center;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  padding: 20px;
+  background: rgba(0,0,0,.65);
+  z-index: 10;
 }

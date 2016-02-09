@@ -1,13 +1,21 @@
 {% extends "layout.html" %} {% block content %}
 
+<div class='col s12 save-changes'>
+  <a class='btn btn-primary'>Save changes</a>
+</div>
+
 <div class='user-profile-info'>
   <div class='container row left-align'>
 
-    <div class='user-image'>
+    <div class='user-image user-image--editable'>
+      <div class='upload-new-photo'>
+        <i class="fa fa-upload"></i>
+      </div>
+      <input type="file">
       <img src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
     </div>
 
-    <div class='info'>
+    <div class='info info--disabled'>
       <div class='col s12'>
         <h1>Jose</h1>
 
@@ -62,8 +70,8 @@
       <div class='col s12'>
         <ul class="tabs user-profile-tabs">
           <li class="tab col s3"><a href="#about" class='active'>About</a></li>
-          <li class="tab col s3"><a href="#reviews"><span class='hide-on-small-and-down'>References & </span>reviews</a></li>
-          <li class="tab col s3"><a href="#stay">Stay</a></li>
+          <li class="tab col s3 disabled"><a href="#reviews"><span class='hide-on-small-and-down'>References & </span>reviews</a></li>
+          <li class="tab col s3 disabled"><a href="#stay">Stay</a></li>
         </ul>
       </div>
     </div>
@@ -79,7 +87,7 @@
       <div class='row'>
 
         <div class='col s12 m4 l3'>
-          <div class='card home-card'>
+          <div class='card home-card tooltipped' data-position="top" data-delay="100" data-tooltip="Languages can be changed in account settings">
             <div class='row'>
               <div class='col s12'>
                 <i class="fa fa-globe fa-2x grey-text text-lighten-1"></i>
@@ -123,12 +131,7 @@
             </div>
             <div class='row content'>
               <div class='col s12'>
-                <p>
-                  Lorem ipsum dolor sit amet, tamquam meliore te qui, est ea dico feugiat. Ut brute dicat appetere has. Pri facer platonem ne, pro reque appellantur an. Vim ad postea suscipiantur. No vim expetenda eloquentiam vituperatoribus. Duo augue putent ponderum ea, eu qui sale ullum integre.
-                </p>
-                <p>
-                  Animal petentium assentior vim no. Pri doming oblique accumsan id, unum dictas vituperata ius et. Sea aeque epicuri invidunt ad. Affert quaestio qui in. Ea pri aliquam officiis perpetua, id quo purto deleniti. Et usu graeci repudiare. Ex dicunt atomorum eum, mei modo vero no.
-                </p>
+                <textarea id="textarea1" class="materialize-textarea" value=''>Lorem ipsum dolor sit amet, tamquam meliore te qui, est ea dico feugiat. Ut brute dicat appetere has. Pri facer platonem ne, pro reque appellantur an. Vim ad postea suscipiantur. No vim expetenda eloquentiam vituperatoribus. Duo augue putent ponderum ea, eu qui sale ullum integre. Animal petentium assentior vim no. Pri doming oblique accumsan id, unum dictas vituperata ius et. Sea aeque epicuri invidunt ad. Affert quaestio qui in. Ea pri aliquam officiis perpetua, id quo purto deleniti. Et usu graeci repudiare. Ex dicunt atomorum eum, mei modo vero no.</textarea>
               </div>
             </div>
           </div>
@@ -145,32 +148,63 @@
             <div class='row content'>
               <div class='col s12'>
                 <p class='home-details'>
-                  <span class='icon'><i class="fa fa-graduation-cap grey-text text-lighten-1"></i></span>
-                  <strong>Education:</strong> Master's degree
+                  <div class="input-field">
+                    <input type="text" value="Master's degree" class="validate" placeholder="Eg. Bachelor's Degree">
+                    <label class="active left">Education</label>
+                  </div>
                 </p>
                 <p class='home-details'>
-                  <span class='icon'><i class="fa fa-building-o grey-text text-lighten-1"></i></span>
-                  <strong>Grew up:</strong> Caracas, Venezeula
+                  <div class="input-field">
+                    <input type="text" value="Caracas, Venezeula" class="validate" placeholder='Eg. Caracas, Venezuela'>
+                    <label class="active left">Grew up</label>
+                  </div>
                 </p>
                 <p class='home-details'>
-                  <span class='icon'><i class="fa fa-book grey-text text-lighten-1"></i></span>
-                  <strong>Favourite book:</strong> Cats Cradle
+                  <div class="input-field">
+                    <input type="text" value="Cats Cradle" class="validate" placeholder='Eg. Ulysses'>
+                    <label class="active left">Favourite book</label>
+                  </div>
                 </p>
                 <p class='home-details'>
-                  <span class='icon'><i class="fa fa-film grey-text text-lighten-1"></i></span>
-                  <strong>Favourite film:</strong> A girl walks home alone at night
+                  <div class="input-field">
+                    <input type="text" value="A girl walks home alone at night" class="validate" placeholder='Eg. Metropolis'>
+                    <label class="active left">Favourite film</label>
+                  </div>
                 </p>
                 <p class='home-details'>
-                  <span class='icon'><i class="fa fa-bolt grey-text text-lighten-1"></i></span>
-                  <strong>Amazing feat:</strong> Sailed around the world
+                  <div class="input-field">
+                    <input type="text" value="Sailed around the world" class="validate" placeholder='Eg. Skydiving'>
+                    <label class="active left">Amazing feat</label>
+                  </div>
                 </p>
                 <p class='home-details'>
-                  <span class='icon'><i class="fa fa-share-square-o grey-text text-lighten-1"></i></span>
-                  <strong>Can share:</strong> Baking bread, fishing
+                  <div class="input-field">
+                    <input type="text" value="Baking bread, fishing" class="validate" placeholder='Eg. Cooking, hiking'>
+                    <label class="active left">Can share</label>
+                  </div>
                 </p>
                 <p class='home-details'>
-                  <span class='icon'><i class="fa fa-star grey-text text-lighten-1"></i></span>
-                  <strong>Interests:</strong> Sports, music, cooking
+                  <div class="input-field">
+                    <select class='material' multiple="">
+                      <option value="" disabled selected>Interests</option>
+                      <option value="1">Option 1</option>
+                      <option value="2">Option 2</option>
+                      <option value="3">Option 3</option>
+                    </select>
+                    <label class='left'>Interests</label>
+                  </div>
+                </p>
+                <p class='home-details'>
+                  <div class="input-field">
+                    <input type="text" value="Ireland, Spain" class="validate" placeholder='Eg. Spain'>
+                    <label class="active left">Visited</label>
+                  </div>
+                </p>
+                <p class='home-details'>
+                  <div class="input-field">
+                    <input type="text" value="Ireland, Spain" class="validate" placeholder='Eg. Spain'>
+                    <label class="active left">Lived in</label>
+                  </div>
                 </p>
               </div>
             </div>
