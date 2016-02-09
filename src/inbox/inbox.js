@@ -1,8 +1,6 @@
 // Scroll to bottom of conversation thread
 if ($('.message-body').length) {
-  $('.message-body').each(function() {
-    $(this).scrollTop($(this)[0].scrollHeight);
-  })
+  $('.message-body').scrollTop($('.message-body')[0].scrollHeight);
 }
 
 // Hide and show conversations

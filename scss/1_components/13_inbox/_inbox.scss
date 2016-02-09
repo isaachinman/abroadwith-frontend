@@ -151,6 +151,9 @@ ul.message-list {
       }
     }
   }
+  a.load-more-btn {
+    margin: 0 0 20px 0;
+  }
 }
 .send-message {
   width: 100vw;
@@ -160,6 +163,7 @@ ul.message-list {
   float: left;
   height: 70px;
   background: white;
+  border-top: 1px solid #ddd;
   input {
     float: left;
     margin: 10px 30px;
@@ -167,5 +171,17 @@ ul.message-list {
   }
   a.btn {
     margin: 15px 20px 15px 0;
+  }
+}
+.intro-msg {
+  color: lighten($americano, 10%);
+  text-align: center;
+  width: calc(100% + 40px);
+  background: lighten($havelock-blue, 32.5%);
+  margin: -20px -20px 40px -20px;
+  padding: 40px;
+  .title {
+    font-size: 1.55rem;
+    margin: 0 0 5px 0;
   }
 }
