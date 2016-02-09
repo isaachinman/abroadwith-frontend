@@ -1,0 +1,94 @@
+<div id="verifications" class="col s12 m10 offset-m1 l10 offset-l1" style='display:none'>
+
+  <div class='admin-block admin-block--no-save'>
+
+    <div class='row'>
+      <h4>Get ready to book by verifying</h4>
+    </div>
+
+    <div class='row'>
+      <ul class="collapsible rooms-collapsible" data-collapsible="accordion">
+        <li class='white'>
+          <div class="collapsible-header">
+            Email verification
+          </div>
+          <div class="edit grey-text text-lighten-1">
+            <i class="fa fa-envelope-o fa-2x"></i>
+          </div>
+          <div class="collapsible-body">
+
+            <div class='row section'>
+
+              <div class='col s12 input-field center-align'>
+                <a class='btn btn-secondary btn-flat' onclick="Materialize.toast('Confirmation email sent', 4000)">Send confirmation email</a>
+              </div>
+
+            </div>
+
+          </div>
+        </li>
+        <li class='white'>
+          <div class="collapsible-header disabled">
+            Phone verification
+          </div>
+          <div class="edit grey-text text-lighten-1">
+            <i class="fa fa-check-circle green-text fa-2x"></i>
+          </div>
+          <div class="collapsible-body">
+
+            <div class='row section'>
+
+              <div class='col s12 input-field center-align'>
+                <a class='btn btn-secondary btn-flat'>Send confirmation SMS</a>
+              </div>
+
+            </div>
+
+            <div class='divider'></div>
+
+            <div class='row section'>
+
+              <div class='col s12 m4 offset-m4 l2 offset-l5 input-field center-align'>
+                <input placeholder="Verification code" type="text" class="validate" value='Jose'>
+                <label class='active'>Verification code</label>
+              </div>
+
+            </div>
+
+          </div>
+        </li>
+        <li class='white'>
+          <div class="collapsible-header">
+            ID verification
+          </div>
+          <div class="edit grey-text text-lighten-1">
+            <i class="fa fa-user fa-2x"></i>
+          </div>
+          <div class="collapsible-body">
+
+            <div class='row section'>
+
+              <div class='col s12 m6 offset-m3 l6 offset-l3'>
+                <form>
+                  <div class="file-field input-field">
+                    <div class="btn">
+                      <span>Choose ID</span>
+                      <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text">
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>

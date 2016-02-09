@@ -1,0 +1,60 @@
+.admin-block {
+  min-height: calc(100vh - 225px);
+  margin-bottom: 0;
+  &--no-save {
+    min-height: calc(100vh - 150px);
+  }
+}
+.payment-method {
+  position: relative;
+  height: 180px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 20px;
+  margin: 20px 0 0 0;
+  font-size: 1.25rem;
+  text-align: left;
+  .actions {
+    margin: 20px 0 0 0;
+    a {
+      display: block;
+      &:hover {
+        color: darken($sulu, 20%);
+      }
+    }
+  }
+  .type {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    padding: 5px;
+    width: 50;
+    background: lighten($grey-chateau, 35%);
+    border-radius: 3px;
+  }
+}
+.add-payment {
+  position: relative;
+  height: 180px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 20px;
+  margin: 20px 0 0 0;
+  font-size: 1.25rem;
+  text-align: center;
+  .add {
+    margin: 20px 0 5px 0;
+    font-size: 3rem;
+  }
+  a.overlay {
+    &:hover + .add {
+      color: $havelock-blue;
+    }
+  }
+}
+a.privacy-btn {
+  min-width: 250px;
+}
+a.admin-save-btn {
+  margin: 20px 0 0 0;
+}

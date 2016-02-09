@@ -92,6 +92,9 @@ a.overlay {
     background: darken($grey-chateau, 5%);
   }
 }
+.green-text {
+  color: darken($sulu, 25%);
+}
 .bottom-align-row {
   display: -webkit-flex;
   display: flex;

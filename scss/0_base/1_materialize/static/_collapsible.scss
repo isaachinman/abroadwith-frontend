@@ -84,3 +84,7 @@
     // transform: scaleX(1);
   }
 }
+
+.collapsible-header.disabled {
+  pointer-events: none;
+}

@@ -9,6 +9,10 @@
   width: 100%;
   white-space: nowrap;
 
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   .tab {
     -webkit-box-flex: 1;
     -webkit-flex-grow: 1;
@@ -26,7 +30,7 @@
     overflow: hidden;
     letter-spacing: .8px;
     width: 15%;
-    min-width: 100px;
+    min-width: 120px;
 
     a {
       color: darken($grey-chateau, 10%);
