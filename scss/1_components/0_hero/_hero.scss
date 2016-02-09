@@ -37,14 +37,13 @@
       padding: 0;
     }
     .select2-choice {
-      padding: 0 10px;
       background: white;
     }
     .select2-container {
       border-bottom: 1px solid #eee;
       color: $americano;
     }
-    input {
+    input, .select2-container {
       width: 100%;
       background: white !important;
       margin: 0;
