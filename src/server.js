@@ -8,6 +8,7 @@ var mainRouter = require('./main/Router');
 var manageHomeRouter = require('./manage-home/Router');
 var homesRouter = require('./homes/Router');
 var usersRouter = require('./users/Router');
+var usersEditRouter = require('./users-edit/Router');
 var inboxRouter = require('./inbox/Router');
 var testRouter = require('./test/Router');
 
@@ -35,6 +36,8 @@ app.use(['/home','/'],mainRouter);
 app.use('/homes',homesRouter);
 
 app.use('/users',usersRouter);
+
+app.use('/users-edit',usersRouter);
 
 app.use('/inbox',inboxRouter);
 
