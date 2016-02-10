@@ -32,10 +32,10 @@ module.exports = React.createClass({
 
       window.bigMap = new google.maps.Map(document.getElementById('search-map'), {
         center: {
-          lat: -33.8688,
-          lng: 151.2195
+          lat: 0,
+          lng: 0
         },
-        zoom: 13,
+        zoom: 1,
         options: {
           scrollwheel: false,
           mapTypeControl: false,
