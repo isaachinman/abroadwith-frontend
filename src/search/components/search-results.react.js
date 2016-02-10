@@ -23,8 +23,6 @@ module.exports = React.createClass({
 
     if (this.props.results) {
 
-      console.log(this.props.results)
-
       var uniqueId = 666;
 
       this.props.results.forEach(function(obj) {

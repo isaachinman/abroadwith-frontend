@@ -77,13 +77,14 @@ module.exports = React.createClass({
 
     $.post(url, function(data) {
       var response = JSON.parse(data);
+      console.log(response)
       var newState = {
         // Set new state vars
         minPrice:         response.resultDetails.minPrice,
         maxPrice:         response.resultDetails.maxPrice,
         numberOfResults:  response.resultDetails.numberOfResults,
         currency:         response.params.currency,
-        immersion:        response.params.immersion,
+        immersion:        response.params.immersions,
         arrival:          response.params.arrival,
         departure:        response.params.departure,
         minLat:           response.params.location ? response.params.location.minLat : null,
@@ -132,7 +133,6 @@ module.exports = React.createClass({
       activeNodes[i].change(handleChange);
     }
 
-
     $.post(this.props.source, function(data) {
 
       // Parse the response
@@ -146,7 +146,7 @@ module.exports = React.createClass({
         pageOffset:       response.resultDetails.pageOffset,
         pageSize:         response.resultDetails.pageSize,
         currency:         response.params.currency,
-        immersion:        response.params.immersion,
+        immersion:        response.params.immersions,
         arrival:          response.params.arrival,
         departure:        response.params.departure,
         minLat:           response.params.location ? response.params.location.minLat : null,
