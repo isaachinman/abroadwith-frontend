@@ -70,11 +70,8 @@ module.exports = React.createClass({
     var maxLat = NE !== undefined ? url = url + '&maxLat=' + (NE.lat()) : null;
     var maxLng = NE !== undefined ? url = url + '&maxLng=' + (NE.lng()) : null;
 
-    console.log(url);
-
     $.post(url, function(data) {
       var response = JSON.parse(data);
-      console.log(response)
       var newState = {
         // Set new state vars
         minPrice:         response.resultDetails.minPrice,
@@ -138,8 +135,6 @@ module.exports = React.createClass({
 
       // Parse the response
       var response = JSON.parse(data);
-
-      console.log(response);
 
       var newState = {
         // Set initial state vars

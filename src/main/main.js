@@ -95,6 +95,9 @@ $(document).ready(function() {
         // if (pageContext.departure) {
         //   $('#departure').val(pageContext.departure);
         // }
+      },
+      onSet: function() {
+        this.close();
       }
     });
     var departurePicker = $('#departure').pickadate('picker');

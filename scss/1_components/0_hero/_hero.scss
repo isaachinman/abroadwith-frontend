@@ -40,10 +40,12 @@
       background: white;
     }
     .select2-container {
+      background: white;
       border-bottom: 1px solid #eee;
       color: $americano;
+      padding: 0 10px;
     }
-    input, .select2-container {
+    input {
       width: 100%;
       background: white !important;
       margin: 0;

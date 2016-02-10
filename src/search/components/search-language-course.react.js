@@ -6,17 +6,16 @@ module.exports = React.createClass({
     // Use switch to toggle disabled on course input
     var languageSwitch = $('input#language-switch');
     var languageSelect = $('select#language-school');
-    var courseFees = $('.price').find('.course-added');
 
     languageSwitch.change(function() {
       if (languageSwitch.is(':checked') && languageSelect.prop('disabled', true)) {
         languageSelect.prop('disabled', false);
         languageSelect.material_select();
-        courseFees.show();
+        $('.course-added').show();
       } else if (languageSwitch.not(':checked') && languageSelect.prop('disabled', false)) {
         languageSelect.prop('disabled', true);
         languageSelect.material_select();
-        courseFees.hide();
+        $('.course-added').hide();
       }
     })
 
