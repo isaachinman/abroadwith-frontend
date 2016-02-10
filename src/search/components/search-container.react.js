@@ -74,6 +74,7 @@ module.exports = React.createClass({
 
     $.post(url, function(data) {
       var response = JSON.parse(data);
+      console.log(JSON.stringify(data))
       var newState = {
         // Set new state vars
         minPrice:         response.resultDetails.minPrice,
@@ -102,7 +103,7 @@ module.exports = React.createClass({
 
       if (this.isMounted()) {
         this.setState(newState);
-      }
+      }.bind(this));
     })
   },
   componentDidMount: function() {
@@ -136,6 +137,8 @@ module.exports = React.createClass({
 
       // Parse the response
       var response = JSON.parse(data);
+
+      console.log(JSON.stringify(data));
 
       var newState = {
         // Set initial state vars
