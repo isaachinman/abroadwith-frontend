@@ -49,6 +49,14 @@ router.post('/', function (req, res) {
     search_response.params.location.maxLng = req.query.maxLng;
     query.push('location:['+req.query.maxLat+','+req.query.maxLng+' TO '+req.query.minLat+','+req.query.minLng+']');
   }
+  else{
+    //No location set, go to Berlin.
+    search_response.params.location = {};
+    search_response.params.location.minLat = 52.704263293159194;
+    search_response.params.location.minLng = 13.594019836425787;
+    search_response.params.location.maxLat = 52.31938900224543;
+    search_response.params.location.maxLng = 13.154566711425787;
+  }
 
   if(req.query.immersion){
     var all = req.query.immersion.split(',');
@@ -70,7 +78,7 @@ router.post('/', function (req, res) {
   }
 
   if(req.query.guests){
-    search_response.params.departure = req.query.guests;
+    search_response.params.guests = req.query.guests;
     //TODO capacity search
   }
 
@@ -154,6 +162,20 @@ router.post('/', function (req, res) {
     //TODO course search
   }
 
+  if(req.query.pageOffset){
+    search_response.params.pageOffset = req.query.pageOffset;
+  }
+  else{
+    search_response.params.pageOffset = 0;
+  }
+
+  if(req.query.pageSize){
+    search_response.params.pageSize = req.query.pageSize;
+  }
+  else{
+    search_response.params.pageSize = 25;
+  }
+
   options.path += '?q=+'+encodeURIComponent(query.join(" +"))+'&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')';
   console.log(options.path);
   http.get(options, function(resp){
@@ -170,7 +192,6 @@ router.post('/', function (req, res) {
         search_response.resultDetails.numberOfResults = solr_result.response.numFound;
         search_response.results = solr_result.response.docs;
       }
-      console.log(JSON.stringify(search_response));
       res.send(JSON.stringify(search_response));
     });
   }).on("error", function(e){
