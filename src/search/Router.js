@@ -64,7 +64,7 @@ router.post('/', function (req, res) {
     for(var i = 0; i < all.length; i++){
       list.push('"'+all[i]+'"');
     }
-    search_response.params.immersions = req.query.immersions;
+    search_response.params.immersions = all;
     query.push('immersions:('+list.join(" ")+')');
   }
 
