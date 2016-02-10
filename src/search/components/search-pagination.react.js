@@ -22,7 +22,7 @@ module.exports = React.createClass({
       $(this).addClass('active');
     })
 
-    pageContainer.find('li:nth-child(' + activePage + ')').addClass('active');
+    $('ul#pagination li:nth-child(' + 1 + ')').addClass('active');
 
     return (
 
