@@ -58,12 +58,13 @@ router.post('/', function (req, res) {
     search_response.params.location.maxLng = 13.154566711425787;
   }
 
-  if(req.query.immersion){
-    var all = req.query.immersion.split(',');
+  if(req.query.immersions){
+    var all = req.query.immersions.split(',');
     var list = []
     for(var i = 0; i < all.length; i++){
       list.push('"'+all[i]+'"');
     }
+    search_response.params.immersions = req.query.immersions;
     query.push('immersions:('+list.join(" ")+')');
   }
 
