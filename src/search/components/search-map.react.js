@@ -15,11 +15,19 @@ module.exports = React.createClass({
 
         this.props.results.forEach(function(obj) {
 
-          markers.push(new google.maps.Marker({
-            map: bigMap,
-            title: obj.roomId.toString(),
-            position: new google.maps.LatLng(obj.lat, obj.lng)
-          }));
+          var duplicate = false;
+          for (var i = 0; i < markers.length; i++) {
+            if (google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(obj.lat, obj.lng), markers[i].getPosition()) < 1.0) {
+              duplicate = true;
+            }
+          }
+          if (!duplicate) {
+            markers.push(new google.maps.Marker({
+              map: bigMap,
+              title: obj.roomId.toString(),
+              position: new google.maps.LatLng(obj.lat, obj.lng)
+            }));
+          }
 
         })
       }
@@ -89,7 +97,7 @@ module.exports = React.createClass({
 
     return (
       <div>
-        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete&types=(cities)" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places,geometry&callback=initAutocomplete&types=(cities)" async defer></script>
       </div>
     );
   }
