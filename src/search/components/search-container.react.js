@@ -31,7 +31,7 @@ module.exports = React.createClass({
       $('#departure'),
       $('#guests'),
       $('#language'),
-      $('#immersion'),
+      $('#immersions'),
       $('#special-prefs'),
       $('#meal-plan'),
       $('#meal-pref'),
@@ -84,7 +84,7 @@ module.exports = React.createClass({
         maxPrice:         response.resultDetails.maxPrice,
         numberOfResults:  response.resultDetails.numberOfResults,
         currency:         response.params.currency,
-        immersion:        response.params.immersions,
+        immersions:       response.params.immersions,
         arrival:          response.params.arrival,
         departure:        response.params.departure,
         minLat:           response.params.location ? response.params.location.minLat : null,
@@ -117,7 +117,7 @@ module.exports = React.createClass({
       $('#departure'),
       $('#guests'),
       $('#language'),
-      $('#immersion'),
+      $('#immersions'),
       $('#language-switch'),
       $('#special-prefs'),
       $('#meal-plan'),
@@ -146,7 +146,7 @@ module.exports = React.createClass({
         pageOffset:       response.resultDetails.pageOffset,
         pageSize:         response.resultDetails.pageSize,
         currency:         response.params.currency,
-        immersion:        response.params.immersions,
+        immersions:       response.params.immersions,
         arrival:          response.params.arrival,
         departure:        response.params.departure,
         minLat:           response.params.location ? response.params.location.minLat : null,
@@ -188,7 +188,7 @@ module.exports = React.createClass({
 
           <Language
             language={this.state.language}
-            immersion={this.state.immersion}
+            immersions={this.state.immersions}
           />
 
           <div className='divider tandem-language hide'></div>

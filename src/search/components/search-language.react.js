@@ -9,7 +9,7 @@ module.exports = React.createClass({
           <div className='chip chip-grey'>Language</div>
         </div>
         <div className='col s3'>
-          <select id="language" type="text" className="validate border-radius-left" value={this.props.immersion}>
+          <select id="language" type="text" className="validate border-radius-left" value={this.props.immersions}>
             <option></option>
             <option value='eng'>English</option>
             <option value='spa'>Spanish</option>
@@ -21,7 +21,7 @@ module.exports = React.createClass({
         </div>
 
         <div className='col s5'>
-          <select id='immersion' className='material' multiple={true} value={this.props.immersion} >
+          <select id='immersions' className='material' multiple={true} value={this.props.immersions} onChange='console.log(this.value)'>
             <option value="stay">Stay</option>
             <option value="tandem">Tandem</option>
             <option value="teacher">Teachers stay</option>
