@@ -21,7 +21,8 @@ module.exports = React.createClass({
         </div>
 
         <div className='col s5'>
-          <select id='immersions' className='material' multiple={true} value={this.props.immersions} onChange='console.log(this.value)'>
+          <select id='immersions' className='material' multiple defaultValue={[]}>
+            <option value="" disabled>Choose an immersion type</option>
             <option value="stay">Stay</option>
             <option value="tandem">Tandem</option>
             <option value="teacher">Teachers stay</option>
