@@ -17,7 +17,6 @@
         <form>
           <div class="input-field">
             <input id="location" type="search" class='grey-text text-darken-1' value='Syndey, Australia'>
-            {% include "../global/components/google-maps-autocomplete.html" %}
             <label for="search"><i class="material-icons grey-text text-darken-1">search</i></label>
             <i class="material-icons" onclick='$("#location").val("")'>close</i>
           </div>
@@ -25,7 +24,7 @@
       </div>
     </nav>
 
-    <div id="map" class='big-map'></div>
+    <div id="search-map" class='big-map'></div>
 
   </div>
 </div>

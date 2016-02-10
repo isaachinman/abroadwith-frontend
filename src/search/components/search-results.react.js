@@ -34,6 +34,7 @@ module.exports = React.createClass({
               immersions={obj.immersions}
               price={obj.price}
               roomPhoto={obj.roomPhoto}
+              homePhotos={obj.homePhotos}
               host={obj.hostName}
               homeType={obj.homeType}
               reviewCount={obj.reviewCount}

@@ -29,10 +29,16 @@
   left: 0;
   right: 0;
   width: 0px;
+  img {
+
+  }
 }
 
 .Wallop-item--current {
   display: block;
   position: relative;
-  width: 100%;
+  img {
+    width: 100%;
+    max-height: 500px;
+  }
 }

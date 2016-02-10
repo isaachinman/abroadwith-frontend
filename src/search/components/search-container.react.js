@@ -7,6 +7,7 @@ var Tandem =          require('./search-tandem.react');
 var MoreFilters =     require('./search-more-filters.react');
 var Results =         require('./search-results.react');
 var Pagination =      require('./search-pagination.react');
+var Map =             require('./search-map.react');
 
 
 module.exports = React.createClass({
@@ -18,10 +19,12 @@ module.exports = React.createClass({
   handleChange: function() {
 
     // Get map data
-    var bounds = bigMap.getBounds();
-    var NE, SW;
-    bounds !== undefined ? SW = (bounds.getNorthEast()) : null;
-    bounds !== undefined ? NE = (bounds.getSouthWest()) : null;
+    if (typeof bigMap !== 'undefined') {
+      var bounds = bigMap.getBounds();
+      var NE, SW;
+      bounds !== undefined ? SW = (bounds.getNorthEast()) : null;
+      bounds !== undefined ? NE = (bounds.getSouthWest()) : null;
+    }
 
     var simpleValues = [
       $('#arrival'),
@@ -69,6 +72,8 @@ module.exports = React.createClass({
     var minLng = SW !== undefined ? url = url + '&minLng=' + (SW.lng()) : null;
     var maxLat = NE !== undefined ? url = url + '&maxLat=' + (NE.lat()) : null;
     var maxLng = NE !== undefined ? url = url + '&maxLng=' + (NE.lng()) : null;
+
+    console.log(url)
 
     $.post(url, function(data) {
       var response = JSON.parse(data);
@@ -127,9 +132,6 @@ module.exports = React.createClass({
       activeNodes[i].change(handleChange);
     }
 
-    // Map events
-    bigMap.addListener('zoom_changed', handleChange);
-    bigMap.addListener('dragend', handleChange);
 
     $.post(this.props.source, function(data) {
 
@@ -228,6 +230,10 @@ module.exports = React.createClass({
           numberOfResults={this.state.numberOfResults}
           pageSize={this.state.pageSize}
           pageOffset={this.state.pageOffset}
+        />
+
+        <Map
+          results={this.state.results}
         />
 
       </div>

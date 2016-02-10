@@ -12,4 +12,5 @@ if ($('#search-container').length) {
     source='/search'
     />, document.querySelector('#search-container')
   )
+
 }
