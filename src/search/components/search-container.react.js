@@ -84,10 +84,10 @@ module.exports = React.createClass({
         immersion:        response.params.immersion,
         arrival:          response.params.arrival,
         departure:        response.params.departure,
-        minLat:           response.params.location.minLat,
-        minLng:           response.params.location.minLng,
-        maxLat:           response.params.location.maxLat,
-        maxLng:           response.params.location.maxLng,
+        minLat:           response.params.location ? response.params.location.minLat : null,
+        minLng:           response.params.location ? response.params.location.minLng : null,
+        maxLat:           response.params.location ? response.params.location.maxLat : null,
+        maxLng:           response.params.location ? response.params.location.maxLng : null,
         guests:           response.params.guests,
         language:         response.params.language,
         tandem:           response.params.offeredLanguages ? response.params.offeredLanguages : null,
@@ -103,8 +103,8 @@ module.exports = React.createClass({
 
       if (this.isMounted()) {
         this.setState(newState);
-      }.bind(this));
-    })
+      };
+    }.bind(this))
   },
   componentDidMount: function() {
 
@@ -151,10 +151,10 @@ module.exports = React.createClass({
         immersion:        response.params.immersion,
         arrival:          response.params.arrival,
         departure:        response.params.departure,
-        minLat:           response.params.location.minLat,
-        minLng:           response.params.location.minLng,
-        maxLat:           response.params.location.maxLat,
-        maxLng:           response.params.location.maxLng,
+        minLat:           response.params.location ? response.params.location.minLat : null,
+        minLng:           response.params.location ? response.params.location.minLng : null,
+        maxLat:           response.params.location ? response.params.location.maxLat : null,
+        maxLng:           response.params.location ? response.params.location.maxLng : null,
         guests:           response.params.guests,
         language:         response.params.language,
         tandem:           response.params.offeredLanguages ? response.params.offeredLanguages : null,
