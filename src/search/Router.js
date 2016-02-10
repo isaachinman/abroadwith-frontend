@@ -186,11 +186,14 @@ router.post('/', function (req, res) {
     resp.on('end', function() {
       var solr_result = JSON.parse(body);
       search_response.resultDetails = {
-        numberOfResults: 0
+        numberOfResults: 0,
+        minPrice: 10000,
+        maxPrice: 0
       };
       if(solr_result.response){
         search_response.resultDetails.numberOfResults = solr_result.response.numFound;
         search_response.results = solr_result.response.docs;
+        processResults(search_response);
       }
       res.send(JSON.stringify(search_response));
     });
@@ -198,5 +201,21 @@ router.post('/', function (req, res) {
     console.log("Got error: " + e.message);
   });
 });
+
+var processResults = function(search_response){
+  //TODO move this to Solr
+  var results = search_response.results;
+  for(var i = 0; i < results.length; i++){
+    if(results[i].price > search_response.resultDetails.maxPrice){
+      search_response.resultDetails.maxPrice = results[i].price;
+    }
+    if(results[i].price < search_response.resultDetails.minPrice){
+      search_response.resultDetails.minPrice = results[i].price;
+    }
+    results[i].homeType = results[i].homeType.toLowerCase();
+  }
+}
+
+
 
 module.exports = router;
