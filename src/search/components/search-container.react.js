@@ -74,7 +74,7 @@ module.exports = React.createClass({
 
     $.post(url, function(data) {
       var response = JSON.parse(data);
-      console.log(JSON.stringify(data))
+      console.log(response)
       var newState = {
         // Set new state vars
         minPrice:         response.resultDetails.minPrice,
@@ -97,8 +97,9 @@ module.exports = React.createClass({
         mealPlan:         response.params.filters.mealPlan,
         mealPref:         response.params.filters.mealPref,
         dietRestrictions: response.params.filters.dietRestrictions,
-        amenities:       response.params.filters.amenities,
-        houseType:        response.params.filters.houseType
+        amenities:        response.params.filters.amenities,
+        houseType:        response.params.filters.houseType,
+        results:          response.results
       }
 
       if (this.isMounted()) {
@@ -138,7 +139,7 @@ module.exports = React.createClass({
       // Parse the response
       var response = JSON.parse(data);
 
-      console.log(JSON.stringify(data));
+      console.log(response);
 
       var newState = {
         // Set initial state vars
@@ -165,7 +166,8 @@ module.exports = React.createClass({
         mealPref:         response.params.filters.mealPref,
         dietRestrictions: response.params.filters.dietRestrictions,
         amenities:        response.params.filters.amenities,
-        houseType:        response.params.filters.houseType
+        houseType:        response.params.filters.houseType,
+        results:          response.results
       }
 
       if (this.isMounted()) {
@@ -223,7 +225,9 @@ module.exports = React.createClass({
           houseType={this.state.houseType}
         />
 
-        <Results />
+        <Results
+          results={this.state.results}
+        />
 
         <Pagination
           numberOfResults={this.state.numberOfResults}
