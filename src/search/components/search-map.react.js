@@ -1,7 +1,31 @@
 var React = require('react');
 
 module.exports = React.createClass({
-  onComponentUpdate: function() {},
+  componentDidUpdate: function() {
+
+    // Add a marker for each result
+    if (this.props) {
+      if (this.props.results) {
+
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+          marker.setMap(null);
+        });
+        markers = [];
+
+        this.props.results.forEach(function(obj) {
+
+          markers.push(new google.maps.Marker({
+            map: bigMap,
+            title: obj.roomId.toString(),
+            position: new google.maps.LatLng(obj.lat, obj.lng)
+          }));
+
+        })
+      }
+    }
+
+  },
   componentDidMount: function() {
 
     window.initAutocomplete = function() {
@@ -32,21 +56,7 @@ module.exports = React.createClass({
       bigMap.addListener('zoom_changed', handleChange);
       bigMap.addListener('dragend', handleChange);
 
-      var markers = [];
-
-      // Add a marker for each result
-      if (this.props.results) {
-
-        this.props.results.forEach(function(obj) {
-          var result = <IndividualResult
-                key={obj.roomId}
-                lat={obj.lat}
-                lng={obj.lng}
-            />;
-          results.push(result);
-        })
-
-      }
+      window.markers = [];
 
       // Listen for the event fired when the user selects a prediction and retrieve
       // more details for that place.
@@ -67,22 +77,10 @@ module.exports = React.createClass({
         // For each place, get the icon, name and location.
         var bounds = new google.maps.LatLngBounds();
         places.forEach(function(place) {
-          var icon = {
-            url: place.icon,
-            size: new google.maps.Size(71, 71),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
-          };
-
-          if (place.geometry.viewport) {
-            // Only geocodes have viewport.
-            bounds.union(place.geometry.viewport);
-          } else {
-            bounds.extend(place.geometry.location);
-          }
+          bigMap.setCenter(place.geometry.location);
+          handleChange();
         });
-        bigMap.fitBounds(bounds);
+
       });
     }
 
