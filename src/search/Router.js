@@ -176,7 +176,7 @@ router.post('/', function (req, res) {
     search_response.params.pageSize = 25;
   }
 
-  options.path += '?q=+'+encodeURIComponent(query.join(" +"))+'&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')';
+  options.path += '?q=+'+encodeURIComponent(query.join(" AND "))+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')';
   console.log(options.path);
   http.get(options, function(resp){
     var body = '';
