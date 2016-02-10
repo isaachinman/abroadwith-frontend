@@ -203,9 +203,13 @@ router.post('/', function (req, res) {
 });
 
 var processResults = function(search_response){
-  //TODO move this to Solr
+  //TODO move this stuff to Solr
   var results = search_response.results;
-  for(var i = 0; i < results.length; i++){
+  var stop = results.length;
+  if(search_response.params.pageOffset + search_response.params.pageSize < stop){
+    stop = search_response.params.pageOffset + search_response.params.pageSize;
+  }
+  for(var i = search_response.params.pageOffset; i < stop; i++){
     if(results[i].price > search_response.resultDetails.maxPrice){
       search_response.resultDetails.maxPrice = results[i].price;
     }
@@ -213,9 +217,11 @@ var processResults = function(search_response){
       search_response.resultDetails.minPrice = results[i].price;
     }
     results[i].homeType = results[i].homeType.toLowerCase();
+    var location = results[i].location.split(',');
+    results[i].lat = location[0];
+    results[i].lng = location[1];
+    //TODO remove location member from the object
   }
 }
-
-
 
 module.exports = router;
