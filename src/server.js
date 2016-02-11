@@ -6,7 +6,7 @@ var fs = require('fs');
 var searchRouter = require('./search/Router');
 var mainRouter = require('./main/Router');
 var manageHomeRouter = require('./manage-home/Router');
-var homesRouter = require('./homes/Router');
+var installHomes = require('./homes/HomesInstaller');
 var usersRouter = require('./users/Router');
 var usersEditRouter = require('./users-edit/Router');
 var inboxRouter = require('./inbox/Router');
@@ -34,7 +34,7 @@ app.use('/*', authentication);
 
 app.use(['/home','/'],mainRouter);
 
-app.use('/homes',homesRouter);
+installHomes(app);
 
 app.use('/users',usersRouter);
 

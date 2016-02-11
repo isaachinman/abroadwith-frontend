@@ -5,10 +5,9 @@ var translations = require('../utils/Translations');
 var router = express.Router();
 
 router.get('/*', function (req, res) {
-  if(req.language && translations[req.language])
-    context = { translations: translations[req.language]};
-  else
-    context = { translations: translations['eng']};
+  context = {
+    translations: translations[req.language]
+  };
   res.send(nunjucks.render('homes/homes.html',context));
 });
 

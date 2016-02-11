@@ -1,14 +1,4 @@
-var languages = {
-    eng: "English",
-    por: "Português",
-    spa: "Español"
-};
-
-var converted_iso = {
-    en: "eng",
-    es: "spa",
-    pt: "por"
-};
+var languages = require('../global/constants/UILanguages.json');
 
 var translations = {};
 
@@ -21,7 +11,6 @@ for(var i in languages){
   translations[i].languages = require('../../locales/'+i+"/languages.json");
 }
 
-translations.original = languages;
-translations.iso = converted_iso;
+translations.ui_languages = languages;
 
 module.exports = translations;
