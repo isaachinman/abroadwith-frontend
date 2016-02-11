@@ -5,7 +5,7 @@ module.exports = React.createClass({
 
     // Add a marker for each result
     if (this.props) {
-      if (this.props.results) {
+      if (this.props.results && typeof markers !== 'undefined') {
 
         // Clear out the old markers.
         markers.forEach(function(marker) {
@@ -22,6 +22,7 @@ module.exports = React.createClass({
           }));
 
         })
+
       }
     }
 
@@ -84,12 +85,24 @@ module.exports = React.createClass({
       });
     }
 
+    var icon2 = "http://www.clker.com/cliparts/U/8/J/z/5/D/google-maps-icon-blue-th.png";
+
+    //Function called when out the div
+    window.mapOut = function(id) {
+      for (var i = 0; i < markers.length; i++) {
+        if (id === markers[i].id) {
+          markers[i].setIcon(icon1);
+          break;
+        }
+      }
+    }
+
   },
   render: function() {
 
     return (
       <div>
-        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete&types=(cities)" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places,geometry&callback=initAutocomplete&types=(cities)" async defer></script>
       </div>
     );
   }

@@ -23,12 +23,12 @@ module.exports = React.createClass({
 
     if (this.props.results) {
 
-      var uniqueId = 666;
+      var markerId = 0;
 
       this.props.results.forEach(function(obj) {
-        uniqueId++;
         var result = <IndividualResult
               key={obj.roomId}
+              markerId={markerId}
               immersions={obj.immersions}
               price={obj.price}
               roomPhoto={obj.roomPhoto}
@@ -41,6 +41,7 @@ module.exports = React.createClass({
               courseCount={obj.nearbySchools}
           />;
         results.push(result);
+        markerId++;
       })
 
     } else {
