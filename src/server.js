@@ -14,7 +14,7 @@ var installAdmin = require('./admin/AdminInstaller');
 var testRouter = require('./test/Router');
 
 /** Middlewares **/
-var languageSettings = require('./global/middlewares/LanguageSettings');
+var languageLoader = require('./global/middlewares/LanguageSettings');
 var authentication = require('./global/middlewares/Authentication');
 
 var app = express();
@@ -23,7 +23,7 @@ nunjucks.configure('src',{watch:true});
 
 app.use(express.static('build'));
 
-app.use('/*', languageSettings);
+app.use('/*', languageLoader);
 
 app.use('/*', authentication);
 
