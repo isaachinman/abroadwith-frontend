@@ -40,9 +40,9 @@ module.exports = React.createClass({
 
     // If host's name ends with an s, don't put an s after apostrophe
     if (this.props.host.slice(-1) == 's') {
-      var hostName = this.props.host + "'";
+      var hostName = this.props.host + "' ";
     } else {
-      var hostName = this.props.host + "'s";
+      var hostName = this.props.host + "'s ";
     }
 
     // Compile immersion tags
