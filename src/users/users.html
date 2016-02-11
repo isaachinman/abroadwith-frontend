@@ -4,16 +4,16 @@
   <div class='container row left-align'>
 
     <div class='user-image'>
-      <img src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
+      <img src='{{user.photo}}'>
     </div>
 
     <div class='info'>
       <div class='col s12'>
-        <h1>Jose</h1>
+        <h1>{{user.firstName}}</h1>
 
         <span class='rating'>
           <span class='count'>
-            (22)
+            ({{user.ratingCount}})
           </span>
           <span class='stars'>
             <i class="fa fa-star"></i>
@@ -29,28 +29,28 @@
       <div class='col s10 quick-facts'>
 
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>25, Male
+          <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{user.age}}, {{translations.common.male}}
         </p>
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>Joined Oct 2014
+          <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>{{translations.common.Joined}} {{user.joinedMonth}} {{user.joinedYear}}
         </p>
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>Berlin, Germany
+          <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{{user.homeCity}}, {{user.homeCountry}}
         </p>
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-briefcase grey-text text-lighten-1"></span></i>Electrician
+          <span class='icon'><i class="fa fa-briefcase grey-text text-lighten-1"></span></i>{{user.occupation}}
         </p>
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-check-circle grey-text text-lighten-1"></span></i>Verified
+          <span class='icon'><i class="fa fa-check-circle grey-text text-lighten-1"></span></i>{{user.isVerified}}
         </p>
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-quote-right grey-text text-lighten-1"></span></i>5 references
+          <span class='icon'><i class="fa fa-quote-right grey-text text-lighten-1"></span></i>{{user.referenceCount}} {{translations.common.references}}
         </p>
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-graduation-cap grey-text text-lighten-1"></span></i>Master's degree
+          <span class='icon'><i class="fa fa-graduation-cap grey-text text-lighten-1"></span></i>{{user.education}}
         </p>
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>Host
+          <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>{{user.isHost}}
         </p>
 
       </div>
@@ -61,9 +61,9 @@
     <div class='row no-margin-bottom'>
       <div class='col s12'>
         <ul class="tabs user-profile-tabs">
-          <li class="tab col s3"><a href="#about" class='active'>About</a></li>
-          <li class="tab col s3"><a href="#reviews"><span class='hide-on-small-and-down'>References & </span>reviews</a></li>
-          <li class="tab col s3"><a href="#stay">Stay</a></li>
+          <li class="tab col s3"><a href="#about" class='active'>{{translations.common.About}}</a></li>
+          <li class="tab col s3"><a href="#reviews"><span class='hide-on-small-and-down'>{{translations.common.References}} & </span>{{translations.common.reviews}}</a></li>
+          <li class="tab col s3"><a href="#stay">{{translations.common.Stay}}</a></li>
         </ul>
       </div>
     </div>
@@ -83,23 +83,19 @@
             <div class='row'>
               <div class='col s12'>
                 <i class="fa fa-globe fa-2x grey-text text-lighten-1"></i>
-                <span class='title'>Languages</span>
+                <span class='title'>{{translations.common.Languages}}</span>
               </div>
             </div>
             <div class='row content'>
               <div class='col s12 m6 l12'>
                 <p class='no-margin-bottom'>
-                  <strong>Learning:</strong>
+                  <strong>{{translations.common.Learning}}:</strong>
                 </p>
-                <div class='chip chip--learning'>
-                  German
-                </div>
-                <div class='chip chip--learning'>
-                  Spanish
-                </div>
-                <div class='chip chip--learning'>
-                  Portuguese
-                </div>
+                {% for language in user.languagesLearning %}
+                  <div class='chip chip--learning'>
+                    {{language}}
+                  </div>
+                {% endfor %}
               </div>
               <div class='col s12 m6 l12'>
                 <p class='no-margin-bottom'>

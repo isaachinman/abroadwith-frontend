@@ -1,3 +1,20 @@
 {
-  "firstName":"Matheus"
+  "firstName":"Matheus",
+  "photo":"https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png",
+  "ratingCount":22,
+  "age":25,
+  "joinedMonth":"Oct",
+  "joinedYear":2014,
+  "homeCity":"Berlin",
+  "homeCountry":"Germany",
+  "occupation":"Electrician",
+  "isVerified":"Verified",
+  "referenceCount":5,
+  "education":"Master's degree",
+  "isHost":"Host",
+  "languagesLearning":[
+    "German",
+    "Spanish",
+    "Portuguese"
+  ]
 }
