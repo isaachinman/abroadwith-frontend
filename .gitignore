@@ -3,3 +3,4 @@ build
 locales
 *.log
 .DS_Store
+login.*
