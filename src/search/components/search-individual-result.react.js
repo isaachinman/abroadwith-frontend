@@ -1,6 +1,23 @@
 var React = require('react');
 
 module.exports = React.createClass({
+  mapHover: function(id) {
+
+    var icon2 = "http://www.clker.com/cliparts/U/8/J/z/5/D/google-maps-icon-blue-th.png";
+
+    if (typeof markers !== 'undefined') {
+      markers[id].setIcon(icon2);
+      markers[id].setZIndex(9999);
+    }
+
+  },
+  mapOut: function(id) {
+
+    if (typeof markers !== 'undefined') {
+      markers[id].setIcon();
+    }
+
+  },
   handleClick: function() {
 
   },
@@ -60,7 +77,7 @@ module.exports = React.createClass({
     return (
 
       <div className='col s12 m12 l6'>
-        <div className='search-result'>
+        <div className='search-result' onMouseOver={this.mapHover.bind(this, this.props.markerId)} onMouseOut={this.mapOut.bind(this, this.props.markerId)}>
           <a className='overlay' href='/home'></a>
           <div className="wallop">
             <div className="Wallop-list">

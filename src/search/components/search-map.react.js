@@ -5,31 +5,34 @@ module.exports = React.createClass({
 
     // Add a marker for each result
     if (this.props) {
-      if (this.props.results) {
+      if (this.props.results && typeof markers !== 'undefined') {
 
-        // Clear out the old markers.
-        markers.forEach(function(marker) {
-          marker.setMap(null);
-        });
-        markers = [];
+        // Clear markers
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+          markers.splice(markers[i])
+        }
 
         this.props.results.forEach(function(obj) {
 
-          var duplicate = false;
-          for (var i = 0; i < markers.length; i++) {
-            if (google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(obj.lat, obj.lng), markers[i].getPosition()) < 1.0) {
-              duplicate = true;
-            }
-          }
-          if (!duplicate) {
-            markers.push(new google.maps.Marker({
-              map: bigMap,
-              title: obj.roomId.toString(),
-              position: new google.maps.LatLng(obj.lat, obj.lng)
-            }));
-          }
+          markers.push(new google.maps.Marker({
+            map: bigMap,
+            title: obj.roomId.toString(),
+            position: new google.maps.LatLng(obj.lat, obj.lng)
+          }));
 
         })
+
+        // Clear out the old markers.
+        var mapBounds = bigMap.getBounds();
+        for (var i = 0; i < markers.length; i++) {
+          if (!(mapBounds.contains(markers[i].getPosition()))) {
+            console.log('delete')
+            markers[i].setMap(null);
+            markers.splice(markers[i]);
+          }
+        }
+
       }
     }
 
@@ -90,6 +93,18 @@ module.exports = React.createClass({
         });
 
       });
+    }
+
+    var icon2 = "http://www.clker.com/cliparts/U/8/J/z/5/D/google-maps-icon-blue-th.png";
+
+    //Function called when out the div
+    window.mapOut = function(id) {
+      for (var i = 0; i < markers.length; i++) {
+        if (id === markers[i].id) {
+          markers[i].setIcon(icon1);
+          break;
+        }
+      }
     }
 
   },
