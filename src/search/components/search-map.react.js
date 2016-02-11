@@ -70,7 +70,7 @@ module.exports = React.createClass({
               }, {
                 "lightness": "35"
               }, {
-                "gamma": "1.25"
+                "gamma": "1.35"
               }
             ]
           }
