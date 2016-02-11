@@ -10,7 +10,7 @@ var installHomes = require('./homes/HomesInstaller');
 var usersRouter = require('./users/Router');
 var usersEditRouter = require('./users-edit/Router');
 var inboxRouter = require('./inbox/Router');
-var adminRouter = require('./admin/Router');
+var installAdmin = require('./admin/AdminInstaller');
 var testRouter = require('./test/Router');
 
 /** Middlewares **/
@@ -37,7 +37,7 @@ app.use('/users-edit',usersEditRouter);
 
 app.use('/inbox',inboxRouter);
 
-app.use('/admin',adminRouter);
+installAdmin(app);
 
 app.use('/test',testRouter);
 
