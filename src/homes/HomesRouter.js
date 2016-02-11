@@ -6,7 +6,8 @@ var router = express.Router();
 
 router.get('/*', function (req, res) {
   context = {
-    translations: translations[req.language]
+    translations: translations[req.language],
+    home: req.home_info
   };
   res.send(nunjucks.render('homes/homes.html',context));
 });

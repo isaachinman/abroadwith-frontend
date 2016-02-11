@@ -6,7 +6,7 @@ module.exports = function (req, res, next, value) {
   var user_path = "../../mockups/homes/"+value+".json";
   console.log(user_path);
   try{
-    req.home = require(user_path);
+    req.home_info = require(user_path);
   }
   catch(e){
     res.status(404).send('Sorry, we cannot find that!');

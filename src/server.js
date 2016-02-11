@@ -19,11 +19,6 @@ var authentication = require('./global/middlewares/Authentication');
 
 var app = express();
 
-var options = {
-  key: fs.readFileSync('test-key.pem'),
-  cert: fs.readFileSync('test-cert.pem')
-};
-
 nunjucks.configure('src',{watch:true});
 
 app.use(express.static('build'));
