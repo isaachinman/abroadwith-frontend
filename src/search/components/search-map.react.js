@@ -68,9 +68,9 @@ module.exports = React.createClass({
               }, {
                 "visibility": "simplified"
               }, {
-                "lightness": "35"
+                "lightness": "30"
               }, {
-                "gamma": "1.35"
+                "gamma": "1.5"
               }
             ]
           }
