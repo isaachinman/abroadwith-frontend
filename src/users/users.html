@@ -16,7 +16,7 @@
             ({{user.ratingCount}})
           </span>
           <span class='stars'>
-            
+            {{user.ratingHTML | safe}}
           </span>
         </span>
 
@@ -232,11 +232,7 @@
                     ({{user.ratingCount}})
                   </span>
                   <span class='stars'>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                    <i class="fa fa-star-o"></i>
+                    {{user.ratingHTML | safe}}
                   </span>
                 </span>
               </div>
