@@ -2,7 +2,7 @@
   "firstName":"Matheus",
   "photo":"https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png",
   "ratingCount":22,
-  "ratingHTML":"<i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i>",
+  "rating":5,
   "age":25,
   "joinedMonth":"Oct",
   "joinedYear":2014,

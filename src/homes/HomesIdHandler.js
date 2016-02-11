@@ -3,10 +3,10 @@ module.exports = function (req, res, next, value) {
     res.status(404).send('Sorry, we cannot find that!');
     return;
   }
-  var user_path = "../../mockups/homes/"+value+".json";
-  console.log(user_path);
+  var home_path = "../../mockups/homes/"+value+".json";
+  console.log(home_path);
   try{
-    req.home_info = require(user_path);
+    req.home_info = require(home_path);
   }
   catch(e){
     res.status(404).send('Sorry, we cannot find that!');
