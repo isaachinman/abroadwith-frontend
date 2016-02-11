@@ -1,8 +1,8 @@
-var languages = require('../../utils/Translations');
+var translations = require('../../utils/Translations');
 
 module.exports = function (req, res, next) {
   var prefix = req.hostname.substring(0,2);
-  var value = languages.ui_languages[prefix];
+  var value = translations.ui_languages[prefix];
 
   if(value) {
     req.language = prefix;
@@ -11,5 +11,6 @@ module.exports = function (req, res, next) {
   else{
     req.language = "eng";
   }
+  req.translations = translations[req.language];
   next();
 };
