@@ -333,13 +333,13 @@
                 <strong>{{translations.common.Basics}}:</strong>
               </p>
               <p class='home-details'>
-                <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Sleeps: 1
+                <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>{{translations.common.Sleeps}}: {{room.vacancies}}
               </p>
               <p class='home-details'>
-                <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Shared: No
+                <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.common.Shared}}: {{room.shared}}
               </p>
               <p class='home-details'>
-                <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>Bed type: Double
+                <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>{{translations.common.Bed_type}}: {{room.bedType}}
               </p>
             </div>
             <div class='col s6 m6 l2'>
@@ -348,20 +348,13 @@
               </p>
               {% for facility in room.facilities %}
                 <p class='home-details'>
-                  <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></span></i>{{facility.name}}
+                  <span class='icon'><i class="fa {{facility.icon}} grey-text text-lighten-1"></span></i>{{facility.name}}
                 </p>
               {% endfor %}
-
-              <p class='home-details'>
-              <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></span></i>Mirror
-              </p>
-              <p class='home-details'>
-              <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></span></i>Lock
-              </p>
             </div>
             <div class='col s6 m12 l3'>
               <p class='grey-text text-darken-1'>
-                <strong>Price:</strong>
+                <strong>{{translations.common.Price}}:</strong>
               </p>
               <p class='home-details'>
               <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Stay: <span class='right'>€110/week</span>
