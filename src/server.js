@@ -7,7 +7,7 @@ var searchRouter = require('./search/Router');
 var mainRouter = require('./main/Router');
 var manageHomeRouter = require('./manage-home/Router');
 var installHomes = require('./homes/HomesInstaller');
-var usersRouter = require('./users/Router');
+var installUsers = require('./users/UsersInstaller');
 var usersEditRouter = require('./users-edit/Router');
 var inboxRouter = require('./inbox/Router');
 var installAdmin = require('./admin/AdminInstaller');
@@ -31,7 +31,7 @@ app.use(['/home','/'],mainRouter);
 
 installHomes(app);
 
-app.use('/users',usersRouter);
+installUsers(app);
 
 app.use('/users-edit',usersEditRouter);
 
