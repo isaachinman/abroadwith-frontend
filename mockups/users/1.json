@@ -16,5 +16,14 @@
     "German",
     "Spanish",
     "Portuguese"
-  ]
+  ],
+  "languagesSpeaks":[
+    "English"
+  ],
+  "aboutMe":"Lorem ipsum dolor sit amet, tamquam meliore te qui, est ea dico feugiat. Ut brute dicat appetere has. Pri facer platonem ne, pro reque appellantur an. Vim ad postea suscipiantur. No vim expetenda eloquentiam vituperatoribus. Duo augue putent ponderum ea, eu qui sale ullum integre.",
+  "grewUpCity":"Caracas",
+  "grewUpCountry":"Venezeula",
+  "favouriteBook":"Cats Cradle",
+  "favouriteFilm":"A girl walks home alone at night",
+  "amazingFeat":"Sailed around the world"
 }

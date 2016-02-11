@@ -101,9 +101,11 @@
                 <p class='no-margin-bottom'>
                   <strong>Speaks:</strong>
                 </p>
-                <div class='chip chip--speaks'>
-                  English
-                </div>
+                {% for language in user.languagesSpeaks %}
+                  <div class='chip chip--speaks'>
+                    {{language}}
+                  </div>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -114,16 +116,13 @@
             <div class='row'>
               <div class='col s12'>
                 <i class="fa fa-user fa-2x grey-text text-lighten-1"></i>
-                <span class='title'>About me</span>
+                <span class='title'>{{translations.common.About_me}}</span>
               </div>
             </div>
             <div class='row content'>
               <div class='col s12'>
                 <p>
-                  Lorem ipsum dolor sit amet, tamquam meliore te qui, est ea dico feugiat. Ut brute dicat appetere has. Pri facer platonem ne, pro reque appellantur an. Vim ad postea suscipiantur. No vim expetenda eloquentiam vituperatoribus. Duo augue putent ponderum ea, eu qui sale ullum integre.
-                </p>
-                <p>
-                  Animal petentium assentior vim no. Pri doming oblique accumsan id, unum dictas vituperata ius et. Sea aeque epicuri invidunt ad. Affert quaestio qui in. Ea pri aliquam officiis perpetua, id quo purto deleniti. Et usu graeci repudiare. Ex dicunt atomorum eum, mei modo vero no.
+                  {{user.aboutMe}}
                 </p>
               </div>
             </div>
@@ -135,46 +134,46 @@
             <div class='row'>
               <div class='col s12'>
                 <i class="fa fa-file-text-o fa-2x grey-text text-lighten-1"></i>
-                <span class='title'>Details</span>
+                <span class='title'>{{translations.common.Details}}</span>
               </div>
             </div>
             <div class='row content'>
               <div class='col s12'>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-graduation-cap grey-text text-lighten-1"></i></span>
-                  <strong>Education:</strong> Master's degree
+                  <strong>{{translations.common.Education}}:</strong> {{user.education}}
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-building-o grey-text text-lighten-1"></i></span>
-                  <strong>Grew up:</strong> Caracas, Venezeula
+                  <strong>Grew up:</strong> {{user.grewUpCity}}, {{user.grewUpCountry}}
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-book grey-text text-lighten-1"></i></span>
-                  <strong>Favourite book:</strong> Cats Cradle
+                  <strong>{{translations.common.Favourite_book}}:</strong> {{user.favouriteBook}}
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-film grey-text text-lighten-1"></i></span>
-                  <strong>Favourite film:</strong> A girl walks home alone at night
+                  <strong>{{translations.common.Favourite_film}}:</strong> {{user.favouriteFilm}}
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-bolt grey-text text-lighten-1"></i></span>
-                  <strong>Amazing feat:</strong> Sailed around the world
+                  <strong>{{translations.common.Amazing_feat}}:</strong> {{user.amazingFeat}}
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-share-square-o grey-text text-lighten-1"></i></span>
-                  <strong>Can share:</strong> Baking bread, fishing
+                  <strong>{{translations.common.Can_share}}:</strong> Baking bread, fishing
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-star grey-text text-lighten-1"></i></span>
-                  <strong>Interests:</strong> Sports, music, cooking
+                  <strong>{{translations.common.Interests}}:</strong> Sports, music, cooking
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-plane grey-text text-lighten-1"></i></span>
-                  <strong>Visited:</strong> Spain, Ireland, Italy
+                  <strong>{{translations.common.Visited}}:</strong> Spain, Ireland, Italy
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></i></span>
-                  <strong>Lived in:</strong> UK, China
+                  <strong>{{translations.common.Lived_in}}:</strong> UK, China
                 </p>
               </div>
             </div>
