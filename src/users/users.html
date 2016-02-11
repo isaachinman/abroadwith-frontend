@@ -161,19 +161,19 @@
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-share-square-o grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Can_share}}:</strong> Baking bread, fishing
+                  <strong>{{translations.common.Can_share}}:</strong> {{user.canShare}}
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-star grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Interests}}:</strong> Sports, music, cooking
+                  <strong>{{translations.common.Interests}}:</strong> {{user.interests}}
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-plane grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Visited}}:</strong> Spain, Ireland, Italy
+                  <strong>{{translations.common.Visited}}:</strong> {{user.hasVisited}}
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Lived_in}}:</strong> UK, China
+                  <strong>{{translations.common.Lived_in}}:</strong> {{user.hasLived}}
                 </p>
               </div>
             </div>
@@ -196,41 +196,28 @@
             <div class='row'>
               <div class='col s12'>
                 <i class="fa fa-quote-right fa-2x grey-text text-lighten-1"></i>
-                <span class='title'>References</span>
+                <span class='title'>{{translations.common.References}}</span>
               </div>
             </div>
             <div class='row no-margin'>
               <div class='col s12 content'>
-                <div class='card home-card review'>
-                  <div class='row'>
-                    <div class='col s12 grey-text relationship'>
-                      Isaac (Colleague)
-                    </div>
-                    <div class='col s12'>
-                      <p>
-                        Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.
-                      </p>
-                    </div>
-                    <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                      05/01/2016
-                    </div>
-                  </div>
-                </div>
-                <div class='card home-card review'>
-                  <div class='row'>
-                    <div class='col s12 grey-text relationship'>
-                      Luis (Student)
-                    </div>
-                    <div class='col s12'>
-                      <p>
-                        Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.
-                      </p>
-                    </div>
-                    <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                      05/01/2016
+                {% for reference in user.references %}
+                  <div class='card home-card review'>
+                    <div class='row'>
+                      <div class='col s12 grey-text relationship'>
+                        {{reference.name}} ({{reference.relationship}})
+                      </div>
+                      <div class='col s12'>
+                        <p>
+                          {{reference.content}}
+                        </p>
+                      </div>
+                      <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
+                        {{reference.date}}
+                      </div>
                     </div>
                   </div>
-                </div>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -260,43 +247,27 @@
             </div>
             <div class='row no-margin'>
               <div class='col s12 content'>
-                <div class='card home-card review'>
-                  <div class='row'>
-                    <div class='col s3 m2 l2 center-align'>
-                      <img class='circle host-picture' src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
-                      <br>
-                      Isaac
-                    </div>
-                    <div class='col s9 m10 l10'>
-                      <p>
-                        Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.
-                      </p>
-                    </div>
-                    <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                      05/01/2016
-                    </div>
-                  </div>
-                </div>
-                <div class='card home-card review'>
-                  <div class='row'>
-                    <div class='col s3 m3 l2 center-align'>
-                      <img class='circle host-picture' src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
-                      <br>
-                      Isaac
-                    </div>
-                    <div class='col s9 m10 l10'>
-                      <p>
-                        Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.
-                      </p>
-                      <p>
-                        Enim adolescens ea pri, quo veniam labore alienum ut. Alienum disputationi vix at, vis dictas corpora te, has audire sententiae id. Per ad animal timeam latine, est augue mucius ridens ex. Ei utroque accumsan est, vix et minim dicunt commune. Has ei quod dico nullam.
-                      </p>
-                    </div>
-                    <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                      05/01/2016
+
+                {% for review in user.reviews %}
+                  <div class='card home-card review'>
+                    <div class='row'>
+                      <div class='col s3 m2 l2 center-align'>
+                        <img class='circle host-picture' src='{{review.picture}}'>
+                        <br>
+                        {{review.name}}
+                      </div>
+                      <div class='col s9 m10 l10'>
+                        <p>
+                          {{review.content}}
+                        </p>
+                      </div>
+                      <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
+                        {{review.date}}
+                      </div>
                     </div>
                   </div>
-                </div>
+                {% endfor %}
+
               </div>
             </div>
           </div>
@@ -315,25 +286,25 @@
         <div class='row'>
           <div class='col s12'>
             <i class="fa fa-home fa-2x grey-text text-lighten-1"></i>
-            <span class='title'>Home info</span>
+            <span class='title'>{{translations.common.Home_info}}</span>
           </div>
         </div>
 
         <div class='row content bottom-align-column'>
           <div class='col s12'>
             <p class='home-details'>
-              <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>Cabin
+              <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>{{user.houseType}}
             </p>
             <p class='home-details'>
-              <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>Berlin, Germany
+              <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{{user.houseCity}}, {{user.houseCountry}}
             </p>
             <p class='home-details'>
-              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Family home
+              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{user.familyHome}}
             </p>
             <div class='divider'></div>
           </div>
           <div class='col s12 bottom center-align'>
-            <a class='btn btn-secondary '>View home</a>
+            <a class='btn btn-secondary '>{{translations.common.View_home}}</a>
           </div>
         </div>
 
@@ -341,85 +312,90 @@
     </div>
 
     <div class='col s12 m9 l9'>
-      <div class='card home-card'>
-        <div class='row'>
+      {% for room in user.home %}
+        <div class='card home-card'>
+          <div class='row'>
 
-          <div class='col s12'>
-            <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
-            <span class='title'>Master bedroom</span>
+            <div class='col s12'>
+              <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
+              <span class='title'>Master bedroom</span>
+            </div>
           </div>
+          <div class='row'>
+            <div class='col s12 m4 l5'>
+              <p>
+
+              </p>
+              <img class='home-room-image materialboxed' src='http://images2.roomstogo.com/is/image/roomstogo/br_rm_gardenia_white_nostack~Gardenia-White-5-Pc-Queen-Platform-Bedroom.jpeg?$PDP_Primary_525x366$' />
+            </div>
+            <div class='col s6 m6 l2'>
+              <p class='grey-text text-darken-1'>
+                <strong>Basics:</strong>
+              </p>
+              <p class='home-details'>
+                <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Sleeps: 1
+              </p>
+              <p class='home-details'>
+                <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Shared: No
+              </p>
+              <p class='home-details'>
+                <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>Bed type: Double
+              </p>
+            </div>
+            <div class='col s6 m6 l2'>
+              <p class='grey-text text-darken-1'>
+                <strong>Facilities:</strong>
+              </p>
+              {% for facility in room.facilities %}
+                <p class='home-details'>
+                  <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></span></i>{{facility.name}}
+                </p>
+              {% endfor %}
+
+              <p class='home-details'>
+              <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></span></i>Mirror
+              </p>
+              <p class='home-details'>
+              <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></span></i>Lock
+              </p>
+            </div>
+            <div class='col s6 m12 l3'>
+              <p class='grey-text text-darken-1'>
+                <strong>Price:</strong>
+              </p>
+              <p class='home-details'>
+              <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Stay: <span class='right'>€110/week</span>
+              </p>
+              <p class='home-details'>
+              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Tandem: <span class='right'>€90/week</span>
+              </p>
+              <p class='home-details'>
+              <span class='icon'><i class="fa fa-university grey-text text-lighten-1"></span></i>Teacher: <span class='right'>€200/week</span>
+              </p>
+
+            </div>
+          </div>
+
+          <div class='row section'>
+            <div class='col s12'>
+              <div class='divider'></div>
+            </div>
+          </div>
+
+          <div class='row bottom-align-row'>
+            <div class='col s8'>
+              <label>Room description</label><br>
+
+                Comfort, Bright , space, comfort room in a two bedroom apartment. One block from 1 train and 20 mins from plaza de Cataluña. Full access to kitchen and bathroom.
+
+            </div>
+            <div class='col s4 right-align bottom'>
+              <a class='btn btn-primary'>Book now</a>
+            </div>
+          </div>
+
         </div>
-        <div class='row'>
-          <div class='col s12 m4 l5'>
-            <p>
-
-            </p>
-            <img class='home-room-image materialboxed' src='http://images2.roomstogo.com/is/image/roomstogo/br_rm_gardenia_white_nostack~Gardenia-White-5-Pc-Queen-Platform-Bedroom.jpeg?$PDP_Primary_525x366$' />
-          </div>
-          <div class='col s6 m6 l2'>
-            <p class='grey-text text-darken-1'>
-              <strong>Basics:</strong>
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Sleeps: 1
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Shared: No
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>Bed type: 1
-            </p>
-          </div>
-          <div class='col s6 m6 l2'>
-            <p class='grey-text text-darken-1'>
-              <strong>Facilities:</strong>
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></span></i>Heating
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></span></i>Mirror
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></span></i>Lock
-            </p>
-          </div>
-          <div class='col s6 m12 l3'>
-            <p class='grey-text text-darken-1'>
-              <strong>Price:</strong>
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Stay: <span class='right'>€110/week</span>
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Tandem: <span class='right'>€90/week</span>
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-university grey-text text-lighten-1"></span></i>Teacher: <span class='right'>€200/week</span>
-            </p>
-
-          </div>
-        </div>
-
-        <div class='row section'>
-          <div class='col s12'>
-            <div class='divider'></div>
-          </div>
-        </div>
-
-        <div class='row bottom-align-row'>
-          <div class='col s8'>
-            <label>Room description</label><br>
-
-              Comfort, Bright , space, comfort room in a two bedroom apartment. One block from 1 train and 20 mins from plaza de Cataluña. Full access to kitchen and bathroom.
-
-          </div>
-          <div class='col s4 right-align bottom'>
-            <a class='btn btn-primary'>Book now</a>
-          </div>
-        </div>
-
-      </div>
+      {% endfor %}
     </div>
 
   </div>

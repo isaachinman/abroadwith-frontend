@@ -25,5 +25,50 @@
   "grewUpCountry":"Venezeula",
   "favouriteBook":"Cats Cradle",
   "favouriteFilm":"A girl walks home alone at night",
-  "amazingFeat":"Sailed around the world"
+  "amazingFeat":"Sailed around the world",
+  "canShare":"Baking bread, fishing",
+  "interests":"Sports, music, cooking",
+  "hasVisited":"Spain, Ireland, Italy",
+  "hasLived":"UK, China",
+  "references":[
+		{
+			"name":"Isaac",
+			"relationship":"Colleague",
+			"content":"Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.",
+			"date":"2016-05-01"
+		},
+		{
+			"name":"Luis",
+			"relationship":"Student",
+			"content":"Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.",
+			"date":"2014-05-01"
+		}
+	],
+  "reviews":[
+		{
+      "picture":"https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png",
+			"name":"Isaac",
+			"content":"Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.",
+			"date":"2016-05-01"
+		},
+		{
+      "picture":"https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png",
+			"name":"Luis",
+			"content":"Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.",
+			"date":"2014-05-01"
+		}
+	],
+  "houseType":"Cabin",
+  "houseCity":"Berlin",
+  "houseCountry":"Germany",
+  "familyHome":"Family home",
+  "home":[
+    {
+      "roomName":"Master bedroom",
+      "photo":"http://images2.roomstogo.com/is/image/roomstogo/br_rm_gardenia_white_nostack~Gardenia-White-5-Pc-Queen-Platform-Bedroom.jpeg?$PDP_Primary_525x366$",
+      "vacancies":1,
+      "shared":"No",
+      "bedType":"Double"
+    }
+  ]
 }
