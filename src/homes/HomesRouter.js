@@ -4,7 +4,7 @@ var translations = require('../utils/Translations');
 
 var router = express.Router();
 
-router.get('/*', function (req, res) {
+router.get('/', function (req, res) {
   context = {
     translations: translations[req.language],
     home: req.home_info

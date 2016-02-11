@@ -1,5 +1,5 @@
 {
-    "eng": {"name":"English","iso":"eng"},
-    "por": {"name":"Português","iso":"por"},
-    "spa": {"name":"Español","iso":"spa"}
+    "en": {"name":"English","iso":"eng"},
+    "pt": {"name":"Português","iso":"por"},
+    "es": {"name":"Español","iso":"spa"}
 }
