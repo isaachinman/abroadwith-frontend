@@ -111,6 +111,7 @@ module.exports = React.createClass({
         var bounds = new google.maps.LatLngBounds();
         places.forEach(function(place) {
           bigMap.setCenter(place.geometry.location);
+          bigMap.setZoom(9)
           handleChange();
         });
 
