@@ -2,6 +2,7 @@
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.2.1/nouislider.min.js'></script>
 
+
 <div class='row left-align no-margin'>
   <div class='col s12 m7 l8 no-padding-sides fixed-100-vh fixed-100-vh--scroll'>
 
@@ -9,7 +10,7 @@
 
     {% include "partials/navigation/footer.html" %}
 
-    </div>
+  </div>
   <div class='col s12 m5 l4 no-padding fixed-100-vh'>
 
     <nav class='overlay light row no-margin'>
@@ -25,6 +26,20 @@
     </nav>
 
     <div id="search-map" class='big-map'></div>
+
+    <div id='default-icon' class="marker-svg">
+      <svg width="32" height="32" version="1.0" viewBox="646 -816 1792 1792" style="enable-background:new 1030 -688 1024 1536;" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px">
+        <path fill="#9FD06D" d="M2054-176c0,72.7-11,132.3-33,179l-364,774c-10.7,22-26.5,39.3-47.5,52s-43.5,19-67.5,19s-46.5-6.3-67.5-19
+      s-36.5-30-46.5-52L1063,3c-22-46.7-33-106.3-33-179c0-141.3,50-262,150-362s220.7-150,362-150s262,50,362,150S2054-317.3,2054-176z" />
+      </svg>
+    </div>
+
+    <div id='hover-icon' class="marker-svg">
+      <svg width="52" height="52" version="1.0" viewBox="646 -816 1792 1792" style="enable-background:new 1030 -688 1024 1536;" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px">
+        <path fill="#4A91E2" d="M2054-176c0,72.7-11,132.3-33,179l-364,774c-10.7,22-26.5,39.3-47.5,52s-43.5,19-67.5,19s-46.5-6.3-67.5-19
+      s-36.5-30-46.5-52L1063,3c-22-46.7-33-106.3-33-179c0-141.3,50-262,150-362s220.7-150,362-150s262,50,362,150S2054-317.3,2054-176z" />
+      </svg>
+    </div>
 
   </div>
 </div>

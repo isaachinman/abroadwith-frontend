@@ -37,6 +37,15 @@ module.exports = React.createClass({
 
     window.initAutocomplete = function() {
 
+      window.defaultIcon = {
+        url: 'data:image/svg+xml;utf-8,' +
+        encodeURIComponent($('#default-icon').html())
+      }
+      window.hoverIcon = {
+        url: 'data:image/svg+xml;utf-8,' +
+        encodeURIComponent($('#hover-icon').html())
+      }
+
       window.bigMap = new google.maps.Map(document.getElementById('search-map'), {
         center: {
           lat: 20,
@@ -120,21 +129,6 @@ module.exports = React.createClass({
 
   },
   render: function() {
-
-    window.defaultIcon = {
-      url: 'data:image/svg+xml;utf-8, \
-<svg width="32" height="32" viewBox="646 -816 1792 1792" xmlns="http://www.w3.org/2000/svg"> \
-<path fill="#9FD06D" d="M2054-176c0,72.7-11,132.3-33,179l-364,774c-10.7,22-26.5,39.3-47.5,52s-43.5,19-67.5,19s-46.5-6.3-67.5-19 \
-s-36.5-30-46.5-52L1063,3c-22-46.7-33-106.3-33-179c0-141.3,50-262,150-362s220.7-150,362-150s262,50,362,150S2054-317.3,2054-176z" ></path> \
-</svg>'
-    }
-    window.hoverIcon = {
-      url: 'data:image/svg+xml;utf-8, \
-<svg width="48" height="48" viewBox="646 -816 1792 1792" xmlns="http://www.w3.org/2000/svg"> \
-<path fill="#4A91E2" d="M2054-176c0,72.7-11,132.3-33,179l-364,774c-10.7,22-26.5,39.3-47.5,52s-43.5,19-67.5,19s-46.5-6.3-67.5-19 \
-s-36.5-30-46.5-52L1063,3c-22-46.7-33-106.3-33-179c0-141.3,50-262,150-362s220.7-150,362-150s262,50,362,150S2054-317.3,2054-176z" ></path> \
-</svg>'
-    }
 
     return (
       <div>
