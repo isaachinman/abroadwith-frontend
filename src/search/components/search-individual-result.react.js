@@ -3,10 +3,8 @@ var React = require('react');
 module.exports = React.createClass({
   mapHover: function(id) {
 
-    var icon2 = "http://www.clker.com/cliparts/U/8/J/z/5/D/google-maps-icon-blue-th.png";
-
     if (typeof markers !== 'undefined') {
-      markers[id].setIcon(icon2);
+      markers[id].setIcon(hoverIcon);
       markers[id].setZIndex(9999);
     }
 
@@ -14,16 +12,13 @@ module.exports = React.createClass({
   mapOut: function(id) {
 
     if (typeof markers !== 'undefined') {
-      markers[id].setIcon();
+      markers[id].setIcon(defaultIcon);
+      markers[id].setZIndex(1);
     }
 
   },
-  handleClick: function() {
-
-  },
+  handleClick: function() {},
   render: function() {
-
-
 
     // Room photo src
     var roomSrc = 'https://img.abroadwith.com' + this.props.roomPhoto;
@@ -63,14 +58,14 @@ module.exports = React.createClass({
     var starRemainder = Math.floor(5 - rating);
     while (rating > 0) {
       if (rating >= 1) {
-        stars.push(<i className="fa fa-star"></i>)
+        stars.push( < i className = "fa fa-star" > </i>)
       } else if (rating == 0.5) {
-        stars.push(<i className="fa fa-star-half-o"></i>)
+        stars.push( < i className = "fa fa-star-half-o" > </i>)
       }
       rating--;
     }
     while (starRemainder > 0) {
-      stars.push(<i className="fa fa-star-o"></i>)
+      stars.push( < i className = "fa fa-star-o" > </i>)
       starRemainder--;
     }
 
@@ -84,8 +79,12 @@ module.exports = React.createClass({
               <div className="Wallop-item Wallop-item--current"><img src={roomSrc}/></div>
               {homePhotos}
             </div>
-            <a className="Wallop-buttonPrevious white-text"><i className="fa fa-chevron-circle-left fa-2x"></i></a>
-            <a className="Wallop-buttonNext white-text"><i className="fa fa-chevron-circle-right fa-2x"></i></a>
+            <a className="Wallop-buttonPrevious white-text">
+              <i className="fa fa-chevron-circle-left fa-2x"></i>
+            </a>
+            <a className="Wallop-buttonNext white-text">
+              <i className="fa fa-chevron-circle-right fa-2x"></i>
+            </a>
           </div>
           <div className='tag'>
             {immersionTags}
@@ -93,27 +92,31 @@ module.exports = React.createClass({
           <div className='price'>
             <span>€{this.props.price}</span>
             <div className='course-added'>
-              <i className="fa fa-map-marker"></i>{this.props.courseCount} courses
+              <i className="fa fa-map-marker"></i>{this.props.courseCount}
+              courses
             </div>
           </div>
           <div className='info'>
             <div className='title'>
-                {hostName} home
+              {hostName}
+              home
               <div className='subtitle'>
-                {this.props.homeType} <i className="fa fa-angle-right"></i> Kreuzberg
+                {this.props.homeType}
+                <i className="fa fa-angle-right"></i>
+                Kreuzberg
               </div>
             </div>
             <div className='rating'>
               <div className='count'>
-                {this.props.reviewCount} reviews
+                {this.props.reviewCount}
+                reviews
               </div>
               <div className='stars'>
                 {stars}
               </div>
             </div>
           </div>
-          <div className='host' style={hostImg}>
-          </div>
+          <div className='host' style={hostImg}></div>
         </div>
       </div>
 
