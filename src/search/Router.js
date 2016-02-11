@@ -60,12 +60,12 @@ router.post('/', function (req, res) {
 
   if(req.query.immersions){
     var all = req.query.immersions.split(',');
-    var list = []
-    for(var i = 0; i < all.length; i++){
-      list.push('"'+all[i]+'"');
-    }
     search_response.params.immersions = all;
-    query.push('immersions:('+list.join(" ")+')');
+    query.push('immersions:('+all.join(" ")+')');
+  }
+  else {
+    search_response.params.immersions = ["stay", "teacher", "tandem"]
+    query.push('immersions:('+search_response.params.immersions.join(" ")+')');
   }
 
   if(req.query.arrival){
