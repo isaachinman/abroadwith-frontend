@@ -2,8 +2,8 @@ var router = require('./UsersRouter');
 var idHandler = require('./UsersIdHandler');
 
 var installer = function(app) {
-  app.use('/users/:id/',router);
-  app.param('id',idHandler);
+  app.use('/users/:userId/',router);
+  app.param('userId',idHandler);
 };
 
 module.exports = installer;
