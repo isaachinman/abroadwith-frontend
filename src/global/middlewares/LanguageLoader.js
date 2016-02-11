@@ -9,7 +9,7 @@ module.exports = function (req, res, next) {
     console.log("Called for language "+req.language);
   }
   else{
-    req.language = "eng";
+    req.language = "en";
   }
   req.translations = translations[req.language];
   next();
