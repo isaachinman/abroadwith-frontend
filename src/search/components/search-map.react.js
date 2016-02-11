@@ -7,11 +7,11 @@ module.exports = React.createClass({
     if (this.props) {
       if (this.props.results && typeof markers !== 'undefined') {
 
-        // Clear markers
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(null);
-          markers.splice(markers[i])
-        }
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+          marker.setMap(null);
+        });
+        markers = [];
 
         this.props.results.forEach(function(obj) {
 
@@ -22,16 +22,6 @@ module.exports = React.createClass({
           }));
 
         })
-
-        // Clear out the old markers.
-        var mapBounds = bigMap.getBounds();
-        for (var i = 0; i < markers.length; i++) {
-          if (!(mapBounds.contains(markers[i].getPosition()))) {
-            console.log('delete')
-            markers[i].setMap(null);
-            markers.splice(markers[i]);
-          }
-        }
 
       }
     }
