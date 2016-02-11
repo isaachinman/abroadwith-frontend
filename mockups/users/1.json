@@ -78,7 +78,12 @@
           "name":"Lock",
           "icon":"fa-lock"
         }
-      ]
+      ],
+      "stayPrice":80,
+      "tandemPrice":100,
+      "teacherPrice":120,
+      "description":"Comfort, Bright , space, comfort room in a two bedroom apartment. One block from 1 train and 20 mins from plaza de Cataluña. Full access to kitchen and bathroom.",
+      "bookingUrl":"/emptybookingforthisroom"
     }
   ]
 }

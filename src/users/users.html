@@ -228,12 +228,12 @@
             <div class='row bottom-align-row'>
               <div class='col s7 m8 l8'>
                 <i class="fa fa-star-o fa-2x grey-text text-lighten-1"></i>
-                <span class='title'>Reviews</span>
+                <span class='title'>{{translations.common.Reviews}}</span>
               </div>
               <div class='col s5 m4 l4 bottom right-align'>
                 <span class='rating'>
                   <span class='count'>
-                    (22)
+                    ({{user.ratingCount}})
                   </span>
                   <span class='stars'>
                     <i class="fa fa-star"></i>
@@ -326,7 +326,7 @@
               <p>
 
               </p>
-              <img class='home-room-image materialboxed' src='http://images2.roomstogo.com/is/image/roomstogo/br_rm_gardenia_white_nostack~Gardenia-White-5-Pc-Queen-Platform-Bedroom.jpeg?$PDP_Primary_525x366$' />
+              <img class='home-room-image materialboxed' src='{{room.photo}}' />
             </div>
             <div class='col s6 m6 l2'>
               <p class='grey-text text-darken-1'>
@@ -357,13 +357,13 @@
                 <strong>{{translations.common.Price}}:</strong>
               </p>
               <p class='home-details'>
-              <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Stay: <span class='right'>€110/week</span>
+              <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>{{translations.common.Stay}}: <span class='right'>€{{room.stayPrice}}/{{translations.common.week}}</span>
               </p>
               <p class='home-details'>
-              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Tandem: <span class='right'>€90/week</span>
+              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.common.Tandem}}: <span class='right'>€{{room.tandemPrice}}/{{translations.common.week}}</span>
               </p>
               <p class='home-details'>
-              <span class='icon'><i class="fa fa-university grey-text text-lighten-1"></span></i>Teacher: <span class='right'>€200/week</span>
+              <span class='icon'><i class="fa fa-university grey-text text-lighten-1"></span></i>{{translations.common.Teacher}}: <span class='right'>€{{room.teacherPrice}}/{{translations.common.week}}</span>
               </p>
 
             </div>
@@ -377,13 +377,13 @@
 
           <div class='row bottom-align-row'>
             <div class='col s8'>
-              <label>Room description</label><br>
+              <label>{{translations.common.Room_description}}</label><br>
 
-                Comfort, Bright , space, comfort room in a two bedroom apartment. One block from 1 train and 20 mins from plaza de Cataluña. Full access to kitchen and bathroom.
+                {{room.description}}
 
             </div>
             <div class='col s4 right-align bottom'>
-              <a class='btn btn-primary'>Book now</a>
+              <a href='{{room.bookingUrl}}' class='btn btn-primary'>Book now</a>
             </div>
           </div>
 
