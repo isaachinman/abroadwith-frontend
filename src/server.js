@@ -14,7 +14,7 @@ var installAdmin = require('./admin/AdminInstaller');
 var testRouter = require('./test/Router');
 
 /** Middlewares **/
-var languageLoader = require('./global/middlewares/LanguageSettings');
+var languageLoader = require('./global/middlewares/LanguageLoader');
 var authentication = require('./global/middlewares/Authentication');
 
 var app = express();
