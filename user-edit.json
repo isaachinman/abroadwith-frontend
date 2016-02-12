@@ -1,0 +1,74 @@
+{
+  "admin":{
+    "firstName":"Isaac",
+    "lastName":"Hinman",
+    "gender":"Male",
+    "birthDate":"1993-05-18",
+    "location":"Berlin, Germany",
+    "phoneNumber":"+490000000000",
+    "email":"isaac@abroadwith.com",
+    "occupation":"Electrian",
+    "emergencyContact":{
+      "name":"John Doe",
+      "phone":"+490000000000",
+      "email":"john@doe.com",
+      "relationship":"Brother"
+    },
+    "notifications":{
+      "email":{
+        "reminders":true,
+        "promotion":true
+      },
+      "sms":{
+        "all":true
+      }
+    },
+    "paymentMethods":[
+      {
+        "type":"card",
+        "lastFour":2001,
+        "expiry":"12/2018"
+      },
+      {
+        "type":"paypal",
+        "email":"isaac@abroadwith.com"
+      }
+    ],
+    "payoutMethods":[
+      {
+        "type":"bank",
+        "lastFour":1001,
+      },
+      {
+        "type":"paypal",
+        "email":"isaac@abroadwith.com"
+      }
+    ],
+    "verifications":{
+      "email":false,
+      "phone":false,
+      "id":false
+    }
+  },
+  "profile":{
+    "photo":"picture-of-jose.jpg",
+    "aboutMe":"lorem ipsum",
+    "education":"Some university",
+    "grewUp":"Caracas, Venezeula",
+    "favBook":"Cat's Cradle",
+    "favFilm":"Something",
+    "amazingFeat":"Something else",
+    "canShare":"Nothing",
+    "interests":[
+      "Sports",
+      "Cooking"
+    ],
+    "countriesVisited":[
+      "de",
+      "es"
+    ],
+    "countriesLived":[
+      "uk"
+    ]
+  }
+}

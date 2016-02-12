@@ -54,7 +54,6 @@ ul.message-list {
   position: relative;
   float: left;
   text-align: left;
-
   height: calc(100% - 70px);
   overflow-y: scroll;
   @media #{$medium-and-up} {
