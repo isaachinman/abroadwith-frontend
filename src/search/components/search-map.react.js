@@ -13,22 +13,36 @@ module.exports = React.createClass({
         });
         markers = [];
 
+        console.log(this.props.results)
+
         var pictureLabel = document.createElement("img");
         pictureLabel.src = "https://raw.githubusercontent.com/encharm/Font-Awesome-SVG-PNG/master/black/png/64/arrow-circle-o-left.png";
 
         this.props.results.forEach(function(obj) {
 
-          markers.push(new google.maps.Marker({
+          var marker = new MarkerWithLabel({
             optimized: false,
             map: bigMap,
             title: obj.roomId.toString(),
             position: new google.maps.LatLng(obj.lat, obj.lng),
-            icon: defaultIcon,
-            zIndex: 1
-          }));
+            icon: ' ',
+            zIndex: 1,
+            labelAnchor: new google.maps.Point(20, 35),
+            labelContent:"<div class='price'>€" + obj.price + "</div><div class='down-triangle''></div>",
+            labelClass: "map-marker-label",
+          });
+
+          markers.push(marker);
+
+          google.maps.event.addListener(marker, "click", function () {
+
+            document.getElementById('result-'+markers.indexOf(marker)).scrollIntoView();
+
+            console.log(markers.indexOf(marker))
+
+          });
 
         })
-
       }
     }
 
@@ -36,6 +50,8 @@ module.exports = React.createClass({
   componentDidMount: function() {
 
     window.initAutocomplete = function() {
+
+      $('#map-scripts').append("<script src='https://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.9/src/markerwithlabel_packed.js'></script>");
 
       window.defaultIcon = {
         url: 'data:image/svg+xml;utf-8,' +
@@ -131,7 +147,7 @@ module.exports = React.createClass({
   render: function() {
 
     return (
-      <div>
+      <div id='map-scripts'>
         <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places,geometry&callback=initAutocomplete&types=(cities)" async defer></script>
       </div>
     );
