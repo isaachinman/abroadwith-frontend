@@ -45,7 +45,7 @@ nav .input-field label {
 }
 .map-marker-label {
   .price {
-    background: $sulu;
+    background: lighten($grey-chateau, 35%);
     padding: 2.5px 5px;
     color: $havelock-blue;
     border: 2px solid $havelock-blue;
