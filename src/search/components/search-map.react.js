@@ -18,13 +18,16 @@ module.exports = React.createClass({
 
         this.props.results.forEach(function(obj) {
 
-          markers.push(new google.maps.Marker({
+          markers.push(new MarkerWithLabel({
             optimized: false,
             map: bigMap,
             title: obj.roomId.toString(),
             position: new google.maps.LatLng(obj.lat, obj.lng),
-            icon: defaultIcon,
-            zIndex: 1
+            icon: ' ',
+            zIndex: 1,
+            labelAnchor: new google.maps.Point(20, 35),
+            labelContent:"<div class='price'>€" + obj.price + "</div><div class='down-triangle''></div>",
+            labelClass: "map-marker-label",
           }));
 
         })
@@ -36,6 +39,8 @@ module.exports = React.createClass({
   componentDidMount: function() {
 
     window.initAutocomplete = function() {
+
+      $('#map-scripts').append("<script src='https://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.9/src/markerwithlabel_packed.js'></script>");
 
       window.defaultIcon = {
         url: 'data:image/svg+xml;utf-8,' +
@@ -131,7 +136,7 @@ module.exports = React.createClass({
   render: function() {
 
     return (
-      <div>
+      <div id='map-scripts'>
         <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places,geometry&callback=initAutocomplete&types=(cities)" async defer></script>
       </div>
     );

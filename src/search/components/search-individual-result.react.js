@@ -4,7 +4,9 @@ module.exports = React.createClass({
   mapHover: function(id) {
 
     if (typeof markers !== 'undefined') {
-      markers[id].setIcon(hoverIcon);
+      markers[id].labelClass = 'map-marker-label--hovered';
+      markers[id].label.setStyles();
+      markers[id].label.draw();
       markers[id].setZIndex(9999);
     }
 
@@ -12,7 +14,9 @@ module.exports = React.createClass({
   mapOut: function(id) {
 
     if (typeof markers !== 'undefined') {
-      markers[id].setIcon(defaultIcon);
+      markers[id].labelClass = 'map-marker-label';
+      markers[id].label.setStyles();
+      markers[id].label.draw();
       markers[id].setZIndex(1);
     }
 
