@@ -3,9 +3,18 @@
     "http://thetaleoftwotings.com/wp-content/uploads/2014/01/P1160797.jpg"
   ],
   "immersions":[
-    "stay",
-    "tandem",
-    "teacher"
+    {
+      "name":"stay",
+      "weekPrice":110
+    },
+    {
+      "name":"tandem",
+      "weekPrice":80
+    },
+    {
+      "name":"teacher",
+      "weekPrice":200
+    }
   ],
   "hostPhoto":"https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png",
   "hostName":"Jose",
@@ -50,7 +59,56 @@
           "name":"Mirror",
           "icon":"fa-square-o"
         }
-      ]
+      ],
+      "about":"Comfort, Bright , space, comfort room in a two bedroom apartment. One block from 1 train and 20 mins from plaza de Cataluña. Full access to kitchen and bathroom.",
+      "bookNow":"url_to_book"
     }
-  ]
+  ],
+  "amenities":[
+    {
+      "name":"Heating",
+      "icon":"fa-fire"
+    },
+    {
+      "name":"Mirror",
+      "icon":"fa-square-o"
+    }
+  ],
+  "services":[
+    {
+      "name":"Heating",
+      "icon":"fa-fire"
+    },
+    {
+      "name":"Mirror",
+      "icon":"fa-square-o"
+    }
+  ],
+  "preferences":[
+    {
+      "name":"Heating",
+      "icon":"fa-fire"
+    },
+    {
+      "name":"Mirror",
+      "icon":"fa-square-o"
+    }
+  ],
+  "rules":"Lorem ipsum dolor sit amet, tamquam meliore te qui, est ea dico feugiat. Ut brute dicat appetere has.",
+  "reviews":[
+		{
+      "photo":"https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png",
+			"name":"Isaac",
+			"content":"Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.",
+			"date":"2016-05-01"
+		},
+		{
+      "photo":"https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png",
+			"name":"Luis",
+			"content":"Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.",
+			"date":"2014-05-01"
+		}
+	],
+  "lat":22.55,
+  "lng":80
 }

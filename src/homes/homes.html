@@ -17,8 +17,8 @@
   <div class='immersion-types'>
     <div class='tag'>
       {% for immersion in home.immersions %}
-      <div class='{{immersion}}'>
-        {{immersion}}
+      <div class='{{immersion.name}}'>
+        {{immersion.name}}
       </div>
       {% endfor %}
     </div>
@@ -249,30 +249,21 @@
             <p class='grey-text text-darken-1'>
               <strong>{{translations.common.Facilities}}:</strong>
             </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></span></i>Heating
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></span></i>Mirror
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></span></i>Lock
-            </p>
+            {% for facility in room.facilities %}
+              <p class='home-details'>
+                <span class='icon'><i class="fa {{facility.icon}} grey-text text-lighten-1"></span></i>{{facility.name}}
+              </p>
+            {% endfor %}
           </div>
           <div class='col s6 m12 l3'>
             <p class='grey-text text-darken-1'>
-              <strong>Price:</strong>
+              <strong>{{translations.common.Price}}:</strong>
             </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Stay: <span class='right'>€110/week</span>
+            {% for immersion in home.immersions %}
+            <p class='home-details capitalise'>
+              {{immersion.name}}: <span class='right'>€{{immersion.weekPrice}}/week</span>
             </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Tandem: <span class='right'>€90/week</span>
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-university grey-text text-lighten-1"></span></i>Teacher: <span class='right'>€200/week</span>
-            </p>
-
+            {% endfor %}
           </div>
         </div>
 
@@ -284,13 +275,13 @@
 
         <div class='row bottom-align-row'>
           <div class='col s8'>
-            <label>Room description</label><br>
+            <label>{{translations.common.Room_description}}</label><br>
 
-              Comfort, Bright , space, comfort room in a two bedroom apartment. One block from 1 train and 20 mins from plaza de Cataluña. Full access to kitchen and bathroom.
+              {{room.about}}
 
           </div>
           <div class='col s4 right-align bottom'>
-            <a class='btn btn-primary'>Book now</a>
+            <a href={{room.bookNow}} class='btn btn-primary'>{{translations.common.Book_now}}</a>
           </div>
         </div>
 
@@ -305,7 +296,7 @@
 
 <div class='container left-align section'>
 
-  <label>Details & reviews</label>
+  <label>{{translations.common.Details_and_reviews}}</label>
   <div class='row no-margin '>
 
     <div class='col s12 m12 l5'>
@@ -313,60 +304,61 @@
         <div class='row'>
           <div class='col s12'>
             <i class="fa fa-home fa-2x grey-text text-lighten-1"></i>
-            <span class='title'>Home details</span>
+            <span class='title'>{{translations.common.Home_info}}</span>
           </div>
         </div>
         <div class='row content'>
-          <div class='col s12 m6 l6'>
-            <p class='grey-text text-darken-1'>
-              <strong>Amenities:</strong>
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></i></span>Heating
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></i></span>Mirror
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></i></span>Lock
-            </p>
-          </div>
-          <div class='col s12 m6 l6'>
-            <p class='grey-text text-darken-1'>
-              <strong>Services:</strong>
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></span></i>Heating
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></span></i>Mirror
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></span></i>Lock
-            </p>
-          </div>
-          <div class='col s12 m6 l6'>
-            <p class='grey-text text-darken-1'>
-              <strong>Preferences:</strong>
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></span></i>Heating
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></span></i>Mirror
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></span></i>Lock
-            </p>
-          </div>
-          <div class='col s12 m6 l6'>
-            <p class='grey-text text-darken-1'>
-              <strong>Rules:</strong>
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, tamquam meliore te qui, est ea dico feugiat. Ut brute dicat appetere has.
-            </p>
-          </div>
+
+          {% if home.amenities %}
+            <div class='col s12 m6 l6'>
+              <p class='grey-text text-darken-1'>
+                <strong>{{translations.common.Amenities}}:</strong>
+              </p>
+              {% for amenity in home.amenities %}
+              <p class='home-details'>
+                <span class='icon'><i class="fa {{amenity.icon}} grey-text text-lighten-1"></i></span>{{amenity.name}}
+              </p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if home.services %}
+            <div class='col s12 m6 l6'>
+              <p class='grey-text text-darken-1'>
+                <strong>{{translations.common.Services}}:</strong>
+              </p>
+              {% for service in home.services %}
+              <p class='home-details'>
+                <span class='icon'><i class="fa {{service.icon}} grey-text text-lighten-1"></span></i>{{service.name}}
+              </p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if home.preferences %}
+            <div class='col s12 m6 l6'>
+              <p class='grey-text text-darken-1'>
+                <strong>{{translations.common.Preferences}}:</strong>
+              </p>
+              {% for preference in home.preferences %}
+                <p class='home-details'>
+                  <span class='icon'><i class="fa {{preference.icon}} grey-text text-lighten-1"></span></i>{{preference.name}}
+                </p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if home.rules %}
+            <div class='col s12 m6 l6'>
+              <p class='grey-text text-darken-1'>
+                <strong>{{translations.common.Rules}}:</strong>
+              </p>
+              <p>
+                {{home.rules}}
+              </p>
+            </div>
+          {% endif %}
+
         </div>
       </div>
     </div>
@@ -376,62 +368,44 @@
         <div class='row bottom-align-row'>
           <div class='col s9'>
             <i class="fa fa-star-o fa-2x grey-text text-lighten-1"></i>
-            <span class='title'>Reviews</span>
+            <span class='title'>{{translations.common.Reviews}}</span>
           </div>
           <div class='col s3 bottom right-align'>
             <span class='rating'>
               <span class='count'>
-                (22)
+                ({{home.reviewCount}})
               </span>
               <span class='stars'>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star-o"></i>
+                {{home.reviewHTML | safe}}
               </span>
             </span>
           </div>
         </div>
         <div class='row no-margin'>
           <div class='col s12 content'>
-            <div class='card home-card review'>
-              <div class='row'>
-                <div class='col s2 center-align'>
-                  <img class='circle host-picture' src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
-                  <br>
-                  Isaac
+
+            {% if home.reviews %}
+              {% for review in home.reviews %}
+                <div class='card home-card review'>
+                  <div class='row'>
+                    <div class='col s2 center-align'>
+                      <img class='circle host-picture' src='{{review.photo}}'>
+                      <br>
+                      {{review.name}}
+                    </div>
+                    <div class='col s10'>
+                      <p>
+                        {{review.content}}
+                      </p>
+                    </div>
+                    <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
+                      {{review.date}}
+                    </div>
+                  </div>
                 </div>
-                <div class='col s10'>
-                  <p>
-                    Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.
-                  </p>
-                </div>
-                <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                  05/01/2016
-                </div>
-              </div>
-            </div>
-            <div class='card home-card review'>
-              <div class='row'>
-                <div class='col s2 center-align'>
-                  <img class='circle host-picture' src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
-                  <br>
-                  Isaac
-                </div>
-                <div class='col s10'>
-                  <p>
-                    Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.
-                  </p>
-                  <p>
-                    Enim adolescens ea pri, quo veniam labore alienum ut. Alienum disputationi vix at, vis dictas corpora te, has audire sententiae id. Per ad animal timeam latine, est augue mucius ridens ex. Ei utroque accumsan est, vix et minim dicunt commune. Has ei quod dico nullam.
-                  </p>
-                </div>
-                <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                  05/01/2016
-                </div>
-              </div>
-            </div>
+              {% endfor %}
+            {% endif %}
+
           </div>
         </div>
       </div>
@@ -450,7 +424,7 @@
         <div class='row'>
           <div class='col s12'>
             <i class="fa fa-map-marker fa-2x grey-text text-lighten-1"></i>
-            <span class='title'>Location</span>
+            <span class='title'>{{translations.common.Location}}</span>
           </div>
         </div>
         <div class='row section no-margin-bottom'>
@@ -459,8 +433,20 @@
           var map;
             function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
-              center: {lat: -34.397, lng: 150.644},
-              zoom: 8
+              center: {lat: {{home.lat}}, lng: {{home.lng}}},
+              zoom: 8,
+              options: {
+                scrollwheel: false,
+                mapTypeControl: false,
+                streetViewControl: false
+              }
+            });
+            var marker = new google.maps.Marker({
+              position: {
+                "lat":{{home.lat}},
+                "lng":{{home.lng}}
+              },
+              map: map
             });
           }
           </script>
@@ -472,6 +458,5 @@
   </div>
 
 </div>
-
 
 {% endblock %}
