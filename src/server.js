@@ -4,7 +4,7 @@ var http = require('http');
 var nunjucks = require('nunjucks');
 var fs = require('fs');
 var searchRouter = require('./search/Router');
-var mainRouter = require('./main/Router');
+var installMain = require('./main/MainInstaller');
 var manageHomeRouter = require('./manage-home/Router');
 var installHomes = require('./homes/HomesInstaller');
 var installUsers = require('./users/UsersInstaller');
@@ -27,7 +27,7 @@ app.use('/*', languageLoader);
 
 app.use('/*', authentication);
 
-app.use(['/home','/'],mainRouter);
+installMain(app);
 
 installHomes(app);
 
