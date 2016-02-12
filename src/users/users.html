@@ -59,11 +59,14 @@
         <ul class="tabs user-profile-tabs">
           <li class="tab col s3"><a href="#about" class='active'>{{translations.common.About}}</a></li>
           <li class="tab col s3"><a href="#reviews"><span class='hide-on-small-and-down'>{{translations.common.References}} & </span>{{translations.common.reviews}}</a></li>
+
+          {% if user.home %}
           <li class="tab col s3"><a href="#stay">{{translations.common.Stay}}</a></li>
+          {% endif %}
+
         </ul>
       </div>
     </div>
-
 
   </div>
 </div>
@@ -197,23 +200,29 @@
             </div>
             <div class='row no-margin'>
               <div class='col s12 content'>
-                {% for reference in user.references %}
-                  <div class='card home-card review'>
-                    <div class='row'>
-                      <div class='col s12 grey-text relationship'>
-                        {{reference.name}} ({{reference.relationship}})
-                      </div>
-                      <div class='col s12'>
-                        <p>
-                          {{reference.content}}
-                        </p>
-                      </div>
-                      <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                        {{reference.date}}
+
+                {% if user.references %}
+                  {% for reference in user.references %}
+                    <div class='card home-card review'>
+                      <div class='row'>
+                        <div class='col s12 grey-text relationship'>
+                          {{reference.name}} ({{reference.relationship}})
+                        </div>
+                        <div class='col s12'>
+                          <p>
+                            {{reference.content}}
+                          </p>
+                        </div>
+                        <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
+                          {{reference.date}}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                {% endfor %}
+                  {% endfor %}
+                {% else %}
+                  {{user.firstName}} {{translations.common.doesnt_have_any_references_yet}}
+                {% endif %}
+
               </div>
             </div>
           </div>
@@ -240,25 +249,29 @@
             <div class='row no-margin'>
               <div class='col s12 content'>
 
-                {% for review in user.reviews %}
-                  <div class='card home-card review'>
-                    <div class='row'>
-                      <div class='col s3 m2 l2 center-align'>
-                        <img class='circle host-picture' src='{{review.picture}}'>
-                        <br>
-                        {{review.name}}
-                      </div>
-                      <div class='col s9 m10 l10'>
-                        <p>
-                          {{review.content}}
-                        </p>
-                      </div>
-                      <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                        {{review.date}}
+                {% if user.reviews %}
+                  {% for review in user.reviews %}
+                    <div class='card home-card review'>
+                      <div class='row'>
+                        <div class='col s3 m2 l2 center-align'>
+                          <img class='circle host-picture' src='{{review.picture}}'>
+                          <br>
+                          {{review.name}}
+                        </div>
+                        <div class='col s9 m10 l10'>
+                          <p>
+                            {{review.content}}
+                          </p>
+                        </div>
+                        <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
+                          {{review.date}}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                {% endfor %}
+                  {% endfor %}
+                {% else %}
+                {{user.firstName}} {{translations.common.doesnt_have_any_reviews_yet}}
+                {% endif %}
 
               </div>
             </div>
