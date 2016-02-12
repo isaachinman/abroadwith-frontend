@@ -34,12 +34,9 @@ module.exports = React.createClass({
 
           markers.push(marker);
 
+          // On marker click, scroll to appropriate search result
           google.maps.event.addListener(marker, "click", function () {
-
             document.getElementById('result-'+markers.indexOf(marker)).scrollIntoView();
-
-            console.log(markers.indexOf(marker))
-
           });
 
         })
