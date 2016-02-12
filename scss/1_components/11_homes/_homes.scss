@@ -1,11 +1,12 @@
 .profile-slider {
   position: relative;
-  .wallop, .Wallop-list {
+  .wallop, .Wallop-list, .Wallop-item, img {
+    min-height: 300px;
     max-height: 400px;
   }
-  img {
-    height: auto;
-    width: 100%;
+  img, .Wallop-item {
+    height: 100%;
+    min-width: 100%;
   }
   .immersion-types {
     position: absolute;
@@ -61,6 +62,7 @@
   }
   z-index: 1;
   border: 5px solid white;
+  background: white;
 }
 .home-title {
   @extend .row;
