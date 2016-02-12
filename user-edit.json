@@ -25,21 +25,25 @@
     },
     "paymentMethods":[
       {
+        "default":true,
         "type":"card",
         "lastFour":2001,
         "expiry":"12/2018"
       },
       {
+        "default":false,
         "type":"paypal",
         "email":"isaac@abroadwith.com"
       }
     ],
     "payoutMethods":[
       {
+        "default":true,
         "type":"bank",
         "lastFour":1001,
       },
       {
+        "default":false,
         "type":"paypal",
         "email":"isaac@abroadwith.com"
       }
