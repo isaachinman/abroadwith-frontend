@@ -1,15 +1,11 @@
 var express = require('express');
 var nunjucks = require('nunjucks');
-var translations = require('../utils/Translations');
 
 var router = express.Router();
 
 router.get('/', function (req, res) {
-  context = {
-    translations: req.translations,
-    home: req.home_info
-  };
-  res.send(nunjucks.render('homes/homes.html',context));
+  if(!req.context) res.status(404).send('No home context.');
+  res.send(nunjucks.render('homes/homes.html',req.context));
 });
 
 module.exports = router;

@@ -1,16 +1,15 @@
 module.exports = function (req, res, next, value) {
+  if(!req.context) req.context = {};
   if(isNaN(value) || parseInt(Number(value)) != value || isNaN(parseInt(value, 10))){
-
-    console.log("here");
-    res.status(404).send('Sorry, we cannot find that!');
+    res.status(404).send('Not a proper home id.');
     return;
   }
   var home_path = "../../mockups/homes/"+value+".json";
   try{
-    req.home_info = require(home_path);
+    req.context.home = require(home_path);
   }
   catch(e){
-    res.status(404).send('Sorry, we cannot find that!');
+    res.status(404).send('Home not found.');
     return;
   }
   next();

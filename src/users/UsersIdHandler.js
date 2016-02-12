@@ -22,17 +22,18 @@ var transformToStars = function(user){
 }
 
 module.exports = function (req, res, next, value) {
+  if(!req.context) req.context = {};
   if(isNaN(value) || parseInt(Number(value)) != value || isNaN(parseInt(value, 10))){
-    res.status(404).send('Sorry, we cannot find that!');
+    res.status(404).send('Not a proper user id.');
     return;
   }
   var user_path = "../../mockups/users/"+value+".json";
   try{
-    req.user_info = require(user_path);
-    req.user_info.ratingHTML = transformToStars(req.user_info);
+    req.context.user = require(user_path);
+    req.context.user.ratingHTML = transformToStars(req.context.user);
   }
   catch(e){
-    res.status(404).send('Sorry, we cannot find that!');
+    res.status(404).send('User not found.');
     return;
   }
   next();

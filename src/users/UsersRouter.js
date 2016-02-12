@@ -4,11 +4,8 @@ var nunjucks = require('nunjucks');
 var router = express.Router();
 
 router.get('/', function (req, res) {
-  context = {
-    translations: req.translations,
-    user: req.user_info
-  };
-  res.send(nunjucks.render('users/users.html',context));
+  if(!req.context) res.status(404).send('No user context.');
+  res.send(nunjucks.render('users/users.html',req.context));
 });
 
 module.exports = router;

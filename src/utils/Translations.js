@@ -11,6 +11,4 @@ for(var i in languages){
   translations[i].languages = require('../../locales/'+i+"/languages.json");
 }
 
-translations.ui_languages = languages;
-
 module.exports = translations;
