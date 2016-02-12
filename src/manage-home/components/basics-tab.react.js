@@ -38,11 +38,6 @@ module.exports = React.createClass({
       $('#family').prop('checked', this.props.basics.family);
     }
 
-
-
-
-
-
     return (
       <div id="basics" className="col s12 m10 offset-m1 l10 offset-l1">
 

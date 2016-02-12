@@ -8,12 +8,12 @@
         <i class="fa fa-upload"></i>
       </div>
       <input type="file">
-      <img src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
+      <img id='user-photo' src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
     </div>
 
     <div class='info info--disabled'>
       <div class='col s12'>
-        <h1>Jose</h1>
+        <h1 id='first-name'>Jose</h1>
 
         <span class='rating'>
           <span class='count'>
@@ -143,65 +143,80 @@
             </div>
             <div class='row content'>
               <div class='col s12'>
-                <p class='home-details'>
+
+                <div class='section'>
                   <div class="input-field">
                     <input type="text" value="Master's degree" class="validate" placeholder="Eg. Bachelor's Degree">
                     <label class="active left">Education</label>
                   </div>
-                </p>
-                <p class='home-details'>
+                </div>
+
+                <div class='section'>
                   <div class="input-field">
                     <input type="text" value="Caracas, Venezeula" class="validate" placeholder='Eg. Caracas, Venezuela'>
                     <label class="active left">Grew up</label>
                   </div>
-                </p>
-                <p class='home-details'>
+                </div>
+
+                <div class='section'>
                   <div class="input-field">
                     <input type="text" value="Cats Cradle" class="validate" placeholder='Eg. Ulysses'>
                     <label class="active left">Favourite book</label>
                   </div>
-                </p>
-                <p class='home-details'>
+                </div>
+
+                <div class='section'>
                   <div class="input-field">
                     <input type="text" value="A girl walks home alone at night" class="validate" placeholder='Eg. Metropolis'>
                     <label class="active left">Favourite film</label>
                   </div>
-                </p>
-                <p class='home-details'>
+                </div>
+
+                <div class='section'>
                   <div class="input-field">
                     <input type="text" value="Sailed around the world" class="validate" placeholder='Eg. Skydiving'>
                     <label class="active left">Amazing feat</label>
                   </div>
-                </p>
-                <p class='home-details'>
+                </div>
+
+                <div class='section'>
                   <div class="input-field">
                     <input type="text" value="Baking bread, fishing" class="validate" placeholder='Eg. Cooking, hiking'>
                     <label class="active left">Can share</label>
                   </div>
-                </p>
-                <p class='home-details'>
+                </div>
+
+                <div class='section'>
                   <div class="input-field">
-                    <select class='material' multiple="">
-                      <option value="" disabled selected>Interests</option>
+                    <select class='material' multiple>
+                      <option value="" disabled>Interests</option>
                       <option value="1">Option 1</option>
                       <option value="2">Option 2</option>
                       <option value="3">Option 3</option>
                     </select>
                     <label class='left'>Interests</label>
                   </div>
-                </p>
-                <p class='home-details'>
+                </div>
+
+                <div class='section'>
                   <div class="input-field">
-                    <input type="text" value="Ireland, Spain" class="validate" placeholder='Eg. Spain'>
+                    <input id='countries-visited-input' type="text" value="Ireland, Spain" class="validate" placeholder='Eg. Spain'>
                     <label class="active left">Visited</label>
                   </div>
-                </p>
-                <p class='home-details'>
+                </div>
+
+                <div class='section'>
                   <div class="input-field">
-                    <input type="text" value="Ireland, Spain" class="validate" placeholder='Eg. Spain'>
+                    <input id='countries-lived-input' type="text" value="Ireland, Spain" class="validate" placeholder='Eg. Spain'>
                     <label class="active left">Lived in</label>
                   </div>
-                </p>
+                </div>
+
+                <div class="section">
+                  <input placeholder="{{translations.common.where}}" id="location" type="text" class="validate">
+
+                </div>
+
               </div>
             </div>
           </div>
@@ -211,7 +226,7 @@
     </div>
   </div>
 
-  <div class='col s12 save-changes'>
+  <div id='save-changes' class='save-changes'>
     <a class='btn btn-primary'>Save changes</a>
   </div>
 
@@ -452,10 +467,26 @@
 
       </div>
     </div>
-
   </div>
 </div>
 
+<script>
+// Google maps autocomplete
+var placeSearch, autocomplete;
+function initAutocomplete() {
+  var options = {
+    types: ["(regions)"]
+  }
+  autocomplete1 = new google.maps.places.Autocomplete(
+    document.getElementById('countries-visited-input'), options
+  );
+  autocomplete2 = new google.maps.places.Autocomplete(
+    document.getElementById('countries-lived-input'), options
+  );
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete&types=(cities)" async defer></script>
 
 
 {% endblock %}

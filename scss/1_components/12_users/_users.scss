@@ -9,7 +9,7 @@
   @media #{$small-and-down} {
     display: none;
   }
-  z-index: 1;
+  z-index: 0;
   border: 5px solid white;
   &--editable {
     opacity: .85;
@@ -97,6 +97,10 @@ ul.user-profile-tabs {
   }
 }
 .save-changes {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,.5);
   text-align: center;
   width: 100%;
   padding: 20px;
