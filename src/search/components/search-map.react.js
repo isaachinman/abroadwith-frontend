@@ -13,12 +13,14 @@ module.exports = React.createClass({
         });
         markers = [];
 
+        console.log(this.props.results)
+
         var pictureLabel = document.createElement("img");
         pictureLabel.src = "https://raw.githubusercontent.com/encharm/Font-Awesome-SVG-PNG/master/black/png/64/arrow-circle-o-left.png";
 
         this.props.results.forEach(function(obj) {
 
-          markers.push(new MarkerWithLabel({
+          var marker = new MarkerWithLabel({
             optimized: false,
             map: bigMap,
             title: obj.roomId.toString(),
@@ -28,10 +30,19 @@ module.exports = React.createClass({
             labelAnchor: new google.maps.Point(20, 35),
             labelContent:"<div class='price'>€" + obj.price + "</div><div class='down-triangle''></div>",
             labelClass: "map-marker-label",
-          }));
+          });
+
+          markers.push(marker);
+
+          google.maps.event.addListener(marker, "click", function () {
+
+            document.getElementById('result-'+markers.indexOf(marker)).scrollIntoView();
+
+            console.log(markers.indexOf(marker))
+
+          });
 
         })
-
       }
     }
 

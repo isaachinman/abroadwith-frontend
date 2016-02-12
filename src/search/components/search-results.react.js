@@ -50,7 +50,7 @@ module.exports = React.createClass({
 
     return (
 
-      <div className='row section white relative'>
+      <div id='results' className='row section white relative'>
 
         {results}
 
