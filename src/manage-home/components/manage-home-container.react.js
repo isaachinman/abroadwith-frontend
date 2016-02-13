@@ -15,37 +15,6 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
-    // Language-known select
-      $('select#language-sought').select2({
-        placeholder: "Choose a language you want to learn"
-      });
-
-    // Set permanent vars
-    var addLanguage = $('a#add-language');
-    var chipContainer = $('#language-chips');
-    var languageSought = $('#language-sought');
-
-    addLanguage.click(function() {
-
-      // Set conditional vars
-      var languageCode = $('#language-sought option:selected').attr('data-lang');
-
-      if (languageSought.val() != '' && $('.chip[data-lang="'+languageCode+'"]').length <= 0) {
-
-        // Remove initial chip
-        if ($('#language-chips').find($('.initial').length)) {
-          $('#language-chips').find($('.initial')).remove();
-        }
-
-        var newLanguage = '<div class="language-chip chip" data-lang="' + languageCode + '">' + languageSought.val() + '<i class="material-icons">close</i></div>'
-        chipContainer.append(newLanguage);
-
-        languageSought.select2('val', '');
-        languageSought.val('');
-
-      }
-    })
-
     // Home photos
     var photos = $('.home-photo');
     photos.find('.delete').click(function() {
@@ -93,17 +62,6 @@ module.exports = React.createClass({
 
       <div>
         <div className="row manage-home">
-          <div className="col s12 no-padding-sides">
-            <ul className="tabs">
-              <li className="tab"><a className='active' href="#basics" data-next='immersions'>Basics</a></li>
-              <li className="tab"><a href="#immersions" data-next='location'>Immersions</a></li>
-              <li id='location-tab' className="tab"><a href="#location" data-next='description'>Location</a></li>
-              <li className="tab"><a href="#description" data-next='rooms'>Description</a></li>
-              <li className="tab"><a href="#rooms" data-next='photos'>Rooms</a></li>
-              <li className="tab"><a href="#photos" data-next='pricing'>Photos</a></li>
-              <li className="tab"><a href="#pricing">Pricing</a></li>
-            </ul>
-          </div>
 
           <BasicsTab
             basics={this.state.basics}
@@ -136,10 +94,6 @@ module.exports = React.createClass({
             pricing={this.state.pricing}
           />
 
-        </div>
-
-        <div className='manage-home-info-text'>
-          <h6>Now managing your home in Berlin</h6>
         </div>
 
       </div>

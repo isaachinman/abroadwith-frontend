@@ -11,7 +11,6 @@ var installUsers = require('./users/UsersInstaller');
 var usersEditRouter = require('./users-edit/Router');
 var installInbox = require('./inbox/InboxInstaller');
 var installAdmin = require('./admin/AdminInstaller');
-var testRouter = require('./test/Router');
 
 /** Middlewares **/
 var languageLoader = require('./global/middlewares/LanguageLoader');
@@ -38,8 +37,6 @@ app.use('/users-edit',usersEditRouter);
 installInbox(app);
 
 installAdmin(app);
-
-app.use('/test',testRouter);
 
 app.use('/search',searchRouter);
 
