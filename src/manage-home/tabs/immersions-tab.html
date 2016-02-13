@@ -27,7 +27,7 @@
               <i class="fa fa-clock-o fa-2x"></i>
             </div>
             <div class='col s10 m4 l4 input-field'>
-              <select id='stay-hours' class='material' defaultValue='' value={stayHours}>
+              <select id='stay-hours' class='material'>
                 <option value="" disabled>Hours per week</option>
                 <option value="7">7</option>
                 <option value="8">8</option>
@@ -52,12 +52,11 @@
               <i class="fa fa-language fa-2x"></i>
             </div>
             <div class='col s10 m6 l6 input-field'>
-              <select id='stay-languages-offered' class='material' multiple defaultValue={[]} value={stayLanguagesOffered}>
+              <select id='stay-languages-offered' class='material' multiple>
                 <option value="" disabled>Languages offered</option>
-                <option value="eng">English</option>
-                <option value="spa">Spanish</option>
+                <option value="ENG">English</option>
+                <option value="SPA">Spanish</option>
                 <option value="por">Portuguese</option>
-                <option value="ger" disabled data-placeholder='German' data-content='<a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>'>German</option>
 
               </select>
               <label>Languages offered</label>
@@ -86,7 +85,7 @@
               <i class="fa fa-clock-o fa-2x"></i>
             </div>
             <div class='col s10 m4 l4 input-field'>
-              <select id='tandem-hours' class='material' defaultValue='' value={tandemHours}>
+              <select id='tandem-hours' class='material'>
                 <option value="" disabled>Hours per week</option>
                 <option value="7">7</option>
                 <option value="8">8</option>
@@ -111,10 +110,10 @@
               <i class="fa fa-language fa-2x"></i>
             </div>
             <div class='col s10 m6 l6 input-field'>
-              <select id='tandem-languages-offered' class='material' multiple defaultValue={[]} value={tandemLanguagesOffered}>
+              <select id='tandem-languages-offered' class='material' multiple>
                 <option value="" disabled>Languages offered</option>
-                <option value="eng">English</option>
-                <option value="spa">Spanish</option>
+                <option value="ENG">English</option>
+                <option value="SPA">Spanish</option>
                 <option value="por">Portuguese</option>
                 <option value="ger" disabled data-placeholder='German' data-content='<a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>'>German</option>
               </select>
@@ -175,7 +174,7 @@
               <i class="fa fa-clock-o fa-2x"></i>
             </div>
             <div class='col s10 m5 l5 input-field'>
-              <select id='packages' class='material' multiple defaultValue={[]} value={teacherPackages}>
+              <select id='packages' class='material' multiple>
                 <option value="" disabled>Packages offered</option>
                 <option value="5">5hrs/week</option>
                 <option value="10">10hrs/week</option>
@@ -188,7 +187,7 @@
               <i class="fa fa-hourglass-half fa-2x"></i>
             </div>
             <div class='col s10 m2 l2 input-field'>
-              <input id='teacher-rate' type="text" class="validate no-margin" placeholder='€15' value={teacherRate} />
+              <input id='teacher-rate' type="text" class="validate no-margin" placeholder='€15' />
               <label class='active'>Hourly rate</label>
             </div>
 
@@ -196,7 +195,7 @@
               <i class="fa fa-money fa-2x"></i>
             </div>
             <div class='col s10 m2 l2 input-field'>
-              <input id='material-costs' type="text" class="validate no-margin" placeholder='€25' value={teacherMaterialCost} />
+              <input id='material-costs' type="text" class="validate no-margin" placeholder='€25' />
               <label class='active'>Material costs</label>
             </div>
 
@@ -209,7 +208,7 @@
               <i class="fa fa-language fa-2x"></i>
             </div>
             <div class='col s10 m5 l5'>
-              <select id='teacher-languages-offered' class='material' multiple defaultValue={[]} value={teacherLanguagesOffered} >
+              <select id='teacher-languages-offered' class='material' multiple>
                 <option value="" disabled>Languages offered</option>
                 <option value="eng">English</option>
                 <option value="spa">Spanish</option>
@@ -246,7 +245,7 @@
 
   <div class='row'>
     <div class='col s6 offset-s3'>
-      <a id='save-immersions' class='btn btn-primary save-btn' onClick={this.handleClick}>Save</a>
+      <a id='save-immersions' class='btn btn-primary save-btn'>Save</a>
     </div>
     <div class='col s3 right-align'>
       <a><i class="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>

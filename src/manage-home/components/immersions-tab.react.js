@@ -86,23 +86,25 @@ module.exports = React.createClass({
       }
     })
 
-
-
   },
   render: function() {
 
     if (this.props.immersions) {
 
+      console.log(this.props.immersions)
+
       // Stay vars
       if (this.props.immersions.stay) {
         $('#stay-hours').val(this.props.immersions.stay.hours);
         $('#stay-languages-offered').val(this.props.immersions.stay.languagesOffered);
+        $('#stay-languages-offered').material_select();
       }
 
       // Tandem vars
       if (this.props.immersions.tandem) {
         $('#tandem-hours').val(this.props.immersions.tandem.hours);
         $('#tandem-languages-offered').val(this.props.immersions.tandem.languagesOffered);
+        $('#tandem-languages-offered').material_select();
         var tandemLanguagesInterested = this.props.immersions.tandem.languagesInterested;
       }
 
@@ -118,10 +120,14 @@ module.exports = React.createClass({
 
       // Teacher vars
       if (this.props.immersions.teacher) {
-        var teacherRate = this.props.immersions.teacher.hourly + this.props.currency;
-        var teacherMaterialCost = this.props.immersions.teacher.materials + this.props.currency;
-        var teacherPackages = this.props.immersions.teacher.packages;
-        var teacherLanguagesOffered = this.props.immersions.teacher.languagesOffered;
+
+        $('#teacher-rate').val(this.props.immersions.teacher.hourly + this.props.currency);
+        $('#packages').val(this.props.immersions.teacher.packages);
+        $('#packages').material_select();
+        $('#material-costs').val(this.props.immersions.teacher.materials + this.props.currency);
+        $('#teacher-languages-offered').val(this.props.immersions.teacher.languagesOffered);
+        $('#teacher-languages-offered').material_select();
+
       }
 
     }
