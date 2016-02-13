@@ -44,7 +44,6 @@ module.exports = React.createClass({
       // Modify home object, using new immersions object
       if (typeof homeObj !== 'undefined') {
         homeObj.immersions = newImmersionsObj;
-        console.log(homeObj)
       }
 
       // POST new home object
@@ -90,8 +89,6 @@ module.exports = React.createClass({
   render: function() {
 
     if (this.props.immersions) {
-
-      console.log(this.props.immersions)
 
       // Stay vars
       if (this.props.immersions.stay) {
