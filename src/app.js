@@ -23,5 +23,8 @@ require('./homes/homes');
 // Inbox
 require('./inbox/inbox');
 
+// Users edit
+require('./users-edit/users-edit')
+
 // Facebook scripts
 require('./global/facebook')

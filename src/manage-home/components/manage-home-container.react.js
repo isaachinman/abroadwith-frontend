@@ -85,7 +85,7 @@ module.exports = React.createClass({
       if (this.isMounted()) {
         this.setState(newState);
       }
-      $('select.material').material_select();
+
     }.bind(this));
   },
   render: function() {

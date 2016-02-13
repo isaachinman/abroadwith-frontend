@@ -40,7 +40,7 @@
       {
         "default":true,
         "type":"bank",
-        "lastFour":1001,
+        "lastFour":1001
       },
       {
         "default":false,
@@ -55,7 +55,7 @@
     }
   },
   "profile":{
-    "photo":"picture-of-jose.jpg",
+    "photo":"https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png",
     "aboutMe":"lorem ipsum",
     "education":"Some university",
     "grewUp":"Caracas, Venezeula",

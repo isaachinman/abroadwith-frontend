@@ -1,5 +1,5 @@
 {% extends "layout.html" %} {% block content %}
-
+<div id='user-edit-profile'></div>
 <div class='user-profile-info'>
   <div class='container row left-align'>
 
@@ -8,7 +8,7 @@
         <i class="fa fa-upload"></i>
       </div>
       <input type="file">
-      <img id='user-photo' src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
+      <img id='user-photo' src=''>
     </div>
 
     <div class='info info--disabled'>
@@ -127,7 +127,7 @@
             </div>
             <div class='row content'>
               <div class='col s12'>
-                <textarea id="textarea1" class="materialize-textarea" value=''>Lorem ipsum dolor sit amet, tamquam meliore te qui, est ea dico feugiat. Ut brute dicat appetere has. Pri facer platonem ne, pro reque appellantur an. Vim ad postea suscipiantur. No vim expetenda eloquentiam vituperatoribus. Duo augue putent ponderum ea, eu qui sale ullum integre. Animal petentium assentior vim no. Pri doming oblique accumsan id, unum dictas vituperata ius et. Sea aeque epicuri invidunt ad. Affert quaestio qui in. Ea pri aliquam officiis perpetua, id quo purto deleniti. Et usu graeci repudiare. Ex dicunt atomorum eum, mei modo vero no.</textarea>
+                <textarea id="about-me" class="materialize-textarea" value=''>Lorem ipsum dolor sit amet, tamquam meliore te qui, est ea dico feugiat. Ut brute dicat appetere has. Pri facer platonem ne, pro reque appellantur an. Vim ad postea suscipiantur. No vim expetenda eloquentiam vituperatoribus. Duo augue putent ponderum ea, eu qui sale ullum integre. Animal petentium assentior vim no. Pri doming oblique accumsan id, unum dictas vituperata ius et. Sea aeque epicuri invidunt ad. Affert quaestio qui in. Ea pri aliquam officiis perpetua, id quo purto deleniti. Et usu graeci repudiare. Ex dicunt atomorum eum, mei modo vero no.</textarea>
               </div>
             </div>
           </div>
@@ -146,49 +146,49 @@
 
                 <div class='section'>
                   <div class="input-field">
-                    <input type="text" value="Master's degree" class="validate" placeholder="Eg. Bachelor's Degree">
+                    <input id='education' type="text" class="validate" placeholder="Eg. Bachelor's Degree">
                     <label class="active left">Education</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <input type="text" value="Caracas, Venezeula" class="validate" placeholder='Eg. Caracas, Venezuela'>
+                    <input id='grew-up' type="text" class="validate" placeholder='Eg. Caracas, Venezuela'>
                     <label class="active left">Grew up</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <input type="text" value="Cats Cradle" class="validate" placeholder='Eg. Ulysses'>
+                    <input id='fav-book' type="text" class="validate" placeholder='Eg. Ulysses'>
                     <label class="active left">Favourite book</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <input type="text" value="A girl walks home alone at night" class="validate" placeholder='Eg. Metropolis'>
+                    <input id='fav-film' type="text" class="validate" placeholder='Eg. Metropolis'>
                     <label class="active left">Favourite film</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <input type="text" value="Sailed around the world" class="validate" placeholder='Eg. Skydiving'>
+                    <input id='amazing-feat' type="text" class="validate" placeholder='Eg. Skydiving'>
                     <label class="active left">Amazing feat</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <input type="text" value="Baking bread, fishing" class="validate" placeholder='Eg. Cooking, hiking'>
+                    <input id='can-share' type="text" class="validate" placeholder='Eg. Cooking, hiking'>
                     <label class="active left">Can share</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <select class='material' multiple>
+                    <select id='interests' class='material' multiple>
                       <option value="" disabled>Interests</option>
                       <option value="1">Option 1</option>
                       <option value="2">Option 2</option>
@@ -200,21 +200,51 @@
 
                 <div class='section'>
                   <div class="input-field">
-                    <input id='countries-visited-input' type="text" value="Ireland, Spain" class="validate" placeholder='Eg. Spain'>
+                    <select id='countries-visited' multiple placeholder='Eg. Spain'>
+                      <option value='de'>
+                        Germany
+                      </option>
+                      <option value='es'>
+                        Spain
+                      </option>
+                      <option value='af'>
+                        Afghanistan
+                      </option>
+                      <option value='au'>
+                        Australia
+                      </option>
+                      <option value='bm'>
+                        Bermuda
+                      </option>
+                    </select>
                     <label class="active left">Visited</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <input id='countries-lived-input' type="text" value="Ireland, Spain" class="validate" placeholder='Eg. Spain'>
+                    <select id='countries-lived' multiple placeholder='Eg. Spain'>
+                      <option value='de'>
+                        Germany
+                      </option>
+                      <option value='uk'>
+                        United Kingdom
+                      </option>
+                      <option value='es'>
+                        Spain
+                      </option>
+                      <option value='af'>
+                        Afghanistan
+                      </option>
+                      <option value='au'>
+                        Australia
+                      </option>
+                      <option value='bm'>
+                        Bermuda
+                      </option>
+                    </select>
                     <label class="active left">Lived in</label>
                   </div>
-                </div>
-
-                <div class="section">
-                  <input placeholder="{{translations.common.where}}" id="location" type="text" class="validate">
-
                 </div>
 
               </div>
@@ -231,262 +261,6 @@
   </div>
 
 </div>
-
-<div id='reviews' class='container'>
-  <div class='row left-align'>
-    <div class='col s12 m12 l12'>
-      <div class='row'>
-
-        <div class='col s12 m5 l4'>
-          <div class='card home-card'>
-            <div class='row'>
-              <div class='col s12'>
-                <i class="fa fa-quote-right fa-2x grey-text text-lighten-1"></i>
-                <span class='title'>References</span>
-              </div>
-            </div>
-            <div class='row no-margin'>
-              <div class='col s12 content'>
-                <div class='card home-card review'>
-                  <div class='row'>
-                    <div class='col s12 grey-text relationship'>
-                      Isaac (Colleague)
-                    </div>
-                    <div class='col s12'>
-                      <p>
-                        Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.
-                      </p>
-                    </div>
-                    <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                      05/01/2016
-                    </div>
-                  </div>
-                </div>
-                <div class='card home-card review'>
-                  <div class='row'>
-                    <div class='col s12 grey-text relationship'>
-                      Luis (Student)
-                    </div>
-                    <div class='col s12'>
-                      <p>
-                        Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.
-                      </p>
-                    </div>
-                    <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                      05/01/2016
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class='col s12 m7 l8'>
-          <div class='card home-card'>
-            <div class='row bottom-align-row'>
-              <div class='col s7 m8 l8'>
-                <i class="fa fa-star-o fa-2x grey-text text-lighten-1"></i>
-                <span class='title'>Reviews</span>
-              </div>
-              <div class='col s5 m4 l4 bottom right-align'>
-                <span class='rating'>
-                  <span class='count'>
-                    (22)
-                  </span>
-                  <span class='stars'>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                    <i class="fa fa-star-o"></i>
-                  </span>
-                </span>
-              </div>
-            </div>
-            <div class='row no-margin'>
-              <div class='col s12 content'>
-                <div class='card home-card review'>
-                  <div class='row'>
-                    <div class='col s3 m2 l2 center-align'>
-                      <img class='circle host-picture' src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
-                      <br>
-                      Isaac
-                    </div>
-                    <div class='col s9 m10 l10'>
-                      <p>
-                        Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.
-                      </p>
-                    </div>
-                    <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                      05/01/2016
-                    </div>
-                  </div>
-                </div>
-                <div class='card home-card review'>
-                  <div class='row'>
-                    <div class='col s3 m3 l2 center-align'>
-                      <img class='circle host-picture' src='https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png'>
-                      <br>
-                      Isaac
-                    </div>
-                    <div class='col s9 m10 l10'>
-                      <p>
-                        Lorem ipsum dolor sit amet, te est quidam audiam. Rebum vocibus vix ne, elaboraret reprimique in vel. Mea ferri falli graeco ei, ei wisi sanctus vis. Eu duo malis iudico appareat.
-                      </p>
-                      <p>
-                        Enim adolescens ea pri, quo veniam labore alienum ut. Alienum disputationi vix at, vis dictas corpora te, has audire sententiae id. Per ad animal timeam latine, est augue mucius ridens ex. Ei utroque accumsan est, vix et minim dicunt commune. Has ei quod dico nullam.
-                      </p>
-                    </div>
-                    <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                      05/01/2016
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id='stay' class='container left-align'>
-  <div class='row no-margin'>
-
-    <div class='col s12 m3 l3'>
-      <div class='card home-card home-card--fixed-height-short'>
-        <div class='row'>
-          <div class='col s12'>
-            <i class="fa fa-home fa-2x grey-text text-lighten-1"></i>
-            <span class='title'>Home info</span>
-          </div>
-        </div>
-
-        <div class='row content bottom-align-column'>
-          <div class='col s12'>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>Cabin
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>Berlin, Germany
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Family home
-            </p>
-            <div class='divider'></div>
-          </div>
-          <div class='col s12 bottom center-align'>
-            <a class='btn btn-secondary '>View home</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class='col s12 m9 l9'>
-      <div class='card home-card'>
-        <div class='row'>
-
-          <div class='col s12'>
-            <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
-            <span class='title'>Master bedroom</span>
-          </div>
-        </div>
-        <div class='row'>
-          <div class='col s12 m4 l5'>
-            <p>
-
-            </p>
-            <img class='home-room-image materialboxed' src='http://images2.roomstogo.com/is/image/roomstogo/br_rm_gardenia_white_nostack~Gardenia-White-5-Pc-Queen-Platform-Bedroom.jpeg?$PDP_Primary_525x366$' />
-          </div>
-          <div class='col s6 m6 l2'>
-            <p class='grey-text text-darken-1'>
-              <strong>Basics:</strong>
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Sleeps: 1
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Shared: No
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>Bed type: 1
-            </p>
-          </div>
-          <div class='col s6 m6 l2'>
-            <p class='grey-text text-darken-1'>
-              <strong>Facilities:</strong>
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-fire grey-text text-lighten-1"></span></i>Heating
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-square-o grey-text text-lighten-1"></span></i>Mirror
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-lock grey-text text-lighten-1"></span></i>Lock
-            </p>
-          </div>
-          <div class='col s6 m12 l3'>
-            <p class='grey-text text-darken-1'>
-              <strong>Price:</strong>
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>Stay: <span class='right'>€110/week</span>
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>Tandem: <span class='right'>€90/week</span>
-            </p>
-            <p class='home-details'>
-            <span class='icon'><i class="fa fa-university grey-text text-lighten-1"></span></i>Teacher: <span class='right'>€200/week</span>
-            </p>
-
-          </div>
-        </div>
-
-        <div class='row section'>
-          <div class='col s12'>
-            <div class='divider'></div>
-          </div>
-        </div>
-
-        <div class='row bottom-align-row'>
-          <div class='col s8'>
-            <label>Room description</label><br>
-
-              Comfort, Bright , space, comfort room in a two bedroom apartment. One block from 1 train and 20 mins from plaza de Cataluña. Full access to kitchen and bathroom.
-
-          </div>
-          <div class='col s4 right-align bottom'>
-            <a class='btn btn-primary'>Book now</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// Google maps autocomplete
-var placeSearch, autocomplete;
-function initAutocomplete() {
-  var options = {
-    types: ["(regions)"]
-  }
-  autocomplete1 = new google.maps.places.Autocomplete(
-    document.getElementById('countries-visited-input'), options
-  );
-  autocomplete2 = new google.maps.places.Autocomplete(
-    document.getElementById('countries-lived-input'), options
-  );
-}
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete&types=(cities)" async defer></script>
 
 
 {% endblock %}
