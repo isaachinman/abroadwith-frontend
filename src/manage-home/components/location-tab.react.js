@@ -3,7 +3,7 @@ var React = require('react');
 module.exports = React.createClass({
   componentDidMount: function() {
   },
-  handleClick: function() {
+  saveLocation: function() {
 
     // Modify home object, using new location object
     if (typeof homeObj !== 'undefined' && typeof newLocationObj !== 'undefined') {
@@ -12,12 +12,11 @@ module.exports = React.createClass({
 
     // POST new home object, refresh state upon success
     Materialize.toast('Address updated', 4000);
-    console.log(homeObj);
+    console.log(newLocationObj);
 
 
   },
-  render: function() {
-
+  componentDidUpdate: function() {
     window.mapLat;
     window.mapLng;
     window.mapZoom;
@@ -152,38 +151,14 @@ module.exports = React.createClass({
     script.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete';
     $("#location").append(script);
 
+    $('a#save-location').click(this.saveLocation);
+
+  },
+  render: function() {
 
     return (
 
-      <div id="location" className="col s12 m10 offset-m1 l10 offset-l1 relative">
-
-        <div className='manage-home-block'>
-
-          <div className='row'>
-            <h4>What's your address?</h4>
-          </div>
-
-          <div className='row relative no-margin'>
-            <input id="home-address" className="controls" type="text" placeholder="What's your address?"/>
-            <a className='btn update-home-address'>Save address</a>
-
-            <div className='row your-address-row'>
-              <div id="home-map" className='medium-map'></div>
-            </div>
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='col s6 offset-s3'>
-            <a id='location-save' className='btn btn-primary save-btn' onClick={this.handleClick}>Save</a>
-          </div>
-          <div className='col s3 right-align'>
-            <a id='next-btn'><i className="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>
-          </div>
-        </div>
-
-      </div>
-
+      <div></div>
 
     );
   }

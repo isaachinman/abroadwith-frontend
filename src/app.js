@@ -5,6 +5,7 @@ var select2 = require('select2-browserify');
 
 require('materialize');
 
+
 // Home page
 require('./main/main');
 
