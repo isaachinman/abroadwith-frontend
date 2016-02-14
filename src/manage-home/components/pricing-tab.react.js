@@ -1,9 +1,10 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var RoomPriceModule = require('./room-price-module.react')
 var TandemDiscountModule = require('./tandem-discount-module.react')
 
 module.exports = React.createClass({
-  handleClick: function() {
+  savePricing: function() {
 
     // If user has rooms
     if (this.props.rooms) {
@@ -105,17 +106,16 @@ module.exports = React.createClass({
       if (typeof homeObj !== 'undefined') {
         console.log(newPricingObj)
         homeObj.pricing = newPricingObj;
+
+        // POST new home object
+        Materialize.toast('Pricing updated', 4000);
+
       }
 
     }
 
-    console.log(homeObj)
-
-    // POST new home object
-    Materialize.toast('Pricing updated', 4000);
-
   },
-  render: function() {
+  componentDidUpdate: function() {
 
     // Set price vars
     if (this.props.pricing && this.props.pricing.currency) {
@@ -137,221 +137,51 @@ module.exports = React.createClass({
 
       var currency = this.props.pricing.currency;
 
-      this.props.rooms.forEach(function(obj) {
-        var room = <RoomPriceModule
-          key={obj.id}
-          id={obj.id}
-          roomName={obj.name}
-          bed={obj.bed}
-          vacancies={obj.vacancies}
-          img={obj.img}
-          price={obj.price}
-          currency={currency}
-          />;
-        rooms.push(room);
+      var rooms = this.props.rooms;
+
+      var RoomsContainer = React.createClass({
+        render: function() {
+          var allRooms = []
+          rooms.forEach(function(obj) {
+            allRooms.push(
+              <RoomPriceModule
+                key={obj.id}
+                id={obj.id}
+                roomName={obj.name}
+                bed={obj.bed}
+                vacancies={obj.vacancies}
+                img={obj.img}
+                price={obj.price}
+                currency={currency}
+                />
+            )
+          })
+          return (
+            <div>{allRooms}</div>
+          )
+        }
       })
 
-    } else {
+      ReactDOM.render(
+        <RoomsContainer
+        />, document.querySelector('#rooms-pricing')
+      )
 
+    } else {
       function goToRoomsTab() {
         $('ul.tabs').tabs('select_tab', 'rooms');
       }
-
       rooms = <li className="collection-item"><span className="title">You haven't created any rooms</span><br></br><a className='light' onClick={goToRoomsTab}>Go to the "Rooms" tab and make your first room</a></li>
-
     }
 
-    // Create tandem modules if immersions exist
-    var tandemDiscounts = [];
-    if (this.props.immersions) {
+    $('#save-pricing').click(this.savePricing);
 
-      this.props.immersions.tandem.languagesInterested.forEach(function(obj) {
-        var tandem = <TandemDiscountModule
-          key={obj.lang}
-          lang={obj.lang}
-          discount={obj.discount}
-        />;
-        tandemDiscounts.push(tandem);
-      })
-
-    } else {
-
-      function goToImmersionsTab() {
-        $('ul.tabs').tabs('select_tab', 'immersions');
-      }
-
-      tandemDiscounts = <li className="collection-item no-tandem"><span className="title">You haven't enabled tandem immersions</span><br></br><a className='light' onClick={goToImmersionsTab}>Go to the "Immersions" tab and update your preferences</a></li>
-
-    }
+  },
+  render: function() {
 
     return (
 
-      <div id="pricing" className="col s12 m10 offset-m1 l10 offset-l1">
-
-        <div className='manage-home-block'>
-
-          <div className='row'>
-            <h4>Define your pricing</h4>
-          </div>
-
-          <div className='manage-home-section'>
-
-            <div className='row section'>
-              <div className='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-                <i className="fa fa-credit-card fa-2x"></i>
-              </div>
-              <div className='col s10 m1 l1 input-field'>
-                <select id='currency' className='material'>
-                  <option value="eur">EUR</option>
-                  <option value="usd">USD</option>
-                  <option value="gbp">GBP</option>
-                </select>
-                <label>Currency</label>
-              </div>
-
-              <div className='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-                <i className="fa fa-calendar-o fa-2x"></i>
-              </div>
-              <div className='col s2 m2 l2 left-align input-field'>
-                <input id='one-month-discount' type="text" className="validate no-margin" placeholder='5%' />
-                <label className='active'>1 month discount</label>
-              </div>
-              <div className='col s2 m2 l2 left-align input-field'>
-                <input id='three-month-discount' type="text" className="validate no-margin" placeholder='7%' />
-                <label className='active'>3 month discount</label>
-              </div>
-              <div className='col s2 m2 l2 left-align input-field'>
-                <input id='six-month-discount' type="text" className="validate no-margin" placeholder='14%' />
-                <label className='active'>6+ month discount</label>
-              </div>
-
-              <div className='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-                <i className="fa fa-circle-o-notch fa-2x"></i>
-              </div>
-              <div className='col s2 m2 l2 left-align input-field'>
-                <input id='tandem-discount' type="text" className="validate no-margin" placeholder='20%' />
-                <label className='active'>Tandem discount</label>
-              </div>
-            </div>
-
-
-
-
-
-            <div className='divider'></div>
-
-            <div className='row section no-margin'>
-
-              <div className='col s12 m12 l4 left-align'>
-
-                <label>Room rates (weekly)</label>
-
-                <ul className="collection">
-
-                  {rooms}
-
-                </ul>
-
-              </div>
-
-              <div className='col s12 m12 l8 left-align'>
-                <label>Extra charges</label>
-
-                <ul className="collection with-header extra-charges-collection">
-
-                  <li className="collection-header col s12 m6 l4 border-right">
-                    <div className='row'>
-                      <div className='col s3 input-field center-align grey-text text-lighten-1'>
-                        <i className="fa fa-user-plus fa-2x"></i>
-                      </div>
-                      <div className='col s9 input-field'>
-                        <input id='extra-guest' type="text" className="validate no-margin" placeholder='€20' />
-                        <label className='active'>Extra guest</label>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li className="collection-header col s12 m6 l4 border-right">
-                    <div className='row'>
-                      <div className='col s3 input-field center-align grey-text text-lighten-1'>
-                        <i className="fa fa-cutlery fa-2x"></i>
-                      </div>
-                      <div className='col s9 input-field'>
-                        <input id='full-board' type="text" className="validate no-margin" placeholder='€20' />
-                        <label className='active'>Full board</label>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li className="collection-header col s12 m6 l4 border-right">
-                    <div className='row'>
-                      <div className='col s3 input-field center-align grey-text text-lighten-1'>
-                        <i className="fa fa-adjust fa-2x"></i>
-                      </div>
-                      <div className='col s9 input-field'>
-                        <input id='half-board' type="text" className="validate no-margin" placeholder='€20' />
-                        <label className='active'>Half board</label>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li className="collection-header col s12 m6 l4 border-right">
-                    <div className='row'>
-                      <div className='col s3 input-field center-align grey-text text-lighten-1'>
-                        <i className="fa fa-shopping-basket fa-2x"></i>
-                      </div>
-                      <div className='col s9 input-field'>
-                        <input id='laundry' type="text" className="validate no-margin" placeholder='€20' />
-                        <label className='active'>Laundry service</label>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li className="collection-header col s12 m6 l4 border-right">
-                    <div className='row'>
-                      <div className='col s3 input-field center-align grey-text text-lighten-1'>
-                        <i className="fa fa-trash-o fa-2x"></i>
-                      </div>
-                      <div className='col s9 input-field'>
-                        <input id='cleaning' type="text" className="validate no-margin" placeholder='€20' />
-                        <label className='active'>Cleaning service</label>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li className="collection-header col s12 m6 l4 border-right">
-                    <div className='row'>
-                      <div className='col s3 input-field center-align grey-text text-lighten-1'>
-                        <i className="fa fa-plane fa-2x"></i>
-                      </div>
-                      <div className='col s9 input-field'>
-                        <input id='airport-pickup' type="text" className="validate no-margin" placeholder='€20' />
-                        <label className='active'>Airport pickup</label>
-                      </div>
-                    </div>
-                  </li>
-
-                </ul>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div className='row'>
-          <div className='col s6 offset-s3'>
-            <a id='pricing-save' className='btn btn-primary save-btn' onClick={this.handleClick}>Save</a>
-          </div>
-          <div className='col s3 right-align'>
-            <a><i className="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>
-          </div>
-        </div>
-
-      </div>
-
+      <div></div>
 
     );
   }

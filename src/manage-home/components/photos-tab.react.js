@@ -8,9 +8,6 @@ module.exports = React.createClass({
 
       var photos = this.props.photos;
 
-      console.log(this.props.photos)
-      console.log(photos)
-
       var PhotoContainer = React.createClass({
         render: function() {
           var allPhotos = []
