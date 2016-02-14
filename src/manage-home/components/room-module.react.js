@@ -133,14 +133,6 @@ module.exports = React.createClass({
             </div>
           </div>
 
-          <div className='divider'></div>
-
-          <div className='row section'>
-            <div className='col s12'>
-              <a className='btn'>Add room</a>
-            </div>
-          </div>
-
         </div>
       </li>
 

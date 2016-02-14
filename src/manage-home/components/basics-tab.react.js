@@ -28,8 +28,6 @@ module.exports = React.createClass({
 
     if (this.props.basics) {
 
-      console.log(this.props.basics)
-
       // Set input values
       $('#home-type').val(this.props.basics.homeType);
       $('#safety').val(this.props.basics.SAFETY)
