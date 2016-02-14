@@ -8,12 +8,10 @@ module.exports = React.createClass({
     // Modify home object, using new location object
     if (typeof homeObj !== 'undefined' && typeof newLocationObj !== 'undefined') {
       homeObj.location = newLocationObj;
+
+      // POST new home object, refresh state upon success
+      Materialize.toast('Address updated', 4000);
     }
-
-    // POST new home object, refresh state upon success
-    Materialize.toast('Address updated', 4000);
-    console.log(newLocationObj);
-
 
   },
   componentDidUpdate: function() {
