@@ -40,8 +40,9 @@
         <div class='col s3'>
           <select id="language" type="text" class="validate border-radius-left">
             <option></option>
-            <option value='eng'>English</option>
-            <option value='spa'>Spanish</option>
+            {% for code, lang in translations.languages %}
+              <option value={{code}}>{{lang}}</option>
+            {% endfor %}
           </select>
         </div>
         <div class='col s2 grey-text'>
@@ -60,14 +61,15 @@
       <div class='divider tandem-language hide'></div>
 
       <div class='row section valign-wrapper tandem-language hide'>
-        <div class='col s6 grey-text'>
+        <div class='col s7 grey-text'>
           <div class='chip chip-grey'>Your tandem language(s)</div>
         </div>
-        <div class='col s6'>
-          <select id='language-teach' type='text' class="validate border-radius-left" multiple>
+        <div class='col s5'>
+          <select id="language-teach" type="text" class="validate border-radius-left">
             <option></option>
-            <option value='eng'>English</option>
-            <option value='spa'>Spanish</option>
+            {% for code, lang in translations.languages %}
+              <option value={{code}}>{{lang}}</option>
+            {% endfor %}
           </select>
         </div>
       </div>

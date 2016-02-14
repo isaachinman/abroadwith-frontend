@@ -6,14 +6,11 @@ module.exports = React.createClass({
     var tandemNodes = $('.tandem-language');
     if (immersionSelect.val() != null) {
       if (immersionSelect.val().indexOf('tandem') >= 0 && tandemNodes.hasClass('hide')) {
-        console.log('show tandem')
         tandemNodes.removeClass('hide');
       } else if (immersionSelect.val().indexOf('tandem') == -1 && !(tandemNodes.hasClass('hide'))) {
-        console.log('hide tandem')
         tandemNodes.addClass('hide');
       }
     } else if (tandemNodes.hasClass('hide')) {
-      console.log('hide tandem')
       tandemNodes.addClass('hide');
     }
   },

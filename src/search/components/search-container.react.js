@@ -78,8 +78,6 @@ module.exports = React.createClass({
     $.post(url, function(data) {
       var response = JSON.parse(data);
 
-      console.log(response);
-
       var newState = {
         // Set new state vars
         minPrice:         response.resultDetails.minPrice,
