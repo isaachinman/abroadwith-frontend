@@ -61,7 +61,6 @@ module.exports = React.createClass({
     return (
 
       <div>
-        <div className="row manage-home">
 
           <BasicsTab
             basics={this.state.basics}
@@ -93,8 +92,6 @@ module.exports = React.createClass({
             immersions={this.state.immersions}
             pricing={this.state.pricing}
           />
-
-        </div>
 
       </div>
 

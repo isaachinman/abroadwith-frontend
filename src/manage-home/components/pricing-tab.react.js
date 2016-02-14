@@ -22,46 +22,14 @@ module.exports = React.createClass({
       }
 
       $('li.room').each(function() {
-
         var id = $(this).attr('data-id');
         var price = $(this).find('.room-price').val();
         changePrice(id, price);
-
       })
 
       // Modify home object, using new rooms object
       if (typeof homeObj !== 'undefined') {
         homeObj.rooms = newRoomObj;
-      }
-
-    }
-
-    // If user has tandems
-    if (this.props.immersions.tandem) {
-
-      // Create new rooms object
-      newTandemObj = this.props.immersions.tandem.languagesInterested;
-
-      function changeDiscount(lang, discount) {
-         for (var i in newTandemObj) {
-           if (newTandemObj[i].lang == lang) {
-              newTandemObj[i].discount = discount;
-              break;
-           }
-         }
-      }
-
-      $('li.tandem-discount').each(function() {
-
-        var lang = $(this).find('input.discount').attr('data-lang');
-        var discount = $('#tandem-discount').val();
-        changeDiscount(lang, discount);
-
-      })
-
-      // Modify home object, using new rooms object
-      if (typeof homeObj !== 'undefined') {
-        homeObj.immersions.tandem.languagesInterested = newTandemObj;
       }
 
     }
@@ -73,34 +41,21 @@ module.exports = React.createClass({
       newPricingObj.discounts = {};
       newPricingObj.extras = {};
 
-      newPricingObj.currency = $('select#currency').val();
-      newPricingObj.discounts.oneMonthDiscount = {};
-      newPricingObj.discounts.oneMonthDiscount.name = "oneMonthDiscount";
-      newPricingObj.discounts.oneMonthDiscount.amount = $('input#one-month-discount').val();
-      newPricingObj.discounts.threeMonthDiscount = {};
-      newPricingObj.discounts.threeMonthDiscount.name = "threeMonthDiscount";
-      newPricingObj.discounts.threeMonthDiscount.amount = $('input#three-month-discount').val();
-      newPricingObj.discounts.sixMonthDiscount = {};
-      newPricingObj.discounts.sixMonthDiscount.name = "sixMonthDiscount";
-      newPricingObj.discounts.sixMonthDiscount.amount = $('input#six-month-discount').val();
-      newPricingObj.extras.EXTRA_GUEST = {};
-      newPricingObj.extras.EXTRA_GUEST.service = "EXTRA_GUEST";
-      newPricingObj.extras.EXTRA_GUEST.cost = $('input#extra-guest').val();
-      newPricingObj.extras.FULL_BOARD = {};
-      newPricingObj.extras.FULL_BOARD.service = "FULL_BOARD";
-      newPricingObj.extras.FULL_BOARD.cost = $('input#full-board').val();
-      newPricingObj.extras.HALF_BOARD = {};
-      newPricingObj.extras.HALF_BOARD.service = "HALF_BOARD";
-      newPricingObj.extras.HALF_BOARD.cost = $('input#half-board').val();
-      newPricingObj.extras.LAUNDRY = {};
-      newPricingObj.extras.LAUNDRY.service = "LAUNDRY";
-      newPricingObj.extras.LAUNDRY.cost = $('input#laundry').val();
-      newPricingObj.extras.CLEANING = {};
-      newPricingObj.extras.CLEANING.service = "CLEANING";
-      newPricingObj.extras.CLEANING.cost = $('input#cleaning').val();
-      newPricingObj.extras.AIRPORT_PICKUP = {};
-      newPricingObj.extras.AIRPORT_PICKUP.service = "AIRPORT_PICKUP";
-      newPricingObj.extras.AIRPORT_PICKUP.cost = $('input#airport-pickup').val();
+      function createPricingObject(category, item) {
+        newPricingObj[category][item] = {};
+        newPricingObj[category][item].name = item;
+        newPricingObj[category][item].amount = $('input#'+item).val();
+      }
+
+      createPricingObject('discounts', 'oneMonthDiscount');
+      createPricingObject('discounts', 'threeMonthDiscount');
+      createPricingObject('discounts', 'sixMonthDiscount');
+      createPricingObject('extras', 'EXTRA_GUEST');
+      createPricingObject('extras', 'FULL_BOARD');
+      createPricingObject('extras', 'HALF_BOARD');
+      createPricingObject('extras', 'LAUNDRY');
+      createPricingObject('extras', 'CLEANING');
+      createPricingObject('extras', 'AIRPORT_PICKUP');
 
       // Modify home object, using new pricing object
       if (typeof homeObj !== 'undefined') {
@@ -111,9 +66,7 @@ module.exports = React.createClass({
         Materialize.toast('Pricing updated', 4000);
 
       }
-
     }
-
   },
   componentDidUpdate: function() {
 

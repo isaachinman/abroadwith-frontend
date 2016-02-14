@@ -123,29 +123,29 @@
     },
     "extras":{
       "EXTRA_GUEST":{
-        "service":"EXTRA_GUEST",
-        "cost":20
+        "name":"EXTRA_GUEST",
+        "amount":20
       },
       "FULL_BOARD":{
-        "service":"FULL_BOARD",
-        "cost":30
+        "name":"FULL_BOARD",
+        "amount":30
       },
       "HALF_BOARD":{
-        "service":"HALF_BOARD",
-        "cost":10
+        "name":"HALF_BOARD",
+        "amount":10
       },
       "LAUNDRY":{
-        "service":"LAUNDRY",
-        "cost":10
+        "name":"LAUNDRY",
+        "amount":10
       },
       "CLEANING":{
-        "service":"CLEANING",
-        "cost":10
+        "name":"CLEANING",
+        "amount":10
       },
       "AIRPORT_PICKUP":{
-        "service":"AIRPORT_PICKUP",
-        "cost":35
-      }  
+        "name":"AIRPORT_PICKUP",
+        "amount":35
+      }
     }
   }
 }
