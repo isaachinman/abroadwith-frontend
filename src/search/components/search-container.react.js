@@ -77,7 +77,7 @@ module.exports = React.createClass({
 
     $.post(url, function(data) {
       var response = JSON.parse(data);
-      console.log(response)
+
       var newState = {
         // Set new state vars
         minPrice:         response.resultDetails.minPrice,
@@ -112,6 +112,8 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
+    window.handleChange = this.handleChange;
+
     var activeNodes = [
       $('#arrival'),
       $('#departure'),
@@ -127,50 +129,12 @@ module.exports = React.createClass({
       $('#house-type')
     ];
 
-    window.handleChange = this.handleChange;
-
     for (var i=0; i<activeNodes.length; i++) {
       activeNodes[i].change(handleChange);
     }
 
-    $.post(this.props.source, function(data) {
-
-      // Parse the response
-      var response = JSON.parse(data);
-
-      var newState = {
-        // Set initial state vars
-        minPrice:         response.resultDetails.minPrice,
-        maxPrice:         response.resultDetails.maxPrice,
-        numberOfResults:  response.resultDetails.numberOfResults,
-        pageOffset:       response.resultDetails.pageOffset,
-        pageSize:         response.resultDetails.pageSize,
-        currency:         response.params.currency,
-        immersions:       response.params.immersions,
-        arrival:          response.params.arrival,
-        departure:        response.params.departure,
-        minLat:           response.params.location ? response.params.location.minLat : null,
-        minLng:           response.params.location ? response.params.location.minLng : null,
-        maxLat:           response.params.location ? response.params.location.maxLat : null,
-        maxLng:           response.params.location ? response.params.location.maxLng : null,
-        guests:           response.params.guests,
-        language:         response.params.language,
-        tandem:           response.params.offeredLanguages ? response.params.offeredLanguages : null,
-        course:           response.params.languageCourse ? response.params.languageCourse.level : null,
-        extras:           response.params.filters.extras,
-        specialPrefs:     response.params.filters.specialPrefs,
-        mealPlan:         response.params.filters.mealPlan,
-        mealPref:         response.params.filters.mealPref,
-        dietRestrictions: response.params.filters.dietRestrictions,
-        amenities:        response.params.filters.amenities,
-        houseType:        response.params.filters.houseType,
-        results:          response.results
-      }
-
-      if (this.isMounted()) {
-        this.setState(newState);
-      }
-    }.bind(this));
+    handleChange();
+    
   },
   render: function() {
     return (
