@@ -32,14 +32,7 @@ module.exports = React.createClass({
   render: function() {
 
     return (
-      <div className='row valign-wrapper section'>
-        <div className='col s2 grey-text'>
-          <div className='chip chip-grey'>Price</div>
-        </div>
-        <div id='price-slider' className='col s10 valign'>
-
-        </div>
-      </div>
+      <div></div>
     );
   }
 });

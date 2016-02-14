@@ -6,6 +6,217 @@
 <div class='row left-align no-margin'>
   <div class='col s12 m7 l8 no-padding-sides fixed-100-vh fixed-100-vh--scroll'>
 
+    <div class='container'>
+
+      <div class='row valign-wrapper section' onChange={this.handleChange}>
+        <div class='input-field col s2 grey-text'>
+          <div class='chip chip-grey'>Dates</div>
+        </div>
+        <div class='input-field col s3 valign'>
+          <input id='arrival' type="text" class='datepicker' />
+          <label htmlFor='arrival' class='active'>Arrival</label>
+        </div>
+        <div class='input-field col s3 valign'>
+          <input id='departure' type="text" class="datepicker" />
+          <label htmlFor='departure' class='active'>Departure</label>
+        </div>
+        <div class='input-field col s4'>
+          <select id='guests' class='material' >
+            <option value="1">1 guest</option>
+            <option value="2">2 guests</option>
+            <option value="3">3 guests</option>
+            <option value="4">4 guests</option>
+            <option value="5">5 guests</option>
+          </select>
+        </div>
+      </div>
+
+      <div class='divider'></div>
+
+      <div class='row section valign-wrapper'>
+        <div class='col s2 grey-text'>
+          <div class='chip chip-grey'>Language</div>
+        </div>
+        <div class='col s3'>
+          <select id="language" type="text" class="validate border-radius-left">
+            <option></option>
+            <option value='eng'>English</option>
+            <option value='spa'>Spanish</option>
+          </select>
+        </div>
+        <div class='col s2 grey-text'>
+          <div class='chip chip-grey'>Immersion</div>
+        </div>
+        <div class='col s5'>
+          <select id='immersions' class='material' multiple>
+            <option value="" disabled>Choose an immersion type</option>
+            <option value="stay">Stay</option>
+            <option value="tandem">Tandem</option>
+            <option value="teacher">Teachers stay</option>
+          </select>
+        </div>
+      </div>
+
+      <div class='divider tandem-language hide'></div>
+
+      <div class='row section valign-wrapper tandem-language hide'>
+        <div class='col s6 grey-text'>
+          <div class='chip chip-grey'>Your tandem language(s)</div>
+        </div>
+        <div class='col s6'>
+          <select id='language-teach' type='text' class="validate border-radius-left" multiple>
+            <option></option>
+            <option value='eng'>English</option>
+            <option value='spa'>Spanish</option>
+          </select>
+        </div>
+      </div>
+
+      <div class='divider'></div>
+
+      <div class='row valign-wrapper section'>
+        <div class='col s2 grey-text'>
+          <div class='chip chip-grey'>Price</div>
+        </div>
+        <div id='price-slider' class='col s10 valign'></div>
+      </div>
+
+      <div class='divider'></div>
+
+      <div class='row section valign-wrapper'>
+        <div class='col s5 grey-text'>
+          <div class='chip chip-grey'>Add a language course</div>
+        </div>
+        <div class='col s3'>
+          <div class="switch">
+            <label>
+              No
+              <input id='language-switch' type="checkbox" />
+              <span class="lever"></span>
+              Yes
+            </label>
+          </div>
+        </div>
+        <div class='col s4'>
+          <select id='language-school' class='material' disabled>
+            <option value="a1">English A1</option>
+            <option value="a2">English A2</option>
+            <option value="b1">English B1</option>
+            <option value="b2">English B2</option>
+            <option value="c1">English C1</option>
+            <option value="c2">English C2</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+    <div class='row no-margin'>
+      <ul class="collapsible no-shadow no-margin" data-collapsible="accordion">
+        <li>
+          <div class="collapsible-header grey-text no-padding">
+            <div class='container'>
+              More filters <i class="fa fa-caret-down grey-text text-lighten-1"> </i>
+            </div>
+          </div>
+          <div class="collapsible-body container">
+
+            <div class='row section valign-wrapper'>
+
+              <div class='col s1 valign center-align'>
+                <i class="fa fa-user fa-2x grey-text text-lighten-1"></i>
+              </div>
+              <div class='col s5'>
+                <select id='special-prefs' class='material' multiple>
+                  <option value="smoking">Smoking allowed</option>
+                  <option value="pets">Pets allowed</option>
+                  <option value="family">Family friendly</option>
+                  <option value="wheelchair">Wheelchair accessible</option>
+                </select>
+              </div>
+
+              <div class='col s1 valign center-align'>
+                <i class="fa fa-cutlery fa-2x grey-text text-lighten-1"></i>
+              </div>
+              <div class='col s5'>
+                <select id='meal-plan' class='material'>
+                  <option value="breakfast">Breakfast</option>
+                  <option value="halfBoard">Half board</option>
+                  <option value="fullBoard">Full board</option>
+                </select>
+              </div>
+
+            </div>
+
+            <div class='divider'></div>
+
+            <div class='row section valign-wrapper'>
+              <div class='col s1 valign center-align'>
+                <i class="fa fa-asterisk fa-2x grey-text text-lighten-1"></i>
+              </div>
+              <div class='col s5'>
+                <select id='meal-pref' class='material'>
+                  <option value="">No meal preference</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="halal">Halal</option>
+                  <option value="kosher">Kosher</option>
+                </select>
+              </div>
+
+              <div class='col s1 valign center-align'>
+                <i class="fa fa-exclamation-circle fa-2x grey-text text-lighten-1"></i>
+              </div>
+              <div class='col s5'>
+                <select id='diet-restrictions' class='material' multiple>
+                  <option value="none" disabled>No dietary restrictions</option>
+                  <option value="nutFree">Nut free</option>
+                  <option value="lactoseFree">Lactose free</option>
+                  <option value="glutenFree">Gluten free</option>
+                  <option value="sugarFree">Sugar free</option>
+                </select>
+              </div>
+            </div>
+
+            <div class='divider'></div>
+
+            <div class='row section valign-wrapper'>
+              <div class='col s1 valign center-align'>
+                <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
+              </div>
+              <div class='col s5'>
+                <select id='amenities' class='material' multiple>
+                  <option value="essentials" disabled>Essentials</option>
+                  <option value="ac">Air conditioning</option>
+                  <option value="airport">Airport pickup</option>
+                  <option value="tv">TV</option>
+                  <option value="cable">Cable</option>
+                  <option value="washer">Washer</option>
+                  <option value="pool">Pool</option>
+                </select>
+              </div>
+              <div class='col s1 valign center-align'>
+                <i class="fa fa-home fa-2x grey-text text-lighten-1"></i>
+              </div>
+              <div class='col s5'>
+                <select id='house-type' class='material' multiple>
+                  <option value='all' disabled>All house types</option>
+                  <option value="flat">Flat</option>
+                  <option value="house">House</option>
+                  <option value="loft">Loft</option>
+                  <option value="chalet">Chalet</option>
+                  <option value="dorm">Dorm</option>
+                  <option value="cabin">Cabin</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </li>
+      </ul>
+    </div>
+
     <div id='search-container'></div>
 
     {% include "partials/navigation/footer.html" %}

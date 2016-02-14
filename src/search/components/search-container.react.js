@@ -1,5 +1,5 @@
 var React =           require('react');
-var Dates =           require('./search-dates.react');
+var Dates =           require('./search-dates.react')
 var Language =        require('./search-language.react');
 var Price =           require('./search-price.react');
 var LanguageCourse =  require('./search-language-course.react');
@@ -78,6 +78,8 @@ module.exports = React.createClass({
     $.post(url, function(data) {
       var response = JSON.parse(data);
 
+      console.log(response);
+
       var newState = {
         // Set new state vars
         minPrice:         response.resultDetails.minPrice,
@@ -134,48 +136,38 @@ module.exports = React.createClass({
     }
 
     handleChange();
-    
+
   },
   render: function() {
     return (
       <div>
-        <div className='container'>
 
-          <Dates
-            arrival={this.state.arrival}
-            departure={this.state.departure}
-            guests={this.state.guests}
-            handleChange={this.handleChange}
-          />
+        <Dates
+          arrival={this.state.arrival}
+          departure={this.state.departure}
+          guests={this.state.guests}
+          handleChange={this.handleChange}
+        />
 
-          <div className='divider'></div>
+        <Language
+          language={this.state.language}
+          immersions={this.state.immersions}
+        />
 
-          <Language
-            language={this.state.language}
-            immersions={this.state.immersions}
-          />
+        <Tandem
+          tandem={this.state.tandem}
+        />
 
-          <div className='divider tandem-language hide'></div>
+        <Price
+          minPrice={this.state.minPrice}
+          maxPrice={this.state.maxPrice}
+          handleChange={this.handleChange}
+        />
 
-          <Tandem
-            tandem={this.state.tandem}
-          />
+        <LanguageCourse
+          course={this.state.course}
+        />
 
-          <div className='divider'></div>
-
-          <Price
-            minPrice={this.state.minPrice}
-            maxPrice={this.state.maxPrice}
-            handleChange={this.handleChange}
-          />
-
-          <div className='divider'></div>
-
-          <LanguageCourse
-            course={this.state.course}
-          />
-
-        </div>
 
         <MoreFilters
           specialPrefs={this.state.specialPrefs}

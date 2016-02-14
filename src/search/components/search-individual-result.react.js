@@ -3,7 +3,7 @@ var React = require('react');
 module.exports = React.createClass({
   mapHover: function(id) {
 
-    if (typeof markers !== 'undefined') {
+    if (typeof markers !== 'undefined' && markers.length !== 0) {
       markers[id].labelClass = 'map-marker-label--hovered';
       markers[id].label.setStyles();
       markers[id].label.draw();
@@ -13,7 +13,7 @@ module.exports = React.createClass({
   },
   mapOut: function(id) {
 
-    if (typeof markers !== 'undefined') {
+    if (typeof markers !== 'undefined' && markers.length !== 0) {
       markers[id].labelClass = 'map-marker-label';
       markers[id].label.setStyles();
       markers[id].label.draw();
