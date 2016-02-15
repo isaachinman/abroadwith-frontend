@@ -31,7 +31,7 @@
     bottom: 10px;
     right: 20px;
     width: 50;
-    color: lighten($grey-chateau, 25%);
+    color: lighten($grey-chateau, 20%);
     border-radius: 3px;
   }
   .default-payment-overlay {
@@ -41,6 +41,7 @@
     width: 100%;
     height: 100%;
     background: $ziggurat;
+    border: 2px solid $havelock-blue;
     opacity: .15;
   }
 }
