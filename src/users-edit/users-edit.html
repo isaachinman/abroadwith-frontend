@@ -201,21 +201,11 @@
                 <div class='section'>
                   <div class="input-field">
                     <select id='countries-visited' multiple placeholder='Eg. Spain'>
-                      <option value='de'>
-                        Germany
-                      </option>
-                      <option value='es'>
-                        Spain
-                      </option>
-                      <option value='af'>
-                        Afghanistan
-                      </option>
-                      <option value='au'>
-                        Australia
-                      </option>
-                      <option value='bm'>
-                        Bermuda
-                      </option>
+                      {% for code, country in translations.countries %}
+                        <option value={{code}}>
+                          {{country}}
+                        </option>
+                      {% endfor %}
                     </select>
                     <label class="active left">Visited</label>
                   </div>
@@ -224,24 +214,11 @@
                 <div class='section'>
                   <div class="input-field">
                     <select id='countries-lived' multiple placeholder='Eg. Spain'>
-                      <option value='de'>
-                        Germany
-                      </option>
-                      <option value='uk'>
-                        United Kingdom
-                      </option>
-                      <option value='es'>
-                        Spain
-                      </option>
-                      <option value='af'>
-                        Afghanistan
-                      </option>
-                      <option value='au'>
-                        Australia
-                      </option>
-                      <option value='bm'>
-                        Bermuda
-                      </option>
+                      {% for code, country in translations.countries %}
+                        <option value={{code}}>
+                          {{country}}
+                        </option>
+                      {% endfor %}
                     </select>
                     <label class="active left">Lived in</label>
                   </div>

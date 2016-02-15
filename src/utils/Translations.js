@@ -9,6 +9,7 @@ for(var i in languages){
   translations[i].search = require('../../locales/'+i+"/search.json");
   translations[i].main = require('../../locales/'+i+"/main.json");
   translations[i].languages = require('../../locales/'+i+"/languages.json");
+  translations[i].countries = require('../../locales/'+i+"/countries.json");
 }
 
 module.exports = translations;

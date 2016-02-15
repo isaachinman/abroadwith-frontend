@@ -24,14 +24,16 @@ module.exports = React.createClass({
   handleClick: function() {},
   render: function() {
 
+    var baseUrl = 'https://img.abroadwith.com';
+
     // Room photo src
-    var roomSrc = 'https://img.abroadwith.com' + this.props.roomPhoto;
+    var roomSrc = baseUrl + this.props.roomPhoto;
 
     // Home photos
     if (this.props.homePhotos) {
       var homePhotos = [];
       this.props.homePhotos.forEach(function(src) {
-        var src = 'https://img.abroadwith.com' + src;
+        var src = baseUrl + src;
         var photo = <div className="Wallop-item"><img src={src}/></div>
         homePhotos.push(photo);
       })
@@ -39,7 +41,7 @@ module.exports = React.createClass({
 
     // Host photo src
     var hostImg = {
-      backgroundImage: 'url(https://img.abroadwith.com' + this.props.hostPhoto + ')'
+      backgroundImage: 'url(' + baseUrl + this.props.hostPhoto + ')'
     }
 
     // If host's name ends with an s, don't put an s after apostrophe

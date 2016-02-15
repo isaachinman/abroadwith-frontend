@@ -11,17 +11,12 @@ var Map =             require('./search-map.react');
 
 
 module.exports = React.createClass({
-  getInitialState: function(){
-    return {
-      // State will be populated by POST
-    }
-  },
   handleChange: function() {
 
     // Get map data
     if (typeof bigMap !== 'undefined') {
       var bounds = bigMap.getBounds();
-      var NE, SW;
+      var SW, NE;
       bounds !== undefined ? SW = (bounds.getNorthEast()) : null;
       bounds !== undefined ? NE = (bounds.getSouthWest()) : null;
     }

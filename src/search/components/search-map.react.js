@@ -13,8 +13,6 @@ module.exports = React.createClass({
         });
         markers = [];
 
-        console.log(this.props.results)
-
         var pictureLabel = document.createElement("img");
         pictureLabel.src = "https://raw.githubusercontent.com/encharm/Font-Awesome-SVG-PNG/master/black/png/64/arrow-circle-o-left.png";
 
