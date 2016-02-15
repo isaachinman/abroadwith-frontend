@@ -4,7 +4,7 @@ module.exports = React.createClass({
   componentDidUpdate: function() {
 
     // Add a marker for each result
-    if (this.props) {
+    if (this.props && typeof MarkerWithLabel !== 'undefined') {
       if (this.props.results && typeof markers !== 'undefined') {
 
         // Clear out the old markers.
@@ -12,9 +12,6 @@ module.exports = React.createClass({
           marker.setMap(null);
         });
         markers = [];
-
-        var pictureLabel = document.createElement("img");
-        pictureLabel.src = "https://raw.githubusercontent.com/encharm/Font-Awesome-SVG-PNG/master/black/png/64/arrow-circle-o-left.png";
 
         this.props.results.forEach(function(obj) {
 
@@ -40,7 +37,6 @@ module.exports = React.createClass({
         })
       }
     }
-
   },
   componentDidMount: function() {
 
