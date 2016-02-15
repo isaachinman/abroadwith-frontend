@@ -49,8 +49,8 @@
       }
     ],
     "verifications":{
-      "email":false,
-      "phone":false,
+      "email":true,
+      "phone":true,
       "id":false
     }
   },
