@@ -6,21 +6,18 @@ module.exports = React.createClass({
     var languageSwitch = $('input#language-switch');
     var languageSelect = $('select#language-school');
 
-    $(document).ready(function() {
-      if (languageSwitch.is(':checked') && languageSelect.prop('disabled', true)) {
-        languageSelect.prop('disabled', false);
-        languageSelect.material_select();
-        setTimeout(function() {
-          $('.course-added').show();
-        }, 500)
-        console.log('show courses')
-      } else if (languageSwitch.not(':checked') && languageSelect.prop('disabled', false)) {
-        languageSelect.prop('disabled', true);
-        languageSelect.material_select();
-        $('.course-added').hide();
-        console.log('hide courses')
-      }
-    });
+    if (languageSwitch.is(':checked') && languageSelect.prop('disabled', true)) {
+      languageSelect.prop('disabled', false);
+      setTimeout(function() {
+        $('.course-added').show();
+      }, 10)
+      console.log('show courses')
+    } else if (languageSwitch.not(':checked') && languageSelect.prop('disabled', false)) {
+      languageSelect.prop('disabled', true);
+      $('.course-added').hide();
+    }
+
+    languageSelect.material_select();
 
   },
   componentDidUpdate: function() {
