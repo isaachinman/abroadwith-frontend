@@ -58,6 +58,9 @@
     margin: 20px 0 5px 0;
     font-size: 3rem;
   }
+  .text {
+    color: $americano;
+  }
   a.overlay {
     &:hover + .add {
       color: $havelock-blue;

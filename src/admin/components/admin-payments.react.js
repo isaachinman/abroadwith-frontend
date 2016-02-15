@@ -37,8 +37,20 @@ module.exports = React.createClass({
                 />
               )
             }
-
           })
+          paymentMethodHTML.push(
+            <div className='col s4'>
+              <div className='add-payment'>
+                <a className='overlay'></a>
+                <div className='add'>
+                  +
+                </div>
+                <div className='text'>
+                  Add new payment method
+                </div>
+              </div>
+            </div>
+          )
           return (
             <div>{paymentMethodHTML}</div>
           )
