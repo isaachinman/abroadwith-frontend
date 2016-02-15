@@ -15,7 +15,7 @@ ul.message-list {
     width: 100vw;
     max-height: 200px;
   }
-  display: block;
+  display: inline-block;
   position: relative;
   float: left;
   width: 240px;
@@ -49,7 +49,7 @@ ul.message-list {
 .message-body {
   display: none;
   &.active {
-    display: block;
+    display: inline-block;;
   }
   position: relative;
   float: left;
@@ -57,7 +57,7 @@ ul.message-list {
   height: calc(100% - 70px);
   overflow-y: scroll;
   @media #{$medium-and-up} {
-    width: calc(100vw - 240px);
+    width: calc(100vw - 260px);
   }
   padding: 20px;
   .msg {
@@ -155,9 +155,10 @@ ul.message-list {
   }
 }
 .send-message {
+  position: relative;
   width: 100vw;
   @media #{$medium-and-up} {
-    width: calc(100vw - 240px);
+    width: calc(100vw - 260px);
   }
   float: left;
   height: 70px;
