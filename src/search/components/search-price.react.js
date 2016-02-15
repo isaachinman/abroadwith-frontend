@@ -4,12 +4,26 @@ require('wnumb');
 module.exports = React.createClass({
   componentDidMount: function() {
 
-    var handleChange = this.props.handleChange;
+    var rangeStart = 0;
+    var rangeEnd = 500;
 
+    var handleChange = this.props.handleChange;
     var slider = document.getElementById('price-slider');
 
+    var minPrice, maxPrice
+    if (this.props.minPrice === undefined || this.props.minPrice == null || this.props.minPrice == 'undefined') {
+      minPrice = rangeStart;
+    } else {
+      minPrice = this.props.minPrice;
+    }
+    if (this.props.maxPrice === undefined || this.props.maxPrice == null || this.props.maxPrice == 'undefined') {
+      maxPrice = rangeEnd;
+    } else {
+      maxPrice = this.props.maxPrice;
+    }
+
     noUiSlider.create(slider, {
-    	start: [20, 80],
+    	start: [minPrice, maxPrice],
     	connect: true,
     	range: {
     		'min': 0,
