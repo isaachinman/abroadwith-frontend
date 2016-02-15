@@ -68,6 +68,8 @@ module.exports = React.createClass({
     var maxLat = NE !== undefined ? url = url + '&maxLat=' + (NE.lat()) : null;
     var maxLng = NE !== undefined ? url = url + '&maxLng=' + (NE.lng()) : null;
 
+    history.pushState(null, null, url)
+
     console.log(url)
 
     $.post(url, function(data) {
