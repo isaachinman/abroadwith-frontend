@@ -28,7 +28,8 @@
         "default":true,
         "type":"card",
         "lastFour":2001,
-        "expiry":"12/2018"
+        "expiry":"12/2018",
+        "cardHolder":"Isaac Hinman"
       },
       {
         "default":false,

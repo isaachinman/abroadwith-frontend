@@ -111,6 +111,10 @@ module.exports = React.createClass({
 
     window.handleChange = this.handleChange;
 
+    window.addEventListener('popstate', function(e) {
+      location.reload();
+    });
+
     var activeNodes = [
       $('#arrival'),
       $('#departure'),

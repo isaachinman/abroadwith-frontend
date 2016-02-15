@@ -1,4 +1,5 @@
 var React = require('react');
+var Payments = require('./admin-payments.react')
 
 module.exports = React.createClass({
   componentDidMount: function() {
@@ -24,8 +25,9 @@ module.exports = React.createClass({
       $('#emergency-relationship').val(response.admin.emergencyContact.relationship);
 
       // Notifications tab
-      $('#email-reservations').prop('checked', response.admin.notifications.email.reminders)
-      $('#email-promotion').prop('checked', response.admin.notifications.email.promotion)
+      $('#email-reminders').prop('checked', response.admin.notifications.email.reminders)
+      $('#email-promotions').prop('checked', response.admin.notifications.email.promotion)
+      $('#sms-notifications').prop('checked', response.admin.notifications.sms.all)
 
       // Verifications
       function checkVerifications(type) {
@@ -36,7 +38,15 @@ module.exports = React.createClass({
       }
       ['email','phone','id'].forEach(checkVerifications);
 
+      var newState = {
+        // Set new state vars
+        paymentMethods:  response.admin.paymentMethods,
+        payoutMethods:   response.admin.payoutMethods,
+      }
 
+      if (this.isMounted()) {
+        this.setState(newState);
+      };
 
     }.bind(this));
 
@@ -45,7 +55,12 @@ module.exports = React.createClass({
 
     return (
 
-      <div></div>
+       <div>
+        <Payments
+          paymentMethods={this.state.paymentMethods}
+          payoutMethods={this.state.payoutMethods}
+          />
+      </div>
 
     )
   }
