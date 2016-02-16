@@ -2,12 +2,9 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var CreditCard = require('../../global/components/payment-method--credit-card.react');
 var Paypal = require('../../global/components/payment-method--paypal.react');
+var AddPaymentMethod = require('../../global/components/add-payment-method.react');
 
 module.exports = React.createClass({
-  componentDidUpdate: function() {
-  },
-  componentDidMount: function() {
-  },
   render: function() {
 
     var paymentMethodHTML = [];
@@ -39,17 +36,7 @@ module.exports = React.createClass({
             }
           })
           paymentMethodHTML.push(
-            <div className='col s4'>
-              <div className='add-payment'>
-                <a className='overlay'></a>
-                <div className='add'>
-                  +
-                </div>
-                <div className='text'>
-                  Add new payment method
-                </div>
-              </div>
-            </div>
+            <AddPaymentMethod />
           )
           return (
             <div>{paymentMethodHTML}</div>
@@ -65,7 +52,7 @@ module.exports = React.createClass({
     }
 
     return (
-      <div>{paymentMethodHTML}</div>
+      <div></div>
     );
   }
 });
