@@ -6,6 +6,7 @@
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "basic-auth-connect": "^1.0.0",
+    "braintree": "^1.35.1",
     "browserify": "^12.0.1",
     "browserify-shim": "^3.8.12",
     "express": "^4.13.3",
