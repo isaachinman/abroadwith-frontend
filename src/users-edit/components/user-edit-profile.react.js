@@ -28,17 +28,17 @@ module.exports = React.createClass({
       // Parse the response
       var response = JSON.parse(data);
 
-      $('#user-photo').attr('src', response.profile.photo);
-      $('#about-me').val(response.profile.aboutMe);
-      $('#education').val(response.profile.education);
-      $('#grew-up').val(response.profile.grewUp);
-      $('#fav-book').val(response.profile.favBook);
-      $('#fav-film').val(response.profile.favFilm);
-      $('#amazing-feat').val(response.profile.amazingFeat);
-      $('#can-share').val(response.profile.canShare);
-      $('#interests').val(response.profile.interests);
-      $('#countries-visited').val(response.profile.countriesVisited).trigger('change');
-      $('#countries-lived').val(response.profile.countriesLived).trigger('change');
+      $('#user-photo').attr('src', response.photo);
+      $('#about-me').val(response.aboutMe);
+      $('#education').val(response.education);
+      $('#grew-up').val(response.grewUp);
+      $('#fav-book').val(response.favBook);
+      $('#fav-film').val(response.favFilm);
+      $('#amazing-feat').val(response.amazingFeat);
+      $('#can-share').val(response.canShare);
+      $('#interests').val(response.interests);
+      $('#countries-visited').val(response.countriesVisited).trigger('change');
+      $('#countries-lived').val(response.countriesLived).trigger('change');
 
     }.bind(this));
 

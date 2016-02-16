@@ -12,26 +12,26 @@ module.exports = React.createClass({
       console.log(response);
 
       // Basics tab
-      $('#firstName').val(response.admin.firstName);
-      $('#lastName').val(response.admin.lastName);
-      $('#gender').val(response.admin.gender);
-      $('#birthDate').val(response.admin.birthDate);
-      $('#location').val(response.admin.location);
-      $('#phoneNumber').val(response.admin.phoneNumber);
-      $('#user-email').val(response.admin.email);
-      $('#emergency-name').val(response.admin.emergencyContact.name);
-      $('#emergency-phone').val(response.admin.emergencyContact.phone);
-      $('#emergency-email').val(response.admin.emergencyContact.email);
-      $('#emergency-relationship').val(response.admin.emergencyContact.relationship);
+      $('#firstName').val(response.firstName);
+      $('#lastName').val(response.lastName);
+      $('#gender').val(response.gender);
+      $('#birthDate').val(response.birthDate);
+      $('#location').val(response.location);
+      $('#phoneNumber').val(response.phoneNumber);
+      $('#user-email').val(response.email);
+      $('#emergency-name').val(response.emergencyContact.name);
+      $('#emergency-phone').val(response.emergencyContact.phone);
+      $('#emergency-email').val(response.emergencyContact.email);
+      $('#emergency-relationship').val(response.emergencyContact.relationship);
 
       // Notifications tab
-      $('#email-reminders').prop('checked', response.admin.notifications.email.reminders)
-      $('#email-promotions').prop('checked', response.admin.notifications.email.promotion)
-      $('#sms-notifications').prop('checked', response.admin.notifications.sms.all)
+      $('#email-reminders').prop('checked', response.notifications.email.reminders)
+      $('#email-promotions').prop('checked', response.notifications.email.promotion)
+      $('#sms-notifications').prop('checked', response.notifications.sms.all)
 
       // Verifications
       function checkVerifications(type) {
-        if (response.admin.verifications[type] === true) {
+        if (response.verifications[type] === true) {
           $('#verification-'+type+' .collapsible-header').addClass('disabled');
           $('#verification-'+type+' .edit').html('<i class="fa fa-check-circle green-text fa-2x"></i>');
         }
@@ -40,8 +40,8 @@ module.exports = React.createClass({
 
       var newState = {
         // Set new state vars
-        paymentMethods:  response.admin.paymentMethods,
-        payoutMethods:   response.admin.payoutMethods,
+        paymentMethods:  response.paymentMethods,
+        payoutMethods:   response.payoutMethods,
       }
 
       if (this.isMounted()) {
