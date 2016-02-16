@@ -40,7 +40,8 @@
     {
       "default":true,
       "type":"bank",
-      "lastFour":1001
+      "lastFour":1001,
+      "approved":true
     },
     {
       "default":false,

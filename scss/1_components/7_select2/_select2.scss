@@ -27,6 +27,10 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
   min-height: 3rem;
 }
 
+.select2-search-choice-focus {
+  background: lighten($havelock-blue, 10%) !important;
+}
+
 .select2-container .select2-choice {
     display: block;
     line-height: 3rem;
