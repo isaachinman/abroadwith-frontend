@@ -67,16 +67,11 @@ module.exports = React.createClass({
 
     $('a#save-rooms').click(this.saveRooms);
 
-
   },
   render: function() {
 
-
-
     return (
-
         <div></div>
-
     );
   }
 });

@@ -57,6 +57,10 @@ module.exports = React.createClass({
 
     }.bind(this));
   },
+  componentDidUpdate: function() {
+    // Refresh selects
+    $('select.material').material_select();
+  },
   render: function() {
     return (
 

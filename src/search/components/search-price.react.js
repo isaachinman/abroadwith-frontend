@@ -4,12 +4,15 @@ require('wnumb');
 module.exports = React.createClass({
   componentDidMount: function() {
 
+    // Set absolute range
     var rangeStart = 0;
     var rangeEnd = 500;
 
+    // Establish some vars to use in child scopes
     var handleChange = this.props.handleChange;
     var slider = document.getElementById('price-slider');
 
+    // If min/max aren't defined, set to absolute range
     var minPrice, maxPrice
     if (this.props.minPrice === undefined || this.props.minPrice == null || this.props.minPrice == 'undefined') {
       minPrice = rangeStart;
@@ -22,6 +25,7 @@ module.exports = React.createClass({
       maxPrice = this.props.maxPrice;
     }
 
+    // Init nouislider
     noUiSlider.create(slider, {
     	start: [minPrice, maxPrice],
     	connect: true,
@@ -33,7 +37,7 @@ module.exports = React.createClass({
       tooltips: true,
       format: wNumb({
         decimals:0,
-        prefix: '€',
+        prefix: this.props.currency,
         encoder: function(a) {
           return a === 2000 ? a + '+' : a;
         }

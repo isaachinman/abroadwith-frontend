@@ -44,8 +44,6 @@ module.exports = React.createClass({
         markerId++;
       })
 
-    } else {
-      rooms = <li className='white'><div id='name' className="collapsible-header">Your rooms will appear here</div><div className="edit grey-text text-lighten-1"></div></li>
     }
 
     return (

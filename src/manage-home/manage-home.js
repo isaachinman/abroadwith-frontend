@@ -5,7 +5,7 @@ var ManageHomeContainer = require('./components/manage-home-container.react');
 
 
 if ($('#manage-home-container').length) {
-  // Search parent
+  // Manage home parent
   ReactDOM.render(
     <ManageHomeContainer
       source='backend/manage-home/manage-home'

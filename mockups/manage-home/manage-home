@@ -95,7 +95,7 @@
         "DESK"
       ],
       "shared":false,
-      "img":"/rooms/12345.jpg",
+      "img":"http://foto.hrsstatic.com/fotos/0/3/256/256/80/000000/http%3A%2F%2Ffoto-origin.hrsstatic.com%2Ffoto%2F4%2F4%2F7%2F3%2F447376%2F447376_z_6798931.jpg/Fr%2BvmEtD6c%2BidoQYoCK0eA%3D%3D/472,320/6/Upper_Room-Berlin-Standardzimmer-5-447376.jpg",
       "description":"lorem ipsum.",
       "price":150
     }

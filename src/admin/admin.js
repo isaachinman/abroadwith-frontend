@@ -5,7 +5,7 @@ var AdminEdit = require('./components/admin-edit.react');
 
 
 if ($('#admin-edit').length) {
-  // Search parent
+  // Admin parent
   ReactDOM.render(
     <AdminEdit
       source='backend/user-edit/user-edit'

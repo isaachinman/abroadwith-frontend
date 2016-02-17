@@ -44,10 +44,10 @@ module.exports = React.createClass({
       // Modify home object, using new immersions object
       if (typeof homeObj !== 'undefined') {
         homeObj.immersions = newImmersionsObj;
-      }
 
-      // POST new home object
-      Materialize.toast('Immersions updated', 4000);
+        // POST new home object
+        Materialize.toast('Immersions updated', 4000);
+      }
 
     }
 
@@ -94,14 +94,12 @@ module.exports = React.createClass({
       if (this.props.immersions.stay) {
         $('#stay-hours').val(this.props.immersions.stay.hours);
         $('#stay-languages-offered').val(this.props.immersions.stay.languagesOffered);
-        $('#stay-languages-offered').material_select();
       }
 
       // Tandem vars
       if (this.props.immersions.tandem) {
         $('#tandem-hours').val(this.props.immersions.tandem.hours);
         $('#tandem-languages-offered').val(this.props.immersions.tandem.languagesOffered);
-        $('#tandem-languages-offered').material_select();
         var tandemLanguagesInterested = this.props.immersions.tandem.languagesInterested;
       }
 
@@ -120,10 +118,8 @@ module.exports = React.createClass({
 
         $('#teacher-rate').val(this.props.immersions.teacher.hourly + this.props.currency);
         $('#packages').val(this.props.immersions.teacher.packages);
-        $('#packages').material_select();
         $('#material-costs').val(this.props.immersions.teacher.materials + this.props.currency);
         $('#teacher-languages-offered').val(this.props.immersions.teacher.languagesOffered);
-        $('#teacher-languages-offered').material_select();
 
       }
 

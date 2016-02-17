@@ -9,8 +9,6 @@ module.exports = React.createClass({
       // Parse the response
       var response = JSON.parse(data);
 
-      console.log(response);
-
       // Basics tab
       $('#firstName').val(response.firstName);
       $('#lastName').val(response.lastName);
@@ -60,7 +58,7 @@ module.exports = React.createClass({
           paymentMethods={this.state.paymentMethods}
           payoutMethods={this.state.payoutMethods}
           />
-      </div>
+       </div>
 
     )
   }

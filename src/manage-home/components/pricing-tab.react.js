@@ -1,7 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var RoomPriceModule = require('./room-price-module.react')
-var TandemDiscountModule = require('./tandem-discount-module.react')
+var RoomPriceModule = require('./room-price-module.react');
 
 module.exports = React.createClass({
   savePricing: function() {
@@ -133,9 +132,7 @@ module.exports = React.createClass({
   render: function() {
 
     return (
-
       <div></div>
-
     );
   }
 });

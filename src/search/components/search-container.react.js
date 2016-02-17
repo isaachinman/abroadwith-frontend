@@ -9,7 +9,6 @@ var Results =         require('./search-results.react');
 var Pagination =      require('./search-pagination.react');
 var Map =             require('./search-map.react');
 
-
 module.exports = React.createClass({
   handleChange: function() {
 
@@ -107,6 +106,10 @@ module.exports = React.createClass({
       };
     }.bind(this))
   },
+  componentDidUpdate: function() {
+    // Refresh selects
+    $('select.material').material_select();
+  },
   componentDidMount: function() {
 
     window.handleChange = this.handleChange;
@@ -161,12 +164,12 @@ module.exports = React.createClass({
           minPrice={this.state.minPrice}
           maxPrice={this.state.maxPrice}
           handleChange={this.handleChange}
+          currency={this.state.currency}
         />
 
         <LanguageCourse
           course={this.state.course}
         />
-
 
         <MoreFilters
           specialPrefs={this.state.specialPrefs}

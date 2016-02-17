@@ -1,49 +1,36 @@
-if ($('#login-modal').length) {
+if ($('#login-modal-btn').length) {
 
+  $('#login-modal-btn').click(function() {
 
-    $('#login-modal-btn').click(function() {
+    var email = $('#login-modal-email').val();
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-      var email = $('#login-modal-email').val();
+    if (re.test(email) === true) {
 
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      $('#preloader').removeClass('hide');
 
+      var password = $('#login-modal-password').val();
 
-      if (re.test(email) === true) {
+      var loginObj = {};
+      loginObj.email = email;
+      loginObj.password = password;
 
-        $('#preloader').removeClass('hide');
+      $.ajax({
+          type: "POST",
+          url: '/users/login',
+          dataType: 'JSON',
+          data: JSON.stringify(loginObj),
+          success: function (JWT) {
 
-        var password = $('#login-modal-password').val();
+            localStorage.setItem('JWT', JWT.token)
 
-        var loginObj = {};
-        loginObj.email = email;
-        loginObj.password = password;
+            $('#preloader').addClass('hide');
+            var retrievedJWT = localStorage.getItem('JWT')
+            console.log(retrievedJWT);
 
-        $.ajax({
-            type: "POST",
-            url: '/users/login',
-            dataType: 'JSON',
-            data: JSON.stringify(loginObj),
-            success: function (JWT) {
+          }
+      })
 
-              localStorage.setItem('JWT', JWT.token)
-
-              setTimeout(function() {
-                $('#preloader').addClass('hide');
-                var retrievedJWT = localStorage.getItem('JWT')
-                console.log(retrievedJWT);
-              }, 1000)
-
-            }
-        })
-
-      }
-
-
-
-
-
-    })
-
-
-
+    }
+  })
 }

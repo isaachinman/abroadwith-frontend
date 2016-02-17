@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 module.exports = React.createClass({
-  handleClick: function() {
+  deletePhoto: function() {
 
     // Send deletion request to API, then reload state upon success
     Materialize.toast('Photo deleted', 4000);
@@ -16,7 +16,7 @@ module.exports = React.createClass({
           <div className="card-image">
             <img src={this.props.src}></img>
           </div>
-          <a className='delete' onClick={this.handleClick}><i className="fa fa-times fa-2x"></i></a>
+          <a className='delete' onClick={this.deletePhoto}><i className="fa fa-times fa-2x"></i></a>
         </div>
       </div>
 

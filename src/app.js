@@ -31,6 +31,3 @@ require('./users-edit/users-edit');
 
 // Admin
 require('./admin/admin');
-
-// Facebook scripts
-require('./global/facebook');

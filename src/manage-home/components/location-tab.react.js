@@ -2,6 +2,9 @@ var React = require('react');
 
 module.exports = React.createClass({
   componentDidMount: function() {
+    window.mapLat;
+    window.mapLng;
+    window.mapZoom;
   },
   saveLocation: function() {
 
@@ -15,9 +18,6 @@ module.exports = React.createClass({
 
   },
   componentDidUpdate: function() {
-    window.mapLat;
-    window.mapLng;
-    window.mapZoom;
 
     if (this.props.location) {
 
@@ -144,10 +144,7 @@ module.exports = React.createClass({
       initAutocomplete();
     }
 
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete';
-    $("#location").append(script);
+    $.getScript( "https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete", function() {});
 
     $('a#save-location').click(this.saveLocation);
 

@@ -5,7 +5,7 @@ module.exports = React.createClass({
     return (
 
       <li className="collection-item avatar room" data-id={this.props.id}>
-        <img src="https://www.hochschober.com/fileadmin/_processed_/csm__DSC9095_ced629437d.jpg" alt="" className="circle"></img>
+        <img src={this.props.img} alt="" className="circle"></img>
         <span className="title">{this.props.roomName}</span>
         <p className='light'>
           {this.props.bed}

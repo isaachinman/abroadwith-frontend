@@ -2,63 +2,47 @@
 if ($('select#learning-language').length) {
   $('select#learning-language').select2();
 }
-if ($('a#add-learning-language').length) {
-  $('a#add-learning-language').click(function() {
-
-    var chipContainer = $('#language-learning-chips');
-    var languageLearning = $('#learning-language');
-    var languageLevel = $('#learning-level');
-    var languageCode = $('#learning-language option:selected').attr('data-lang');
-    var levelCode =  $('#learning-level option:selected').attr('data-level');
-
-    if (languageLearning.val() != '' && languageLevel.val() != '' && $('.chip[data-lang="'+languageCode+'"]').length <= 0) {
-
-      // Remove initial chip
-      if (chipContainer.find($('.initial').length)) {
-        chipContainer.find($('.initial')).remove();
-      }
-
-      var newLanguage = '<div class="language-learning-chip chip" data-lang="' + languageCode + '" data-level="' + levelCode + '">' + languageLearning.val() + ' (' + languageLevel.val() + ')<i class="material-icons">close</i></div>'
-      chipContainer.append(newLanguage);
-
-      languageLearning.select2('val', '');
-      languageLearning.val('');
-      languageLevel.val('');
-      languageLevel.material_select();
-
-    }
-  })
-}
 
 // Language-known select
 if ($('select#known-language').length) {
   $('select#known-language').select2();
 }
+
+// Process language chips
+function processLanguageChip(k) {
+
+  var container = $('#language-'+k+'-chips');
+  var language = $('#'+k+'-language');
+  var level = $('#'+k+'-level');
+  var langCode = $('#'+k+'-language option:selected').attr('data-lang');
+  var levelCode = $('#'+k+'-level option:selected').attr('data-level');
+
+  if (language.val() !== '' && level.val() !== '' && $('.chip[data-lang="'+langCode+'"]').length <= 0) {
+
+    if (container.find($('.initial').length)) {
+      container.find($('.initial')).remove();
+    }
+
+    container.append('<div class="language-'+k+'-chip chip" data-lang="'+langCode+'" data-level="'+levelCode+'">'+language.val()+' ('+level.val()+')<i class="material-icons">close</i></div>');
+
+    language.select2('val', '');
+    language.val('');
+    level.val('');
+    level.material_select();
+
+  }
+
+}
+
+if ($('a#add-learning-language').length) {
+  $('a#add-learning-language').click(function() {
+    processLanguageChip('learning');
+  })
+}
+
 if ($('a#add-known-language').length) {
   $('a#add-known-language').click(function() {
-
-    var chipContainer = $('#language-known-chips');
-    var languageLearning = $('#known-language');
-    var languageLevel = $('#known-level');
-    var languageCode = $('#known-language option:selected').attr('data-lang');
-    var levelCode =  $('#known-level option:selected').attr('data-level');
-
-    if (languageLearning.val() != '' && languageLevel.val() != '' && $('.chip[data-lang="'+languageCode+'"]').length <= 0) {
-
-      // Remove initial chip
-      if (chipContainer.find($('.initial').length)) {
-        chipContainer.find($('.initial')).remove();
-      }
-
-      var newLanguage = '<div class="language-known-chip chip" data-lang="' + languageCode + '" data-level="' + levelCode + '">' + languageLearning.val() + ' (' + languageLevel.val() + ')<i class="material-icons">close</i></div>'
-      chipContainer.append(newLanguage);
-
-      languageLearning.select2('val', '');
-      languageLearning.val('');
-      languageLevel.val('');
-      languageLevel.material_select();
-
-    }
+    processLanguageChip('known');
   })
 }
 
@@ -68,20 +52,22 @@ if ($('form#signup').length) {
   // Create signup object
   newUser = {};
 
-  // Get date for 18 years ago
-  var eighteenYearsAgo = new Date();
-  eighteenYearsAgo.setTime(eighteenYearsAgo.valueOf() - 18 * 365 * 24 * 60 * 60 * 1000);
-  require('../../src/utils/date-object-to-yyyymmdd');
-  eighteenYearsAgo = eighteenYearsAgo.yyyymmdd();
-
   // Birthday datepicker
   if ($('.datepicker-birthday').length) {
+
+    // Get date for 18 years ago
+    var eighteenYearsAgo = new Date();
+    eighteenYearsAgo.setTime(eighteenYearsAgo.valueOf() - 18 * 365 * 24 * 60 * 60 * 1000);
+    require('../../src/utils/date-object-to-yyyymmdd');
+    eighteenYearsAgo = eighteenYearsAgo.yyyymmdd();
+
     $('.datepicker-birthday').pickadate({
       max: eighteenYearsAgo,
       container: 'body',
       selectYears: true,
       format: 'yyyy-mm-dd'
     });
+
   }
 
   //  Initialise and setup Facebook js sdk
@@ -92,8 +78,6 @@ if ($('form#signup').length) {
       version    : 'v2.5'
     });
   };
-
-  // More Facebook init stuff
   (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
@@ -133,8 +117,6 @@ if ($('form#signup').length) {
      newUser["lastName"] = profile.getFamilyName();
      newUser["email"] = profile.getEmail();
      newUser["birthDate"] = eighteenYearsAgo;
-     var letsSee = JSON.stringify(newUser);
-     console.log(letsSee);
    }
 
   // Set permanent vars
@@ -181,8 +163,6 @@ if ($('form#signup').length) {
 
       }
 
-      console.log(newUser);
-
       $('#choose-languages-modal').closeModal();
       $('#sign-up-modal').openModal();
 
@@ -197,6 +177,7 @@ if ($('form#signup').length) {
     applyLanguages();
   });
 
+  // Email signup process
   emailSignup.click(function() {
 
     if ($('form#signup input').length && $('input#birthday').val() != undefined) {
@@ -224,9 +205,8 @@ if ($('form#signup').length) {
       }
 
       // If form is valid, POST object
-      if (formValid == true) {
-        var letsSee = JSON.stringify(newUser);
-        console.log(letsSee);
+      if (formValid === true) {
+        validateUserAndSend()
       }
 
     } else {
@@ -236,23 +216,37 @@ if ($('form#signup').length) {
   });
 
   function validateUserAndSend() {
-    if (
-      newUser.hasOwnProperty('firstName')
-      && newUser.hasOwnProperty('lastName')
-      && newUser.hasOwnProperty('email')
-      && newUser.hasOwnProperty('birthDate')
-    ) {
+    if (newUser.hasOwnProperty('firstName') && newUser.hasOwnProperty('lastName') && newUser.hasOwnProperty('email') && newUser.hasOwnProperty('birthDate')) {
+
+      var loginObj = {
+        "email":newUser.email,
+        "password":newUser.password
+      }
+
       $.ajax({
-         url: 'https://admin.abroadwith.com/users',
-         processData: false,
-         type: "POST",
-         success: function(response){
-           location.reload();
-         },
-         error: function(response) {
-           alert('Something went wrong');
-           console.log(response);
-         }
+        type: "POST",
+        url: '/users',
+        dataType: 'JSON',
+        data: JSON.stringify(newUser),
+        processData: false,
+        success: function(){
+
+          $.ajax({
+          type: "POST",
+          url: '/users/login',
+          dataType: 'JSON',
+          data: JSON.stringify(loginObj),
+          success: function (JWT) {
+
+            localStorage.setItem('JWT', JWT.token)
+
+          }
+        })
+
+        },
+        error: function(response) {
+          // Something went wrong
+        }
       });
     }
   }

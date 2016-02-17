@@ -37,7 +37,6 @@ module.exports = React.createClass({
 
     }
 
-
     if (this.props.languagesLearning) {
 
       var languagesLearning = this.props.paymentMethods;
@@ -60,10 +59,7 @@ module.exports = React.createClass({
         <LanguagesKnownContainer
         />, document.querySelector('#language-known-chips')
       )
-
     }
-
-
 
     return (
       <div></div>

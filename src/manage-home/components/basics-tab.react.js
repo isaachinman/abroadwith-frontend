@@ -16,12 +16,15 @@ module.exports = React.createClass({
 
     // Modify home object, using new basics object
     if (typeof homeObj !== 'undefined') {
+
       console.log(newBasicsObj)
       homeObj.basics = newBasicsObj;
+
+      // POST new home object
+      Materialize.toast('Basics updated', 4000);
     }
 
-    // POST new home object
-    Materialize.toast('Basics updated', 4000);
+
 
   },
   componentDidUpdate: function() {
@@ -37,16 +40,6 @@ module.exports = React.createClass({
       $('#extras').val(this.props.basics.EXTRAS)
       $('#family').prop('checked', this.props.basics.family);
       $('#preferences').val(this.props.basics.PREFERENCES)
-
-      // Refresh selects
-      $('#home-type').material_select();
-      $('#safety').material_select();
-      $('#amenities').material_select();
-      $('#meal-plan').material_select();
-      $('#food-option').material_select();
-      $('#extras').material_select();
-      $('#preferences').material_select();
-
 
     }
 
