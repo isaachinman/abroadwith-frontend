@@ -211,7 +211,6 @@ if ($('form#signup').length) {
           newUser[input.name] = input.value;
           formValid = true;
         } else {
-          console.log('tripping')
           formNotValid();
           break;
         }

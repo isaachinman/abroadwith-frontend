@@ -2,21 +2,16 @@
   "firstName":"Isaac",
   "lastName":"Hinman",
   "email":"isaac@abroadwith.com",
-  "isEmailVerified": false,
-  "birthDate":[
-    1993,
-    5,
-    2
-  ],
+  "birthDate":"1993-05-18",
   "userKnownLanguages":[
     {
-      "language": "en",
+      "language": "spa",
       "level": "MOTHER_TONGUE"
     }
   ],
   "userLearningLanguages":[
     {
-      "language": "de",
+      "language": "eng",
       "level": "BEGINNER"
     }
   ],
