@@ -20,7 +20,7 @@ $(document).ready(function() {
   // Select2 language to learn
   if ($('select#language').length) {
     $("select#language").select2({
-      placeholder: "What are you learning?"
+      placeholder: "What language are you learning?"
     });
   }
 
