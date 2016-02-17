@@ -1,4 +1,20 @@
 <div id="log-in-modal" class="modal center-align">
+
+  <div class='preloader-container'>
+    <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="modal-content">
     <h4>Log in</h4>
 
@@ -10,19 +26,19 @@
           <div class='row section'>
 
             <div class='input-field col s12 m6 offset-m3 l6 offset-l3'>
-              <input id="email" type="email" class="validate no-margin">
+              <input id="login-modal-email" type="email" class="validate no-margin">
               <label for="email">Email</label>
             </div>
 
             <div class="input-field col s12 m6 offset-m3 l6 offset-l3">
-              <input id="password" type="password" class="validate no-margin">
+              <input id="login-modal-password" type="password" class="validate no-margin">
               <label for="password">Password</label>
             </div>
 
           </div>
 
           <div class='row'>
-            <a class='btn btn-primary'>Log in</a>
+            <a id='login-modal-btn' class='btn btn-primary'>Log in</a>
           </div>
 
           <div class='row section'>
@@ -54,7 +70,5 @@
     </ul>
 
   </div>
-
-</div>
 
 </div>

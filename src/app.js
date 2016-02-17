@@ -5,7 +5,6 @@ var select2 = require('select2-browserify');
 
 require('materialize');
 
-
 // Home page
 require('./main/main');
 
@@ -14,6 +13,9 @@ require('./search/search');
 
 // Signup
 require('./global/signup');
+
+// Modals
+require('./partials/modals/1_login/log-in-modal.js')
 
 // Manage home
 require('./manage-home/manage-home');
