@@ -9,6 +9,55 @@
     margin-top: 20vh;
     padding: 25px 10px 5px 10px;
     background: rgba(50,50,50,.65);
+    .language {
+      width: calc(100% - 680px);
+    }
+    .location {
+      max-width: 160px;
+    }
+    .arrival {
+      max-width: 120px;
+    }
+    .departure {
+      max-width: 120px;
+    }
+    .guests {
+      max-width: 120px;
+    }
+    .search {
+      float: right;
+      width: 160px;
+    }
+    @media #{$medium-and-down} {
+      .language {
+        width: calc(100% - 390px);
+      }
+      .location {
+        max-width: 100px;
+      }
+      .arrival {
+        max-width: 80px;
+      }
+      .departure {
+        max-width: 90px;
+      }
+      .search {
+        float: right;
+        width: 120px;
+      }
+    }
+    @media #{$small-and-down} {
+      .language {
+        width: calc(100% - 220px);
+      }
+      .location {
+        max-width: 100px;
+      }
+      .search {
+        float: right;
+        width: 120px;
+      }
+    }
     a.btn {
       margin-left: 0;
       height: 3rem;
@@ -20,9 +69,6 @@
       -moz-border-radius-bottomleft: 0;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-      @media #{$medium-and-down} {
-        border-radius: 0;
-      }
     }
     .border-radius-left {
       -webkit-border-top-left-radius: 3px;

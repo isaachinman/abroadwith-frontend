@@ -1,9 +1,11 @@
-<div id="payments" class="col s12 m10 offset-m1 l10 offset-l1" style='display:none'>
+<div id="payments" class="col s12 m10 offset-m1 l10 offset-l1">
+
+  <div id='client-token' data-token={{tokens.braintree}}></div>
 
   <div class='admin-block admin-block--no-save'>
 
     <div class='row'>
-      <h4>Let's talk money {{tokens.braintree}}</h4>
+      <h4>Let's talk money</h4>
     </div>
 
     <div class='row'>
@@ -26,11 +28,11 @@
 
     </div>
 
-    <div class='row no-margin-bottom'>
+    <div class='row no-margin-bottom payouts hide'>
 
       <ul class="collapsible rooms-collapsible" data-collapsible="accordion">
         <li class='white'>
-          <div class="collapsible-header">
+          <div class="collapsible-header active">
             Payout methods
           </div>
           <div class="edit grey-text text-lighten-1">
@@ -38,37 +40,7 @@
           </div>
           <div class="collapsible-body">
 
-            <div class='row'>
-              <div class='col s4'>
-                <div class='payment-method'>
-                  <div class='number'>
-                    XXXXXXXX2001
-                  </div>
-                  <div class='secondary'>
-                    01-30-99
-                  </div>
-                  <div class='actions'>
-                    <a>Set as default</a>
-                    <a>Remove</a>
-                  </div>
-                  <div class='type'>
-                    BANK
-                  </div>
-                </div>
-              </div>
-              <div class='col s4'>
-                <div class='add-payment'>
-                  <a class='overlay'></a>
-                  <div class='add'>
-                    +
-                  </div>
-                  <div class='text'>
-                    Add new payout method
-                  </div>
-                </div>
-              </div>
-
-            </div>
+            <div id='existing-payout-methods' class='row'></div>
 
           </div>
         </li>

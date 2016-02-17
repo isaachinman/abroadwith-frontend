@@ -2,7 +2,6 @@ var React = require('react');
 
 module.exports = React.createClass({
   render: function() {
-
     if (this.props.default === true) {
       var defaultHTML = <div className='default-payment-overlay'></div>;
       var defaultText = 'Default';
@@ -10,7 +9,6 @@ module.exports = React.createClass({
       var defaultHTML = null;
       var defaultText = <a>Set as default</a>;
     }
-
     return (
       <div className='col s12 m6 l4'>
         <div className='payment-method'>
@@ -19,14 +17,14 @@ module.exports = React.createClass({
             <span className='grey-text'>XXXXXXXXXXXX</span>{this.props.lastFour}
           </div>
           <div className='secondary grey-text'>
-            {this.props.expiry}
+            Bank account
           </div>
           <div className='actions'>
             {defaultText}
             <a>Remove</a>
           </div>
           <div className='type'>
-            <i className="fa fa-cc-visa"></i>
+            <i className="fa fa-university"></i>
           </div>
         </div>
       </div>

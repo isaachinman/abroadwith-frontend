@@ -213,10 +213,12 @@
 
                 <div class='section'>
                   <div class="input-field">
-                    <select id='countries-lived' multiple placeholder='Eg. Spain'>
+                    <select id='countries-lived' multiple data-placeholder='Eg. Spain' data-allow-clear='true'>
+                      <option></option>
                       {% for code, country in translations.countries %}
                         <option value={{code}}>
                           {{country}}
+                          <span class='close'><i class="fa fa-times"></i></span>
                         </option>
                       {% endfor %}
                     </select>

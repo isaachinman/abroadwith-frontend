@@ -18,7 +18,7 @@
         </div>
       </div>
       <!-- languages to learn -->
-      <div class='col s4 offset-s1'>
+      <div class='col s4 offset-s1 input-field'>
         <select id="language-learning" type="text" class="validate no-margin">
           <option></option>
           {% for langCode, language in translations.languages %}
@@ -26,7 +26,7 @@
           {% endfor %}
         </select>
       </div>
-      <div class='col s4'>
+      <div class='col s3 input-field'>
         <select id="language-level" type="text" class="validate no-margin">
           <option></option>
           {% for levelCode, level in translations.common.levels %}
@@ -35,8 +35,8 @@
         </select>
       </div>
 
-      <div class='col s3'>
-        <a id='add-language' class='btn-floating'>+</a>
+      <div class='col s4 input-field'>
+        <a id='add-language' class='btn-flat btn-secondary'>Add language</a>
       </div>
     </div>
 

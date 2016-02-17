@@ -44,7 +44,9 @@ module.exports = React.createClass({
 
     // Select2
     $("select#countries-visited").select2();
-    $("select#countries-lived").select2();
+    $("select#countries-lived").select2({
+      allowClear: true
+    });
 
   },
   render: function() {

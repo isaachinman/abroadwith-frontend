@@ -25,14 +25,14 @@
   "paymentMethods":[
     {
       "default":true,
-      "type":"card",
+      "type":"CARD",
       "lastFour":2001,
       "expiry":"12/2018",
       "cardHolder":"Isaac Hinman"
     },
     {
       "default":false,
-      "type":"paypal",
+      "type":"PAYPAL",
       "email":"isaac@abroadwith.com"
     }
   ],
@@ -40,12 +40,13 @@
     {
       "default":true,
       "type":"bank",
-      "lastFour":1001
+      "lastFour":1001,
+      "approved":true
     },
     {
       "default":false,
       "type":"paypal",
-      "email":"isaac@abroadwith.com"
+      "email":"guy@example.com"
     }
   ],
   "verifications":{

@@ -7,27 +7,25 @@
         <div class="collapsible-header active">Email</div>
         <div class="collapsible-body">
 
-          <div class='row'>
+          <div class='row section'>
 
-            <form>
+            <div class='input-field col s12 m6 offset-m3 l6 offset-l3'>
+              <input id="email" type="email" class="validate no-margin">
+              <label for="email">Email</label>
+            </div>
 
-              <div class='input-field col s10 offset-s1'>
-                <input id="email" type="email" class="validate no-margin">
-                <label for="email">Email</label>
-              </div>
-
-              <div class="input-field col s10 offset-s1">
-                <input id="password" type="password" class="validate no-margin">
-                <label for="password">Password</label>
-              </div>
-
-              <a class='btn'>Log in</a>
-
-            </form>
+            <div class="input-field col s12 m6 offset-m3 l6 offset-l3">
+              <input id="password" type="password" class="validate no-margin">
+              <label for="password">Password</label>
+            </div>
 
           </div>
 
           <div class='row'>
+            <a class='btn btn-primary'>Log in</a>
+          </div>
+
+          <div class='row section'>
 
             <div class='col s10 offset-s1 grey-text'>
               Don’t have an account yet? <a href='#' onclick="$('#log-in-modal').closeModal();$('#sign-up-modal').openModal()">Sign up</a>

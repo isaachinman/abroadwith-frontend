@@ -1,4 +1,5 @@
 var React = require('react');
+require('iban')
 
 module.exports = React.createClass({
   componentDidUpdate: function() {
