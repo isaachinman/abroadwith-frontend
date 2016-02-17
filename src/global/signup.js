@@ -1,96 +1,69 @@
 // Language-learn select
-if ($('select#language-learning').length) {
-  $('select#language-learning').select2({
-    placeholder: "Pick a language"
-  });
+if ($('select#learning-language').length) {
+  $('select#learning-language').select2();
 }
+if ($('a#add-learning-language').length) {
+  $('a#add-learning-language').click(function() {
 
-// Level select
-if ($('select#language-level').length) {
-  $('select#language-level').select2({
-    placeholder: "Choose a level"
-  });
-}
+    var chipContainer = $('#language-learning-chips');
+    var languageLearning = $('#learning-language');
+    var languageLevel = $('#learning-level');
+    var languageCode = $('#learning-language option:selected').attr('data-lang');
+    var levelCode =  $('#learning-level option:selected').attr('data-level');
 
-// Language-known select
-if ($('select#language-known').length) {
-  $('select#language-known').select2({
-    placeholder: "Pick a language"
-  });
-}
+    if (languageLearning.val() != '' && languageLevel.val() != '' && $('.chip[data-lang="'+languageCode+'"]').length <= 0) {
 
-// Add language-learn click handler
-if ($('a#add-language').length && $('#language-learning').length && $('#language-level').length && $('#language-chips').length) {
-
-  $(function() {
-
-    // Set permanent vars
-    var addLanguage = $('a#add-language');
-    var chipContainer = $('#language-chips');
-    var languageLearning = $('#language-learning');
-    var levelLearning =  $('#language-level');
-
-    addLanguage.click(function() {
-
-      // Set conditional vars
-      var languageCode = $('#language-learning option:selected').attr('data-lang');
-      var levelCode =  $('#language-level option:selected').attr('data-level');
-
-      if (languageLearning.val() != '' && levelLearning.val() != '' && $('.chip[data-lang="'+languageCode+'"]').length <= 0) {
-
-        // Remove initial chip
-        if ($('#language-chips').find($('.initial').length)) {
-          $('#language-chips').find($('.initial')).remove();
-        }
-
-        var newLanguage = '<div class="language-chip chip" data-lang="' + languageCode + '" data-level="' + levelCode + '">' + languageLearning.val() + ' (' + levelLearning.val() + ')<i class="material-icons">close</i></div>'
-        chipContainer.append(newLanguage);
-
-        languageLearning.select2('val', '');
-        languageLearning.val('');
-        levelLearning.select2('val', '');
-        levelLearning.val('');
-
+      // Remove initial chip
+      if (chipContainer.find($('.initial').length)) {
+        chipContainer.find($('.initial')).remove();
       }
-    })
+
+      var newLanguage = '<div class="language-learning-chip chip" data-lang="' + languageCode + '" data-level="' + levelCode + '">' + languageLearning.val() + ' (' + languageLevel.val() + ')<i class="material-icons">close</i></div>'
+      chipContainer.append(newLanguage);
+
+      languageLearning.select2('val', '');
+      languageLearning.val('');
+      languageLevel.val('');
+      languageLevel.material_select();
+
+    }
   })
 }
 
-// Language known click handler
-if ($('a#add-language-known').length && $('#language-known').length && $('#language-known-chips').length) {
+// Language-known select
+if ($('select#known-language').length) {
+  $('select#known-language').select2();
+}
+if ($('a#add-known-language').length) {
+  $('a#add-known-language').click(function() {
 
-  $(function() {
-
-    // Set permanent vars
-    var addLanguage = $('a#add-language-known');
     var chipContainer = $('#language-known-chips');
-    var languageKnown = $('#language-known');
+    var languageLearning = $('#known-language');
+    var languageLevel = $('#known-level');
+    var languageCode = $('#known-language option:selected').attr('data-lang');
+    var levelCode =  $('#known-level option:selected').attr('data-level');
 
-    addLanguage.click(function() {
+    if (languageLearning.val() != '' && languageLevel.val() != '' && $('.chip[data-lang="'+languageCode+'"]').length <= 0) {
 
-      // Set conditional vars
-      var languageKnownCode = $('#language-known option:selected').attr('data-lang');
-
-      if (languageKnown.val() != '' && $('.chip[data-lang="'+languageKnownCode+'"]').length <= 0) {
-
-        // Remove initial chip
-        if ($('#language-known-chips').find($('.initial').length)) {
-          $('#language-known-chips').find($('.initial')).remove();
-        }
-
-        var newLanguage = '<div class="language-known chip" data-lang="' + languageKnownCode + '">' + languageKnown.val() + ' (Native)<i class="material-icons">close</i></div>'
-        chipContainer.append(newLanguage);
-
-        languageKnown.select2('val', '');
-        languageKnown.val('');
-
+      // Remove initial chip
+      if (chipContainer.find($('.initial').length)) {
+        chipContainer.find($('.initial')).remove();
       }
-    })
+
+      var newLanguage = '<div class="language-known-chip chip" data-lang="' + languageCode + '" data-level="' + levelCode + '">' + languageLearning.val() + ' (' + languageLevel.val() + ')<i class="material-icons">close</i></div>'
+      chipContainer.append(newLanguage);
+
+      languageLearning.select2('val', '');
+      languageLearning.val('');
+      languageLevel.val('');
+      languageLevel.material_select();
+
+    }
   })
 }
 
 // Form submit
-if ($('form#signup').length && $('a#create-user').length && $('#not-valid').length) {
+if ($('form#signup').length) {
 
   // Create signup object
   newUser = {};
@@ -177,7 +150,52 @@ if ($('form#signup').length && $('a#create-user').length && $('#not-valid').leng
     formValid = false;
   }
 
-  require('./language-chips.js');
+  // Language submit
+  function applyLanguages() {
+
+    if ($('#language-known-chips').find('.language-known-chip').length) {
+
+      // Mandatory known languages
+      newUser["userKnownLanguages"] = [];
+
+      // Get native languages
+      $('.language-known-chip').each(function() {
+        var newLanguageKnown = {
+          "language": $(this).attr('data-lang'),
+          "level": $(this).attr('data-level')
+        }
+        newUser.userKnownLanguages.push(newLanguageKnown);
+      })
+
+      // Get learning languages
+      if ($('#language-learning-chips').find('.language-learning-chip').length) {
+
+        newUser["userLearningLanguages"] = [];
+        $('.language-learning-chip').each(function() {
+          var newLanguage = {
+            "language": $(this).attr('data-lang'),
+            "level": $(this).attr('data-level')
+          }
+          newUser.userLearningLanguages.push(newLanguage);
+        })
+
+      }
+
+      console.log(newUser);
+
+      $('#choose-languages-modal').closeModal();
+      $('#sign-up-modal').openModal();
+
+    } else {
+      if ($('#languages-not-valid').hasClass('hide')) {
+        $('#languages-not-valid').removeClass('hide');
+      }
+    }
+  }
+
+  $('#apply-languages').click(function() {
+    applyLanguages();
+  });
 
   emailSignup.click(function() {
 

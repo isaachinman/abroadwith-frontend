@@ -15,7 +15,7 @@ require('./search/search');
 require('./global/signup');
 
 // Modals
-require('./partials/modals/1_login/log-in-modal.js')
+require('./partials/modals/1_login/login-modal.js')
 
 // Manage home
 require('./manage-home/manage-home');

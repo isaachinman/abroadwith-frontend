@@ -3,77 +3,77 @@
 
     <h4>{{ translations.common.language_modal_title }}</h4>
 
-    <div class='divider'></div>
-
-    <div class='row'>
+    <div class='row language-section'>
 
       <div class='col s10 offset-s1 left-align grey-text'>
         <h5>{{ translations.common.languages_learning }}:</h5>
       </div>
-
-      <div id='language-chips' class='col s10 offset-s1 left-align section'>
+      <div id='language-learning-chips' class='col s10 offset-s1 left-align section'>
         <div class='chip initial'>
-          {{ translations.common.choose_one }}
+          {{ translations.common.choose_as_many_as_you_want }}
           <i class="material-icons">close</i>
         </div>
       </div>
       <!-- languages to learn -->
-      <div class='col s4 offset-s1 input-field'>
-        <select id="language-learning" type="text" class="validate no-margin">
+      <div class='col s6 m4 offset-m1 l4 offset-l1 input-field'>
+        <select id="learning-language" type="text" class="validate no-margin" data-placeholder='Language'>
           <option></option>
           {% for langCode, language in translations.languages %}
             <option data-lang={{ langCode }}>{{ language }}</option>
           {% endfor %}
         </select>
       </div>
-      <div class='col s3 input-field'>
-        <select id="language-level" type="text" class="validate no-margin">
-          <option></option>
-          {% for levelCode, level in translations.common.levels %}
+      <div class='col s6 m3 l3 input-field'>
+        <select id="learning-level" type="text" class="material validate no-margin">
+          {% for levelCode, level in translations.common.learningLevels %}
             <option data-level={{ levelCode }}>{{ level }}</option>
           {% endfor %}
         </select>
       </div>
 
-      <div class='col s4 input-field'>
-        <a id='add-language' class='btn-flat btn-secondary'>Add language</a>
+      <div class='col s12 m4 l4 input-field'>
+        <a id='add-learning-language' class='btn-floating btn-secondary'>+</a>
       </div>
+
     </div>
 
-    <div class='row section'>
+    <div class='row language-section'>
 
       <div class='col s10 offset-s1 left-align grey-text'>
         <h5>{{ translations.common.languages_known }}:</h5>
       </div>
-
       <div id='language-known-chips' class='col s10 offset-s1 left-align section'>
         <div class='chip initial'>
           {{ translations.common.choose_one }}
           <i class="material-icons">close</i>
         </div>
       </div>
-      <!-- languages known -->
-
-      <div class='col s4 offset-s1'>
-        <select id="language-known" type="text" class="validate no-margin">
+      <div class='col s6 m4 offset-m1 l4 offset-l1 input-field'>
+        <select id="known-language" type="text" class="validate no-margin" data-placeholder='Language'>
           <option></option>
           {% for langCode, language in translations.languages %}
-            <option data-lang={{ langCode }}>{{ language }}</option>
+            <option data-lang={{langCode}}>{{ language }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class='col s6 m3 l3 input-field'>
+        <select id="known-level" type="text" class="material validate no-margin">
+          {% for levelCode, level in translations.common.knownLevels %}
+            <option data-level={{ levelCode }}>{{ level }}</option>
           {% endfor %}
         </select>
       </div>
 
-      <div class='col s3 offset-s4'>
-        <a id='add-language-known' class='btn-floating'>+</a>
+      <div class='col s12 m4 l4 input-field'>
+        <a id='add-known-language' class='btn-floating btn-secondary'>+</a>
       </div>
+
     </div>
 
-    <div class='divider'></div>
-
-    <a id='apply-languages' class='btn'>Next</a>
+    <a id='apply-languages' class='btn-flat btn-primary'>Next</a>
 
     <div id='languages-not-valid' class='col s10 offset-s1 hide'>
-      <strong>Please choose at least one language to learn and one native language</strong>
+      Please choose at least one known language
     </div>
 
   </div>
