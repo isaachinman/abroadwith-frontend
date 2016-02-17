@@ -331,6 +331,8 @@ disabled look for disabled choices in the results dropdown
 
 .select2-container-multi .select2-choices .select2-search-choice {
     @extend .chip;
+    position: relative;
+    padding-right: 30px !important;
 }
 .select2-container-multi .select2-choices .select2-search-choice .select2-chosen {
     cursor: default;
@@ -408,5 +410,23 @@ disabled look for disabled choices in the results dropdown
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi)  {
   .select2-search input {
       background-position: 100% -21px !important;
+  }
+}
+
+.select2-search-choice-close {
+  position: absolute;;
+  top: 0;
+  left: auto !important;
+  right: 0px !important;
+  width: 20px;
+  height: 32px;
+  &:after {
+    position: absolute;
+    width: 10px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+    content: "x";
+    color: #ddd;
   }
 }
