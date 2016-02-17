@@ -1,58 +1,24 @@
 {
-  "firstName": "Isaac",
-  "lastName": "Hinman",
-  "email": "isaac@abroadwith.com",
+  "firstName":"Isaac",
+  "lastName":"Hinman",
+  "email":"isaac@abroadwith.com",
   "isEmailVerified": false,
-  "birthDate": [
+  "birthDate":[
     1993,
     5,
     2
   ],
-  "userKnownLanguages": [
+  "userKnownLanguages":[
     {
       "language": "en",
       "level": "MOTHER_TONGUE"
     }
   ],
-  "userLearningLanguages": [
+  "userLearningLanguages":[
     {
       "language": "de",
       "level": "BEGINNER"
     }
   ],
-  "gender": "MALE",
-  "profilePhoto": "profile.jpg",
-  "phoneNumbers": [
-    {
-      "id": 1,
-      "phoneNumber": "004917541743948",
-      "isVerified": false
-    }
-  ],
-  "addresses": [
-    {
-      "id": 1,
-      "street": "Perchel 25",
-      "city": "Matalascabrillas",
-      "postcode": "12345",
-      "country": "uk",
-      "latitude": 41.2222,
-      "longitude": 70.2222
-    }
-  ],
-  "bio": "This is a user bio",
-  "emergencyContact": {
-    "name": "Santa Claus",
-    "phone": "+180080080000",
-    "email": "santa@northpole.com",
-    "relationship": "Father"
-  },
-  "interests": [
-    {
-      "interest": "JSON"
-    },
-    {
-      "interest": "READING"
-    }
-  ]
+  "gender": "MALE"
 }
