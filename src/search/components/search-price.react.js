@@ -4,6 +4,8 @@ require('wnumb');
 module.exports = React.createClass({
   componentDidMount: function() {
 
+    console.log(this.props.currency)
+
     // Set absolute range
     var rangeStart = 0;
     var rangeEnd = 500;

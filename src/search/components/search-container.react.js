@@ -74,12 +74,14 @@ module.exports = React.createClass({
     $.post(url, function(data) {
       var response = JSON.parse(data);
 
+      var newCurrency = $('select#ui-currency').val();
+
       var newState = {
         // Set new state vars
         minPrice:         response.resultDetails.minPrice,
         maxPrice:         response.resultDetails.maxPrice,
         numberOfResults:  response.resultDetails.numberOfResults,
-        currency:         response.params.currency,
+        currency:         newCurrency,
         immersions:       response.params.immersions,
         arrival:          response.params.arrival,
         departure:        response.params.departure,
