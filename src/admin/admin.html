@@ -5,15 +5,17 @@
 <div class="row no-margin-bottom">
   <div class="col s12 no-padding-sides relative">
     <ul class="tabs">
-      <li class="tab"><a href="#basics">Basics</a></li>
+      <li class="tab"><a class='active' href="#basics">Contact</a></li>
+      <li class="tab"><a href="#languages">Languages</a></li>
       <li class="tab"><a href="#notifications">Notifications</a></li>
-      <li id='location-tab' class="tab"><a class='active' href="#payments">Payments</a></li>
+      <li id='location-tab' class="tab"><a href="#payments">Payments</a></li>
       <li class="tab"><a href="#privacy-security">Privacy & security</a></li>
       <li class="tab"><a href="#verifications">Verifications</a></li>
     </ul>
   </div>
 
   {% include "./tabs/basics-tab.html" %}
+  {% include "./tabs/languages-tab.html" %}
   {% include "./tabs/notifications-tab.html" %}
   {% include "./tabs/payments-tab.html" %}
   {% include "./tabs/privacy-security-tab.html" %}
