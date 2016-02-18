@@ -5,13 +5,13 @@
   "birthDate":"1993-05-18",
   "userKnownLanguages":[
     {
-      "language": "spa",
+      "language": "SPA",
       "level": "MOTHER_TONGUE"
     }
   ],
   "userLearningLanguages":[
     {
-      "language": "eng",
+      "language": "ENG",
       "level": "BEGINNER"
     }
   ],

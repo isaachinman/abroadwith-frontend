@@ -3,6 +3,18 @@
   "lastName":"Hinman",
   "gender":"Male",
   "birthDate":"1993-05-18",
+  "userKnownLanguages":[
+    {
+      "language": "SPA",
+      "level": "MOTHER_TONGUE"
+    }
+  ],
+  "userLearningLanguages":[
+    {
+      "language": "ENG",
+      "level": "BEGINNER"
+    }
+  ],
   "location":"Berlin, Germany",
   "phoneNumber":"+490000000000",
   "email":"isaac@abroadwith.com",
