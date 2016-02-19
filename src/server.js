@@ -11,6 +11,7 @@ var installUsers = require('./users/UsersInstaller');
 var installUserEdit = require('./users-edit/UserEditInstaller');
 var installInbox = require('./inbox/InboxInstaller');
 var installAdmin = require('./admin/AdminInstaller');
+var installTest = require('./test/TestInstaller');
 
 /** Middlewares **/
 var languageLoader = require('./global/middlewares/LanguageLoader');
@@ -28,8 +29,10 @@ app.use('/*', authentication);
 
 
 app.post('/users/login', function(req,res){
-  res.send('{"token":"eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6IkRvbiBQaW4iLCJqdGkiOiJ4WEc2SmxybmZoMWFTOFZpM3J5TTFBIiwiaWF0IjoxNDU1NzA1NDYwLCJleHAiOjE0NTU3MTI2NjAsIm5iZiI6MTQ1NTcwNTM0MCwiZW1haWwiOiJpc2FhY0BhYnJvYWR3aXRoLmNvbSIsIm5hbWUiOiJEb24gUGluIn0.jsA34gfH-y1ZYqP2q7-utvjFK5V626T2MHEjIwCkXH7UenQKgwqfEWHlZLICpzvQZBZvvbAlwcIqeEQ0QS4Mfk3iQOlm1dG5LbH1wxBFTat-ls_1BGuMHwWCQqTF4Orhy31tB9uzo6SmE8pReplJ8qyHLGZ4ndhp0OVzf3xG5W0GDKnNHEumjQcPIV5Bm2-Cp_xrUWzvuq7wj3pqztMMswKKbk2NxnB7n97wC-XwOy9uyk-7X2QIJSx5v8araZV6p8JsEeBmPMnmm3h1-B38qcOmsuNdE7jIon2rljJJBvUNhHVkJdoP2sdB8rXjk7dN4x_oqE_rUVVgyYd5Kk7Rew"}');
+  res.send('{"token":"eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoia3VrZS1TZ09OMVowdU9qdXJyMHJlZyIsImlhdCI6MTQ1NTc5ODkzNCwiZXhwIjoxNDU2NDAzNzM0LCJuYmYiOjE0NTU3OTg4MTQsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IkRvbiBQaW4iLCJyZXF1ZXN0ZXJJZCI6IkRvbiBQaW4ifQ.aG2fGqmxrt3Ol1f0-u73mCEPfZkg9_KBF13HOKWzZqB_hZg8O5WO81VCaxN5ROcopBcdOEBn5bl3UUM1WgNc9hgUveVqldtVZG3vbAU6DWulZjMMmNr4wQkXp4UiW3WLrlTO2xfUdJY7xfq0EOrweEN1sdW46GrWGZsrBIAU2MOhl_4uMDmMRvoMQCzXQCyx7mopSeMfPrMxsA9egc2_L88CNvTx5PmRuGI3j4NFunpgDSEyA5VlN4s-n-HqBC4tNnsSO7SwESY3SMLgmKubUWtbQdr0swKfyCglpQ1IINysrN8PCK6TNJQGsfsP3UpnPZRexM2fuUl4UxKiUqohow"}');
 });
+
+installTest(app);
 
 installMain(app);
 
