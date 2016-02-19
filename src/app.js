@@ -5,26 +5,6 @@ var select2 = require('select2-browserify');
 
 require('materialize');
 
-var i18next = require('i18next');
-var i18nextXHR = require('i18next-xhr-backend');
-console.log("oie");
-i18next.use(i18nextXHR).init({
-  backend:{
-    loadPath: '/locales/{{lng}}/{{ns}}.json'
-  },
-  lng: 'en',
-  fallbackLng: 'en',
-  ns:[]
-}, (err, t) => {
-  i18next.addResourceBundle('en','common',{key:"OLIE"});
-  i18next.loadNamespaces('common');
-  i18next.loadNamespaces('common');
-  i18next.loadNamespaces('newone');
-  console.log(i18next.t('common:stay_description'));
-  console.log(i18next.t('common:levels.BEGINNER'));
-  console.log(i18next.t('common:key'));
-});
-
 // Home page
 require('./main/main');
 

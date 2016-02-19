@@ -5,11 +5,8 @@ var translations = require('../utils/Translations');
 var router = express.Router();
 
 router.get('/', function (req, res) {
-  if(req.language && translations[req.language])
-    context = { translations: translations[req.language]};
-  else
-    context = { translations: translations['eng']};
-  res.send(nunjucks.render('manage-home/manage-home.html',context));
+  if(!req.context) res.status(404).send('No manage home context.');
+  res.send(nunjucks.render('manage-home/manage-home.html',req.context));
 });
 
 module.exports = router;

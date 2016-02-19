@@ -14,16 +14,12 @@
         </div>
         <div class='col s10 m2 l2 input-field'>
           <select id='home-type' class='material' value={homeType} defaultValue=''>
-            <option value="" disabled>House type</option>
-            <option value="FLAT">Flat</option>
-            <option value="HOUSE">House</option>
-            <option value="LOFT">Loft</option>
-            <option value="CABIN">Cabin</option>
-            <option value="DORM">Dorm</option>
-            <option value="CHALET">Chalet</option>
-            <option value="OTHER">Other</option>
+            <option value="" disabled>{{translations.homes.home_types_placeholder}}</option>
+            {% for home_type,_ in constants.homes.homeType %}
+              <option value="{{ home_type }}">{{ translations.homes.home_types[home_type] }}</option>
+            {% endfor %}
           </select>
-          <label>House type</label>
+          <label>{{ translations.homes.home_types_label }}</label>
         </div>
 
 
@@ -32,12 +28,12 @@
         </div>
         <div class='col s10 m3 l3 input-field'>
           <select id='safety' class='material' multiple value={safety} defaultValue={[]}>
-            <option value="" disabled>House safety</option>
-            <option value="FIRST_AID">First aid</option>
-            <option value="fireExtinguisher">Fire extinguisher</option>
-            <option value="safetyCard">Safety card</option>
+            <<option value="" disabled>{{translations.homes.home_safety_placeholder}}</option>
+            {% for home_safety,_ in constants.homes.homeSettings.SAFETY %}
+              <option value="{{ home_safety }}">{{ translations.homes.home_safety[home_safety] }}</option>
+            {% endfor %}
           </select>
-          <label>House safety</label>
+          <label>{{ translations.homes.home_safety_label }}</label>
         </div>
 
         <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>

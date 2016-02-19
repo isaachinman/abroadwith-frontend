@@ -1,0 +1,6 @@
+{
+  "homeType":{"FLAT":0, "HOUSE":1, "LOFT":2, "CABIN":3, "DORM":4,"CHALET":5,"OTHER":6},
+  "homeSettings":{
+    "SAFETY":{"FIRST_AID":0, "FIRE_EXTINGUISHER":1, "SAFETY_CARD":2}
+  }
+}
