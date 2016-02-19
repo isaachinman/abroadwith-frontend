@@ -12,8 +12,8 @@
         <div class="col language">
           <select id="language" type="text" class="validate border-radius-left">
             <option></option>
-            {% for langCode, language in translations.languages %}
-              <option data-lang={{ langCode }}>{{ language }}</option>
+            {% for langCode, language in constants.user_languages %}
+              <option data-lang={{ langCode }}>{{ translations.languages[langCode] }} ({{ language.native_name }})</option>
             {% endfor %}
           </select>
         </div>

@@ -15,7 +15,9 @@ module.exports = function (req, res, next) {
   }
   if(!req.context) req.context = {};
   req.context.translations = translations[req.language];
-  req.context.user_languages = user_languages;
-  req.context.ui_languages = ui_languages;
+  req.context.constants = {
+    user_languages: user_languages,
+    ui_languages: ui_languages
+  }
   next();
 };

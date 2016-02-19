@@ -14,7 +14,7 @@ var installAdmin = require('./admin/AdminInstaller');
 var installTest = require('./test/TestInstaller');
 
 /** Middlewares **/
-var languageLoader = require('./global/middlewares/LanguageLoader');
+var contextLoader = require('./global/middlewares/ContextLoader');
 var authentication = require('./global/middlewares/Authentication');
 
 var app = express();
@@ -23,7 +23,7 @@ nunjucks.configure('src',{watch:true});
 
 app.use(express.static('build'));
 
-app.use('/*', languageLoader);
+app.use('/*', contextLoader);
 
 app.use('/*', authentication);
 
@@ -45,7 +45,6 @@ installUserEdit(app);
 installInbox(app);
 
 installAdmin(app);
-
 
 app.use('/search',searchRouter);
 
