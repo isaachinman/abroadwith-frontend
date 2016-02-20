@@ -3,20 +3,20 @@
   <div class='manage-home-block'>
 
     <div class='row'>
-      <h4>What immersions do you want to offer?</h4>
+      <h4>{{ translations.manage_home.immersions_tabname }}</h4>
     </div>
 
     <ul class="collapsible immersions-collapsible" data-collapsible="accordion">
       <li>
         <div class="collapsible-header">
-          Stay
+          {{ translations.immersions.Stay }}
         </div>
         <div class="switch switch-absolute">
           <label>
-            No
+            {{ translations.common.words.No }}
             <input id='stay-switch' type="checkbox" class='immersion-switch' />
             <span class="lever"></span>
-            Yes
+            {{ translations.common.words.Yes }}
           </label>
         </div>
         <div class="collapsible-body">
@@ -28,7 +28,7 @@
             </div>
             <div class='col s10 m4 l4 input-field'>
               <select id='stay-hours' class='material'>
-                <option value="" disabled>Hours per week</option>
+                <option value="" disabled>{{ translations.immersions.hours_per_week_placeholder }}</option>
                 <option value="7">7</option>
                 <option value="8">8</option>
                 <option value="9">9</option>
@@ -45,7 +45,7 @@
                 <option value="14">20</option>
                 <option value="14">21</option>
               </select>
-              <label>Hours per week</label>
+              <label>{{ translations.immersions.hours_per_week_label }}</label>
             </div>
 
             <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
@@ -53,13 +53,13 @@
             </div>
             <div class='col s10 m6 l6 input-field'>
               <select id='stay-languages-offered' class='material' multiple>
-                <option value="" disabled>Languages offered</option>
+                <option value="" disabled>{{ translations.immersions.languages_offered_placeholder }}</option>
                 <option value="ENG">English</option>
                 <option value="SPA">Spanish</option>
                 <option value="por">Portuguese</option>
 
               </select>
-              <label>Languages offered</label>
+              <label>{{ translations.immersions.languages_offered_label }}</label>
             </div>
 
           </div>
@@ -68,14 +68,14 @@
       </li>
       <li>
         <div class="collapsible-header">
-          Tandem
+          {{ translations.immersions.Tandem }}
         </div>
         <div class="switch switch-absolute">
           <label>
-            No
+            {{ translations.common.words.No }}
             <input id='tandem-switch' type="checkbox" class='immersion-switch' />
             <span class="lever"></span>
-            Yes
+            {{ translations.common.words.Yes }}
           </label>
         </div>
         <div class="collapsible-body">
@@ -86,7 +86,7 @@
             </div>
             <div class='col s10 m4 l4 input-field'>
               <select id='tandem-hours' class='material'>
-                <option value="" disabled>Hours per week</option>
+                <option value="" disabled>{{ transations.immersions.hours_per_week_placeholder }}</option>
                 <option value="7">7</option>
                 <option value="8">8</option>
                 <option value="9">9</option>
@@ -103,7 +103,7 @@
                 <option value="14">20</option>
                 <option value="14">21</option>
               </select>
-              <label>Hours per week</label>
+              <label>{{ translations.immersions.hours_per_week_label }}</label>
             </div>
 
             <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
@@ -111,13 +111,13 @@
             </div>
             <div class='col s10 m6 l6 input-field'>
               <select id='tandem-languages-offered' class='material' multiple>
-                <option value="" disabled>Languages offered</option>
+                <option value="" disabled>{{ translations.immersions.languages_offered_placeholder }}</option>
                 <option value="ENG">English</option>
                 <option value="SPA">Spanish</option>
                 <option value="por">Portuguese</option>
                 <option value="ger" disabled data-placeholder='German' data-content='<a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>'>German</option>
               </select>
-              <label>Languages offered</label>
+              <label>{{ translations.immersions.languages_offered_label }}</label>
             </div>
 
           </div>
@@ -131,14 +131,14 @@
             </div>
             <div class='col s10 m4 l4 input-field'>
               <select id="tandem-language-sought" type="text" class="validate no-margin">
-                <option></option>
+                <option>{{ translations.immersions.languages_interested_placeholder }}</option>
                 <option data-lang='eng'>English</option>
                 <option data-lang='por'>Portuguese</option>
                 <option data-lang='spa'>Spanish</option>
                 <option data-lang='ger'>German</option>
                 <option data-lang='kor'>Korean</option>
               </select>
-              <label class='active'>Language(s) sought</label>
+              <label class='active'>{{ translations.immersions.languages_interested_label }}</label>
             </div>
 
             <div class='col s2 m1 l1 input-field'>
@@ -156,14 +156,14 @@
       </li>
       <li>
         <div class="collapsible-header">
-          Teacher stay
+          {{ translations.immersions.Teachers_stay }}
         </div>
         <div class="switch switch-absolute">
           <label>
-            No
+            {{ translations.common.words.No }}
             <input id='teacher-switch' type="checkbox" class='immersion-switch' />
             <span class="lever"></span>
-            Yes
+            {{ translations.common.words.Yes }}
           </label>
         </div>
         <div class="collapsible-body">
@@ -175,12 +175,12 @@
             </div>
             <div class='col s10 m5 l5 input-field'>
               <select id='packages' class='material' multiple>
-                <option value="" disabled>Packages offered</option>
-                <option value="5">5hrs/week</option>
-                <option value="10">10hrs/week</option>
-                <option value="15">15hrs/week</option>
+                <option value="" disabled>{{ translations.immersions.packages_offered_placeholder }}</option>
+                <option value="5">5 {{ translations.immersions.hours_per_week_short }}</option>
+                <option value="10">10 {{ translations.immersions.hours_per_week_short }}</option>
+                <option value="15">15 {{ translations.immersions.hours_per_week_short }}</option>
               </select>
-              <label>Packages offered</label>
+              <label>{{ translations.immersions.packages_offered_label }}</label>
             </div>
 
             <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
@@ -188,7 +188,7 @@
             </div>
             <div class='col s10 m2 l2 input-field'>
               <input id='teacher-rate' type="text" class="validate no-margin" placeholder='€15' />
-              <label class='active'>Hourly rate</label>
+              <label class='active'>{{ translations.immersions.hourly_rate_label }}</label>
             </div>
 
             <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
@@ -196,7 +196,7 @@
             </div>
             <div class='col s10 m2 l2 input-field'>
               <input id='material-costs' type="text" class="validate no-margin" placeholder='€25' />
-              <label class='active'>Material costs</label>
+              <label class='active'>Material costs TBR</label>
             </div>
 
           </div>
@@ -209,14 +209,14 @@
             </div>
             <div class='col s10 m5 l5'>
               <select id='teacher-languages-offered' class='material' multiple>
-                <option value="" disabled>Languages offered</option>
+                <option value="" disabled>{{ translations.immersions.languages_offered_placeholder }}</option>
                 <option value="eng">English</option>
                 <option value="spa">Spanish</option>
                 <option value="por">Portuguese</option>
                 <option value="ger" disabled data-placeholder='German' data-content='<a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>'>German</option>
 
               </select>
-              <label>Languages offered</label>
+              <label>{{ translations.immersions.languages_offered_label }}</label>
             </div>
 
             <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
@@ -226,7 +226,7 @@
               <form action="#">
                 <div class="file-field input-field">
                   <div class="btn">
-                    <span><small>Upload certification</small></span>
+                    <span><small>{{ translations.manage_home.certification_upload_button }}</small></span>
                     <input type="file" />
                   </div>
                   <div class="file-path-wrapper">
@@ -245,7 +245,7 @@
 
   <div class='row'>
     <div class='col s6 offset-s3'>
-      <a id='save-immersions' class='btn btn-primary save-btn'>Save</a>
+      <a id='save-immersions' class='btn btn-primary save-btn'>{{ translations.manage_home.save_button }}</a>
     </div>
     <div class='col s3 right-align'>
       <a><i class="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>

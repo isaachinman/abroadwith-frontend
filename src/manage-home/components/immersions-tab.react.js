@@ -1,4 +1,7 @@
 var React = require('react');
+var i18n = require('../../global/components/i18n');
+
+i18n.loadNamespaces(['languages','manage_home']);
 
 module.exports = React.createClass({
   saveImmersions: function() {
@@ -56,7 +59,7 @@ module.exports = React.createClass({
 
     // Language-known select
     $('select#tandem-language-sought').select2({
-      placeholder: "Choose a language you want to learn"
+      placeholder: i18n.t('immersions:languages_interested_placeholder')
     });
 
     // Set permanent vars
@@ -76,7 +79,7 @@ module.exports = React.createClass({
           $('#tandem-language-interested-chips').find($('.initial')).remove();
         }
 
-        var newLanguage = '<div class="language-chip chip" data-lang="' + languageCode + '">' + languageLearning.val() + '<i class="material-icons">close</i></div>'
+        var newLanguage = '<div class="language-chip chip" data-lang="' + languageCode + '">' + i18n.t('languages:'+languageLearning.val().toLowerCase()) + '<i class="material-icons">close</i></div>'
         chipContainer.append(newLanguage);
 
         languageLearning.select2('val', '');
@@ -105,10 +108,10 @@ module.exports = React.createClass({
 
       var interestedLanguageChips = [];
       if (typeof tandemLanguagesInterested === 'undefined') {
-        interestedLanguageChips.push("<div class='chip initial'>Choose at least one<i class='material-icons'>close</i></div>");
+        interestedLanguageChips.push("<div class='chip initial'>"+i18n.t('manage_home:choose_at_least_one_chip')+"<i class='material-icons'>close</i></div>");
       } else {
         tandemLanguagesInterested.forEach(function(lang) {
-          interestedLanguageChips.push("<div class='chip' data-lang="+lang+">"+lang.lang+"<i class='material-icons'>close</i></div>");
+          interestedLanguageChips.push("<div class='chip' data-lang="+lang+">"+ i18n.t('languages:'+lang.lang.toLowerCase()) +"<i class='material-icons'>close</i></div>");
         })
       }
       $('#tandem-language-interested-chips').append(interestedLanguageChips);
