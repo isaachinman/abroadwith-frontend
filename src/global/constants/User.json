@@ -1,3 +1,9 @@
 {
-  "language_levels":{"BEGINNER":0, "INTERMEDIATE":1, "ADVANCED":2, "PROFICIENT":3, "NATIVE":4}
+  "language_levels":{
+    "BEGINNER":0,
+    "INTERMEDIATE":1,
+    "ADVANCED":2,
+    "PROFICIENT":3,
+    "NATIVE":4
+  }
 }
