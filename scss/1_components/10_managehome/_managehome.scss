@@ -72,10 +72,14 @@ input#home-address {
 }
 .manage-home-info-text {
   position: relative;
-  @extend .grey-text;
   margin: 2rem 0 -20px 0;
   padding: 1rem 0;
+  letter-spacing: 1.015px;
   background: lighten($havelock-blue, 35%);
+  &--unpublished {
+    color: white;
+    background: lighten(#F46D8D, 15%);
+  }
 }
 .secondary-content {
   color: inherit;
