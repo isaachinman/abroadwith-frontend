@@ -12,6 +12,7 @@ for(var i in languages){
     translations[i].countries = require('../../locales/'+i+"/countries.json");
     translations[i].users = require('../../locales/'+i+"/users.json");
     translations[i].homes = require('../../locales/'+i+"/homes.json");
+    translations[i].rooms = require('../../locales/'+i+"/rooms.json");
     translations[i].immersions = require('../../locales/'+i+"/immersions.json");
 
     translations[i].main = require('../../locales/'+i+"/main.json");

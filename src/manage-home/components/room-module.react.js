@@ -1,4 +1,23 @@
 var React = require('react');
+var i18n = require('../../global/components/i18n');
+var room = require('../../global/constants/Room');
+i18n.loadNamespaces(['manage_home','rooms','common']);
+
+var compileBedTypes = function(){
+  var options = [];
+  for(var bed in room.bedType){
+    options.push(<option value={bed}>{i18n.t('rooms:bed_types.'+bed)}</option>);
+  }
+  return options;
+}
+
+var compileFacilities = function(){
+  var options = [];
+  for(var facility in room.facilities){
+    options.push(<option value={facility}>{i18n.t('rooms:facilities.'+facility)}</option>);
+  }
+  return options;
+}
 
 module.exports = React.createClass({
   render: function() {
@@ -18,23 +37,18 @@ module.exports = React.createClass({
               <i className="fa fa-tag fa-2x"></i>
             </div>
             <div className="col s10 m4 l4 input-field">
-              <input type="text" className="validate room-name" placeholder='Eg. "Master bedroom"' length='35' defaultValue={this.props.roomName} />
-              <label htmlFor="room-name" className='active'>Room name</label>
+              <input type="text" className="validate room-name" placeholder={i18n.t('rooms:room_name_placeholder')} length='35' defaultValue={this.props.roomName} />
+              <label htmlFor="room-name" className='active'>{i18n.t('rooms:room_name_label')}</label>
             </div>
             <div className='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
               <i className="fa fa-bed fa-2x"></i>
             </div>
             <div className='col s12 m6 l6 input-field'>
               <select className='material bed-type' defaultValue={this.props.bed}>
-                <option value="" disabled>Choose a bed type</option>
-                <option value="airBed">Air bed</option>
-                <option value="futon">Futon</option>
-                <option value="pullOutSofa">Pull-out sofa</option>
-                <option value="couch">Couch</option>
-                <option value="singleBed">Single bed</option>
-                <option value="doubleBed">Double bed</option>
+                <option value="" disabled>{i18n.t('rooms:bed_types_placeholder')}</option>
+                {compileBedTypes()}
               </select>
-              <label>Bed type</label>
+              <label>{i18n.t('rooms:bed_types_label')}</label>
             </div>
           </div>
 
@@ -46,36 +60,24 @@ module.exports = React.createClass({
             </div>
             <div className='col s10 m4 l4 input-field'>
               <select className='material vacancies' defaultValue={this.props.vacancies}>
-                <option value="" disabled>How many people?</option>
+                <option value="" disabled>{i18n.t('rooms:vacancies_placeholder')}</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
               </select>
-              <label>Vacancies</label>
+              <label>{i18n.t('rooms:vacancies_label')}</label>
             </div>
             <div className='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
               <i className="fa fa-lock fa-2x"></i>
             </div>
             <div className='col s10 m6 l6 input-field'>
               <select className='material facilities' multiple defaultValue={this.props.facilities}>
-                <option value="" disabled>What facilities does the room have?</option>
-                <option value="DESK">Desk</option>
-                <option value="AC">Air conditioning</option>
-                <option value="dresser">Dresser</option>
-                <option value="bedsideLocker">Bedside locker</option>
-                <option value="wardrobe">Wardrobe</option>
-                <option value="heating">Heating</option>
-                <option value="bathroom">Bathroom</option>
-                <option value="fridge">Fridge</option>
-                <option value="mirror">Mirror</option>
-                <option value="hangers">Hangers</option>
-                <option value="hairDryer">Hair Dryer</option>
-                <option value="iron">Iron</option>
-                <option value="doorLock">Door lock</option>
+                <option value="" disabled>{i18n.t('rooms:facilities_placeholder')}</option>
+                {compileFacilities()}
               </select>
-              <label>Facilities</label>
+              <label>{i18n.t('rooms:facilities_label')}</label>
             </div>
           </div>
 
@@ -87,13 +89,13 @@ module.exports = React.createClass({
               <i className="fa fa-users fa-2x"></i>
             </div>
             <div className='col s5 m4 l4 left-align'>
-              <label>This is a shared room</label>
+              <label>{i18n.t('rooms:shared_label')}</label>
               <div className="switch">
                 <label>
-                  No
+                  {i18n.t('common:words.No')}
                   <input type="checkbox" className='shared-switch' defaultValue={this.props.shared} />
                   <span className="lever"></span>
-                  Yes
+                  {i18n.t('common:words.Yes')}
                 </label>
               </div>
             </div>
@@ -125,8 +127,8 @@ module.exports = React.createClass({
               <i className="fa fa-file-text-o fa-2x"></i>
             </div>
             <div className="col s10 m11 l11 input-field">
-              <textarea className="materialize-textarea room-description" length='127' placeholder='Tell guests about the room' defaultValue={this.props.description}></textarea>
-              <label htmlFor="room-description" className='active'>Description</label>
+              <textarea className="materialize-textarea room-description" length='127' placeholder={i18n.t('rooms:description_placeholder')} defaultValue={this.props.description}></textarea>
+              <label htmlFor="room-description" className='active'>{i18n.t('manage_home:Description')}</label>
             </div>
           </div>
 

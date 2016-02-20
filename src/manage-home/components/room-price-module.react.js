@@ -1,4 +1,7 @@
 var React = require('react');
+var i18n = require('../../global/components/i18n');
+
+i18n.loadNamespaces(['manage_home','rooms']);
 
 module.exports = React.createClass({
   render: function() {
@@ -14,7 +17,7 @@ module.exports = React.createClass({
         </p>
         <div className="secondary-content input-field">
           <input type="text" className="validate no-margin room-price" placeholder='€70' defaultValue={this.props.price+this.props.currency} />
-          <label className='active left'>Weekly rate</label>
+          <label className='active left'>{i18n.t('rooms:Weekly_rate')}</label>
         </div>
       </li>
 

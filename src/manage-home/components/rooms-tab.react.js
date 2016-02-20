@@ -1,5 +1,8 @@
 var React = require('react');
 var RoomModule = require('./room-module.react')
+var i18n = require('../../global/components/i18n');
+
+i18n.loadNamespaces('manage_home');
 
 module.exports = React.createClass({
   saveRooms: function() {
@@ -57,7 +60,7 @@ module.exports = React.createClass({
       })
 
     } else {
-      rooms = <li className='white'><div id='name' className="collapsible-header">Your rooms will appear here</div><div className="edit grey-text text-lighten-1"></div></li>
+      rooms = <li className='white'><div id='name' className="collapsible-header">+i18n.t('manage_home:rooms_list_placeholder')+</div><div className="edit grey-text text-lighten-1"></div></li>
     }
 
     // Select

@@ -1,6 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var RoomPriceModule = require('./room-price-module.react');
+var i18n = require('../../global/components/i18n');
+
+i18n.loadNamespaces(['manage_home','homes']);
 
 module.exports = React.createClass({
   savePricing: function() {
@@ -62,7 +65,7 @@ module.exports = React.createClass({
         homeObj.pricing = newPricingObj;
 
         // POST new home object
-        Materialize.toast('Pricing updated', 4000);
+        Materialize.toast(i18n.t('manage_home:pricing_updated_toast'), 4000);
 
       }
     }
@@ -123,7 +126,7 @@ module.exports = React.createClass({
       function goToRoomsTab() {
         $('ul.tabs').tabs('select_tab', 'rooms');
       }
-      rooms = <li className="collection-item"><span className="title">You haven't created any rooms</span><br></br><a className='light' onClick={goToRoomsTab}>Go to the "Rooms" tab and make your first room</a></li>
+      rooms = <li className="collection-item"><span className="title">{i18n.t('manage_home:message_no_rooms')}</span><br></br><a className='light' onClick={goToRoomsTab}>{i18n.t('manage_home:message_to_create_rooms')}</a></li>
     }
 
     $('#save-pricing').click(this.savePricing);

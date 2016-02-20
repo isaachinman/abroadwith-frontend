@@ -1,11 +1,14 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var i18n = require('../../global/components/i18n');
+
+i18n.loadNamespaces('manage_home');
 
 module.exports = React.createClass({
   deletePhoto: function() {
 
     // Send deletion request to API, then reload state upon success
-    Materialize.toast('Photo deleted', 4000);
+    Materialize.toast(i18n.t('manage_home:photo_deleted_toast'), 4000);
 
   },
   render: function() {
