@@ -77,7 +77,9 @@ module.exports = React.createClass({
       var RoomsContainer = React.createClass({
         render: function() {
           return (
-            <li className='white'><div id='name' className="collapsible-header">+i18n.t('manage_home:rooms_list_placeholder')+</div><div className="edit grey-text text-lighten-1"></div></li>
+            <ul className="collapsible rooms-collapsible" data-collapsible="accordion">
+              <li className='white'><div id='name' className="collapsible-header">+i18n.t('manage_home:rooms_list_placeholder')+</div><div className="edit grey-text text-lighten-1"></div></li>
+            </ul>
           )
         }
       })

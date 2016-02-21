@@ -123,10 +123,9 @@ module.exports = React.createClass({
       )
 
     } else {
-      function goToRoomsTab() {
+      $('li#no-rooms-pricing').click(function() {
         $('ul.tabs').tabs('select_tab', 'rooms');
-      }
-      rooms = <li className="collection-item"><span className="title">{i18n.t('manage_home:message_no_rooms')}</span><br></br><a className='light' onClick={goToRoomsTab}>{i18n.t('manage_home:message_to_create_rooms')}</a></li>
+      })
     }
 
     $('#save-pricing').click(this.savePricing);
