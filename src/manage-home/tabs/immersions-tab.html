@@ -173,7 +173,7 @@
             <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
               <i class="fa fa-clock-o fa-2x"></i>
             </div>
-            <div class='col s10 m5 l5 input-field'>
+            <div class='col s10 m4 l4 input-field'>
               <select id='packages' class='material' multiple>
                 <option value="" disabled>{{ translations.immersions.packages_offered_placeholder }}</option>
                 <option value="5">5 {{ translations.immersions.hours_per_week_short }}</option>
@@ -184,7 +184,7 @@
             </div>
 
             <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-              <i class="fa fa-hourglass-half fa-2x"></i>
+              <i class="fa fa-money fa-2x"></i>
             </div>
             <div class='col s10 m2 l2 input-field'>
               <input id='teacher-rate' type="text" class="validate no-margin" placeholder='€15' />
@@ -192,22 +192,9 @@
             </div>
 
             <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-              <i class="fa fa-money fa-2x"></i>
-            </div>
-            <div class='col s10 m2 l2 input-field'>
-              <input id='material-costs' type="text" class="validate no-margin" placeholder='€25' />
-              <label class='active'>Material costs TBR</label>
-            </div>
-
-          </div>
-
-          <div class='divider'></div>
-
-          <div class='row section'>
-            <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
               <i class="fa fa-language fa-2x"></i>
             </div>
-            <div class='col s10 m5 l5'>
+            <div class='col s10 m3 l3 input-field'>
               <select id='teacher-languages-offered' class='material' multiple>
                 <option value="" disabled>{{ translations.immersions.languages_offered_placeholder }}</option>
                 <option value="eng">English</option>
@@ -219,10 +206,17 @@
               <label>{{ translations.immersions.languages_offered_label }}</label>
             </div>
 
+          </div>
+
+          <div class='divider'></div>
+
+          <div class='row section'>
+
+
             <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
               <i class="fa fa-graduation-cap fa-2x"></i>
             </div>
-            <div class='col s10 m5 l5'>
+            <div class='col s10 m11 l11'>
               <form action="#">
                 <div class="file-field input-field">
                   <div class="btn">
