@@ -24,8 +24,6 @@ module.exports = React.createClass({
       Materialize.toast('Basics updated', 4000);
     }
 
-
-
   },
   componentDidUpdate: function() {
 
