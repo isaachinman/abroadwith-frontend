@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var RoomModule = require('./room-module.react')
 var i18n = require('../../global/components/i18n');
 
@@ -39,29 +40,54 @@ module.exports = React.createClass({
 
   },
   componentDidUpdate: function() {
-    var rooms = [];
+
     if (this.props.rooms) {
 
-      this.props.rooms.forEach(function(obj) {
-        React.render(
-          <RoomModule
-              id={obj.id}
-              key={obj.id}
-              roomName={obj.name}
-              bed={obj.bed}
-              vacancies={obj.vacancies}
-              facilities={obj.facilities}
-              shared={obj.shared}
-              img={obj.img}
-              description={obj.description}
-              price={obj.price}
-            />, document.querySelector('#existing-rooms-placeholder')
-        )
+      var rooms = this.props.rooms;
+
+      var RoomsContainer = React.createClass({
+        render: function() {
+          var allRooms = []
+          rooms.forEach(function(obj) {
+            allRooms.push(
+              <RoomModule
+                  id={obj.id}
+                  key={obj.id}
+                  roomName={obj.name}
+                  bed={obj.bed}
+                  vacancies={obj.vacancies}
+                  facilities={obj.facilities}
+                  shared={obj.shared}
+                  img={obj.img}
+                  description={obj.description}
+                  price={obj.price}
+              />
+            )
+          })
+          return (
+            <ul className="collapsible rooms-collapsible" data-collapsible="accordion">
+              {allRooms}
+            </ul>
+          )
+        }
       })
 
     } else {
-      rooms = <li className='white'><div id='name' className="collapsible-header">+i18n.t('manage_home:rooms_list_placeholder')+</div><div className="edit grey-text text-lighten-1"></div></li>
+
+      var RoomsContainer = React.createClass({
+        render: function() {
+          return (
+            <li className='white'><div id='name' className="collapsible-header">+i18n.t('manage_home:rooms_list_placeholder')+</div><div className="edit grey-text text-lighten-1"></div></li>
+          )
+        }
+      })
+
     }
+
+    ReactDOM.render(
+      <RoomsContainer
+      />, document.querySelector('#existing-rooms')
+    )
 
     // Select
     if ($('select.material').length) {
