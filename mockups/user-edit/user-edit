@@ -5,14 +5,14 @@
   "birthDate":"1993-05-18",
   "userKnownLanguages":[
     {
-      "language": "SPA",
-      "level": "MOTHER_TONGUE"
+      "lang": "SPA",
+      "level": "native"
     }
   ],
   "userLearningLanguages":[
     {
-      "language": "ENG",
-      "level": "BEGINNER"
+      "lang": "ENG",
+      "level": "beginner"
     }
   ],
   "location":"Berlin, Germany",

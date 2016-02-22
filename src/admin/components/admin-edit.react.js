@@ -1,7 +1,16 @@
 var React = require('react');
-var Payments = require('./admin-payments.react')
+var Basics = require('./admin-basics.react');
+var Notifications = require('./admin-notifications.react')
+var Payments = require('./admin-payments.react');
+var Languages = require('./admin-languages.react');
 
 module.exports = React.createClass({
+  updateAdmin: function() {
+
+    // Post to edit user endpoint and then refresh state
+    Materialize.toast('Admin updated', 4000);
+
+  },
   componentDidMount: function() {
 
     $.get(this.props.source, function(data) {
@@ -9,18 +18,9 @@ module.exports = React.createClass({
       // Parse the response
       var response = JSON.parse(data);
 
-      // Basics tab
-      $('#firstName').val(response.firstName);
-      $('#lastName').val(response.lastName);
-      $('#gender').val(response.gender);
-      $('#birthDate').val(response.birthDate);
-      $('#location').val(response.location);
-      $('#phoneNumber').val(response.phoneNumber);
-      $('#user-email').val(response.email);
-      $('#emergency-name').val(response.emergencyContact.name);
-      $('#emergency-phone').val(response.emergencyContact.phone);
-      $('#emergency-email').val(response.emergencyContact.email);
-      $('#emergency-relationship').val(response.emergencyContact.relationship);
+      window.adminObj = response;
+
+      console.log(adminObj)
 
       // Notifications tab
       $('#email-reminders').prop('checked', response.notifications.email.reminders)
@@ -38,8 +38,26 @@ module.exports = React.createClass({
 
       var newState = {
         // Set new state vars
-        paymentMethods:  response.paymentMethods,
-        payoutMethods:   response.payoutMethods,
+        paymentMethods:         response.paymentMethods,
+        payoutMethods:          response.payoutMethods,
+        languagesLearning:      response.userLearningLanguages,
+        languagesKnown:         response.userKnownLanguages,
+
+        firstName:              response.firstName,
+        lastName:               response.lastName,
+        gender:                 response.gender,
+        birthDate:              response.birthDate,
+        location:               response.location,
+        phoneNumber:            response.phoneNumber,
+        email:                  response.email,
+        emergencyName:          response.emergencyContact.name,
+        emergencyPhone:         response.emergencyContact.phone,
+        emergencyEmail:         response.emergencyContact.email,
+        emergencyRelationship:  response.emergencyContact.relationship,
+
+        emailReminders:         response.notifications.email.reminders,
+        emailPromotions:        response.notifications.email.promotions,
+        smsNotifications:       response.notifications.sms.all
       }
 
       if (this.isMounted()) {
@@ -54,9 +72,35 @@ module.exports = React.createClass({
     return (
 
        <div>
+        <Basics
+          firstName={this.state.firstName}
+          lastName={this.state.lastName}
+          gender={this.state.gender}
+          birthDate={this.state.birthDate}
+          location={this.state.location}
+          phoneNumber={this.state.phoneNumber}
+          email={this.state.email}
+          emergencyName={this.state.emergencyName}
+          emergencyPhone={this.state.emergencyPhone}
+          emergencyEmail={this.state.emergencyEmail}
+          emergencyRelationship={this.state.emergencyRelationship}
+          updateAdmin={this.updateAdmin}
+          />
+        <Notifications
+          emailReminders={this.state.emailReminders}
+          emailPromotions={this.state.emailPromotions}
+          sms={this.state.smsNotifications}
+          updateAdmin={this.updateAdmin}
+          />
         <Payments
           paymentMethods={this.state.paymentMethods}
           payoutMethods={this.state.payoutMethods}
+          updateAdmin={this.updateAdmin}
+          />
+        <Languages
+          languagesLearning={this.state.languagesLearning}
+          languagesKnown={this.state.languagesKnown}
+          updateAdmin={this.updateAdmin}
           />
        </div>
 

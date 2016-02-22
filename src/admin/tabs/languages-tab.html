@@ -32,7 +32,7 @@
         <div class='col s2 input-field left-align'>
           <a id='add-learning-language' class='btn-floating btn-secondary center-align'>+</a>
         </div>
-        <div id='language-learning-chips' class='col s12 m5 l5 input-field left-align'>
+        <div id='language-learning-chips' class='col s12 m5 l5 input-field left-align chip-container'>
           <div class='chip initial'>
             {{ translations.common.choose_as_many_as_you_want }}
             <i class="material-icons">close</i>
@@ -69,7 +69,7 @@
         <div class='col s2 input-field left-align'>
           <a id='add-known-language' class='btn-floating btn-secondary center-align'>+</a>
         </div>
-        <div id='language-known-chips' class='col s12 m5 l5 input-field left-align'>
+        <div id='language-known-chips' class='col s12 m5 l5 input-field left-align chip-container'>
           <div class='chip initial'>
             {{ translations.common.choose_one }}
             <i class="material-icons">close</i>
@@ -86,7 +86,7 @@
   </div>
 
   <div class='row bottom'>
-    <a class='btn btn-primary admin-save-btn'>Save</a>
+    <a id='save-languages' class='btn btn-primary admin-save-btn'>Save</a>
   </div>
 
 </div>
