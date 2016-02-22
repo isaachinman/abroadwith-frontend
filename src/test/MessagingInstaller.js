@@ -3,49 +3,44 @@ var nunjucks = require('nunjucks');
 
 var router = express.Router();
 
-var users = [
-  {
+var current_user = {
     id:1,
     name:"Just you",
     photo:"/users/1.jpg"
-  },
-  {
-    id:56,
-    name:"Jose",
-    photo:"/users/56.jpg"
-  },
-  {
-    id:23,
-    name:"Luis",
-    photo:"/users/23.jpg"
-  },
-  {
-    id:33,
-    name:"Amanda",
-    photo:"/users/33.jpg"
-  },
-]
+}
 
 var everything = [
 {
     id:1234,
     from_date:"2016-01-29",
     to_date:"2016-03-28",
-    with: 56,
+    with: {
+      id:56,
+      name:"Jose",
+      photo:"/users/56.jpg"
+    },
     last_timestamp: 1456145961518
 },
 {
     id:2222,
     from_date:"2016-01-10",
     to_date:"2016-01-16",
-    with: 23,
+    with: {
+      id:23,
+      name:"Luis",
+      photo:"/users/23.jpg"
+    },
     last_timestamp: 1456059561518
 },
 {
     id:1111,
     from_date:"2016-01-22",
     to_date:"2016-02-22",
-    with: 33,
+    with: {
+      id:33,
+      name:"Amanda",
+      photo:"/users/33.jpg"
+    },
     last_timestamp: 1455541161518
 }
 ];
@@ -137,11 +132,8 @@ var threads = {
 router.get('/', function (req, res) {
   if(!req.context) res.status(404).send('No text context.');
   var result = {};
-  result.users = users;
+  result.current_user = current_user;
   result.threads = everything;
-  for(var i = 0; i < result.threads.length; i++){
-    result.threads[i].messages = threads[result.threads[i].id];
-  }
   res.send(JSON.stringify(result));
 });
 
