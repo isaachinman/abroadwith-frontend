@@ -5,7 +5,7 @@ var nunjucks = require('nunjucks');
 var fs = require('fs');
 var searchRouter = require('./search/Router');
 var installMain = require('./main/MainInstaller');
-var manageHomeRouter = require('./manage-home/Router');
+var installManageHome = require('./manage-home/ManageHomeInstaller');
 var installHomes = require('./homes/HomesInstaller');
 var installUsers = require('./users/UsersInstaller');
 var installUserEdit = require('./users-edit/UserEditInstaller');
@@ -48,6 +48,6 @@ installAdmin(app);
 
 app.use('/search',searchRouter);
 
-app.use('/manage-home',manageHomeRouter);
+installManageHome(app);
 
 http.createServer(app).listen(3000);
