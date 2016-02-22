@@ -3,15 +3,66 @@ var ReceivedMessage = require('./received-message.react');
 var SentMessage = require('./sent-message.react');
 
 module.exports = React.createClass({
-  sendMessage: function() {
+  sendMessage: function(message) {
 
-    var newState = this.state.messages;
+    var newMessage = $('input#new-message').val();
 
-    $.post( "users/1/messages/"+this.props.id, function(response) {
+    $.ajax({
+      type: "POST",
+      url: "/users/1/messages/2222",
+      data: JSON.stringify({
+        message: newMessage
+      }),
+      contentType: "application/json",
+      success: this.refreshMessages()
+    });
 
-      // New GET and state
+  },
+  refreshMessages: function() {
 
-    })
+    var newMessageObj = this.state.messages;
+
+    var id = this.props.id;
+    var yourId = this.props.yourId;
+    var yourPhoto = this.props.yourPhoto;
+    var theirPhoto = 'https://img.abroadwith.com' + this.props.theirPhoto;
+
+    $.get( "users/1/messages/"+id+'?size=1', function(response) {
+
+      var messageSetup = JSON.parse(response);
+
+      console.log(messageSetup);
+
+      messageSetup.forEach(function(message) {
+
+        if (message.author === yourId) {
+          newMessageObj.push(
+            <SentMessage
+              yourPhoto={yourPhoto}
+              message={message.message}
+              timestamp={message.timestamp}
+            />
+          )
+        } else {
+          newMessageObj.push(
+            <ReceivedMessage
+              theirPhoto={theirPhoto}
+              message={message.message}
+              timestamp={message.timestamp}
+            />
+          )
+        }
+      })
+
+      var newState = {
+        messages: newMessageObj
+      }
+
+      if (this.isMounted()) {
+        this.setState(newState);
+      }
+
+    }.bind(this));
 
   },
   moreMessages: function() {
@@ -50,7 +101,6 @@ module.exports = React.createClass({
             />
           )
         }
-
       })
 
       var newState = {
@@ -81,7 +131,7 @@ module.exports = React.createClass({
         {this.state.messages}
 
         <div className='send-message'>
-          <input type='text' placeholder='Type a message' />
+          <input id='new-message' type='text' placeholder='Type a message' />
           <a onClick={this.sendMessage} className='btn btn-primary right'>Send</a>
         </div>
 

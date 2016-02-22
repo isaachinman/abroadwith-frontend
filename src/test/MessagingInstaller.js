@@ -181,6 +181,7 @@ router2.post('/', function (req, res) {
     var new_message = req.body;
     new_message.author = req.context.user.id;
     new_message.timestamp = new Date().getTime();
+    console.log(new_message);
     req.thread.push(new_message);
     res.send("OK");
   }
@@ -213,6 +214,7 @@ router2.get('/', function (req, res) {
       results = pool;
     }
   }
+  console.log(results);
   res.send(JSON.stringify(results));
 });
 
