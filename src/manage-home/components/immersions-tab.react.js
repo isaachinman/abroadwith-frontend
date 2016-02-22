@@ -152,8 +152,8 @@ module.exports = React.createClass({
       if (typeof tandemLanguagesInterested === 'undefined') {
         interestedLanguageChips.push("<div class='chip initial'>"+i18n.t('manage_home:choose_at_least_one_chip')+"<i class='material-icons'>close</i></div>");
       } else {
-        tandemLanguagesInterested.forEach(function(lang) {
-          interestedLanguageChips.push("<div class='chip' data-lang="+lang+">"+ i18n.t('languages:'+lang.lang) +"<i class='material-icons'>close</i></div>");
+        $.each(this.props.immersions.tandem.languagesInterested, function(lang, offered) {
+          interestedLanguageChips.push("<div class='chip' data-lang="+lang+">"+ i18n.t('languages:'+lang.toLowerCase()) +"<i class='material-icons'>close</i></div>");
         })
       }
       $('#tandem-language-interested-chips').append(interestedLanguageChips);
