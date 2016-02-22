@@ -79,7 +79,7 @@ module.exports = React.createClass({
           $('#tandem-language-interested-chips').find($('.initial')).remove();
         }
 
-        var newLanguage = '<div class="language-chip chip" data-lang="' + languageCode + '">' + i18n.t('languages:'+languageLearning.val().toLowerCase()) + '<i class="material-icons">close</i></div>'
+        var newLanguage = '<div class="language-chip chip" data-lang="' + languageCode + '">' + i18n.t('languages:'+languageLearning.val()) + '<i class="material-icons">close</i></div>'
         chipContainer.append(newLanguage);
 
         languageLearning.select2('val', '');
@@ -111,7 +111,7 @@ module.exports = React.createClass({
         interestedLanguageChips.push("<div class='chip initial'>"+i18n.t('manage_home:choose_at_least_one_chip')+"<i class='material-icons'>close</i></div>");
       } else {
         tandemLanguagesInterested.forEach(function(lang) {
-          interestedLanguageChips.push("<div class='chip' data-lang="+lang+">"+ i18n.t('languages:'+lang.lang.toLowerCase()) +"<i class='material-icons'>close</i></div>");
+          interestedLanguageChips.push("<div class='chip' data-lang="+lang+">"+ i18n.t('languages:'+lang.lang) +"<i class='material-icons'>close</i></div>");
         })
       }
       $('#tandem-language-interested-chips').append(interestedLanguageChips);
