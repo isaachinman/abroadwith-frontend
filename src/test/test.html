@@ -1,9 +1,19 @@
 <html>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script src="/app.js"></script>
+<!--<script src="/app.js"></script>-->
 <script>
-
+$.ajax({
+   type: "POST",
+   url: "/users/1/messages/2222",
+   data: JSON.stringify({
+      message: "Test"
+   }),
+   contentType: "application/json",
+   complete: function(data) {
+       $("content").html(data);
+  }
+});
 </script>
 <!--script>
 $.ajax({
