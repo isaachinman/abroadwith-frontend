@@ -139,6 +139,9 @@ router.get('/', function (req, res) {
   var result = {};
   result.users = users;
   result.threads = everything;
+  for(var i = 0; i < result.threads.length; i++){
+    result.threads[i].messages = threads[result.threads[i].id];
+  }
   res.send(JSON.stringify(result));
 });
 
