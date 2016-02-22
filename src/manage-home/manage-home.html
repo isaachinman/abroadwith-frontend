@@ -12,7 +12,6 @@
   </ul>
 </div>
 
-
 <div class='row manage-home'>
   {% include './tabs/basics-tab.html' %}
   {% include './tabs/immersions-tab.html' %}
@@ -23,9 +22,7 @@
   {% include './tabs/pricing-tab.html' %}
 </div>
 
-<div class='manage-home-info-text manage-home-info-text--unpublished'>
-  {{ translations.manage_home.message_bottom }}
-</div>
+<div id='published-status' class='manage-home-info-text'></div>
 
 <div id='manage-home-container'></div>
 

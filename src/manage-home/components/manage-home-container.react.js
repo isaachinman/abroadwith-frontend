@@ -7,6 +7,9 @@ var RoomsTab =            require('./rooms-tab.react');
 var PhotosTab =           require('./photos-tab.react');
 var PricingTab =          require('./pricing-tab.react');
 
+var i18n = require('../../global/components/i18n');
+i18n.loadNamespaces(['manage_home']);
+
 module.exports = React.createClass({
   getInitialState: function(){
     return {
@@ -22,7 +25,7 @@ module.exports = React.createClass({
     })
 
     // Next button
-    $('a#next-btn').click(function() {
+    $('a.next-btn').click(function() {
       var activeTab = $('li.tab a.active');
       if (activeTab.attr('data-next')) {
         var next = activeTab.data('next');
@@ -41,6 +44,7 @@ module.exports = React.createClass({
       var newState = {
 
         // Conditionally set up state per category
+        published:            response.isActive,
         basics:               response.basics ? response.basics : null,
         immersions:           response.immersions ? response.immersions : null,
         location:             response.location ? response.location : null,
@@ -60,6 +64,16 @@ module.exports = React.createClass({
   componentDidUpdate: function() {
     // Refresh selects
     $('select.material').material_select();
+
+    // Update status bar
+    var publishedBar = $('#published-status');
+    if (this.state.published === false) {
+      publishedBar.addClass('manage-home-info-text--unpublished');
+      publishedBar.html(i18n.t('manage_home:message_bottom_unpublished'));
+    } else if (this.state.published === true) {
+      publishedBar.addClass('manage-home-info-text--published');
+      publishedBar.html(i18n.t('manage_home:message_bottom_published'));
+    }
   },
   render: function() {
     return (
