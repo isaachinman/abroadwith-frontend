@@ -103,8 +103,6 @@ module.exports = React.createClass({
 
     if (this.props.immersions) {
 
-      console.log(this.props.immersions)
-
       // Stay vars
       if (this.props.immersions.stay) {
 
@@ -115,7 +113,7 @@ module.exports = React.createClass({
           if (offered === true) {
             trueStayLangs.push(lang)
           }
-          stayLanguagesOffered.append("<option value='"+lang+"'>"+i18n.t('languages:'+lang.toLowerCase())+"</option>")
+          stayLanguagesOffered.append("<option value='"+lang+"'>"+i18n.t('languages:'+lang)+"</option>")
         });
 
         stayLanguagesOffered.val(trueStayLangs);
@@ -134,7 +132,7 @@ module.exports = React.createClass({
           if (offered === true) {
             trueTandemOfferedLangs.push(lang)
           }
-          tandemLanguagesOffered.append("<option value='"+lang+"'>"+i18n.t('languages:'+lang.toLowerCase())+"</option>")
+          tandemLanguagesOffered.append("<option value='"+lang+"'>"+i18n.t('languages:'+lang)+"</option>")
         });
         tandemLanguagesOffered.val(trueTandemOfferedLangs);
 
@@ -143,8 +141,7 @@ module.exports = React.createClass({
         // Populate tandem offered dropdown
         var tandemLanguagesInterested = $('#tandem-language-sought');
         $.each(this.props.immersions.tandem.languagesInterested, function(lang, offered) {
-          console.log(lang)
-          tandemLanguagesInterested.append("<option value='"+lang+"'>"+i18n.t('languages:'+lang.toLowerCase())+"</option>")
+          tandemLanguagesInterested.append("<option value='"+lang+"'>"+i18n.t('languages:'+lang)+"</option>")
         });
       }
 
@@ -153,7 +150,7 @@ module.exports = React.createClass({
         interestedLanguageChips.push("<div class='chip initial'>"+i18n.t('manage_home:choose_at_least_one_chip')+"<i class='material-icons'>close</i></div>");
       } else {
         $.each(this.props.immersions.tandem.languagesInterested, function(lang, offered) {
-          interestedLanguageChips.push("<div class='chip' data-lang="+lang+">"+ i18n.t('languages:'+lang.toLowerCase()) +"<i class='material-icons'>close</i></div>");
+          interestedLanguageChips.push("<div class='chip' data-lang="+lang+">"+ i18n.t('languages:'+lang) +"<i class='material-icons'>close</i></div>");
         })
       }
       $('#tandem-language-interested-chips').append(interestedLanguageChips);
@@ -168,7 +165,7 @@ module.exports = React.createClass({
           if (offered === true) {
             trueTeacherOfferedLangs.push(lang)
           }
-          teacherLanguagesOffered.append("<option value='"+lang+"'>"+i18n.t('languages:'+lang.toLowerCase())+"</option>")
+          teacherLanguagesOffered.append("<option value='"+lang+"'>"+i18n.t('languages:'+lang)+"</option>")
         });
         teacherLanguagesOffered.val(trueTeacherOfferedLangs);
 
