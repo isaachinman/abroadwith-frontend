@@ -39,27 +39,21 @@
   "immersions":{
     "stay":{
       "hours":10,
-      "languagesOffered":[
-        "ENG",
-        "SPA"
-      ]
+      "languagesOffered":{
+        "SPA":true,
+        "ENG":true
+      }
     },
     "tandem":{
       "hours":10,
-      "languagesOffered":[
-        "ENG",
-        "SPA"
-      ],
-      "languagesInterested":[
-        {
-          "lang":"GER",
-          "discount":20
-        },
-        {
-          "lang":"POR",
-          "discount":10
-        }
-      ]
+      "languagesOffered":{
+        "ENG":true,
+        "SPA":false
+      },
+      "languagesInterested":{
+        "GER":false,
+        "POR":true
+      }
     },
     "teacher":{
       "packages":[
@@ -68,9 +62,9 @@
       ],
       "hourly":15,
       "materials":40,
-      "languagesOffered":[
-        "spa"
-      ],
+      "languagesOffered":{
+        "SPA":true
+      },
       "certifications":{
         "1":{
           "name":"bachelor degree in spanish",
@@ -119,6 +113,9 @@
       "sixMonthDiscount":{
         "name":"sixMonthDiscount",
         "amount":14
+      },
+      "tandem":{
+        "amount":99
       }
     },
     "extras":{
