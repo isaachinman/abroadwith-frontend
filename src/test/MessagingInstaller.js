@@ -170,11 +170,24 @@ threadIdHandler = function (req, res, next, value) {
     return;
   }
 
-  req.thread = threads[value];
+  req.thread = threads[value].sort(function(a,b){return -(a.timestamp-b.timestamp);});
 
   next();
 }
 
+router2.post('/', function (req, res) {
+  if(!req.context) res.status(404).send('No text context.');
+  if(req.thread){
+    var new_message = req.body;
+    new_message.author = req.context.user.id;
+    new_message.timestamp = new Date().getTime();
+    req.thread.push(new_message);
+    res.send("OK");
+  }
+  else{
+    res.status(404).send('Thread not found.');
+  }
+});
 
 router2.get('/', function (req, res) {
   if(!req.context) res.status(404).send('No text context.');
@@ -196,7 +209,11 @@ router2.get('/', function (req, res) {
   res.send(JSON.stringify(results));
 });
 
+
+var bodyParser = require('body-parser');
+
 var installer = function(app) {
+  app.use(bodyParser.json());
   app.use('/users/*/messages/',router1);
   app.use('/users/*/messages/:threadId',router2);
   app.param('threadId',threadIdHandler);

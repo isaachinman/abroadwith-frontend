@@ -30,6 +30,7 @@ module.exports = function (req, res, next, value) {
   var user_path = "../../mockups/users/"+value+".json";
   try{
     req.context.user = require(user_path);
+    req.context.user.id = value;
     req.context.user.ratingHTML = transformToStars(req.context.user);
   }
   catch(e){
