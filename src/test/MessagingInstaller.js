@@ -204,7 +204,14 @@ router2.get('/', function (req, res) {
     }
   }
   else{
-    results = pool;
+    if(req.query.size){
+      for(var i = 0; i < req.query.size; i++){
+        results.push(pool[i]);
+      }
+    }
+    else{
+      results = pool;
+    }
   }
   res.send(JSON.stringify(results));
 });
