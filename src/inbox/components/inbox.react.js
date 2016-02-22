@@ -4,6 +4,10 @@ var Thread = require('./thread.react');
 module.exports = React.createClass({
   componentDidMount: function() {
 
+
+    $.get( "users/1/messages", function(threads) {
+      console.log(threads);
+    });
     // For each thread
       // Generate sidebar li
         // onclick, initialise thread
@@ -12,10 +16,13 @@ module.exports = React.createClass({
   },
   render: function() {
 
+    var messageList = [];
+
     return (
 
       <div id='inbox' class='inbox'>
         <ul class="message-list">
+          {messageList}
           <li class='active' data-target='conversation-1'><a>Conversation with Jose</a></li>
           <li data-target='conversation-2'><a>Conversation with Amanda</a></li>
           <li><a>Conversation with Luis</a></li>
