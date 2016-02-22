@@ -1,7 +1,8 @@
 var express = require('express');
 var nunjucks = require('nunjucks');
 
-var router = express.Router();
+var router1 = express.Router();
+var router2 = express.Router();
 
 var current_user = {
     id:1,
@@ -71,6 +72,31 @@ var threads = {
       author: 1,
       timestamp: 1456145561518,
       message: "Oporteat dissentias vel eu, an graece ridens per. Congue doctus convenire qui id, cu dolores conceptam repudiandae mei, vel zril aliquid ex. Illum eruditi recusabo qui an. Ei nullam graeco mel, pri ut omnesque perpetua vulputate. Et noluisse accommodare vis. Exerci signiferumque vituperatoribus no sit, vitae iisque nusquam ne per, duis erant ius ea. Mel at quodsi explicari, usu tale diam accommodare ne."
+    },
+    {
+      author: 33,
+      timestamp: 1446145961518,
+      message: "Oporteat dissentias vel eu, an graece ridens per. Congue doctus convenire qui id, cu dolores conceptam repudiandae mei, vel zril aliquid ex. Illum eruditi recusabo qui an. Ei nullam graeco mel, pri ut omnesque perpetua vulputate. Et noluisse accommodare vis. Exerci signiferumque vituperatoribus no sit, vitae iisque nusquam ne per, duis erant ius ea. Mel at quodsi explicari, usu tale diam accommodare ne."
+    },
+    {
+      author: 1,
+      timestamp: 1436145861518,
+      message: "Oporteat dissentias vel eu, an graece ridens per. Congue doctus convenire qui id, cu dolores conceptam repudiandae mei, vel zril aliquid ex. Illum eruditi recusabo qui an. Ei nullam graeco mel, pri ut omnesque perpetua vulputate. Et noluisse accommodare vis. Exerci signiferumque vituperatoribus no sit, vitae iisque nusquam ne per, duis erant ius ea. Mel at quodsi explicari, usu tale diam accommodare ne."
+    },
+    {
+      author: 1,
+      timestamp: 1426145761518,
+      message: "Congue doctus convenire qui id, cu dolores conceptam repudiandae mei, vel zril aliquid ex. Illum eruditi recusabo qui an. Ei nullam graeco mel, pri ut omnesque perpetua vulputate. Et noluisse accommodare vis. Exerci signiferumque vituperatoribus no sit, vitae iisque nusquam ne per, duis erant ius ea. Mel at quodsi explicari, usu tale diam accommodare ne."
+    },
+    {
+      author: 33,
+      timestamp: 1416145661518,
+      message: "Oporteat dissentias vel eu, an graece ridens per. Congue doctus convenire qui id, cu dolores conceptam repudiandae mei, vel zril aliquid ex. Illum eruditi recusabo qui an. Ei nullam graeco mel, pri ut omnesque perpetua vulputate. Et noluisse accommodare vis. Exerci signiferumque vituperatoribus no sit, vitae iisque nusquam ne per, duis erant ius ea. Mel at quodsi explicari, usu tale diam accommodare ne."
+    },
+    {
+      author: 1,
+      timestamp: 1406145561518,
+      message: "Oporteat dissentias vel eu, an graece ridens per. Congue doctus convenire qui id, cu dolores conceptam repudiandae mei, vel zril aliquid ex. Illum eruditi recusabo qui an. Ei nullam graeco mel, pri ut omnesque perpetua vulputate. Et noluisse accommodare vis. Exerci signiferumque vituperatoribus no sit, vitae iisque nusquam ne per, duis erant ius ea. Mel at quodsi explicari, usu tale diam accommodare ne."
     }
   ],
   "2222":[
@@ -129,7 +155,7 @@ var threads = {
   ]
 };
 
-router.get('/', function (req, res) {
+router1.get('/', function (req, res) {
   if(!req.context) res.status(404).send('No text context.');
   var result = {};
   result.current_user = current_user;
@@ -137,13 +163,43 @@ router.get('/', function (req, res) {
   res.send(JSON.stringify(result));
 });
 
-router.get('/[0-9]*', function (req, res) {
+threadIdHandler = function (req, res, next, value) {
+  if(!req.context) req.context = {};
+  if(isNaN(value) || parseInt(Number(value)) != value || isNaN(parseInt(value, 10))){
+    res.status(400).send('Not a proper thread id.');
+    return;
+  }
+
+  req.thread = threads[value];
+
+  next();
+}
+
+
+router2.get('/', function (req, res) {
   if(!req.context) res.status(404).send('No text context.');
-  res.send(JSON.stringify(threads[req.path.replace("/","")]));
+  var results = [];
+  var pool = req.thread;
+  if(req.query.timestamp){
+    for(var i = 0; i < pool.length; i++){
+      if(req.query.timestamp > pool[i].timestamp ){
+        results.push(pool[i]);
+        if(req.query.size && results.length >= req.query.size){
+          break;
+        }
+      }
+    }
+  }
+  else{
+    results = pool;
+  }
+  res.send(JSON.stringify(results));
 });
 
 var installer = function(app) {
-  app.use('/users/*/messages',router);
+  app.use('/users/*/messages/',router1);
+  app.use('/users/*/messages/:threadId',router2);
+  app.param('threadId',threadIdHandler);
 };
 
 module.exports = installer;
