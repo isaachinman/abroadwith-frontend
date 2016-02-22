@@ -1,4 +1,4 @@
-var router = require('./HomesRouter');
+var router = require('./TestRouter');
 
 var installer = function(app) {
   app.use('/test',router);
