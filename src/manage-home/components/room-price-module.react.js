@@ -16,7 +16,7 @@ module.exports = React.createClass({
           Vacancy: {this.props.vacancies}
         </p>
         <div className="secondary-content input-field">
-          <input type="text" className="validate no-margin room-price" placeholder='€70' defaultValue={this.props.price+this.props.currency} />
+          <input type="text" className="validate no-margin room-price" placeholder='150' defaultValue={this.props.price+this.props.currency} />
           <label className='active left'>{i18n.t('rooms:Weekly_rate')}</label>
         </div>
       </li>

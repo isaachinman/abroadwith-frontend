@@ -2,7 +2,6 @@
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.2.1/nouislider.min.js'></script>
 
-
 <div class='row left-align no-margin'>
   <div class='col s12 m7 l8 no-padding-sides fixed-100-vh fixed-100-vh--scroll'>
 
@@ -10,23 +9,23 @@
 
       <div class='row valign-wrapper section' onChange={this.handleChange}>
         <div class='input-field col s2 grey-text'>
-          <div class='chip chip-grey'>Dates</div>
+          <div class='chip chip-grey'>{{translations.common.Dates}}</div>
         </div>
         <div class='input-field col s3 valign'>
           <input id='arrival' type="text" class='datepicker' />
-          <label htmlFor='arrival' class='active'>Arrival</label>
+          <label htmlFor='arrival' class='active'>{{translations.common.Arrival}}</label>
         </div>
         <div class='input-field col s3 valign'>
           <input id='departure' type="text" class="datepicker" />
-          <label htmlFor='departure' class='active'>Departure</label>
+          <label htmlFor='departure' class='active'>{{translations.common.Departure}}</label>
         </div>
         <div class='input-field col s4'>
           <select id='guests' class='material' >
-            <option value="1">1 guest</option>
-            <option value="2">2 guests</option>
-            <option value="3">3 guests</option>
-            <option value="4">4 guests</option>
-            <option value="5">5 guests</option>
+            <option value="1">1 {{translations.common.guest}}</option>
+            <option value="2">2 {{translations.common.guests}}</option>
+            <option value="3">3 {{translations.common.guests}}</option>
+            <option value="4">4 {{translations.common.guests}}</option>
+            <option value="5">5 {{translations.common.guests}}</option>
           </select>
         </div>
       </div>
@@ -35,7 +34,7 @@
 
       <div class='row section valign-wrapper'>
         <div class='col s2 grey-text'>
-          <div class='chip chip-grey'>Language</div>
+          <div class='chip chip-grey'>{{translations.common.Language}}</div>
         </div>
         <div class='col s3'>
           <select id="language" type="text" class="validate border-radius-left">
@@ -46,14 +45,14 @@
           </select>
         </div>
         <div class='col s2 grey-text'>
-          <div class='chip chip-grey'>Immersion</div>
+          <div class='chip chip-grey'>{{translations.common.Immersion}}</div>
         </div>
         <div class='col s5'>
           <select id='immersions' class='material' multiple>
-            <option value="" disabled>Choose an immersion type</option>
-            <option value="stay">Stay</option>
-            <option value="tandem">Tandem</option>
-            <option value="teacher">Teachers stay</option>
+            <option value="" disabled>{{translations.common.choose_immersion_type}}</option>
+            <option value="stay">{{translations.common.Stay}}</option>
+            <option value="tandem">{{translations.common.Tandem}}</option>
+            <option value="teacher">{{translations.common.Teachers_stay}}</option>
           </select>
         </div>
       </div>
@@ -62,7 +61,7 @@
 
       <div class='row section valign-wrapper tandem-language hide'>
         <div class='col s7 grey-text'>
-          <div class='chip chip-grey'>Your tandem language(s)</div>
+          <div class='chip chip-grey'>{{translations.search.your_tandem_language}}</div>
         </div>
         <div class='col s5'>
           <select id="language-teach" type="text" class="validate border-radius-left">
@@ -78,7 +77,7 @@
 
       <div class='row valign-wrapper section'>
         <div class='col s2 grey-text'>
-          <div class='chip chip-grey'>Price</div>
+          <div class='chip chip-grey'>{{translations.common.Price}}</div>
         </div>
         <div id='price-slider' class='col s10 valign'></div>
       </div>
@@ -87,26 +86,26 @@
 
       <div class='row section valign-wrapper'>
         <div class='col s5 grey-text'>
-          <div class='chip chip-grey'>Add a language course</div>
+          <div class='chip chip-grey'>{{translations.search.add_language_course}}</div>
         </div>
         <div class='col s3'>
           <div class="switch">
             <label>
-              No
+              {{translations.common.words.No}}
               <input id='language-switch' type="checkbox" />
               <span class="lever"></span>
-              Yes
+              {{translations.common.words.Yes}}
             </label>
           </div>
         </div>
         <div class='col s4'>
           <select id='language-school' class='material' disabled>
-            <option value="a1">English A1</option>
-            <option value="a2">English A2</option>
-            <option value="b1">English B1</option>
-            <option value="b2">English B2</option>
-            <option value="c1">English C1</option>
-            <option value="c2">English C2</option>
+            <option value="a1">A1</option>
+            <option value="a2">A2</option>
+            <option value="b1">B1</option>
+            <option value="b2">B2</option>
+            <option value="c1">C1</option>
+            <option value="c2">C2</option>
           </select>
         </div>
       </div>
@@ -118,7 +117,7 @@
         <li>
           <div class="collapsible-header grey-text no-padding">
             <div class='container'>
-              More filters <i class="fa fa-caret-down grey-text text-lighten-1"> </i>
+              {{translations.search.more_filters}} <i class="fa fa-caret-down grey-text text-lighten-1"> </i>
             </div>
           </div>
           <div class="collapsible-body container">
@@ -130,10 +129,10 @@
               </div>
               <div class='col s5'>
                 <select id='special-prefs' class='material' multiple>
-                  <option value="smoking">Smoking allowed</option>
-                  <option value="pets">Pets allowed</option>
-                  <option value="family">Family friendly</option>
-                  <option value="wheelchair">Wheelchair accessible</option>
+                  <option value="smoking">{{translations.search.smoking_allowed}}</option>
+                  <option value="pets">{{translations.search.pets_allowed}}</option>
+                  <option value="family">{{translations.search.family_friendly}}</option>
+                  <option value="wheelchair">{{translations.search.wheelchair_accessible}}</option>
                 </select>
               </div>
 
@@ -142,9 +141,9 @@
               </div>
               <div class='col s5'>
                 <select id='meal-plan' class='material'>
-                  <option value="breakfast">Breakfast</option>
-                  <option value="halfBoard">Half board</option>
-                  <option value="fullBoard">Full board</option>
+                  <option value="breakfast">{{translations.common.Breakfast}}</option>
+                  <option value="halfBoard">{{translations.common.Half_board}}</option>
+                  <option value="fullBoard">{{translations.common.Full_board}}</option>
                 </select>
               </div>
 
@@ -158,11 +157,11 @@
               </div>
               <div class='col s5'>
                 <select id='meal-pref' class='material'>
-                  <option value="">No meal preference</option>
-                  <option value="vegetarian">Vegetarian</option>
-                  <option value="vegan">Vegan</option>
-                  <option value="halal">Halal</option>
-                  <option value="kosher">Kosher</option>
+                  <option value="">{{translations.search.no_meal_preference}}</option>
+                  <option value="vegetarian">{{translations.common.Vegetarian}}</option>
+                  <option value="vegan">{{translations.common.Vegan}}</option>
+                  <option value="halal">{{translations.common.Halal}}</option>
+                  <option value="kosher">{{translations.common.Kosher}}</option>
                 </select>
               </div>
 
@@ -171,11 +170,11 @@
               </div>
               <div class='col s5'>
                 <select id='diet-restrictions' class='material' multiple>
-                  <option value="none" disabled>No dietary restrictions</option>
-                  <option value="nutFree">Nut free</option>
-                  <option value="lactoseFree">Lactose free</option>
-                  <option value="glutenFree">Gluten free</option>
-                  <option value="sugarFree">Sugar free</option>
+                  <option value="none" disabled>{{translations.search.no_dietary_restrictions}}</option>
+                  <option value="nutFree">{{translations.search.nut_free}}</option>
+                  <option value="lactoseFree">{{translations.search.lactose_free}}</option>
+                  <option value="glutenFree">{{translations.search.gluten_free}}</option>
+                  <option value="sugarFree">{{translations.search.sugar_free}}</option>
                 </select>
               </div>
             </div>
@@ -188,13 +187,13 @@
               </div>
               <div class='col s5'>
                 <select id='amenities' class='material' multiple>
-                  <option value="essentials" disabled>Essentials</option>
-                  <option value="ac">Air conditioning</option>
-                  <option value="airport">Airport pickup</option>
-                  <option value="tv">TV</option>
-                  <option value="cable">Cable</option>
-                  <option value="washer">Washer</option>
-                  <option value="pool">Pool</option>
+                  <option value="essentials" disabled>{{translations.search.essentials}}</option>
+                  <option value="ac">{{translations.homes.amenities.AIR_CONDITIONING}}</option>
+                  <option value="airport">{{translations.search.airport}}</option>
+                  <option value="tv">{{translations.homes.amenities.TV}}</option>
+                  <option value="cable">{{translations.homes.amenities.CABLE_TV}}</option>
+                  <option value="washer">{{translations.homes.extras.WASHER}}</option>
+                  <option value="pool">{{translations.homes.extras.POOL}}</option>
                 </select>
               </div>
               <div class='col s1 valign center-align'>
@@ -202,14 +201,14 @@
               </div>
               <div class='col s5'>
                 <select id='house-type' class='material' multiple>
-                  <option value='all' disabled>All house types</option>
-                  <option value="flat">Flat</option>
-                  <option value="house">House</option>
-                  <option value="loft">Loft</option>
-                  <option value="chalet">Chalet</option>
-                  <option value="dorm">Dorm</option>
-                  <option value="cabin">Cabin</option>
-                  <option value="other">Other</option>
+                  <option value='all' disabled>{{translations.search.all_house_types}}</option>
+                  <option value="flat">{{translations.homes.home_types.FLAT}}</option>
+                  <option value="house">{{translations.homes.home_types.HOUSE}}</option>
+                  <option value="loft">{{translations.homes.home_types.LOFT}}</option>
+                  <option value="chalet">{{translations.homes.home_types.CHALET}}</option>
+                  <option value="dorm">{{translations.homes.home_types.DORM}}</option>
+                  <option value="cabin">{{translations.homes.home_types.CABIN}}</option>
+                  <option value="other">{{translations.homes.home_types.OTHER}}</option>
                 </select>
               </div>
             </div>

@@ -1,5 +1,8 @@
 var React = require('react');
 
+var i18n = require('../../global/components/i18n');
+i18n.loadNamespaces(['common']);
+
 module.exports = React.createClass({
   mapHover: function(id) {
 
@@ -42,13 +45,6 @@ module.exports = React.createClass({
     // Host photo src
     var hostImg = {
       backgroundImage: 'url(' + baseUrl + this.props.hostPhoto + ')'
-    }
-
-    // If host's name ends with an s, don't put an s after apostrophe
-    if (this.props.host.slice(-1) == 's') {
-      var hostName = this.props.host + "' ";
-    } else {
-      var hostName = this.props.host + "'s ";
     }
 
     // Compile immersion tags
@@ -101,13 +97,14 @@ module.exports = React.createClass({
             <span>€{this.props.price}</span>
             <div className='course-added'>
               <i className="fa fa-map-marker"></i>{this.props.courseCount}
-              courses
+              {i18n.t('common:words.courses')}
             </div>
           </div>
           <div className='info'>
             <div className='title'>
-              {hostName}
-              home
+
+              {i18n.t('common:home_of', {first_name: this.props.host})}
+
               <div className='subtitle'>
                 {this.props.homeType}
                 <i className="fa fa-angle-right"></i>
@@ -116,8 +113,7 @@ module.exports = React.createClass({
             </div>
             <div className='rating'>
               <div className='count'>
-                {this.props.reviewCount}
-                reviews
+                {this.props.reviewCount}&nbsp;{i18n.t('common:reviews')}
               </div>
               <div className='stars'>
                 {stars}
