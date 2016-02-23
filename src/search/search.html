@@ -129,10 +129,9 @@
               </div>
               <div class='col s5'>
                 <select id='special-prefs' class='material' multiple>
-                  <option value="smoking">{{translations.search.smoking_allowed}}</option>
-                  <option value="pets">{{translations.search.pets_allowed}}</option>
-                  <option value="family">{{translations.search.family_friendly}}</option>
-                  <option value="wheelchair">{{translations.search.wheelchair_accessible}}</option>
+                  {% for optionCode, optionName in translations.search.lifestyle %}
+                    <option value={{optionCode}}>{{optionName}}</option>
+                  {% endfor %}
                 </select>
               </div>
 
@@ -141,9 +140,9 @@
               </div>
               <div class='col s5'>
                 <select id='meal-plan' class='material'>
-                  <option value="breakfast">{{translations.common.Breakfast}}</option>
-                  <option value="halfBoard">{{translations.common.Half_board}}</option>
-                  <option value="fullBoard">{{translations.common.Full_board}}</option>
+                  {% for optionCode, optionName in translations.search.meal_choice %}
+                    <option value={{optionCode}}>{{optionName}}</option>
+                  {% endfor %}
                 </select>
               </div>
 
@@ -202,13 +201,9 @@
               <div class='col s5'>
                 <select id='house-type' class='material' multiple>
                   <option value='all' disabled>{{translations.search.all_house_types}}</option>
-                  <option value="flat">{{translations.homes.home_types.FLAT}}</option>
-                  <option value="house">{{translations.homes.home_types.HOUSE}}</option>
-                  <option value="loft">{{translations.homes.home_types.LOFT}}</option>
-                  <option value="chalet">{{translations.homes.home_types.CHALET}}</option>
-                  <option value="dorm">{{translations.homes.home_types.DORM}}</option>
-                  <option value="cabin">{{translations.homes.home_types.CABIN}}</option>
-                  <option value="other">{{translations.homes.home_types.OTHER}}</option>
+                  {% for optionCode, optionName in translations.homes.home_types %}
+                    <option value={{optionCode}}>{{optionName}}</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>

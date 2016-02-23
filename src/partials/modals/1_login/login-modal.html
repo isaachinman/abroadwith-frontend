@@ -5,21 +5,22 @@
 
     <ul class="collapsible no-shadow" data-collapsible="accordion">
       <li>
-        <div class="collapsible-header active">Email</div>
+        <div class="collapsible-header active">{{translations.common.Email}}</div>
         <div class="collapsible-body">
 
           <div class='row section'>
 
-            <form>
+            <form id='email-login'>
 
               <div class='input-field col s12 m6 offset-m3 l6 offset-l3'>
                 <input id="login-modal-email" type="email" class="validate no-margin">
-                <label for="email">Email</label>
+                <label for="email">{{translations.common.Email}}</label>
               </div>
 
               <div class="input-field col s12 m6 offset-m3 l6 offset-l3">
                 <input id="login-modal-password" type="password" class="validate no-margin">
-                <label for="password">Password</label>
+                <label for="password">{{translations.common.Password}}</label>
+                <input type='submit' class='hide'>
               </div>
 
             </form>
@@ -27,13 +28,13 @@
           </div>
 
           <div class='row'>
-            <a id='login-modal-btn' class='btn btn-primary'>Log in</a>
+            <a id='login-modal-btn' class='btn btn-primary'>{{translations.common.Log_in}}</a>
           </div>
 
           <div class='row section'>
 
             <div class='col s10 offset-s1 grey-text'>
-              Don’t have an account yet? <a href='#' onclick="$('#login-modal').closeModal();$('#sign-up-modal').openModal()">Sign up</a>
+              {{translations.common.Dont_have_account}} <a href='#' onclick="$('#login-modal').closeModal();$('#sign-up-modal').openModal()">{{translations.common.Sign_up}}</a>
             </div>
 
           </div>
