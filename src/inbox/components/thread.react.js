@@ -2,13 +2,16 @@ var React = require('react');
 var ReceivedMessage = require('./received-message.react');
 var SentMessage = require('./sent-message.react');
 
+var i18n = require('../../global/components/i18n');
+i18n.loadNamespaces(['common', 'inbox']);
+
 module.exports = React.createClass({
   renderMessages: function(inputObj, containerObj) {
 
     var yourId = this.props.yourId;
     var yourPhoto = this.props.yourPhoto;
     var theirPhoto = 'https://img.abroadwith.com' + this.props.theirPhoto;
-    inputObj.forEach(function(message) {
+    inputObj.reverse().forEach(function(message) {
       if (message.author === yourId) {
         containerObj.push(
           <SentMessage
@@ -27,20 +30,32 @@ module.exports = React.createClass({
         )
       }
     })
+
   },
-  sendMessage: function(message) {
+  sendMessage: function(e) {
 
-    var newMessage = $('input#new-message').val();
+    e.preventDefault();
 
-    $.ajax({
-      type: "POST",
-      url: "/users/1/messages/2222",
-      data: JSON.stringify({
-        message: newMessage
-      }),
-      contentType: "application/json",
-      success: this.refreshMessages()
-    });
+    var id = this.props.id;
+    var input = $('#' + this.props.id + '-send');
+    var newMessage = input.val();
+
+    if (newMessage !== '') {
+
+      input.val('');
+
+      $.ajax({
+        type: "POST",
+        url: "/users/1/messages/"+id,
+        data: JSON.stringify({
+          message: newMessage
+        }),
+        contentType: "application/json",
+        success: this.refreshMessages()
+      });
+
+    }
+
 
   },
   refreshMessages: function() {
@@ -61,18 +76,18 @@ module.exports = React.createClass({
       }
 
       if (this.isMounted()) {
-        console.log('state was refreshed')
         this.setState(newState);
       }
+
+      var activeMsg = $('.message-body.active');
+      activeMsg.scrollTop(activeMsg[0].scrollHeight);
 
     }.bind(this));
 
   },
   moreMessages: function() {
 
-    // Get timestamp of highest message and send new call with this time
-
-    // Then append new messages
+    var activeMsg = $('.message-body.active');
 
   },
   componentDidMount: function() {
@@ -100,6 +115,8 @@ module.exports = React.createClass({
   },
   render: function() {
 
+    var sendBtn = this.props.id + '-send';
+
     return (
       <div id={this.props.id} className='message-body'>
 
@@ -108,15 +125,21 @@ module.exports = React.createClass({
             This is a conversation between you and {this.props.them}
           </div>
           <div className='subtitle'>
-            {this.props.yourName} would like to stay with {this.props.them} from <strong>{this.props.startDate}</strong> to <strong>{this.props.endDate}</strong>
+            {this.props.yourName} i18n.t('inbox:intro_msg_stay') {this.props.them} from <strong>{this.props.startDate}</strong> to <strong>{this.props.endDate}</strong>
           </div>
+        </div>
+
+        <div className='col s12 center-align'>
+          <a className='btn btn-secondary load-more'>Load previous</a>
         </div>
 
         {this.state.messages}
 
         <div className='send-message'>
-          <input id='new-message' type='text' placeholder='Type a message' />
-          <a onClick={this.sendMessage} className='btn btn-primary right'>Send</a>
+          <form onSubmit={this.sendMessage}>
+            <textarea id={sendBtn} type='text' className='materialize-textarea' maxLength='2000' placeholder='Type a message' />
+            <a onClick={this.sendMessage} className='btn btn-primary right'>Send</a>
+          </form>
         </div>
 
       </div>

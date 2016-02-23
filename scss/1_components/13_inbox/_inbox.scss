@@ -152,8 +152,8 @@ ul.message-list {
       }
     }
   }
-  a.load-more-btn {
-    margin: 0 0 20px 0;
+  a.load-more {
+    margin: 0 0 40px 0;
   }
 }
 .send-message {
@@ -168,10 +168,11 @@ ul.message-list {
   height: 100px;
   background: white;
   border-top: 1px solid #ddd;
-  input {
-    height: 60px;
+  textarea {
+    max-height: 60px;
+    overflow: scroll;
     float: left;
-    margin: 10px 30px;
+    margin: 0 30px;
     width: calc(100% - 200px);
   }
   a.btn {
