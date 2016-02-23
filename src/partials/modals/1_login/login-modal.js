@@ -32,7 +32,7 @@ function login() {
       })
 
     }
-  })
+  }
 
   $('#login-modal-btn').click(login)
 
