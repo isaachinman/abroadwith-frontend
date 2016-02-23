@@ -34,6 +34,11 @@ function login() {
     }
   }
 
+  $('form#email-login').submit(function() {
+    login();
+    return false;
+  })
+
   $('#login-modal-btn').click(login)
 
 

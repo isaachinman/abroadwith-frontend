@@ -225,11 +225,13 @@ if ($('form#signup').length) {
 
       $.ajax({
         type: "POST",
-        url: '/users',
-        dataType: 'JSON',
+        url: 'https://admin.abroadwith.com/users',
         data: JSON.stringify(newUser),
+        contentType: "application/json",
         processData: false,
-        success: function(){
+        success: function(response){
+
+          console.log(response);
 
           $.ajax({
           type: "POST",
