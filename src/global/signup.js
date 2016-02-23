@@ -188,7 +188,7 @@ if ($('form#signup').length) {
       // Loop through text inputs and add values to object
       for (var i=0, ii = signupForm.length; i<ii; i++) {
         var input = signupForm[i];
-        if (input.value != '') {
+        if (input.value !== '') {
           newUser[input.name] = input.value;
           formValid = true;
         } else {
@@ -202,6 +202,21 @@ if ($('form#signup').length) {
         newUser['birthDate'] = $('input#birthday').val();
       } else {
         formNotValid();
+      }
+
+      // Validate password
+      var password = newUser.password ? newUser.password : '';
+      var nameStrings = newUser.firstName && newUser.lastName ? newUser.firstName.split(' ').concat(newUser.lastName.split(' ')) : [];
+
+      for (var i=0, len=nameStrings.length; i<len; i++) {
+        if (typeof password !== 'undefined' && password.indexOf(nameStrings[i]) !== -1) {
+          formValid = false;
+          break;
+        }
+      }
+
+      if (password.length < 8 || !(password.match(/[a-z]/)) || !(password.match(/[A-Z]/) || /\d/.test(password))) {
+        formValid = false;
       }
 
       // If form is valid, POST object
@@ -222,6 +237,8 @@ if ($('form#signup').length) {
         "email":newUser.email,
         "password":newUser.password
       }
+
+      console.log(JSON.stringify(newUser))
 
       $.ajax({
         type: "POST",
@@ -252,5 +269,13 @@ if ($('form#signup').length) {
       });
     }
   }
+}
 
+if ($('a#email-signup-trigger').length) {
+  $('a#email-signup-trigger').click(function() {
+    $('#email-signup-collapsible .collapsible-header').hide();
+  })
+  $('#email-signup-collapsible .collapsible-header').click(function() {
+    $('#email-signup-collapsible .collapsible-header').hide();
+  })
 }
