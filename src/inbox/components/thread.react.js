@@ -48,7 +48,7 @@ module.exports = React.createClass({
     var id = this.props.id;
     var newMessageObj = [];
 
-    $.get( "users/1/messages/"+id+'?size=10', function(response) {
+    $.get( 'users/1/messages/'+id+'?size=10', function(response) {
 
       var messageSetup = JSON.parse(response);
 
@@ -61,6 +61,7 @@ module.exports = React.createClass({
       }
 
       if (this.isMounted()) {
+        console.log('state was refreshed')
         this.setState(newState);
       }
 
@@ -76,7 +77,7 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
-    $.get( "users/1/messages/"+this.props.id+'?size=5', function(response) {
+    $.get( "users/1/messages/"+this.props.id+'?size=10', function(response) {
 
       var initMessages = []
       var messageSetup = JSON.parse(response);
