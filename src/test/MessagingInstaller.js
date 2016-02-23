@@ -205,7 +205,7 @@ router2.get('/', function (req, res) {
   }
   else{
     if(req.query.size){
-      for(var i = 0; i < req.query.size; i++){
+      for(var i = 0; i < req.query.size && i < pool.length; i++){
         results.push(pool[i]);
       }
     }
