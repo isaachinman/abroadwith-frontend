@@ -42,27 +42,30 @@ module.exports = React.createClass({
       }
 
       if (this.isMounted()) {
-        this.setState(newState);
+
+        this.setState(newState, function() {
+
+          function activateThread() {
+            if ($(this).attr('data-target') != null) {
+              $('ul.message-list li').removeClass('active');
+              $(this).addClass('active');
+              var target = $(this).attr('data-target');
+              $('.message-body').removeClass('active');
+              $('#'+target).addClass('active');
+              $('#'+target).scrollTop($('#'+target)[0].scrollHeight);
+            }
+          }
+
+          $('ul.message-list li.message-trigger').click(activateThread);
+          $('ul.message-list li:first-child').trigger('click');
+          
+        });
+
       }
 
-      // Scroll to bottom of conversation thread
-      if ($('.message-body').length) {
-        $('.message-body').scrollTop($('.message-body')[0].scrollHeight);
-      }
 
-      // Hide and show conversations
-      $('ul.message-list li').click(function() {
-        if ($(this).attr('data-target') != null) {
-          $('ul.message-list li').removeClass('active');
-          $(this).addClass('active');
-          var target = $(this).attr('data-target');
-          $('.message-body').removeClass('active');
-          $('#'+target).addClass('active');
-          $('#'+target).scrollTop($('#'+target)[0].scrollHeight);
-        }
-      })
 
-      $('li.message-trigger:first-child').trigger('click');
+
 
     }.bind(this));
     // For each thread

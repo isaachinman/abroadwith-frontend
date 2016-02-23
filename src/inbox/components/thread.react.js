@@ -56,12 +56,11 @@ module.exports = React.createClass({
 
     }
 
-
   },
   refreshMessages: function() {
 
     var id = this.props.id;
-    var newMessageObj = [];
+    var messages = [];
 
     $.get( 'users/1/messages/'+id+'?size=10', function(response) {
 
@@ -69,10 +68,10 @@ module.exports = React.createClass({
 
       console.log(messageSetup);
 
-      this.renderMessages(messageSetup, newMessageObj);
+      this.renderMessages(messageSetup, messages);
 
       var newState = {
-        messages: newMessageObj
+        messages: messages
       }
 
       if (this.isMounted()) {
@@ -87,23 +86,69 @@ module.exports = React.createClass({
   },
   moreMessages: function() {
 
-    var activeMsg = $('.message-body.active');
+    var id = this.props.id;
+    var yourId = this.props.yourId;
+    var yourPhoto = this.props.yourPhoto;
+    var theirPhoto = 'https://img.abroadwith.com' + this.props.theirPhoto;
+
+    var lastTimestamp = this.state.messages[0].props.timestamp;
+
+    console.log(lastTimestamp);
+
+    var messages = this.state.messages;
+    var newMessages = [];
+
+    $.get( 'users/1/messages/'+id+'?timestamp='+lastTimestamp+'&size=10', function(response) {
+
+      var messageSetup = JSON.parse(response);
+
+      messageSetup.forEach(function(message) {
+        if (message.author === yourId) {
+          messages.unshift(
+            <SentMessage
+              yourPhoto={yourPhoto}
+              message={message.message}
+              timestamp={message.timestamp}
+            />
+          )
+        } else {
+          messages.unshift(
+            <ReceivedMessage
+              theirPhoto={theirPhoto}
+              message={message.message}
+              timestamp={message.timestamp}
+            />
+          )
+        }
+      })
+
+      console.log(messages);
+
+      var newState = {
+        messages: messages
+      }
+
+      if (this.isMounted()) {
+        this.setState(newState);
+      }
+
+    }.bind(this));
 
   },
   componentDidMount: function() {
 
-    $.get( "users/1/messages/"+this.props.id+'?size=10', function(response) {
+    $.get( "users/1/messages/"+this.props.id+'?size=1', function(response) {
 
-      var initMessages = []
+      var messages = []
       var messageSetup = JSON.parse(response);
       var yourId = this.props.yourId;
       var yourPhoto = this.props.yourPhoto;
       var theirPhoto = 'https://img.abroadwith.com' + this.props.theirPhoto;
 
-      this.renderMessages(messageSetup, initMessages)
+      this.renderMessages(messageSetup, messages)
 
       var newState = {
-        messages: initMessages
+        messages: messages
       }
 
       if (this.isMounted()) {
@@ -122,23 +167,23 @@ module.exports = React.createClass({
 
         <div className='intro-msg'>
           <div className='title'>
-            This is a conversation between you and {this.props.them}
+            {i18n.t('inbox:this_is_a_conversation')} {this.props.them}
           </div>
           <div className='subtitle'>
-            {this.props.yourName} i18n.t('inbox:intro_msg_stay') {this.props.them} from <strong>{this.props.startDate}</strong> to <strong>{this.props.endDate}</strong>
+            {this.props.yourName} {i18n.t('inbox:intro_msg_stay')} {this.props.them} {i18n.t('common:words.from')} <strong>{this.props.startDate}</strong> {i18n.t('common:words.to')} <strong>{this.props.endDate}</strong>
           </div>
         </div>
 
         <div className='col s12 center-align'>
-          <a className='btn btn-secondary load-more'>Load previous</a>
+          <a className='btn btn-secondary load-more' onClick={this.moreMessages}>{i18n.t('inbox:load_previous')}</a>
         </div>
 
         {this.state.messages}
 
         <div className='send-message'>
           <form onSubmit={this.sendMessage}>
-            <textarea id={sendBtn} type='text' className='materialize-textarea' maxLength='2000' placeholder='Type a message' />
-            <a onClick={this.sendMessage} className='btn btn-primary right'>Send</a>
+            <textarea id={sendBtn} type='text' className='materialize-textarea' maxLength='2000' placeholder={i18n.t('inbox:input_placeholder')} />
+            <a onClick={this.sendMessage} className='btn btn-primary right'>{i18n.t('common:words.Send')}</a>
           </form>
         </div>
 
