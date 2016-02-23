@@ -3,6 +3,31 @@ var ReceivedMessage = require('./received-message.react');
 var SentMessage = require('./sent-message.react');
 
 module.exports = React.createClass({
+  renderMessages: function(inputObj, containerObj) {
+
+    var yourId = this.props.yourId;
+    var yourPhoto = this.props.yourPhoto;
+    var theirPhoto = 'https://img.abroadwith.com' + this.props.theirPhoto;
+    inputObj.forEach(function(message) {
+      if (message.author === yourId) {
+        containerObj.push(
+          <SentMessage
+            yourPhoto={yourPhoto}
+            message={message.message}
+            timestamp={message.timestamp}
+          />
+        )
+      } else {
+        containerObj.push(
+          <ReceivedMessage
+            theirPhoto={theirPhoto}
+            message={message.message}
+            timestamp={message.timestamp}
+          />
+        )
+      }
+    })
+  },
   sendMessage: function(message) {
 
     var newMessage = $('input#new-message').val();
@@ -20,39 +45,16 @@ module.exports = React.createClass({
   },
   refreshMessages: function() {
 
-    var newMessageObj = this.state.messages;
-
     var id = this.props.id;
-    var yourId = this.props.yourId;
-    var yourPhoto = this.props.yourPhoto;
-    var theirPhoto = 'https://img.abroadwith.com' + this.props.theirPhoto;
+    var newMessageObj = [];
 
-    $.get( "users/1/messages/"+id+'?size=1', function(response) {
+    $.get( "users/1/messages/"+id+'?size=10', function(response) {
 
       var messageSetup = JSON.parse(response);
 
       console.log(messageSetup);
 
-      messageSetup.forEach(function(message) {
-
-        if (message.author === yourId) {
-          newMessageObj.push(
-            <SentMessage
-              yourPhoto={yourPhoto}
-              message={message.message}
-              timestamp={message.timestamp}
-            />
-          )
-        } else {
-          newMessageObj.push(
-            <ReceivedMessage
-              theirPhoto={theirPhoto}
-              message={message.message}
-              timestamp={message.timestamp}
-            />
-          )
-        }
-      })
+      this.renderMessages(messageSetup, newMessageObj);
 
       var newState = {
         messages: newMessageObj
@@ -76,35 +78,16 @@ module.exports = React.createClass({
 
     $.get( "users/1/messages/"+this.props.id+'?size=5', function(response) {
 
-      var allMessages = []
+      var initMessages = []
       var messageSetup = JSON.parse(response);
       var yourId = this.props.yourId;
       var yourPhoto = this.props.yourPhoto;
       var theirPhoto = 'https://img.abroadwith.com' + this.props.theirPhoto;
 
-      messageSetup.forEach(function(message) {
-
-        if (message.author === yourId) {
-          allMessages.push(
-            <SentMessage
-              yourPhoto={yourPhoto}
-              message={message.message}
-              timestamp={message.timestamp}
-            />
-          )
-        } else {
-          allMessages.push(
-            <ReceivedMessage
-              theirPhoto={theirPhoto}
-              message={message.message}
-              timestamp={message.timestamp}
-            />
-          )
-        }
-      })
+      this.renderMessages(messageSetup, initMessages)
 
       var newState = {
-        messages: allMessages
+        messages: initMessages
       }
 
       if (this.isMounted()) {

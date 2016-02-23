@@ -54,7 +54,8 @@ ul.message-list {
   position: relative;
   float: left;
   text-align: left;
-  height: 100%;
+  height: calc(100% - 100px);
+  overflow: hidden;
   overflow-y: scroll;
   @media #{$medium-and-up} {
     width: calc(100vw - 260px);
@@ -156,10 +157,14 @@ ul.message-list {
   }
 }
 .send-message {
-  position: relative;
-  width: calc(100% + 40px);
-  margin-left: -20px;
-  float: left;
+  position: fixed;
+  width: 100%;
+  @media #{$medium-and-up} {
+    width: calc(100vw - 260px);
+    left: 240px;
+  }
+  left: 0;
+  bottom: 0;
   height: 100px;
   background: white;
   border-top: 1px solid #ddd;
@@ -167,10 +172,10 @@ ul.message-list {
     height: 60px;
     float: left;
     margin: 10px 30px;
-    width: calc(100% - 185px);
+    width: calc(100% - 200px);
   }
   a.btn {
-    margin: 25px 20px 20px 0;
+    margin: 25px 30px 20px 0;
   }
 }
 .intro-msg {
