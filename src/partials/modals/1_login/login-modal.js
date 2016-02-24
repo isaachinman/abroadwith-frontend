@@ -15,11 +15,14 @@ function login() {
       loginObj.email = email;
       loginObj.password = password;
 
+      console.log(loginObj)
+
       $.ajax({
           type: "POST",
-          url: '/users/login',
-          dataType: 'JSON',
+          url: 'https://admin.abroadwith.com/users/login',
+          contentType: "application/json",
           data: JSON.stringify(loginObj),
+          timeout: 3000,
           success: function (JWT) {
 
             localStorage.setItem('JWT', JWT.token)
@@ -27,6 +30,12 @@ function login() {
             $('#preloader').addClass('hide');
             var retrievedJWT = localStorage.getItem('JWT')
             console.log(retrievedJWT);
+
+          },
+          error: function() {
+
+            $('#preloader').addClass('hide');
+            alert('Login failed');
 
           }
       })

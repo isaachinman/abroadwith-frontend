@@ -233,12 +233,9 @@ if ($('form#signup').length) {
   function validateUserAndSend() {
     if (newUser.hasOwnProperty('firstName') && newUser.hasOwnProperty('lastName') && newUser.hasOwnProperty('email') && newUser.hasOwnProperty('birthDate')) {
 
-      var loginObj = {
-        "email":newUser.email,
-        "password":newUser.password
-      }
-
-      console.log(JSON.stringify(newUser))
+      var loginObj = {};
+      loginObj.email = newUser.email;
+      loginObj.password = newUser.password;
 
       $.ajax({
         type: "POST",
@@ -252,12 +249,13 @@ if ($('form#signup').length) {
 
           $.ajax({
           type: "POST",
-          url: '/users/login',
-          dataType: 'JSON',
+          url: 'https://admin.abroadwith.com/users/login',
+          contentType: "application/json",
           data: JSON.stringify(loginObj),
           success: function (JWT) {
 
-            localStorage.setItem('JWT', JWT.token)
+            console.log(JWT);
+            localStorage.setItem('JWT', JWT.token);
 
           }
         })

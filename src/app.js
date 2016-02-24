@@ -11,8 +11,9 @@ require('./main/main');
 // Search page
 require('./search/search');
 
-// Signup
+// Globals
 require('./global/signup');
+require('./global/home-creation')
 
 // Modals
 require('./partials/modals/1_login/login-modal.js')
