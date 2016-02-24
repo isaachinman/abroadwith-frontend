@@ -10,7 +10,7 @@ module.exports = React.createClass({
     return (
 
       <div className='msg msg--sent'>
-        <div className='user'>
+        <div className='user user--you'>
           <img src={this.props.yourPhoto} className="circle responsive-img" />
         </div>
         <div className='contents'>

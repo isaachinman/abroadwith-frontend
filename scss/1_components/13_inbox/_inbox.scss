@@ -73,7 +73,16 @@ ul.message-list {
         overflow: hidden;
         width: 60px;
         height: 60px;
-        border: 2px solid $havelock-blue;
+      }
+      &--you {
+        img {
+          border: 3px solid $havelock-blue;
+        }
+      }
+      &--them {
+        img {
+          border: 3px solid $grey-chateau;
+        }
       }
     }
     .contents {
