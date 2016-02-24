@@ -1,4 +1,6 @@
 var React = require('react');
+var domains = require('domains');
+var jwt_decode = require('jwt-decode')
 
 module.exports = React.createClass({
   userEditSave: function() {
@@ -23,24 +25,34 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
-    $.get(this.props.source, function(data) {
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
-      // Parse the response
-      var response = JSON.parse(data);
+    console.log(JWT.rid);
 
-      $('#user-photo').attr('src', response.photo);
-      $('#about-me').val(response.aboutMe);
-      $('#education').val(response.education);
-      $('#grew-up').val(response.grewUp);
-      $('#fav-book').val(response.favBook);
-      $('#fav-film').val(response.favFilm);
-      $('#amazing-feat').val(response.amazingFeat);
-      $('#can-share').val(response.canShare);
-      $('#interests').val(response.interests);
-      $('#countries-visited').val(response.countriesVisited).trigger('change');
-      $('#countries-lived').val(response.countriesLived).trigger('change');
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid,
+      data: { signature: authHeader },
+      type: "GET",
+      beforeSend: function(xhr){xhr.setRequestHeader('X-Test-Header', 'test-value');},
+      success: function(data) {
 
-    }.bind(this));
+        // Parse the response
+        var response = JSON.parse(data);
+
+        $('#user-photo').attr('src', response.photo);
+        $('#about-me').val(response.aboutMe);
+        $('#education').val(response.education);
+        $('#grew-up').val(response.grewUp);
+        $('#fav-book').val(response.favBook);
+        $('#fav-film').val(response.favFilm);
+        $('#amazing-feat').val(response.amazingFeat);
+        $('#can-share').val(response.canShare);
+        $('#interests').val(response.interests);
+        $('#countries-visited').val(response.countriesVisited).trigger('change');
+        $('#countries-lived').val(response.countriesLived).trigger('change');
+
+      }
+    }.bind(this)))
 
     // Select2
     $("select#countries-visited").select2();
