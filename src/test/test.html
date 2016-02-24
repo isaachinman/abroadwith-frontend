@@ -2,7 +2,19 @@
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <!--<script src="/app.js"></script>-->
-<script>
+<!--script>
+$.ajax({
+  type: 'GET',
+  url: "http://localhost:8080/users/1",
+  headers: {
+    'Authorization': 'Bearer eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoibm5QQmd2SDN4ZW9xQm1YdV9EMExOUSIsImlhdCI6MTQ1NjMxMzk3MCwiZXhwIjoxNDU2OTE4NzcwLCJuYmYiOjE0NTYzMTM4NTAsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IklzYWFjIiwicmlkIjoxfQ.cAl-xWIofwOmzXDG-jF_jw06juHBzpoaG1nVhlNWXNBECkTvXqfLcjcHOJzepbUarEIiIkXjbc0m-rhUX1iTKD_haW6u3W-_wB433CxORTpcZ26kBdZMSen_Kje1huOki4sQ0oFMdskj9uNRB23RlvwYS3CH-TVTZ2sLCJnOUrDE8NvLzVwUt1xwRc1xhcoOL4cHdYbwXOiBZ6GTDtBYXxb4THMar0bYxwhFlsWRPbzrrRMvsW3d0ENnequtVThiXBOTl_u9c4gpcuIyqBHgcR8VRthVHY2rWg-s0M89vlwPhvtkvqR0XPfSgeTicqmcqcUlowubiEce9_rEbGkh6g'
+  },
+  success: function(data, status) {
+    return console.log("The returned data", data);
+  }
+});
+</script-->
+<!--script>
 $.ajax({
    type: "POST",
    url: "/users/1/messages/2222",
@@ -15,10 +27,10 @@ $.ajax({
   }
 });
 </script>
-<!--script>
+<script>
 $.ajax({
   type: 'GET',
-  url: "http://localhost:8080/users/103/homes",
+  url: "https://admin.abroadwith.com/users/103/homes",
   headers: {
     'Authorization': 'Bearer eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiUGMzT0lqX0RmNElybmtLYzF2T01YdyIsImlhdCI6MTQ1NTgzNjE3OCwiZXhwIjoxNDU2NDQwOTc4LCJuYmYiOjE0NTU4MzYwNTgsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IkRvbiBQaW4iLCJyaWQiOjEwM30.CmhCHR3WV6zSVePIYQL3a1dMb3rZcu0453lr75--pyivYwSxCird5m_3TPGHyvzvIvdV7EG7Rp3bdB6I4p9lJJLOCnf8qk6NY0WYNAvAFjkquc1fotOQz48VMbk1BF1aLiQLEZ0ea3B9Ja6m1i-9YFIx-4iq7x51muLI2jx8znciwPbCzApjzdF-hLVNwN9ODgODRKkiVKhtMhqPzFVgiwvAfefeuxnJrF1Vbc3cx2cR5zTob2r7zfj8xE21M60j0AgDJoZWX20RKiOtwioZQck3i1fUSyFDK0M5pd7kttqavXE5gptVhadqZhejW3ElUHxBrr86rJomlxslkBrs7A'
   },
@@ -28,7 +40,7 @@ $.ajax({
 });
 $.ajax({
   type: 'GET',
-  url: "http://localhost:8080/users/104/homes",
+  url: "https://admin.abroadwith.com/users/104/homes",
   headers: {
     'Authorization': 'Bearer eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiUGMzT0lqX0RmNElybmtLYzF2T01YdyIsImlhdCI6MTQ1NTgzNjE3OCwiZXhwIjoxNDU2NDQwOTc4LCJuYmYiOjE0NTU4MzYwNTgsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IkRvbiBQaW4iLCJyaWQiOjEwM30.CmhCHR3WV6zSVePIYQL3a1dMb3rZcu0453lr75--pyivYwSxCird5m_3TPGHyvzvIvdV7EG7Rp3bdB6I4p9lJJLOCnf8qk6NY0WYNAvAFjkquc1fotOQz48VMbk1BF1aLiQLEZ0ea3B9Ja6m1i-9YFIx-4iq7x51muLI2jx8znciwPbCzApjzdF-hLVNwN9ODgODRKkiVKhtMhqPzFVgiwvAfefeuxnJrF1Vbc3cx2cR5zTob2r7zfj8xE21M60j0AgDJoZWX20RKiOtwioZQck3i1fUSyFDK0M5pd7kttqavXE5gptVhadqZhejW3ElUHxBrr86rJomlxslkBrs7A'
   },
@@ -38,7 +50,7 @@ $.ajax({
 });
 $.ajax({
   type: 'GET',
-  url: "http://localhost:8080/users/103/",
+  url: "https://admin.abroadwith.com/users/103/",
   headers: {
     'Authorization': 'Bearer eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiUGMzT0lqX0RmNElybmtLYzF2T01YdyIsImlhdCI6MTQ1NTgzNjE3OCwiZXhwIjoxNDU2NDQwOTc4LCJuYmYiOjE0NTU4MzYwNTgsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IkRvbiBQaW4iLCJyaWQiOjEwM30.CmhCHR3WV6zSVePIYQL3a1dMb3rZcu0453lr75--pyivYwSxCird5m_3TPGHyvzvIvdV7EG7Rp3bdB6I4p9lJJLOCnf8qk6NY0WYNAvAFjkquc1fotOQz48VMbk1BF1aLiQLEZ0ea3B9Ja6m1i-9YFIx-4iq7x51muLI2jx8znciwPbCzApjzdF-hLVNwN9ODgODRKkiVKhtMhqPzFVgiwvAfefeuxnJrF1Vbc3cx2cR5zTob2r7zfj8xE21M60j0AgDJoZWX20RKiOtwioZQck3i1fUSyFDK0M5pd7kttqavXE5gptVhadqZhejW3ElUHxBrr86rJomlxslkBrs7A'
   },
@@ -48,7 +60,7 @@ $.ajax({
 });
 $.ajax({
   type: 'GET',
-  url: "http://localhost:8080/users/104",
+  url: "https://admin.abroadwith.com/users/104",
   headers: {
     'Authorization': 'Bearer eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiUGMzT0lqX0RmNElybmtLYzF2T01YdyIsImlhdCI6MTQ1NTgzNjE3OCwiZXhwIjoxNDU2NDQwOTc4LCJuYmYiOjE0NTU4MzYwNTgsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IkRvbiBQaW4iLCJyaWQiOjEwM30.CmhCHR3WV6zSVePIYQL3a1dMb3rZcu0453lr75--pyivYwSxCird5m_3TPGHyvzvIvdV7EG7Rp3bdB6I4p9lJJLOCnf8qk6NY0WYNAvAFjkquc1fotOQz48VMbk1BF1aLiQLEZ0ea3B9Ja6m1i-9YFIx-4iq7x51muLI2jx8znciwPbCzApjzdF-hLVNwN9ODgODRKkiVKhtMhqPzFVgiwvAfefeuxnJrF1Vbc3cx2cR5zTob2r7zfj8xE21M60j0AgDJoZWX20RKiOtwioZQck3i1fUSyFDK0M5pd7kttqavXE5gptVhadqZhejW3ElUHxBrr86rJomlxslkBrs7A'
   },
@@ -57,6 +69,155 @@ $.ajax({
   }
 });
 </script-->
+<script>
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      testAPI();
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into Facebook.';
+    }
+  }
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '144997212531478',
+    cookie     : true,  // enable cookies to allow the server to access
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.5' // use graph api version 2.5
+  });
+
+  // Now that we've initialized the JavaScript SDK, we call
+  // FB.getLoginStatus().  This function gets the state of the
+  // person visiting this page and can return one of three states to
+  // the callback you provide.  They can be:
+  //
+  // 1. Logged into your app ('connected')
+  // 2. Logged into Facebook, but not your app ('not_authorized')
+  // 3. Not logged into Facebook and can't tell if they are logged into
+  //    your app or not.
+  //
+  // These three cases are handled in the callback function.
+
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!' + response.id;
+        var newUser = {};
+      FB.api('/me', {fields: 'first_name,last_name,email,birthday,gender,age_range'}, function(response) {
+        newUser["firstName"] = response.first_name;
+        newUser["lastName"] = response.last_name;
+        newUser["email"] = response.email;
+        newUser["facebookId"] = response.id;
+        newUser["userKnownLanguages"] =  [{language:"ENG",level:"NATIVE"}];
+        if(!response.birthday){
+          newUser["birthDate"] = "1990-01-01";
+        }
+        else{
+          newUser["birthDate"] = (response.birthday).substring(6,10)+'-'+(response.birthday).substring(3,5)+'-'+(response.birthday).substring(0,2);
+        }
+        console.log(JSON.stringify(newUser));
+        var loginObj = {};
+        loginObj.email = response.email;
+        loginObj.facebookToken = FB.getAuthResponse().accessToken;
+        $.ajax({
+          type: "POST",
+          url: 'https://admin.abroadwith.com/users',
+          data: JSON.stringify(newUser),
+          contentType: "application/json",
+          processData: false,
+          success: function(response){
+
+            console.log(response);
+
+            $.ajax({
+            type: "POST",
+            url: 'https://admin.abroadwith.com/users/login',
+            contentType: "application/json",
+            data: JSON.stringify(loginObj),
+            success: function (JWT) {
+
+              console.log(JWT);
+              localStorage.setItem('JWT', JWT.token);
+
+            }
+          })
+
+          },
+          error: function(response) {
+            $.ajax({
+            type: "POST",
+            url: 'https://admin.abroadwith.com/users/login',
+            contentType: "application/json",
+            data: JSON.stringify(loginObj),
+            success: function (JWT) {
+
+              console.log(JWT);
+              localStorage.setItem('JWT', JWT.token);
+
+            }
+          });
+        }
+        });
+      })
+    });
+  }
+</script>
+
+<!--
+  Below we include the Login Button social plugin. This button uses
+  the JavaScript SDK to present a graphical Login button that triggers
+  the FB.login() function when clicked.
+-->
+
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
 
 </body>
 </html>
