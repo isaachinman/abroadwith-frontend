@@ -1,5 +1,7 @@
 var React = require('react');
 
+var domains = require('domains')
+
 var i18n = require('../../global/components/i18n');
 i18n.loadNamespaces(['common']);
 
@@ -27,16 +29,14 @@ module.exports = React.createClass({
   handleClick: function() {},
   render: function() {
 
-    var baseUrl = 'https://img.abroadwith.com';
-
     // Room photo src
-    var roomSrc = baseUrl + this.props.roomPhoto;
+    var roomSrc = domains.IMG + this.props.roomPhoto;
 
     // Home photos
     if (this.props.homePhotos) {
       var homePhotos = [];
       this.props.homePhotos.forEach(function(src) {
-        var src = baseUrl + src;
+        var src = domains.IMG + src;
         var photo = <div className="Wallop-item"><img src={src}/></div>
         homePhotos.push(photo);
       })
@@ -44,7 +44,7 @@ module.exports = React.createClass({
 
     // Host photo src
     var hostImg = {
-      backgroundImage: 'url(' + baseUrl + this.props.hostPhoto + ')'
+      backgroundImage: 'url(' + domains.IMG + this.props.hostPhoto + ')'
     }
 
     // Compile immersion tags

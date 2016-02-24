@@ -13,7 +13,7 @@ require('./search/search');
 
 // Globals
 require('./global/signup');
-require('./global/login');
+require('./global/login-init');
 require('./global/logout');
 require('./global/home-creation');
 

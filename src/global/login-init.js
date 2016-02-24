@@ -1,0 +1,46 @@
+var jwt_decode = require('jwt-decode');
+var login = require('./login')
+
+if (localStorage.getItem('JWT') !== null) {
+  loggedIn();
+} else {
+  notLoggedIn();
+}
+
+function loggedIn() {
+
+  // Get JWT
+  var JWT = jwt_decode(localStorage.getItem('JWT'));
+  console.log(JWT);
+
+  // Print username into navbar
+  $('span#navbar-username').html(JWT.name)
+
+  // Toggle navbars
+  $('#navbar').hide();
+  $('#navbar-logged-in').show();
+  $('#navbar-logged-in .right').fadeIn('fast');
+
+  // If any modal is open, close it
+  if ($('.modal')) {
+    $('.modal').closeModal();
+    $('.lean-overlay').remove()
+  }
+
+}
+
+function notLoggedIn() {
+
+  // Show logged out navbar
+  $('#navbar .right').fadeIn('fast');
+
+}
+
+$('form#email-login').submit(function() {
+  $('#preloader').show();
+  login($('#login-modal-email').val(), $('#login-modal-password').val());
+  loggedIn();
+  return false;
+})
+
+$('#login-modal-btn').length ? $('#login-modal-btn').click(login) : null;

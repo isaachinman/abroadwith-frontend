@@ -1,6 +1,5 @@
 var domains = require('domains');
-
-console.log(domains.API)
+var login = require('./login');
 
 // Language-learn select
 if ($('select#learning-language').length) {
@@ -237,9 +236,10 @@ if ($('form#signup').length) {
   function validateUserAndSend() {
     if (newUser.hasOwnProperty('firstName') && newUser.hasOwnProperty('lastName') && newUser.hasOwnProperty('email') && newUser.hasOwnProperty('birthDate')) {
 
-      var loginObj = {};
-      loginObj.email = newUser.email;
-      loginObj.password = newUser.password;
+      $('#preloader').show();
+
+      var email = newUser.email;
+      var password = newUser.password;
 
       $.ajax({
         type: "POST",
@@ -250,19 +250,7 @@ if ($('form#signup').length) {
         success: function(response){
 
           console.log(response);
-
-          $.ajax({
-          type: "POST",
-          url: 'https://admin.abroadwith.com/users/login',
-          contentType: "application/json",
-          data: JSON.stringify(loginObj),
-          success: function (JWT) {
-
-            console.log(JWT);
-            localStorage.setItem('JWT', JWT.token);
-
-          }
-        })
+          login(email, password);
 
         },
         error: function(response) {

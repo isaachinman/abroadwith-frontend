@@ -29,15 +29,18 @@ module.exports = React.createClass({
 
     console.log(JWT.rid);
 
+    console.log(localStorage.getItem('JWT'))
+
     $.ajax({
       url: domains.API+'/users/'+JWT.rid,
-      data: { signature: authHeader },
       type: "GET",
-      beforeSend: function(xhr){xhr.setRequestHeader('X-Test-Header', 'test-value');},
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(data) {
 
         // Parse the response
         var response = JSON.parse(data);
+
+        console.log(response)
 
         $('#user-photo').attr('src', response.photo);
         $('#about-me').val(response.aboutMe);
@@ -51,8 +54,13 @@ module.exports = React.createClass({
         $('#countries-visited').val(response.countriesVisited).trigger('change');
         $('#countries-lived').val(response.countriesLived).trigger('change');
 
+      }.bind(this),
+      error: function() {
+
+        alert('Something failed');
+
       }
-    }.bind(this))
+    })
 
     // Select2
     $("select#countries-visited").select2();
