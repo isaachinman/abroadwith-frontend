@@ -45,7 +45,8 @@
     "materialize": "./node_modules/materialize-css/bin/materialize.js",
     "react": "react-lite",
     "react-dom": "react-lite",
-    "domains": "./src/global/constants/domains.json"
+    "domains": "./src/global/constants/domains.json",
+    "login": "./src/global/login"
   },
   "browserify-shim": {
     "jquery": "$",

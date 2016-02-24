@@ -5,56 +5,52 @@ module.exports = function(email, password) {
   // If a JWT is in localStorage, delete it
   localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null;
 
-  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  $('#preloader').show();
 
-  if (re.test(email) === true) {
+  var loginObj = {}
+  loginObj.email = email,
+  loginObj.password = password,
 
-    $('#preloader').show();
+  console.log(loginObj)
 
-    var loginObj = {
-      email: email,
-      password: password
-    };
+  $.ajax({
+    type: "POST",
+    url: 'https://admin.abroadwith.com/users/login',
+    contentType: "application/json",
+    data: JSON.stringify(loginObj),
+    success: function(JWT) {
 
-    console.log(loginObj)
+      console.log(JWT);
 
-    $.ajax({
-      type: "POST",
-      url: 'https://admin.abroadwith.com/users/login',
-      contentType: "application/json",
-      data: JSON.stringify(loginObj),
-      success: function(JWT) {
+      localStorage.setItem('JWT', JWT.token)
 
-        localStorage.setItem('JWT', JWT.token)
+      $('#preloader').hide();
 
-        $('#preloader').hide();
+      // Get JWT
+      var JWT = jwt_decode(localStorage.getItem('JWT'));
+      console.log(JWT);
 
-        // Get JWT
-        var JWT = jwt_decode(localStorage.getItem('JWT'));
-        console.log(JWT);
+      // Print username into navbar
+      $('span#navbar-username').html(JWT.name)
 
-        // Print username into navbar
-        $('span#navbar-username').html(JWT.name)
+      // Toggle navbars
+      $('#navbar').hide();
+      $('#navbar-logged-in').show();
+      $('#navbar-logged-in .right').fadeIn('fast');
 
-        // Toggle navbars
-        $('#navbar').hide();
-        $('#navbar-logged-in').show();
-        $('#navbar-logged-in .right').fadeIn('fast');
-
-        // If any modal is open, close it
-        if ($('.modal')) {
-          $('.modal').closeModal();
-          $('.lean-overlay').remove()
-        }
-
-      },
-      error: function() {
-
-        $('#preloader').hide();
-        alert('Login failed');
-
+      // If any modal is open, close it
+      if ($('.modal')) {
+        $('.modal').closeModal();
+        $('.lean-overlay').remove()
       }
-    })
 
-  }
+    },
+    error: function() {
+
+      $('#preloader').hide();
+      alert('Login failed');
+
+    }
+  })
+
 }

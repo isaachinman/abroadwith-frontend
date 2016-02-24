@@ -1,5 +1,5 @@
 var jwt_decode = require('jwt-decode');
-var login = require('./login')
+var login = require('login')
 
 if (localStorage.getItem('JWT') !== null) {
   loggedIn();
@@ -38,8 +38,10 @@ function notLoggedIn() {
 
 $('form#email-login').submit(function() {
   $('#preloader').show();
-  login($('#login-modal-email').val(), $('#login-modal-password').val());
-  loggedIn();
+  console.log('logged in logged in logged in logged in logged in');
+  var email = $('#login-modal-email').val()
+  var password = $('#login-modal-password').val()
+  login(email, password);
   return false;
 })
 
