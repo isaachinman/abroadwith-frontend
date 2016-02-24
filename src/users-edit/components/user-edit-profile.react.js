@@ -18,10 +18,8 @@ module.exports = React.createClass({
     $('#amazing-feat').val() !== 'undefined'      ? userObj.amazingFeat = $('#amazing-feat').val() : null;
     $('#can-share').val() !== 'undefined'         ? userObj.canShare = $('#can-share').val() : null;
     $('#interests').val() !== 'undefined'         ? userObj.interests = $('#interests').val() : null;
-    $('#countries-visited').val() !== 'undefined' ? userObj.countriesVisited = $('#countries-visited').val() : null;
-    $('#countries-lived').val() !== 'undefined'   ? userObj.countriesLived = $('#countries-lived').val() : null;
-
-    userObj.countriesLived = null;
+    $('#countries-visited').val() !== 'undefined' ? userObj.countriesVisited = JSON.stringify($('#countries-visited').val()) : null;
+    $('#countries-lived').val() !== 'undefined'   ? userObj.countriesLived = JSON.stringify($('#countries-lived').val()) : null;
 
     console.log(userObj)
 
@@ -68,8 +66,8 @@ module.exports = React.createClass({
         $('#amazing-feat').val(response.amazingFeat);
         $('#can-share').val(response.canShare);
         $('#interests').val(response.interests);
-        $('#countries-visited').val(response.countriesVisited).trigger('change');
-        $('#countries-lived').val(response.countriesLived).trigger('change');
+        $('#countries-visited').val(JSON.parse(response.countriesVisited)).trigger('change');
+        $('#countries-lived').val(JSON.parse(response.countriesLived)).trigger('change');
 
       }.bind(this),
       error: function() {
