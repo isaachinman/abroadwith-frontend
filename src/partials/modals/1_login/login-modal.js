@@ -1,6 +1,8 @@
 if ($('#login-modal-btn').length) {
 
-function login() {
+  var jwt_decode = require('jwt-decode');
+
+  function login() {
 
     var email = $('#login-modal-email').val();
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -29,7 +31,10 @@ function login() {
 
             $('#preloader').addClass('hide');
             var retrievedJWT = localStorage.getItem('JWT')
-            console.log(retrievedJWT);
+            console.log(jwt_decode(retrievedJWT));
+
+            loginSuccess();
+
 
           },
           error: function() {
@@ -41,6 +46,17 @@ function login() {
       })
 
     }
+  }
+
+  function loginSuccess() {
+
+    $('#navbar').addClass('hide');
+    $('#navbar-logged-in').removeClass('hide');
+    if ($('.modal')) {
+      $('.modal').closeModal();
+      $('.lean-overlay').remove()
+    }
+
   }
 
   $('form#email-login').submit(function() {

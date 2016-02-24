@@ -1,3 +1,7 @@
+var domains = require('domains');
+
+console.log(domains.API)
+
 // Language-learn select
 if ($('select#learning-language').length) {
   $('select#learning-language').select2();

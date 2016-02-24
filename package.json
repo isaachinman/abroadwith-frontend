@@ -18,6 +18,8 @@
     "iban": "0.0.6",
     "jquery": "^2.2.0",
     "jsonwebtoken": "^5.5.4",
+    "jwt-client": "^0.2.0",
+    "jwt-decode": "^1.5.1",
     "materialize-css": "git+https://github.com/SourceComb/materialize.git",
     "node-sass": "^3.4.2",
     "nouislider-browser": "^5.0.0-1",
@@ -42,7 +44,8 @@
     "jquery": "./node_modules/jquery/dist/jquery.min.js",
     "materialize": "./node_modules/materialize-css/bin/materialize.js",
     "react": "react-lite",
-    "react-dom": "react-lite"
+    "react-dom": "react-lite",
+    "domains": "./src/global/constants/domains.json"
   },
   "browserify-shim": {
     "jquery": "$",
