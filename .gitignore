@@ -3,4 +3,4 @@ build
 locales
 *.log
 .DS_Store
-login.*
+login.* #Except for login.js
