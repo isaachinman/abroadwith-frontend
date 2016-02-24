@@ -52,7 +52,7 @@ module.exports = React.createClass({
         $('#countries-lived').val(response.countriesLived).trigger('change');
 
       }
-    }.bind(this)))
+    }.bind(this))
 
     // Select2
     $("select#countries-visited").select2();
