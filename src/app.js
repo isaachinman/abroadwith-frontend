@@ -13,10 +13,9 @@ require('./search/search');
 
 // Globals
 require('./global/signup');
-require('./global/home-creation')
+require('./global/login');
+require('./global/home-creation');
 
-// Modals
-require('./partials/modals/1_login/login-modal.js')
 
 // Manage home
 require('./manage-home/manage-home');
