@@ -51,8 +51,9 @@
           <i class="fa fa-map-marker fa-2x"></i>
         </div>
         <div class='col s10 m4 l4 input-field'>
-          <input id='location' placeholder="City, country" type="text" class="validate">
-          <label class='active'>Location</label>
+          <input placeholder="{{translations.common.where}}" id="location" type="text" class="validate">
+          {% include "../../global/components/google-maps-autocomplete.html" %}
+          <label class='active'>Home location</label>
         </div>
 
         <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>

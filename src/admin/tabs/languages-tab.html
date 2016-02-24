@@ -55,14 +55,14 @@
           <select id="known-language" type="text" class="validate no-margin" data-placeholder='Language'>
             <option></option>
             {% for langCode, language in translations.languages %}
-            <option data-lang={{langCode}}>{{ language }}</option>
+              <option data-lang={{langCode}}>{{ language }}</option>
             {% endfor %}
           </select>
         </div>
         <div class='col s5 m2 l2 input-field'>
           <select id="known-level" type="text" class="material validate no-margin">
             {% for levelCode, level in translations.common.knownLevels %}
-            <option data-level={{ levelCode }}>{{ level }}</option>
+              <option data-level={{ levelCode }}>{{ level }}</option>
             {% endfor %}
           </select>
         </div>

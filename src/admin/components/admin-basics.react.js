@@ -10,6 +10,8 @@ module.exports = React.createClass({
     adminObj.location =                         $('#location').val();
     adminObj.phoneNumber =                      $('#phoneNumber').val();
     adminObj.email =                            $('#user-email').val();
+    
+    adminObj.emergencyContact ? null : adminObj.emergencyContact = {};
     adminObj.emergencyContact.name =            $('#emergency-name').val();
     adminObj.emergencyContact.phone =           $('#emergency-phone').val();
     adminObj.emergencyContact.email =           $('#emergency-email').val();

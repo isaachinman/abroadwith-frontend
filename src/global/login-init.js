@@ -17,7 +17,10 @@ function loggedIn() {
   $('span#navbar-username').html(JWT.name)
 
   // Toggle navbars
-  $('#navbar').hide();
+  $('#navbar').remove();
+  $('#choose-languages-modal').remove();
+  $('#login-modal').remove();
+  $('#sign-up-modal').remove();
   $('#navbar-logged-in').show();
   $('#navbar-logged-in .right').fadeIn('fast');
 

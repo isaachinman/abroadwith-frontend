@@ -4,67 +4,108 @@ var Notifications = require('./admin-notifications.react')
 var Payments = require('./admin-payments.react');
 var Languages = require('./admin-languages.react');
 
+var domains = require('domains');
+var jwt_decode = require('jwt-decode');
+
+
 module.exports = React.createClass({
   updateAdmin: function() {
 
-    // Post to edit user endpoint and then refresh state
-    Materialize.toast('Admin updated', 4000);
+    delete adminObj.paymentMethods;
+    delete adminObj.payoutMethods;
+    delete adminObj.verifications;
 
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+    console.log(adminObj)
+
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid,
+      type: "POST",
+      data: JSON.stringify(adminObj),
+      contentType: "application/json",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
+
+        this.refreshState();
+        Materialize.toast('Admin updated', 4000);
+
+      }.bind(this),
+      error: function() {
+
+        alert('Something failed');
+
+      }
+    })
+
+
+  },
+  refreshState: function() {
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid,
+      type: "GET",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
+
+        window.adminObj = response;
+
+        console.log(response)
+
+        // Notifications tab
+        $('#email-reminders').prop('checked', response.notifications.email.reminders)
+        $('#email-promotions').prop('checked', response.notifications.email.promotion)
+        $('#sms-notifications').prop('checked', response.notifications.sms.all)
+
+        // Verifications
+        function checkVerifications(type) {
+          if (response.verifications[type] === true) {
+            $('#verification-'+type+' .collapsible-header').addClass('disabled');
+            $('#verification-'+type+' .edit').html('<i class="fa fa-check-circle green-text fa-2x"></i>');
+          }
+        }
+        ['email','phone','id'].forEach(checkVerifications);
+
+        var newState = {
+          // Set new state vars
+          paymentMethods:         response.paymentMethods,
+          payoutMethods:          response.payoutMethods,
+          languagesLearning:      response.userLearningLanguages,
+          languagesKnown:         response.userKnownLanguages,
+
+          firstName:              response.firstName,
+          lastName:               response.lastName,
+          gender:                 response.gender,
+          birthDate:              response.birthDate,
+          location:               response.location,
+          phoneNumber:            response.phoneNumber,
+          email:                  response.email,
+          emergencyName:          response.emergencyContact && response.emergencyContact.name ? response.emergencyContact.name : null,
+          emergencyPhone:         response.emergencyContact && response.emergencyContact.phone ? response.emergencyContact.phone : null,
+          emergencyEmail:         response.emergencyContact && response.emergencyContact.email ? response.emergencyContact.email : null,
+          emergencyRelationship:  response.emergencyContact && response.emergencyContact.relationship ? response.emergencyContact.relationship : null,
+
+          emailReminders:         response.notifications.email.reminders,
+          emailPromotions:        response.notifications.email.promotions,
+          smsNotifications:       response.notifications.sms.all
+        }
+
+        if (this.isMounted()) {
+          this.setState(newState);
+        };
+
+      }.bind(this),
+      error: function() {
+
+        alert('Something failed');
+
+      }
+    })
   },
   componentDidMount: function() {
 
-    $.get(this.props.source, function(data) {
-
-      // Parse the response
-      var response = JSON.parse(data);
-
-      window.adminObj = response;
-
-      console.log(adminObj)
-
-      // Notifications tab
-      $('#email-reminders').prop('checked', response.notifications.email.reminders)
-      $('#email-promotions').prop('checked', response.notifications.email.promotion)
-      $('#sms-notifications').prop('checked', response.notifications.sms.all)
-
-      // Verifications
-      function checkVerifications(type) {
-        if (response.verifications[type] === true) {
-          $('#verification-'+type+' .collapsible-header').addClass('disabled');
-          $('#verification-'+type+' .edit').html('<i class="fa fa-check-circle green-text fa-2x"></i>');
-        }
-      }
-      ['email','phone','id'].forEach(checkVerifications);
-
-      var newState = {
-        // Set new state vars
-        paymentMethods:         response.paymentMethods,
-        payoutMethods:          response.payoutMethods,
-        languagesLearning:      response.userLearningLanguages,
-        languagesKnown:         response.userKnownLanguages,
-
-        firstName:              response.firstName,
-        lastName:               response.lastName,
-        gender:                 response.gender,
-        birthDate:              response.birthDate,
-        location:               response.location,
-        phoneNumber:            response.phoneNumber,
-        email:                  response.email,
-        emergencyName:          response.emergencyContact.name,
-        emergencyPhone:         response.emergencyContact.phone,
-        emergencyEmail:         response.emergencyContact.email,
-        emergencyRelationship:  response.emergencyContact.relationship,
-
-        emailReminders:         response.notifications.email.reminders,
-        emailPromotions:        response.notifications.email.promotions,
-        smsNotifications:       response.notifications.sms.all
-      }
-
-      if (this.isMounted()) {
-        this.setState(newState);
-      };
-
-    }.bind(this));
+    this.refreshState();
 
   },
   render: function() {

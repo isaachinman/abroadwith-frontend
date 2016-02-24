@@ -1,6 +1,6 @@
 var React = require('react');
 var domains = require('domains');
-var jwt_decode = require('jwt-decode')
+var jwt_decode = require('jwt-decode');
 
 module.exports = React.createClass({
   userEditSave: function() {
@@ -21,7 +21,7 @@ module.exports = React.createClass({
     $('#countries-visited').val() !== 'undefined' ? userObj.countriesVisited = JSON.stringify($('#countries-visited').val()) : null;
     $('#countries-lived').val() !== 'undefined'   ? userObj.countriesLived = JSON.stringify($('#countries-lived').val()) : null;
 
-    console.log(userObj)
+    console.log(userObj);
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 

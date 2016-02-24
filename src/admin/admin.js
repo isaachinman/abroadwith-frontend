@@ -7,8 +7,6 @@ var AdminEdit = require('./components/admin-edit.react');
 if ($('#admin-edit').length) {
   // Admin parent
   ReactDOM.render(
-    <AdminEdit
-      source='backend/user-edit/user-edit'
-    />, document.querySelector('#admin-edit')
+    <AdminEdit />, document.querySelector('#admin-edit')
   )
 }
