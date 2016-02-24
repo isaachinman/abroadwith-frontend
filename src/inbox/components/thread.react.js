@@ -137,7 +137,7 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
-    $.get( "users/1/messages/"+this.props.id+'?size=1', function(response) {
+    $.get( "users/1/messages/"+this.props.id+'?size=10', function(response) {
 
       var messages = []
       var messageSetup = JSON.parse(response);
