@@ -12,6 +12,7 @@ var installUsers = require('./users/UsersInstaller');
 var installUserEdit = require('./users-edit/UserEditInstaller');
 var installInbox = require('./inbox/InboxInstaller');
 var installAdmin = require('./admin/AdminInstaller');
+var installStatic = require('./static/StaticInstaller');
 
 /** Middlewares **/
 var contextLoader = require('./global/middlewares/ContextLoader');
@@ -52,10 +53,10 @@ installSearch(app);
 
 installManageHome(app);
 
-
 installTest(app);
+
 installMessaging(app);
 
-
+installStatic(app);
 
 http.createServer(app).listen(3000);
