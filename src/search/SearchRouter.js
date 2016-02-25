@@ -14,7 +14,7 @@ var solr = {
 
 router.get('/', function (req, res) {
   if(!req.context) res.status(404).send('No search context.');
-  res.send(nunjucks.render('search/search.html',context));
+  res.send(nunjucks.render('search/search.html',req.context));
 });
 
 router.post('/', function (req, res) {
