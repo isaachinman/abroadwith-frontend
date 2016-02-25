@@ -1,8 +1,6 @@
 var express = require('express');
 var nunjucks = require('nunjucks');
 
-
-
 var genericRouter = function(file){
   var router = express.Router();
 
