@@ -3,6 +3,8 @@
   "lastName":"Hinman",
   "email":"isaac@abroadwith.com",
   "birthDate":"1993-05-18",
+  "facebookId":"12341234",
+  "googleId":"12341234",
   "userKnownLanguages":[
     {
       "language": "SPA",
