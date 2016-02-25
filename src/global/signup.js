@@ -30,14 +30,17 @@ if ($('form#signup').length) {
     // Get date for 18 years ago
     require('../../src/utils/date-object-to-yyyymmdd');
     var eighteenYearsAgo = new Date();
-    eighteenYearsAgo.setTime(eighteenYearsAgo.valueOf() - 18 * 365 * 24 * 60 * 60 * 1000);
+    eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18);
     eighteenYearsAgo = eighteenYearsAgo.yyyymmdd();
 
     $('.datepicker-birthday').pickadate({
       max: eighteenYearsAgo,
       container: 'body',
       selectYears: true,
-      format: 'yyyy-mm-dd'
+      format: 'yyyy-mm-dd',
+      onSet: function() {
+        this.close();
+      }
     });
 
   }

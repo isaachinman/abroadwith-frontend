@@ -10,15 +10,15 @@
 
               <div class='row section no-padding-top'>
 
-                <form id='email-login'>
+                <form class='email-login'>
 
                   <div class='input-field col s12 m10 offset-m1 l10 offset-l1'>
-                    <input id="login-modal-email" type="email" class="validate no-margin">
+                    <input name='email' type="email" class="login-email validate no-margin">
                     <label for="email">{{translations.common.Email}}</label>
                   </div>
 
                   <div class="input-field col s12 m10 offset-m1 l10 offset-l1">
-                    <input id="login-modal-password" type="password" class="validate no-margin">
+                    <input name='password' type="password" class="login-password validate no-margin">
                     <label for="password">{{translations.common.Password}}</label>
                     <input type='submit' class='hide'>
                   </div>
@@ -45,7 +45,7 @@
 
     <div class='row'>
       <div class='col s12 m10 offset-m1 l10 offset-l1 no-padding'>
-        <a class='btn btn-signup btn-signup--facebook' id='fb-login'>Log in with Facebook</a>
+        <a class='btn btn-signup btn-signup--facebook fb-login'>Log in with Facebook</a>
       </div>
     </div>
 

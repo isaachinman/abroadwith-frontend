@@ -21,8 +21,6 @@ module.exports = function(email, password) {
     data: JSON.stringify(loginObj),
     success: function(JWT) {
 
-      console.log(JWT);
-
       localStorage.setItem('JWT', JWT.token)
 
       $('#preloader').hide();

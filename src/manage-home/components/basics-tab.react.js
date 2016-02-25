@@ -4,25 +4,16 @@ module.exports = React.createClass({
   saveBasics: function() {
 
     // Create new basics object
-    var newBasicsObj = {};
-    newBasicsObj.homeType = $('#home-type').val();
-    newBasicsObj.SAFETY = $('#safety').val();
-    newBasicsObj.AMENITIES = $('#amenities').val();
-    newBasicsObj.MEAL_PLAN = $('#meal-plan').val();
-    newBasicsObj.FOOD_OPTION = $('#food-option').val();
-    newBasicsObj.EXTRAS = $('#extras').val();
-    newBasicsObj.family = $('#family').prop('checked');
-    newBasicsObj.PREFERENCES = $('#preferences').val();
+    homeObj.basics.homeType = $('#home-type').val();
+    homeObj.basics.SAFETY = $('#safety').val();
+    homeObj.basics.AMENITIES = $('#amenities').val();
+    homeObj.basics.MEAL_PLAN = $('#meal-plan').val();
+    homeObj.basics.FOOD_OPTION = $('#food-option').val();
+    homeObj.basics.EXTRAS = $('#extras').val();
+    homeObj.basics.family = $('#family').prop('checked');
+    homeObj.basics.PREFERENCES = $('#preferences').val();
 
-    // Modify home object, using new basics object
-    if (typeof homeObj !== 'undefined') {
-
-      console.log(newBasicsObj)
-      homeObj.basics = newBasicsObj;
-
-      // POST new home object
-      Materialize.toast('Basics updated', 4000);
-    }
+    this.props.updateHome();
 
   },
   componentDidUpdate: function() {

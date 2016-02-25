@@ -10,11 +10,37 @@ var PricingTab =          require('./pricing-tab.react');
 var i18n = require('../../global/components/i18n');
 i18n.loadNamespaces(['manage_home']);
 
+var jwt_decode = require('jwt-decode');
+var domains = require('domains');
+
 module.exports = React.createClass({
-  getInitialState: function(){
-    return {
-      // state will be populated by GET
-    }
+  updateHome: function(){
+
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+    console.log(homeObj)
+
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid,
+      type: "POST",
+      data: JSON.stringify(homeObj),
+      contentType: "application/json",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
+
+        this.refreshState();
+
+      }.bind(this),
+      error: function() {
+
+        alert('Something failed');
+
+      }
+    })
+
+    // POST new home object
+    Materialize.toast('Basics updated', 4000);
+
   },
   componentDidMount: function() {
 
@@ -30,50 +56,64 @@ module.exports = React.createClass({
       if (activeTab.attr('data-next')) {
         var next = activeTab.data('next');
         $('ul.tabs').tabs('select_tab', next);
-        console.log('switched')
       }
     })
 
-    $.get(this.props.source, function(data) {
+    this.refreshState();
 
-      // Parse the response
-      var response = JSON.parse(data);
-
-      window.homeObj = response;
-
-      var newState = {
-
-        // Conditionally set up state per category
-        published:            response.isActive,
-        basics:               response.basics ? response.basics : null,
-        immersions:           response.immersions ? response.immersions : null,
-        location:             response.location ? response.location : null,
-        description:          response.description ? response.description : null,
-        rooms:                response.rooms ? response.rooms : null,
-        photos:               response.photos ? response.photos : null,
-        pricing:              response.pricing ? response.pricing : null,
-        currency:             response.pricing ? response.pricing.currency : null
-
-      }
-      if (this.isMounted()) {
-        this.setState(newState);
-      }
-
-    }.bind(this));
   },
-  componentDidUpdate: function() {
-    // Refresh selects
-    $('select.material').material_select();
+  refreshState: function() {
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
-    // Update status bar
-    var publishedBar = $('#published-status');
-    if (this.state.published === false) {
-      publishedBar.addClass('manage-home-info-text--unpublished');
-      publishedBar.html(i18n.t('manage_home:message_bottom_unpublished'));
-    } else if (this.state.published === true) {
-      publishedBar.addClass('manage-home-info-text--published');
-      publishedBar.html(i18n.t('manage_home:message_bottom_published'));
-    }
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid,
+      type: "GET",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
+
+        console.log(response)
+
+        window.homeObj = response;
+
+        var newState = {
+
+          // Conditionally set up state per category
+          published:            response.isActive,
+          basics:               response.basics ? response.basics : null,
+          immersions:           response.immersions ? response.immersions : null,
+          location:             response.location ? response.location : null,
+          description:          response.description ? response.description : null,
+          rooms:                response.rooms ? response.rooms : null,
+          photos:               response.photos ? response.photos : null,
+          pricing:              response.pricing ? response.pricing : null,
+          currency:             response.pricing ? response.pricing.currency : null
+
+        }
+        if (this.isMounted()) {
+          this.setState(newState);
+        }
+
+        // Refresh selects
+        $('select.material').material_select();
+
+        // Update status bar
+        var publishedBar = $('#published-status');
+        if (this.state.published === false) {
+          publishedBar.addClass('manage-home-info-text--unpublished');
+          publishedBar.html(i18n.t('manage_home:message_bottom_unpublished'));
+        } else if (this.state.published === true) {
+          publishedBar.addClass('manage-home-info-text--published');
+          publishedBar.html(i18n.t('manage_home:message_bottom_published'));
+        }
+
+      }.bind(this),
+      error: function() {
+
+        alert('Something failed');
+
+      }
+    })
+
   },
   render: function() {
     return (
@@ -81,6 +121,7 @@ module.exports = React.createClass({
       <div>
 
           <BasicsTab
+            updateHome={this.updateHome}
             basics={this.state.basics}
           />
 
