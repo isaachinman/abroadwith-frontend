@@ -102,12 +102,21 @@ if ($('form#signup').length) {
   // Set permanent vars
   var emailSignup = $('a#email-signup');
   var notValid = $('#not-valid');
+  var passwordValidate = $('#password-not-valid')
   var formValid;
 
   // This function is called when a user hasn't fully filled in the form
   function formNotValid() {
     if (notValid.hasClass('hide')) {
       notValid.removeClass('hide');
+    }
+    formValid = false;
+  }
+
+  // This function is called when a password isn't correct
+  function passwordNotValid() {
+    if (passwordValidate.hasClass('hide')) {
+      passwordValidate.removeClass('hide');
     }
     formValid = false;
   }
@@ -190,18 +199,20 @@ if ($('form#signup').length) {
 
       for (var i=0, len=nameStrings.length; i<len; i++) {
         if (typeof password !== 'undefined' && password.indexOf(nameStrings[i]) !== -1) {
-          formValid = false;
+          passwordNotValid()
           break;
         }
       }
 
       if (password.length < 8 || !(password.match(/[a-z]/)) || !(password.match(/[A-Z]/) || /\d/.test(password))) {
-        formValid = false;
+        passwordNotValid()
       }
 
       // If form is valid, POST object
       if (formValid === true) {
         validateUserAndSend()
+      } else {
+        formNotValid();
       }
 
     } else {
