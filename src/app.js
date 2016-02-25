@@ -15,6 +15,7 @@ require('./search/search');
 require('./global/signup');
 require('./global/login-init');
 require('./global/logout');
+require('./global/logout-init');
 require('./global/home-creation');
 
 

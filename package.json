@@ -47,6 +47,7 @@
     "react-dom": "react-lite",
     "domains": "./src/global/constants/domains.json",
     "login": "./src/global/login",
+    "logout": "./src/global/logout",
     "process-language-chips": "./src/global/process-language-chips"
   },
   "browserify-shim": {

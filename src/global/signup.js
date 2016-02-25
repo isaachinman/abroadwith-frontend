@@ -3,29 +3,20 @@ var login = require('./login');
 var jwt_decode = require('jwt-decode');
 
 // Language-learn select
-if ($('select#learning-language').length) {
-  $('select#learning-language').select2();
-}
+$('select#learning-language').length ? $('select#learning-language').select2() : null;
 
 // Language-known select
-if ($('select#known-language').length) {
-  $('select#known-language').select2();
-}
+$('select#known-language').length ? $('select#known-language').select2() : null;
 
 // Process language chips
 var processLanguageChips = require('process-language-chips')
 
-if ($('a#add-learning-language').length) {
-  $('a#add-learning-language').click(function() {
-    processLanguageChips('learning');
-  })
-}
+// If add learning language button exists, give it a click event
+$('a#add-learning-language').length ? $('a#add-learning-language').click(function() { processLanguageChips('learning'); }) : null;
 
-if ($('a#add-known-language').length) {
-  $('a#add-known-language').click(function() {
-    processLanguageChips('known');
-  })
-}
+// If add known language button exists, give it a click event
+$('a#add-known-language').length ? $('a#add-known-language').click(function() { processLanguageChips('known'); }) : null;
+
 
 // Form submit
 if ($('form#signup').length) {
@@ -37,9 +28,9 @@ if ($('form#signup').length) {
   if ($('.datepicker-birthday').length) {
 
     // Get date for 18 years ago
+    require('../../src/utils/date-object-to-yyyymmdd');
     var eighteenYearsAgo = new Date();
     eighteenYearsAgo.setTime(eighteenYearsAgo.valueOf() - 18 * 365 * 24 * 60 * 60 * 1000);
-    require('../../src/utils/date-object-to-yyyymmdd');
     eighteenYearsAgo = eighteenYearsAgo.yyyymmdd();
 
     $('.datepicker-birthday').pickadate({
@@ -170,17 +161,13 @@ if ($('form#signup').length) {
 
   // This function is called when a user hasn't fully filled in the form
   function formNotValid() {
-    if (notValid.hasClass('hide')) {
-      notValid.removeClass('hide');
-    }
+    notValid.hasClass('hide') ? notValid.removeClass('hide') : null;
     formValid = false;
   }
 
   // This function is called when a password isn't correct
   function passwordNotValid() {
-    if (passwordValidate.hasClass('hide')) {
-      passwordValidate.removeClass('hide');
-    }
+    passwordValidate.hasClass('hide') ? passwordValidate.removeClass('hide') : null
     formValid = false;
   }
 
@@ -194,11 +181,12 @@ if ($('form#signup').length) {
 
       // Get native languages
       $('.language-known-chip').each(function() {
-        var newLanguageKnown = {
+
+        newUser.userKnownLanguages.push({
           "language": $(this).attr('data-lang'),
           "level": $(this).attr('data-level')
-        }
-        newUser.userKnownLanguages.push(newLanguageKnown);
+        });
+
       })
 
       // Get learning languages
@@ -206,11 +194,12 @@ if ($('form#signup').length) {
 
         newUser["userLearningLanguages"] = [];
         $('.language-learning-chip').each(function() {
-          var newLanguage = {
+
+          newUser.userLearningLanguages.push({
             "language": $(this).attr('data-lang'),
             "level": $(this).attr('data-level')
-          }
-          newUser.userLearningLanguages.push(newLanguage);
+          });
+
         })
 
       }
