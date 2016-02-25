@@ -19,6 +19,8 @@ function loggedIn() {
   // Toggle navbars
   $('#navbar').remove();
   $('#choose-languages-modal').remove();
+  $('#log-in-modal').remove();
+  $('#sign-up-modal').remove();
   $('#navbar-logged-in').show();
   $('#navbar-logged-in .right').fadeIn('fast');
 
@@ -34,6 +36,12 @@ function notLoggedIn() {
 
   // Show logged out navbar
   $('#navbar .right').fadeIn('fast');
+
+  // Init Google login
+  var googleScript = document.createElement('script');
+  googleScript.type = 'text/javascript';
+  googleScript.src = 'https://apis.google.com/js/platform.js';
+  $('body').append(googleScript);
 
 }
 
@@ -78,7 +86,7 @@ $('#fb-login').click(function() {
             localStorage.setItem('JWT', JWT.token);
 
             // Print username into navbar
-            $('span#navbar-username').html(JWT.name)
+            $('span#navbar-username').html((jwt_decode(localStorage.getItem('JWT'))).name)
 
             // Toggle navbars
             $('#navbar').hide();

@@ -1,5 +1,6 @@
 var domains = require('domains');
 var login = require('./login');
+var jwt_decode = require('jwt-decode');
 
 // Language-learn select
 if ($('select#learning-language').length) {
@@ -119,7 +120,7 @@ if ($('form#signup').length) {
                   localStorage.setItem('JWT', JWT.token);
 
                   // Print username into navbar
-                  $('span#navbar-username').html(JWT.name)
+                  $('span#navbar-username').html((jwt_decode(localStorage.getItem('JWT'))).name)
 
                   // Toggle navbars
                   $('#navbar').hide();

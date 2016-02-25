@@ -34,7 +34,7 @@ module.exports = function(email, password) {
       $('span#navbar-username').html(JWT.name)
 
       // Toggle navbars
-      $('#navbar').hide();
+      $('#navbar').remove();
       $('#navbar-logged-in').show();
       $('#navbar-logged-in .right').fadeIn('fast');
 
