@@ -107,6 +107,22 @@ module.exports = React.createClass({
 
     this.refreshState();
 
+    // Delete account button
+    $('#delete-account').click(function() {
+
+      var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+      $.ajax({
+        url: domains.API+'/users/'+JWT.rid,
+        type: 'DELETE',
+        success: function(result) {
+
+          window.location('/');
+
+        }
+      });
+    })
+
   },
   render: function() {
 

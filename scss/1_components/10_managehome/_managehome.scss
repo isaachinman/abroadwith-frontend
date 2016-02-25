@@ -80,7 +80,7 @@ input#home-address {
   background: lighten($havelock-blue, 35%);
   &--unpublished {
     color: white;
-    background: lighten(#FC5050, 10%);
+    background: lighten($sunset-orange, 10%);
   }
   &--published {
     color: white;

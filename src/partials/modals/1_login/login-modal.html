@@ -1,14 +1,12 @@
 <div id="login-modal" class="modal center-align">
-
   <div class="modal-content">
-    <h4>Log in</h4>
 
     <ul class="collapsible no-shadow" data-collapsible="accordion">
       <li>
-        <div class="collapsible-header active">{{translations.common.Email}}</div>
-        <div class="collapsible-body">
+        <div class="collapsible-header active email-header hide-on-small-and-down">Log in with email</div>
+        <div class="collapsible-body white">
 
-          <div class='row section'>
+          <div class='row section no-padding-top'>
 
             <form id='email-login'>
 
@@ -31,33 +29,50 @@
             <a id='login-modal-btn' class='btn btn-primary'>{{translations.common.Log_in}}</a>
           </div>
 
-          <div class='row section'>
-
-            <div class='col s10 offset-s1 grey-text'>
-              {{translations.common.Dont_have_account}} <a href='#' onclick="$('#login-modal').closeModal();$('#sign-up-modal').openModal()">{{translations.common.Sign_up}}</a>
-            </div>
-
-          </div>
-
         </div>
-      </li>
-      <li>
-        <div class="collapsible-header"></i>Facebook</div>
-        <div class="collapsible-body">
-
-          <div class='row'>
-
-            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-
-          </div>
-
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header"></i>Google</div>
-        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
       </li>
     </ul>
+
+    <div class='row'>
+      <div class='col s12 m10 offset-m1 l10 offset-l1 center-align grey-text'>
+        <hr> or <hr>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col s12 m10 offset-m1 l10 offset-l1 no-padding'>
+        <a class='btn btn-signup btn-signup--facebook' id='fb-login'>Log in with Facebook</a>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col s12 m10 offset-m1 l10 offset-l1 no-padding center-align'>
+        <meta name="google-signin-client_id" content="1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <style>
+        .abcRioButton {
+          position: absolute;
+          top: 0;
+          left: 0;
+          opacity: 0;
+          width: 100% !important;
+          height: 100% !important;
+        }
+        </style>
+        <a class='btn btn-signup btn-signup--google relative'>
+          Log in with Google
+          <div class='g-signin2' data-onsuccess="onSignIn"></div>
+        </a>
+      </div>
+    </div>
+
+    <div class='section'>
+
+      <div class='col s10 offset-s1 m10 offset-m1 l10 offset-l1 grey-text'>
+        {{translations.common.Dont_have_account}} <a href='#' onclick="$('#login-modal').closeModal();$('#choose-languages-modal').openModal()">{{translations.common.Sign_up}}</a>
+      </div>
+
+    </div>
 
   </div>
 
