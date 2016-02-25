@@ -14,7 +14,7 @@ require('./search/search');
 // Globals
 require('./global/signup');
 require('./global/login-init');
-require('./global/logout');
+require('./global/login-redirect');
 require('./global/logout-init');
 require('./global/home-creation');
 

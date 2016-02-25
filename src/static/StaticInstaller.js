@@ -14,7 +14,7 @@ var genericRouter = function(file){
 
 var installer = function(app) {
   app.use('/terms',genericRouter('static/terms.html'));
-  app.use('/nextone',genericRouter('static/terms.html'));
+  app.use('/login',genericRouter('static/login.html'));
 };
 
 module.exports = installer;

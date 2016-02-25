@@ -37,19 +37,11 @@
   h4 {
     margin-bottom: 40px;
   }
-  hr {
-    display: inline-block;
-    width: 20%;
-    margin: 3px 10px;
-    opacity: .5;
-  }
 }
-#login-modal {
-  .email-header {
-    letter-spacing: .5px;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
+.email-header {
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 a.btn-signup {
   @media #{$small-and-down} {

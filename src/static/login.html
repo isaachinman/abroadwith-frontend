@@ -1,0 +1,80 @@
+{% extends "layout.html" %} {% block content %}
+
+<div class='row margin-top-50'>
+  <div class='col s12 m8 offset-m2 l8 offset-l2'>
+    <ul class="collapsible no-shadow" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header active email-header hide-on-small-and-down">Log in with email</div>
+        <div class="collapsible-body white">
+
+          <div class='row section no-padding-top'>
+
+            <form class='email-login'>
+
+              <div class='input-field col s12 m10 offset-m1 l10 offset-l1'>
+                <input name='email' type="email" class="login-email validate no-margin">
+                <label for="email">{{translations.common.Email}}</label>
+              </div>
+
+              <div class="input-field col s12 m10 offset-m1 l10 offset-l1">
+                <input name='password' type="password" class="login-password validate no-margin">
+                <label for="password">{{translations.common.Password}}</label>
+                <input type='submit' class='hide'>
+              </div>
+
+            </form>
+
+          </div>
+
+          <div class='row'>
+            <a id='login-modal-btn' class='btn btn-primary'>{{translations.common.Log_in}}</a>
+          </div>
+
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='col s12 m10 offset-m1 l10 offset-l1 center-align grey-text'>
+    <hr class='half-break'> or
+    <hr class='half-break'>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='col s12 m10 offset-m1 l10 offset-l1 no-padding'>
+    <a class='btn btn-signup btn-signup--facebook fb-login'>Log in with Facebook</a>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='col s12 m10 offset-m1 l10 offset-l1 no-padding center-align'>
+    <meta name="google-signin-client_id" content="1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com">
+    <style>
+      .abcRioButton {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        width: 100% !important;
+        height: 100% !important;
+      }
+    </style>
+    <a class='btn btn-signup btn-signup--google relative'>
+        Log in with Google
+        <div class='g-signin2' data-onsuccess="onSignIn"></div>
+      </a>
+  </div>
+</div>
+
+<div class='section'>
+
+  <div class='col s10 offset-s1 m10 offset-m1 l10 offset-l1 grey-text'>
+    {{translations.common.Dont_have_account}} <a href='#' onclick="$('#login-modal').closeModal();$('#choose-languages-modal').openModal()">{{translations.common.Sign_up}}</a>
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,6 +1,7 @@
 module.exports = function(email, password) {
 
   var jwt_decode = require('jwt-decode');
+  var loginRedirect = require('login-redirect');
 
   // If a JWT is in localStorage, delete it
   localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null;
@@ -43,6 +44,8 @@ module.exports = function(email, password) {
         $('.modal').closeModal();
         $('.lean-overlay').remove()
       }
+
+      loginRedirect();
 
     },
     error: function() {

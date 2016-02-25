@@ -1,5 +1,6 @@
 var jwt_decode = require('jwt-decode');
-var login = require('login')
+var login = require('login');
+var loginRedirect = require('login-redirect');
 
 if (localStorage.getItem('JWT') !== null) {
   loggedIn();
@@ -45,11 +46,10 @@ function notLoggedIn() {
 
 }
 
-$('form#email-login').submit(function() {
+$('form.email-login').submit(function() {
   $('#preloader').show();
-  console.log('logged in logged in logged in logged in logged in');
-  var email = $('#login-modal-email').val()
-  var password = $('#login-modal-password').val()
+  var email = $(this).find('.login-email').val()
+  var password = $(this).find('.login-password').val()
   login(email, password);
   return false;
 })
@@ -59,7 +59,7 @@ $('#login-modal-btn').length ? $('#login-modal-btn').click(login) : null;
 // Facebook login
 
 
-$('#fb-login').click(function() {
+$('.fb-login').click(function() {
 
   FB.login(function(response) {
     if (response.status === 'connected') {
@@ -99,6 +99,8 @@ $('#fb-login').click(function() {
               $('.lean-overlay').remove()
             }
 
+            loginRedirect();
+
           }
         })
 
@@ -111,7 +113,5 @@ $('#fb-login').click(function() {
   }, {
     scope: 'email'
   })
-
-
 
 })

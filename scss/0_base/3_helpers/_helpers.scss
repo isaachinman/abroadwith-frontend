@@ -23,6 +23,9 @@
 .margin-half-sides {
   margin: .5rem;
 }
+.margin-top-50 {
+  margin-top: 50px;
+}
 .margin-bottom-50 {
   margin-bottom: 50px;
 }
@@ -145,4 +148,10 @@ a.overlay {
   .preloader-wrapper {
     z-index: 10;
   }
+}
+hr.half-break {
+  display: inline-block;
+  width: 20%;
+  margin: 3px 10px;
+  opacity: .5;
 }
