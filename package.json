@@ -67,7 +67,7 @@
     "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
     "start": "node src/server.js",
     "fullstart": "npm run build && npm run start",
-    "browsersync": "browser-sync start --reload-delay 1000 --proxy 'http://localhost:3000' --files 'build/css/*.css, build/app.js'"
+    "browsersync": "browser-sync start --reload-delay 1000 --proxy 'http://localhost:3000' --files 'build/css/*.css, build/app.js, src/static/*.html'"
   },
   "main": "server.js",
   "repository": {
