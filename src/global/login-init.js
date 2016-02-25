@@ -19,8 +19,6 @@ function loggedIn() {
   // Toggle navbars
   $('#navbar').remove();
   $('#choose-languages-modal').remove();
-  $('#login-modal').remove();
-  $('#sign-up-modal').remove();
   $('#navbar-logged-in').show();
   $('#navbar-logged-in .right').fadeIn('fast');
 

@@ -16,15 +16,11 @@
         </select>
 
         <select id='ui-currency' class='material'>
-          <option value='€'>
-            EUR
-          </option>
-          <option value='£'>
-            GBP
-          </option>
-          <option value='$'>
-            USD
-          </option>
+          {% for currency, symbol in constants.Currencies %}
+            <option value={{currency}} data-symbol={{symbol}}>
+              {{currency}}
+            </option>
+          {% endfor %}
         </select>
 
       </div>

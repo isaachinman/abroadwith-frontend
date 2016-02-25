@@ -4,8 +4,6 @@ require('wnumb');
 module.exports = React.createClass({
   componentDidMount: function() {
 
-    console.log(this.props.currency)
-
     // Set absolute range
     var rangeStart = 0;
     var rangeEnd = 500;
@@ -39,7 +37,7 @@ module.exports = React.createClass({
       tooltips: true,
       format: wNumb({
         decimals:0,
-        prefix: this.props.currency,
+        prefix: "$",
         encoder: function(a) {
           return a === 2000 ? a + '+' : a;
         }

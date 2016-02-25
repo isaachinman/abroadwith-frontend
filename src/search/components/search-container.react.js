@@ -61,6 +61,9 @@ module.exports = React.createClass({
     // Get course
     var course = 'course=' + $('#language-switch').is(':checked') ? url = url + '&course=' + ($('#language-school').val()) : null;
 
+    // Get currency
+    var currency = 'currency=' + $('#ui-currency').val() !== '' && $('#ui-currency').val() !== null && $('#ui-currency').val() !== 'undefined' ? url = url + '&currency=' + $('#ui-currency').val() : null;
+
     // Get map bounds
     var minLat = SW !== undefined ? url = url + '&minLat=' + (SW.lat()) : null;
     var minLng = SW !== undefined ? url = url + '&minLng=' + (SW.lng()) : null;
@@ -74,14 +77,11 @@ module.exports = React.createClass({
     $.post(url, function(data) {
       var response = JSON.parse(data);
 
-      var newCurrency = $('select#ui-currency').val();
-
       var newState = {
         // Set new state vars
         minPrice:         response.resultDetails.minPrice,
         maxPrice:         response.resultDetails.maxPrice,
         numberOfResults:  response.resultDetails.numberOfResults,
-        currency:         newCurrency,
         immersions:       response.params.immersions,
         arrival:          response.params.arrival,
         departure:        response.params.departure,
@@ -166,7 +166,6 @@ module.exports = React.createClass({
           minPrice={this.state.minPrice}
           maxPrice={this.state.maxPrice}
           handleChange={this.handleChange}
-          currency={this.state.currency}
         />
 
         <LanguageCourse
