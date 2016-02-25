@@ -19,6 +19,8 @@ function loggedIn() {
   // Toggle navbars
   $('#navbar').remove();
   $('#choose-languages-modal').remove();
+  $('#log-in-modal').remove();
+  $('#sign-up-modal').remove();
   $('#navbar-logged-in').show();
   $('#navbar-logged-in .right').fadeIn('fast');
 
@@ -35,6 +37,12 @@ function notLoggedIn() {
   // Show logged out navbar
   $('#navbar .right').fadeIn('fast');
 
+  // Init Google login
+  var googleScript = document.createElement('script');
+  googleScript.type = 'text/javascript';
+  googleScript.src = 'https://apis.google.com/js/platform.js';
+  $('body').append(googleScript);
+
 }
 
 $('form#email-login').submit(function() {
@@ -47,3 +55,63 @@ $('form#email-login').submit(function() {
 })
 
 $('#login-modal-btn').length ? $('#login-modal-btn').click(login) : null;
+
+// Facebook login
+
+
+$('#fb-login').click(function() {
+
+  FB.login(function(response) {
+    if (response.status === 'connected') {
+
+      console.log(response.authResponse);
+
+      var loginObj = {};
+      loginObj.facebookToken = response.authResponse.accessToken;
+
+      FB.api('/me', {
+        fields: 'email'
+      }, function(response) {
+
+        loginObj.email = response.email;
+
+        $.ajax({
+          type: "POST",
+          url: 'https://admin.abroadwith.com/users/login',
+          contentType: "application/json",
+          data: JSON.stringify(loginObj),
+          success: function(JWT) {
+
+            console.log(JWT);
+            localStorage.setItem('JWT', JWT.token);
+
+            // Print username into navbar
+            $('span#navbar-username').html((jwt_decode(localStorage.getItem('JWT'))).name)
+
+            // Toggle navbars
+            $('#navbar').hide();
+            $('#navbar-logged-in').show();
+            $('#navbar-logged-in .right').fadeIn('fast');
+
+            // If any modal is open, close it
+            if ($('.modal')) {
+              $('.modal').closeModal();
+              $('.lean-overlay').remove()
+            }
+
+          }
+        })
+
+      })
+    } else if (response.status === 'not_authorized') {
+      // Not authorised
+    } else {
+      // Not logged into Facebook
+    }
+  }, {
+    scope: 'email'
+  })
+
+
+
+})

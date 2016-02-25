@@ -1,5 +1,6 @@
 var domains = require('domains');
 var login = require('./login');
+var jwt_decode = require('jwt-decode');
 
 // Language-learn select
 if ($('select#learning-language').length) {
@@ -53,51 +54,113 @@ if ($('form#signup').length) {
   //  Initialise and setup Facebook js sdk
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '144997212531478',
-      xfbml      : true,
-      version    : 'v2.5'
+      appId: '144997212531478',
+      xfbml: true,
+      version: 'v2.5'
     });
   };
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {
+      return;
+    }
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
 
-   $('#fb-login').click(function() {
-     fbLogin();
-   })
+  $('#fb-signup').click(function() {
+    fbSignup();
+  })
 
-   // Open log in/authorise dialog, fill fields if response is returned as connected
-   function fbLogin() {
-      FB.login(function(response) {
-       if (response.status === 'connected') {
-         console.log(response.authResponse.accessToken);
-         FB.api('/me', {fields: 'first_name,last_name,email,birthday,gender,age_range'}, function(response) {
-           newUser["firstName"] = response.first_name;
-           newUser["lastName"] = response.last_name;
-           newUser["email"] = response.email;
-           newUser["birthday"] = (response.birthday).substring(6,10)+'-'+(response.birthday).substring(3,5)+'-'+(response.birthday).substring(0,2);
-           console.log(newUser);
-         })
-       } else if (response.status === 'not_authorized') {
-         // Not authorised
-       } else {
-         // Not logged into Facebook
-       }
-     }, {scope: 'public_profile,email,user_birthday'} )
-   }
+  // Open log in/authorise dialog, fill fields if response is returned as connected
+  function fbSignup() {
+    FB.login(function(response) {
+      if (response.status === 'connected') {
 
-   // Google signup function
-   window.onSignIn = function(googleUser) {
-     var profile = googleUser.getBasicProfile();
-     newUser["firstName"] = profile.getGivenName();
-     newUser["lastName"] = profile.getFamilyName();
-     newUser["email"] = profile.getEmail();
-     newUser["birthDate"] = eighteenYearsAgo;
-   }
+        console.log(response.authResponse);
+        newUser.facebookId = response.authResponse.userID;
+        console.log(response.authResponse.accessToken);
+
+        var loginObj = {};
+        loginObj.facebookToken = response.authResponse.accessToken;
+
+        FB.api('/me', {
+          fields: 'first_name,last_name,email,birthday,gender,age_range'
+        }, function(response) {
+          newUser["firstName"] = response.first_name;
+          newUser["lastName"] = response.last_name;
+          newUser["email"] = response.email;
+          newUser["birthDate"] = (response.birthday).substring(6, 10) + '-' + (response.birthday).substring(0, 2) + '-' + (response.birthday).substring(3, 5);
+          console.log(newUser);
+
+          loginObj.email = response.email;
+
+          $.ajax({
+            type: "POST",
+            url: 'https://admin.abroadwith.com/users',
+            data: JSON.stringify(newUser),
+            contentType: "application/json",
+            processData: false,
+            success: function(response) {
+
+              console.log(response);
+
+              console.log(JSON.stringify(loginObj));
+
+              $.ajax({
+                type: "POST",
+                url: 'https://admin.abroadwith.com/users/login',
+                contentType: "application/json",
+                data: JSON.stringify(loginObj),
+                success: function(JWT) {
+
+                  console.log(JWT);
+                  localStorage.setItem('JWT', JWT.token);
+
+                  // Print username into navbar
+                  $('span#navbar-username').html((jwt_decode(localStorage.getItem('JWT'))).name)
+
+                  // Toggle navbars
+                  $('#navbar').hide();
+                  $('#navbar-logged-in').show();
+                  $('#navbar-logged-in .right').fadeIn('fast');
+
+                  // If any modal is open, close it
+                  if ($('.modal')) {
+                    $('.modal').closeModal();
+                    $('.lean-overlay').remove()
+                  }
+
+                }
+              })
+
+            },
+            error: function(response) {
+              // Something went wrong
+            }
+          });
+
+        })
+      } else if (response.status === 'not_authorized') {
+        // Not authorised
+      } else {
+        // Not logged into Facebook
+      }
+    }, {
+      scope: 'public_profile,email,user_birthday'
+    })
+  }
+
+  // Google signup function
+  window.onSignIn = function(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    newUser["firstName"] = profile.getGivenName();
+    newUser["lastName"] = profile.getFamilyName();
+    newUser["email"] = profile.getEmail();
+    newUser["birthDate"] = eighteenYearsAgo;
+  }
 
   // Set permanent vars
   var emailSignup = $('a#email-signup');
@@ -175,7 +238,7 @@ if ($('form#signup').length) {
       var signupForm = $('form#signup input.validate');
 
       // Loop through text inputs and add values to object
-      for (var i=0, ii = signupForm.length; i<ii; i++) {
+      for (var i = 0, ii = signupForm.length; i < ii; i++) {
         var input = signupForm[i];
         if (input.value !== '') {
           newUser[input.name] = input.value;
@@ -197,7 +260,7 @@ if ($('form#signup').length) {
       var password = newUser.password ? newUser.password : '';
       var nameStrings = newUser.firstName && newUser.lastName ? newUser.firstName.split(' ').concat(newUser.lastName.split(' ')) : [];
 
-      for (var i=0, len=nameStrings.length; i<len; i++) {
+      for (var i = 0, len = nameStrings.length; i < len; i++) {
         if (typeof password !== 'undefined' && password.indexOf(nameStrings[i]) !== -1) {
           passwordNotValid()
           break;
@@ -235,7 +298,7 @@ if ($('form#signup').length) {
         data: JSON.stringify(newUser),
         contentType: "application/json",
         processData: false,
-        success: function(response){
+        success: function(response) {
 
           console.log(response);
           login(email, password);

@@ -95,6 +95,16 @@ a.overlay {
     background: darken($grey-chateau, 5%);
   }
 }
+.btn-delete {
+  background: $sunset-orange;
+  color: white;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  &:hover {
+    color: white;
+    background: darken($sunset-orange, 5%);
+  }
+}
 .green-text {
   color: darken($sulu, 25%);
 }
