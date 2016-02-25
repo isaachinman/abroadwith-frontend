@@ -13,10 +13,7 @@ var solr = {
 };
 
 router.get('/', function (req, res) {
-  if(req.language && translations[req.language])
-    context = { translations: translations[req.language]};
-  else
-    context = { translations: translations['eng']};
+  if(!req.context) res.status(404).send('No search context.');
   res.send(nunjucks.render('search/search.html',context));
 });
 
