@@ -115,9 +115,11 @@ module.exports = React.createClass({
       $.ajax({
         url: domains.API+'/users/'+JWT.rid,
         type: 'DELETE',
+        beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
         success: function(result) {
 
-          window.location('/');
+          localStorage.removeItem('JWT');
+          document.location.href="/";
 
         }
       });

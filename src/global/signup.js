@@ -69,12 +69,12 @@ if ($('form#signup').length) {
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
-  $('#fb-login').click(function() {
-    fbLogin();
+  $('#fb-signup').click(function() {
+    fbSignup();
   })
 
   // Open log in/authorise dialog, fill fields if response is returned as connected
-  function fbLogin() {
+  function fbSignup() {
     FB.login(function(response) {
       if (response.status === 'connected') {
 

@@ -102,7 +102,7 @@ a.overlay {
   letter-spacing: 1.2px;
   &:hover {
     color: white;
-    background: lighten($sunset-orange, 5%);
+    background: darken($sunset-orange, 5%);
   }
 }
 .green-text {
