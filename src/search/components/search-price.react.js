@@ -37,7 +37,7 @@ module.exports = React.createClass({
       tooltips: true,
       format: wNumb({
         decimals:0,
-        prefix: "$",
+        prefix: $('#ui-currency option:selected').attr('data-symbol'),
         encoder: function(a) {
           return a === 2000 ? a + '+' : a;
         }

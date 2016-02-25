@@ -16,13 +16,12 @@
         </select>
 
         <select id='ui-currency' class='material'>
-          {% for currency, symbol in constants.Currencies %}
+          {% for currency, symbol in constants.currencies %}
             <option value={{currency}} data-symbol={{symbol}}>
               {{currency}}
             </option>
           {% endfor %}
         </select>
-
       </div>
 
       <div class="col s12 m5 offset-m1 l2 offset-l1">
