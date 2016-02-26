@@ -32,34 +32,25 @@ module.exports = React.createClass({
       var markers = [];
 
       if (mapLat !== 60 && mapLng !== 180) {
-        // Create a marker for each place.
-        markers.push(new google.maps.Marker({
+
+        window.circle = new google.maps.Circle({
           map: map,
-          position: {
-            lat: mapLat,
-            lng: mapLng
-          }
-        }));
-        var marker = markers[0];
-        var circle = new google.maps.Circle({
-          map: map,
-          radius: 100,    // 10 miles in metres
+          radius: 150,    // 10 miles in metres
           strokeColor: '#4A91E2',
           strokeOpacity: 0.8,
           fillColor: '#4A91E2',
-          fillOpacity: 0.35
+          fillOpacity: 0.35,
+          center: {
+            lat: mapLat,
+            lng: mapLng
+          }
         });
-        circle.bindTo('center', marker, 'position');
+
       }
 
       // Create the search box and link it to the UI element.
       var input = document.getElementById('home-address');
       var searchBox = new google.maps.places.SearchBox(input);
-
-      // Bias the SearchBox results towards current map's viewport.
-      map.addListener('bounds_changed', function() {
-        searchBox.setBounds(map.getBounds());
-      });
 
       google.maps.event.addListenerOnce(map, 'idle', function() {
          google.maps.event.trigger(map, 'resize');
@@ -91,24 +82,16 @@ module.exports = React.createClass({
             scaledSize: new google.maps.Size(25, 25)
           };
 
-          // Create a marker for each place.
-          markers.push(new google.maps.Marker({
+          typeof circle !== 'undefined' ? circle.setMap(null) : null;
+          window.circle = new google.maps.Circle({
             map: map,
-            icon: icon,
-            title: place.name,
-            position: place.geometry.location
-          }));
-
-          var marker = markers[0];
-          var circle = new google.maps.Circle({
-            map: map,
-            radius: 100,    // 10 miles in metres
+            radius: 150,    // 10 miles in metres
             strokeColor: '#4A91E2',
             strokeOpacity: 0.8,
             fillColor: '#4A91E2',
-            fillOpacity: 0.35
+            fillOpacity: 0.35,
+            center: place.geometry.location
           });
-          circle.bindTo('center', marker, 'position');
 
           if (place.geometry.viewport) {
             // Only geocodes have viewport.
@@ -124,8 +107,6 @@ module.exports = React.createClass({
           var googleResponseParsed={};
           $.each(googleResponse, function(k,v1) {jQuery.each(v1.types, function(k2, v2){googleResponseParsed[v2]=v1.short_name});})
 
-          maxChangeLat = 100
-
           window.newLocationObj = {
             "street":googleResponseParsed.street_number+' '+googleResponseParsed.route,
             "zipCode":googleResponseParsed.postal_code,
@@ -138,6 +119,7 @@ module.exports = React.createClass({
 
         });
         map.fitBounds(bounds);
+        map.setZoom(16);
       });
     }
     $('#location-tab').click(initHiddenMap)

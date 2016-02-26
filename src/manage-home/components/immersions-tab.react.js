@@ -48,9 +48,11 @@ module.exports = React.createClass({
 
       // Modify home object, using new immersions object
       if (typeof homeObj !== 'undefined') {
+
         homeObj.immersions = newImmersionsObj;
 
-        // POST new home object
+        this.props.updateHome();
+
         Materialize.toast('Immersions updated', 4000);
       }
 
@@ -58,6 +60,8 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
+
+    $('a#save-immersions').click(this.saveImmersions);
 
     // Language-known select
     $('select#tandem-language-sought').select2({
@@ -92,14 +96,6 @@ module.exports = React.createClass({
 
   },
   render: function() {
-
-    // Populate language selects
-
-    //
-    // tandem-languages-offered
-    // tandem-language-sought
-    //
-    // teacher-languages-offered
 
     if (this.props.immersions) {
 
@@ -177,8 +173,6 @@ module.exports = React.createClass({
       }
 
     }
-
-    $('a#save-immersions').click(this.saveImmersions)
 
     return (
       <div></div>
