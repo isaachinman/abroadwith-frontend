@@ -1,4 +1,5 @@
 var React = require('react');
+var randomiseCoordinate = require('randomise-coordinate');
 
 module.exports = React.createClass({
   componentDidMount: function() {
@@ -39,6 +40,16 @@ module.exports = React.createClass({
             lng: mapLng
           }
         }));
+        var marker = markers[0];
+        var circle = new google.maps.Circle({
+          map: map,
+          radius: 100,    // 10 miles in metres
+          strokeColor: '#4A91E2',
+          strokeOpacity: 0.8,
+          fillColor: '#4A91E2',
+          fillOpacity: 0.35
+        });
+        circle.bindTo('center', marker, 'position');
       }
 
       // Create the search box and link it to the UI element.
@@ -88,6 +99,17 @@ module.exports = React.createClass({
             position: place.geometry.location
           }));
 
+          var marker = markers[0];
+          var circle = new google.maps.Circle({
+            map: map,
+            radius: 100,    // 10 miles in metres
+            strokeColor: '#4A91E2',
+            strokeOpacity: 0.8,
+            fillColor: '#4A91E2',
+            fillOpacity: 0.35
+          });
+          circle.bindTo('center', marker, 'position');
+
           if (place.geometry.viewport) {
             // Only geocodes have viewport.
             bounds.union(place.geometry.viewport);
@@ -102,14 +124,16 @@ module.exports = React.createClass({
           var googleResponseParsed={};
           $.each(googleResponse, function(k,v1) {jQuery.each(v1.types, function(k2, v2){googleResponseParsed[v2]=v1.short_name});})
 
+          maxChangeLat = 100
+
           window.newLocationObj = {
             "street":googleResponseParsed.street_number+' '+googleResponseParsed.route,
             "zipCode":googleResponseParsed.postal_code,
             "city":googleResponseParsed.locality,
             "country":googleResponseParsed.country,
             "neighbourhood":googleResponseParsed.sublocality_level_2,
-            "lat":place.geometry.location.lat(),
-            "lng":place.geometry.location.lng()
+            "lat":randomiseCoordinate(place.geometry.location.lat()),
+            "lng":randomiseCoordinate(place.geometry.location.lng())
           }
 
         });
@@ -144,7 +168,7 @@ module.exports = React.createClass({
 
     if (this.props.location) {
 
-      var fullAddress = this.props.location.street + ', ' + this.props.location.complement + ', ' + this.props.location.city + ' ' + this.props.location.zipCode + ', ' + this.props.location.country;
+      var fullAddress = this.props.location.street + ', ' + (this.props.location.complement !== null ? this.props.location.complement + ', ' : '') + this.props.location.city + ' ' + this.props.location.zipCode + ', ' + this.props.location.country;
       mapLat = this.props.location.lat;
       mapLng = this.props.location.lng;
       mapZoom = 16;

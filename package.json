@@ -50,7 +50,8 @@
     "login-redirect": "./src/global/login-redirect",
     "logged-in":"./src/global/logged-in",
     "logout": "./src/global/logout",
-    "process-language-chips": "./src/global/process-language-chips"
+    "process-language-chips": "./src/global/process-language-chips",
+    "randomise-coordinate": "./src/global/randomise-coordinate"
   },
   "browserify-shim": {
     "jquery": "$",
