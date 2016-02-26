@@ -140,6 +140,7 @@ module.exports = React.createClass({
 
           <RoomsTab
             rooms={this.state.rooms}
+            refreshState={this.props.refreshState}
           />
 
           <PhotosTab

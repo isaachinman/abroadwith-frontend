@@ -28,14 +28,11 @@
               <i class="fa fa-bed fa-2x"></i>
             </div>
             <div class='col s12 m6 l6 input-field'>
-              <select class='material' defaultValue=''>
-                <option value="" disabled>Choose a bed type</option>
-                <option value="airBed">Air bed</option>
-                <option value="futon">Futon</option>
-                <option value="pullOutSofa">Pull-out sofa</option>
-                <option value="couch">Couch</option>
-                <option value="singleBed">Single bed</option>
-                <option value="doubleBed">Double bed</option>
+              <select id='room-bed' class='material'>
+                <option value="" selected disabled>Choose a bed type</option>
+                {% for bed, name in translations.homes.bed_types %}
+                  <option value={{bed}}>{{name}}</option>
+                {% endfor %}
               </select>
               <label>Bed type</label>
             </div>
@@ -48,7 +45,7 @@
               <i class="fa fa-user-plus fa-2x"></i>
             </div>
             <div class='col s10 m4 l4 input-field'>
-              <select class='material' defaultValue=''>
+              <select id='room-vacancies' class='material'>
                 <option value="" disabled>How many people?</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -62,21 +59,11 @@
               <i class="fa fa-lock fa-2x"></i>
             </div>
             <div class='col s10 m6 l6 input-field'>
-              <select class='material' multiple defaultValue={[]}>
-                <option value="" disabled>What facilities does the room have?</option>
-                <option value="desk">Desk</option>
-                <option value="AC">Air conditioning</option>
-                <option value="dresser">Dresser</option>
-                <option value="bedsideLocker">Bedside locker</option>
-                <option value="wardrobe">Wardrobe</option>
-                <option value="heating">Heating</option>
-                <option value="bathroom">Bathroom</option>
-                <option value="fridge">Fridge</option>
-                <option value="mirror">Mirror</option>
-                <option value="hangers">Hangers</option>
-                <option value="hairDryer">Hair Dryer</option>
-                <option value="iron">Iron</option>
-                <option value="doorLock">Door lock</option>
+              <select id='room-facilities' class='material' multiple>
+                <option value="" selected disabled>What facilities does the room have?</option>
+                {% for facility, name in translations.homes.facilities %}
+                  <option value={{facility}}>{{name}}</option>
+                {% endfor %}
               </select>
               <label>Facilities</label>
             </div>
@@ -94,7 +81,7 @@
               <div class="switch">
                 <label>
                   No
-                  <input id='family' type="checkbox" />
+                  <input id='room-shared' type="checkbox" />
                   <span class="lever"></span>
                   Yes
                 </label>
@@ -137,7 +124,7 @@
 
           <div class='row section'>
             <div class='col s12'>
-              <a class='btn'>Add room</a>
+              <a id='add-room' class='btn btn-secondary'>Add room</a>
             </div>
           </div>
 
@@ -149,9 +136,7 @@
 
     </div>
 
-    <div id='existing-rooms'>
-
-    </div>
+    <div id='existing-rooms'></div>
 
 
 

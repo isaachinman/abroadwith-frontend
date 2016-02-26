@@ -2,6 +2,7 @@ module.exports = function(email, password) {
 
   var jwt_decode = require('jwt-decode');
   var loginRedirect = require('login-redirect');
+  var loggedIn = require('logged-in')
 
   // If a JWT is in localStorage, delete it
   localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null;
@@ -21,29 +22,13 @@ module.exports = function(email, password) {
     data: JSON.stringify(loginObj),
     success: function(JWT) {
 
-      localStorage.setItem('JWT', JWT.token)
-
-      $('#preloader').hide();
-
-      // Get JWT
-      var JWT = jwt_decode(localStorage.getItem('JWT'));
-      console.log(JWT);
-
-      // Print username into navbar
-      $('span#navbar-username').html(JWT.name)
-
-      // Toggle navbars
-      $('#navbar').remove();
-      $('#navbar-logged-in').show();
-      $('#navbar-logged-in .right').fadeIn('fast');
-
-      // If any modal is open, close it
-      if ($('.modal')) {
-        $('.modal').closeModal();
-        $('.lean-overlay').remove()
-      }
+      localStorage.setItem('JWT', JWT.token);
 
       loginRedirect();
+
+      loggedIn();
+
+      $('#preloader').hide();
 
     },
     error: function() {

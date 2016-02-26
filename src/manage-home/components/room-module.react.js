@@ -21,10 +21,13 @@ var compileFacilities = function(){
 
 module.exports = React.createClass({
   render: function() {
+
+    var img = this.props.img ? this.props.img : '';
+
     return (
 
       <li className='white existing-room' data-id={this.props.id}>
-        <div id='name' className="collapsible-header">
+        <div id={this.props.id} className="collapsible-header">
           {this.props.roomName}
         </div>
         <div className="edit grey-text text-lighten-1">
@@ -113,7 +116,7 @@ module.exports = React.createClass({
                     <input type="file" />
                   </div>
                   <div className="file-path-wrapper">
-                    <input className="file-path validate" type="text" defaultValue={this.props.img} />
+                    <input className="file-path validate" type="text" defaultValue={img} />
                   </div>
                 </div>
               </form>

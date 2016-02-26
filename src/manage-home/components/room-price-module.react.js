@@ -5,10 +5,11 @@ i18n.loadNamespaces(['manage_home','rooms']);
 
 module.exports = React.createClass({
   render: function() {
+    var img = this.props.img ? this.props.img : '';
     return (
 
       <li className="collection-item avatar room" data-id={this.props.id}>
-        <img src={this.props.img} alt="" className="circle"></img>
+        <img src={img} alt="" className="circle"></img>
         <span className="title">{this.props.roomName}</span>
         <p className='light'>
           {this.props.bed}

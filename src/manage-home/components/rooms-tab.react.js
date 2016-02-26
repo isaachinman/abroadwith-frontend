@@ -1,11 +1,49 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var RoomModule = require('./room-module.react')
+var RoomModule = require('./room-module.react');
 var i18n = require('../../global/components/i18n');
+
+var jwt_decode = require('jwt-decode');
+var domains = require('domains');
 
 i18n.loadNamespaces('manage_home');
 
 module.exports = React.createClass({
+  addRoom: function() {
+
+    var newRoom = {};
+    newRoom.name = $('#room-name').val();
+    newRoom.description = $('#room-description').val();
+    newRoom.vacancies = $('#room-vacancies').val();
+    newRoom.shared = $('#room-shared').prop('checked');
+    newRoom.bed = $('#room-bed').val();
+    newRoom.facilities = $('#room-facilities').val();
+
+    console.log(newRoom)
+
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms',
+      type: "POST",
+      data: JSON.stringify(newRoom),
+      contentType: "application/json",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
+
+        console.log(response);
+
+        this.props.refreshState();
+
+      }.bind(this),
+      error: function() {
+
+        alert('Something failed');
+
+      }
+    })
+
+  },
   saveRooms: function() {
 
     // Create new rooms object
@@ -41,7 +79,9 @@ module.exports = React.createClass({
   },
   componentDidUpdate: function() {
 
-    if (this.props.rooms) {
+    if (this.props.rooms.length > 0) {
+
+      console.log('has rooms')
 
       var rooms = this.props.rooms;
 
@@ -78,7 +118,7 @@ module.exports = React.createClass({
         render: function() {
           return (
             <ul className="collapsible rooms-collapsible" data-collapsible="accordion">
-              <li className='white'><div id='name' className="collapsible-header">+i18n.t('manage_home:rooms_list_placeholder')+</div><div className="edit grey-text text-lighten-1"></div></li>
+              <li className='white'><div id='name' className="collapsible-header grey-text">{i18n.t('manage_home:rooms_list_placeholder')}</div><div className="edit grey-text text-lighten-1"></div></li>
             </ul>
           )
         }
@@ -91,11 +131,9 @@ module.exports = React.createClass({
       />, document.querySelector('#existing-rooms')
     )
 
-    // Select
-    if ($('select.material').length) {
-      $('select.material').material_select();
-    }
+    $('.rooms-collapsible').collapsible();
 
+    $('a#add-room').click(this.addRoom);
     $('a#save-rooms').click(this.saveRooms);
 
   },

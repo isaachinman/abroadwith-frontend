@@ -2,35 +2,12 @@ var jwt_decode = require('jwt-decode');
 var login = require('login');
 var loginRedirect = require('login-redirect');
 
+var loggedIn = require('logged-in');
+
 if (localStorage.getItem('JWT') !== null) {
   loggedIn();
 } else {
   notLoggedIn();
-}
-
-function loggedIn() {
-
-  // Get JWT
-  var JWT = jwt_decode(localStorage.getItem('JWT'));
-  console.log(JWT);
-
-  // Print username into navbar
-  $('span#navbar-username').html(JWT.name)
-
-  // Toggle navbars
-  $('#navbar').remove();
-  $('#choose-languages-modal').remove();
-  $('#log-in-modal').remove();
-  $('#sign-up-modal').remove();
-  $('#navbar-logged-in').show();
-  $('#navbar-logged-in .right').fadeIn('fast');
-
-  // If any modal is open, close it
-  if ($('.modal')) {
-    $('.modal').closeModal();
-    $('.lean-overlay').remove()
-  }
-
 }
 
 function notLoggedIn() {
@@ -64,6 +41,8 @@ $('.fb-login').click(function() {
   FB.login(function(response) {
     if (response.status === 'connected') {
 
+      $('#preloader').show();
+
       console.log(response.authResponse);
 
       var loginObj = {};
@@ -85,21 +64,9 @@ $('.fb-login').click(function() {
             console.log(JWT);
             localStorage.setItem('JWT', JWT.token);
 
-            // Print username into navbar
-            $('span#navbar-username').html((jwt_decode(localStorage.getItem('JWT'))).name)
-
-            // Toggle navbars
-            $('#navbar').hide();
-            $('#navbar-logged-in').show();
-            $('#navbar-logged-in .right').fadeIn('fast');
-
-            // If any modal is open, close it
-            if ($('.modal')) {
-              $('.modal').closeModal();
-              $('.lean-overlay').remove()
-            }
-
             loginRedirect();
+
+            loggedIn();
 
           }
         })
