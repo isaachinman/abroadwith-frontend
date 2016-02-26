@@ -6,6 +6,7 @@ i18n.loadNamespaces(['manage_home','rooms']);
 module.exports = React.createClass({
   render: function() {
     var img = this.props.img ? this.props.img : '';
+    var price = this.props.price !== null ? this.props.price + ' ' + this.props.currency : '';
     return (
 
       <li className="collection-item avatar room" data-id={this.props.id}>
@@ -17,7 +18,7 @@ module.exports = React.createClass({
           Vacancy: {this.props.vacancies}
         </p>
         <div className="secondary-content input-field">
-          <input type="text" className="validate no-margin room-price" placeholder='150' defaultValue={this.props.price+this.props.currency} />
+          <input type="text" className="validate no-margin room-price" placeholder='150' defaultValue={price} />
           <label className='active left'>{i18n.t('rooms:Weekly_rate')}</label>
         </div>
       </li>

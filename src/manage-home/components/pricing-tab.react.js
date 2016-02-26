@@ -25,7 +25,8 @@ module.exports = React.createClass({
 
       $('li.room').each(function() {
         var id = $(this).attr('data-id');
-        var price = parseInt(($(this).find('.room-price').val()).match(/\d+/)[0]);
+        console.log($(this).find('.room-price').val());
+        var price = $(this).find('.room-price').val() !== '' ? parseInt(($(this).find('.room-price').val()).match(/\d+/)[0]) : null;
         changePrice(id, price);
       })
 
@@ -104,7 +105,9 @@ module.exports = React.createClass({
 
       var currency = this.props.pricing.currency;
 
-      var rooms = this.props.rooms;
+      var rooms = (this.props.rooms).sort(function(a,b){return -(a.id-b.id)});
+
+      console.log(rooms)
 
       var RoomsContainer = React.createClass({
         render: function() {
@@ -120,7 +123,7 @@ module.exports = React.createClass({
                 img={obj.img}
                 price={obj.price}
                 currency={currency}
-                />
+              />
             )
           })
           return (

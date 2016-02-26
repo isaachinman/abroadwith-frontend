@@ -81,13 +81,15 @@ module.exports = React.createClass({
     Materialize.toast('Rooms updated', 4000);
 
   },
+  componentDidMount: function() {
+    $('a#add-room').click(this.addRoom);
+    $('a#save-rooms').click(this.saveRooms);
+  },
   componentDidUpdate: function() {
 
     if (this.props.rooms.length > 0) {
 
-      console.log('has rooms')
-
-      var rooms = this.props.rooms;
+      var rooms = (this.props.rooms).sort(function(a,b){return -(a.id-b.id)});
 
       var RoomsContainer = React.createClass({
         render: function() {
@@ -136,9 +138,6 @@ module.exports = React.createClass({
     )
 
     $('ul.existing-rooms').collapsible();
-
-    $('a#add-room').click(this.addRoom);
-    $('a#save-rooms').click(this.saveRooms);
 
   },
   render: function() {
