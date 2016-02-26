@@ -2,37 +2,15 @@ var React = require('react');
 
 module.exports = React.createClass({
   componentDidMount: function() {
+
     window.mapLat;
     window.mapLng;
     window.mapZoom;
-  },
-  saveLocation: function() {
 
-    // Modify home object, using new location object
-    if (typeof homeObj !== 'undefined' && typeof newLocationObj !== 'undefined') {
-      homeObj.location = newLocationObj;
-
-      // POST new home object, refresh state upon success
-      Materialize.toast('Address updated', 4000);
-    }
-
-  },
-  componentDidUpdate: function() {
-
-    if (this.props.location) {
-
-      var fullAddress = this.props.location.street + ', ' + this.props.location.complement + ', ' + this.props.location.city + ' ' + this.props.location.zipCode + ', ' + this.props.location.country;
-      mapLat = this.props.location.lat;
-      mapLng = this.props.location.lng;
-      mapZoom = 16;
-
-      $('#home-address').val(fullAddress);
-
-    } else {
-      mapLat = 60;
-      mapLng = 180;
-      mapZoom = 2;
-    }
+    // Default map settings
+    mapLat = 60;
+    mapLng = 180;
+    mapZoom = 2;
 
     window.initAutocomplete = function() {
       var map = new google.maps.Map(document.getElementById('home-map'), {
@@ -144,9 +122,40 @@ module.exports = React.createClass({
       initAutocomplete();
     }
 
-    $.getScript( "https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete", function() {});
-
     $('a#save-location').click(this.saveLocation);
+
+    $.getScript( "https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete", function() {});
+  },
+  saveLocation: function() {
+
+    // Modify home object, using new location object
+    if (typeof homeObj !== 'undefined' && typeof newLocationObj !== 'undefined') {
+
+      homeObj.location = newLocationObj;
+
+      this.props.updateHome();
+
+      // POST new home object, refresh state upon success
+      Materialize.toast('Address updated', 4000);
+    }
+
+  },
+  componentDidUpdate: function() {
+
+    if (this.props.location) {
+
+      var fullAddress = this.props.location.street + ', ' + this.props.location.complement + ', ' + this.props.location.city + ' ' + this.props.location.zipCode + ', ' + this.props.location.country;
+      mapLat = this.props.location.lat;
+      mapLng = this.props.location.lng;
+      mapZoom = 16;
+
+      $('#home-address').val(fullAddress);
+
+    } else {
+      mapLat = 60;
+      mapLng = 180;
+      mapZoom = 2;
+    }
 
   },
   render: function() {

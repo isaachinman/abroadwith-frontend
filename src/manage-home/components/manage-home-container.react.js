@@ -38,9 +38,6 @@ module.exports = React.createClass({
       }
     })
 
-    // POST new home object
-    Materialize.toast('Basics updated', 4000);
-
   },
   componentDidMount: function() {
 
@@ -126,28 +123,34 @@ module.exports = React.createClass({
           />
 
           <ImmersionsTab
+            updateHome={this.updateHome}
             immersions={this.state.immersions}
             currency={this.state.currency}
           />
 
           <LocationTab
+            updateHome={this.updateHome}
             location={this.state.location}
           />
 
           <DescriptionTab
+            updateHome={this.updateHome}
             description={this.state.description}
           />
 
           <RoomsTab
+            updateHome={this.updateHome}
+            refreshState={this.refreshState}
             rooms={this.state.rooms}
-            refreshState={this.props.refreshState}
           />
 
           <PhotosTab
+            updateHome={this.updateHome}
             photos={this.state.photos}
           />
 
           <PricingTab
+            updateHome={this.updateHome}
             rooms={this.state.rooms}
             immersions={this.state.immersions}
             pricing={this.state.pricing}

@@ -35,6 +35,9 @@ module.exports = React.createClass({
 
         this.props.refreshState();
 
+        $('#add-room-form .collapsible-header').trigger('click');
+        $('#add-room-form input, select, textarea').val(null);
+
       }.bind(this),
       error: function() {
 
@@ -70,6 +73,7 @@ module.exports = React.createClass({
     // Modify home object, using new rooms object
     if (typeof homeObj !== 'undefined') {
       homeObj.rooms = newRoomsObj;
+      this.props.updateHome();
       console.log(newRoomsObj);
     }
 
@@ -105,7 +109,7 @@ module.exports = React.createClass({
             )
           })
           return (
-            <ul className="collapsible rooms-collapsible" data-collapsible="accordion">
+            <ul className="collapsible rooms-collapsible existing-rooms" data-collapsible="accordion">
               {allRooms}
             </ul>
           )
@@ -131,7 +135,7 @@ module.exports = React.createClass({
       />, document.querySelector('#existing-rooms')
     )
 
-    $('.rooms-collapsible').collapsible();
+    $('ul.existing-rooms').collapsible();
 
     $('a#add-room').click(this.addRoom);
     $('a#save-rooms').click(this.saveRooms);

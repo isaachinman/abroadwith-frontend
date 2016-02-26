@@ -15,6 +15,8 @@ module.exports = React.createClass({
 
     this.props.updateHome();
 
+    Materialize.toast('Basics updated', 4000);
+
   },
   componentDidUpdate: function() {
 
