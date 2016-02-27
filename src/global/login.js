@@ -1,6 +1,7 @@
 module.exports = function(email, password) {
 
   var jwt_decode = require('jwt-decode');
+  var domains = require('domains');
   var loginRedirect = require('login-redirect');
   var loggedIn = require('logged-in')
 
@@ -17,7 +18,7 @@ module.exports = function(email, password) {
 
   $.ajax({
     type: "POST",
-    url: 'https://admin.abroadwith.com/users/login',
+    url: domains.API + '/users/login',
     contentType: "application/json",
     data: JSON.stringify(loginObj),
     success: function(JWT) {

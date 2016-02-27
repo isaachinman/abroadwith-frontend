@@ -19,7 +19,7 @@ $('a#add-known-language').length ? $('a#add-known-language').click(function() { 
 
 
 // Form submit
-if ($('form#signup').length) {
+if ($('form#email-signup-form').length) {
 
   // Create signup object
   newUser = {};
@@ -157,7 +157,7 @@ if ($('form#signup').length) {
   }
 
   // Set permanent vars
-  var emailSignup = $('a#email-signup');
+  var emailSignup = $('button#email-signup');
   var notValid = $('#not-valid');
   var passwordValidate = $('#password-not-valid')
   var formValid;
@@ -224,10 +224,10 @@ if ($('form#signup').length) {
   // Email signup process
   emailSignup.click(function() {
 
-    if ($('form#signup input').length && $('input#birthday').val() != undefined) {
+    if ($('form#email-signup-form input').length && $('input#birthday').val() != undefined) {
 
       // Get inputs
-      var signupForm = $('form#signup input.validate');
+      var signupForm = $('form#email-signup-form input.validate');
 
       // Loop through text inputs and add values to object
       for (var i = 0, ii = signupForm.length; i < ii; i++) {

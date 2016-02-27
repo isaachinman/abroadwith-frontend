@@ -2,6 +2,7 @@ if ($('a.become-a-host').length) {
 
   var domains = require('domains');
   var jwt_decode = require('jwt-decode');
+  var refreshToken = require('refresh-token');
 
   $('a.become-a-host').click(function() {
 
@@ -14,6 +15,8 @@ if ($('a.become-a-host').length) {
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       processData: false,
       success: function(response){
+
+        refreshToken();
 
         window.location = '/manage-home'
 
