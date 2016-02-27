@@ -3,6 +3,12 @@ var Wallop = require('wallop');
 // Initialisations
 $(document).ready(function() {
 
+  if ($('form.inert').length) {
+    $('form.inert').submit(function(e) {
+      return false;
+    })
+  }
+
   if ($('.wallop').length) {
     $('.wallop').each(function() {
       var wallopEl = this;
@@ -39,6 +45,7 @@ $(document).ready(function() {
   // Select
   if ($('select.material').length) {
     $('select.material').material_select();
+    $("select.material[required]").css({display: "block", height: '1px', padding: 0, width: '1px', opacity: 0, border: 0, position: 'absolute'});
   }
 
   // Sidenav

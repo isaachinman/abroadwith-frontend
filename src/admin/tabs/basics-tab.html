@@ -1,116 +1,119 @@
-<div id="basics" class="col s12 m10 offset-m1 l10 offset-l1">
+<form id='basics-form' class='inert' name='basics'>
 
-  <div class='admin-block'>
+  <div id="basics" class="col s12 m10 offset-m1 l10 offset-l1">
 
-    <div class='row'>
-      <h4>Tell us about yourself</h4>
-    </div>
+    <div class='admin-block'>
 
-    <div class='manage-home-section'>
-
-      <div class='row section'>
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-user fa-2x"></i>
-        </div>
-        <div class='col s10 m2 l2 input-field'>
-          <input id='firstName' placeholder="First name" type="text" class="validate" value='Jose'>
-          <label class='active'>First name</label>
-        </div>
-        <div class='col s10 m2 l2 input-field'>
-          <input id='lastName' placeholder="Last name" type="text" class="validate" value='Luis'>
-          <label class='active'>Last name</label>
-        </div>
-
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-venus-mars fa-2x"></i>
-        </div>
-        <div class='col s10 m2 l2 input-field'>
-          <select id='gender' class='material'>
-            <option value="" disabled>Choose gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
-          <label>Gender</label>
-        </div>
-
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-calendar-o fa-2x"></i>
-        </div>
-        <div class='col s10 m3 l3 input-field'>
-          <input id='birthDate' type="date" placeholder='Birthday' class='datepicker datepicker-birthday' value='1990-01-01'>
-          <label class='active'>Birthday</label>
-        </div>
+      <div class='row'>
+        <h4>Tell us about yourself</h4>
       </div>
 
-      <div class='divider'></div>
+      <div class='manage-home-section'>
 
-      <div class='row section'>
+        <div class='row section'>
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-user fa-2x"></i>
+          </div>
+          <div class='col s10 m2 l2 input-field'>
+            <input id='firstName' name='firstName' placeholder="First name" type="text" class="validate" required>
+            <label class='active'>First name</label>
+          </div>
+          <div class='col s10 m2 l2 input-field'>
+            <input id='lastName' name='lastName' placeholder="Last name" type="text" class="validate" required>
+            <label class='active'>Last name</label>
+          </div>
 
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-map-marker fa-2x"></i>
-        </div>
-        <div class='col s10 m4 l4 input-field'>
-          <input placeholder="{{translations.common.where}}" id="location" type="text" class="validate">
-          {% include "../../global/components/google-maps-autocomplete.html" %}
-          <label class='active'>Home location</label>
-        </div>
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-venus-mars fa-2x"></i>
+          </div>
+          <div class='col s10 m2 l2 input-field'>
+            <select id='gender' name='gender' class='material' required>
+              <option value="" selected disabled>Choose gender</option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+              <option value="OTHER">Other</option>
+            </select>
+            <label>Gender</label>
+          </div>
 
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-mobile fa-2x"></i>
-        </div>
-        <div class='col s10 m2 l2 input-field'>
-          <input id='phoneNumber' placeholder="Phone number" type="text" class="validate">
-          <label class='active'>Phone number</label>
-        </div>
-
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-envelope-o fa-2x"></i>
-        </div>
-        <div class='col s10 m3 l3 input-field'>
-          <input id='user-email' placeholder="Email" type="text" class="validate">
-          <label class='active'>Email</label>
-        </div>
-
-      </div>
-
-      <div class='divider'></div>
-
-      <div class='row section'>
-
-        <div class='row grey-text left-align'>
-          <div class='col s12 m10 offset-m1 l10 offset-l1'>
-            <h6>Emergency contact</h6>
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-calendar-o fa-2x"></i>
+          </div>
+          <div class='col s10 m3 l3 input-field'>
+            <input id='birthDate' type="date" placeholder='Birthday' class='datepicker datepicker-birthday' value='1990-01-01' required>
+            <label class='active'>Birthday</label>
           </div>
         </div>
 
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-exclamation-triangle fa-2x"></i>
+        <div class='divider'></div>
+
+        <div class='row section'>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-map-marker fa-2x"></i>
+          </div>
+          <div class='col s10 m4 l4 input-field'>
+            <input placeholder="{{translations.common.where}}" id="location" type="text" class="validate"> {% include "../../global/components/google-maps-autocomplete.html" %}
+            <label class='active'>Home location</label>
+          </div>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-mobile fa-2x"></i>
+          </div>
+          <div class='col s10 m2 l2 input-field'>
+            <input id='phoneNumber' name='phoneNumber' placeholder="Phone number" type="tel" class="validate">
+            <label class='active'>Phone number</label>
+          </div>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-envelope-o fa-2x"></i>
+          </div>
+          <div class='col s10 m3 l3 input-field'>
+            <input id='user-email' name='email' placeholder="Email" type="email" class="validate" required>
+            <label class='active' data-error="Incorrect" data-success="Correct">Email</label>
+          </div>
+
         </div>
-        <div class='col s10 m3 l3 input-field'>
-          <input id='emergency-name' placeholder="Name" type="text" class="validate">
-          <label class='active'>Name</label>
+
+        <div class='divider'></div>
+
+        <div class='row section'>
+
+          <div class='row grey-text left-align'>
+            <div class='col s12 m10 offset-m1 l10 offset-l1'>
+              <h6>Emergency contact</h6>
+            </div>
+          </div>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-exclamation-triangle fa-2x"></i>
+          </div>
+          <div class='col s10 m3 l3 input-field'>
+            <input id='emergency-name' placeholder="Name" type="text" class="validate">
+            <label class='active'>Name</label>
+          </div>
+          <div class='col s10 m2 l2 input-field'>
+            <input id='emergency-phone' placeholder="Phone" type="text" class="validate">
+            <label class='active'>Phone number</label>
+          </div>
+          <div class='col s10 m3 l3 input-field'>
+            <input id='emergency-email' placeholder="Email" type="text" class="validate">
+            <label class='active'>Email</label>
+          </div>
+          <div class='col s10 m3 l3 input-field'>
+            <input id='emergency-relationship' placeholder="Relationship" type="text" class="validate">
+            <label class='active'>Relationship</label>
+          </div>
         </div>
-        <div class='col s10 m2 l2 input-field'>
-          <input id='emergency-phone' placeholder="Phone" type="text" class="validate">
-          <label class='active'>Phone number</label>
-        </div>
-        <div class='col s10 m3 l3 input-field'>
-          <input id='emergency-email' placeholder="Email" type="text" class="validate">
-          <label class='active'>Email</label>
-        </div>
-        <div class='col s10 m3 l3 input-field'>
-          <input id='emergency-relationship' placeholder="Relationship" type="text" class="validate">
-          <label class='active'>Relationship</label>
-        </div>
+
       </div>
 
     </div>
 
+    <div class='row bottom'>
+      <button type='submit' id='save-basics' class='btn btn-primary admin-save-btn'>Save</button>
+    </div>
+
   </div>
 
-  <div class='row bottom'>
-    <a id='save-basics' class='btn btn-primary admin-save-btn'>Save</a>
-  </div>
-
-</div>
+</form>

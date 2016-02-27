@@ -8,9 +8,9 @@ module.exports = React.createClass({
     adminObj.gender =                           $('#gender').val();
     adminObj.birthDate =                        $('#birthDate').val();
     adminObj.location =                         $('#location').val();
-    adminObj.phoneNumber =                      $('#phoneNumber').val();
+    $('#phoneNumber').val() !== '' ?  adminObj.phoneNumber = $('#phoneNumber').val() : null;
     adminObj.email =                            $('#user-email').val();
-    
+
     adminObj.emergencyContact ? null : adminObj.emergencyContact = {};
     adminObj.emergencyContact.name =            $('#emergency-name').val();
     adminObj.emergencyContact.phone =           $('#emergency-phone').val();
@@ -19,9 +19,11 @@ module.exports = React.createClass({
 
     this.props.updateAdmin();
 
+    Materialize.toast('Basics updated', 4000);
+
   },
   componentDidMount: function() {
-    $('a#save-basics').click(this.saveBasics)
+    $('form#basics-form').submit(this.saveBasics);
   },
   componentDidUpdate: function() {
     // Basics tab
@@ -36,6 +38,8 @@ module.exports = React.createClass({
     $('#emergency-phone').val(this.props.emergencyPhone);
     $('#emergency-email').val(this.props.emergencyEmail);
     $('#emergency-relationship').val(this.props.emergencyRelationship);
+
+    $('select#gender').material_select();
   },
   render: function() {
 
