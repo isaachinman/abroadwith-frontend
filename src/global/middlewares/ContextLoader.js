@@ -25,5 +25,6 @@ module.exports = function (req, res, next) {
     users: user,
     currencies: currencies
   }
+  req.context.query = req.query;
   next();
 };
