@@ -69,7 +69,7 @@ $.ajax({
   }
 });
 </script-->
-<script>
+<!--<script>
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
     console.log('statusChangeCallback');
@@ -207,17 +207,72 @@ $.ajax({
   }
 </script>
 
-<!--
-  Below we include the Login Button social plugin. This button uses
-  the JavaScript SDK to present a graphical Login button that triggers
-  the FB.login() function when clicked.
--->
 
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
 
 <div id="status">
-</div>
+</div>-->
+<script type="text/javascript">
+$.ajax({
+type: "POST",
+url: 'http://localhost:8080/users/login',
+contentType: "application/json",
+data: JSON.stringify({email:"matheus.bt@gmail.com",password:"withRIGHT"}),
+success: function (JWT) {
+
+  console.log(JWT);
+  localStorage.setItem('JWT', JWT.token);
+
+}});
+$(document).ready(function()
+{
+    $("#uploadBtn").click(function()
+    {
+        $('input[name="file"]').each(function(index, value)
+        {
+            var file = value.files;
+            if(file)
+            {
+                var formData = new FormData();
+            		for(var f = 0; f < file.length; f++){
+            			formData.append('photos', file[f]);
+            		}
+                $.ajax({
+                  url : 'http://localhost:3000/upload/users/photo',
+                  type : 'POST',
+                  data : formData,
+                  cache : false,
+                  contentType : false,
+                  processData : false,
+                  success : function(data, textStatus, jqXHR) {
+                        var message = jqXHR.responseText;
+                        $("#messages").append("<li>" + message + "</li>");
+                  },
+                  error : function(jqXHR, textStatus, errorThrown) {
+                        $("#messages").append("<li style='color: red;'>" + textStatus + "</li>");
+                  }
+                });
+            }
+        });
+    });
+});
+</script>
+<h1>Test Upload</h1>
+
+<form action="rest/upload/pdf" method="post" enctype="multipart/form-data">
+
+    <p>
+        Select files: <input type="file" name="file" size="45"  accept=".jpg" multiple/>
+    </p>
+    <p>
+        <input id="uploadBtn" type="button" value="Upload Files" />
+    </p>
+
+</form>
+
+<ul id="messages">
+</ul>
 
 </body>
 </html>

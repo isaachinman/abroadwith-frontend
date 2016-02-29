@@ -19,15 +19,15 @@ var contextLoader = require('./global/middlewares/ContextLoader');
 var authentication = require('./global/middlewares/Authentication');
 
 var app = express();
-
+var cookieParser = require('cookie-parser');
 nunjucks.configure('src',{watch:true});
 
 app.use(express.static('build'));
+app.use(cookieParser());
 
 app.use('/*', contextLoader);
 
 app.use('/*', authentication);
-
 
 //TODO remove this.
 app.post('/users/login', function(req,res){
@@ -35,7 +35,10 @@ app.post('/users/login', function(req,res){
 });
 var installTest = require('./test/TestInstaller');
 var installMessaging = require('./test/MessagingInstaller');
-
+var installImageUpload = require('./test/ImageUploadInstaller');
+installTest(app);
+installMessaging(app);
+installImageUpload(app);
 
 installMain(app);
 
@@ -52,10 +55,6 @@ installAdmin(app);
 installSearch(app);
 
 installManageHome(app);
-
-installTest(app);
-
-installMessaging(app);
 
 installStatic(app);
 

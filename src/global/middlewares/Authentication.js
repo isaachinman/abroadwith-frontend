@@ -13,7 +13,8 @@ var public_key = "-----BEGIN PUBLIC KEY-----\n"+
 
 module.exports = function (req, res, next) {
     var token, error;
-
+    console.log("Token:",req.cookies);
+    res.cookie('cookieName',"Teste", { maxAge: 900000, httpOnly: true });
     if (req.query && req.query['access_token']) {
       token = req.query['access_token'];
     }
