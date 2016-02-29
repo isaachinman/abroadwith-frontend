@@ -265,6 +265,7 @@ if ($('form#email-signup-form').length) {
 
       // If form is valid, POST object
       if (formValid === true) {
+        console.log(newUser)
         validateUserAndSend()
       } else {
         formNotValid();
@@ -297,7 +298,10 @@ if ($('form#email-signup-form').length) {
 
         },
         error: function(response) {
-          // Something went wrong
+
+          $('#preloader').hide();
+          alert('Signup failed');
+
         }
       });
     }
