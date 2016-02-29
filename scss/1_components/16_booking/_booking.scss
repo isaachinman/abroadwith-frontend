@@ -1,0 +1,27 @@
+.booking-section {
+  position: relative;
+  &--grey {
+    background: lighten($grey-chateau, 25%);
+    border-bottom: 30px solid lighten($grey-chateau, 20%);
+  }
+  .title {
+    @extend .z-depth-1;
+    height: 50px;
+    line-height: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: left;
+    padding: 0 15px;
+    background: white;
+    border-radius: 0 0 3px 0;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 1.15px;
+    font-weight: 600;
+    color: darken($grey-chateau, 20%);
+  }
+  .body {
+    padding: 70px 20px 50px 20px;
+  }
+}

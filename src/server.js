@@ -13,6 +13,7 @@ var installUserEdit = require('./users-edit/UserEditInstaller');
 var installInbox = require('./inbox/InboxInstaller');
 var installAdmin = require('./admin/AdminInstaller');
 var installStatic = require('./static/StaticInstaller');
+var installBooking = require('./booking/BookingInstaller');
 
 /** Middlewares **/
 var contextLoader = require('./global/middlewares/ContextLoader');
@@ -58,5 +59,7 @@ installTest(app);
 installMessaging(app);
 
 installStatic(app);
+
+installBooking(app);
 
 http.createServer(app).listen(3000);

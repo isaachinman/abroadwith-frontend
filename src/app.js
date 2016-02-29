@@ -18,7 +18,6 @@ require('./global/login-redirect');
 require('./global/logout-init');
 require('./global/home-creation');
 
-
 // Manage home
 require('./manage-home/manage-home');
 
