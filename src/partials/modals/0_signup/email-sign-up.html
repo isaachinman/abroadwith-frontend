@@ -1,34 +1,34 @@
 <div class='row'>
 
-  <form id='signup'>
+  <form id='email-signup-form' class='inert'>
 
     <div class='input-field col s10 offset-s1'>
-      <input id="first-name" type="text" class="validate no-margin" name='firstName'>
+      <input id="first-name" type="text" class="validate no-margin" name='firstName' required>
       <label for="first-name">{{translations.common.First_name}}</label>
     </div>
 
     <div class='input-field col s10 offset-s1'>
-      <input id="last-name" type="text" class="validate no-margin" name='lastName'>
+      <input id="last-name" type="text" class="validate no-margin" name='lastName' required>
       <label for="last-name">{{translations.common.Last_name}}</label>
     </div>
 
     <div class='input-field col s10 offset-s1'>
-      <input id="email" type="email" class="validate no-margin" name='email'>
+      <input id="email" type="email" class="validate no-margin" name='email' required>
       <label for="email">{{translations.common.Email}}</label>
     </div>
 
-    <div class="input-field col s10 offset-s1 tooltipped" data-position='bottom' data-delay='0' data-tooltip='{{translations.common.password_validation_message}}'>
-      <input id="password" type="password" class="validate no-margin" name='password'>
+    <div class="input-field col s10 offset-s1 tooltipped" data-position='top' data-delay='500' data-tooltip='{{translations.common.password_validation_message}}'>
+      <input id="password" type="password" class="validate no-margin" name='password' required>
       <label for="password">{{translations.common.Password}}</label>
     </div>
 
     <div class="input-field col s10 offset-s1">
-      <input id='birthday' type="date" class="datepicker datepicker-birthday no-margin" name='birthDate'>
-      <label for="birthday">{{translations.common.Birthday}}</label>
+      <input id='birthday' type="text" class="datepicker datepicker-birthday no-margin" name='birthDate' required>
+      <label for="birthDate">{{translations.common.Birthday}}</label>
     </div>
 
     <div class='input-field col s10 offset-s1'>
-      <a id='email-signup' class='btn btn-primary'>{{translations.common.Sign_up}}</a>
+      <button id='email-signup' type='submit' class='btn btn-primary'>{{translations.common.Sign_up}}</button>
     </div>
 
     <div id='not-valid' class='col s10 offset-s1 hide section'>

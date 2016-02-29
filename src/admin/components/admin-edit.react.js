@@ -28,7 +28,6 @@ module.exports = React.createClass({
       success: function(response) {
 
         this.refreshState();
-        Materialize.toast('Admin updated', 4000);
 
       }.bind(this),
       error: function() {
