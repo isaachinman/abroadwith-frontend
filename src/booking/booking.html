@@ -1,11 +1,273 @@
-{% extends "layout.html" %} {% block content %}
+{% extends "layout--no-footer.html" %} {% block content %}
 
-<div class='booking-section booking-section--grey'>
+<div class='booking-nav'>
+
+  <ul class='table-of-contents hide-on-small-and-down'>
+    <li><a href="#basics">1. Basics <i class="fa fa-check"></i></a></li>
+    <li><a href="#language-course">2. Language course</a></li>
+    <li><a href="#payment">3. Payment</a></li>
+  </ul>
+
+  <img class='home-photo hide-on-small-and-down' src='https://static.dezeen.com/uploads/2014/09/A-Place-Called-Home-by-Jasper-Morrison-for-Airbnb_dezeen_1.jpg'>
+
+  <div class='section no-padding-bottom'>
+    <div class='row'>
+      <a class='btn btn-primary'>Request booking</a>
+    </div>
+  </div>
+
+  <div class='row primary-info hide-on-small-and-down'>
+    <div class='col s12'>
+      <span class='large'>Jose's home</span>
+    </div>
+    <div class='col s12 grey-text text-darken-1'>
+      <div>Roosevelt Place, Brooklyn</div>
+      <div>New York 112233, USA</div>
+    </div>
+  </div>
+
+  <div class='row hide-on-small-and-down'>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left'>Private room for:</div><div class='right'>1 guest</div>
+    </div>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left'>Immersion option:</div><div class='right'>Stay</div>
+    </div>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left'>Language:</div><div class='right'>Spanish</div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left'>Arrival:</div><div class='right'>2016-05-18</div>
+    </div>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left'>Departure:</div><div class='right'>2016-10-01</div>
+    </div>
+  </div>
+
+  <div class='row hide-on-small-and-down'>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left'>Cleaning:</div><div class='right'>€40</div>
+    </div>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left'>Meal plan:</div><div class='right'>€100</div>
+    </div>
+  </div>
+
+  <div class='total-price'>
+    <div class='row'>
+      <div class='col s12'>
+        <div class='divider'></div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col s12 large'>
+        <div class='left'>Total:</div><div class='right'>€1250</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id='basics' class='booking-section booking-section--grey scrollspy'>
   <div class='title'>
-      Basics
+      1. Basics
+  </div>
+  <div class='body row'>
+
+    <div class='col s12 m12 l6'>
+
+      <div class='card'>
+        <div class='header'>
+          Immersion
+        </div>
+        <div class='row'>
+
+          <div class='col s6 m6 l4 input-field'>
+            <select id='booking-immersions' class='material'>
+              <option value="stay">{{translations.common.Stay}}</option>
+              <option value="tandem">{{translations.common.Tandem}}</option>
+              <option value="teacher">{{translations.common.Teachers_stay}}</option>
+            </select>
+            <label>Immersion type</label>
+          </div>
+
+          <div class='col s6 m6 l4 input-field'>
+            <select id='learning' class='material'>
+              <option value='SPA'>Spanish</option>
+              <option value='POR'>Portuguese</option>
+            </select>
+            <label>Learning</label>
+          </div>
+
+          <div class='col s6 m6 l4 input-field immersion-field tandem-field'>
+            <select id='teaching' class='material'>
+              <option value='GER'>German</option>
+              <option value='ENG'>English</option>
+            </select>
+            <label>Teaching</label>
+          </div>
+
+          <div class='col s6 m6 l4 input-field immersion-field teacher-field'>
+            <select id='teacher-hours' class='material'>
+              <option value="5">5 hours</option>
+              <option value="10">10 hours</option>
+              <option value="15">15 hours</option>
+            </select>
+            <label>Hours/week</label>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class='col s12 m6 l4'>
+      <div class='card'>
+        <div class='header'>
+          Meal plan
+        </div>
+
+        <div class='row'>
+          <div class='col s12 input-field'>
+            <select id='meal-plan' class='material'>
+              {% for optionCode, optionName in translations.search.meal_choice %}
+                <option value={{optionCode}}>{{optionName}} (€20/week)</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class='col s12 m3 l2 hide-on-med-and-down'>
+
+      <div class='card'>
+        <div class='header'>
+          Price
+        </div>
+        <div class='row'>
+
+          <div class='col s12 input-field center-align'>
+            <span class='large'>€1250</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class='col s12 m6 l5'>
+      <div class='card'>
+        <div class='header'>
+          Extras
+        </div>
+
+        <div class='row'>
+
+          <div class='col s12 input-field'>
+            <input type="checkbox" class="filled-in" id="EXTRA_GUEST" checked="checked" />
+            <label for="EXTRA_GUEST">Extra guest (€10/week)</label>
+          </div>
+
+          <div class='col s12 input-field'>
+            <input type="checkbox" class="filled-in" id="CLEANING" checked="checked" />
+            <label for="CLEANING">Cleaning (€20/week)</label>
+          </div>
+
+          <div class='col s12 input-field'>
+            <input type="checkbox" class="filled-in" id="LAUNDRY" checked="checked" />
+            <label for="LAUNDRY">Laundry (€15/week)</label>
+          </div>
+
+          <div class='col s12 input-field'>
+            <input type="checkbox" class="filled-in" id="AIRPORT_PICKUP" checked="checked" />
+            <label for="AIRPORT_PICKUP">Airport pickup (€10)</label>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <i class="next fa fa-chevron-down"></i>
+</div>
+
+<div id='language-course' class='booking-section booking-section--blue scrollspy'>
+  <div class='title'>
+      2. Language course
+  </div>
+  <div class='secondary-nav'>
+    Level:
+    <select id='language-school' class='material'>
+      <option value="a1">A1</option>
+      <option value="a2">A2</option>
+      <option value="b1">B1</option>
+      <option value="b2">B2</option>
+      <option value="c1">C1</option>
+      <option value="c2">C2</option>
+    </select>
+  </div>
+  <div class='body row'>
+
+    <div class='col s12'>
+      <div class='card'>
+        <div class='header'>
+          Option 1
+        </div>
+
+        <div class='row no-margin-bottom'>
+
+          <div class='col s6 m4 l3'>
+            <img class='school' src='https://brotundkase.files.wordpress.com/2012/08/expath_logo.jpg'>
+          </div>
+
+          <div class='col s6 m8 l9'>
+            <div class='row no-margin-bottom'>
+              <div class='left'>
+                <strong>Expath</strong> <span class='light'>(300 metres)</span>
+              </div>
+              <div class='right'>
+                <div class='stars'>
+                  <i class='fa fa-star'></i>
+                  <i class='fa fa-star'></i>
+                  <i class='fa fa-star'></i>
+                  <i class='fa fa-star'></i>
+                  <i class='fa fa-star'></i>
+                </div>
+              </div>
+            </div>
+
+            <div class='divider'></div>
+
+            <div class='language-school-description'>
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+            </div>
+
+          </div>
+
+
+
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <i class="next fa fa-chevron-down"></i>
+</div>
+
+<div id='payment' class='booking-section booking-section--zig scrollspy'>
+  <div class='title'>
+      3. Payment
   </div>
   <div class='body'>
-    Stuff<br>Stuff<br>Stuff<br>Stuff<br>Stuff<br>Stuff<br>Stuff<br>
+
   </div>
 </div>
 

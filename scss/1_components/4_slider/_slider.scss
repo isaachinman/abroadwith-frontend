@@ -71,15 +71,6 @@
 	left: -17px;
 	top: -6px;
 }
-.noUi-vertical {
-	width: 18px;
-}
-.noUi-vertical .noUi-handle {
-	width: 28px;
-	height: 34px;
-	left: -6px;
-	top: -17px;
-}
 
 /* Styling;
  */
@@ -106,9 +97,6 @@
  */
 .noUi-dragable {
 	cursor: w-resize;
-}
-.noUi-vertical .noUi-dragable {
-	cursor: n-resize;
 }
 .noUi-handle {
 	border: 1px solid #D9D9D9;
@@ -137,16 +125,6 @@
 }
 .noUi-handle:after {
 	left: 17px;
-}
-.noUi-vertical .noUi-handle:before,
-.noUi-vertical .noUi-handle:after {
-	width: 14px;
-	height: 1px;
-	left: 6px;
-	top: 14px;
-}
-.noUi-vertical .noUi-handle:after {
-	top: 17px;
 }
 
 /* Disabled state;

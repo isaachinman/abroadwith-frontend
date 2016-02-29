@@ -32,3 +32,6 @@ require('./users-edit/users-edit');
 
 // Admin
 require('./admin/admin');
+
+// Booking
+require('./booking/booking')
