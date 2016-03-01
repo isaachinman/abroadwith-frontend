@@ -16,13 +16,18 @@ if ($('a.become-a-host').length) {
       processData: false,
       success: function(response){
 
-        refreshToken();
+        console.log(response)
 
-        window.location = '/manage-home'
+        refreshToken(goToManageHome);
+
+        function goToManageHome() {
+          window.location = '/manage-home'
+        }
 
       },
       error: function(response) {
         // Something went wrong
+        console.log('home wasnt created')
       }
     });
 

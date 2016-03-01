@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(callback) {
 
   var domains = require('domains');
   var loggedIn = require('logged-in')
@@ -21,7 +21,11 @@ module.exports = function() {
       // Set new token
       localStorage.setItem('JWT', response.token);
 
+      // Refresh state for login
       loggedIn();
+
+      // Execute callback
+      callback();
 
     },
     error: function(response) {
