@@ -2,7 +2,7 @@
   padding: 0;
 }
 .no-padding-top {
-  padding-top: 0;
+  padding-top: 0 !important;
 }
 .no-padding-sides {
   padding-left: 0 !important;
@@ -160,4 +160,7 @@ hr.half-break {
 }
 .small {
   font-size: .9rem;
+}
+.border {
+  border: 1px solid #ddd;
 }

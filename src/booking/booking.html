@@ -1,6 +1,6 @@
 {% extends "layout--no-footer.html" %} {% block content %}
 
-<div class='booking-nav'>
+<div class='booking-nav no-padding-top'>
 
   <ul class='table-of-contents hide-on-small-and-down'>
     <li><a href="#basics">1. Basics <i class="fa fa-check"></i></a></li>
@@ -47,12 +47,15 @@
     </div>
   </div>
 
-  <div class='row hide-on-small-and-down'>
+  <div class='row'>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left'>Cleaning:</div><div class='right'>€40</div>
+      Language course:
     </div>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left'>Meal plan:</div><div class='right'>€100</div>
+      <div class='chip chip--learning'>
+        Expath (A1, €120)
+        <i class="material-icons">close</i>
+      </div>
     </div>
   </div>
 
@@ -170,22 +173,22 @@
 
           <div class='col s12 input-field'>
             <input type="checkbox" class="filled-in" id="EXTRA_GUEST" checked="checked" />
-            <label for="EXTRA_GUEST">Extra guest (€10/week)</label>
+            <label for="EXTRA_GUEST" class='dark'>Extra guest (€10/week)</label>
           </div>
 
           <div class='col s12 input-field'>
             <input type="checkbox" class="filled-in" id="CLEANING" checked="checked" />
-            <label for="CLEANING">Cleaning (€20/week)</label>
+            <label for="CLEANING" class='dark'>Cleaning (€20/week)</label>
           </div>
 
           <div class='col s12 input-field'>
             <input type="checkbox" class="filled-in" id="LAUNDRY" checked="checked" />
-            <label for="LAUNDRY">Laundry (€15/week)</label>
+            <label for="LAUNDRY" class='dark'>Laundry (€15/week)</label>
           </div>
 
           <div class='col s12 input-field'>
             <input type="checkbox" class="filled-in" id="AIRPORT_PICKUP" checked="checked" />
-            <label for="AIRPORT_PICKUP">Airport pickup (€10)</label>
+            <label for="AIRPORT_PICKUP" class='dark'>Airport pickup (€10)</label>
           </div>
 
         </div>
@@ -194,7 +197,6 @@
     </div>
 
   </div>
-  <i class="next fa fa-chevron-down"></i>
 </div>
 
 <div id='language-course' class='booking-section booking-section--blue scrollspy'>
@@ -214,59 +216,82 @@
   </div>
   <div class='body row'>
 
+    {% include "./sections/language-course-card.html" %}
+    {% include "./sections/language-course-card.html" %}
+    {% include "./sections/language-course-card.html" %}
+
     <div class='col s12'>
-      <div class='card'>
-        <div class='header'>
-          Option 1
-        </div>
-
-        <div class='row no-margin-bottom'>
-
-          <div class='col s6 m4 l3'>
-            <img class='school' src='https://brotundkase.files.wordpress.com/2012/08/expath_logo.jpg'>
-          </div>
-
-          <div class='col s6 m8 l9'>
-            <div class='row no-margin-bottom'>
-              <div class='left'>
-                <strong>Expath</strong> <span class='light'>(300 metres)</span>
-              </div>
-              <div class='right'>
-                <div class='stars'>
-                  <i class='fa fa-star'></i>
-                  <i class='fa fa-star'></i>
-                  <i class='fa fa-star'></i>
-                  <i class='fa fa-star'></i>
-                  <i class='fa fa-star'></i>
-                </div>
-              </div>
-            </div>
-
-            <div class='divider'></div>
-
-            <div class='language-school-description'>
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-            </div>
-
-          </div>
-
-
-
-
-        </div>
+      <div class='row section center-align no-margin-bottom no-padding-bottom'>
+        <a class="btn-floating"><i class="material-icons">add</i></a>
       </div>
-
     </div>
 
   </div>
-  <i class="next fa fa-chevron-down"></i>
 </div>
 
 <div id='payment' class='booking-section booking-section--zig scrollspy'>
   <div class='title'>
       3. Payment
   </div>
-  <div class='body'>
+  <div class='body row'>
+
+    <div class='col s12 m6 l6'>
+      <div class='card'>
+        <div class='header'>
+          Payment methods
+        </div>
+
+        <div class='row'>
+
+          <div class='col s12'>
+            <p>
+              You'll only be charged if your request is accepted by the host. They'll have 48 hours to accept or decline.
+            </p>
+          </div>
+
+          <div class='col s12 border'>
+              <p>
+                <input name="group1" type="radio" id="test1" checked />
+                <label for="test1" class='dark'>VISA ending in 4002</label>
+              </p>
+              <p>
+                <input name="group1" type="radio" id="test2" />
+                <label for="test2" class='dark'>PayPal: jose@abroadwith.com</label>
+              </p>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class='col s12 m6 l6'>
+      <div class='card'>
+        <div class='header'>
+          Introduction
+        </div>
+
+        <div class='row'>
+
+          <div class='col s12'>
+            <p>
+              Introduce yourself to Jose. Giving your host more information will make them more likely to confirm your booking request.
+            </p>
+          </div>
+
+          <div class='col s12 border'>
+            <textarea id="textarea1" class="materialize-textarea" length="2000" placeholder='Say hello'></textarea>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class='col s12 m10 offset-m1 l10 offset-l1 small grey-text'>
+      <div class='row section'>
+        By clicking on “Send Request”, you agree to pay the total amount shown, which includes Service Fees, on the right and to the Terms of Service, House Rules, Cancellation Policy, and Guest Refund Policy.
+      </div>
+    </div>
 
   </div>
 </div>
