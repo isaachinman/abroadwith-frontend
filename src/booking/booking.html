@@ -8,8 +8,6 @@
     <li><a href="#payment">3. Payment</a></li>
   </ul>
 
-  <img class='home-photo hide-on-small-and-down' src='https://static.dezeen.com/uploads/2014/09/A-Place-Called-Home-by-Jasper-Morrison-for-Airbnb_dezeen_1.jpg'>
-
   <div class='section no-padding-bottom'>
     <div class='row'>
       <a class='btn btn-primary'>Request booking</a>
@@ -17,13 +15,20 @@
   </div>
 
   <div class='row primary-info hide-on-small-and-down'>
-    <div class='col s12'>
-      <span class='large'>Jose's home</span>
+    <div class='left'>
+      <div class='col s12'>
+        <span class='large'>Jose's home</span>
+        <div class='small grey-text text-darken-1'>
+          Liberdastraßsdfsdfe, Berlin
+        </div>
+      </div>
     </div>
-    <div class='col s12 grey-text text-darken-1'>
-      <div>Roosevelt Place, Brooklyn</div>
-      <div>New York 112233, USA</div>
+    <div class='right'>
+      <div class='col s12'>
+        <img class='circle home-photo hide-on-small-and-down' src='https://static.dezeen.com/uploads/2014/09/A-Place-Called-Home-by-Jasper-Morrison-for-Airbnb_dezeen_1.jpg'>
+      </div>
     </div>
+
   </div>
 
   <div class='row hide-on-small-and-down'>
@@ -171,9 +176,17 @@
 
         <div class='row'>
 
-          <div class='col s12 input-field'>
-            <input type="checkbox" class="filled-in" id="EXTRA_GUEST" checked="checked" />
-            <label for="EXTRA_GUEST" class='dark'>Extra guest (€10/week)</label>
+
+
+          <div class='col s12 m12 l6 input-field'>
+
+            <select id="EXTRA_GUEST" class='material'>
+              <option value="">None</option>
+              <option value="1">+1 (€10)</option>
+              <option value="2">+2 (€20)</option>
+              <option value="3">+3 (€30)</option>
+            </select>
+            <label for="EXTRA_GUEST" class='dark'>Extra guest(s)</label>
           </div>
 
           <div class='col s12 input-field'>
@@ -259,7 +272,6 @@
                 <label for="test2" class='dark'>PayPal: jose@abroadwith.com</label>
               </p>
           </div>
-
 
         </div>
       </div>
