@@ -18,6 +18,7 @@ for(var i in languages){
     translations[i].main = require('../../locales/'+i+"/main.json");
     translations[i].search = require('../../locales/'+i+"/search.json");
     translations[i].manage_home = require('../../locales/'+i+"/manage_home.json");
+    translations[i].booking = require('../../locales/'+i+"/booking.json");
   }
   catch(e){
     console.log(e);

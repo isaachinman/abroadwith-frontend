@@ -17,9 +17,10 @@
   <div class='row primary-info hide-on-small-and-down'>
     <div class='left'>
       <div class='col s12'>
-        <span class='large'>Jose's home</span>
+        <div class='host-name'><strong>Margarite's home</strong></div>
         <div class='small grey-text text-darken-1'>
-          Liberdastraßsdfsdfe, Berlin
+          Liberdastraßsdfsdfe,<br>
+          Berlin
         </div>
       </div>
     </div>
@@ -33,33 +34,34 @@
 
   <div class='row hide-on-small-and-down'>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left'>Private room for:</div><div class='right'>1 guest</div>
+      <div class='left-column'>Guests:</div><div class='right-column'>1</div>
     </div>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left'>Immersion option:</div><div class='right'>Stay</div>
+      <div class='left-column'>Immersion:</div><div class='right-column'>Stay</div>
     </div>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left'>Language:</div><div class='right'>Spanish</div>
-    </div>
-  </div>
-
-  <div class='row'>
-    <div class='col s12 small grey-text text-darken-1'>
-      <div class='left'>Arrival:</div><div class='right'>2016-05-18</div>
-    </div>
-    <div class='col s12 small grey-text text-darken-1'>
-      <div class='left'>Departure:</div><div class='right'>2016-10-01</div>
+      <div class='left-column'>Language(s):</div><div class='right-column'>Spanish</div>
     </div>
   </div>
 
   <div class='row'>
     <div class='col s12 small grey-text text-darken-1'>
-      Language course:
+      <div class='left-column'>Arrival:</div><div class='right-column'>2016-05-18</div>
     </div>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='chip chip--learning'>
+      <div class='left-column'>Departure:</div><div class='right-column'>2016-10-01</div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left-column'>
+        Course:
+      </div>
+      <div class='right-column'>
         Expath (A1, €120)
-        <i class="material-icons">close</i>
+        <br>
+        <a>Remove</a>
       </div>
     </div>
   </div>
@@ -176,8 +178,6 @@
 
         <div class='row'>
 
-
-
           <div class='col s12 m12 l6 input-field'>
 
             <select id="EXTRA_GUEST" class='material'>
@@ -190,17 +190,17 @@
           </div>
 
           <div class='col s12 input-field'>
-            <input type="checkbox" class="filled-in" id="CLEANING" checked="checked" />
+            <input type="checkbox" class="filled-in" id="CLEANING" />
             <label for="CLEANING" class='dark'>Cleaning (€20/week)</label>
           </div>
 
           <div class='col s12 input-field'>
-            <input type="checkbox" class="filled-in" id="LAUNDRY" checked="checked" />
+            <input type="checkbox" class="filled-in" id="LAUNDRY" />
             <label for="LAUNDRY" class='dark'>Laundry (€15/week)</label>
           </div>
 
           <div class='col s12 input-field'>
-            <input type="checkbox" class="filled-in" id="AIRPORT_PICKUP" checked="checked" />
+            <input type="checkbox" class="filled-in" id="AIRPORT_PICKUP" />
             <label for="AIRPORT_PICKUP" class='dark'>Airport pickup (€10)</label>
           </div>
 
@@ -292,7 +292,7 @@
           </div>
 
           <div class='col s12 border'>
-            <textarea id="textarea1" class="materialize-textarea" length="2000" placeholder='Say hello'></textarea>
+            <textarea id="textarea1" class="materialize-textarea" length="2000" placeholder="{{translations.booking.message_placeholder}}"></textarea>
           </div>
 
         </div>
