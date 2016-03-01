@@ -3,9 +3,9 @@
 <div class='booking-nav no-padding-top'>
 
   <ul class='table-of-contents hide-on-small-and-down'>
-    <li><a href="#basics">1. Basics <i class="fa fa-check"></i></a></li>
-    <li><a href="#language-course">2. Language course</a></li>
-    <li><a href="#payment">3. Payment</a></li>
+    <li><a href="#immersion-options">1. {{translations.booking.immersion_options}} <i class="fa fa-check"></i></a></li>
+    <li><a href="#language-course">2. {{translations.booking.language_course}}</a></li>
+    <li><a href="#payment">3. {{translations.booking.payment}}</a></li>
   </ul>
 
   <div class='section no-padding'>
@@ -37,26 +37,26 @@
       <div class='left-column'>Private room:</div><div class='right-column'>1 guest</div>
     </div>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left-column'>Immersion:</div><div class='right-column'>Stay</div>
+      <div class='left-column'>{{translations.common.Immersion}}:</div><div class='right-column'>Stay</div>
     </div>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left-column'>Language(s):</div><div class='right-column'>Spanish</div>
+      <div class='left-column'>{{translations.booking.language_s}}:</div><div class='right-column'>Spanish</div>
     </div>
   </div>
 
   <div class='row'>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left-column'>Arrival:</div><div class='right-column'>2016-05-18</div>
+      <div class='left-column'>{{translations.common.Arrival}}:</div><div class='right-column'>2016-05-18</div>
     </div>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left-column'>Departure:</div><div class='right-column'>2016-10-01</div>
+      <div class='left-column'>{{translations.common.Departure}}:</div><div class='right-column'>2016-10-01</div>
     </div>
   </div>
 
   <div class='row'>
     <div class='col s12 small grey-text text-darken-1'>
       <div class='left-column'>
-        Extras:
+        {{translations.booking.extras}}:
       </div>
       <div class='right-column'>
         Cleaning (€20)
@@ -69,12 +69,12 @@
   <div class='row'>
     <div class='col s12 small grey-text text-darken-1'>
       <div class='left-column'>
-        Course:
+        {{translations.booking.course}}:
       </div>
       <div class='right-column'>
         Expath (A1, €120)
         <br>
-        <a>Remove</a>
+        <a>{{translations.booking.remove}}</a>
       </div>
     </div>
   </div>
@@ -87,16 +87,16 @@
     </div>
     <div class='row'>
       <div class='col s12 large'>
-        <div class='left'>Total:</div><div class='right'>€1250</div>
+        <div class='left'>{{translations.booking.total}}:</div><div class='right'>€1250</div>
       </div>
     </div>
   </div>
 
 </div>
 
-<div id='basics' class='booking-section booking-section--grey scrollspy'>
+<div id='immersion-options' class='booking-section booking-section--grey scrollspy'>
   <div class='title'>
-      1. Basics
+      1. {{translations.booking.immersion_options}}
   </div>
   <div class='body row'>
 
@@ -104,7 +104,7 @@
 
       <div class='card'>
         <div class='header'>
-          Immersion
+          {{translations.common.Immersion}}
         </div>
         <div class='row'>
 
@@ -114,7 +114,7 @@
               <option value="tandem">{{translations.common.Tandem}}</option>
               <option value="teacher">{{translations.common.Teachers_stay}}</option>
             </select>
-            <label>Immersion type</label>
+            <label>{{translations.booking.immersion_type}}</label>
           </div>
 
           <div class='col s6 m6 l4 input-field'>
@@ -122,7 +122,7 @@
               <option value='SPA'>Spanish</option>
               <option value='POR'>Portuguese</option>
             </select>
-            <label>Learning</label>
+            <label>{{translations.common.Learning}}</label>
           </div>
 
           <div class='col s6 m6 l4 input-field immersion-field tandem-field'>
@@ -130,7 +130,7 @@
               <option value='GER'>German</option>
               <option value='ENG'>English</option>
             </select>
-            <label>Teaching</label>
+            <label>{{translations.booking.teaching}}</label>
           </div>
 
           <div class='col s6 m6 l4 input-field immersion-field teacher-field'>
@@ -139,7 +139,7 @@
               <option value="10">10 hours</option>
               <option value="15">15 hours</option>
             </select>
-            <label>Hours/week</label>
+            <label>{{translations.booking.hours_per_week}}</label>
           </div>
 
         </div>
@@ -150,7 +150,7 @@
     <div class='col s12 m6 l4'>
       <div class='card'>
         <div class='header'>
-          Meal plan
+          {{translations.booking.meal_plan}}
         </div>
 
         <div class='row'>
@@ -170,7 +170,7 @@
 
       <div class='card'>
         <div class='header'>
-          Price
+          {{translations.common.Price}}
         </div>
         <div class='row'>
 
@@ -186,7 +186,7 @@
     <div class='col s12 m6 l5'>
       <div class='card'>
         <div class='header'>
-          Extras
+          {{translations.booking.extras}}
         </div>
 
         <div class='row'>
@@ -199,7 +199,7 @@
               <option value="2">+2 (€20)</option>
               <option value="3">+3 (€30)</option>
             </select>
-            <label for="EXTRA_GUEST" class='dark'>Extra guest(s)</label>
+            <label for="EXTRA_GUEST" class='dark'>{{translations.booking.extra_guests}}</label>
           </div>
 
           <div class='col s12 input-field'>
@@ -227,10 +227,10 @@
 
 <div id='language-course' class='booking-section booking-section--blue scrollspy'>
   <div class='title'>
-      2. Language course
+      2. {{translations.booking.language_course}}
   </div>
   <div class='secondary-nav'>
-    Level:
+    {{translations.booking.level}}:
     <select id='language-school' class='material'>
       <option value="a1">A1</option>
       <option value="a2">A2</option>
@@ -257,21 +257,21 @@
 
 <div id='payment' class='booking-section booking-section--zig scrollspy'>
   <div class='title'>
-      3. Payment
+      3. {{translations.booking.payment}}
   </div>
   <div class='body row'>
 
     <div class='col s12 m6 l6'>
       <div class='card'>
         <div class='header'>
-          Payment methods
+          {{translations.booking.payment_methods}}
         </div>
 
         <div class='row'>
 
           <div class='col s12'>
             <p>
-              You'll only be charged if your request is accepted by the host. They'll have 48 hours to accept or decline.
+              {{translations.booking.charged_notification}}
             </p>
           </div>
 
@@ -293,14 +293,14 @@
     <div class='col s12 m6 l6'>
       <div class='card'>
         <div class='header'>
-          Introduction
+          {{translations.booking.introduction}}
         </div>
 
         <div class='row'>
 
           <div class='col s12'>
             <p>
-              Introduce yourself to Jose. Giving your host more information will make them more likely to confirm your booking request.
+              {{translations.booking.message_explanation}}
             </p>
           </div>
 
@@ -314,7 +314,7 @@
 
     <div class='col s12 m10 offset-m1 l10 offset-l1 small grey-text'>
       <div class='row section'>
-        By clicking on “Send Request”, you agree to pay the total amount shown, which includes Service Fees, on the right and to the Terms of Service, House Rules, Cancellation Policy, and Guest Refund Policy.
+        {{translations.booking.agree_to_terms}}
       </div>
     </div>
 
