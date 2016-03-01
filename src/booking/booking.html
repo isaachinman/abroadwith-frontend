@@ -34,7 +34,7 @@
 
   <div class='row hide-on-small-and-down'>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left-column'>Private room:</div><div class='right-column'>1 guest</div>
+      <div class='left-column'>Private room:</div><div id='guest-count' class='right-column' {% if query.guests %} data-guests={{query.guests}} {% else %} data-guests='1'{% endif %} >{% if query.guests %} {{query.guests}} {% if query.guests == 1 %} {{translations.booking.guest}} {% else %} {{translations.booking.guests}} {% endif %} {% else %} 1 guest{% endif %}</div>
     </div>
     <div class='col s12 small grey-text text-darken-1'>
       <div class='left-column'>{{translations.common.Immersion}}:</div><div class='right-column'>Stay</div>
@@ -46,10 +46,10 @@
 
   <div class='row'>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left-column'>{{translations.common.Arrival}}:</div><div class='right-column'>2016-05-18</div>
+      <div class='left-column'>{{translations.common.Arrival}}:</div><div class='right-column'>{{query.arrival}}</div>
     </div>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left-column'>{{translations.common.Departure}}:</div><div class='right-column'>2016-10-01</div>
+      <div class='left-column'>{{translations.common.Departure}}:</div><div class='right-column'>{{query.departure}}</div>
     </div>
   </div>
 
@@ -100,7 +100,7 @@
   </div>
   <div class='body row'>
 
-    <div class='col s12 m12 l6'>
+    <div class='col s12 m12 l9'>
 
       <div class='card'>
         <div class='header'>
@@ -109,8 +109,8 @@
         <div class='row'>
 
           <div class='col s6 m6 l4 input-field'>
-            <select id='booking-immersions' class='material'>
-              <option value="stay">{{translations.common.Stay}}</option>
+            <select id='booking-immersions' class='material' data-value={{query.immersions}}>
+              <option value="stay" selected>{{translations.common.Stay}}</option>
               <option value="tandem">{{translations.common.Tandem}}</option>
               <option value="teacher">{{translations.common.Teachers_stay}}</option>
             </select>
@@ -118,7 +118,7 @@
           </div>
 
           <div class='col s6 m6 l4 input-field'>
-            <select id='learning' class='material'>
+            <select id='learning' class='material' data-value={{query.language}}>
               <option value='SPA'>Spanish</option>
               <option value='POR'>Portuguese</option>
             </select>
@@ -147,26 +147,7 @@
 
     </div>
 
-    <div class='col s12 m6 l4'>
-      <div class='card'>
-        <div class='header'>
-          {{translations.booking.meal_plan}}
-        </div>
-
-        <div class='row'>
-          <div class='col s12 input-field'>
-            <select id='meal-plan' class='material'>
-              {% for optionCode, optionName in translations.search.meal_choice %}
-                <option value={{optionCode}}>{{optionName}} (€20/week)</option>
-              {% endfor %}
-            </select>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class='col s12 m3 l2 hide-on-med-and-down'>
+    <div class='col s12 m3 l3 hide-on-med-and-down'>
 
       <div class='card'>
         <div class='header'>
@@ -183,7 +164,7 @@
 
     </div>
 
-    <div class='col s12 m6 l5'>
+    <div class='col s12 m6 l4'>
       <div class='card'>
         <div class='header'>
           {{translations.booking.extras}}
@@ -194,7 +175,7 @@
           <div class='col s12 m12 l6 input-field'>
 
             <select id="EXTRA_GUEST" class='material'>
-              <option value="">None</option>
+              <option value="0">None</option>
               <option value="1">+1 (€10)</option>
               <option value="2">+2 (€20)</option>
               <option value="3">+3 (€30)</option>
@@ -222,6 +203,45 @@
 
     </div>
 
+    <div class='col s12 m6 l8'>
+      <div class='card'>
+        <div class='header'>
+          {{translations.booking.meal_plan}}
+        </div>
+
+        <div class='row'>
+          <div class='col s12 m12 l6 input-field'>
+            <select id='meal_plan' class='material' data-value={{query.meal_plan}}>
+              {% for optionCode, optionName in translations.search.meal_choice %}
+                <option value={{optionCode}}>{{optionName}} (€20/week)</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class='col s12 m12 l6 input-field'>
+            <select id='meal_pref' class='material' data-value={{query.meal_pref}}>
+              <option value="">{{translations.search.no_meal_preference}}</option>
+              <option value="VEGETARIAN">{{translations.common.Vegetarian}}</option>
+              <option value="VEGAN">{{translations.common.Vegan}}</option>
+              <option value="HALAL">{{translations.common.Halal}}</option>
+              <option value="KOSHER">{{translations.common.Kosher}}</option>
+            </select>
+          </div>
+          <div class='col s12 m12 l6 input-field'>
+            <select id='diet_restrictions' class='material' data-value={{query.diet_restrictions}} multiple>
+              <option value="NONE" disabled>{{translations.search.no_dietary_restrictions}}</option>
+              <option value="NUT_FREE">{{translations.search.nut_free}}</option>
+              <option value="LACTOSE_FREE">{{translations.search.lactose_free}}</option>
+              <option value="GLUTEN_FREE">{{translations.search.gluten_free}}</option>
+              <option value="SUGAR_FREE">{{translations.search.sugar_free}}</option>
+            </select>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 </div>
 
@@ -231,13 +251,13 @@
   </div>
   <div class='secondary-nav'>
     {{translations.booking.level}}:
-    <select id='language-school' class='material'>
-      <option value="a1">A1</option>
-      <option value="a2">A2</option>
-      <option value="b1">B1</option>
-      <option value="b2">B2</option>
-      <option value="c1">C1</option>
-      <option value="c2">C2</option>
+    <select id='course' class='material' data-value={{query.course}}>
+      <option value="A1">A1</option>
+      <option value="A2">A2</option>
+      <option value="B1">B1</option>
+      <option value="B2">B2</option>
+      <option value="C1">C1</option>
+      <option value="C2">C2</option>
     </select>
   </div>
   <div class='body row'>

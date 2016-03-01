@@ -3,10 +3,34 @@ if ($('.scrollspy').length) {
   $('.scrollspy').scrollSpy();
 }
 
+// Modify UI to match query params
+function setQueriedValue(name) {
+  if ($('select#'+name).attr('data-value') !== '') {
+    $('select#'+name).val($('select#'+name).attr('data-value'));
+  }
+}
+
+var potentialQueries = [
+  "learning",
+  "booking-immersions",
+  "meal_plan",
+  "meal_pref",
+  "diet_restrictions",
+  "course"
+]
+
+potentialQueries.forEach(setQueriedValue);
+
+if ($('#guest-count').attr('data-guests') !== '') {
+  $('select#EXTRA_GUEST').val($('#guest-count').attr('data-guests') - 1);
+}
+
+
 if ($('select#booking-immersions').length) {
 
   $(function() {
     $('.immersion-field').hide();
+    $('select#booking-immersions').trigger('change');
   })
 
   $('select#booking-immersions').change(function() {
@@ -31,5 +55,7 @@ if ($('select#booking-immersions').length) {
     }
 
   })
+
+
 
 }

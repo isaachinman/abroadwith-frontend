@@ -79,13 +79,13 @@ a.overlay {
   position: relative;
 }
 .btn-primary {
-  background: darken($sulu, 20%);;
+  background: darken($sulu, 20%);
   color: white;
   font-weight: 800;
   letter-spacing: 1.2px;
   &:hover {
     color: white;
-    background: $sulu;
+    background: darken($sulu, 25%);
   }
 }
 .btn-secondary {
