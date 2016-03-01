@@ -52,7 +52,8 @@
     "logout": "./src/global/logout",
     "refresh-token": "./src/global/refresh-token",
     "process-language-chips": "./src/global/process-language-chips",
-    "randomise-coordinate": "./src/global/randomise-coordinate"
+    "randomise-coordinate": "./src/global/randomise-coordinate",
+    "send-payment-nonce": "./src/global/send-payment-nonce"
   },
   "browserify-shim": {
     "jquery": "$",
