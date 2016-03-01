@@ -219,10 +219,24 @@ type: "POST",
 url: 'http://localhost:8080/users/login',
 contentType: "application/json",
 data: JSON.stringify({email:"matheus.bt@gmail.com",password:"withRIGHT"}),
+xhrFields: {
+            withCredentials: true
+        },
 success: function (JWT) {
 
   console.log(JWT);
   localStorage.setItem('JWT', JWT.token);
+
+}});
+$.ajax({
+type: "GET",
+url: 'http://localhost:8080/status',
+xhrFields: {
+            withCredentials: true
+        },
+success: function (JWT) {
+
+  console.log(JWT);
 
 }});
 $(document).ready(function()

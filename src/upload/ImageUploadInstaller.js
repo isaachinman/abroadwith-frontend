@@ -101,7 +101,12 @@ routerGet.get('/', function (req, res) {
   res.send(nunjucks.render('test/test.html',req.context));
 });
 
+var userIdHandler = require('./PhotoUserIdHandler');
+var homeIdHandler = require('./PhotoHomeIdHandler');
+
 var installer = function(app) {
+  app.param('userId',userIdHandler);
+  app.param('userId',homeIdHandler);
   app.use('/upload/user/photo',upload.single('photo'));
   app.use('/upload/user/home/:homePhotoId/rooms/:roomPhotoId/photo',upload.single('photo'));
   app.use('/upload/user/home/:homePhotoId/photo',upload.array('photos', 10));

@@ -13,6 +13,7 @@ var installUserEdit = require('./users-edit/UserEditInstaller');
 var installInbox = require('./inbox/InboxInstaller');
 var installAdmin = require('./admin/AdminInstaller');
 var installStatic = require('./static/StaticInstaller');
+var installImageUpload = require('./upload/ImageUploadInstaller');
 
 /** Middlewares **/
 var contextLoader = require('./global/middlewares/ContextLoader');
@@ -29,15 +30,17 @@ app.use('/*', contextLoader);
 
 app.use('/*', authentication);
 
+/** BEGIN TEST **/
 //TODO remove this.
 app.post('/users/login', function(req,res){
   res.send('{"token":"eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoia3VrZS1TZ09OMVowdU9qdXJyMHJlZyIsImlhdCI6MTQ1NTc5ODkzNCwiZXhwIjoxNDU2NDAzNzM0LCJuYmYiOjE0NTU3OTg4MTQsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IkRvbiBQaW4iLCJyZXF1ZXN0ZXJJZCI6IkRvbiBQaW4ifQ.aG2fGqmxrt3Ol1f0-u73mCEPfZkg9_KBF13HOKWzZqB_hZg8O5WO81VCaxN5ROcopBcdOEBn5bl3UUM1WgNc9hgUveVqldtVZG3vbAU6DWulZjMMmNr4wQkXp4UiW3WLrlTO2xfUdJY7xfq0EOrweEN1sdW46GrWGZsrBIAU2MOhl_4uMDmMRvoMQCzXQCyx7mopSeMfPrMxsA9egc2_L88CNvTx5PmRuGI3j4NFunpgDSEyA5VlN4s-n-HqBC4tNnsSO7SwESY3SMLgmKubUWtbQdr0swKfyCglpQ1IINysrN8PCK6TNJQGsfsP3UpnPZRexM2fuUl4UxKiUqohow"}');
 });
 var installTest = require('./test/TestInstaller');
 var installMessaging = require('./test/MessagingInstaller');
-var installImageUpload = require('./test/ImageUploadInstaller');
 installTest(app);
 installMessaging(app);
+/** END TEST **/
+
 installImageUpload(app);
 
 installMain(app);
