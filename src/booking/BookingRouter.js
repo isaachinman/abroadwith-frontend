@@ -4,7 +4,7 @@ var nunjucks = require('nunjucks');
 var router = express.Router();
 
 router.get('/', function (req, res) {
-  if(!req.context) res.status(404).send('No main context.');
+  if(!req.context) res.status(404).send('No booking context.');
   res.send(nunjucks.render('booking/booking.html',req.context));
 });
 
