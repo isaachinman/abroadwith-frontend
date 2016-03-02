@@ -20,6 +20,7 @@ module.exports = function (req, res, next, value) {
       response.on('end', function() {
           var parsed = JSON.parse(body);
           req.context.home = parsed;
+          req.context.home.id = value; //TODO make sure it is in the return object.
           next();
       });
   }).on('error', function(e) {
