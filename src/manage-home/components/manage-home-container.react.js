@@ -32,6 +32,21 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
+        var homeStatus = response;
+
+        console.log(JSON.stringify(response))
+
+        // Update status bar
+        var publishedBar = $('#published-status');
+        if (homeStatus.activated === false) {
+          publishedBar.addClass('manage-home-info-text--unpublished');
+          publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + homeStatus.code + ')');
+        } else if (homeStatus.activated === true) {
+          publishedBar.addClass('manage-home-info-text--published');
+          publishedBar.html(i18n.t('manage_home:message_bottom_published'));
+        }
+
+
         $('#preloader').hide();
 
         this.refreshState();
@@ -101,16 +116,6 @@ module.exports = React.createClass({
 
         // Refresh selects
         $('select.material').material_select();
-
-        // Update status bar
-        var publishedBar = $('#published-status');
-        if (this.state.published === false) {
-          publishedBar.addClass('manage-home-info-text--unpublished');
-          publishedBar.html(i18n.t('manage_home:message_bottom_unpublished'));
-        } else if (this.state.published === true) {
-          publishedBar.addClass('manage-home-info-text--published');
-          publishedBar.html(i18n.t('manage_home:message_bottom_published'));
-        }
 
       }.bind(this),
       error: function() {
