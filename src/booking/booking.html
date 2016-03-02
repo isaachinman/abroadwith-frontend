@@ -1,5 +1,7 @@
 {% extends "layout--no-footer.html" %} {% block content %}
 
+{{debug}}
+
 <div id='booking-container'></div>
 
 <div class='booking-nav no-padding-top'>
@@ -61,7 +63,7 @@
         {{translations.booking.extras}}:
       </div>
       <div class='right-column'>
-        {% if home.pricing %}
+        {% if home.pricing.extras %}
           {% for extra in home.pricing %}
             {{item.service}}
           {% endfor %}
@@ -117,16 +119,39 @@
 
           <div class='col s6 m6 l4 input-field'>
             <select id='booking-immersions' class='material' data-value={{query.immersions}}>
-              {% for immersion in home. %}
-              <option value="stay" selected>{{translations.common.Stay}}</option>
-              <option value="tandem">{{translations.common.Tandem}}</option>
-              <option value="teacher">{{translations.common.Teachers_stay}}</option>
+              <option>
+
+              </option>
+              {{home.immersions.stay.id}}
+              {% for immersion in home.immersions %}
+
+                {% if immersion.id %}
+                  <option value={{immersion.id}}>{{immersion.id}}</option>
+                {% endif %}
+
+              {% endfor %}
             </select>
             <label>{{translations.booking.immersion_type}}</label>
           </div>
 
-          <div class='col s6 m6 l4 input-field'>
-            <select id='learning' class='material' data-value={{query.language}}>
+          <div class='col s6 m6 l4 input-field stay-field immersion-field'>
+            <select id='stay-learning' class='material' data-value={{query.language}}>
+              <option value='SPA'>Spanish</option>
+              <option value='POR'>Portuguese</option>
+            </select>
+            <label>{{translations.common.Learning}}</label>
+          </div>
+
+          <div class='col s6 m6 l4 input-field tandem-field immersion-field'>
+            <select id='tandem-learning' class='material' data-value={{query.language}}>
+              <option value='SPA'>Spanish</option>
+              <option value='POR'>Portuguese</option>
+            </select>
+            <label>{{translations.common.Learning}}</label>
+          </div>
+
+          <div class='col s6 m6 l4 input-field teacher-field immersion-field'>
+            <select id='teacher-learning' class='material' data-value={{query.language}}>
               <option value='SPA'>Spanish</option>
               <option value='POR'>Portuguese</option>
             </select>

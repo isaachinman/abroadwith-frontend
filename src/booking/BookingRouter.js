@@ -5,7 +5,8 @@ var router = express.Router();
 
 router.get('/', function (req, res) {
   if(!req.context) res.status(404).send('No booking context.');
-  req.context.debug = JSON.stringify(req.context);
+  req.context.debug = JSON.stringify(req.context.home);
+  console.log(req.context.home);
   res.send(nunjucks.render('booking/booking.html',req.context));
 });
 

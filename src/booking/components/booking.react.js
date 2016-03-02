@@ -53,14 +53,12 @@ module.exports = React.createClass({
     // Set input values to url query values
     potentialQueries.forEach(setQueriedValue);
 
-
-    $('.immersion-field').hide();
-    $('select#booking-immersions').trigger('change');
-
     $('select#booking-immersions').change(function() {
       if ($(this).val() === 'stay') {
         // Hide and show for tandem
         $('.immersion-field').hide();
+        $('.stay-field:not(select)').show();
+        console.log('show stay')
       } else if ($(this).val() === 'tandem') {
         // Hide and show for tandem
         $('.immersion-field').hide();
@@ -71,6 +69,9 @@ module.exports = React.createClass({
         $('.teacher-field:not(select)').show();
       }
     })
+
+    $('.immersion-field').hide();
+    $('select#booking-immersions').trigger('change');
 
   },
   componentDidUpdate: function() {
