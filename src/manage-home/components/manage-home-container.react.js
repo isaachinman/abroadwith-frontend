@@ -14,7 +14,11 @@ var jwt_decode = require('jwt-decode');
 var domains = require('domains');
 
 module.exports = React.createClass({
-  updateHome: function(){
+  updateHome: function(callback){
+
+    $('#preloader').show();
+
+    delete homeObj.GENERAL;
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
@@ -28,11 +32,16 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
+        $('#preloader').hide();
+
         this.refreshState();
+
+        callback();
 
       }.bind(this),
       error: function() {
 
+        $('#preloader').hide();
         alert('Something failed');
 
       }

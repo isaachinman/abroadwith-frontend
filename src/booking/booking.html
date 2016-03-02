@@ -23,7 +23,12 @@
       <div class='col s12'>
         <div class='host-name'><strong>Margarite's home</strong></div>
         <div class='small grey-text text-darken-1'>
-          {% if home.location.neighbourhood %} {{home.location.neighbourhood}} <br> {% endif %}
+          {% for room in home.rooms %}
+            {% if room.id == query.room_id %}
+              {{room.name}}<br>
+            {% endif %}
+          {% endfor %}
+          {% if home.location.neighbourhood %} {{home.location.neighbourhood}}, {% endif %}
           {{home.location.city}}
         </div>
       </div>
@@ -119,61 +124,71 @@
 
           <div class='col s6 m6 l4 input-field'>
             <select id='booking-immersions' class='material' data-value={{query.immersions}}>
-              <option>
 
-              </option>
-              {{home.immersions.stay.id}}
-              {% for immersion in home.immersions %}
+              {% if home.immersions.stay.id %}
+                <option value='stay'>Stay</option>
+              {% endif %}
 
-                {% if immersion.id %}
-                  <option value={{immersion.id}}>{{immersion.id}}</option>
-                {% endif %}
+              {% if home.immersions.tandem.id %}
+                <option value='tandem'>Tandem</option>
+              {% endif %}
 
-              {% endfor %}
+              {% if home.immersions.teacher.id %}
+                <option value='teacher'>Teacher</option>
+              {% endif %}
+
             </select>
             <label>{{translations.booking.immersion_type}}</label>
           </div>
 
-          <div class='col s6 m6 l4 input-field stay-field immersion-field'>
-            <select id='stay-learning' class='material' data-value={{query.language}}>
-              <option value='SPA'>Spanish</option>
-              <option value='POR'>Portuguese</option>
-            </select>
-            <label>{{translations.common.Learning}}</label>
-          </div>
+          {% if home.immersions.stay.id %}
+            <div class='col s6 m6 l4 input-field stay-field immersion-field'>
+              <select id='stay-learning' class='material' data-value={{query.language}}>
+                {% for lang in home.immersions.stay.languagesOffered %}
+                  <option value={{lang}}>{{translations.languages[lang]}}</option>
+                {% endfor %}
+              </select>
+              <label>{{translations.common.Learning}}</label>
+            </div>
+          {% endif %}
 
-          <div class='col s6 m6 l4 input-field tandem-field immersion-field'>
-            <select id='tandem-learning' class='material' data-value={{query.language}}>
-              <option value='SPA'>Spanish</option>
-              <option value='POR'>Portuguese</option>
-            </select>
-            <label>{{translations.common.Learning}}</label>
-          </div>
+          {% if home.immersions.tandem.id %}
+            <div class='col s6 m6 l4 input-field tandem-field immersion-field'>
+              <select id='tandem-learning' class='material' data-value={{query.language}}>
+                {% for lang in home.immersions.tandem.languagesOffered %}
+                  <option value={{lang}}>{{translations.languages[lang]}}</option>
+                {% endfor %}
+              </select>
+              <label>{{translations.common.Learning}}</label>
+            </div>
+            <div class='col s6 m6 l4 input-field immersion-field tandem-field'>
+              <select id='teaching' class='material'>
+                {% for lang in home.immersions.tandem.languagesInterested %}
+                  <option value={{lang.lang}}>{{translations.languages[lang]}}</option>
+                {% endfor %}
+              </select>
+              <label>{{translations.booking.teaching}}</label>
+            </div>
+          {% endif %}
 
-          <div class='col s6 m6 l4 input-field teacher-field immersion-field'>
-            <select id='teacher-learning' class='material' data-value={{query.language}}>
-              <option value='SPA'>Spanish</option>
-              <option value='POR'>Portuguese</option>
-            </select>
-            <label>{{translations.common.Learning}}</label>
-          </div>
-
-          <div class='col s6 m6 l4 input-field immersion-field tandem-field'>
-            <select id='teaching' class='material'>
-              <option value='GER'>German</option>
-              <option value='ENG'>English</option>
-            </select>
-            <label>{{translations.booking.teaching}}</label>
-          </div>
-
-          <div class='col s6 m6 l4 input-field immersion-field teacher-field'>
-            <select id='teacher-hours' class='material'>
-              <option value="5">5 hours</option>
-              <option value="10">10 hours</option>
-              <option value="15">15 hours</option>
-            </select>
-            <label>{{translations.booking.hours_per_week}}</label>
-          </div>
+          {% if home.immersions.teacher.id %}
+            <div class='col s6 m6 l4 input-field teacher-field immersion-field'>
+              <select id='teacher-learning' class='material' data-value={{query.language}}>
+                {% for lang in home.immersions.teacher.languagesOffered %}
+                  <option value={{lang}}>{{translations.languages[lang]}}</option>
+                {% endfor %}
+              </select>
+              <label>{{translations.common.Learning}}</label>
+            </div>
+            <div class='col s6 m6 l4 input-field immersion-field teacher-field'>
+              <select id='teacher-hours' class='material'>
+                {% for package in home.immersions.teacher.packages %}
+                  <option value={{package}}>{{package}} {{translations.booking.hours}}</option>
+                {% endfor %}
+              </select>
+              <label>{{translations.booking.hours_per_week}}</label>
+            </div>
+          {% endif %}
 
         </div>
       </div>
@@ -205,31 +220,32 @@
 
         <div class='row'>
 
-          <div class='col s12 m12 l6 input-field'>
+          <div class='col s12 input-field'>
 
             <select id="EXTRA_GUEST" class='material'>
-              <option value="0">None</option>
-              <option value="1">+1 (€10)</option>
-              <option value="2">+2 (€20)</option>
-              <option value="3">+3 (€30)</option>
+
+              {% for room in home.rooms %}
+    ​
+                {% if room.id == query.room_id %}
+                    {% for i in range(0, room.vacancies) -%}
+                    <option value={{i}}>{{i+1}} (+{{constants.currencies[home.pricing.currency]}}{{10*i}} {{translations.booking.per_week}})</option>
+                    {%- endfor %}
+                {% endif %}
+
+              {% endfor %}
+
             </select>
             <label for="EXTRA_GUEST" class='dark'>{{translations.booking.extra_guests}}</label>
           </div>
 
-          <div class='col s12 input-field'>
-            <input type="checkbox" class="filled-in" id="CLEANING" />
-            <label for="CLEANING" class='dark'>Cleaning (€20/week)</label>
-          </div>
+          {{constants.homes.homeServices.GENERAL}}
 
-          <div class='col s12 input-field'>
-            <input type="checkbox" class="filled-in" id="LAUNDRY" />
-            <label for="LAUNDRY" class='dark'>Laundry (€15/week)</label>
-          </div>
-
-          <div class='col s12 input-field'>
-            <input type="checkbox" class="filled-in" id="AIRPORT_PICKUP" />
-            <label for="AIRPORT_PICKUP" class='dark'>Airport pickup (€10)</label>
-          </div>
+          {% for extra in home.pricing.extras %}
+            <div class='col s12 input-field'>
+              <input type="checkbox" class="filled-in" id="CLEANING" />
+              <label for={{extra.service}} class='dark'>{{translations.homes.extras[extra.service]}} ({{constants.currencies[home.pricing.currency]}}{{extra.cost}}{% if extra.service != 'AIRPORT_PICKUP' %}/week{% endif %})</label>
+            </div>
+          {% endfor %}
 
         </div>
       </div>
@@ -246,29 +262,25 @@
           <div class='col s12 m12 l6 input-field'>
             <select id='meal_plan' class='material' data-value={{query.meal_plan}}>
               {% for optionCode, optionName in translations.search.meal_choice %}
-                <option value={{optionCode}}>{{optionName}} (€20/week)</option>
+                {% if optionCode == 'BREAKFAST_ONLY' %}
+                  <option value={{optionCode}}>{{optionName}} ({{translations.booking.included}})</option>
+                {% endif %}
+              {% endfor %}
+              {% for meal_plan in home.basics.MEAL_PLAN %}
+                <option value={{meal_plan}}>{{translations.homes.menus_offered[meal_plan]}} (+{{constants.currencies[home.pricing.currency]}}{% for service in home.pricing.extras %}{% if service.service == meal_plan %}{{service.cost}}{% endif %}{% endfor %})</option>
               {% endfor %}
             </select>
+            <label>{{translations.booking.meal_plan_label}}</label>
           </div>
           <div class='col s12 m12 l6 input-field'>
-            <select id='meal_pref' class='material' data-value={{query.meal_pref}}>
-              <option value="">{{translations.search.no_meal_preference}}</option>
-              <option value="VEGETARIAN">{{translations.common.Vegetarian}}</option>
-              <option value="VEGAN">{{translations.common.Vegan}}</option>
-              <option value="HALAL">{{translations.common.Halal}}</option>
-              <option value="KOSHER">{{translations.common.Kosher}}</option>
+            <select id='meal_pref' class='material' data-value={{query.meal_pref}} multiple='multiple'>
+              <option value="">{{translations.search.no_dietary_restrictions}}</option>
+              {% for food_option in home.basics.FOOD_OPTION %}
+                <option value={{food_option}}>{{translations.homes.diets_offered[food_option]}}</option>
+              {% endfor %}
             </select>
+            <label>{{translations.booking.diet_label}}</label>
           </div>
-          <div class='col s12 m12 l6 input-field'>
-            <select id='diet_restrictions' class='material' data-value={{query.diet_restrictions}} multiple>
-              <option value="NONE" disabled>{{translations.search.no_dietary_restrictions}}</option>
-              <option value="NUT_FREE">{{translations.search.nut_free}}</option>
-              <option value="LACTOSE_FREE">{{translations.search.lactose_free}}</option>
-              <option value="GLUTEN_FREE">{{translations.search.gluten_free}}</option>
-              <option value="SUGAR_FREE">{{translations.search.sugar_free}}</option>
-            </select>
-          </div>
-
         </div>
 
       </div>
@@ -295,15 +307,7 @@
   </div>
   <div class='body row'>
 
-    {% include "./sections/language-course-card.html" %}
-    {% include "./sections/language-course-card.html" %}
-    {% include "./sections/language-course-card.html" %}
-
-    <div class='col s12'>
-      <div class='row section center-align no-margin-bottom no-padding-bottom'>
-        <a class="btn-floating"><i class="material-icons">add</i></a>
-      </div>
-    </div>
+    {% include "./sections/no-language-courses-found.html" %}
 
   </div>
 </div>
@@ -329,6 +333,7 @@
           </div>
 
           <div class='col s12 border'>
+            <form>
               <p>
                 <input name="group1" type="radio" id="test1" checked />
                 <label for="test1" class='dark'>VISA ending in 4002</label>
@@ -337,6 +342,7 @@
                 <input name="group1" type="radio" id="test2" />
                 <label for="test2" class='dark'>PayPal: jose@abroadwith.com</label>
               </p>
+            </form>
           </div>
 
         </div>

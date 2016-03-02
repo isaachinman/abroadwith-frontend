@@ -45,7 +45,6 @@ module.exports = React.createClass({
       "learning",
       "booking-immersions",
       "meal_plan",
-      "meal_pref",
       "diet_restrictions",
       "course"
     ];
@@ -58,7 +57,6 @@ module.exports = React.createClass({
         // Hide and show for tandem
         $('.immersion-field').hide();
         $('.stay-field:not(select)').show();
-        console.log('show stay')
       } else if ($(this).val() === 'tandem') {
         // Hide and show for tandem
         $('.immersion-field').hide();

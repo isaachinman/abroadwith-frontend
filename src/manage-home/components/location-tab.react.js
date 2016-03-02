@@ -1,5 +1,6 @@
 var React = require('react');
 var randomiseCoordinate = require('randomise-coordinate');
+var toast = require('toast');
 
 module.exports = React.createClass({
   componentDidMount: function() {
@@ -139,10 +140,10 @@ module.exports = React.createClass({
 
       homeObj.location = newLocationObj;
 
-      this.props.updateHome();
+      this.props.updateHome(function() {
+        toast('Address updated');
+      });
 
-      // POST new home object, refresh state upon success
-      Materialize.toast('Address updated', 4000);
     }
 
   },

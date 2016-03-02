@@ -56,21 +56,9 @@
       <div class='row section'>
 
         <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-cutlery fa-2x"></i>
-        </div>
-        <div class='col s10 m2 l2 input-field'>
-          <select id='meal-plan' class='material' multiple>
-            <option value="ONLY_BREAKFAST" disabled>{{ translations.homes.menus_offered.ONLY_BREAKFAST }}</option>
-            <option value="HALF_BOARD">{{ translations.homes.menus_offered.HALF_BOARD }}</option>
-            <option value="FULL_BOARD">{{ translations.homes.menus_offered.FULL_BOARD }}</option>
-          </select>
-          <label>{{ translations.homes.menus_offered_label }}</label>
-        </div>
-
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
           <i class="fa fa-asterisk fa-2x"></i>
         </div>
-        <div class='col s10 m3 l3 input-field'>
+        <div class='col s10 m4 l4 input-field'>
           <select id='food-option' class='material' multiple>
             <option value="" disabled>{{translations.homes.diets_offered_placeholder}}</option>
             {% for diet,_ in constants.homes.homeServices.FOOD_OPTION %}
@@ -83,7 +71,7 @@
         <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
           <i class="fa fa-fire fa-2x"></i>
         </div>
-        <div class='col s10 m4 l4 input-field'>
+        <div class='col s10 m6 l6 input-field'>
           <select id='extras' class='material' multiple>
             <option value="" disabled>{{translations.homes.extras_placeholder}}</option>
             {% for extra,_ in constants.homes.homeSettings.EXTRAS %}
@@ -101,7 +89,7 @@
         <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
           <i class="fa fa-users fa-2x"></i>
         </div>
-        <div class='col s5 m2 l2 left-align'>
+        <div class='col s10 m4 l4 left-align'>
           <label>{{ translations.homes.family_label }}</label>
           <div class="switch">
             <label>
@@ -116,7 +104,7 @@
         <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
           <i class="fa fa-user fa-2x"></i>
         </div>
-        <div class='col s8 m6 l8 input-field'>
+        <div class='col s10 m6 l6 input-field'>
           <select id='preferences' class='material' multiple>
             <option value="" disabled>{{translations.homes.preferences_placeholder}}</option>
             {% for preference,_ in constants.homes.homeSettings.PREFERENCES %}

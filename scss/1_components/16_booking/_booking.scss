@@ -74,10 +74,13 @@
     }
   }
 }
+#payment.booking-section {
+  min-height: calc(85vh - 50px);
+}
 .booking-section {
   text-align: left;
   position: relative;
-  min-height: calc(85vh - 50px);
+  min-height: 50vh;
   width: calc(100vw - 285px);
   @media #{$small-and-down} {
     width: 100vw;
