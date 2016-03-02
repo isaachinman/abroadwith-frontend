@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 require('../scrollspy');
+$('.scrollspy').scrollSpy();
 
 var i18n = require('../../global/components/i18n');
 i18n.loadNamespaces(['booking']);
@@ -15,6 +16,17 @@ module.exports = React.createClass({
   },
   calculateNewPrice: function() {
 
+  },
+  refreshState: function() {
+    var newState = {
+      // Conditionally set up state per category
+      arrival:            $('#arrival').attr('data-value'),
+      departure:          $('#departure').attr('data-value')
+
+    }
+    if (this.isMounted()) {
+      this.setState(newState);
+    }
   },
   componentDidMount: function() {
 

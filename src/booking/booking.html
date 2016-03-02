@@ -21,8 +21,8 @@
       <div class='col s12'>
         <div class='host-name'><strong>Margarite's home</strong></div>
         <div class='small grey-text text-darken-1'>
-          Liberdastraßsdfsdfe,<br>
-          Berlin
+          {% if home.location.neighbourhood %} {{home.location.neighbourhood}} <br> {% endif %}
+          {{home.location.city}}
         </div>
       </div>
     </div>
@@ -61,6 +61,11 @@
         {{translations.booking.extras}}:
       </div>
       <div class='right-column'>
+        {% if home.pricing %}
+          {% for extra in home.pricing %}
+            {{item.service}}
+          {% endfor %}
+        {% endif %}
         Cleaning (€20)
         <br>
         Laundry (€10)
@@ -89,7 +94,7 @@
     </div>
     <div class='row'>
       <div class='col s12 large'>
-        <div class='left'>{{translations.booking.total}}:</div><div class='right'>€1250</div>
+        <div class='left'>{{translations.booking.total}}:</div><div id='booking-total-price' class='right'>€1250</div>
       </div>
     </div>
   </div>
@@ -112,6 +117,7 @@
 
           <div class='col s6 m6 l4 input-field'>
             <select id='booking-immersions' class='material' data-value={{query.immersions}}>
+              {% for immersion in home. %}
               <option value="stay" selected>{{translations.common.Stay}}</option>
               <option value="tandem">{{translations.common.Tandem}}</option>
               <option value="teacher">{{translations.common.Teachers_stay}}</option>
