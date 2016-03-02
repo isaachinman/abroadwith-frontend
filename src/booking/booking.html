@@ -1,5 +1,7 @@
 {% extends "layout--no-footer.html" %} {% block content %}
 
+<div id='booking-container'></div>
+
 <div class='booking-nav no-padding-top'>
 
   <ul class='table-of-contents hide-on-small-and-down'>
@@ -46,10 +48,10 @@
 
   <div class='row'>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left-column'>{{translations.common.Arrival}}:</div><div class='right-column'>{{query.arrival}}</div>
+      <div class='left-column'>{{translations.common.Arrival}}:</div><div id='arrival' data-value={{query.departure}} class='right-column'>{{query.arrival}}</div>
     </div>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left-column'>{{translations.common.Departure}}:</div><div class='right-column'>{{query.departure}}</div>
+      <div class='left-column'>{{translations.common.Departure}}:</div><div id='departure' data-value={{query.departure}} class='right-column'>{{query.departure}}</div>
     </div>
   </div>
 

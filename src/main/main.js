@@ -119,4 +119,9 @@ $(document).ready(function() {
     });
   });
 
+  // Focus for select2
+  if ($('.select2-drop')) {
+
+  }
+
 });
