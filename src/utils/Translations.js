@@ -7,6 +7,7 @@ for(var i in languages){
   try{
     translations[i]= {};
     translations[i].common = require('../../locales/'+i+"/common.json");
+    translations[i].months = require('../../locales/'+i+"/months.json");
 
     translations[i].languages = require('../../locales/'+i+"/languages.json");
     translations[i].countries = require('../../locales/'+i+"/countries.json");

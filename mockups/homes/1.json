@@ -1,47 +1,17 @@
 {
-  "photos":[
-    "http://thetaleoftwotings.com/wp-content/uploads/2014/01/P1160797.jpg"
-  ],
   "immersions":[
     {
-      "name":"stay",
       "weekPrice":110
     },
     {
-      "name":"tandem",
       "weekPrice":80
     },
     {
-      "name":"teacher",
       "weekPrice":200
     }
   ],
-  "hostPhoto":"https://www.wystc.org/wp-content/uploads/sites/2/2014/08/Cl%C3%A9ment-Marcelet.png",
-  "hostName":"Jose",
-  "familyHome":true,
-  "type":"Cabin",
-  "city":"Berlin",
-  "country":"Germany",
   "reviewCount":12,
   "reviewHTML":"<i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i>",
-  "user":{
-    "age":22,
-    "gender":"Male",
-    "joinedDate":"Oct 2014",
-    "languagesLearning":[
-      "German",
-      "Spanish"
-    ],
-    "languagesSpeaks":[
-      "English"
-    ],
-    "languagesTeaches":[
-      {
-        "name":"English",
-        "certified":true
-      }
-    ]
-  },
   "about":"Lorem ipsum dolor sit amet, tamquam meliore te qui, est ea dico feugiat. Ut brute dicat appetere has. Pri facer platonem ne, pro reque appellantur an. Vim ad postea suscipiantur. No vim expetenda eloquentiam vituperatoribus. Duo augue putent ponderum ea, eu qui sale ullum integre.",
   "rooms":[
     {
