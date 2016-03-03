@@ -1,6 +1,5 @@
 {% extends "layout--no-footer.html" %} {% block content %}
 
-{{debug}}
 <div id='booking-container'></div>
 
 <div class='booking-nav no-padding-top'>
@@ -42,13 +41,15 @@
 
   <div class='row hide-on-small-and-down'>
     <div class='col s12 small grey-text text-darken-1'>
-      <div id='room_id' class='left-column' data-value={{query.room_id}}>Private room:</div><div id='guests' class='right-column' {% if query.guests %} data-guests={{query.guests}} {% else %} data-guests='1'{% endif %} >{% if query.guests %} {{query.guests}} {% if query.guests == 1 %} {{translations.booking.guest}} {% else %} {{translations.booking.guests}} {% endif %} {% else %} 1 guest{% endif %}</div>
+      <div id='room_id' class='left-column' data-value={{query.room_id}}>{% for room in home.rooms %}{% if room.id == query.room_id %}{% if room.shared == false %}{{translations.booking.private}}{% elif room.shared == true %}{{translations.booking.shared}}{% endif %}{% endif %}{% endfor %} {{translations.booking.room}}:</div>
+
+        <div id='guests' class='right-column' {% if query.guests %} data-guests={{query.guests}} {% else %} data-guests='1'{% endif %} >{% if query.guests %} {{query.guests}} {% if query.guests == 1 %} {{translations.booking.guest}} {% else %} {{translations.booking.guests}} {% endif %} {% else %} 1 guest{% endif %}</div>
     </div>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left-column'>{{translations.common.Immersion}}:</div><div class='right-column'>Stay</div>
+      <div class='left-column'>{{translations.common.Immersion}}:</div><div class='right-column immersion-display'></div>
     </div>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left-column'>{{translations.booking.language_s}}:</div><div class='right-column'>Spanish</div>
+      <div class='left-column'>{{translations.booking.language_s}}:</div><div class='right-column language-display'></div>
     </div>
   </div>
 
@@ -64,18 +65,18 @@
   <div class='row'>
     <div class='col s12 small grey-text text-darken-1'>
       <div class='left-column'>
+        {{translations.booking.meal_plan}}:
+      </div>
+      <div class='right-column meal-display'></div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left-column'>
         {{translations.booking.extras}}:
       </div>
-      <div class='right-column'>
-        {% if home.pricing.extras %}
-          {% for extra in home.pricing %}
-            {{item.service}}
-          {% endfor %}
-        {% endif %}
-        Cleaning (€20)
-        <br>
-        Laundry (€10)
-      </div>
+      <div class='right-column extras-display'></div>
     </div>
   </div>
 
@@ -238,10 +239,12 @@
           </div>
 
           {% for extra in home.pricing.extras %}
-            <div class='col s12 input-field'>
-              <input type="checkbox" class="filled-in booking-service" data-value={{extra.service}} checked/>
-              <label for={{extra.service}} class='dark'>{{translations.homes.extras[extra.service]}} ({{constants.currencies[home.pricing.currency]}}{{extra.cost}}{% if extra.service != 'AIRPORT_PICKUP' %}/week{% endif %})</label>
-            </div>
+            {% if extra.service != 'EXTRA_GUEST' %}
+              <div class='col s12 input-field'>
+                <input id={{extra.service}} type="checkbox" class="filled-in booking-service" data-value={{extra.service}} data-price={{extra.cost}} />
+                <label for={{extra.service}} class='dark'>{{translations.homes.extras[extra.service]}} ({{constants.currencies[home.pricing.currency]}}{{extra.cost}}{% if extra.service != 'AIRPORT_PICKUP' %}/week{% endif %})</label>
+              </div>
+            {% endif %}
           {% endfor %}
 
         </div>

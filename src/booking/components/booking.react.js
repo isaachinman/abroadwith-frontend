@@ -74,30 +74,72 @@ module.exports = React.createClass({
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     // If user has payment methods, render them
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/bookings/price',
-      type: "POST",
-      data: JSON.stringify(bookingObj),
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
-
-        console.log(response)
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
+    // $.ajax({
+    //   url: domains.API+'/users/'+JWT.rid+'/bookings/price',
+    //   type: "POST",
+    //   data: JSON.stringify(bookingObj),
+    //   contentType: "application/json",
+    //   beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+    //   success: function(response) {
+    //
+    //     console.log(response)
+    //
+    //   }.bind(this),
+    //   error: function() {
+    //
+    //     alert('Something failed');
+    //
+    //   }
+    // })
 
     this.setState(bookingObj, function() {
+
       console.log(JSON.stringify(this.state));
+
+
+      var currency = this.state.currency;
+      // Refresh read-only display nodes
+      if ($('select#EXTRA_GUEST').val() !== null) {
+        $('#guests').html($('select#EXTRA_GUEST').val() > 1 ? (parseInt($('select#EXTRA_GUEST').val())+1) + ' guests' : (parseInt($('select#EXTRA_GUEST').val())+1) + ' guest');
+      }
+
+      $('.immersion-display').html($('#booking-immersions').val());
+      $('.language-display').html(this.state.languageHostWillTeach);
+
+      if ($('input.booking-service:checked').length > 0) {
+        var extrasDisplay = '';
+        $('input.booking-service:checked').each(function() {
+          extrasDisplay += $(this).attr('data-value') + ' (' + currency + $(this).attr('data-price') + ')<br>';
+        })
+      } else {
+        var extrasDisplay = 'None';
+      }
+      $('.extras-display').html(extrasDisplay);
+
+      $('.meal-display').html($('#meal_plan').val());
+
     });
 
   },
   componentDidMount: function() {
+
+    // On change, refresh state
+    var activeNodes = [
+      $('#booking-immersions'),
+      $('#stay-learning'),
+      $('#tandem-learning'),
+      $('#tandem-teaching'),
+      $('#teacher-learning'),
+      $('#teacher-hours'),
+      $('#EXTRA_GUEST'),
+      $('#payment-currency')
+    ];
+
+    $('.booking-service').change(this.refreshState);
+
+    for (var i=0; i<activeNodes.length; i++) {
+      activeNodes[i].change(this.refreshState);
+    }
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
@@ -172,6 +214,8 @@ module.exports = React.createClass({
           $('.booking-payment-radio input').first().attr('checked', 'checked');
 
         }
+
+        $('.booking-payment-radio input').change(this.refreshState);
 
         // This is the primary refreshState for initial load
         this.refreshState();

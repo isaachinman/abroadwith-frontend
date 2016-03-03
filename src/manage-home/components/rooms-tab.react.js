@@ -80,9 +80,6 @@ module.exports = React.createClass({
       console.log(newRoomsObj);
     }
 
-    // POST new home object
-    Materialize.toast('Rooms updated', 4000);
-
   },
   componentDidMount: function() {
     $('a#add-room').click(this.addRoom);
