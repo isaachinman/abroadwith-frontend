@@ -3,6 +3,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="/app.js"></script>
 <script>
+
+var DOMAINS = {API:'http://localhost:8080'}
+
 var publicGetHome = function(newurl){
   $.ajax({
     type: "GET",
@@ -42,7 +45,6 @@ var updateHome = function(newurl){
       AMENITIES: ["AIR_CONDITIONING"],
       EXTRAS: ["DRYER"],
       PREFERENCES: ["FAMILY_FRIENDLY"],
-      MEAL_PLAN: ["ONLY_BREAKFAST"],
       FOOD_OPTION: ["VEGAN"],
       family: false
     },
@@ -126,7 +128,7 @@ loginObj["email"] = "simple@email.com";
 loginObj["password"] = "rightPASS";
 $.ajax({
   type: "POST",
-  url: 'https://admin.abroadwith.com/users',
+  url: DOMAINS.API + '/users',
   data: JSON.stringify(newUser),
   contentType: "application/json",
   processData: false,
@@ -137,7 +139,7 @@ $.ajax({
     $('#status').append('<br/> Response:'+response.responseText);
     $.ajax({
       type: "POST",
-      url: 'https://admin.abroadwith.com/users/login',
+      url: DOMAINS.API+'/users/login',
       contentType: "application/json",
       data: JSON.stringify(loginObj),
       success: function(JWT,text,response) {
@@ -153,7 +155,7 @@ $.ajax({
         if(!token.hid){
           $.ajax({
             type: "POST",
-            url: 'https://admin.abroadwith.com/users/'+token.rid+'/homes',
+            url: DOMAINS.API+'/users/'+token.rid+'/homes',
             contentType: "application/json",
             data: JSON.stringify("{}"),
             beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
@@ -168,7 +170,7 @@ $.ajax({
           });
         }
         else{
-          updateHome('https://admin.abroadwith.com/users/'+token.rid+'/homes/'+token.hid);
+          updateHome(DOMAINS.API+'/users/'+token.rid+'/homes/'+token.hid);
         }
       }
     });
