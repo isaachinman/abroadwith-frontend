@@ -1,6 +1,30 @@
 var React = require('react');
+var jwt_decode = require('jwt-decode');
+var domains = require('domains');
 
 module.exports = React.createClass({
+  deletePaymentMethod: function() {
+    // Generate clientToken
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid+'/paymentMethod/'+this.props.id,
+      type: "DELETE",
+      contentType: "application/json",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
+
+        this.forceUpdate();
+        console.log(response)
+
+      }.bind(this),
+      error: function() {
+
+        alert('Something failed');
+
+      }
+    })
+  },
   render: function() {
     if (this.props.default === true) {
       var defaultHTML = <div className='default-payment-overlay'></div>;
@@ -19,7 +43,7 @@ module.exports = React.createClass({
         </div>
         <div className='actions'>
           <a>Set as default</a>
-          <a>Remove</a>
+          <a onClick={this.deletePaymentMethod}>Remove</a>
         </div>
         <div className='type'>
           <i className="fa fa-cc-paypal"></i>

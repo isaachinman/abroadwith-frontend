@@ -38,19 +38,42 @@ module.exports = React.createClass({
       }
     })
 
-    var newState = {
+    var bookingObj = {
       // Conditionally set up state per category
+      stayId:                     parseInt($('select#booking-immersions option:selected').attr('data-value')),
       arrivalDate:                $('#arrival').attr('data-value'),
       departureDate:              $('#departure').attr('data-value'),
-      roomId:                 $('#room_id').attr('data-value'),
-      guestCount:             $('#guests').attr('data-value'),
-      languageHostWillTeach:  languageHostWillTeach,
-      languageGuestWillTeach: languageGuestWillTeach,
-      currency:               $('#payment-currency').val(),
-      serviceNames:           serviceNames
+      roomId:                     parseInt($('#room_id').attr('data-value')),
+      guestCount:                 $('#guests').attr('data-value'),
+      languageHostWillTeach:      languageHostWillTeach,
+      languageGuestWillTeach:     languageGuestWillTeach,
+      currency:                   $('#payment-currency').val(),
+      serviceNames:               serviceNames,
+      paymentMethodId:            $('.booking-payment-radio input:checked').length > 0 ? parseInt($('.booking-payment-radio input:checked').attr('data-value')) : null
     }
 
-    this.setState(newState, function() {
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+    // If user has payment methods, render them
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid+'/bookings/price',
+      type: "POST",
+      data: JSON.stringify(bookingObj),
+      contentType: "application/json",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
+
+        console.log(response)
+
+      }.bind(this),
+      error: function() {
+
+        alert('Something failed');
+
+      }
+    })
+
+    this.setState(bookingObj, function() {
       console.log(JSON.stringify(this.state));
     });
 
@@ -59,6 +82,7 @@ module.exports = React.createClass({
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
+    // If user has payment methods, render them
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/paymentMethods/',
       type: "GET",
@@ -69,57 +93,69 @@ module.exports = React.createClass({
 
         console.log(paymentMethods)
 
-        var PaymentMethodContainer = React.createClass({
-          render: function() {
-            var paymentMethodHTML = []
-            paymentMethods.forEach(function(payment) {
-              console.log(payment)
-              if (payment.type === 'CARD') {
-                paymentMethodHTML.push(
-                  <div>
-                    <input name="payments" type="radio" data-value={payment.id} id={payment.id} />
-                    <label for={payment.id}></label>
-                    <CreditCard
-                      default={payment.default}
-                      expiry={payment.expiry}
-                      lastFour={payment.lastFour}
-                      cardHolder={payment.cardHolder}
-                    />
-                  </div>
-                )
-              } else if (payment.type === 'PAYPAL') {
-                paymentMethodHTML.push(
-                  <div>
-                    <div class='booking-payment-radio'>
+        if (paymentMethods.length > 0) {
+          var PaymentMethodContainer = React.createClass({
+            render: function() {
+              var paymentMethodHTML = []
+              paymentMethods.forEach(function(payment) {
+                console.log(payment)
+                if (payment.type === 'CARD') {
+                  paymentMethodHTML.push(
+                    <div>
                       <input name="payments" type="radio" data-value={payment.id} id={payment.id} />
                       <label for={payment.id}></label>
-                    </div>
-                    <div class='booking-payment-method'>
-                      <Paypal
+                      <CreditCard
+                        id={payment.id}
                         default={payment.default}
-                        email={payment.email}
+                        expiry={payment.expiry}
+                        lastFour={payment.lastFour}
+                        cardHolder={payment.cardHolder}
                       />
                     </div>
+                  )
+                } else if (payment.type === 'PAYPAL') {
+                  paymentMethodHTML.push(
+                    <div>
+                      <div class='booking-payment-radio'>
+                        <input name="payments" type="radio" data-value={payment.id} id={payment.id} />
+                        <label for={payment.id}></label>
+                      </div>
+                      <div class='booking-payment-method'>
+                        <Paypal
+                          id={payment.id}
+                          default={payment.default}
+                          email={payment.email}
+                        />
+                      </div>
 
-                  </div>
+                    </div>
 
-                )
-              }
-            })
-            paymentMethodHTML.push(
-              <AddPaymentMethod />
-            )
-            return (
-              <div>{paymentMethodHTML}</div>
-            )
-          }
-        })
+                  )
+                }
+              })
+              paymentMethodHTML.push(
+                <AddPaymentMethod />
 
-        // Render payment method UI
-        ReactDOM.render(
-          <PaymentMethodContainer
-          />, document.querySelector('#payment-methods')
-        )
+              )
+              return (
+                <div>{paymentMethodHTML}</div>
+              )
+            }
+          })
+
+          // Render payment method UI
+          ReactDOM.render(
+            <PaymentMethodContainer
+            />, document.querySelector('#payment-methods')
+          )
+
+          // Select the first payment method
+          $('.booking-payment-radio input').first().attr('checked', 'checked');
+
+        }
+
+        // This is the primary refreshState for initial load
+        this.refreshState();
 
       }.bind(this),
       error: function() {
@@ -167,10 +203,9 @@ module.exports = React.createClass({
       }
     })
 
+    // Set immersion fields to current immersion type
     $('.immersion-field').hide();
     $('select#booking-immersions').trigger('change');
-
-    this.refreshState();
 
   },
   componentDidUpdate: function() {

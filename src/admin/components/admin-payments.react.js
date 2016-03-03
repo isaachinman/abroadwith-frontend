@@ -26,6 +26,7 @@ module.exports = React.createClass({
               paymentMethodHTML.push(
                 <div className='col s12 m6 l4'>
                   <CreditCard
+                    id={payment.id}
                     default={payment.default}
                     expiry={payment.expiry}
                     lastFour={payment.lastFour}
@@ -37,6 +38,7 @@ module.exports = React.createClass({
               paymentMethodHTML.push(
                 <div className='col s12 m6 l4'>
                   <Paypal
+                    id={payment.id}
                     default={payment.default}
                     email={payment.email}
                   />

@@ -1,4 +1,4 @@
-module.exports = function(nonce) {
+module.exports = function(nonce, callback) {
 
   var domains = require('domains');
   var jwt_decode = require('jwt-decode');
@@ -20,6 +20,8 @@ module.exports = function(nonce) {
     success: function(response) {
 
       console.log(response)
+
+      callback();
 
     },
     error: function() {
