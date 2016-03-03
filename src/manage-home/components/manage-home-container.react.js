@@ -112,6 +112,7 @@ module.exports = React.createClass({
         }
         if (this.isMounted()) {
           this.setState(newState);
+          console.log(this.state)
         }
 
         // Refresh selects

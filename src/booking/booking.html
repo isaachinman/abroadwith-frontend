@@ -1,7 +1,5 @@
 {% extends "layout--no-footer.html" %} {% block content %}
 
-{{debug}}
-
 <div id='booking-container'></div>
 
 <div class='booking-nav no-padding-top'>
@@ -43,7 +41,7 @@
 
   <div class='row hide-on-small-and-down'>
     <div class='col s12 small grey-text text-darken-1'>
-      <div class='left-column'>Private room:</div><div id='guest-count' class='right-column' {% if query.guests %} data-guests={{query.guests}} {% else %} data-guests='1'{% endif %} >{% if query.guests %} {{query.guests}} {% if query.guests == 1 %} {{translations.booking.guest}} {% else %} {{translations.booking.guests}} {% endif %} {% else %} 1 guest{% endif %}</div>
+      <div id='room_id' class='left-column' data-value={{query.room_id}}>Private room:</div><div id='guests' class='right-column' {% if query.guests %} data-guests={{query.guests}} {% else %} data-guests='1'{% endif %} >{% if query.guests %} {{query.guests}} {% if query.guests == 1 %} {{translations.booking.guest}} {% else %} {{translations.booking.guests}} {% endif %} {% else %} 1 guest{% endif %}</div>
     </div>
     <div class='col s12 small grey-text text-darken-1'>
       <div class='left-column'>{{translations.common.Immersion}}:</div><div class='right-column'>Stay</div>
@@ -162,7 +160,7 @@
               <label>{{translations.common.Learning}}</label>
             </div>
             <div class='col s6 m6 l4 input-field immersion-field tandem-field'>
-              <select id='teaching' class='material'>
+              <select id='tandem-teaching' class='material'>
                 {% for lang in home.immersions.tandem.languagesInterested %}
                   <option value={{lang.lang}}>{{translations.languages[lang]}}</option>
                 {% endfor %}
@@ -238,11 +236,9 @@
             <label for="EXTRA_GUEST" class='dark'>{{translations.booking.extra_guests}}</label>
           </div>
 
-          {{constants.homes.homeServices.GENERAL}}
-
           {% for extra in home.pricing.extras %}
             <div class='col s12 input-field'>
-              <input type="checkbox" class="filled-in" id="CLEANING" />
+              <input type="checkbox" class="filled-in booking-service" data-value={{extra.service}} />
               <label for={{extra.service}} class='dark'>{{translations.homes.extras[extra.service]}} ({{constants.currencies[home.pricing.currency]}}{{extra.cost}}{% if extra.service != 'AIRPORT_PICKUP' %}/week{% endif %})</label>
             </div>
           {% endfor %}
@@ -318,38 +314,42 @@
   </div>
   <div class='body row'>
 
-    <div class='col s12 m6 l6'>
+    <div class='col s12 m12 l6'>
       <div class='card'>
         <div class='header'>
-          {{translations.booking.payment_methods}}
+          {{translations.booking.payment_method}}
         </div>
 
         <div class='row'>
 
-          <div class='col s12'>
-            <p>
-              {{translations.booking.charged_notification}}
-            </p>
+          <div class='col s12 small grey-text text-darken-1'>
+            {{translations.booking.charged_notification}}
           </div>
 
-          <div class='col s12 border'>
-            <form>
-              <p>
-                <input name="group1" type="radio" id="test1" checked />
-                <label for="test1" class='dark'>VISA ending in 4002</label>
-              </p>
-              <p>
-                <input name="group1" type="radio" id="test2" />
-                <label for="test2" class='dark'>PayPal: jose@abroadwith.com</label>
-              </p>
-            </form>
+          <div class='col s12'>
+            <div id='payment-methods'></div>
+          </div>
+
+        </div>
+
+        <div class='row'>
+
+          <div class='col s6 input-field'>
+            <select id='payment-currency' class='material'>
+              {% for currency, symbol in constants.currencies %}
+                <option value={{currency}} data-symbol={{symbol}}>
+                  {{currency}}
+                </option>
+              {% endfor %}
+            </select>
+            <label>Currency</label>
           </div>
 
         </div>
       </div>
     </div>
 
-    <div class='col s12 m6 l6'>
+    <div class='col s12 m12 l6'>
       <div class='card'>
         <div class='header'>
           {{translations.booking.introduction}}

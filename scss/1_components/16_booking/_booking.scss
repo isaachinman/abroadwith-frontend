@@ -196,3 +196,12 @@ img.school {
   max-height: 70px;
   overflow: scroll;
 }
+.booking-payment-radio {
+  margin-top: 100px;
+  width: 35px;
+  float: left;
+}
+.booking-payment-method {
+  width: calc(100% - 50px);
+  float: left;
+}
