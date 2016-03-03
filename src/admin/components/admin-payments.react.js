@@ -4,7 +4,7 @@ var CreditCard = require('../../global/components/payment-method--credit-card.re
 var Paypal = require('../../global/components/payment-method--paypal.react');
 var AddPaymentMethod = require('../../global/components/add-payment-method.react');
 var Bank = require('../../global/components/payment-method--bank.react');
-var AddPayoutMethod = require('../../global/components/add-payout-method.react')
+var AddPayoutMethod = require('../../global/components/add-payout-method.react');
 
 module.exports = React.createClass({
   componentDidUpdate: function() {

@@ -433,7 +433,7 @@
           var map;
             function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
-              center: {lat: {{home.lat}}, lng: {{home.lng}}},
+              center: {lat: {% if home.lat %}{{home.lat}}{% else %}0{% endif %}, lng: {% if home.lng %}{{home.lng}}{% else %}0{% endif %}},
               zoom: 8,
               options: {
                 scrollwheel: false,
@@ -443,8 +443,8 @@
             });
             var marker = new google.maps.Marker({
               position: {
-                "lat":{{home.lat}},
-                "lng":{{home.lng}}
+                "lat":{% if home.lat %}{{home.lat}}{% else %}0{% endif %},
+                "lng":{% if home.lng %}{{home.lng}}{% else %}0{% endif %}
               },
               map: map
             });

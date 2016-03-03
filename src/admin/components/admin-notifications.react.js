@@ -1,5 +1,7 @@
 var React = require('react');
 
+var toast = require('toast')
+
 module.exports = React.createClass({
   saveNotifications: function() {
 
@@ -9,7 +11,9 @@ module.exports = React.createClass({
 
     console.log(adminObj)
 
-    this.props.updateAdmin();
+    this.props.updateAdmin(function() {
+      toast('Notifications updated');
+    });
 
   },
   componentDidMount: function() {
