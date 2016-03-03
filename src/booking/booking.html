@@ -1,0 +1,387 @@
+{% extends "layout--no-footer.html" %} {% block content %}
+
+<div id='booking-container'></div>
+
+<div class='booking-nav no-padding-top'>
+
+  <ul class='table-of-contents hide-on-small-and-down'>
+    <li><a href="#immersion-options">1. {{translations.booking.immersion_options}} <i class="fa fa-check"></i></a></li>
+    <li><a href="#language-course">2. {{translations.booking.language_course}}</a></li>
+    <li><a href="#payment">3. {{translations.booking.payment}}</a></li>
+  </ul>
+
+  <div class='section no-padding'>
+    <div class='row'>
+      <a id='request-booking-btn' class='btn btn-primary disabled'>Request booking</a>
+    </div>
+  </div>
+
+  <div class='row primary-info hide-on-small-and-down'>
+    <div class='left'>
+      <div class='col s12'>
+        <div class='host-name'><strong>Margarite's home</strong></div>
+        <div class='small grey-text text-darken-1'>
+          {% for room in home.rooms %}
+            {% if room.id == query.room_id %}
+              {{room.name}}<br>
+            {% endif %}
+          {% endfor %}
+          {% if home.location.neighbourhood %} {{home.location.neighbourhood}}, {% endif %}
+          {{home.location.city}}
+        </div>
+      </div>
+    </div>
+    <div class='right'>
+      <div class='col s12'>
+        <img class='circle home-photo hide-on-small-and-down' src='https://static.dezeen.com/uploads/2014/09/A-Place-Called-Home-by-Jasper-Morrison-for-Airbnb_dezeen_1.jpg'>
+      </div>
+    </div>
+
+  </div>
+
+  <div class='row hide-on-small-and-down'>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div id='room_id' class='left-column' data-value={{query.room_id}}>{% for room in home.rooms %}{% if room.id == query.room_id %}{% if room.shared == false %}{{translations.booking.private}}{% elif room.shared == true %}{{translations.booking.shared}}{% endif %}{% endif %}{% endfor %} {{translations.booking.room}}:</div>
+
+        <div id='guests' class='right-column' {% if query.guests %} data-guests={{query.guests}} {% else %} data-guests='1'{% endif %} >{% if query.guests %} {{query.guests}} {% if query.guests == 1 %} {{translations.booking.guest}} {% else %} {{translations.booking.guests}} {% endif %} {% else %} 1 guest{% endif %}</div>
+    </div>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left-column'>{{translations.common.Immersion}}:</div><div class='right-column immersion-display'></div>
+    </div>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left-column'>{{translations.booking.language_s}}:</div><div class='right-column language-display'></div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left-column'>{{translations.common.Arrival}}:</div><div id='arrival' data-value={{query.arrival}} class='right-column'>{{query.arrival}}</div>
+    </div>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left-column'>{{translations.common.Departure}}:</div><div id='departure' data-value={{query.departure}} class='right-column'>{{query.departure}}</div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left-column'>
+        {{translations.booking.meal_plan}}:
+      </div>
+      <div class='right-column meal-display'></div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left-column'>
+        {{translations.booking.extras}}:
+      </div>
+      <div class='right-column extras-display'></div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col s12 small grey-text text-darken-1'>
+      <div class='left-column'>
+        {{translations.booking.course}}:
+      </div>
+      <div class='right-column'>
+        Expath (A1, €120)
+        <br>
+        <a>{{translations.booking.remove}}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class='total-price'>
+    <div class='row'>
+      <div class='col s12'>
+        <div class='divider'></div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col s12 large'>
+        <div class='left'>{{translations.booking.total}}:</div><div id='booking-total-price' class='right'>€1250</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id='immersion-options' class='booking-section booking-section--grey scrollspy'>
+  <div class='title-panel'>
+      1. {{translations.booking.immersion_options}}
+  </div>
+  <div class='body row'>
+
+    <div class='col s12 m12 l9'>
+
+      <div class='card'>
+        <div class='header'>
+          {{translations.common.Immersion}}
+        </div>
+        <div class='row'>
+
+          <div class='col s6 m6 l4 input-field'>
+            <select id='booking-immersions' class='material' data-value={{query.immersions}}>
+
+              {% if home.immersions.stay.id %}
+                <option value='stay' data-value={{home.immersions.stay.id}}>Stay</option>
+              {% endif %}
+
+              {% if home.immersions.tandem.id %}
+                <option value='tandem' data-value={{home.immersions.tandem.id}}>Tandem</option>
+              {% endif %}
+
+              {% if home.immersions.teacher.id %}
+                <option value='teacher' data-value={{home.immersions.teacher.id}}>Teacher</option>
+              {% endif %}
+
+            </select>
+            <label>{{translations.booking.immersion_type}}</label>
+          </div>
+
+          {% if home.immersions.stay.id %}
+            <div class='col s6 m6 l4 input-field stay-field immersion-field'>
+              <select id='stay-learning' class='material' data-value={{query.language}}>
+                {% for lang in home.immersions.stay.languagesOffered %}
+                  <option value={{lang}}>{{translations.languages[lang]}}</option>
+                {% endfor %}
+              </select>
+              <label>{{translations.common.Learning}}</label>
+            </div>
+          {% endif %}
+
+          {% if home.immersions.tandem.id %}
+            <div class='col s6 m6 l4 input-field tandem-field immersion-field'>
+              <select id='tandem-learning' class='material' data-value={{query.language}}>
+                {% for lang in home.immersions.tandem.languagesOffered %}
+                  <option value={{lang}}>{{translations.languages[lang]}}</option>
+                {% endfor %}
+              </select>
+              <label>{{translations.common.Learning}}</label>
+            </div>
+            <div class='col s6 m6 l4 input-field immersion-field tandem-field'>
+              <select id='tandem-teaching' class='material'>
+                {% for lang in home.immersions.tandem.languagesInterested %}
+                  <option value={{lang.lang}}>{{translations.languages[lang]}}</option>
+                {% endfor %}
+              </select>
+              <label>{{translations.booking.teaching}}</label>
+            </div>
+          {% endif %}
+
+          {% if home.immersions.teacher.id %}
+            <div class='col s6 m6 l4 input-field teacher-field immersion-field'>
+              <select id='teacher-learning' class='material' data-value={{query.language}}>
+                {% for lang in home.immersions.teacher.languagesOffered %}
+                  <option value={{lang}}>{{translations.languages[lang]}}</option>
+                {% endfor %}
+              </select>
+              <label>{{translations.common.Learning}}</label>
+            </div>
+            <div class='col s6 m6 l4 input-field immersion-field teacher-field'>
+              <select id='teacher-hours' class='material'>
+                {% for package in home.immersions.teacher.packages %}
+                  <option value={{package}}>{{package}} {{translations.booking.hours}}</option>
+                {% endfor %}
+              </select>
+              <label>{{translations.booking.hours_per_week}}</label>
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class='col s12 m3 l3 hide-on-med-and-down'>
+
+      <div class='card'>
+        <div class='header'>
+          {{translations.common.Price}}
+        </div>
+        <div class='row'>
+
+          <div class='col s12 input-field center-align'>
+            <span class='large'>€1250</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class='col s12 m6 l4'>
+      <div class='card'>
+        <div class='header'>
+          {{translations.booking.extras}}
+        </div>
+
+        <div class='row'>
+
+          <div class='col s12 input-field'>
+
+            <select id="EXTRA_GUEST" class='material'>
+
+              {% for room in home.rooms %}
+    ​
+                {% if room.id == query.room_id %}
+                    {% for i in range(0, room.vacancies) -%}
+                    <option value={{i}}>{{i+1}} (+{{constants.currencies[home.pricing.currency]}}{{10*i}} {{translations.booking.per_week}})</option>
+                    {%- endfor %}
+                {% endif %}
+
+              {% endfor %}
+
+            </select>
+            <label for="EXTRA_GUEST" class='dark'>{{translations.booking.extra_guests}}</label>
+          </div>
+
+          {% for extra in home.pricing.extras %}
+            {% if extra.service != 'EXTRA_GUEST' %}
+              <div class='col s12 input-field'>
+                <input id={{extra.service}} type="checkbox" class="filled-in booking-service" data-value={{extra.service}} data-price={{extra.cost}} />
+                <label for={{extra.service}} class='dark'>{{translations.homes.extras[extra.service]}} ({{constants.currencies[home.pricing.currency]}}{{extra.cost}}{% if extra.service != 'AIRPORT_PICKUP' %}/week{% endif %})</label>
+              </div>
+            {% endif %}
+          {% endfor %}
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class='col s12 m6 l8'>
+      <div class='card'>
+        <div class='header'>
+          {{translations.booking.meal_plan}}
+        </div>
+
+        <div class='row'>
+          <div class='col s12 m12 l6 input-field'>
+            <select id='meal_plan' class='material' data-value={{query.meal_plan}}>
+              {% for optionCode, optionName in translations.search.meal_choice %}
+                {% if optionCode == 'BREAKFAST_ONLY' %}
+                  <option value={{optionCode}}>{{optionName}} ({{translations.booking.included}})</option>
+                {% endif %}
+              {% endfor %}
+              {% for meal_plan in home.basics.MEAL_PLAN %}
+                <option value={{meal_plan}}>{{translations.homes.menus_offered[meal_plan]}} (+{{constants.currencies[home.pricing.currency]}}{% for service in home.pricing.extras %}{% if service.service == meal_plan %}{{service.cost}}{% endif %}{% endfor %})</option>
+              {% endfor %}
+            </select>
+            <label>{{translations.booking.meal_plan_label}}</label>
+          </div>
+          <div class='col s12 m12 l6 input-field'>
+            <select id='meal_pref' class='material' data-value={{query.meal_pref}} multiple='multiple'>
+              <option value="">{{translations.search.no_dietary_restrictions}}</option>
+              {% for food_option in home.basics.FOOD_OPTION %}
+                <option value={{food_option}}>{{translations.homes.diets_offered[food_option]}}</option>
+              {% endfor %}
+            </select>
+            <label>{{translations.booking.diet_label}}</label>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div id='language-course' class='booking-section booking-section--blue scrollspy'>
+  <div class='title-panel'>
+      2. {{translations.booking.language_course}}
+  </div>
+  <div class='secondary-nav'>
+    {{translations.booking.level}}:
+    <select id='course' class='material' data-value={{query.course}}>
+      <option value="A1">A1</option>
+      <option value="A2">A2</option>
+      <option value="B1">B1</option>
+      <option value="B2">B2</option>
+      <option value="C1">C1</option>
+      <option value="C2">C2</option>
+    </select>
+  </div>
+  <div class='body row'>
+
+    {% include "./sections/no-language-courses-found.html" %}
+
+  </div>
+</div>
+
+<div id='payment' class='booking-section booking-section--zig scrollspy'>
+  <div class='title-panel'>
+      3. {{translations.booking.payment}}
+  </div>
+  <div class='body row'>
+
+    <div class='col s12 m12 l6'>
+      <div class='card'>
+        <div class='header'>
+          {{translations.booking.payment_method}}
+        </div>
+
+        <div class='row'>
+
+          <div class='col s12 small grey-text text-darken-1'>
+            {{translations.booking.charged_notification}}
+          </div>
+
+          <div class='col s12'>
+            <div id='payment-methods'></div>
+          </div>
+
+        </div>
+
+        <div class='divider'></div>
+
+        <div class='row section no-margin-bottom'>
+
+          <div class='col s12 m6 offset-m6 l4 offset-l8 input-field'>
+            <select id='payment-currency' class='material'>
+              {% for currency, symbol in constants.currencies %}
+                <option value={{currency}} data-symbol={{symbol}}>{{currency}}</option>
+              {% endfor %}
+            </select>
+            <label>Currency</label>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class='col s12 m12 l6'>
+      <div class='card'>
+        <div class='header'>
+          {{translations.booking.introduction}}
+        </div>
+
+        <div class='row'>
+
+          <div class='col s12'>
+            <p>
+              {{translations.booking.message_explanation}}
+            </p>
+          </div>
+
+          <div class='col s12 border'>
+            <textarea id="textarea1" class="materialize-textarea" length="2000" placeholder="{{translations.booking.message_placeholder}}"></textarea>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class='col s12 m10 offset-m1 l10 offset-l1 small grey-text'>
+      <div class='row section'>
+        {{translations.booking.agree_to_terms}}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

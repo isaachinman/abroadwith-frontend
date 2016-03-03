@@ -14,6 +14,7 @@ var installInbox = require('./inbox/InboxInstaller');
 var installAdmin = require('./admin/AdminInstaller');
 var installStatic = require('./static/StaticInstaller');
 var installImageUpload = require('./upload/ImageUploadInstaller');
+var installBooking = require('./booking/BookingInstaller');
 
 /** Middlewares **/
 var contextLoader = require('./global/middlewares/ContextLoader');
@@ -60,5 +61,7 @@ installSearch(app);
 installManageHome(app);
 
 installStatic(app);
+
+installBooking(app);
 
 http.createServer(app).listen(3000);

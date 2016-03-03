@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom')
 var i18n = require('../../global/components/i18n');
 var LanguageDropdown = require('./language-dropdown.react');
+var toast = require('toast');
 
 i18n.loadNamespaces(['languages','manage_home']);
 
@@ -51,7 +52,9 @@ module.exports = React.createClass({
 
         homeObj.immersions = newImmersionsObj;
 
-        this.props.updateHome();
+        this.props.updateHome(function() {
+          toast('Immersions updated');
+        });
 
         Materialize.toast('Immersions updated', 4000);
       }

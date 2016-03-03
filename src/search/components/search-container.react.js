@@ -27,9 +27,9 @@ module.exports = React.createClass({
       $('#language'),
       $('#immersions'),
       $('#special-prefs'),
-      $('#meal-plan'),
-      $('#meal-pref'),
-      $('#diet-restrictions'),
+      $('#meal_plan'),
+      $('#meal_pref'),
+      $('#diet_restrictions'),
       $('#amenities'),
       $('#house-type'),
     ]
@@ -128,9 +128,9 @@ module.exports = React.createClass({
       $('#immersions'),
       $('#language-switch'),
       $('#special-prefs'),
-      $('#meal-plan'),
-      $('#meal-pref'),
-      $('#diet-restrictions'),
+      $('#meal_plan'),
+      $('#meal_pref'),
+      $('#diet_restrictions'),
       $('#amenities'),
       $('#house-type')
     ];

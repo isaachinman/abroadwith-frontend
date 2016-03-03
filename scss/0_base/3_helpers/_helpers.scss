@@ -2,7 +2,7 @@
   padding: 0;
 }
 .no-padding-top {
-  padding-top: 0;
+  padding-top: 0 !important;
 }
 .no-padding-sides {
   padding-left: 0 !important;
@@ -79,13 +79,13 @@ a.overlay {
   position: relative;
 }
 .btn-primary {
-  background: darken($sulu, 20%);;
+  background: darken($sulu, 20%);
   color: white;
   font-weight: 800;
   letter-spacing: 1.2px;
   &:hover {
     color: white;
-    background: $sulu;
+    background: darken($sulu, 25%);
   }
 }
 .btn-secondary {
@@ -154,4 +154,13 @@ hr.half-break {
   width: 20%;
   margin: 3px 10px;
   opacity: .5;
+}
+.large {
+  font-size: 1.35rem;
+}
+.small {
+  font-size: .9rem;
+}
+.border {
+  border: 1px solid #ddd;
 }

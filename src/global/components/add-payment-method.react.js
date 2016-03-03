@@ -1,75 +1,98 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
+var domains = require('domains');
+var jwt_decode = require('jwt-decode');
+var sendPaymentNonce = require('send-payment-nonce');
 
 module.exports = React.createClass({
   componentDidUpdate: function() {
   },
   componentDidMount: function() {
 
-    $('.collapsible').collapsible({
-      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    $('ul.collapsible').collapsible({
+      accordion : false
     });
 
-    // Temporary client token for testing
-    var clientToken = $('#client-token').attr('data-token');
+    // Generate clientToken
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
-    $.getScript('https://js.braintreegateway.com/v2/braintree.js', function() {
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid+'/clientToken',
+      type: "GET",
+      contentType: "application/json",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
 
-      console.log('braintree ran')
+        var clientToken = response;
 
-      // Setup braintree form
-      braintree.setup(clientToken, 'custom', {
-        id: 'add-payment-form',
-        hostedFields: {
-          number: {
-            selector: "#card-number",
-            placeholder: 'Card number'
-          },
-          cvv: {
-            selector: "#cvv",
-            placeholder: 'CVV'
-          },
-          expirationDate: {
-            selector: "#expiration-date",
-            placeholder: 'Expiry'
-          },
-          styles: {
-            "input": {
-              "font-size":"1rem",
-              "color":"#3A3A3A",
-              "font-family":"Open Sans, sans serif"
+        $.getScript('https://js.braintreegateway.com/v2/braintree.js', function() {
+
+          console.log('braintree ran')
+
+          // Setup braintree form
+          braintree.setup(clientToken, 'custom', {
+            id: 'add-payment-form',
+            hostedFields: {
+              number: {
+                selector: "#card-number",
+                placeholder: 'Card number'
+              },
+              cvv: {
+                selector: "#cvv",
+                placeholder: 'CVV'
+              },
+              expirationDate: {
+                selector: "#expiration-date",
+                placeholder: 'Expiry'
+              },
+              styles: {
+                "input": {
+                  "font-size":"1rem",
+                  "color":"#3A3A3A",
+                  "font-family":"Open Sans, sans serif"
+                }
+              }
+            },
+            paypal: {
+              container: 'paypal-container',
+              singleUse: false
+            },
+            dataCollector: {
+              paypal: true
+            },
+            onPaymentMethodReceived: function (obj) {
+              sendPaymentNonce(obj.nonce, function() {
+                ReactDOM.unmountComponentAtNode(document.getElementById('body'))
+              });
+            },
+            onReady: function() {
+
+                $("#paypal-container").bind("DOMSubtreeModified", function() {
+                  $('#add-new-paypal').removeClass('hide');
+                });
+
             }
-          }
-        },
-        paypal: {
-          container: 'paypal-container',
-          singleUse: false,
-          onPaymentMethodReceived: function (obj) {
-            console.log(obj)
-          }
-        },
-        dataCollector: {
-          paypal: true
-        },
-        onPaymentMethodReceived: function (obj) {
-          console.log(obj)
-        },
-        onReady: function() {
+          })
 
-            $("#paypal-container").bind("DOMSubtreeModified", function() {
-              $('#add-new-paypal').removeClass('hide');
-            });
+        })
 
-        }
-      })
+      }.bind(this),
+      error: function() {
 
+        alert('Something failed');
+
+        // If clientToken GET fails, remove all UI to prevent people from typing sensitive data in unhosted fields
+        $('#add-payment-form').remove();
+
+      }
     })
   },
   render: function() {
 
     return (
-      <div className='col s12 m6 l4'>
-        <form id="add-payment-form" className='card-reveal'>
-          <div class='title'>Add payment method</div>
+
+        <form id="add-payment-form" className='center-align'>
+          <div className='title'>Add payment method</div>
           <ul className="collapsible" data-collapsible="accordion">
             <li>
               <div className="collapsible-header">Credit card</div>
@@ -121,7 +144,7 @@ module.exports = React.createClass({
 
 
         </form>
-      </div>
+
     );
   }
 });

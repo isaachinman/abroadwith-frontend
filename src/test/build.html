@@ -1,0 +1,194 @@
+<html>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="/app.js"></script>
+<script>
+
+var DOMAINS = {API:'http://localhost:8080'}
+
+var publicGetHome = function(newurl){
+  $.ajax({
+    type: "GET",
+    url: newurl+"/public",
+    contentType: "application/json",
+    success: function (body,text,response) {
+      $('#status').append("<h1>Get public home</h1>");
+      $('#status').append('<br/> Request:'+newurl);
+      $('#status').append('<br/>'+response.status);
+      $('#status').append('<br/> Response:'+JSON.stringify(body));
+    }
+  });
+}
+
+var getHome = function(newurl){
+  $.ajax({
+    type: "GET",
+    url: newurl,
+    contentType: "application/json",
+    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+    success: function (body,text,response) {
+      $('#status').append("<h1>Get home</h1>");
+      $('#status').append('<br/> Request:'+newurl);
+      $('#status').append('<br/>'+response.status);
+      $('#status').append('<br/> Response:'+JSON.stringify(body));
+
+      publicGetHome(newurl);
+    }
+  });
+}
+
+var updateHome = function(newurl){
+  var newHome = {
+    basics: {
+      homeType: "FLAT",
+      SAFETY: ["FIRST_AID"],
+      AMENITIES: ["AIR_CONDITIONING"],
+      EXTRAS: ["DRYER"],
+      PREFERENCES: ["FAMILY_FRIENDLY"],
+      FOOD_OPTION: ["VEGAN"],
+      family: false
+    },
+    immersions: {
+      stay: {
+        languagesOffered: ["ENG"],
+        hours: 7
+      },
+      tandem: {
+        languagesOffered: ["ENG"],
+        hours: 8,
+        languagesInterested: [
+          {
+            discount: 30,
+            lang: "POR"
+          }
+        ]
+      },
+      teacher: {
+        languagesOffered: ["ENG"],
+        certifications: [],
+        packages: [5,15],
+        hourly: 17
+      }
+    },
+    description: {
+      summary: "This is a simple home.",
+      rules: "No bad behaviours please!",
+      neighbourhood: "Nice supermarket around.",
+      video: "https://www.youtube.com/watch?v=jS8IZcx7tJY"
+    },
+    rooms:[],
+    pricing: {
+      currency: "EUR",
+      discounts: [],
+      extras: [{
+        service: "LAUNDRY",
+        cost: 10
+      }]
+    },
+    location: {
+      street: "Torstr 225",
+      complement: "D",
+      city: "Berlin",
+      country: "DE",
+      neighbourhood: "Mitte",
+      zipCode: "10115",
+      state: "Berlin",
+      lat: 52.533332,
+      lng: 13.3930395
+    }
+  }
+  $.ajax({
+    type: "POST",
+    url: newurl,
+    contentType: "application/json",
+    data: JSON.stringify(newHome),
+    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+    success: function (body,text,response) {
+      $('#status').append("<h1>Update home</h1>");
+      $('#status').append('<br/> Request:'+JSON.stringify(newHome));
+      $('#status').append('<br/>'+response.status + " - "+response.getResponseHeader('Location'));
+      $('#status').append('<br/> Response:'+JSON.stringify(body));
+
+      getHome(newurl)
+    }
+  });
+}
+
+var newUser = {};
+newUser["firstName"] = "Built";
+newUser["lastName"] = "User";
+newUser["email"] = "simple@email.com";
+newUser["password"] = "rightPASS";
+newUser["userKnownLanguages"] =  [{language:"ENG",level:"NATIVE"}];
+newUser["birthDate"] = "1990-01-01";
+console.log(JSON.stringify(newUser));
+
+var loginObj = {};
+loginObj["email"] = "simple@email.com";
+loginObj["password"] = "rightPASS";
+$.ajax({
+  type: "POST",
+  url: DOMAINS.API + '/users',
+  data: JSON.stringify(newUser),
+  contentType: "application/json",
+  processData: false,
+  complete: function(response){
+    $('#status').append("<h1>Create user</h1>");
+    $('#status').append('<br/> Request:'+JSON.stringify(newUser));
+    $('#status').append('<br/>'+response.status + " - "+response.getResponseHeader('Location'));
+    $('#status').append('<br/> Response:'+response.responseText);
+    $.ajax({
+      type: "POST",
+      url: DOMAINS.API+'/users/login',
+      contentType: "application/json",
+      data: JSON.stringify(loginObj),
+      success: function(JWT,text,response) {
+        $('#status').append("<h1>Login user</h1>");
+        $('#status').append('<br/> Request:'+JSON.stringify(loginObj));
+        $('#status').append('<br/>'+response.status);
+        $('#status').append('<br/> Response:'+atob(JWT.token.split('.')[1]));
+
+        localStorage.setItem('JWT', JWT.token);
+
+        var token = JSON.parse(atob(localStorage.getItem('JWT').split('.')[1]));
+
+        if(!token.hid){
+          $.ajax({
+            type: "POST",
+            url: DOMAINS.API+'/users/'+token.rid+'/homes',
+            contentType: "application/json",
+            data: JSON.stringify("{}"),
+            beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+            success: function (body,text,response) {
+              $('#status').append("<h1>Create home</h1>");
+              $('#status').append('<br/> Request:{}');
+              $('#status').append('<br/>'+response.status + " - "+response.getResponseHeader('Location'));
+              $('#status').append('<br/> Response:'+body);
+
+              updateHome(response.getResponseHeader('Location'));
+            }
+          });
+        }
+        else{
+          updateHome(DOMAINS.API+'/users/'+token.rid+'/homes/'+token.hid);
+        }
+      }
+    });
+  }
+});
+</script>
+
+<!--
+  Below we include the Login Button social plugin. This button uses
+  the JavaScript SDK to present a graphical Login button that triggers
+  the FB.login() function when clicked.
+-->
+
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
+
+</body>
+</html>

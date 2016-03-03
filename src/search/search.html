@@ -13,11 +13,11 @@
         </div>
         <div class='input-field col s3 valign'>
           <input id='arrival' type="text" class='datepicker' />
-          <label htmlFor='arrival' class='active'>{{translations.common.Arrival}}</label>
+          <label for='arrival' class='active'>{{translations.common.Arrival}}</label>
         </div>
         <div class='input-field col s3 valign'>
           <input id='departure' type="text" class="datepicker" />
-          <label htmlFor='departure' class='active'>{{translations.common.Departure}}</label>
+          <label for='departure' class='active'>{{translations.common.Departure}}</label>
         </div>
         <div class='input-field col s4'>
           <select id='guests' class='material' >
@@ -100,12 +100,12 @@
         </div>
         <div class='col s4'>
           <select id='language-school' class='material' disabled>
-            <option value="a1">A1</option>
-            <option value="a2">A2</option>
-            <option value="b1">B1</option>
-            <option value="b2">B2</option>
-            <option value="c1">C1</option>
-            <option value="c2">C2</option>
+            <option value="A1">A1</option>
+            <option value="A2">A2</option>
+            <option value="B1">B1</option>
+            <option value="B2">B2</option>
+            <option value="C1">C1</option>
+            <option value="C2">C2</option>
           </select>
         </div>
       </div>
@@ -139,7 +139,7 @@
                 <i class="fa fa-cutlery fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
-                <select id='meal-plan' class='material'>
+                <select id='meal_plan' class='material'>
                   {% for optionCode, optionName in translations.search.meal_choice %}
                     <option value={{optionCode}}>{{optionName}}</option>
                   {% endfor %}
@@ -155,7 +155,7 @@
                 <i class="fa fa-asterisk fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
-                <select id='meal-pref' class='material'>
+                <select id='meal_pref' class='material'>
                   <option value="">{{translations.search.no_meal_preference}}</option>
                   <option value="vegetarian">{{translations.common.Vegetarian}}</option>
                   <option value="vegan">{{translations.common.Vegan}}</option>
@@ -168,7 +168,7 @@
                 <i class="fa fa-exclamation-circle fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
-                <select id='diet-restrictions' class='material' multiple>
+                <select id='diet_restrictions' class='material' multiple>
                   <option value="none" disabled>{{translations.search.no_dietary_restrictions}}</option>
                   <option value="nutFree">{{translations.search.nut_free}}</option>
                   <option value="lactoseFree">{{translations.search.lactose_free}}</option>

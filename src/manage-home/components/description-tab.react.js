@@ -1,4 +1,5 @@
 var React = require('react');
+var toast = require('toast');
 
 module.exports = React.createClass({
   saveDescription: function() {
@@ -13,13 +14,14 @@ module.exports = React.createClass({
     // Modify home object, using new description object
     if (typeof homeObj !== 'undefined') {
 
+      this.props.updateHome(function() {
+        toast('Description updated');
+      });
+
       homeObj.description = newDescriptionObj;
       this.props.updateHome();
 
       console.log(newDescriptionObj)
-
-      // POST new home object
-      Materialize.toast('Description updated', 4000);
     }
 
   },

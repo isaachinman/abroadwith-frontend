@@ -18,7 +18,6 @@ require('./global/login-redirect');
 require('./global/logout-init');
 require('./global/home-creation');
 
-
 // Manage home
 require('./manage-home/manage-home');
 
@@ -33,3 +32,6 @@ require('./users-edit/users-edit');
 
 // Admin
 require('./admin/admin');
+
+// Booking
+require('./booking/booking')

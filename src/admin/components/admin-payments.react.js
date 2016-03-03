@@ -7,38 +7,49 @@ var Bank = require('../../global/components/payment-method--bank.react');
 var AddPayoutMethod = require('../../global/components/add-payout-method.react')
 
 module.exports = React.createClass({
-  render: function() {
+  componentDidUpdate: function() {
 
     var paymentMethodHTML = [];
 
-    if (this.props.paymentMethods) {
+    if (typeof this.props.paymentMethods !== 'undefined' && this.props.paymentMethods.length > 0) {
 
       var paymentMethods = this.props.paymentMethods;
+
+      console.log(paymentMethods)
 
       var PaymentMethodContainer = React.createClass({
         render: function() {
           var paymentMethodHTML = []
           paymentMethods.forEach(function(payment) {
-            if (payment.type === 'card') {
+            console.log(payment)
+            if (payment.type === 'CARD') {
               paymentMethodHTML.push(
-                <CreditCard
-                  default={payment.default}
-                  expiry={payment.expiry}
-                  lastFour={payment.lastFour}
-                  cardHolder={payment.cardHolder}
-                />
+                <div className='col s12 m6 l4'>
+                  <CreditCard
+                    id={payment.id}
+                    default={payment.default}
+                    expiry={payment.expiry}
+                    lastFour={payment.lastFour}
+                    cardHolder={payment.cardHolder}
+                  />
+                </div>
               )
-            } else if (payment.type === 'paypal') {
+            } else if (payment.type === 'PAYPAL') {
               paymentMethodHTML.push(
-                <Paypal
-                  default={payment.default}
-                  email={payment.email}
-                />
+                <div className='col s12 m6 l4'>
+                  <Paypal
+                    id={payment.id}
+                    default={payment.default}
+                    email={payment.email}
+                  />
+                </div>
               )
             }
           })
           paymentMethodHTML.push(
-            <AddPaymentMethod />
+            <div className='col s12 m6 l4'>
+              <AddPaymentMethod />
+            </div>
           )
           return (
             <div>{paymentMethodHTML}</div>
@@ -46,14 +57,30 @@ module.exports = React.createClass({
         }
       })
 
-      ReactDOM.render(
-        <PaymentMethodContainer
-        />, document.querySelector('#existing-payment-methods')
-      )
+    } else {
 
+      var PaymentMethodContainer = React.createClass({
+        render: function() {
+          var paymentMethodHTML = []
+          paymentMethodHTML.push(
+            <div className='col s12 m6 l4'>
+              <AddPaymentMethod />
+            </div>
+          )
+          return (
+            <div>{paymentMethodHTML}</div>
+          )
+        }
+      })
     }
 
-    if (this.props.payoutMethods) {
+    // Render payment method UI
+    ReactDOM.render(
+      <PaymentMethodContainer
+      />, document.querySelector('#existing-payment-methods')
+    )
+
+    if (typeof this.props.payoutMethods !== 'undefined' && this.props.payoutMethods.length > 0) {
 
       $('.payouts').removeClass('hide');
 
@@ -63,14 +90,14 @@ module.exports = React.createClass({
         render: function() {
           var payoutHTML = []
           payoutMethods.forEach(function(payment) {
-            if (payment.type === 'bank') {
+            if (payment.type === 'BANK') {
               payoutHTML.push(
                 <Bank
                   default={payment.default}
                   lastFour={payment.lastFour}
                 />
               )
-            } else if (payment.type === 'paypal') {
+            } else if (payment.type === 'PAYPAL') {
               payoutHTML.push(
                 <Paypal
                   default={payment.default}
@@ -95,6 +122,9 @@ module.exports = React.createClass({
 
     }
 
+
+  },
+  render: function() {
     return (
       <div></div>
     );

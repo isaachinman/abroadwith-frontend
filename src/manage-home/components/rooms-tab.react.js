@@ -5,6 +5,7 @@ var i18n = require('../../global/components/i18n');
 
 var jwt_decode = require('jwt-decode');
 var domains = require('domains');
+var toast = require('toast')
 
 i18n.loadNamespaces('manage_home');
 
@@ -73,12 +74,11 @@ module.exports = React.createClass({
     // Modify home object, using new rooms object
     if (typeof homeObj !== 'undefined') {
       homeObj.rooms = newRoomsObj;
-      this.props.updateHome();
+      this.props.updateHome(function() {
+        toast('Rooms updated');
+      });
       console.log(newRoomsObj);
     }
-
-    // POST new home object
-    Materialize.toast('Rooms updated', 4000);
 
   },
   componentDidMount: function() {
