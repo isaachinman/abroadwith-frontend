@@ -14,7 +14,11 @@ var jwt_decode = require('jwt-decode');
 var domains = require('domains');
 
 module.exports = React.createClass({
-  updateHome: function(){
+  updateHome: function(callback){
+
+    $('#preloader').show();
+
+    delete homeObj.GENERAL;
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
@@ -28,11 +32,31 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
+        var homeStatus = response;
+
+        console.log(JSON.stringify(response))
+
+        // Update status bar
+        var publishedBar = $('#published-status');
+        if (homeStatus.activated === false) {
+          publishedBar.addClass('manage-home-info-text--unpublished');
+          publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + homeStatus.code + ')');
+        } else if (homeStatus.activated === true) {
+          publishedBar.addClass('manage-home-info-text--published');
+          publishedBar.html(i18n.t('manage_home:message_bottom_published'));
+        }
+
+
+        $('#preloader').hide();
+
         this.refreshState();
+
+        callback();
 
       }.bind(this),
       error: function() {
 
+        $('#preloader').hide();
         alert('Something failed');
 
       }
@@ -88,20 +112,11 @@ module.exports = React.createClass({
         }
         if (this.isMounted()) {
           this.setState(newState);
+          console.log(this.state)
         }
 
         // Refresh selects
         $('select.material').material_select();
-
-        // Update status bar
-        var publishedBar = $('#published-status');
-        if (this.state.published === false) {
-          publishedBar.addClass('manage-home-info-text--unpublished');
-          publishedBar.html(i18n.t('manage_home:message_bottom_unpublished'));
-        } else if (this.state.published === true) {
-          publishedBar.addClass('manage-home-info-text--published');
-          publishedBar.html(i18n.t('manage_home:message_bottom_published'));
-        }
 
       }.bind(this),
       error: function() {

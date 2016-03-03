@@ -74,10 +74,13 @@
     }
   }
 }
+#payment.booking-section {
+  min-height: calc(85vh - 50px);
+}
 .booking-section {
   text-align: left;
   position: relative;
-  min-height: calc(85vh - 50px);
+  min-height: 50vh;
   width: calc(100vw - 285px);
   @media #{$small-and-down} {
     width: 100vw;
@@ -95,7 +98,7 @@
     background: lighten($havelock-blue, 25%);
     border-bottom: 30px solid lighten($havelock-blue, 20%);
   }
-  .title {
+  .title-panel {
     @extend .z-depth-1;
     height: 50px;
     line-height: 50px;
@@ -192,4 +195,14 @@ img.school {
   font-size: .9rem;
   max-height: 70px;
   overflow: scroll;
+}
+.booking-payment-radio {
+  margin-top: 100px;
+  width: 35px;
+  display: inline-block;
+  vertical-align: top;
+}
+.booking-payment-method {
+  width: calc(100% - 35px);
+  display: inline-block;
 }

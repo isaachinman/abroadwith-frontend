@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var RoomPriceModule = require('./room-price-module.react');
 var i18n = require('../../global/components/i18n');
+var toast = require('toast');
 
 i18n.loadNamespaces(['manage_home','homes']);
 
@@ -17,7 +18,7 @@ module.exports = React.createClass({
       function changePrice( id, price ) {
          for (var i in newRoomObj) {
            if (newRoomObj[i].id == id) {
-              newRoomObj[i].price = price;
+              newRoomObj[i].price = parseInt(price);
               break;
            }
          }
@@ -47,9 +48,13 @@ module.exports = React.createClass({
       newPricingObj.currency = $('select#currency').val();
 
       function createPricingObject(category, item) {
-        newPricingObj[category][item] = [];
-        newPricingObj[category][item].name = item;
-        newPricingObj[category][item].amount = $('input#'+item).val();
+        if ($('input#'+item).val() !== '') {
+          var newPriceObj = {
+            "service": item,
+            "cost": parseInt($('input#'+item).val())
+          }
+          newPricingObj[category].push(newPriceObj);
+        }
       }
 
       createPricingObject('discounts', 'oneMonthDiscount');
@@ -64,12 +69,13 @@ module.exports = React.createClass({
 
       // Modify home object, using new pricing object
       if (typeof homeObj !== 'undefined') {
-        console.log(newPricingObj)
+        console.log(JSON.stringify(newPricingObj))
+
         homeObj.pricing = newPricingObj;
 
-        this.props.updateHome();
-
-        Materialize.toast(i18n.t('manage_home:pricing_updated_toast'), 4000);
+        this.props.updateHome(function() {
+          toast('Pricing updated');
+        });
 
       }
     }

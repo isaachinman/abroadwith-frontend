@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
   if(!req.context.query.arrival ||!req.context.query.departure || !req.context.query.room_id  ){
     res.redirect("/homes/"+req.context.home.id);
   }
-  req.context.debug = JSON.stringify(req.context);
+  req.context.debug = JSON.stringify(req.context.home);
   res.send(nunjucks.render('booking/booking.html',req.context));
 });
 

@@ -8,6 +8,10 @@ label {
   color: $input-border-color;
 }
 
+label[for='arrival'], label[for='departure'], label[for='birthday'] {
+  pointer-events: none;
+}
+
 /***************************
    Text Inputs + Textarea
 ****************************/

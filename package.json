@@ -53,7 +53,8 @@
     "refresh-token": "./src/global/refresh-token",
     "process-language-chips": "./src/global/process-language-chips",
     "randomise-coordinate": "./src/global/randomise-coordinate",
-    "send-payment-nonce": "./src/global/send-payment-nonce"
+    "send-payment-nonce": "./src/global/send-payment-nonce",
+    "toast": "./src/global/toast"
   },
   "browserify-shim": {
     "jquery": "$",

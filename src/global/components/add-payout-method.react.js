@@ -68,7 +68,7 @@ module.exports = React.createClass({
   render: function() {
 
     return (
-      <div className='col s12 m6 l4'>
+
         <form id="add-payment-form" className='card-reveal'>
           <div class='title'>Add payment method</div>
           <ul className="collapsible" data-collapsible="accordion">
@@ -120,9 +120,8 @@ module.exports = React.createClass({
             </li>
           </ul>
 
-
         </form>
-      </div>
+
     );
   }
 });

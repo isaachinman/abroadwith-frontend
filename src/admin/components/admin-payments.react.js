@@ -24,24 +24,32 @@ module.exports = React.createClass({
             console.log(payment)
             if (payment.type === 'CARD') {
               paymentMethodHTML.push(
-                <CreditCard
-                  default={payment.default}
-                  expiry={payment.expiry}
-                  lastFour={payment.lastFour}
-                  cardHolder={payment.cardHolder}
-                />
+                <div className='col s12 m6 l4'>
+                  <CreditCard
+                    id={payment.id}
+                    default={payment.default}
+                    expiry={payment.expiry}
+                    lastFour={payment.lastFour}
+                    cardHolder={payment.cardHolder}
+                  />
+                </div>
               )
             } else if (payment.type === 'PAYPAL') {
               paymentMethodHTML.push(
-                <Paypal
-                  default={payment.default}
-                  email={payment.email}
-                />
+                <div className='col s12 m6 l4'>
+                  <Paypal
+                    id={payment.id}
+                    default={payment.default}
+                    email={payment.email}
+                  />
+                </div>
               )
             }
           })
           paymentMethodHTML.push(
-            <AddPaymentMethod />
+            <div className='col s12 m6 l4'>
+              <AddPaymentMethod />
+            </div>
           )
           return (
             <div>{paymentMethodHTML}</div>
@@ -55,7 +63,9 @@ module.exports = React.createClass({
         render: function() {
           var paymentMethodHTML = []
           paymentMethodHTML.push(
-            <AddPaymentMethod />
+            <div className='col s12 m6 l4'>
+              <AddPaymentMethod />
+            </div>
           )
           return (
             <div>{paymentMethodHTML}</div>

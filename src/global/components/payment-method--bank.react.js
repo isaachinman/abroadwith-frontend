@@ -10,22 +10,20 @@ module.exports = React.createClass({
       var defaultText = <a>Set as default</a>;
     }
     return (
-      <div className='col s12 m6 l4'>
-        <div className='payment-method'>
-          {defaultHTML}
-          <div className='number'>
-            <span className='grey-text'>XXXXXXXXXXXX</span>{this.props.lastFour}
-          </div>
-          <div className='secondary grey-text'>
-            Bank account
-          </div>
-          <div className='actions'>
-            {defaultText}
-            <a>Remove</a>
-          </div>
-          <div className='type'>
-            <i className="fa fa-university"></i>
-          </div>
+      <div className='payment-method'>
+        {defaultHTML}
+        <div className='number'>
+          <span className='grey-text'>XXXXXXXXXXXX</span>{this.props.lastFour}
+        </div>
+        <div className='secondary grey-text'>
+          Bank account
+        </div>
+        <div className='actions'>
+          {defaultText}
+          <a>Remove</a>
+        </div>
+        <div className='type'>
+          <i className="fa fa-university"></i>
         </div>
       </div>
     );

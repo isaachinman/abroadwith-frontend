@@ -42,9 +42,8 @@ var updateHome = function(newurl){
       AMENITIES: ["AIR_CONDITIONING"],
       EXTRAS: ["DRYER"],
       PREFERENCES: ["FAMILY_FRIENDLY"],
-      MEAL_PLAN: [],
-      FOOD_OPTION: [],
-      GENERAL: ["LAUNDRY"],
+      MEAL_PLAN: ["ONLY_BREAKFAST"],
+      FOOD_OPTION: ["VEGAN"],
       family: false
     },
     immersions: {
@@ -187,9 +186,6 @@ $.ajax({
 </fb:login-button>
 
 <div id="status">
-  Banana:{{ query.banana }}
-
-  Apple:{{ query.apple }}
 </div>
 
 </body>

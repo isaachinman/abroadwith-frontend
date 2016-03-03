@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var domains = require('domains');
 var jwt_decode = require('jwt-decode');
 var sendPaymentNonce = require('send-payment-nonce');
@@ -60,8 +61,9 @@ module.exports = React.createClass({
               paypal: true
             },
             onPaymentMethodReceived: function (obj) {
-              sendPaymentNonce(obj.nonce)
-              console.log(obj)
+              sendPaymentNonce(obj.nonce, function() {
+                ReactDOM.unmountComponentAtNode(document.getElementById('body'))
+              });
             },
             onReady: function() {
 
@@ -88,9 +90,9 @@ module.exports = React.createClass({
   render: function() {
 
     return (
-      <div className='col s12 m6 l4'>
-        <form id="add-payment-form" className='card-reveal'>
-          <div class='title'>Add payment method</div>
+
+        <form id="add-payment-form" className='center-align'>
+          <div className='title'>Add payment method</div>
           <ul className="collapsible" data-collapsible="accordion">
             <li>
               <div className="collapsible-header">Credit card</div>
@@ -142,7 +144,7 @@ module.exports = React.createClass({
 
 
         </form>
-      </div>
+
     );
   }
 });
