@@ -7,7 +7,7 @@ module.exports = function (req, res, next, value) {
     return;
   }
 
-  https.get("https://admin.abroadwith.com/users/320/homes/"+value+"/public",
+    https.get("https://admin.abroadwith.com/users/320/homes/"+value+"/public"
     function (response) {
       var body = '';
       if(response.statusCode == 404){

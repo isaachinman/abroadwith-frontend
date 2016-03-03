@@ -10,7 +10,7 @@ module.exports = React.createClass({
   savePricing: function() {
 
     // If user has rooms
-    if (this.props.rooms) {
+    if (this.props.rooms.length > 0) {
 
       // Create new rooms object
       newRoomObj = this.props.rooms;
@@ -97,17 +97,17 @@ module.exports = React.createClass({
       this.props.pricing.discounts.oneMonthDiscount ? $('input#one-month-discount').val(this.props.pricing.discounts.oneMonthDiscount.amount + '%') : null;
       this.props.pricing.discounts.threeMonthDiscount ? $('input#three-month-discount').val(this.props.pricing.discounts.threeMonthDiscount.amount + '%') : null;
       this.props.pricing.discounts.sixMonthDiscount ? $('input#six-month-discount').val(this.props.pricing.discounts.sixMonthDiscount.amount + '%') : null;
-      this.props.pricing.extras.EXTRA_GUEST ? $('input#extra-guest').val(this.props.pricing.extras.EXTRA_GUEST.cost) : null;
-      this.props.pricing.extras.FULL_BOARD ? $('input#full-board').val(this.props.pricing.extras.FULL_BOARD.cost) : null;
-      this.props.pricing.extras.HALF_BOARD ? $('input#full-board').val(this.props.pricing.extras.HALF_BOARD.cost) : null;
-      this.props.pricing.extras.LAUNDRY ? $('input#laundry').val(this.props.pricing.extras.LAUNDRY.cost) : null;
-      this.props.pricing.extras.CLEANING ? $('input#cleaning').val(this.props.pricing.extras.CLEANING.cost) : null;
-      this.props.pricing.extras.AIRPORT_PICKUP ? $('input#airport-pickup').val(this.props.pricing.extras.AIRPORT_PICKUP.cost) : null;
+      this.props.pricing.extras.EXTRA_GUEST ? $('input#EXTRA_GUEST').val(this.props.pricing.extras.EXTRA_GUEST.cost) : null;
+      this.props.pricing.extras.FULL_BOARD ? $('input#FULL_BOARD').val(this.props.pricing.extras.FULL_BOARD.cost) : null;
+      this.props.pricing.extras.HALF_BOARD ? $('input#HALF_BOARD').val(this.props.pricing.extras.HALF_BOARD.cost) : null;
+      this.props.pricing.extras.LAUNDRY ? $('input#LAUNDRY').val(this.props.pricing.extras.LAUNDRY.cost) : null;
+      this.props.pricing.extras.CLEANING ? $('input#CLEANING').val(this.props.pricing.extras.CLEANING.cost) : null;
+      this.props.pricing.extras.AIRPORT_PICKUP ? $('input#AIRPORT_PICKUP').val(this.props.pricing.extras.AIRPORT_PICKUP.cost) : null;
     }
 
     // Create room modules if rooms exist
     var rooms = [];
-    if (this.props.rooms && this.props.pricing) {
+    if (this.props.rooms.length > 0 && this.props.pricing) {
 
       var currency = this.props.pricing.currency;
 

@@ -64,6 +64,7 @@ $(document).ready(function() {
     // Initialise datepicker
     $('#arrival').pickadate({
 
+      clear: '',
       format: 'yyyy-mm-dd',
       min:tomorrow,
       max:yearToday,
@@ -80,7 +81,7 @@ $(document).ready(function() {
         if (e.select) {
           var dateString = ($('#arrival').val()).split('-').join('/');
           dateObj = new Date(dateString);
-          var arrivalPlusOne = new Date(dateObj.getTime() + + 1 * 24 * 60 * 60 * 1000);
+          var arrivalPlusOne = new Date(dateObj.getTime() + 1 * 24 * 60 * 60 * 1000);
           departurePicker.set('clear');
           departurePicker.set('min', arrivalPlusOne);
           this.close();
@@ -95,6 +96,7 @@ $(document).ready(function() {
     var today = new Date();
     var weekToday = new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000);
     $('#departure').pickadate({
+      clear: '',
       format: 'yyyy-mm-dd',
       min:weekToday,
       // If departure date exists, set as default
@@ -103,8 +105,10 @@ $(document).ready(function() {
         //   $('#departure').val(pageContext.departure);
         // }
       },
-      onSet: function() {
-        this.close();
+      onSet: function(e) {
+        if (e.select) {
+          this.close();
+        }
       }
     });
     var departurePicker = $('#departure').pickadate('picker');

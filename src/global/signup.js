@@ -36,10 +36,14 @@ if ($('form#email-signup-form').length) {
     $('.datepicker-birthday').pickadate({
       max: eighteenYearsAgo,
       container: 'body',
-      selectYears: true,
+      clear: '',
+      today: '',
+      selectYears: 15,
       format: 'yyyy-mm-dd',
-      onSet: function() {
-        this.close();
+      onSet: function(e) {
+        if (e.select) {
+          this.close();
+        }
       }
     });
 

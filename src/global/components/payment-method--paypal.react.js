@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var jwt_decode = require('jwt-decode');
 var domains = require('domains');
 
@@ -14,7 +15,7 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
-        this.forceUpdate();
+        ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(this).parentNode);
         console.log(response)
 
       }.bind(this),

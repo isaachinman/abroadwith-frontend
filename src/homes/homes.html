@@ -459,7 +459,7 @@
           var map;
             function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
-              center: {lat: {{home.location.lat}}, lng: {{home.location.lng}}},
+              center: {lat: {% if home.location.lat %}{{home.location.lat}}{% else %}0{% endif %}, lng: {% if home.location.lng %}{{home.location.lng}}{% else %}0{% endif %}},
               zoom: 8,
               options: {
                 scrollwheel: false,
@@ -469,8 +469,8 @@
             });
             var marker = new google.maps.Marker({
               position: {
-                "lat":{{home.location.lat}},
-                "lng":{{home.location.lng}}
+                "lat":{% if home.location.lat %}{{home.location.lat}}{% else %}0{% endif %},
+                "lng":{% if home.location.lng %}{{home.location.lng}}{% else %}0{% endif %}
               },
               map: map
             });
