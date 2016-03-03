@@ -1,5 +1,6 @@
 var express = require('express');
 var nunjucks = require('nunjucks');
+var https = require('https');
 
 var routerPost = express.Router();
 var routerGet = express.Router();
@@ -8,7 +9,7 @@ var lwip = require('lwip');
 
 var multer  = require('multer');
 var storage = multer.memoryStorage();
-var upload = multer({ storage: storage, limits:{fileSize:1} });
+var upload = multer({ storage: storage, limits:{fileSize:100000000} });
 
 var AWS = require('aws-sdk');
 
@@ -65,11 +66,91 @@ var uploadImage = function(image_file,image_key,options,callback){
   });
 }
 
-var newProfilePhoto = function(file, key, callback){
+var newSquarePhoto = function(file, key, callback){
   uploadImage(file,key,{width:250,crop:{width:250,height:250}},callback);
 }
 
-routerPost.post('/', function (req, res) {
+var newHeroPhoto = function(file, key, callback){
+  uploadImage(file,key,{width:1400},callback);
+}
+
+routerGet.get('/', function (req, res) {
+  if(!req.context) res.status(404).send('No text context.');
+  res.send(nunjucks.render('upload/upload.html',req.context));
+});
+
+var postSingle = function(req,path,photo,callback){
+  var post_data = JSON.stringify({pathName:photo});
+
+  var post_options = {
+      host: 'admin.abroadwith.com',
+      port: 443,
+      path: path,
+      method: 'POST',
+      headers: {
+          'Authorization': 'Bearer ' + req.token,
+          'Content-Length': Buffer.byteLength(post_data),
+          'Content-Type': "application/json"
+      }
+  };
+
+  // Set up the request
+  var post_req = https.request(post_options, function(res) {
+      console.log(res);
+      res.setEncoding('utf8');
+  });
+
+  post_req.on('error', function (e) {
+    callback(e);
+  });
+  // post the data
+  post_req.write(post_data);
+  post_req.end();
+  callback();
+}
+
+var postMultiple = function(req,path,photos,callback){
+  var data = {images:[]};
+  var i = photos.length;
+  while(--i >= 0){
+    data.images.push({pathName:photos[i]});
+  }
+  var post_data = JSON.stringify(data);
+
+  var post_options = {
+      host: 'admin.abroadwith.com',
+      port: 443,
+      path: path,
+      method: 'POST',
+      headers: {
+          'Authorization': 'Bearer ' + req.token,
+          'Content-Length': Buffer.byteLength(post_data),
+          'Content-Type': "application/json"
+      }
+  };
+
+  // Set up the request
+  var post_req = https.request(post_options, function(res) {
+      res.setEncoding('utf8');
+  });
+
+  post_req.on('error', function (e) {
+    callback(e);
+  });
+  // post the data
+  console.log("Posting ",post_data);
+  post_req.write(post_data);
+  post_req.end();
+  callback();
+}
+
+var routerUser = express.Router();
+routerUser.post('/', function (req, res) {
+  if(!req.logged_user || req.logged_user.id != req.photoUserId){
+    console.log(req);
+    res.status(401).send('Restricted function.');
+    return;
+  }
   if(req.files.length > 1){
     res.status(400).send('Multiple files are not accepted.');
     return;
@@ -78,39 +159,151 @@ routerPost.post('/', function (req, res) {
     res.status(400).send('One file is required.');
     return;
   }
-  var result = {};
-  newProfilePhoto(req.files[0],'users/3.jpg',function(err){
+
+  newSquarePhoto(req.files[0],'users/'+req.photoUserId+'.jpg',function(err){
+    var result = {};
     if(err){
       result[req.files[0].originalname] = {
         status:"ERROR",
         message: err.toString()
       }
+      res.end(JSON.stringify(result));
     }
     else{
-      result[req.files[0].originalname] = {
-        status:"OK",
-        location: 'users/3.jpg'
-      }
+      console.log("here");
+      postSingle(req,"/users/"+req.photoUserId+"/photo",'/users/'+req.photoUserId+'.jpg',function(err){
+        if(!err){
+          result[req.files[0].originalname] = {
+            status:"OK",
+            location: '/users/'+req.photoUserId+'.jpg'
+          }
+        }
+        else{
+          result[req.files[0].originalname] = {
+            status:"ERROR",
+            message: err.toString()
+          }
+        }
+        res.end(JSON.stringify(result));
+      });
     }
-    res.end(JSON.stringify(result));
   });
 });
 
-routerGet.get('/', function (req, res) {
-  if(!req.context) res.status(404).send('No text context.');
-  res.send(nunjucks.render('test/test.html',req.context));
+var routerRoom = express.Router();
+routerRoom.post('/', function (req, res) {
+  if(!req.logged_user || req.logged_user.id != req.photoUserId){
+    res.status(401).send('Restricted function.');
+    return;
+  }
+  if(req.files.length > 1){
+    res.status(400).send('Multiple files are not accepted.');
+    return;
+  }
+  if(req.files.length < 1){
+    res.status(400).send('One file is required.');
+    return;
+  }
+  var imagePath = "/users/"+req.photoUserId+"/homes/"+req.photoHomeId+"/room_"+req.photoRoomId+".jpg";
+  console.log(imagePath);
+  newHeroPhoto(req.files[0],imagePath.substring(1),function(err){
+    var result = {};
+    if(err){
+      result[req.files[0].originalname] = {
+        status:"ERROR",
+        message: err.toString()
+      }
+      res.end(JSON.stringify(result));
+    }
+    else{
+      postSingle(req,"/users/"+req.photoUserId+"/homes/"+req.photoHomeId+"/rooms/"+req.photoRoomId+"/photo",imagePath,function(err){
+        if(!err){
+          result[req.files[0].originalname] = {
+            status:"OK",
+            location: imagePath
+          }
+        }
+        else{
+          result[req.files[0].originalname] = {
+            status:"ERROR",
+            message: err.toString()
+          }
+        }
+        res.end(JSON.stringify(result));
+      });
+    }
+  });
+});
+
+var helper = function(req,res,file){
+  console.log(file.imagePath);
+  newHeroPhoto(file,file.imagePath.substring(1),function(err){
+    if(err){
+      req.result[file.originalname] = {
+        status:"ERROR",
+        message: err.toString()
+      }
+    }
+    else{
+      req.result[file.originalname] = {
+        status:"OK",
+        location: file.imagePath
+      }
+      req.successful.push(file.imagePath);
+    }
+    if(++req.done >= req.files.length){
+      //Done uploading
+      postMultiple(req,"/users/"+req.photoUserId+"/homes/"+req.photoHomeId+"/photos",req.successful,function(err){
+        if(err){
+          res.status(500).send('Problem updating API.');
+        }
+        else{
+          res.end(JSON.stringify(req.result));
+        }
+      });
+    }
+  });
+}
+
+var routerHome = express.Router();
+routerHome.post('/', function (req, res) {
+  if(!req.logged_user || req.logged_user.id != req.photoUserId){
+    res.status(401).send('Restricted function.');
+    return;
+  }
+  var i = req.files.length;
+  req.done = 0;
+  req.successful = [];
+  req.result = {};
+  while(--i >= 0){
+    req.files[i].imagePath = "/users/"+req.photoUserId+"/homes/"+req.photoHomeId+"/"+(new Date().getTime())+"_"+i+".jpg";
+    helper(req,res,req.files[i]);
+  }
+
 });
 
 var userIdHandler = require('./PhotoUserIdHandler');
 var homeIdHandler = require('./PhotoHomeIdHandler');
+var roomIdHandler = require('./PhotoRoomIdHandler');
+var headerTokenHandler = require('./HeaderTokenHandler');
 
 var installer = function(app) {
-  app.param('userId',userIdHandler);
-  app.param('userId',homeIdHandler);
-  app.use('/upload/user/photo',upload.single('photo'));
-  app.use('/upload/user/home/:homePhotoId/rooms/:roomPhotoId/photo',upload.single('photo'));
-  app.use('/upload/user/home/:homePhotoId/photo',upload.array('photos', 10));
-  app.use('/upload',routerPost);
+  app.param('photoUserId',userIdHandler);
+  app.param('photoHomeId',homeIdHandler);
+  app.param('photoRoomId',roomIdHandler);
+  //app.param('userId',homeIdHandler);
+  app.use(headerTokenHandler);
+  app.use('/upload/users/:photoUserId/photo',upload.array('photos', 10));
+  app.use('/upload/users/:photoUserId/photo',routerUser);
+
+  app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',upload.array('photos', 10));
+  app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',routerHome);
+
+  app.use('/upload/users/:photoUserId/homes/:photoHomeId/rooms/:photoRoomId/photo',upload.array('photos', 10));
+  app.use('/upload/users/:photoUserId/homes/:photoHomeId/rooms/:photoRoomId/photo',routerRoom);
+  //app.use('/upload/user/home/:homePhotoId/rooms/:roomPhotoId/photo',upload.single('photo'));
+  //app.use('/upload/user/home/:homePhotoId/photo',upload.array('photos', 10));
+  //app.use('/upload',routerPost);
   app.use('/upload',routerGet);
 };
 
