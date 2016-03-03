@@ -18,6 +18,23 @@ var domains = require('domains');
 var jwt_decode = require('jwt-decode');
 
 module.exports = React.createClass({
+  validateBooking: function(bookingObj) {
+    if (
+      bookingObj.stayId !== 'undefined' && bookingObj.stayId !== null &&
+      bookingObj.arrivalDate !== 'undefined' && bookingObj.arrivalDate !== null &&
+      bookingObj.departureDate !== 'undefined' && bookingObj.departureDate !== null &&
+      bookingObj.roomId !== 'undefined' && bookingObj.roomId !== null &&
+      bookingObj.guestCount !== 'undefined' && bookingObj.guestCount !== null &&
+      bookingObj.languageHostWillTeach !== 'undefined' && bookingObj.languageHostWillTeach !== null &&
+      bookingObj.currency !== 'undefined' && bookingObj.currency !== null &&
+      bookingObj.serviceNames !== 'undefined' && bookingObj.serviceNames !== null &&
+      bookingObj.paymentMethodId !== 'undefined' && bookingObj.paymentMethodId !== null
+    ) {
+      $('#request-booking-btn').hasClass('disabled') ? $('#request-booking-btn').removeClass('disabled') : null;
+    } else {
+      !($('#request-booking-btn').hasClass('disabled')) ? $('#request-booking-btn').addClass('disabled') : null;
+    }
+  },
   requestBooking: function() {
 
   },
@@ -51,6 +68,8 @@ module.exports = React.createClass({
       serviceNames:               serviceNames,
       paymentMethodId:            $('.booking-payment-radio input:checked').length > 0 ? parseInt($('.booking-payment-radio input:checked').attr('data-value')) : null
     }
+
+    this.validateBooking(bookingObj);
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
