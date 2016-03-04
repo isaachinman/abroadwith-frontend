@@ -1,11 +1,15 @@
 var React = require('react');
 
+var currencies = require('currencies');
+
 module.exports = React.createClass({
   componentDidUpdate: function() {
 
     // Add a marker for each result
     if (this.props && typeof MarkerWithLabel !== 'undefined') {
       if (this.props.results && typeof markers !== 'undefined') {
+
+        var currency = this.props.currency;
 
         // Clear out the old markers.
         markers.forEach(function(marker) {
@@ -23,7 +27,7 @@ module.exports = React.createClass({
             icon: ' ',
             zIndex: 1,
             labelAnchor: new google.maps.Point(20, 35),
-            labelContent:"<div class='price'>€" + obj.price + "</div><div class='down-triangle''></div>",
+            labelContent:"<div class='price'>" + currencies[currency] + Math.ceil(obj.price) + "</div><div class='down-triangle''></div>",
             labelClass: "map-marker-label",
           });
 

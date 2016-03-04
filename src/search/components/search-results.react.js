@@ -22,12 +22,15 @@ module.exports = React.createClass({
 
       var markerId = 0;
 
+      var currency = this.props.currency;
+
       this.props.results.forEach(function(obj) {
         var result = <IndividualResult
               key={obj.roomId}
               markerId={markerId}
               immersions={obj.immersions}
-              price={obj.price}
+              price={Math.ceil(obj.price)}
+              currency={currency}
               roomPhoto={obj.roomPhoto}
               homePhotos={obj.homePhotos}
               host={obj.hostName}

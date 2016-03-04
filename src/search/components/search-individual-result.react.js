@@ -1,6 +1,7 @@
 var React = require('react');
 
-var domains = require('domains')
+var domains = require('domains');
+var currencies = require('currencies');
 
 var i18n = require('../../global/components/i18n');
 i18n.loadNamespaces(['common']);
@@ -94,7 +95,7 @@ module.exports = React.createClass({
             {immersionTags}
           </div>
           <div className='price'>
-            <span>€{this.props.price}</span>
+            <span>{currencies[this.props.currency]}{this.props.price}</span>
             <div className='course-added'>
               <i className="fa fa-map-marker"></i>{this.props.courseCount}
               {i18n.t('common:words.courses')}

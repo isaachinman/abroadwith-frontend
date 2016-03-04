@@ -84,6 +84,7 @@ module.exports = React.createClass({
         // Set new state vars
         minPrice:         response.resultDetails.minPrice,
         maxPrice:         response.resultDetails.maxPrice,
+        currency:         response.params.currency,
         numberOfResults:  response.resultDetails.numberOfResults,
         immersions:       response.params.immersions,
         arrival:          response.params.arrival,
@@ -149,7 +150,8 @@ module.exports = React.createClass({
       $('#meal_pref'),
       $('#diet_restrictions'),
       $('#amenities'),
-      $('#house-type')
+      $('#house-type'),
+      $('#ui-currency')
     ];
 
     for (var i=0; i<activeNodes.length; i++) {
@@ -199,6 +201,7 @@ module.exports = React.createClass({
         />
 
         <Results
+          currency={this.state.currency}
           results={this.state.results}
         />
 
@@ -209,6 +212,7 @@ module.exports = React.createClass({
         />
 
         <Map
+          currency={this.state.currency}
           results={this.state.results}
         />
 
