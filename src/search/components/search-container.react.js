@@ -120,6 +120,12 @@ module.exports = React.createClass({
       location.reload();
     });
 
+    $('select#language').change(function() {
+      if ($(this).val() !== 'undefined' && $(this).val() !== '') {
+        $('#language-switch').attr('disabled') ? $('#language-switch').removeAttr('disabled') : null;
+      }
+    })
+
     var activeNodes = [
       $('#arrival'),
       $('#departure'),
