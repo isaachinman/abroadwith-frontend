@@ -13,3 +13,6 @@ table.trips-table {
     @extend .border-bottom;
   }
 }
+.trips-icon {
+  color: lighten($havelock-blue, 15%);
+}
