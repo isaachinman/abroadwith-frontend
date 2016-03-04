@@ -1,0 +1,20 @@
+{
+  "facilities":{
+    "MIRROR":"fa-fire",
+    "DESK":"fa-fire",
+    "HEATING":"fa-fire"
+  },
+  "amenities":{
+    "AIR_CONDITIONING":"fa-fire"
+  },
+  "preferences":{
+    "FAMILY_FRIENDLY":"fa-fire"
+  },
+  "services":{
+    "CLEANING":"fa-fire",
+    "FULL_BOARD":"fa-fire"
+  },
+  "extras":{
+    "DRYER":"fa-fire"
+  }
+}

@@ -7,7 +7,7 @@ module.exports = function (req, res, next, value) {
     return;
   }
 
-  https.get("https://admin.abroadwith.com/users/317/homes/"+value+"/public",
+    https.get("https://admin.abroadwith.com/users/320/homes/"+value+"/public",
     function (response) {
       var body = '';
       if(response.statusCode == 404){
@@ -21,6 +21,7 @@ module.exports = function (req, res, next, value) {
           var parsed = JSON.parse(body);
           req.context.home = parsed;
           req.context.home.id = value; //TODO make sure it is in the return object.
+          req.context.debug = JSON.stringify(req.context.home);
           next();
       });
   }).on('error', function(e) {

@@ -4,6 +4,7 @@ var user_languages = require('../constants/UserLanguages');
 var user = require('../constants/User');
 var home = require('../constants/Home');
 var currencies = require('../constants/Currencies');
+var icons = require('../constants/Icons');
 
 module.exports = function (req, res, next) {
   var prefix = req.hostname.substring(0,2);
@@ -23,7 +24,8 @@ module.exports = function (req, res, next) {
     ui_languages: ui_languages,
     homes: home,
     users: user,
-    currencies: currencies
+    currencies: currencies,
+    icons: icons
   }
   req.context.query = req.query;
   next();

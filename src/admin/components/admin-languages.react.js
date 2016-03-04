@@ -3,6 +3,8 @@ var ReactDOM = require('react-dom');
 var i18n = require('../../global/components/i18n');
 var processLanguageChips = require('process-language-chips');
 
+var toast = require('toast');
+
 i18n.loadNamespaces(['languages', 'common']);
 
 module.exports = React.createClass({
@@ -32,7 +34,9 @@ module.exports = React.createClass({
     adminObj.userLearningLanguages = newLanguagesLearning;
     adminObj.userKnownLanguages = newLanguagesKnown;
 
-    this.props.updateAdmin();
+    this.props.updateAdmin(function() {
+      toast('Languages updated');
+    });
 
   },
   componentDidMount: function() {

@@ -16,6 +16,7 @@ var installer = function(app) {
   app.use('/terms',genericRouter('static/terms.html'));
   app.use('/login',genericRouter('static/login.html'));
   app.use('/about',genericRouter('static/about.html'));
+  app.use('/booking-success',genericRouter('static/booking-success.html'));
 };
 
 module.exports = installer;

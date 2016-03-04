@@ -12,6 +12,7 @@ require('./main/main');
 require('./search/search');
 
 // Globals
+require('./global/currency-dropdown');
 require('./global/signup');
 require('./global/login-init');
 require('./global/login-redirect');

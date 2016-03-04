@@ -18,6 +18,42 @@ var domains = require('domains');
 var jwt_decode = require('jwt-decode');
 
 module.exports = React.createClass({
+  createBookingObject: function() {
+
+    // Find teaching languages
+    var languageHostWillTeach = $('#'+$('#booking-immersions').val()+'-learning').val();
+    var languageGuestWillTeach = $('#booking-immersions').val() === 'tandem' ?  $('#tandem-teaching').val() : null;
+
+    // Generate services array
+    var serviceNames = [];
+    $('input.booking-service').each(function() {
+      if ($(this).is(':checked')) {
+        serviceNames.push($(this).attr('data-value'));
+      }
+    })
+    $('#meal_plan').val() === 'HALF_BOARD' || $('#meal_plan').val() === 'FULL_BOARD' ? serviceNames.push($('#meal_plan').val()) : null;
+
+    if ($('select#EXTRA_GUEST').val() !== null) {
+      var guests = parseInt($('select#EXTRA_GUEST').val())+1;
+      $('#guests').html($('select#EXTRA_GUEST').val() > 1 ? (parseInt($('select#EXTRA_GUEST').val())+1) + ' guests' : (parseInt($('select#EXTRA_GUEST').val())+1) + ' guest');
+      $('#guests').attr('data-value', guests);
+    }
+
+    var bookingObj = {
+      // Conditionally set up state per category
+      stayId:                     parseInt($('select#booking-immersions option:selected').attr('data-value')),
+      arrivalDate:                $('#arrival').attr('data-value'),
+      departureDate:              $('#departure').attr('data-value'),
+      roomId:                     parseInt($('#room_id').attr('data-value')),
+      guestCount:                 parseInt($('#guests').attr('data-value')),
+      languageHostWillTeach:      languageHostWillTeach,
+      languageGuestWillTeach:     languageGuestWillTeach,
+      currency:                   $('#payment-currency').val(),
+      serviceNames:               serviceNames,
+      paymentMethodId:            $('.booking-payment-radio input:checked').length > 0 ? parseInt($('.booking-payment-radio input:checked').attr('data-value')) : null
+    }
+    return bookingObj;
+  },
   validateBooking: function(bookingObj) {
     if (
       bookingObj.stayId !== 'undefined' && bookingObj.stayId !== null &&
@@ -37,72 +73,68 @@ module.exports = React.createClass({
   },
   requestBooking: function() {
 
-  },
-  calculateNewPrice: function() {
+    $('#preloader').show();
+
+    var bookingObj = this.createBookingObject();
+
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+    // Create booking
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid+'/bookings',
+      type: "POST",
+      data: JSON.stringify(bookingObj),
+      contentType: "application/json",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
+
+        // Booking was successfully created
+        window.location = '/booking-success';
+
+      }.bind(this),
+      error: function() {
+
+        $('#preloader').hide();
+
+        alert('Something failed');
+
+      }
+    })
 
   },
   refreshState: function() {
 
-    // Find teaching languages
-    var languageHostWillTeach = $('#'+$('#booking-immersions').val()+'-learning').val();
-    var languageGuestWillTeach = $('#booking-immersions').val() === 'tandem' ?  $('#tandem-teaching').val() : null;
-
-    // Generate services array
-    var serviceNames = [];
-    $('input.booking-service').each(function() {
-      if ($(this).is(':checked')) {
-        serviceNames.push($(this).attr('data-value'));
-      }
-    })
-
-    var bookingObj = {
-      // Conditionally set up state per category
-      stayId:                     parseInt($('select#booking-immersions option:selected').attr('data-value')),
-      arrivalDate:                $('#arrival').attr('data-value'),
-      departureDate:              $('#departure').attr('data-value'),
-      roomId:                     parseInt($('#room_id').attr('data-value')),
-      guestCount:                 $('#guests').attr('data-value'),
-      languageHostWillTeach:      languageHostWillTeach,
-      languageGuestWillTeach:     languageGuestWillTeach,
-      currency:                   $('#payment-currency').val(),
-      serviceNames:               serviceNames,
-      paymentMethodId:            $('.booking-payment-radio input:checked').length > 0 ? parseInt($('.booking-payment-radio input:checked').attr('data-value')) : null
-    }
+    var bookingObj = this.createBookingObject();
 
     this.validateBooking(bookingObj);
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
-    // If user has payment methods, render them
-    // $.ajax({
-    //   url: domains.API+'/users/'+JWT.rid+'/bookings/price',
-    //   type: "POST",
-    //   data: JSON.stringify(bookingObj),
-    //   contentType: "application/json",
-    //   beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-    //   success: function(response) {
-    //
-    //     console.log(response)
-    //
-    //   }.bind(this),
-    //   error: function() {
-    //
-    //     alert('Something failed');
-    //
-    //   }
-    // })
+    // Get price
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid+'/bookings/price',
+      type: "POST",
+      data: JSON.stringify(bookingObj),
+      contentType: "application/json",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
+
+        console.log(response)
+
+      }.bind(this),
+      error: function() {
+
+        alert('Something failed');
+
+      }
+    })
 
     this.setState(bookingObj, function() {
 
       console.log(JSON.stringify(this.state));
 
-
       var currency = this.state.currency;
       // Refresh read-only display nodes
-      if ($('select#EXTRA_GUEST').val() !== null) {
-        $('#guests').html($('select#EXTRA_GUEST').val() > 1 ? (parseInt($('select#EXTRA_GUEST').val())+1) + ' guests' : (parseInt($('select#EXTRA_GUEST').val())+1) + ' guest');
-      }
-
       $('.immersion-display').html($('#booking-immersions').val());
       $('.language-display').html(this.state.languageHostWillTeach);
 
@@ -116,12 +148,20 @@ module.exports = React.createClass({
       }
       $('.extras-display').html(extrasDisplay);
 
-      $('.meal-display').html($('#meal_plan').val());
+      console.log($('#meal_plan option:selected').attr('data-price'))
+      if ($('#meal_plan option:selected').attr('data-price') !== 'undefined') {
+        $('.meal-display').html($('#meal_plan').val() + ' (' + this.state.currency + $('#meal_plan option:selected').attr('data-price') + ')');
+      } else {
+        $('.meal-display').html($('#meal_plan').val());
+      }
+
 
     });
 
   },
   componentDidMount: function() {
+
+    $('a#request-booking-btn').click(this.requestBooking);
 
     // On change, refresh state
     var activeNodes = [
@@ -132,7 +172,8 @@ module.exports = React.createClass({
       $('#teacher-learning'),
       $('#teacher-hours'),
       $('#EXTRA_GUEST'),
-      $('#payment-currency')
+      $('#payment-currency'),
+      $('#meal_plan')
     ];
 
     $('.booking-service').change(this.refreshState);
