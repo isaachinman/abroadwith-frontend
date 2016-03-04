@@ -28,7 +28,7 @@
           <input id='departure' type="text" placeholder='{{translations.common.Departure}}' class='datepicker'>
         </div>
         <div class="col guests hide-on-med-and-down">
-          <select class='material'>
+          <select id='guest-count' class='material'>
             <option value="1" selected>1 {{translations.common.guest}}</option>
             <option value="2">2 {{translations.common.guest}}</option>
             <option value="3">3 {{translations.common.guest}}</option>
@@ -37,7 +37,7 @@
           </select>
         </div>
         <div class='col search left-align'>
-          <a class='btn'>{{translations.common.search}}</a>
+          <a id='hero-search' class='btn'>{{translations.common.search}}</a>
         </div>
       </div>
     </form>
