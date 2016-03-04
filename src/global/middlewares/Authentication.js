@@ -12,53 +12,31 @@ var public_key = "-----BEGIN PUBLIC KEY-----\n"+
 "-----END PUBLIC KEY-----"
 
 module.exports = function (req, res, next) {
-    var token, error;
+    var token;
 
-    if (req.query && req.query['access_token']) {
-      token = req.query['access_token'];
+    if(req.cookies && req.cookies['access_token']){
+      token = req.cookies['access_token'];
     }
 
-    if (req.body && req.body['access_token']) {
-      if (token) {
-        error = true;
-      }
-      token = req.body['access_token'];
+    if(!token) {
+      next();
+      return;
     }
 
-    if (req.headers && req.headers.authorization) {
-      var parts = req.headers.authorization.split(' ');
-      if (parts.length === 2 && parts[0] === 'Bearer') {
-        if (token) {
-          error = true;
-        }
-        token = parts[1];
-      }
-    }
-
-    // RFC6750 states the access_token MUST NOT be provided in more than one place in a single request.
-    if (error) {
-      res.sendStatus(400);
-    }
-    else{
-      if(!token) {
+    var decoded = jwt.verify(token, new Buffer(public_key,'utf8'), { algorithms: ['RS512'] }, function (err, payload) {
+      if(!err){
+        req.logged_user = {};
+        req.logged_user.name = payload.name;
+        req.logged_user.email = payload.email;
+        req.logged_user.id = payload.rid;
+        console.log("Serving user: ",req.logged_user);
         next();
         return;
       }
-
-      var decoded = jwt.verify(token, new Buffer(public_key,'utf8'), { algorithms: ['RS512'] }, function (err, payload) {
-        if(!err){
-          req.user = {};
-          req.user.name = payload.name;
-          req.user.email = payload.email;
-          console.log(req.user);
-          next();
-          return;
-        }
-        else{
-          console.log("Error: "+ err + ", while processing token: "+token);
-          next();
-          return;
-        }
-      });
-    }
+      else{
+        console.log("Error: "+ err + ", while processing token: "+token);
+        next();
+        return;
+      }
+    });
 };
