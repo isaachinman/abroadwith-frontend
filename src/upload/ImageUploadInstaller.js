@@ -96,7 +96,6 @@ var postSingle = function(req,path,photo,callback){
 
   // Set up the request
   var post_req = https.request(post_options, function(res) {
-      console.log(res);
       res.setEncoding('utf8');
   });
 
@@ -146,8 +145,7 @@ var postMultiple = function(req,path,photos,callback){
 
 var routerUser = express.Router();
 routerUser.post('/', function (req, res) {
-  if(!req.logged_user || req.logged_user.id != req.photoUserId){
-    console.log(req);
+  if(!req.decoded_token || req.decoded_token.id != req.photoUserId){
     res.status(401).send('Restricted function.');
     return;
   }
@@ -159,8 +157,8 @@ routerUser.post('/', function (req, res) {
     res.status(400).send('One file is required.');
     return;
   }
-
-  newSquarePhoto(req.files[0],'users/'+req.photoUserId+'.jpg',function(err){
+  var imagePath = '/users/'+req.photoUserId+'/'+(new Date().getTime())+".jpg";
+  newSquarePhoto(req.files[0],imagePath.substring(1),function(err){
     var result = {};
     if(err){
       result[req.files[0].originalname] = {
@@ -170,12 +168,11 @@ routerUser.post('/', function (req, res) {
       res.end(JSON.stringify(result));
     }
     else{
-      console.log("here");
-      postSingle(req,"/users/"+req.photoUserId+"/photo",'/users/'+req.photoUserId+'.jpg',function(err){
+      postSingle(req,"/users/"+req.photoUserId+"/photo",imagePath,function(err){
         if(!err){
           result[req.files[0].originalname] = {
             status:"OK",
-            location: '/users/'+req.photoUserId+'.jpg'
+            location: imagePath
           }
         }
         else{
@@ -192,7 +189,7 @@ routerUser.post('/', function (req, res) {
 
 var routerRoom = express.Router();
 routerRoom.post('/', function (req, res) {
-  if(!req.logged_user || req.logged_user.id != req.photoUserId){
+  if(!req.decoded_token || req.decoded_token.id != req.photoUserId){
     res.status(401).send('Restricted function.');
     return;
   }
@@ -204,8 +201,7 @@ routerRoom.post('/', function (req, res) {
     res.status(400).send('One file is required.');
     return;
   }
-  var imagePath = "/users/"+req.photoUserId+"/homes/"+req.photoHomeId+"/room_"+req.photoRoomId+".jpg";
-  console.log(imagePath);
+  var imagePath = "/users/"+req.photoUserId+"/homes/"+req.photoHomeId+"/rooms/"+req.photoRoomId+"/"+(new Date().getTime())+".jpg";
   newHeroPhoto(req.files[0],imagePath.substring(1),function(err){
     var result = {};
     if(err){
@@ -267,7 +263,7 @@ var helper = function(req,res,file){
 
 var routerHome = express.Router();
 routerHome.post('/', function (req, res) {
-  if(!req.logged_user || req.logged_user.id != req.photoUserId){
+  if(!req.decoded_token || req.decoded_token.id != req.photoUserId){
     res.status(401).send('Restricted function.');
     return;
   }
@@ -279,7 +275,6 @@ routerHome.post('/', function (req, res) {
     req.files[i].imagePath = "/users/"+req.photoUserId+"/homes/"+req.photoHomeId+"/"+(new Date().getTime())+"_"+i+".jpg";
     helper(req,res,req.files[i]);
   }
-
 });
 
 var userIdHandler = require('./PhotoUserIdHandler');
@@ -291,7 +286,6 @@ var installer = function(app) {
   app.param('photoUserId',userIdHandler);
   app.param('photoHomeId',homeIdHandler);
   app.param('photoRoomId',roomIdHandler);
-  //app.param('userId',homeIdHandler);
   app.use(headerTokenHandler);
   app.use('/upload/users/:photoUserId/photo',upload.array('photos', 10));
   app.use('/upload/users/:photoUserId/photo',routerUser);
