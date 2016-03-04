@@ -30,6 +30,12 @@ main {
 .margin-half-sides {
   margin: .5rem;
 }
+.margin-top-10 {
+  margin-top: 10px;
+}
+.margin-top-20 {
+  margin-top: 20px;
+}
 .margin-top-50 {
   margin-top: 50px;
 }
@@ -81,6 +87,9 @@ a.overlay {
 }
 .border-right {
   border-right: 1px solid #ddd;
+}
+.border-bottom {
+  border-bottom: 1px solid #ddd;
 }
 .relative {
   position: relative;
@@ -174,4 +183,12 @@ hr.half-break {
 nav .dropdown-button {
   text-align: right;
   min-width: 130px;
+}
+table {
+  -webkit-touch-callout: all; /* iOS Safari */
+  -webkit-user-select: all;   /* Chrome/Safari/Opera */
+  -khtml-user-select: all;    /* Konqueror */
+  -moz-user-select: all;      /* Firefox */
+  -ms-user-select: all;       /* IE/Edge */
+  user-select: all;
 }
