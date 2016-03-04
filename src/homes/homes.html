@@ -1,19 +1,23 @@
 {% extends "layout.html" %} {% block content %}
 
+<script>
+console.log('{{debug}}')
+</script>
+
 <div class='profile-slider'>
+  {% if home.photos %}
   <div class="wallop">
     <div class="Wallop-list">
-      {% if home.photos %}
-        {% for photo in home.photos %}
-        <div class="Wallop-item">
-          <img src="{{photo}}" />
-        </div>
-        {% endfor %}
-      {% endif %}
+      {% for photo in home.photos %}
+      <div class="Wallop-item">
+        <img src="{{photo}}" />
+      </div>
+      {% endfor %}
     </div>
     <a class="Wallop-buttonPrevious white-text"><i class="fa fa-chevron-circle-left fa-2x"></i></a>
     <a class="Wallop-buttonNext white-text"><i class="fa fa-chevron-circle-right fa-2x"></i></a>
   </div>
+  {% endif %}
   <div class='immersion-types'>
     <div class='tag'>
       {% for immersion,_ in home.immersions %}
