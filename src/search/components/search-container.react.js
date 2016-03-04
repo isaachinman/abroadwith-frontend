@@ -9,6 +9,9 @@ var Results =         require('./search-results.react');
 var Pagination =      require('./search-pagination.react');
 var Map =             require('./search-map.react');
 
+var i18n = require('../../global/components/i18n');
+i18n.loadNamespaces(['languages']);
+
 module.exports = React.createClass({
   handleChange: function() {
 
@@ -122,7 +125,15 @@ module.exports = React.createClass({
 
     $('select#language').change(function() {
       if ($(this).val() !== 'undefined' && $(this).val() !== '') {
+
         $('#language-switch').attr('disabled') ? $('#language-switch').removeAttr('disabled') : null;
+
+        var language = $(this).val();
+        $('select#language-school option').each(function() {
+          $(this).html(i18n.t('languages:'+language) + ' ' + $(this).val());
+        })
+
+        $('select#language-school').material_select();
       }
     })
 
