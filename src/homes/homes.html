@@ -1,11 +1,7 @@
 {% extends "layout.html" %} {% block content %}
 
-<script>
-console.log('{{debug}}')
-</script>
-
 <div class='profile-slider'>
-  {% if home.photos %}
+  {% if home.photos.length > 0 %}
   <div class="wallop">
     <div class="Wallop-list">
       {% for photo in home.photos %}
@@ -31,12 +27,17 @@ console.log('{{debug}}')
 </div>
 
 <div class='home-user-image'>
-  <img src='{{ home.host.photo }}'>
+  {% if home.host.photo %}
+    <img src='{{ home.host.photo }}'>
+    {% else %}
+    <i class="fa fa-user-secret"></i>
+  {% endif %}
 </div>
 
 <div class='home-title row z-depth-1'>
   <div class='row no-margin'>
-    <h1>{{home.host.firstName}}'s
+    <h1>
+      {{home.host.firstName}}'s
       {% if home.basics.family %}
         {{translations.common.family_home}}
         {% else %}
@@ -47,20 +48,22 @@ console.log('{{debug}}')
 
   <div class='home-details'>
     <span class='type'>
-      {{home.basics.homeType}}
+      {{translations.homes.home_types[home.basics.homeType]}}
     </span>
     <span class='home-details__divider'><i class="fa fa-chevron-right"></i></span>
     <span class='location'>
       {{home.location.city}}
     </span>
-    <span class='rating'>
-      <span class='count'>
-        ({{home.reviewCount}})
+    {% if home.reviewCount %}
+      <span class='rating'>
+        <span class='count'>
+          ({{home.reviewCount}})
+        </span>
+        <span class='stars'>
+          {{home.reviewHTML | safe}}
+        </span>
       </span>
-      <span class='stars'>
-        {{home.reviewHTML | safe}}
-      </span>
-    </span>
+    {% endif %}
   </div>
 </div>
 
@@ -79,18 +82,20 @@ console.log('{{debug}}')
           </div>
         </div>
         <div class='row content'>
+
+          {% if home.host.languagesLearning.length > 0 %}
           <div class='col s12 m6 l12'>
             <p class='no-margin-bottom'>
               <strong>{{translations.common.Learning}}:</strong>
             </p>
-
             {% for language in home.host.languagesLearning %}
               <div class='chip chip--learning'>
-                {{ language.language }}
+                {{ translations.languages[language.language] }}
               </div>
             {% endfor %}
-
           </div>
+          {% endif %}
+
           <div class='col s12 m6 l12'>
             <p class='no-margin-bottom'>
               <strong>{{translations.common.Speaks}}:</strong>
@@ -101,6 +106,7 @@ console.log('{{debug}}')
               </div>
             {% endfor %}
           </div>
+
           {% if home.immersions.teacher %}
           <div class='col s12 m6 l12'>
             <p class='no-margin-bottom'>
@@ -131,7 +137,11 @@ console.log('{{debug}}')
         <div class='row content'>
           <div class='col s12'>
             <p>
-              {{home.description.summary}}
+              {% if home.description.summary %}
+                {{home.description.summary}}
+                {% else %}
+                {{translations.homes.no_description}}
+              {% endif %}
             </p>
           </div>
         </div>
@@ -149,7 +159,7 @@ console.log('{{debug}}')
         <div class='row content bottom-align-column'>
           <div class='col s12'>
             <p class='home-details'>
-              <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{home.host.age}}, {{home.user.gender}}
+              <span class='icon'><i class="fa fa-calendar-o grey-text text-lighten-1"></span></i>{{home.host.age}}{% if home.user.gender %}, {{home.user.gender}}{% endif %}
             </p>
             <p class='home-details'>
               <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>{{translations.common.Member_since}} {{ translations.months.short[home.host.joinedDate[1]-1] }}, {{home.host.joinedDate[0]}}
@@ -229,11 +239,15 @@ console.log('{{debug}}')
           </div>
         </div>
         <div class='row'>
-          <div class='col s12 m4 l5'>
+          <div class='col s12 m4 l5 center-align'>
             <p>
 
             </p>
-            <img class='home-room-image materialboxed' src='{{room.img}}' />
+            {% if room.img %}
+              <img class='home-room-image materialboxed' src='{{room.img}}' />
+              {% else %}
+              <i class="fa fa-home room-image-placeholder"></i>
+            {% endif %}
           </div>
           <div class='col s6 m6 l2'>
             <p class='grey-text text-darken-1'>
@@ -243,7 +257,7 @@ console.log('{{debug}}')
               <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>{{translations.common.Sleeps}}: {{room.vacancies}}
             </p>
             <p class='home-details'>
-              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.common.Shared}}: {{room.shared}}
+              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.common.Shared}}: {{translations.rooms.shared[room.shared]}}
             </p>
             <p class='home-details'>
               <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>{{translations.common.Bed_type}}: {{translations.rooms.bed_types[room.bed]}}
@@ -266,19 +280,19 @@ console.log('{{debug}}')
 
             {% if home.immersions.stay %}
             <p class='home-details capitalise'>
-              {{translations.common.Stay}}: <span class='right'>{{ room.price }} {{home.pricing.currency}}/{{translations.common.week}}</span>
+              {{translations.common.Stay}}: <span class='right'>{{constants.currencies[home.pricing.currency]}}{{ room.price }}/{{translations.common.week}}</span>
             </p>
             {% endif %}
 
             {% if home.immersions.tandem %}
             <p class='home-details capitalise'>
-              {{ translations.common.Tandem }}: <span class='right'>{{ room.price * (100 - home.immersions.tandem.languagesInterested[0].discount)/100 }} {{home.pricing.currency}}/{{translations.common.week}}</span>
+              {{ translations.common.Tandem }}: <span class='right'>{{constants.currencies[home.pricing.currency]}}{{ room.price * (100 - home.immersions.tandem.languagesInterested[0].discount)/100 }}/{{translations.common.week}}</span>
             </p>
             {% endif %}
 
             {% if home.immersions.teacher %}
             <p class='home-details capitalise'>
-              {{ translations.common.Teacher }}: <span class='right'>{{ room.price + (home.immersions.teacher.hourly * home.immersions.teacher.packages[0]) }} {{home.pricing.currency}}/{{translations.common.week}}</span>
+              {{ translations.common.Teacher }}: <span class='right'>{{constants.currencies[home.pricing.currency]}}{{ room.price + (home.immersions.teacher.hourly * home.immersions.teacher.packages[0]) }}/{{translations.common.week}}</span>
             </p>
             {% endif %}
           </div>
@@ -294,11 +308,15 @@ console.log('{{debug}}')
           <div class='col s8'>
             <label>{{translations.common.Room_description}}</label><br>
 
-              {{room.description}}
+              {% if room.description %}
+                {{room.description}}
+                {% else %}
+                {{translations.rooms.no_description}}
+              {% endif %}
 
           </div>
           <div class='col s4 right-align bottom'>
-            <a href={{room.bookNow}} class='btn btn-primary'>{{translations.common.Book_now}}</a>
+            <a class='btn btn-primary'>{{translations.common.Book_now}}</a>
           </div>
         </div>
 
@@ -326,20 +344,20 @@ console.log('{{debug}}')
         </div>
         <div class='row content'>
 
-          {% if home.basics.AMENITIES %}
+          {% if home.basics.AMENITIES.length > 0 %}
             <div class='col s12 m6 l6'>
               <p class='grey-text text-darken-1'>
                 <strong>{{translations.common.Amenities}}:</strong>
               </p>
-              {% for amenity in home.basics.AMENITIES %}
-              <p class='home-details'>
-                <span class='icon'><i class="fa {{constants.icons.amenities[amenity]}} grey-text text-lighten-1"></i></span>{{ translations.homes.amenities[amenity] }}
-              </p>
-              {% endfor %}
+                {% for amenity in home.basics.AMENITIES %}
+                <p class='home-details'>
+                  <span class='icon'><i class="fa {{constants.icons.amenities[amenity]}} grey-text text-lighten-1"></i></span>{{ translations.homes.amenities[amenity] }}
+                </p>
+                {% endfor %}
             </div>
           {% endif %}
 
-          {% if home.basics.EXTRAS %}
+          {% if home.basics.EXTRAS.length > 0 %}
             <div class='col s12 m6 l6'>
               <p class='grey-text text-darken-1'>
                 <strong>{{translations.homes.extras_label}}:</strong>
@@ -352,7 +370,7 @@ console.log('{{debug}}')
             </div>
           {% endif %}
 
-          {% if home.pricing.extras[0] %}
+          {% if home.pricing.extras.length > 0 %}
             <div class='col s12 m6 l6'>
               <p class='grey-text text-darken-1'>
                 <strong>{{translations.common.Services}}:</strong>
@@ -365,7 +383,7 @@ console.log('{{debug}}')
             </div>
           {% endif %}
 
-          {% if home.basics.PREFERENCES %}
+          {% if home.basics.PREFERENCES.length > 0 %}
             <div class='col s12 m6 l6'>
               <p class='grey-text text-darken-1'>
                 <strong>{{translations.common.Preferences}}:</strong>
@@ -400,16 +418,21 @@ console.log('{{debug}}')
             <i class="fa fa-star-o fa-2x grey-text text-lighten-1"></i>
             <span class='title'>{{translations.common.Reviews}}</span>
           </div>
+
+
           <div class='col s3 bottom right-align'>
-            <span class='rating'>
-              <span class='count'>
-                ({{ home.reviewCount }})
+            {% if home.reviewCount %}
+              <span class='rating'>
+                <span class='count'>
+                  ({{ home.reviewCount }})
+                </span>
+                <span class='stars'>
+                  {{home.reviewHTML | safe}}
+                </span>
               </span>
-              <span class='stars'>
-                {{home.reviewHTML | safe}}
-              </span>
-            </span>
+            {% endif %}
           </div>
+
         </div>
         <div class='row no-margin'>
           <div class='col s12 content'>
@@ -434,6 +457,10 @@ console.log('{{debug}}')
                   </div>
                 </div>
               {% endfor %}
+              {% else %}
+              <p class='grey-text'>
+                {{translations.homes.no_reviews}}
+              </p>
             {% endif %}
 
           </div>
@@ -464,19 +491,24 @@ console.log('{{debug}}')
             function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
               center: {lat: {% if home.location.lat %}{{home.location.lat}}{% else %}0{% endif %}, lng: {% if home.location.lng %}{{home.location.lng}}{% else %}0{% endif %}},
-              zoom: 8,
+              zoom: 14,
               options: {
                 scrollwheel: false,
                 mapTypeControl: false,
                 streetViewControl: false
               }
             });
-            var marker = new google.maps.Marker({
-              position: {
-                "lat":{% if home.location.lat %}{{home.location.lat}}{% else %}0{% endif %},
-                "lng":{% if home.location.lng %}{{home.location.lng}}{% else %}0{% endif %}
-              },
-              map: map
+            var circle = new google.maps.Circle({
+              map: map,
+              radius: 150,    // 10 miles in metres
+              strokeColor: '#4A91E2',
+              strokeOpacity: 0.8,
+              fillColor: '#4A91E2',
+              fillOpacity: 0.35,
+              center: {
+                lat: {% if home.location.lat %}{{home.location.lat}}{% else %}0{% endif %},
+                lng: {% if home.location.lng %}{{home.location.lng}}{% else %}0{% endif %}
+              }
             });
           }
           </script>
