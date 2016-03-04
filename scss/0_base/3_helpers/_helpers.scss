@@ -22,7 +22,7 @@ main {
   margin: 0;
 }
 .no-margin-bottom {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 }
 .margin-top-negative {
   margin-top: -1rem;
@@ -191,4 +191,7 @@ table {
   -moz-user-select: all;      /* Firefox */
   -ms-user-select: all;       /* IE/Edge */
   user-select: all;
+}
+.blue-text {
+  color: $havelock-blue !important;
 }

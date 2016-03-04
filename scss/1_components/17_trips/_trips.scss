@@ -1,11 +1,12 @@
 table .status {
   @media #{$large-and-up} {
     padding-right: 20px;
-    background: lighten($havelock-blue, 40%);
-    border-right: 1px solid lighten($havelock-blue, 30%);
+    background: white;
+    border-right: 1px solid #ddd;
   }
 }
 table.trips-table {
+  height: 100%;
   td {
     vertical-align: top;
   }

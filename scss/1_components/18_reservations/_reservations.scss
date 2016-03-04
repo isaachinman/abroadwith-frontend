@@ -1,0 +1,27 @@
+.reservation-btn {
+  @extend .btn-flat;
+  width: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  @media #{$large-and-up} {
+    width: 100%;
+  }
+}
+.pending-reservation, .approved-reservation, .declined-reservation, .cancelled-reservation {
+  font-weight: 600;
+}
+.pending-reservation {
+  color: $sunset-orange;
+}
+.approved-reservation {
+  color: $havelock-blue;
+}
+.declined-reservation, .cancelled-reservation {
+  color: $grey-chateau;
+}
+.reservation-profile-icon {
+  width: 60px;
+  height: 60px;
+}
