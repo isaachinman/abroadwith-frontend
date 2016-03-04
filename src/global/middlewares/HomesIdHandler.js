@@ -21,7 +21,7 @@ module.exports = function (req, res, next, value) {
           var parsed = JSON.parse(body);
           req.context.home = parsed;
           req.context.home.id = value; //TODO make sure it is in the return object.
-          req.context.debug = req.context.home;
+          req.context.debug = JSON.stringify(req.context.home);
           next();
       });
   }).on('error', function(e) {
