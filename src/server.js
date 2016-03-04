@@ -15,6 +15,8 @@ var installAdmin = require('./admin/AdminInstaller');
 var installStatic = require('./static/StaticInstaller');
 var installImageUpload = require('./upload/ImageUploadInstaller');
 var installBooking = require('./booking/BookingInstaller');
+var installReservations = require('./reservations/ReservationsInstaller');
+var installTrips = require('./trips/TripsInstaller');
 
 /** Middlewares **/
 var contextLoader = require('./global/middlewares/ContextLoader');
@@ -63,5 +65,9 @@ installManageHome(app);
 installStatic(app);
 
 installBooking(app);
+
+installReservations(app);
+
+installTrips(app);
 
 http.createServer(app).listen(3000);

@@ -9,15 +9,16 @@ var UiCurrency = React.createClass({
 
     console.log('mounted')
 
-    // Set cookie to UI currency
-    Cookies.set('ui-currency', $('select#ui-currency').val());
+    if (Cookies.get('ui-currency') !== 'undefined') {
+      $('select#ui-currency').val(Cookies.get('ui-currency'))
+    } else {
+        Cookies.set('ui-currency', $('select#ui-currency').val());
+    }
 
     $('select#ui-currency').change(function() {
       Cookies.set('ui-currency', $(this).val());
       console.log(Cookies.get('ui-currency'))
     })
-
-    console.log(Cookies.get('ui-currency'))
 
   },
   render: function() {
