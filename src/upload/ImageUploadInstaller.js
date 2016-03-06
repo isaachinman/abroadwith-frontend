@@ -1,6 +1,7 @@
 var express = require('express');
 var nunjucks = require('nunjucks');
 var https = require('https');
+var http = require('http');
 var domains = require('../global/constants/domains');
 
 var routerPost = express.Router();
@@ -84,8 +85,8 @@ var postSingle = function(req,path,photo,callback){
   var post_data = JSON.stringify({pathName:photo});
 
   var post_options = {
-      host: domains.API.replace("https://",""),
-      port: 443,
+      host: domains.API_DOMAIN,
+      port: domains.API_PORT,
       path: path,
       method: 'POST',
       headers: {
@@ -96,14 +97,21 @@ var postSingle = function(req,path,photo,callback){
   };
 
   // Set up the request
-  var post_req = https.request(post_options, function(res) {
-      res.setEncoding('utf8');
-  });
+  var post_req;
+  if(domains.API_HTTP == "https"){
+    post_req = https.request(post_options, function(res) {
+        res.setEncoding('utf8');
+    });
+  }
+  else{
+    post_req = http.request(post_options, function(res) {
+        res.setEncoding('utf8');
+    });
+  }
 
   post_req.on('error', function (e) {
     callback(e);
   });
-  // post the data
   post_req.write(post_data);
   post_req.end();
   callback();
@@ -118,8 +126,8 @@ var postMultiple = function(req,path,photos,callback){
   var post_data = JSON.stringify(data);
 
   var post_options = {
-      host: domains.API.replace("https://",""),
-      port: 443,
+      host: domains.API_DOMAIN,
+      port: domains.API_PORT,
       path: path,
       method: 'POST',
       headers: {
@@ -130,15 +138,22 @@ var postMultiple = function(req,path,photos,callback){
   };
 
   // Set up the request
-  var post_req = https.request(post_options, function(res) {
-      res.setEncoding('utf8');
-  });
+  var post_req;
+  if(domains.API_HTTP == "https"){
+    post_req = https.request(post_options, function(res) {
+        res.setEncoding('utf8');
+    });
+  }
+  else{
+    post_req = http.request(post_options, function(res) {
+        res.setEncoding('utf8');
+    });
+  }
 
   post_req.on('error', function (e) {
     callback(e);
   });
   // post the data
-  console.log("Posting ",post_data);
   post_req.write(post_data);
   post_req.end();
   callback();
@@ -150,6 +165,7 @@ routerUser.post('/', function (req, res) {
     res.status(401).send('Restricted function.');
     return;
   }
+
   if(req.files.length > 1){
     res.status(400).send('Multiple files are not accepted.');
     return;
@@ -287,18 +303,22 @@ var installer = function(app) {
   app.param('photoUserId',userIdHandler);
   app.param('photoHomeId',homeIdHandler);
   app.param('photoRoomId',roomIdHandler);
+
   app.use(headerTokenHandler);
+
+  //TODO this app.use('/upload/*',upload.array('photos', 10));
   app.use('/upload/users/:photoUserId/photo',upload.array('photos', 10));
   app.use('/upload/users/:photoUserId/photo',routerUser);
 
-  app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',upload.array('photos', 10));
   app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',routerHome);
+  app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',upload.array('photos', 10));
 
-  app.use('/upload/users/:photoUserId/homes/:photoHomeId/rooms/:photoRoomId/photo',upload.array('photos', 10));
   app.use('/upload/users/:photoUserId/homes/:photoHomeId/rooms/:photoRoomId/photo',routerRoom);
-  //app.use('/upload/user/home/:homePhotoId/rooms/:roomPhotoId/photo',upload.single('photo'));
-  //app.use('/upload/user/home/:homePhotoId/photo',upload.array('photos', 10));
-  //app.use('/upload',routerPost);
+  app.use('/upload/users/:photoUserId/homes/:photoHomeId/rooms/:photoRoomId/photo',upload.array('photos', 10));
+
+
+
+
   app.use('/upload',routerGet);
 };
 

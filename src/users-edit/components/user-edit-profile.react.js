@@ -57,7 +57,7 @@ module.exports = React.createClass({
 
         console.log(response)
 
-        $('#user-photo').attr('src', response.photo);
+        $('#user-photo').attr('src', domains.IMG + response.photo);
         $('#about-me').val(response.aboutMe);
         $('#education').val(response.education);
         $('#grew-up').val(response.grewUp);
