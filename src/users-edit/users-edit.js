@@ -33,7 +33,7 @@ if ($('#user-edit-profile').length) {
                 cache : false,
                 contentType : false,
                 processData : false,
-                beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+                beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
                 success : function(data, textStatus, jqXHR) {
                       var message = jqXHR.responseText;
                       var result = JSON.parse(data);

@@ -11,8 +11,9 @@ var public_key = "-----BEGIN PUBLIC KEY-----\n"+
 "-----END PUBLIC KEY-----"
 
 module.exports = function (req, res, next) {
-  if (req.headers && req.headers.authorization) {
-    var parts = req.headers.authorization.split(' ');
+  //TODO this is a temporary fix using a separated header. Unify API and here using custom header.
+  if (req.headers && req.headers.abroadauth) {
+    var parts = req.headers.abroadauth.split(' ');
     if (parts.length === 2 && parts[0] === 'Bearer') {
       req.token = parts[1];
       var decoded = jwt.verify(req.token, new Buffer(public_key,'utf8'), { algorithms: ['RS512'] }, function (err, payload) {
