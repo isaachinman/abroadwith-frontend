@@ -1,6 +1,7 @@
 var domains = require('domains');
 var login = require('./login');
 var jwt_decode = require('jwt-decode');
+var domains = require('domains');
 
 // Language-learn select
 $('select#learning-language').length ? $('select#learning-language').select2() : null;
@@ -97,7 +98,7 @@ if ($('form#email-signup-form').length) {
 
           $.ajax({
             type: "POST",
-            url: 'https://admin.abroadwith.com/users',
+            url: domains.API + '/users',
             data: JSON.stringify(newUser),
             contentType: "application/json",
             processData: false,
@@ -109,7 +110,7 @@ if ($('form#email-signup-form').length) {
 
               $.ajax({
                 type: "POST",
-                url: 'https://admin.abroadwith.com/users/login',
+                url: domains.API + '/users/login',
                 contentType: "application/json",
                 data: JSON.stringify(loginObj),
                 success: function(JWT) {
@@ -291,7 +292,7 @@ if ($('form#email-signup-form').length) {
 
       $.ajax({
         type: "POST",
-        url: 'https://admin.abroadwith.com/users',
+        url: domains.API + '/users',
         data: JSON.stringify(newUser),
         contentType: "application/json",
         processData: false,

@@ -1,4 +1,5 @@
 var https = require('https');
+var domains= require('../constants/domains');
 
 module.exports = function (req, res, next, value) {
   if(!req.context) req.context = {};
@@ -7,7 +8,7 @@ module.exports = function (req, res, next, value) {
     return;
   }
 
-    https.get("https://admin.abroadwith.com/users/320/homes/"+value+"/public",
+    https.get(domains.API + "/users/320/homes/"+value+"/public",
     function (response) {
       var body = '';
       if(response.statusCode == 404){

@@ -1,6 +1,7 @@
 var express = require('express');
 var nunjucks = require('nunjucks');
 var https = require('https');
+var domains = require('../global/constants/domains');
 
 var routerPost = express.Router();
 var routerGet = express.Router();
@@ -83,7 +84,7 @@ var postSingle = function(req,path,photo,callback){
   var post_data = JSON.stringify({pathName:photo});
 
   var post_options = {
-      host: 'admin.abroadwith.com',
+      host: domains.API.replace("https://",""),
       port: 443,
       path: path,
       method: 'POST',
@@ -117,7 +118,7 @@ var postMultiple = function(req,path,photos,callback){
   var post_data = JSON.stringify(data);
 
   var post_options = {
-      host: 'admin.abroadwith.com',
+      host: domains.API.replace("https://",""),
       port: 443,
       path: path,
       method: 'POST',

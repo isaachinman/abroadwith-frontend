@@ -56,7 +56,7 @@ $('.fb-login').click(function() {
 
         $.ajax({
           type: "POST",
-          url: 'https://admin.abroadwith.com/users/login',
+          url: domains.API + '/users/login',
           contentType: "application/json",
           data: JSON.stringify(loginObj),
           success: function(JWT) {
