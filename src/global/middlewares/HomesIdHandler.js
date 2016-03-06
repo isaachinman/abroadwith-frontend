@@ -7,8 +7,7 @@ module.exports = function (req, res, next, value) {
     res.status(404).send('Not a proper home id.');
     return;
   }
-/*
-    https.get(domains.API + "/public/homes/"+value,
+  https.get(domains.API + "/public/homes/"+value,
     function (response) {
       var body = '';
       if(response.statusCode == 404){
@@ -28,5 +27,5 @@ module.exports = function (req, res, next, value) {
   }).on('error', function(e) {
     console.log(e);
     res.status(500).send("Can't connect to API.");
-  });*/
+  });
 }
