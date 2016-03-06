@@ -8,7 +8,7 @@ module.exports = function (req, res, next, value) {
     return;
   }
 
-    https.get(domains.API + "/public/homes/"+value+"/public",
+    https.get(domains.API + "/public/homes/"+value,
     function (response) {
       var body = '';
       if(response.statusCode == 404){
