@@ -41,7 +41,7 @@ installTest(app);
 installMessaging(app);
 /** END TEST **/
 
-//installImageUpload(app);
+installImageUpload(app);
 
 installMain(app);
 
