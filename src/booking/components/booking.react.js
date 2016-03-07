@@ -13,8 +13,8 @@ $('.scrollspy').scrollSpy();
 
 var currencies = require('currencies');
 
-var domains = require('domains');
-var jwt_decode = require('jwt-decode');
+var i18n = require('../../global/components/i18n');
+i18n.loadNamespaces(['homes']);
 
 module.exports = React.createClass({
   createBookingObject: function() {
@@ -130,10 +130,10 @@ module.exports = React.createClass({
       }
       $('.extras-display').html(extrasDisplay);
 
-      if ($('#meal_plan option:selected').attr('data-price') !== 'undefined') {
-        $('.meal-display').html($('#meal_plan').val() + ' (' + this.state.currency + $('#meal_plan option:selected').attr('data-price') + ')');
+      if ($('#meal_plan option:selected').val() !== 'BREAKFAST_ONLY') {
+        $('.meal-display').html(i18n.t('homes:menus_offered.'+$('#meal_plan').val()) + ' (' + currencies[this.state.currency] + $('#meal_plan option:selected').attr('data-price') + ')');
       } else {
-        $('.meal-display').html($('#meal_plan').val());
+        $('.meal-display').html(i18n.t('homes:menus_offered.'+$('#meal_plan').val()));
       }
 
     });
