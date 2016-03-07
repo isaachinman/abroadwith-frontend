@@ -36,6 +36,7 @@ if ($('#user-edit-profile').length) {
                       for(var img in result){
                         if(result[img].status == 'OK'){
                           $('#user-photo').attr('src', domains.IMG + result[img].location);
+                          window.userObj.photo = result[img].location;
                         }
                       }
                 },

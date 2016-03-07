@@ -6,7 +6,7 @@
     <div class="Wallop-list">
       {% for photo in home.photos %}
       <div class="Wallop-item">
-        <img src="{{photo}}" />
+        <img src="{{constants.domains.IMG}}{{photo}}" />
       </div>
       {% endfor %}
     </div>
@@ -28,7 +28,7 @@
 
 <div class='home-user-image'>
   {% if home.host.photo %}
-    <img src='{{ home.host.photo }}'>
+    <img src='{{constants.domains.IMG}}{{ home.host.photo }}'>
     {% else %}
     <i class="fa fa-user-secret"></i>
   {% endif %}
@@ -244,7 +244,7 @@
 
             </p>
             {% if room.img %}
-              <img class='home-room-image materialboxed' src='{{room.img}}' />
+              <img class='home-room-image materialboxed' src='{{constants.domains.IMG}}{{room.img}}' />
               {% else %}
               <i class="fa fa-home room-image-placeholder"></i>
             {% endif %}
