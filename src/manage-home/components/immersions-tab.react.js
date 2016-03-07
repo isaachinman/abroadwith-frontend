@@ -129,6 +129,7 @@ module.exports = React.createClass({
         $.each(this.props.immersions.tandem.languagesInterested, function(lang, offered) {
           tandemLanguagesInterested.append("<option value='"+lang+"'>"+i18n.t('languages:'+lang)+"</option>")
         });
+        
       }
 
       var interestedLanguageChips = [];
