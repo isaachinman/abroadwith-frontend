@@ -23,6 +23,7 @@
     "jsonwebtoken": "^5.5.4",
     "jwt-client": "^0.2.0",
     "jwt-decode": "^1.5.1",
+    "libphonenumber": "0.0.9",
     "lwip": "0.0.8",
     "materialize-css": "git+https://github.com/SourceComb/materialize.git",
     "multer": "^1.1.0",

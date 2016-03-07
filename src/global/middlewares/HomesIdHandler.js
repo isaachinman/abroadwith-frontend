@@ -1,5 +1,5 @@
 var https = require('https');
-var domains= require('../constants/domains');
+var domains= require('../../global/constants/domains');
 
 module.exports = function (req, res, next, value) {
   if(!req.context) req.context = {};

@@ -19,9 +19,7 @@
 
         <select id='ui-currency' class='material'>
           {% for currency, symbol in constants.currencies %}
-            <option value={{currency}} data-symbol={{symbol}}>
-              {{currency}}
-            </option>
+            <option value={{currency}} data-symbol={{symbol}}>{{currency}}</option>
           {% endfor %}
         </select>
       </div>

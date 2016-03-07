@@ -11,45 +11,57 @@
       <div class='col s12'>
         <h1>{{user.firstName}}</h1>
 
-        <span class='rating'>
-          <span class='count'>
-            ({{user.ratingCount}})
+        {% if user.ratingCount %}
+          <span class='rating'>
+            <span class='count'>
+              ({{user.ratingCount}})
+            </span>
+            <span class='stars'>
+              {{user.ratingHTML | safe}}
+            </span>
           </span>
-          <span class='stars'>
-            {{user.ratingHTML | safe}}
-          </span>
-        </span>
+        {% endif %}
 
       </div>
 
       <div class='col s10 quick-facts'>
 
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{user.age}}, {{translations.common[user.gender]}}
+          <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{user.age}}{% if user.gender %}, {{translations.common[user.gender]}}{% endif %}
         </p>
         <p class='home-details'>
           <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>{{translations.common.Joined}} {{translations.months.short[user.joinedMonth]}} {{user.joinedYear}}
         </p>
         {% if user.homeCountry %}
-        <p class='home-details'>
-          <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{% if user.homeCity %}{{user.homeCity}}, {%endif%} {{user.homeCountry}}
-        </p>
-        {%endif%}
-        <p class='home-details'>
-          <span class='icon'><i class="fa fa-briefcase grey-text text-lighten-1"></span></i>{{user.occupation}}
-        </p>
-        <p class='home-details'>
-          <span class='icon'><i class="fa fa-check-circle grey-text text-lighten-1"></span></i>{{user.isEmailVerified}}
-        </p>
-        <p class='home-details'>
-          <span class='icon'><i class="fa fa-quote-right grey-text text-lighten-1"></span></i>{{user.referenceCount}} {{translations.common.references}}
-        </p>
-        <p class='home-details'>
-          <span class='icon'><i class="fa fa-graduation-cap grey-text text-lighten-1"></span></i>{{user.education}}
-        </p>
-        <p class='home-details'>
-          <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>{{user.isHost}}
-        </p>
+          <p class='home-details'>
+            <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{% if user.homeCity %}{{user.homeCity}}, {%endif%} {{user.homeCountry}}
+          </p>
+        {% endif %}
+        {% if user.occupation %}
+          <p class='home-details'>
+            <span class='icon'><i class="fa fa-briefcase grey-text text-lighten-1"></span></i>{{user.occupation}}
+          </p>
+        {% endif %}
+        {% if user.isEmailVerified %}
+          <p class='home-details'>
+            <span class='icon'><i class="fa fa-check-circle grey-text text-lighten-1"></span></i>{{user.isEmailVerified}}
+          </p>
+        {% endif %}
+        {% if user.referenceCount %}
+          <p class='home-details'>
+            <span class='icon'><i class="fa fa-quote-right grey-text text-lighten-1"></span></i>{{user.referenceCount}} {{translations.common.references}}
+          </p>
+        {% endif %}
+        {% if user.education %}
+          <p class='home-details'>
+            <span class='icon'><i class="fa fa-graduation-cap grey-text text-lighten-1"></span></i>{{user.education}}
+          </p>
+        {% endif %}
+        {% if user.isHost %}
+          <p class='home-details'>
+            <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>{{user.isHost}}
+          </p>
+        {% endif %}
 
       </div>
 
@@ -59,10 +71,11 @@
       <div class='col s12'>
         <ul class="tabs user-profile-tabs">
           <li class="tab col s3"><a href="#about" class='active'>{{translations.common.About}}</a></li>
+
           <li class="tab col s3"><a href="#reviews"><span class='hide-on-small-and-down'>{{translations.common.References}} & </span>{{translations.common.reviews}}</a></li>
 
-          {% if user.home %}
-          <li class="tab col s3"><a href="#stay">{{translations.common.Stay}}</a></li>
+          {% if user.home.isActive == true %}
+            <li class="tab col s3"><a href="#stay">{{translations.common.Stay}}</a></li>
           {% endif %}
 
         </ul>
@@ -87,16 +100,18 @@
               </div>
             </div>
             <div class='row content'>
-              <div class='col s12 m6 l12'>
-                <p class='no-margin-bottom'>
-                  <strong>{{translations.common.Learning}}:</strong>
-                </p>
-                {% for language in user.languagesLearning %}
-                  <div class='chip chip--learning'>
-                    {{translations.languages[language.language]}}
-                  </div>
-                {% endfor %}
-              </div>
+              {% if user.languagesLearning.length > 0 %}
+                <div class='col s12 m6 l12'>
+                  <p class='no-margin-bottom'>
+                    <strong>{{translations.common.Learning}}:</strong>
+                  </p>
+                  {% for language in user.languagesLearning %}
+                    <div class='chip chip--learning'>
+                      {{translations.languages[language.language]}}
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
               <div class='col s12 m6 l12'>
                 <p class='no-margin-bottom'>
                   <strong>{{translations.common.Speaks}}:</strong>
@@ -122,7 +137,11 @@
             <div class='row content'>
               <div class='col s12'>
                 <p>
-                  {{user.aboutMe}}
+                  {% if user.aboutMe %}
+                    {{user.aboutMe}}
+                  {% else %}
+                    {{translations.users.no_about_me}}
+                  {% endif %}
                 </p>
               </div>
             </div>
@@ -139,42 +158,65 @@
             </div>
             <div class='row content'>
               <div class='col s12'>
-                <p class='home-details'>
-                  <span class='icon'><i class="fa fa-graduation-cap grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Education}}:</strong> {{user.education}}
-                </p>
-                <p class='home-details'>
-                  <span class='icon'><i class="fa fa-building-o grey-text text-lighten-1"></i></span>
-                  <strong>Grew up:</strong> {{user.grewUp}}
-                </p>
-                <p class='home-details'>
-                  <span class='icon'><i class="fa fa-book grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Favourite_book}}:</strong> {{user.favouriteBooks}}
-                </p>
-                <p class='home-details'>
-                  <span class='icon'><i class="fa fa-film grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Favourite_film}}:</strong> {{user.favouriteFilms}}
-                </p>
-                <p class='home-details'>
-                  <span class='icon'><i class="fa fa-bolt grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Amazing_feat}}:</strong> {{user.amazingFeat}}
-                </p>
-                <p class='home-details'>
-                  <span class='icon'><i class="fa fa-share-square-o grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Can_share}}:</strong> {{user.canShare}}
-                </p>
-                <p class='home-details'>
-                  <span class='icon'><i class="fa fa-star grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Interests}}:</strong> {{user.interests}}
-                </p>
-                <p class='home-details'>
-                  <span class='icon'><i class="fa fa-plane grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Visited}}:</strong> {{user.hasVisited}}
-                </p>
-                <p class='home-details'>
-                  <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Lived_in}}:</strong> {{user.hasLived}}
-                </p>
+                {% if not user.education and not user.grewUp and not user.favouriteBooks and not user.favouriteFilms and not user.amazingFeat and not user.canShare and not user.interests.length > 0 and not user.hasVisited and not user.hasLived %}
+                  <p>
+                    {{translations.users.no_details}}
+                  </p>
+                {% endif %}
+                {% if user.education %}
+                  <p class='home-details'>
+                    <span class='icon'><i class="fa fa-graduation-cap grey-text text-lighten-1"></i></span>
+                    <strong>{{translations.common.Education}}:</strong> {{user.education}}
+                  </p>
+                {% endif %}
+                {% if user.grewUp %}
+                  <p class='home-details'>
+                    <span class='icon'><i class="fa fa-building-o grey-text text-lighten-1"></i></span>
+                    <strong>Grew up:</strong> {{user.grewUp}}
+                  </p>
+                {% endif %}
+                {% if user.favouriteBooks %}
+                  <p class='home-details'>
+                    <span class='icon'><i class="fa fa-book grey-text text-lighten-1"></i></span>
+                    <strong>{{translations.common.Favourite_book}}:</strong> {{user.favouriteBooks}}
+                  </p>
+                {% endif %}
+                {% if user.favouriteFilms %}
+                  <p class='home-details'>
+                    <span class='icon'><i class="fa fa-film grey-text text-lighten-1"></i></span>
+                    <strong>{{translations.common.Favourite_film}}:</strong> {{user.favouriteFilms}}
+                  </p>
+                {% endif %}
+                {% if user.amazingFeat %}
+                  <p class='home-details'>
+                    <span class='icon'><i class="fa fa-bolt grey-text text-lighten-1"></i></span>
+                    <strong>{{translations.common.Amazing_feat}}:</strong> {{user.amazingFeat}}
+                  </p>
+                {% endif %}
+                {% if user.canShare %}
+                  <p class='home-details'>
+                    <span class='icon'><i class="fa fa-share-square-o grey-text text-lighten-1"></i></span>
+                    <strong>{{translations.common.Can_share}}:</strong> {{user.canShare}}
+                  </p>
+                {% endif %}
+                {% if user.interests.length > 0 %}
+                  <p class='home-details'>
+                    <span class='icon'><i class="fa fa-star grey-text text-lighten-1"></i></span>
+                    <strong>{{translations.common.Interests}}:</strong> {{user.interests}}
+                  </p>
+                {% endif %}
+                {% if user.hasVisited %}
+                  <p class='home-details'>
+                    <span class='icon'><i class="fa fa-plane grey-text text-lighten-1"></i></span>
+                    <strong>{{translations.common.Visited}}:</strong> {{user.hasVisited}}
+                  </p>
+                {% endif %}
+                {% if user.hasLived %}
+                  <p class='home-details'>
+                    <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></i></span>
+                    <strong>{{translations.common.Lived_in}}:</strong> {{user.hasLived}}
+                  </p>
+                {% endif %}
               </div>
             </div>
           </div>
@@ -221,7 +263,9 @@
                     </div>
                   {% endfor %}
                 {% else %}
-                  {{user.firstName}} {{translations.common.doesnt_have_any_references_yet}}
+                  <p>
+                    {{user.firstName}} {{translations.common.doesnt_have_any_references_yet}}
+                  </p>
                 {% endif %}
 
               </div>
@@ -271,7 +315,9 @@
                     </div>
                   {% endfor %}
                 {% else %}
-                {{user.firstName}} {{translations.common.doesnt_have_any_reviews_yet}}
+                <p>
+                  {{user.firstName}} {{translations.common.doesnt_have_any_reviews_yet}}
+                </p>
                 {% endif %}
 
               </div>
@@ -283,122 +329,122 @@
     </div>
   </div>
 </div>
-{% if user.home %}
-<div id='stay' class='container left-align'>
-  <div class='row no-margin'>
+{% if user.home == true %}
+  <div id='stay' class='container left-align'>
+    <div class='row no-margin'>
 
-    <div class='col s12 m3 l3'>
-      <div class='card home-card home-card--fixed-height-short'>
-        <div class='row'>
-          <div class='col s12'>
-            <i class="fa fa-home fa-2x grey-text text-lighten-1"></i>
-            <span class='title'>{{translations.common.Home_info}}</span>
-          </div>
-        </div>
-
-        <div class='row content bottom-align-column'>
-          <div class='col s12'>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>{{user.home.houseType}}
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{{user.home.location.city}}, {{user.country}}
-            </p>
-            <p class='home-details'>
-              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{user.home.family}}
-            </p>
-            <div class='divider'></div>
-          </div>
-          <div class='col s12 bottom center-align'>
-            <a class='btn btn-secondary '>{{translations.common.View_home}}</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class='col s12 m9 l9'>
-      {% for room in user.home %}
-        <div class='card home-card'>
+      <div class='col s12 m3 l3'>
+        <div class='card home-card home-card--fixed-height-short'>
           <div class='row'>
-
             <div class='col s12'>
-              <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
-              <span class='title'>{{room.name}}</span>
-            </div>
-          </div>
-          <div class='row'>
-            <div class='col s12 m4 l5'>
-              <p>
-
-              </p>
-              <img class='home-room-image materialboxed' src='{{room.photo}}' />
-            </div>
-            <div class='col s6 m6 l2'>
-              <p class='grey-text text-darken-1'>
-                <strong>{{translations.common.Basics}}:</strong>
-              </p>
-              <p class='home-details'>
-                <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>{{translations.common.Sleeps}}: {{room.vacancies}}
-              </p>
-              <p class='home-details'>
-                <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.common.Shared}}: {{room.shared}}
-              </p>
-              <p class='home-details'>
-                <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>{{translations.common.Bed_type}}: {{room.bedType}}
-              </p>
-            </div>
-            <div class='col s6 m6 l2'>
-              <p class='grey-text text-darken-1'>
-                <strong>Facilities:</strong>
-              </p>
-              {% for facility in room.facilities %}
-                <p class='home-details'>
-                  <span class='icon'><i class="fa {{facility.icon}} grey-text text-lighten-1"></span></i>{{facility.name}}
-                </p>
-              {% endfor %}
-            </div>
-            <div class='col s6 m12 l3'>
-              <p class='grey-text text-darken-1'>
-                <strong>{{translations.common.Price}}:</strong>
-              </p>
-              <p class='home-details'>
-              <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>{{translations.common.Stay}}: <span class='right'>€{{room.stayPrice}}/{{translations.common.week}}</span>
-              </p>
-              <p class='home-details'>
-              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.common.Tandem}}: <span class='right'>€{{room.tandemPrice}}/{{translations.common.week}}</span>
-              </p>
-              <p class='home-details'>
-              <span class='icon'><i class="fa fa-university grey-text text-lighten-1"></span></i>{{translations.common.Teacher}}: <span class='right'>€{{room.teacherPrice}}/{{translations.common.week}}</span>
-              </p>
-
+              <i class="fa fa-home fa-2x grey-text text-lighten-1"></i>
+              <span class='title'>{{translations.common.Home_info}}</span>
             </div>
           </div>
 
-          <div class='row section'>
+          <div class='row content bottom-align-column'>
             <div class='col s12'>
+              <p class='home-details'>
+                <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>{{user.home.houseType}}
+              </p>
+              <p class='home-details'>
+                <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{{user.home.location.city}}, {{user.country}}
+              </p>
+              <p class='home-details'>
+                <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{user.home.family}}
+              </p>
               <div class='divider'></div>
             </div>
-          </div>
-
-          <div class='row bottom-align-row'>
-            <div class='col s8'>
-              <label>{{translations.common.Room_description}}</label><br>
-
-                {{room.description}}
-
-            </div>
-            <div class='col s4 right-align bottom'>
-              <a href='{{room.bookingUrl}}' class='btn btn-primary'>Book now</a>
+            <div class='col s12 bottom center-align'>
+              <a class='btn btn-secondary '>{{translations.common.View_home}}</a>
             </div>
           </div>
 
         </div>
-      {% endfor %}
-    </div>
+      </div>
 
+      <div class='col s12 m9 l9'>
+        {% for room in user.home %}
+          <div class='card home-card'>
+            <div class='row'>
+
+              <div class='col s12'>
+                <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
+                <span class='title'>{{room.name}}</span>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col s12 m4 l5'>
+                <p>
+
+                </p>
+                <img class='home-room-image materialboxed' src='{{room.photo}}' />
+              </div>
+              <div class='col s6 m6 l2'>
+                <p class='grey-text text-darken-1'>
+                  <strong>{{translations.common.Basics}}:</strong>
+                </p>
+                <p class='home-details'>
+                  <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>{{translations.common.Sleeps}}: {{room.vacancies}}
+                </p>
+                <p class='home-details'>
+                  <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.common.Shared}}: {{room.shared}}
+                </p>
+                <p class='home-details'>
+                  <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>{{translations.common.Bed_type}}: {{room.bedType}}
+                </p>
+              </div>
+              <div class='col s6 m6 l2'>
+                <p class='grey-text text-darken-1'>
+                  <strong>Facilities:</strong>
+                </p>
+                {% for facility in room.facilities %}
+                  <p class='home-details'>
+                    <span class='icon'><i class="fa {{facility.icon}} grey-text text-lighten-1"></span></i>{{facility.name}}
+                  </p>
+                {% endfor %}
+              </div>
+              <div class='col s6 m12 l3'>
+                <p class='grey-text text-darken-1'>
+                  <strong>{{translations.common.Price}}:</strong>
+                </p>
+                <p class='home-details'>
+                <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>{{translations.common.Stay}}: <span class='right'>€{{room.stayPrice}}/{{translations.common.week}}</span>
+                </p>
+                <p class='home-details'>
+                <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.common.Tandem}}: <span class='right'>€{{room.tandemPrice}}/{{translations.common.week}}</span>
+                </p>
+                <p class='home-details'>
+                <span class='icon'><i class="fa fa-university grey-text text-lighten-1"></span></i>{{translations.common.Teacher}}: <span class='right'>€{{room.teacherPrice}}/{{translations.common.week}}</span>
+                </p>
+
+              </div>
+            </div>
+
+            <div class='row section'>
+              <div class='col s12'>
+                <div class='divider'></div>
+              </div>
+            </div>
+
+            <div class='row bottom-align-row'>
+              <div class='col s8'>
+                <label>{{translations.common.Room_description}}</label><br>
+
+                  {{room.description}}
+
+              </div>
+              <div class='col s4 right-align bottom'>
+                <a href='{{room.bookingUrl}}' class='btn btn-primary'>Book now</a>
+              </div>
+            </div>
+
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
   </div>
-</div>
 {% endif %}
 
 {% endblock %}

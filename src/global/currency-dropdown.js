@@ -7,12 +7,11 @@ var UiCurrency = React.createClass({
   },
   componentDidMount: function() {
 
-    console.log('mounted')
-
-    if (Cookies.get('ui-currency') !== 'undefined') {
-      $('select#ui-currency').val(Cookies.get('ui-currency'))
+    if (Cookies.get('ui-currency') === 'undefined') {
+      Cookies.set('ui-currency', 'EUR');
     } else {
-        Cookies.set('ui-currency', $('select#ui-currency').val());
+      $('select#ui-currency').val(Cookies.get('ui-currency'));
+      $('select#ui-currency').material_select();
     }
 
     $('select#ui-currency').change(function() {
