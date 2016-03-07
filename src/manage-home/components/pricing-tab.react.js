@@ -4,8 +4,6 @@ var RoomPriceModule = require('./room-price-module.react');
 var i18n = require('../../global/components/i18n');
 var toast = require('toast');
 
-i18n.loadNamespaces(['manage_home','homes']);
-
 module.exports = React.createClass({
   savePricing: function() {
 
