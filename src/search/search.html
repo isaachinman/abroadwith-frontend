@@ -12,20 +12,22 @@
           <div class='chip chip-grey'>{{translations.common.Dates}}</div>
         </div>
         <div class='input-field col s3 valign'>
-          <input id='arrival' type="text" class='datepicker' />
+          <input id='arrival' type="text" class='datepicker' value='{{query.arrival}}' />
           <label for='arrival' class='active'>{{translations.common.Arrival}}</label>
         </div>
         <div class='input-field col s3 valign'>
-          <input id='departure' type="text" class="datepicker" />
+          <input id='departure' type="text" class="datepicker" value='{{query.departure}}' />
           <label for='departure' class='active'>{{translations.common.Departure}}</label>
         </div>
         <div class='input-field col s4'>
-          <select id='guests' class='material' >
-            <option value="1">1 {{translations.common.guest}}</option>
-            <option value="2">2 {{translations.common.guests}}</option>
-            <option value="3">3 {{translations.common.guests}}</option>
-            <option value="4">4 {{translations.common.guests}}</option>
-            <option value="5">5 {{translations.common.guests}}</option>
+          <select id='guests' class='material'>
+            {% for i in range (1,5) %}
+              {% if query.guests == i %}
+                <option value={{i}} selected>{{i}} {% if i == 1%}{{translations.common.guest}}{% else %}{{translations.common.guests}}{% endif %}</option>
+              {% else %}
+                <option value={{i}}>{{i}} {% if i == 1%}{{translations.common.guest}}{% else %}{{translations.common.guests}}{% endif %}</option>
+              {% endif %}
+            {% endfor %}
           </select>
         </div>
       </div>
@@ -40,7 +42,11 @@
           <select id="language" type="text" class="validate border-radius-left">
             <option></option>
             {% for code, lang in translations.languages %}
-              <option value={{code}}>{{lang}}</option>
+              {% if query.language == code %}
+                <option value={{code}} selected>{{lang}}</option>
+              {% else %}
+                <option value={{code}}>{{lang}}</option>
+              {% endif %}
             {% endfor %}
           </select>
         </div>
