@@ -17,3 +17,28 @@ table.trips-table {
 .trips-icon {
   color: lighten($havelock-blue, 15%);
 }
+ul.trips {
+  max-width: 1200px;
+  margin: 0 auto;
+  .collapsible-header {
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-all;
+    height:8rem;
+    line-height: 8rem;
+    font-size: 1.2rem;
+    padding: 0 2rem 0 12rem;
+
+  }
+  img.room-thumbnail {
+    @extend .hide-on-small-and-down;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    max-width: 10rem;
+    max-height: 6rem;
+  }
+}
