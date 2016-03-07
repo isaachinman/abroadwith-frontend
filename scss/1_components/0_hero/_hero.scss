@@ -11,6 +11,8 @@
     background: rgba(50,50,50,.65);
     .language {
       width: calc(100% - 680px);
+      height: 3rem;
+      background: white;
     }
     .location {
       max-width: 160px;
@@ -22,7 +24,9 @@
       max-width: 120px;
     }
     .guests {
-      max-width: 120px;
+      width: 120px;
+      height: 3rem;
+      background: white;
     }
     .search {
       float: right;
