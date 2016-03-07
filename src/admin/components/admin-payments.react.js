@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
       var paymentMethods = this.props.paymentMethods;
 
-      console.log(paymentMethods)
+      var callback = this.props.updateAdmin;
 
       var PaymentMethodContainer = React.createClass({
         render: function() {

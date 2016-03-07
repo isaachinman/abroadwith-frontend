@@ -15,8 +15,7 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
-        ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(this).parentNode);
-        console.log(response)
+        location.reload();
 
       }.bind(this),
       error: function() {
