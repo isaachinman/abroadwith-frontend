@@ -61,8 +61,9 @@ module.exports = React.createClass({
               paypal: true
             },
             onPaymentMethodReceived: function (obj) {
+              $('#preloader').show()
               sendPaymentNonce(obj.nonce, function() {
-                ReactDOM.unmountComponentAtNode(document.getElementById('body'))
+                location.reload();
               });
             },
             onReady: function() {

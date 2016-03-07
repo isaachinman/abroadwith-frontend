@@ -42,9 +42,7 @@ module.exports = React.createClass({
   componentDidMount: function() {
 
     $('#add-learning-language').click(processLanguageChips('learning'));
-    $('#add-known-language').click(function() {
-      processLanguageChips('known');
-    });
+    $('#add-known-language').click(processLanguageChips('known'));
     $('a#save-languages').click(this.saveLanguages);
 
   },
@@ -95,7 +93,7 @@ module.exports = React.createClass({
           var languagesLearningHTML = []
           languagesLearning.forEach(function(lang) {
             languagesLearningHTML.push(
-              <div className="language-learning-chip chip" data-lang={lang.lang} data-level={lang.level}>{i18n.t('languages:'+lang.lang)} ({(i18n.t('common:'+'learningLevels.'+lang.level))})<i className="material-icons">close</i></div>
+              <div className="language-learning-chip chip" data-lang={lang.language} data-level={lang.level}>{i18n.t('languages:'+lang.language)} ({(i18n.t('common:'+'learningLevels.'+lang.level))})<i className="material-icons">close</i></div>
             )
           })
           return (

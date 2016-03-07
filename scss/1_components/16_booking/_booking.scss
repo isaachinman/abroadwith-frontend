@@ -46,13 +46,18 @@
   a.active {
     font-weight: 600;
   }
-  .total-price {
+  .total-price-container {
     background: white;
     margin: 20px 20px 0 20px;
     width: calc(100% - 40px);
     position: absolute;
     bottom: 0;
     left: 0;
+    .right {
+      text-align: right;
+      min-width: 50%;
+      min-height: 100%;
+    }
   }
   .primary-info {
     background: lighten($ziggurat, 20%);

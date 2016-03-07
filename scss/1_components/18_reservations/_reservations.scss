@@ -11,6 +11,7 @@
 }
 .pending-reservation, .approved-reservation, .declined-reservation, .cancelled-reservation {
   font-weight: 600;
+  float: right;
 }
 .pending-reservation {
   color: $sunset-orange;

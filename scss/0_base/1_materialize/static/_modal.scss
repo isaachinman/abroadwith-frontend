@@ -5,10 +5,9 @@
   position: fixed;
   left: 0;
   right: 0;
-  top: 70px !important;
   background-color: #fafafa;
   padding: 0;
-  max-height: calc(100% - 140px);
+  max-height: 75%;
   width: 55%;
   margin: auto;
   overflow-y: auto;
@@ -16,9 +15,7 @@
   border-radius: 2px;
   will-change: top, opacity;
 
-  @media #{$small-and-down} {
-    top: 20px !important;
-    max-height: calc(100% - 40px);
+  @media #{$medium-and-down} {
    width: 80%;
   }
 

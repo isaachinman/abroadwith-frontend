@@ -11,11 +11,10 @@ var jwt_decode = require('jwt-decode');
 require('../scrollspy');
 $('.scrollspy').scrollSpy();
 
-var i18n = require('../../global/components/i18n');
-i18n.loadNamespaces(['booking']);
+var currencies = require('currencies');
 
-var domains = require('domains');
-var jwt_decode = require('jwt-decode');
+var i18n = require('../../global/components/i18n');
+i18n.loadNamespaces(['homes']);
 
 module.exports = React.createClass({
   createBookingObject: function() {
@@ -108,26 +107,9 @@ module.exports = React.createClass({
 
     this.validateBooking(bookingObj);
 
+    delete bookingObj.paymentMethodId;
+
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
-
-    // Get price
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/bookings/price',
-      type: "POST",
-      data: JSON.stringify(bookingObj),
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
-
-        console.log(response)
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
 
     this.setState(bookingObj, function() {
 
@@ -148,39 +130,42 @@ module.exports = React.createClass({
       }
       $('.extras-display').html(extrasDisplay);
 
-      console.log($('#meal_plan option:selected').attr('data-price'))
-      if ($('#meal_plan option:selected').attr('data-price') !== 'undefined') {
-        $('.meal-display').html($('#meal_plan').val() + ' (' + this.state.currency + $('#meal_plan option:selected').attr('data-price') + ')');
+      if ($('#meal_plan option:selected').val() !== 'BREAKFAST_ONLY') {
+        $('.meal-display').html(i18n.t('homes:menus_offered.'+$('#meal_plan').val()) + ' (' + currencies[this.state.currency] + $('#meal_plan option:selected').attr('data-price') + ')');
       } else {
-        $('.meal-display').html($('#meal_plan').val());
+        $('.meal-display').html(i18n.t('homes:menus_offered.'+$('#meal_plan').val()));
       }
 
-
     });
+
+    // Set price displays to loader animation
+    $('.total-price').html('<div class="progress"><div class="indeterminate"></div></div>')
+
+    // Get price
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid+'/bookings/price',
+      type: "POST",
+      data: JSON.stringify(bookingObj),
+      contentType: "application/json",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
+
+        console.log(response);
+
+        $('.total-price').html(currencies[this.state.currency]+Math.ceil(response));
+
+      }.bind(this),
+      error: function() {
+
+        alert('Something failed');
+
+      }
+    })
 
   },
   componentDidMount: function() {
 
     $('a#request-booking-btn').click(this.requestBooking);
-
-    // On change, refresh state
-    var activeNodes = [
-      $('#booking-immersions'),
-      $('#stay-learning'),
-      $('#tandem-learning'),
-      $('#tandem-teaching'),
-      $('#teacher-learning'),
-      $('#teacher-hours'),
-      $('#EXTRA_GUEST'),
-      $('#payment-currency'),
-      $('#meal_plan')
-    ];
-
-    $('.booking-service').change(this.refreshState);
-
-    for (var i=0; i<activeNodes.length; i++) {
-      activeNodes[i].change(this.refreshState);
-    }
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
@@ -192,8 +177,6 @@ module.exports = React.createClass({
       success: function(response) {
 
         var paymentMethods = response;
-
-        console.log(paymentMethods)
 
         if (paymentMethods.length > 0) {
           var PaymentMethodContainer = React.createClass({
@@ -310,6 +293,25 @@ module.exports = React.createClass({
     // Set immersion fields to current immersion type
     $('.immersion-field').hide();
     $('select#booking-immersions').trigger('change');
+
+    // On change, refresh state
+    var activeNodes = [
+      $('#booking-immersions'),
+      $('#stay-learning'),
+      $('#tandem-learning'),
+      $('#tandem-teaching'),
+      $('#teacher-learning'),
+      $('#teacher-hours'),
+      $('#EXTRA_GUEST'),
+      $('#payment-currency'),
+      $('#meal_plan')
+    ];
+
+    $('.booking-service').change(this.refreshState);
+
+    for (var i=0; i<activeNodes.length; i++) {
+      activeNodes[i].change(this.refreshState);
+    }
 
   },
   componentDidUpdate: function() {
