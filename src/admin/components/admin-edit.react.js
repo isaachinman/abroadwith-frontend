@@ -28,16 +28,16 @@ module.exports = React.createClass({
           adminObj.address.country = location.country_name;
           adminObj.address.city = location.city;
 
-          sendObj();
+          sendObj(refreshState);
 
         },
         error: function() {
-          sendObj();
+          sendObj(refreshState);
         }
       });
 
     } else {
-      sendObj();
+      sendObj(refreshState);
     }
 
     var refreshState = this.refreshState();
@@ -58,8 +58,6 @@ module.exports = React.createClass({
           xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))
         },
         success: function(response) {
-
-          refreshState
 
           $('#preloader').hide();
           callback();

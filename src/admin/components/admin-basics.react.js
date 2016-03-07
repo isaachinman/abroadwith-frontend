@@ -26,8 +26,6 @@ module.exports = React.createClass({
       toast('Basics updated');
     });
 
-    Materialize.toast('Basics updated', 4000);
-
   },
   componentDidMount: function() {
     $('form#basics-form').submit(this.saveBasics);
