@@ -19,12 +19,8 @@ if ($('#user-edit-profile').length) {
           {
               var formData = new FormData();
               var token = JSON.parse(atob(localStorage.getItem('JWT').split('.')[1]));
-              console.log(localStorage.getItem('JWT'));
               for(var f = 0; f < file.length; f++){
-                console.log(formData);
                 formData.append('photos', file[f]);
-                console.log(formData);
-                console.log(file[f]);
               }
               $.ajax({
                 url : '/upload/users/'+token.rid+'/photo',
