@@ -5,6 +5,7 @@ var user = require('../constants/User');
 var home = require('../constants/Home');
 var currencies = require('../constants/Currencies');
 var icons = require('../constants/Icons');
+var domains = require('../constants/domains');
 
 module.exports = function (req, res, next) {
   var prefix = req.hostname.substring(0,2);
@@ -25,7 +26,8 @@ module.exports = function (req, res, next) {
     homes: home,
     users: user,
     currencies: currencies,
-    icons: icons
+    icons: icons,
+    domains: domains
   }
   req.context.query = req.query;
   next();

@@ -14,6 +14,10 @@ module.exports = function (req, res, next, value) {
         res.status(404).send('Home not found.');
         return;
       }
+      if(response.statusCode != 200){
+        res.status(response.statusCode).send('Unexpected response.');
+        return;
+      }
       response.on('data', function(d) {
           body += d;
       });

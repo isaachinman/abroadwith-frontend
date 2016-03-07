@@ -1,3 +1,6 @@
+var https = require('https');
+var domains= require('../global/constants/domains');
+
 var transformToStars = function(user){
   var rating = (Math.round(user.rating * 2) / 2).toFixed(1);
   var stars = [];
@@ -27,15 +30,38 @@ module.exports = function (req, res, next, value) {
     res.status(404).send('Not a proper user id.');
     return;
   }
-  var user_path = "../../mockups/users/"+value+".json";
-  try{
-    req.context.user = require(user_path);
-    req.context.user.id = value;
-    req.context.user.ratingHTML = transformToStars(req.context.user);
-  }
-  catch(e){
-    res.status(404).send('User not found.');
-    return;
-  }
-  next();
+
+  https.get(domains.API + "/public/users/"+value,
+    function (response) {
+      var body = '';
+      if(response.statusCode == 404){
+        res.status(404).send('User not found.');
+        return;
+      }
+      if(response.statusCode != 200){
+        res.status(response.statusCode).send('Unexpected response.');
+        return;
+      }
+      response.on('data', function(d) {
+          body += d;
+      });
+      response.on('end', function() {
+          var parsed = JSON.parse(body);
+          req.context.user = parsed;
+          req.context.user.id = value; //TODO make sure it is in the return object.
+          if(req.context.user.rating){
+            req.context.user.ratingHTML = transformToStars(req.context.user);
+          }
+          if(req.context.user.hasVisited){
+            req.context.user.hasVisited = JSON.parse(req.context.user.hasVisited);
+          }
+          if(req.context.user.hasLived){
+            req.context.user.hasLived = JSON.parse(req.context.user.hasLived);
+          }
+          next();
+      });
+  }).on('error', function(e) {
+    console.log(e);
+    res.status(500).send("Can't connect to API.");
+  });
 }

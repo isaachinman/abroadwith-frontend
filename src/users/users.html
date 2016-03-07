@@ -4,7 +4,7 @@
   <div class='container row left-align'>
 
     <div class='user-image'>
-      <img src='{{user.photo}}'>
+      <img src='{{ constants.domains.IMG }}{{user.photo}}'>
     </div>
 
     <div class='info'>
@@ -25,19 +25,21 @@
       <div class='col s10 quick-facts'>
 
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{user.age}}, {{translations.common.male}}
+          <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{user.age}}, {{translations.common[user.gender]}}
         </p>
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>{{translations.common.Joined}} {{user.joinedMonth}} {{user.joinedYear}}
+          <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>{{translations.common.Joined}} {{translations.months.short[user.joinedMonth]}} {{user.joinedYear}}
         </p>
+        {% if user.homeCountry %}
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{{user.homeCity}}, {{user.homeCountry}}
+          <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{% if user.homeCity %}{{user.homeCity}}, {%endif%} {{user.homeCountry}}
         </p>
+        {%endif%}
         <p class='home-details'>
           <span class='icon'><i class="fa fa-briefcase grey-text text-lighten-1"></span></i>{{user.occupation}}
         </p>
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-check-circle grey-text text-lighten-1"></span></i>{{user.isVerified}}
+          <span class='icon'><i class="fa fa-check-circle grey-text text-lighten-1"></span></i>{{user.isEmailVerified}}
         </p>
         <p class='home-details'>
           <span class='icon'><i class="fa fa-quote-right grey-text text-lighten-1"></span></i>{{user.referenceCount}} {{translations.common.references}}
@@ -91,7 +93,7 @@
                 </p>
                 {% for language in user.languagesLearning %}
                   <div class='chip chip--learning'>
-                    {{language}}
+                    {{translations.languages[language.language]}}
                   </div>
                 {% endfor %}
               </div>
@@ -99,9 +101,9 @@
                 <p class='no-margin-bottom'>
                   <strong>{{translations.common.Speaks}}:</strong>
                 </p>
-                {% for language in user.languagesSpeaks %}
+                {% for language in user.languagesKnown %}
                   <div class='chip chip--speaks'>
-                    {{language}}
+                      {{translations.languages[language.language]}}
                   </div>
                 {% endfor %}
               </div>
@@ -143,15 +145,15 @@
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-building-o grey-text text-lighten-1"></i></span>
-                  <strong>Grew up:</strong> {{user.grewUpCity}}, {{user.grewUpCountry}}
+                  <strong>Grew up:</strong> {{user.grewUp}}
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-book grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Favourite_book}}:</strong> {{user.favouriteBook}}
+                  <strong>{{translations.common.Favourite_book}}:</strong> {{user.favouriteBooks}}
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-film grey-text text-lighten-1"></i></span>
-                  <strong>{{translations.common.Favourite_film}}:</strong> {{user.favouriteFilm}}
+                  <strong>{{translations.common.Favourite_film}}:</strong> {{user.favouriteFilms}}
                 </p>
                 <p class='home-details'>
                   <span class='icon'><i class="fa fa-bolt grey-text text-lighten-1"></i></span>
@@ -281,7 +283,7 @@
     </div>
   </div>
 </div>
-
+{% if user.home %}
 <div id='stay' class='container left-align'>
   <div class='row no-margin'>
 
@@ -297,13 +299,13 @@
         <div class='row content bottom-align-column'>
           <div class='col s12'>
             <p class='home-details'>
-              <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>{{user.houseType}}
+              <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>{{user.home.houseType}}
             </p>
             <p class='home-details'>
-              <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{{user.houseCity}}, {{user.houseCountry}}
+              <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{{user.home.location.city}}, {{user.country}}
             </p>
             <p class='home-details'>
-              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{user.familyHome}}
+              <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{user.home.family}}
             </p>
             <div class='divider'></div>
           </div>
@@ -397,5 +399,6 @@
 
   </div>
 </div>
+{% endif %}
 
 {% endblock %}
