@@ -6,15 +6,14 @@ $(document).ready(function() {
   if ($('#hero-search').length) {
     $('#hero-search').click(function() {
 
-      var language = $('#language option:selected').attr('data-lang') !== 'undefined' ? '&language=' + $('#language option:selected').attr('data-lang') : null;
-      var arrival = $('#arrival').val() !== '' ? '&arrival=' + $('#arrival').val() : null;
-      var departure = $('#departure').val() !== '' ? '&departure=' + $('#departure').val() : null;
-      var guests = $('#guest-count').val() !== 'undefined' ? '&guests=' + $('#guest-count').val() : null;
+      var language = $('#language option:selected').val() !== '' ? '&language=' + $('#language option:selected').attr('data-lang') : '';
+      var arrival = $('#arrival').val() !== '' ? '&arrival=' + $('#arrival').val() : '';
+      var departure = $('#departure').val() !== '' ? '&departure=' + $('#departure').val() : '';
+      var guests = $('#guest-count').val() !== 'undefined' ? '&guests=' + $('#guest-count').val() : '';
 
       var url = '/search?minLat=53.27221892583479&minLng=14.0710001425781&maxLat=51.75469082335137&maxLng=12.73890785742185' + language + arrival + departure + guests;
 
       window.location = url;
-
 
     })
   }

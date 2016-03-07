@@ -99,15 +99,18 @@ module.exports = React.createClass({
         var newState = {
 
           // Conditionally set up state per category
-          published:            response.isActive,
-          basics:               response.basics ? response.basics : null,
-          immersions:           response.immersions ? response.immersions : null,
-          location:             response.location ? response.location : null,
-          description:          response.description ? response.description : null,
-          rooms:                response.rooms ? response.rooms : null,
-          photos:               response.photos ? response.photos : null,
-          pricing:              response.pricing ? response.pricing : null,
-          currency:             response.pricing ? response.pricing.currency : null
+          published:                  response.isActive,
+          basics:                     response.basics ? response.basics : null,
+          immersions:                 response.immersions ? response.immersions : null,
+          location:                   response.location ? response.location : null,
+          description:                response.description ? response.description : null,
+          rooms:                      response.rooms ? response.rooms : null,
+          photos:                     response.photos ? response.photos : null,
+          pricing:                    response.pricing ? response.pricing : null,
+          currency:                   response.pricing ? response.pricing.currency : null,
+          stayAvailableLanguages:     response.stayAvailableLanguages ? response.stayAvailableLanguages : null,
+          tandemAvailableLanguages:   response.tandemAvailableLanguages ? response.tandemAvailableLanguages : null,
+          teacherAvailableLanguages:  response.teacherAvailableLanguages ? response.teacherAvailableLanguages : null
 
         }
         if (this.isMounted()) {
@@ -140,6 +143,9 @@ module.exports = React.createClass({
           <ImmersionsTab
             updateHome={this.updateHome}
             immersions={this.state.immersions}
+            stayAvailableLanguages={this.state.stayAvailableLanguages}
+            tandemAvailableLanguages={this.state.tandemAvailableLanguages}
+            teacherAvailableLanguages={this.state.teacherAvailableLanguages}
             currency={this.state.currency}
           />
 
