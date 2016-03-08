@@ -29,9 +29,13 @@ ul.trips {
     word-break: break-all;
     height:8rem;
     line-height: 8rem;
-    font-size: 1.2rem;
+    font-size: 1.35rem;
     padding: 0 2rem 0 12rem;
-
+    @media #{$small-and-down} {
+      font-size: 1.15rem;
+      text-align: center;
+      padding: 0 1rem;
+    }
   }
   img.room-thumbnail {
     @extend .hide-on-small-and-down;
@@ -54,7 +58,7 @@ ul.trips {
   }
 }
 .pending-reservation, .approved-reservation, .declined-reservation, .cancelled-reservation {
-  font-weight: 600;
+  @extend .hide-on-small-and-down;
   float: right;
 }
 .pending-reservation {
