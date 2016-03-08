@@ -69,6 +69,7 @@ module.exports = React.createClass({
         $('#countries-visited').val(JSON.parse(response.countriesVisited)).trigger('change');
         $('#countries-lived').val(JSON.parse(response.countriesLived)).trigger('change');
 
+
       }.bind(this),
       error: function() {
 
