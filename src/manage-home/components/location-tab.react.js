@@ -66,6 +66,8 @@ module.exports = React.createClass({
           return;
         }
 
+        $('a#save-location').hasClass('disabled') ? $('a#save-location').removeClass('disabled') : null;
+
         // Clear out the old markers.
         markers.forEach(function(marker) {
           marker.setMap(null);
