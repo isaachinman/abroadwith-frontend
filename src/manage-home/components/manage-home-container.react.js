@@ -8,7 +8,7 @@ var PhotosTab =           require('./photos-tab.react');
 var PricingTab =          require('./pricing-tab.react');
 
 var i18n = require('../../global/components/i18n');
-i18n.loadNamespaces(['manage_home']);
+i18n.loadNamespaces(['manage_home','homes']);
 
 var jwt_decode = require('jwt-decode');
 var domains = require('domains');
@@ -40,7 +40,7 @@ module.exports = React.createClass({
         var publishedBar = $('#published-status');
         if (homeStatus.activated === false) {
           publishedBar.addClass('manage-home-info-text--unpublished');
-          publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + homeStatus.code + ')');
+          publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + i18n.t('homes:published_codes.'+homeStatus.code) + ')');
         } else if (homeStatus.activated === true) {
           publishedBar.addClass('manage-home-info-text--published');
           publishedBar.html(i18n.t('manage_home:message_bottom_published'));
