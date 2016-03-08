@@ -329,8 +329,9 @@
     </div>
   </div>
 </div>
-{% if user.home == true %}
+{% if user.home.isActive == true %}
   <div id='stay' class='container left-align'>
+
     <div class='row no-margin'>
 
       <div class='col s12 m3 l3'>
@@ -345,14 +346,18 @@
           <div class='row content bottom-align-column'>
             <div class='col s12'>
               <p class='home-details'>
-                <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>{{user.home.houseType}}
+                <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>{{translations.homes.home_types[user.home.basics.homeType]}}
               </p>
-              <p class='home-details'>
-                <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{{user.home.location.city}}, {{user.country}}
-              </p>
-              <p class='home-details'>
-                <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{user.home.family}}
-              </p>
+              {% if user.homeCity %}
+                <p class='home-details'>
+                  <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{{user.homeCity}}{% if user.homeCountry %}, {{translations.countries[user.homeCountry]}}{% endif %}
+                </p>
+              {% endif %}
+              {% if user.home.family == true %}
+                <p class='home-details'>
+                  <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.family_label}}
+                </p>
+              {% endif %}
               <div class='divider'></div>
             </div>
             <div class='col s12 bottom center-align'>
@@ -364,82 +369,98 @@
       </div>
 
       <div class='col s12 m9 l9'>
-        {% for room in user.home %}
-          <div class='card home-card'>
-            <div class='row'>
+        {% for room in user.home.rooms %}
+        <div class='card home-card'>
+          <div class='row'>
 
-              <div class='col s12'>
-                <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
-                <span class='title'>{{room.name}}</span>
-              </div>
+            <div class='col s12'>
+              <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
+              <span class='title'>{{room.name}}</span>
             </div>
-            <div class='row'>
-              <div class='col s12 m4 l5'>
-                <p>
-
-                </p>
-                <img class='home-room-image materialboxed' src='{{room.photo}}' />
-              </div>
-              <div class='col s6 m6 l2'>
-                <p class='grey-text text-darken-1'>
-                  <strong>{{translations.common.Basics}}:</strong>
-                </p>
-                <p class='home-details'>
-                  <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>{{translations.common.Sleeps}}: {{room.vacancies}}
-                </p>
-                <p class='home-details'>
-                  <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.common.Shared}}: {{room.shared}}
-                </p>
-                <p class='home-details'>
-                  <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>{{translations.common.Bed_type}}: {{room.bedType}}
-                </p>
-              </div>
-              <div class='col s6 m6 l2'>
-                <p class='grey-text text-darken-1'>
-                  <strong>Facilities:</strong>
-                </p>
-                {% for facility in room.facilities %}
-                  <p class='home-details'>
-                    <span class='icon'><i class="fa {{facility.icon}} grey-text text-lighten-1"></span></i>{{facility.name}}
-                  </p>
-                {% endfor %}
-              </div>
-              <div class='col s6 m12 l3'>
-                <p class='grey-text text-darken-1'>
-                  <strong>{{translations.common.Price}}:</strong>
-                </p>
-                <p class='home-details'>
-                <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>{{translations.common.Stay}}: <span class='right'>€{{room.stayPrice}}/{{translations.common.week}}</span>
-                </p>
-                <p class='home-details'>
-                <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.common.Tandem}}: <span class='right'>€{{room.tandemPrice}}/{{translations.common.week}}</span>
-                </p>
-                <p class='home-details'>
-                <span class='icon'><i class="fa fa-university grey-text text-lighten-1"></span></i>{{translations.common.Teacher}}: <span class='right'>€{{room.teacherPrice}}/{{translations.common.week}}</span>
-                </p>
-
-              </div>
-            </div>
-
-            <div class='row section'>
-              <div class='col s12'>
-                <div class='divider'></div>
-              </div>
-            </div>
-
-            <div class='row bottom-align-row'>
-              <div class='col s8'>
-                <label>{{translations.common.Room_description}}</label><br>
-
-                  {{room.description}}
-
-              </div>
-              <div class='col s4 right-align bottom'>
-                <a href='{{room.bookingUrl}}' class='btn btn-primary'>Book now</a>
-              </div>
-            </div>
-
           </div>
+          <div class='row'>
+            <div class='col s12 m4 l5 center-align'>
+              <p>
+
+              </p>
+              {% if room.img %}
+                <img class='home-room-image materialboxed' src='{{constants.domains.IMG}}{{room.img}}' />
+                {% else %}
+                <i class="fa fa-home room-image-placeholder"></i>
+              {% endif %}
+            </div>
+            <div class='col s6 m6 l2'>
+              <p class='grey-text text-darken-1'>
+                <strong>{{translations.common.Basics}}:</strong>
+              </p>
+              <p class='home-details'>
+                <span class='icon'><i class="fa fa-user grey-text text-lighten-1"></span></i>{{translations.common.Sleeps}}: {{room.vacancies}}
+              </p>
+              <p class='home-details'>
+                <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.common.Shared}}: {{translations.rooms.shared[room.shared]}}
+              </p>
+              <p class='home-details'>
+                <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>{{translations.common.Bed_type}}: {{translations.rooms.bed_types[room.bed]}}
+              </p>
+            </div>
+            <div class='col s6 m6 l2'>
+              <p class='grey-text text-darken-1'>
+                <strong>{{translations.common.Facilities}}:</strong>
+              </p>
+              {% for facility in room.facilities %}
+                <p class='home-details'>
+                  <span class='icon'><i class="fa {{ constants.icons.facilities[facility] }} grey-text text-lighten-1"></span></i>{{translations.rooms.facilities[facility]}}
+                </p>
+              {% endfor %}
+            </div>
+            <div class='col s6 m12 l3'>
+              <p class='grey-text text-darken-1'>
+                <strong>{{translations.common.Price}}:</strong>
+              </p>
+
+              {% if user.home.immersions.stay %}
+              <p class='home-details capitalise'>
+                {{translations.common.Stay}}: {{constants.currencies[user.home.pricing.currency]}}{{ room.price }}/{{translations.common.week}}
+              </p>
+              {% endif %}
+
+              {% if user.home.immersions.tandem %}
+              <p class='home-details capitalise'>
+                {{ translations.common.Tandem }}: {{constants.currencies[user.home.pricing.currency]}}{{ room.price * (100 - user.home.immersions.tandem.languagesInterested[0].discount)/100 }}/{{translations.common.week}}
+              </p>
+              {% endif %}
+
+              {% if user.home.immersions.teacher %}
+              <p class='home-details capitalise'>
+                {{ translations.common.Teacher }}: {{constants.currencies[user.home.pricing.currency]}}{{ room.price + (user.home.immersions.teacher.hourly * user.home.immersions.teacher.packages[0]) }}/{{translations.common.week}}
+              </p>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class='row section'>
+            <div class='col s12'>
+              <div class='divider'></div>
+            </div>
+          </div>
+
+          <div class='row bottom-align-row'>
+            <div class='col s8'>
+              <label>{{translations.common.Room_description}}</label><br>
+
+                {% if room.description %}
+                  {{room.description}}
+                  {% else %}
+                  {{translations.rooms.no_description}}
+                {% endif %}
+
+            </div>
+            <div class='col s4 right-align bottom'>
+              <a class='btn btn-primary' href="/homes/94/booking?arrival=2016-04-01&departure=2016-04-08&room_id=207">{{translations.common.Book_now}}</a>
+            </div>
+          </div>
+
+        </div>
         {% endfor %}
       </div>
 
