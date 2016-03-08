@@ -37,6 +37,7 @@ var userProfile = {
   email:"simple@email.com",
   location:"Berlin, Germany",
   occupation:"Engineer",
+  photo:"/static/user/photo.jpg",
   emergencyContact:{
     name:"Matheus",
     phone:"123541234",
@@ -99,8 +100,7 @@ var newHome = {
       languagesOffered: ["ENG"],
       certifications: [],
       packages: [5,15],
-      hourly: 17,
-      materials: 20
+      hourly: 17
     }
   },
   description: {
@@ -252,28 +252,31 @@ var updateComplete = function(newurl){
       room2.id = body.rooms[1].id;
       newHome.rooms.push(room1);
       newHome.rooms.push(room2);*/
-      body.rooms[0].price = 30.0;
-      body.rooms[0].img = "/static/room/1.jpg";
-      body.rooms[1].price = 50.0;
-      body.rooms[1].img = "/static/room/2.jpg";
-      body.immersions.teacher.materials = 10;
-      console.log("here is the home",body);
-      $.ajax({
-        type: "POST",
-        url: newurl,
-        contentType: "application/json",
-        data: JSON.stringify(body),
-        beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-        success: function (body,text,response) {
-          $('#status').append("<h1>Update home</h1>");
-          $('#status').append('<br/> Request:'+JSON.stringify(newHome));
-          $('#status').append('<br/>'+response.status + " - "+response.getResponseHeader('Location'));
-          $('#status').append('<br/> Response:'+JSON.stringify(body));
+      if(body.rooms.length > 0){
+        body.rooms[0].price = 30.0;
+        body.rooms[0].img = "/static/room/1.jpg";
+        body.rooms[1].price = 50.0;
+        body.rooms[1].img = "/static/room/2.jpg";
+        $.ajax({
+          type: "POST",
+          url: newurl,
+          contentType: "application/json",
+          data: JSON.stringify(body),
+          beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+          success: function (body,text,response) {
+            $('#status').append("<h1>Update home</h1>");
+            $('#status').append('<br/> Request:'+JSON.stringify(newHome));
+            $('#status').append('<br/>'+response.status + " - "+response.getResponseHeader('Location'));
+            $('#status').append('<br/> Response:'+JSON.stringify(body));
 
-          getHome(newurl)
-        }
-      });
-
+            getHome(newurl)
+          }
+        });
+      }
+      else{
+        updateHome(newurl);
+        addRooms(newurl+"/rooms");
+      }
       publicGetHome(newurl);
     }
   });
