@@ -87,3 +87,9 @@ a.privacy-btn {
     display: inline-block;
   }
 }
+
+// Phone validation flags
+.iti-flag {background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/img/flags.png");}
+input#phoneNumber {
+  width: calc(100% - 48px);
+}

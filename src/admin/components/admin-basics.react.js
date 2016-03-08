@@ -9,14 +9,9 @@ module.exports = React.createClass({
     adminObj.gender = $('#gender').val();
     adminObj.birthDate = $('#birthDate').val();
     adminObj.location = $('#location').val();
-    $('#phoneNumber').val() !== ''
-      ? adminObj.phoneNumber = $('#phoneNumber').val()
-      : null;
+    $('#phoneNumber').intlTelInput('isValidNumber') ? adminObj.phoneNumber = $('#phoneNumber').val() : null;
     adminObj.email = $('#user-email').val();
-
-    adminObj.emergencyContact
-      ? null
-      : adminObj.emergencyContact = {};
+    adminObj.emergencyContact ? null : adminObj.emergencyContact = {};
     adminObj.emergencyContact.name = $('#emergency-name').val();
     adminObj.emergencyContact.phone = $('#emergency-phone').val();
     adminObj.emergencyContact.email = $('#emergency-email').val();
@@ -28,7 +23,18 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
+
     $('form#basics-form').submit(this.saveBasics);
+
+    $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/intlTelInput.min.js', function() {
+      $('#phoneNumber').intlTelInput();
+      $('#phoneNumber').change(function() {
+        $('#phoneNumber').intlTelInput();
+      })
+      $('#phoneNumber').trigger('change');
+      $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js');
+    })
+
 
     var placeSearch,
       autocomplete;

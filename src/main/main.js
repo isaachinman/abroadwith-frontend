@@ -1,5 +1,4 @@
 var Wallop = require('wallop');
-var lib = require('google-libphonenumber').PhoneNumberUtil;
 
 // Initialisations
 $(document).ready(function() {

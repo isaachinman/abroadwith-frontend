@@ -24,22 +24,17 @@
           </div>
 
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-            <i class="fa fa-venus-mars fa-2x"></i>
+            <i class="fa fa-map-marker fa-2x"></i>
           </div>
-          <div class='col s10 m2 l2 input-field'>
-            <select id='gender' name='gender' class='material' required>
-              <option value="" selected disabled>Choose gender</option>
-              <option value="MALE">Male</option>
-              <option value="FEMALE">Female</option>
-              <option value="OTHER">Other</option>
-            </select>
-            <label>Gender</label>
+          <div class='col s10 m3 l3 input-field'>
+            <input placeholder="Where do you live?" id="user-address" type="text" class="validate">
+            <label class='active'>Home address</label>
           </div>
 
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
             <i class="fa fa-calendar-o fa-2x"></i>
           </div>
-          <div class='col s10 m3 l3 input-field'>
+          <div class='col s10 m2 l2 input-field'>
             <input id='birthDate' type="date" placeholder='Birthday' class='datepicker datepicker-birthday' value='1990-01-01' required>
             <label class='active'>Birthday</label>
           </div>
@@ -50,27 +45,32 @@
         <div class='row section'>
 
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-            <i class="fa fa-map-marker fa-2x"></i>
+            <i class="fa fa-envelope-o fa-2x"></i>
           </div>
           <div class='col s10 m4 l4 input-field'>
-            <input placeholder="Where do you live?" id="user-address" type="text" class="validate">
-            <label class='active'>Home address</label>
+            <input id='user-email' name='email' placeholder="Email" type="email" class="validate" required>
+            <label class='active' data-error="Incorrect" data-success="Correct">Email</label>
           </div>
 
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
             <i class="fa fa-mobile fa-2x"></i>
           </div>
-          <div class='col s10 m2 l2 input-field'>
+          <div class='col s10 m3 l3 input-field'>
             <input id='phoneNumber' name='phoneNumber' placeholder="Phone number" type="tel" class="validate">
             <label class='active'>Phone number</label>
           </div>
 
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-            <i class="fa fa-envelope-o fa-2x"></i>
+            <i class="fa fa-venus-mars fa-2x"></i>
           </div>
-          <div class='col s10 m3 l3 input-field'>
-            <input id='user-email' name='email' placeholder="Email" type="email" class="validate" required>
-            <label class='active' data-error="Incorrect" data-success="Correct">Email</label>
+          <div class='col s10 m2 l2 input-field'>
+            <select id='gender' name='gender' class='material' required>
+              <option value="" selected disabled>Choose gender</option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+              <option value="OTHER">Other</option>
+            </select>
+            <label>Gender</label>
           </div>
 
         </div>
