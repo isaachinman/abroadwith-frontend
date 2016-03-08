@@ -6,6 +6,8 @@ if ($('a.become-a-host').length) {
 
   $('a.become-a-host').click(function() {
 
+    $('#preloader').show();
+
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     $.ajax({

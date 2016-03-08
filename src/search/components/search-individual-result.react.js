@@ -79,7 +79,7 @@ module.exports = React.createClass({
 
       <div className='col s12 m12 l6'>
         <div className='search-result' id={domId} onMouseOver={this.mapHover.bind(this, this.props.markerId)} onMouseOut={this.mapOut.bind(this, this.props.markerId)}>
-          <a className='overlay' href='/homes/94'></a>
+          <a className='overlay' href={homelink}></a>
           <div className="wallop">
             <div className="Wallop-list">
               <div className="Wallop-item Wallop-item--current"><img src={roomSrc}/></div>

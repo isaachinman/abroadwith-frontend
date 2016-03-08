@@ -12,40 +12,40 @@ module.exports = React.createClass({
 
     $('#preloader').show();
 
-    delete adminObj.paymentMethods;
-    delete adminObj.payoutMethods;
-    delete adminObj.verifications;
+    var refreshState = this.refreshState();
 
     if (adminObj.address === null || adminObj.address.country === null) {
 
-      $.ajax({
-        url: '//freegeoip.net/json/',
-        type: 'POST',
-        dataType: 'jsonp',
-        success: function(location) {
+      sendObj(refreshState);
 
-          adminObj.address = {};
-          adminObj.address.country = location.country_name;
-          adminObj.address.city = location.city;
-
-          sendObj(refreshState);
-
-        },
-        error: function() {
-          sendObj(refreshState);
-        }
-      });
+      // $.ajax({
+      //   url: '//freegeoip.net/json/',
+      //   type: 'POST',
+      //   dataType: 'jsonp',
+      //   success: function(location) {
+      //
+      //     adminObj.address = {};
+      //     adminObj.address.country = location.country_name;
+      //     adminObj.address.city = location.city;
+      //
+      //     sendObj(refreshState);
+      //
+      //   },
+      //   error: function() {
+      //     sendObj(refreshState);
+      //   }
+      // });
 
     } else {
       sendObj(refreshState);
     }
 
-    var refreshState = this.refreshState();
-
     function sendObj() {
-      var JWT = localStorage.getItem('JWT') !== null
-        ? jwt_decode(localStorage.getItem('JWT'))
-        : null;
+      var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+      delete adminObj.paymentMethods;
+      delete adminObj.payoutMethods;
+      delete adminObj.verifications;
 
       console.log(adminObj)
 

@@ -19,6 +19,7 @@ module.exports = React.createClass({
     $('#preloader').show();
 
     delete homeObj.GENERAL;
+    var updateHome = this.updateHome;
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
@@ -43,7 +44,15 @@ module.exports = React.createClass({
           publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + i18n.t('homes:published_codes.'+homeStatus.code) + ')');
         } else if (homeStatus.activated === true) {
           publishedBar.addClass('manage-home-info-text--published');
-          publishedBar.html(i18n.t('manage_home:message_bottom_published'));
+          publishedBar.html(i18n.t('homes:published_codes.'+homeStatus.code) + ' (' + '<a id="unpublish-home">Click here to unpublish</a>' + ')');
+          $('a#unpublish-home').click(function() {
+            homeObj.immersions.stay.languagesOffered = [];
+            homeObj.immersions.tandem.languagesOffered = [];
+            homeObj.immersions.teacher.languagesOffered = [];
+            updateHome(function() {
+              return;
+            });
+          })
         }
 
 
@@ -99,18 +108,19 @@ module.exports = React.createClass({
         var newState = {
 
           // Conditionally set up state per category
-          published:                  response.isActive,
-          basics:                     response.basics ? response.basics : null,
-          immersions:                 response.immersions ? response.immersions : null,
-          location:                   response.location ? response.location : null,
-          description:                response.description ? response.description : null,
-          rooms:                      response.rooms ? response.rooms : null,
-          photos:                     response.photos ? response.photos : null,
-          pricing:                    response.pricing ? response.pricing : null,
-          currency:                   response.pricing ? response.pricing.currency : null,
-          stayAvailableLanguages:     response.stayAvailableLanguages ? response.stayAvailableLanguages : null,
-          tandemAvailableLanguages:   response.tandemAvailableLanguages ? response.tandemAvailableLanguages : null,
-          teacherAvailableLanguages:  response.teacherAvailableLanguages ? response.teacherAvailableLanguages : null
+          published:                       response.isActive,
+          basics:                          response.basics ? response.basics : null,
+          immersions:                      response.immersions ? response.immersions : null,
+          location:                        response.location ? response.location : null,
+          description:                     response.description ? response.description : null,
+          rooms:                           response.rooms ? response.rooms : null,
+          photos:                          response.photos ? response.photos : null,
+          pricing:                         response.pricing ? response.pricing : null,
+          currency:                        response.pricing ? response.pricing.currency : null,
+          stayAvailableLanguages:          response.stayAvailableLanguages ? response.stayAvailableLanguages : null,
+          tandemAvailableLanguages:        response.tandemAvailableLanguages ? response.tandemAvailableLanguages : null,
+          tandemAvailableLearnLanguages:   response.tandemAvailableLearnLanguages ? response.tandemAvailableLearnLanguages : null,
+          teacherAvailableLanguages:       response.teacherAvailableLanguages ? response.teacherAvailableLanguages : null
 
         }
         if (this.isMounted()) {
@@ -145,6 +155,7 @@ module.exports = React.createClass({
             immersions={this.state.immersions}
             stayAvailableLanguages={this.state.stayAvailableLanguages}
             tandemAvailableLanguages={this.state.tandemAvailableLanguages}
+            tandemAvailableLearnLanguages={this.state.tandemAvailableLearnLanguages}
             teacherAvailableLanguages={this.state.teacherAvailableLanguages}
             currency={this.state.currency}
           />

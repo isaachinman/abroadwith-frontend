@@ -3,6 +3,8 @@ module.exports = function(callback) {
   var domains = require('domains');
   var loggedIn = require('logged-in')
 
+  var jwt_decode = require('jwt-decode')
+
   var refreshObj = {
     token: localStorage.getItem('JWT')
   }
@@ -14,6 +16,8 @@ module.exports = function(callback) {
     data: JSON.stringify(refreshObj),
     processData: false,
     success: function(response){
+
+      console.log(jwt_decode(response.token))
 
       // Delete old token
       localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null;

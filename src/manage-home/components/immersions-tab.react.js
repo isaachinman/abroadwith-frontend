@@ -31,8 +31,14 @@ module.exports = React.createClass({
         newImmersionsObj.tandem.hours = $('#tandem-hours').val();
         newImmersionsObj.tandem.languagesOffered = $('#tandem-languages-offered').val();
         newImmersionsObj.tandem.languagesInterested = [];
-        $('#language-chips .chip[data-lang]').each(function() {
-          newImmersionsObj.tandem.languagesInterested.push($(this).attr('data-lang'))
+        $('#tandem-language-interested-chips .chip[data-lang]').each(function() {
+          var discount = $('#tandem-discount').val() !== '' ? $('#tandem-discount').val() : null;
+          newImmersionsObj.tandem.languagesInterested.push(
+            {
+              "lang":$(this).attr('data-lang'),
+              "discount":discount
+            }
+          )
         })
 
       }
@@ -42,7 +48,7 @@ module.exports = React.createClass({
         // Compile teacher object
         newImmersionsObj.teacher = {};
         newImmersionsObj.teacher.packages = $('#packages').val();
-        newImmersionsObj.teacher.materials = $('#material-costs').val();
+        newImmersionsObj.teacher.hourly = parseInt($('#teacher-rate').val());
         newImmersionsObj.teacher.languagesOffered = $('#teacher-languages-offered').val();
 
       }
@@ -56,7 +62,6 @@ module.exports = React.createClass({
           toast('Immersions updated');
         });
 
-        Materialize.toast('Immersions updated', 4000);
       }
 
     }
@@ -79,7 +84,7 @@ module.exports = React.createClass({
     addLanguage.click(function() {
 
       // Set conditional vars
-      var languageCode = $('#tandem-language-sought option:selected').attr('data-lang');
+      var languageCode = $('#tandem-language-sought option:selected').val();
 
       if (languageLearning.val() != '' && $('.chip[data-lang="'+languageCode+'"]').length <= 0) {
 
@@ -91,9 +96,6 @@ module.exports = React.createClass({
         var newLanguage = '<div class="language-chip chip" data-lang="' + languageCode + '">' + i18n.t('languages:'+languageLearning.val()) + '<i class="material-icons">close</i></div>'
         chipContainer.append(newLanguage);
 
-        languageLearning.select2('val', '');
-        languageLearning.val('');
-
       }
     })
 
@@ -102,34 +104,44 @@ module.exports = React.createClass({
 
     if (this.props.immersions) {
 
+      if (this.props.immersions.tandem) {
+        $('#tandem-discount').val(this.props.immersions.tandem.languagesInterested[0].discount)
+      }
+
       // Populate stay offered dropdown
       var stayLanguagesOffered = $('#stay-languages-offered');
+      stayLanguagesOffered.html('');
       for (var i=0; i<this.props.stayAvailableLanguages.length; i++) {
         stayLanguagesOffered.append("<option value='"+this.props.stayAvailableLanguages[i]+"'>"+i18n.t('languages:'+this.props.stayAvailableLanguages[i])+"</option>")
       }
-      stayLanguagesOffered.val(this.props.immersions.teacher.languagesOffered);
+      // Populate tandem offered dropdown
+      var tandemLanguagesOffered = $('#tandem-languages-offered');
+      tandemLanguagesOffered.html('');
+      for (var i=0; i<this.props.tandemAvailableLanguages.length; i++) {
+        tandemLanguagesOffered.append("<option value='"+this.props.tandemAvailableLanguages[i]+"'>"+i18n.t('languages:'+this.props.tandemAvailableLanguages[i])+"</option>")
+      }
+      // Populate tandem learning dropdown
+      var tandemLanguagesInterested = $('#tandem-language-sought');
+      tandemLanguagesInterested.html('');
+      for (var i=0; i<this.props.tandemAvailableLearnLanguages.length; i++) {
+        tandemLanguagesInterested.append("<option value='"+this.props.tandemAvailableLearnLanguages[i]+"'>"+i18n.t('languages:'+this.props.tandemAvailableLearnLanguages[i])+"</option>")
+      }
+      // Populate teacher offered dropdown
+      var teacherLanguagesOffered = $('#teacher-languages-offered');
+      teacherLanguagesOffered.html('');
+      for (var i=0; i<this.props.teacherAvailableLanguages.length; i++) {
+        teacherLanguagesOffered.append("<option value='"+this.props.teacherAvailableLanguages[i]+"'>"+i18n.t('languages:'+this.props.teacherAvailableLanguages[i])+"</option>")
+      }
 
-      $('#stay-hours').val(this.props.immersions.stay.hours);
-
+      if (this.props.immersions.stay !== null) {
+        this.props.immersions.stay !== null ? stayLanguagesOffered.val(this.props.immersions.stay.languagesOffered) : null;
+        this.props.immersions.stay !== null ? $('#stay-hours').val(this.props.immersions.stay.hours) : null;
+      }
 
       // Tandem vars
-      if (this.props.immersions.tandem) {
-
-        // Populate tandem offered dropdown
-        var tandemLanguagesOffered = $('#tandem-languages-offered');
-        for (var i=0; i<this.props.tandemAvailableLanguages.length; i++) {
-          tandemLanguagesOffered.append("<option value='"+this.props.tandemAvailableLanguages[i]+"'>"+i18n.t('languages:'+this.props.tandemAvailableLanguages[i])+"</option>")
-        }
-        tandemLanguagesOffered.val(this.props.immersions.tandem.languagesOffered);
-
-        $('#tandem-hours').val(this.props.immersions.tandem.hours);
-
-        // Populate tandem learning dropdown
-        var tandemLanguagesInterested = $('#tandem-language-interested');
-        $.each(this.props.immersions.tandem.languagesInterested, function(lang, offered) {
-          tandemLanguagesInterested.append("<option value='"+lang+"'>"+i18n.t('languages:'+lang)+"</option>")
-        });
-        
+      if (this.props.immersions.tandem !== null) {
+        this.props.immersions.tandem !== null ? tandemLanguagesOffered.val(this.props.immersions.tandem.languagesOffered) : null;
+        this.props.immersions.tandem !== null ? $('#tandem-hours').val(this.props.immersions.tandem.hours) : null;
       }
 
       var interestedLanguageChips = [];
@@ -143,19 +155,13 @@ module.exports = React.createClass({
       $('#tandem-language-interested-chips').append(interestedLanguageChips);
 
       // Teacher vars
-      if (this.props.immersions.teacher) {
+      if (this.props.immersions.teacher !== null) {
 
-        // Populate tandem offered dropdown
-        var teacherLanguagesOffered = $('#teacher-languages-offered');
-        for (var i=0; i<this.props.teacherAvailableLanguages.length; i++) {
-          teacherLanguagesOffered.append("<option value='"+this.props.teacherAvailableLanguages[i]+"'>"+i18n.t('languages:'+this.props.teacherAvailableLanguages[i])+"</option>")
-        }
         teacherLanguagesOffered.val(this.props.immersions.teacher.languagesOffered);
 
-        $('#teacher-rate').val(this.props.immersions.teacher.hourly + this.props.currency);
+        this.props.immersions.teacher.hourly !== null ? $('#teacher-rate').val(this.props.immersions.teacher.hourly + this.props.currency) : null;
         $('#packages').val(this.props.immersions.teacher.packages);
         $('#material-costs').val(this.props.immersions.teacher.materials + this.props.currency);
-
 
       }
 

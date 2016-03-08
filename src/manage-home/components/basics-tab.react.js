@@ -37,6 +37,8 @@ module.exports = React.createClass({
         },
         success: function(result) {
 
+          console.log(result)
+
           refreshToken(goToHome);
 
           function goToHome() {

@@ -84,7 +84,11 @@ input#home-address {
   }
   &--published {
     color: white;
-    background: darken($ziggurat, 5%);
+    background: darken($sulu, 35%);
+    a {
+      color: white;
+      text-decoration: underline;
+    }
   }
 }
 .secondary-content {

@@ -27,6 +27,7 @@ module.exports = React.createClass({
       this.props.results.forEach(function(obj) {
         var result = <IndividualResult
               key={obj.roomId}
+              homeId={obj.homeId}
               markerId={markerId}
               immersions={obj.immersions}
               price={Math.ceil(obj.price)}
