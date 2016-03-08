@@ -281,6 +281,7 @@
                 <span class='title'>{{translations.common.Reviews}}</span>
               </div>
               <div class='col s5 m4 l4 bottom right-align'>
+                {% if user.ratingCount %}
                 <span class='rating'>
                   <span class='count'>
                     ({{user.ratingCount}})
@@ -289,6 +290,7 @@
                     {{user.ratingHTML | safe}}
                   </span>
                 </span>
+                {% endif %}
               </div>
             </div>
             <div class='row no-margin'>
