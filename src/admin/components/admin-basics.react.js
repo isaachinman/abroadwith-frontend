@@ -1,9 +1,6 @@
 var React = require('react');
 var toast = require('toast');
 
-var jwt_decode = require('jwt-decode');
-
-
 module.exports = React.createClass({
   saveBasics: function() {
 
