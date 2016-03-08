@@ -69,6 +69,17 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
+    $('.immersion-switch').change(validateImmersionSaveButton);
+    validateImmersionSaveButton();
+
+    function validateImmersionSaveButton() {
+      if ($('.immersion-switch:checked').length > 0) {
+        $('a#save-immersions').hasClass('disabled') ? $('a#save-immersions').removeClass('disabled') : null;
+      } else {
+        $('a#save-immersions').hasClass('disabled') ? null : $('a#save-immersions').addClass('disabled');
+      }
+    }
+
     $('a#save-immersions').click(this.saveImmersions);
 
     // Language-known select
