@@ -114,6 +114,17 @@ a.overlay {
     background: darken($grey-chateau, 5%);
   }
 }
+.btn-tertiary {
+  border: 1px solid darken($ziggurat, 5%);
+  background: lighten($ziggurat, 20%);
+  color: darken($ziggurat, 20%);
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  &:hover {
+    color: white;
+    background: darken($ziggurat, 5%);
+  }
+}
 .btn-delete {
   background: $sunset-orange;
   color: white;
