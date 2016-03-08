@@ -39,12 +39,19 @@ module.exports = React.createClass({
 
         // Update status bar
         var publishedBar = $('#published-status');
-        if (homeStatus.activated === false) {
+        if (homeStatus.isActive === false) {
+
+          // If home is active, swap classes and text of publishedBar
           publishedBar.addClass('manage-home-info-text--unpublished');
           publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + i18n.t('homes:published_codes.'+homeStatus.code) + ')');
-        } else if (homeStatus.activated === true) {
+
+        } else if (homeStatus.isActive === true) {
+
+          // If home is inactive, swap classes and text of publishedBar
           publishedBar.addClass('manage-home-info-text--published');
           publishedBar.html(i18n.t('homes:published_codes.'+homeStatus.code) + ' (' + '<a id="unpublish-home">Click here to unpublish</a>' + ')');
+
+          // If home is inactive, create an unpublish function
           $('a#unpublish-home').click(function() {
             homeObj.immersions.stay.languagesOffered = [];
             homeObj.immersions.tandem.languagesOffered = [];
@@ -53,8 +60,8 @@ module.exports = React.createClass({
               return;
             });
           })
-        }
 
+        }
 
         $('#preloader').hide();
 
