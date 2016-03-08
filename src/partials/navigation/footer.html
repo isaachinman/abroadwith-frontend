@@ -6,20 +6,14 @@
         <div id='ui-language-container'></div>
 
         <select id='ui-language' class='material'>
-          <option value='english'>
-            {{translations.languages.ENG}}
-          </option>
-          <option value='spanish'>
-            {{translations.languages.SPA}}
-          </option>
-          <option value='french'>
-            {{translations.languages.POR}}
-          </option>
+          <option value='ENG'>{{translations.languages.ENG}}</option>
+          <option value='SPA'>{{translations.languages.SPA}}</option>
+          <option value='POR'>{{translations.languages.POR}}</option>
         </select>
 
         <select id='ui-currency' class='material'>
           {% for currency, symbol in constants.currencies %}
-            <option value={{currency}} data-symbol={{symbol}}>{{currency}}</option>
+          <option value={{currency}} data-symbol={{symbol}}>{{currency}}</option>
           {% endfor %}
         </select>
       </div>
