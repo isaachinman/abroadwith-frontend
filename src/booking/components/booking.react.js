@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 
 var AddPaymentMethod = require('../../global/components/add-payment-method.react');
 var Paypal = require('../../global/components/payment-method--paypal.react');
-var Bank = require('../../global/components/payment-method--bank.react');
+var CreditCard = require('../../global/components/payment-method--credit-card.react');
 
 var domains = require('domains');
 var jwt_decode = require('jwt-decode');
@@ -141,61 +141,63 @@ module.exports = React.createClass({
     // Set price displays to loader animation
     $('.total-price').html('<div class="progress"><div class="indeterminate"></div></div>')
 
-    // Get price
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/bookings/price',
-      type: "POST",
-      data: JSON.stringify(bookingObj),
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
+    // // Get price
+    // $.ajax({
+    //   url: domains.API+'/users/'+JWT.rid+'/bookings/price',
+    //   type: "POST",
+    //   data: JSON.stringify(bookingObj),
+    //   contentType: "application/json",
+    //   beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+    //   success: function(response) {
+    //
+    //     console.log(response);
+    //
+    //     $('.total-price').html(currencies[this.state.currency]+Math.ceil(response));
+    //
+    //   }.bind(this),
+    //   error: function() {
+    //
+    //     alert('Something failed');
+    //
+    //   }
+    // })
 
-        console.log(response);
-
-        $('.total-price').html(currencies[this.state.currency]+Math.ceil(response));
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
-
-  },
-  componentDidMount: function() {
-
-    $('a#request-booking-btn').click(this.requestBooking);
-
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+    var callback = this.refreshState;
 
     // If user has payment methods, render them
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/paymentMethods/',
       type: "GET",
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
+      success: function(paymentMethods) {
 
-        var paymentMethods = response;
+        console.log(paymentMethods)
 
-        if (paymentMethods.length > 0) {
-          var PaymentMethodContainer = React.createClass({
-            render: function() {
-              var paymentMethodHTML = []
+        var PaymentMethodContainer = React.createClass({
+          render: function() {
+
+            var paymentMethodHTML = []
+
+            if (paymentMethods.length > 0) {
               paymentMethods.forEach(function(payment) {
                 console.log(payment)
                 if (payment.type === 'CARD') {
                   paymentMethodHTML.push(
                     <div>
-                      <input name="payments" type="radio" data-value={payment.id} id={payment.id} />
-                      <label for={payment.id}></label>
-                      <CreditCard
-                        id={payment.id}
-                        default={payment.default}
-                        expiry={payment.expiry}
-                        lastFour={payment.lastFour}
-                        cardHolder={payment.cardHolder}
-                      />
+                      <div class='booking-payment-radio'>
+                        <input name="payments" type="radio" data-value={payment.id} id={payment.id} />
+                        <label for={payment.id}></label>
+                      </div>
+                      <div class='booking-payment-method'>
+                        <CreditCard
+                          id={payment.id}
+                          default={payment.default}
+                          expiry={payment.expiry}
+                          lastFour={payment.lastFour}
+                          cardHolder={payment.cardHolder}
+                          deleteCallback={callback}
+                        />
+                      </div>
                     </div>
                   )
                 } else if (payment.type === 'PAYPAL') {
@@ -210,6 +212,7 @@ module.exports = React.createClass({
                           id={payment.id}
                           default={payment.default}
                           email={payment.email}
+                          deleteCallback={callback}
                         />
                       </div>
 
@@ -218,31 +221,31 @@ module.exports = React.createClass({
                   )
                 }
               })
-              paymentMethodHTML.push(
-                <AddPaymentMethod />
-
-              )
-              return (
-                <div>{paymentMethodHTML}</div>
-              )
             }
-          })
 
-          // Render payment method UI
-          ReactDOM.render(
-            <PaymentMethodContainer
-            />, document.querySelector('#payment-methods')
-          )
+            paymentMethodHTML.push(
+              <AddPaymentMethod
+                callback={callback}
+              />
 
-          // Select the first payment method
-          $('.booking-payment-radio input').first().attr('checked', 'checked');
+            )
+            return (
+              <div>{paymentMethodHTML}</div>
+            )
+          }
+        })
 
-        }
+        // Render payment method UI
+        ReactDOM.render(
+          <PaymentMethodContainer
+          />, document.querySelector('#payment-methods')
+        )
 
+        // Select the first payment method
+        $('.booking-payment-radio input').first().attr('checked', 'checked');
         $('.booking-payment-radio input').change(this.refreshState);
 
-        // This is the primary refreshState for initial load
-        this.refreshState();
+        $('#preloader').hide();
 
       }.bind(this),
       error: function() {
@@ -251,6 +254,11 @@ module.exports = React.createClass({
 
       }
     })
+
+  },
+  componentDidMount: function() {
+
+    $('a#request-booking-btn').click(this.requestBooking);
 
     // Extra guests equals number of guests minus one
     $('select#EXTRA_GUEST').val($('#guest-count').attr('data-guests') - 1);
@@ -313,8 +321,8 @@ module.exports = React.createClass({
       activeNodes[i].change(this.refreshState);
     }
 
-  },
-  componentDidUpdate: function() {
+    this.refreshState();
+
   },
   render: function() {
 
