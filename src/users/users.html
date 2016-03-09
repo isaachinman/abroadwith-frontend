@@ -8,7 +8,7 @@
     </div>
 
     <div class='info'>
-      <div class='col s12'>
+      <div class='col s12 center-on-small'>
         <h1>{{user.firstName}}</h1>
 
         {% if user.ratingCount %}
@@ -202,19 +202,19 @@
                 {% if user.interests.length > 0 %}
                   <p class='home-details'>
                     <span class='icon'><i class="fa fa-star grey-text text-lighten-1"></i></span>
-                    <strong>{{translations.common.Interests}}:</strong> {{user.interests}}
+                    <strong>{{translations.common.Interests}}:</strong> {% for interest in user.interests %}{{translations.users.interests[interest]}}{% if not loop.last %},&nbsp;{% endif %}{% endfor %}
                   </p>
                 {% endif %}
                 {% if user.hasVisited %}
-                  <p class='home-details'>
+                  <p class='home-details home-details--multi-line'>
                     <span class='icon'><i class="fa fa-plane grey-text text-lighten-1"></i></span>
-                    <strong>{{translations.common.Visited}}:</strong> {{user.hasVisited}}
+                    <strong>{{translations.common.Visited}}:</strong> {% for country in user.hasVisited %}{{translations.countries[country]}}{% if not loop.last %},&nbsp;{% endif %}{% endfor %}
                   </p>
                 {% endif %}
                 {% if user.hasLived %}
-                  <p class='home-details'>
+                  <p class='home-details home-details--multi-line'>
                     <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></i></span>
-                    <strong>{{translations.common.Lived_in}}:</strong> {{user.hasLived}}
+                    <strong>{{translations.common.Lived_in}}:</strong> {% for country in user.hasLived %}{{translations.countries[country]}}{% if not loop.last %},&nbsp;{% endif %}{% endfor %}
                   </p>
                 {% endif %}
               </div>

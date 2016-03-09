@@ -167,6 +167,12 @@ p.home-details {
     text-align: center;
     margin-right: 5px;
   }
+  &--multi-line {
+    height: auto;
+    overflow: auto;
+    text-overflow: inherit;
+    white-space: normal;
+  }
 }
 i.certified-language {
   color: white;

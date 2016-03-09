@@ -159,6 +159,11 @@ a.overlay {
 .capitalise {
   text-transform: capitalize;
 }
+.center-on-small {
+  @media #{$small-and-down} {
+    text-align: center;
+  }
+}
 .preloader-container {
   display: -webkit-flex;
   display: flex;
