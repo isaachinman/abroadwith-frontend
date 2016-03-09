@@ -25,6 +25,9 @@
     overflow-y: hidden;
     height: 64px;
   }
+  .indicator {
+    margin-bottom: 16px;
+  }
 }
 .tabs {
   @include flexbox();
