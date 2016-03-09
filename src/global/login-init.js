@@ -31,7 +31,11 @@ $('form.email-login').submit(function() {
   return false;
 })
 
-$('#login-modal-btn').length ? $('#login-modal-btn').click(login) : null;
+$('#login-modal-btn').length ? $('#login-modal-btn').click(function() {
+  console.log('trigger')
+  console.log(($(this).parentsUntil('.email-login')))
+  $('.email-login').submit();
+}) : null;
 
 // Facebook login
 
