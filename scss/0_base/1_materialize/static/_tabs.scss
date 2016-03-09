@@ -19,14 +19,17 @@
       background: linear-gradient(to right, rgba(229,241,244,0) 0%, rgba(229,241,244,0) 88%, rgba(229,241,244,1) 100%);
     }
   }
+  .tabs {
+    margin-bottom: -16px !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 64px;
+  }
 }
 .tabs {
   @include flexbox();
   position: relative;
-  margin-bottom: -16px !important;
-  overflow-x: auto;
-  overflow-y: hidden;
-  height: 64px;
+  height: 48px;
   background-color: lighten($ziggurat, 15%);
   margin: 0 auto 1rem auto;
   width: 100%;
