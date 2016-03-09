@@ -213,3 +213,6 @@ table {
 .blue-text {
   color: $havelock-blue !important;
 }
+.btn.disabled {
+  pointer-events: none;
+}

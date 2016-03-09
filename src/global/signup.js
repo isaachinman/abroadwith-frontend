@@ -10,7 +10,13 @@ $('select#learning-language').length ? $('select#learning-language').select2() :
 $('select#known-language').length ? $('select#known-language').select2() : null;
 
 // Process language chips
-var processLanguageChips = require('process-language-chips')
+var processLanguageChips = require('process-language-chips');
+
+// If on signup page, remove language and signup modals
+if(window.location.href.indexOf("signup") > -1) {
+  $('#choose-languages-modal').length ? $('#choose-languages-modal').remove() : null;
+  $('#sign-up-modal').length ? $('#sign-up-modal').remove() : null;
+}
 
 // If add learning language button exists, give it a click event
 $('a#add-learning-language').length ? $('a#add-learning-language').click(function() { processLanguageChips('learning'); }) : null;
@@ -182,6 +188,8 @@ if ($('form#email-signup-form').length) {
   // Language submit
   function applyLanguages() {
 
+    console.log('trigger')
+
     if ($('#language-known-chips').find('.language-known-chip').length) {
 
       // Mandatory known languages
@@ -212,9 +220,6 @@ if ($('form#email-signup-form').length) {
 
       }
 
-      $('#choose-languages-modal').closeModal();
-      $('#sign-up-modal').openModal();
-
     } else {
       if ($('#languages-not-valid').hasClass('hide')) {
         $('#languages-not-valid').removeClass('hide');
@@ -224,7 +229,17 @@ if ($('form#email-signup-form').length) {
 
   $('#apply-languages').click(function() {
     applyLanguages();
+    $('#choose-languages-modal').closeModal();
+    $('#sign-up-modal').openModal();
   });
+
+  if ($('#apply-languages-signup-page').length) {
+    $('#apply-languages-signup-page').click(function() {
+      applyLanguages();
+      $('#choose-languages').hide();
+      $('#sign-up').show();
+    })
+  }
 
   // Email signup process
   emailSignup.click(function() {
