@@ -10,10 +10,6 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
-    $('ul.collapsible').collapsible({
-      accordion : false
-    });
-
     var callback = this.props.callback;
 
     // Generate clientToken
@@ -72,9 +68,13 @@ module.exports = React.createClass({
             },
             onReady: function() {
 
-                $("#paypal-container").bind("DOMSubtreeModified", function() {
-                  $('#add-new-paypal').removeClass('hide');
-                });
+              $('#add-payment-form ul.collapsible').collapsible({
+                accordion : false
+              });
+
+              $("#paypal-container").bind("DOMSubtreeModified", function() {
+                $('#add-new-paypal').removeClass('hide');
+              });
 
             }
           })
