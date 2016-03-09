@@ -156,7 +156,7 @@ module.exports = React.createClass({
       }
 
       var interestedLanguageChips = [];
-      if (typeof tandemLanguagesInterested === 'undefined' || tandemLanguagesInterested.length === 0) {
+      if (this.props.immersions.tandem === null || this.props.immersions.tandem.length === 0) {
         interestedLanguageChips.push("<div class='chip initial'>"+i18n.t('manage_home:choose_at_least_one_chip')+"<i class='material-icons'>close</i></div>");
       } else {
         $.each(this.props.immersions.tandem.languagesInterested, function() {

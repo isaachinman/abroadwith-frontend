@@ -152,48 +152,48 @@ module.exports = React.createClass({
 
       <div>
 
-          <BasicsTab
-            updateHome={this.updateHome}
-            basics={this.state.basics}
-          />
+        <BasicsTab
+          updateHome={this.updateHome}
+          basics={this.state.basics}
+        />
 
-          <ImmersionsTab
-            updateHome={this.updateHome}
-            immersions={this.state.immersions}
-            stayAvailableLanguages={this.state.stayAvailableLanguages}
-            tandemAvailableLanguages={this.state.tandemAvailableLanguages}
-            tandemAvailableLearnLanguages={this.state.tandemAvailableLearnLanguages}
-            teacherAvailableLanguages={this.state.teacherAvailableLanguages}
-            currency={this.state.currency}
-          />
+        <ImmersionsTab
+          updateHome={this.updateHome}
+          immersions={this.state.immersions}
+          stayAvailableLanguages={this.state.stayAvailableLanguages}
+          tandemAvailableLanguages={this.state.tandemAvailableLanguages}
+          tandemAvailableLearnLanguages={this.state.tandemAvailableLearnLanguages}
+          teacherAvailableLanguages={this.state.teacherAvailableLanguages}
+          currency={this.state.currency}
+        />
 
-          <LocationTab
-            updateHome={this.updateHome}
-            location={this.state.location}
-          />
+        <LocationTab
+          updateHome={this.updateHome}
+          location={this.state.location}
+        />
 
-          <DescriptionTab
-            updateHome={this.updateHome}
-            description={this.state.description}
-          />
+        <DescriptionTab
+          updateHome={this.updateHome}
+          description={this.state.description}
+        />
 
-          <RoomsTab
-            updateHome={this.updateHome}
-            refreshState={this.refreshState}
-            rooms={this.state.rooms}
-          />
+        <RoomsTab
+          updateHome={this.updateHome}
+          refreshState={this.refreshState}
+          rooms={this.state.rooms}
+        />
 
-          <PhotosTab
-            updateHome={this.updateHome}
-            photos={this.state.photos}
-          />
+        <PhotosTab
+          updateHome={this.updateHome}
+          photos={this.state.photos}
+        />
 
-          <PricingTab
-            updateHome={this.updateHome}
-            rooms={this.state.rooms}
-            immersions={this.state.immersions}
-            pricing={this.state.pricing}
-          />
+        <PricingTab
+          updateHome={this.updateHome}
+          rooms={this.state.rooms}
+          immersions={this.state.immersions}
+          pricing={this.state.pricing}
+        />
 
       </div>
 
