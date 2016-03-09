@@ -5,13 +5,16 @@ var jwt_decode = require('jwt-decode');
 var sendPaymentNonce = require('send-payment-nonce');
 
 module.exports = React.createClass({
-  componentDidUpdate: function() {
+  showPreloader: function() {
+    $('#preloader').show()
   },
   componentDidMount: function() {
 
     $('ul.collapsible').collapsible({
       accordion : false
     });
+
+    var callback = this.props.callback;
 
     // Generate clientToken
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
@@ -61,9 +64,10 @@ module.exports = React.createClass({
               paypal: true
             },
             onPaymentMethodReceived: function (obj) {
-              $('#preloader').show()
               sendPaymentNonce(obj.nonce, function() {
-                location.reload();
+                callback(function() {
+                  null;
+                });
               });
             },
             onReady: function() {
@@ -119,13 +123,15 @@ module.exports = React.createClass({
                     </div>
                   </div>
 
-                  <div className='col s12'>
-                    <input id='add-new-card' className='btn btn-flat btn-secondary' type="submit" value="Add card" />
-                  </div>
-
-                  </div>
-
                 </div>
+
+                <div className='row'>
+                  <div className='col s12'>
+                    <input id='add-new-card' className='btn btn-flat btn-primary' type="submit" value="Add card" onClick={this.showPreloader} />
+                  </div>
+                </div>
+
+              </div>
             </li>
             <li>
               <div className="collapsible-header">Paypal</div>
@@ -135,7 +141,7 @@ module.exports = React.createClass({
 
                 <div className='row'>
                   <div className='col s12'>
-                    <input id='add-new-paypal' className='btn btn-flat btn-secondary hide' type="submit" value="Add Paypal" />
+                    <input id='add-new-paypal' className='btn btn-flat btn-primary hide' type="submit" value="Add Paypal" onClick={this.showPreloader} />
                   </div>
                 </div>
 

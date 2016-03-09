@@ -58,20 +58,15 @@ module.exports = React.createClass({
 
       var languagesKnown = this.props.languagesKnown;
 
-      console.log(languagesKnown)
-
       var LanguagesKnownContainer = React.createClass({
         render: function() {
           var languagesKnownHTML = []
           languagesKnown.forEach(function(lang) {
 
-            console.log(lang)
-
             languagesKnownHTML.push(
               <div className="language-known-chip chip" data-lang={lang.language} data-level={lang.level}>{i18n.t('languages:'+lang.language)} ({(i18n.t('common:'+lang.level))})<i className="material-icons">close</i></div>
             )
           })
-          console.log(languagesKnownHTML)
           return (
             <div className='react'>{languagesKnownHTML}</div>
           )

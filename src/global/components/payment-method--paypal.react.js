@@ -5,6 +5,11 @@ var domains = require('domains');
 
 module.exports = React.createClass({
   deletePaymentMethod: function() {
+
+    $('#preloader').show();
+
+    var deleteCallback = this.props.deleteCallback;
+
     // Generate clientToken
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
@@ -15,7 +20,9 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
-        location.reload();
+        deleteCallback(function() {
+          null;
+        });
 
       }.bind(this),
       error: function() {
@@ -42,7 +49,6 @@ module.exports = React.createClass({
           Connected
         </div>
         <div className='actions'>
-          <a>Set as default</a>
           <a onClick={this.deletePaymentMethod}>Remove</a>
         </div>
         <div className='type'>

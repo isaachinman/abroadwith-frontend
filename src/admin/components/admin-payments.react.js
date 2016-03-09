@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
       var paymentMethods = this.props.paymentMethods;
 
-      var callback = this.props.updateAdmin;
+      var updateAdmin = this.props.updateAdmin;
 
       var PaymentMethodContainer = React.createClass({
         render: function() {
@@ -31,6 +31,7 @@ module.exports = React.createClass({
                     expiry={payment.expiry}
                     lastFour={payment.lastFour}
                     cardHolder={payment.cardHolder}
+                    deleteCallback={updateAdmin.bind(this)}
                   />
                 </div>
               )
@@ -41,6 +42,7 @@ module.exports = React.createClass({
                     id={payment.id}
                     default={payment.default}
                     email={payment.email}
+                    deleteCallback={updateAdmin.bind(this)}
                   />
                 </div>
               )
@@ -48,7 +50,9 @@ module.exports = React.createClass({
           })
           paymentMethodHTML.push(
             <div className='col s12 m6 l4'>
-              <AddPaymentMethod />
+              <AddPaymentMethod
+                callback={updateAdmin.bind(this)}
+              />
             </div>
           )
           return (
@@ -64,7 +68,9 @@ module.exports = React.createClass({
           var paymentMethodHTML = []
           paymentMethodHTML.push(
             <div className='col s12 m6 l4'>
-              <AddPaymentMethod />
+              <AddPaymentMethod
+                callback={updateAdmin}
+              />
             </div>
           )
           return (

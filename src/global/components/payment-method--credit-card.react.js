@@ -1,6 +1,37 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
+var jwt_decode = require('jwt-decode');
+var domains = require('domains');
 
 module.exports = React.createClass({
+  deletePaymentMethod: function() {
+
+    $('#preloader').show();
+
+    var deleteCallback = this.props.deleteCallback;
+
+    // Generate clientToken
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid+'/paymentMethod/'+this.props.id,
+      type: "DELETE",
+      contentType: "application/json",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
+
+        deleteCallback(function() {
+          null;
+        });
+
+      }.bind(this),
+      error: function() {
+
+        alert('Something failed');
+
+      }
+    })
+  },
   render: function() {
 
     if (this.props.default === true) {
@@ -12,22 +43,19 @@ module.exports = React.createClass({
     }
 
     return (
-      <div className='col s12 m6 l4'>
-        <div className='payment-method'>
-          {defaultHTML}
-          <div className='number'>
-            <span className='grey-text'>XXXXXXXXXXXX</span>{this.props.lastFour}
-          </div>
-          <div className='secondary grey-text'>
-            {this.props.expiry}
-          </div>
-          <div className='actions'>
-            {defaultText}
-            <a>Remove</a>
-          </div>
-          <div className='type'>
-            <i className="fa fa-cc-visa"></i>
-          </div>
+      <div className='payment-method'>
+        {defaultHTML}
+        <div className='number'>
+          <span className='grey-text'>XXXXXXXXXXXX</span>{this.props.lastFour}
+        </div>
+        <div className='secondary grey-text'>
+          {this.props.expiry}
+        </div>
+        <div className='actions'>
+          <a onClick={this.deletePaymentMethod}>Remove</a>
+        </div>
+        <div className='type'>
+          <i className="fa fa-cc-visa"></i>
         </div>
       </div>
     );
