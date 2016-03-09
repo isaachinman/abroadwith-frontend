@@ -5,7 +5,7 @@
   height: calc(100vh - 50px);
   top: 50px;
   right: 0;
-  overflow: scroll;
+  overflow: auto;
   @media #{$small-and-down} {
     width: 100vw;
     height: 200px;
