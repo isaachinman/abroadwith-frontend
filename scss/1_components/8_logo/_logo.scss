@@ -6,8 +6,11 @@ nav {
     }
   }
   span.logo-container {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 7px;
     position: relative;
-    margin-left: -2.5px;
+    margin-left: 0;
     img.logo {
       position: absolute;
       top: 2.5px;
