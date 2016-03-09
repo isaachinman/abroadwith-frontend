@@ -141,26 +141,26 @@ module.exports = React.createClass({
     // Set price displays to loader animation
     $('.total-price').html('<div class="progress"><div class="indeterminate"></div></div>')
 
-    // // Get price
-    // $.ajax({
-    //   url: domains.API+'/users/'+JWT.rid+'/bookings/price',
-    //   type: "POST",
-    //   data: JSON.stringify(bookingObj),
-    //   contentType: "application/json",
-    //   beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-    //   success: function(response) {
-    //
-    //     console.log(response);
-    //
-    //     $('.total-price').html(currencies[this.state.currency]+Math.ceil(response));
-    //
-    //   }.bind(this),
-    //   error: function() {
-    //
-    //     alert('Something failed');
-    //
-    //   }
-    // })
+    // Get price
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid+'/bookings/price',
+      type: "POST",
+      data: JSON.stringify(bookingObj),
+      contentType: "application/json",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function(response) {
+
+        console.log(response);
+
+        $('.total-price').html(currencies[this.state.currency]+Math.ceil(response));
+
+      }.bind(this),
+      error: function() {
+
+        alert('Something failed');
+
+      }
+    })
 
     var callback = this.refreshState;
 

@@ -66,7 +66,7 @@ module.exports = React.createClass({
       createPricingObject('extras', 'AIRPORT_PICKUP');
 
       // Set new tandem discounts
-      if ($('#tandem-discount').val() !== '' && $('#tandem-discount').val() !== 'undefined' && $('#tandem-discount').val() !== null && typeof homeObj.immersions.tandem.languagesInterested !== 'undefined' && homeObj.immersions.tandem.languagesInterested.length > 0) {
+      if ($('#tandem-discount').val() !== '' && $('#tandem-discount').val() !== 'undefined' && $('#tandem-discount').val() !== null && homeObj.immersions.tandem !== null && homeObj.immersions.tandem.languagesInterested !== null && homeObj.immersions.tandem.languagesInterested.length > 0) {
         var newTandemDiscount = parseInt($('#tandem-discount').val());
         for (var i=0; i<homeObj.immersions.tandem.languagesInterested.length; i++) {
           homeObj.immersions.tandem.languagesInterested[i].discount = newTandemDiscount;

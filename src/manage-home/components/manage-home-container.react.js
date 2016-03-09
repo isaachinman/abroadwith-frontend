@@ -31,21 +31,19 @@ module.exports = React.createClass({
       data: JSON.stringify(homeObj),
       contentType: "application/json",
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
+      success: function(homeStatus) {
 
-        var homeStatus = response;
-
-        console.log(JSON.stringify(response))
+        console.log(JSON.stringify(homeStatus))
 
         // Update status bar
         var publishedBar = $('#published-status');
-        if (homeStatus.isActive === false) {
+        if (homeStatus.activated === false) {
 
           // If home is active, swap classes and text of publishedBar
           publishedBar.addClass('manage-home-info-text--unpublished');
           publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + i18n.t('homes:published_codes.'+homeStatus.code) + ')');
 
-        } else if (homeStatus.isActive === true) {
+        } else if (homeStatus.activated === true) {
 
           // If home is inactive, swap classes and text of publishedBar
           publishedBar.addClass('manage-home-info-text--published');
