@@ -31,7 +31,14 @@
       <div class='row section'>
 
         <div class='col s12 input-field center-field'>
-          <a id='delete-account' class='btn btn-secondary btn-flat btn-delete privacy-btn'>Delete account</a>
+          <a class='btn btn-secondary btn-flat btn-delete privacy-btn modal-trigger' href="#delete-account-modal">Delete account</a>
+          <div id="delete-account-modal" class="modal">
+            <div class="modal-content">
+              <h4>Delete account</h4>
+              <p>Are you sure you want to delete your account permanently?</p>
+              <a id='delete-account' class='btn btn-secondary btn-flat btn-delete'>Delete account permanently</a>
+            </div>
+          </div>
         </div>
 
       </div>
