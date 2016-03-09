@@ -4,6 +4,11 @@
     @extend .text-shadow;
     margin: 80px 0 50px 0;
   }
+  .input-row {
+    background: white;
+    border-radius: 3px;
+    overflow: hidden;
+  }
   .input-strip {
     color: $americano;
     margin-top: 20vh;
@@ -31,6 +36,8 @@
     .search {
       float: right;
       width: 160px;
+      margin: 0;
+      padding: 0;
     }
     @media #{$medium-and-down} {
       .language {
