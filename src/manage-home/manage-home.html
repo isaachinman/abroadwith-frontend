@@ -1,15 +1,18 @@
 {% extends "layout.html" %} {% block title %} {{ translations.search.title }} {% endblock %} {% block content %}
 
 <div class="col s12 no-padding-sides">
-  <ul class="tabs">
-    <li class="tab"><a class='active' href="#basics" data-next='immersions'>{{ translations.manage_home.basics_tabname }}</a></li>
-    <li class="tab"><a href="#immersions" data-next='location'>{{ translations.manage_home.immersions_tabname }}</a></li>
-    <li id='location-tab' class="tab"><a href="#location" data-next='description'>{{ translations.manage_home.location_tabname }}</a></li>
-    <li class="tab"><a href="#description" data-next='rooms'>{{ translations.manage_home.description_tabname }}</a></li>
-    <li class="tab"><a href="#rooms" data-next='photos'>{{ translations.manage_home.rooms_tabname }}</a></li>
-    <li class="tab"><a href="#photos" data-next='pricing'>{{ translations.manage_home.photos_tabname }}</a></li>
-    <li class="tab"><a href="#pricing">{{ translations.manage_home.pricing_tabname }}</a></li>
-  </ul>
+  <div class='tabs-container'>
+    <div class='tabs-overlay'></div>
+    <ul class="tabs">
+      <li class="tab"><a class='active' href="#basics" data-next='immersions'>{{ translations.manage_home.basics_tabname }}</a></li>
+      <li class="tab"><a href="#immersions" data-next='location'>{{ translations.manage_home.immersions_tabname }}</a></li>
+      <li id='location-tab' class="tab"><a href="#location" data-next='description'>{{ translations.manage_home.location_tabname }}</a></li>
+      <li class="tab"><a href="#description" data-next='rooms'>{{ translations.manage_home.description_tabname }}</a></li>
+      <li class="tab"><a href="#rooms" data-next='photos'>{{ translations.manage_home.rooms_tabname }}</a></li>
+      <li class="tab"><a href="#photos" data-next='pricing'>{{ translations.manage_home.photos_tabname }}</a></li>
+      <li class="tab"><a href="#pricing">{{ translations.manage_home.pricing_tabname }}</a></li>
+    </ul>
+  </div>
 </div>
 
 <div class='row manage-home'>
