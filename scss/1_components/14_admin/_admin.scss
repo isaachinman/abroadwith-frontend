@@ -90,6 +90,15 @@ a.privacy-btn {
 
 // Phone validation flags
 .iti-flag {background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/img/flags.png");}
+.intl-tel-input {
+  width: 100%;
+  float: left;
+}
+.flag-container {
+  position: absolute;
+}
 input#phoneNumber {
-  width: calc(100% - 48px);
+  float: left;
+  padding-left: 48px;
+  width: calc(100% - 58px);
 }
