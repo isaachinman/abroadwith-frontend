@@ -180,7 +180,7 @@ ul.message-list {
   border-top: 1px solid #ddd;
   textarea {
     max-height: 60px;
-    overflow: scroll;
+    overflow: auto;
     float: left;
     margin: 0 30px;
     width: calc(100% - 200px);
