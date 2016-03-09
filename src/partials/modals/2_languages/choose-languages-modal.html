@@ -16,12 +16,13 @@
       </div>
       <!-- languages to learn -->
       <div class='col s12 m4 offset-m1 l4 offset-l1 input-field'>
-        <select id="learning-language" type="text" class="validate no-margin" data-placeholder='Language'>
+        <select id="learning-language" type="text" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
           <option></option>
           {% for langCode, language in translations.languages %}
             <option data-lang={{ langCode }}>{{ language }}</option>
           {% endfor %}
         </select>
+        <label class='active'>{{translations.common.learning_language_label}}</label>
       </div>
       <div class='col s8 m3 l3 input-field'>
         <select id="learning-level" type="text" class="material validate no-margin">
@@ -29,10 +30,11 @@
             <option data-level={{ levelCode }}>{{ level }}</option>
           {% endfor %}
         </select>
+        <label>{{translations.common.level}}</label>
       </div>
 
-      <div class='col s4 input-field'>
-        <a id='add-learning-language' class='btn-floating btn-secondary'>+</a>
+      <div class='col s4 input-field left-align'>
+        <a id='add-learning-language' class='btn-floating btn-secondary center-align'>+</a>
       </div>
 
     </div>
@@ -49,12 +51,13 @@
         </div>
       </div>
       <div class='col s12 m4 offset-m1 l4 offset-l1 input-field'>
-        <select id="known-language" type="text" class="validate no-margin" data-placeholder='Language'>
+        <select id="known-language" type="text" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
           <option></option>
           {% for langCode, language in translations.languages %}
             <option data-lang={{langCode}}>{{ language }}</option>
           {% endfor %}
         </select>
+        <label class='active'>{{translations.common.known_language_label}}</label>
       </div>
       <div class='col s8 m3 l3 input-field'>
         <select id="known-level" type="text" class="material validate no-margin">
@@ -62,10 +65,11 @@
             <option data-level={{ levelCode }}>{{ level }}</option>
           {% endfor %}
         </select>
+        <label>{{translations.common.level}}</label>
       </div>
 
-      <div class='col s4 input-field'>
-        <a id='add-known-language' class='btn-floating btn-secondary'>+</a>
+      <div class='col s4 input-field left-align'>
+        <a id='add-known-language' class='btn-floating btn-secondary center-align'>+</a>
       </div>
 
     </div>
