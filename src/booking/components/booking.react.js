@@ -51,7 +51,9 @@ module.exports = React.createClass({
       serviceNames:               serviceNames,
       paymentMethodId:            $('.booking-payment-radio input:checked').length > 0 ? parseInt($('.booking-payment-radio input:checked').attr('data-value')) : null
     }
+
     return bookingObj;
+
   },
   validateBooking: function(bookingObj) {
     if (
@@ -105,10 +107,6 @@ module.exports = React.createClass({
 
     var bookingObj = this.createBookingObject();
 
-    this.validateBooking(bookingObj);
-
-    delete bookingObj.paymentMethodId;
-
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     this.setState(bookingObj, function() {
@@ -142,6 +140,7 @@ module.exports = React.createClass({
     $('.total-price').html('<div class="progress"><div class="indeterminate"></div></div>')
 
     // Get price
+    delete bookingObj.paymentMethodId;
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/bookings/price',
       type: "POST",
@@ -149,8 +148,6 @@ module.exports = React.createClass({
       contentType: "application/json",
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
-
-        console.log(response);
 
         $('.total-price').html(currencies[this.state.currency]+Math.ceil(response));
 
@@ -171,8 +168,6 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(paymentMethods) {
 
-        console.log(paymentMethods)
-
         var PaymentMethodContainer = React.createClass({
           render: function() {
 
@@ -180,7 +175,6 @@ module.exports = React.createClass({
 
             if (paymentMethods.length > 0) {
               paymentMethods.forEach(function(payment) {
-                console.log(payment)
                 if (payment.type === 'CARD') {
                   paymentMethodHTML.push(
                     <div>
@@ -223,12 +217,6 @@ module.exports = React.createClass({
               })
             }
 
-            paymentMethodHTML.push(
-              <AddPaymentMethod
-                callback={callback}
-              />
-
-            )
             return (
               <div>{paymentMethodHTML}</div>
             )
@@ -243,7 +231,6 @@ module.exports = React.createClass({
 
         // Select the first payment method
         $('.booking-payment-radio input').first().attr('checked', 'checked');
-        $('.booking-payment-radio input').change(this.refreshState);
 
         $('#preloader').hide();
 
@@ -254,6 +241,8 @@ module.exports = React.createClass({
 
       }
     })
+
+    this.validateBooking(bookingObj);
 
   },
   componentDidMount: function() {
@@ -320,6 +309,16 @@ module.exports = React.createClass({
     for (var i=0; i<activeNodes.length; i++) {
       activeNodes[i].change(this.refreshState);
     }
+
+    // Render add payment method
+    var callback = this.refreshState;
+    ReactDOM.render(
+      <AddPaymentMethod
+        callback={callback}
+      />, document.querySelector('#add-payment-method')
+    )
+
+    $('form#add-payment-form ul').collapsible();
 
     this.refreshState();
 
