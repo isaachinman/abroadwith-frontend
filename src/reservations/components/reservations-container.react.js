@@ -1,5 +1,5 @@
 var React = require('react');
-var TripsList = require('./trips-list.react')
+var ReservationsList = require('./reservations-list.react')
 
 var jwt_decode = require('jwt-decode');
 var domains = require('domains');
@@ -8,22 +8,22 @@ var domains = require('domains');
 module.exports = React.createClass({
   getInitialState: function() {
 
-    var tripsDOM = []
+    var reservationsDOM = []
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/bookings',
+      url: domains.API+'/users/'+JWT.rid+'/reservations',
       type: "GET",
       contentType: "application/json",
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(trips) {
+      success: function(reservations) {
 
-        console.log(trips)
+        console.log(reservations)
 
         var newState = {
 
-          trips: trips,
+          reservations: reservations,
 
         }
         if (this.isMounted()) {
@@ -42,8 +42,8 @@ module.exports = React.createClass({
   render: function() {
     var tripsDOM;
     return (
-      <TripsList
-        trips={this.state.trips}
+      <ReservationsList
+        reservations={this.state.reservations}
       />
     );
   }
