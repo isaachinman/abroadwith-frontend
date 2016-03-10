@@ -1,9 +1,9 @@
 module.exports = function(callback) {
 
   var domains = require('domains');
-  var loggedIn = require('logged-in')
+  var loggedIn = require('logged-in');
 
-  var jwt_decode = require('jwt-decode')
+  var jwt_decode = require('jwt-decode');
 
   var refreshObj = {
     token: localStorage.getItem('JWT')
