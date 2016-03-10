@@ -38,3 +38,6 @@ require('./admin/admin');
 
 // Booking
 require('./booking/booking')
+
+// Trips
+require('./trips/trips')
