@@ -37,6 +37,9 @@
     padding: 2rem;
   }
 }
+.collapsible-body.active {
+  display: block;
+}
 
 // sideNav collapsible styling
 .side-nav {
