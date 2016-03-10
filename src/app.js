@@ -18,7 +18,8 @@ require('./global/login-init');
 require('./global/login-redirect');
 require('./global/logout-init');
 require('./global/home-creation');
-require('./global/reset-password-request')
+require('./global/reset-password-request');
+require('./global/reset-password-set');
 
 // Manage home
 require('./manage-home/manage-home');
