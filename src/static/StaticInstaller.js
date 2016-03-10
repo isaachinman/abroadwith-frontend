@@ -17,6 +17,7 @@ var installer = function(app) {
   app.use('/login',genericRouter('static/login.html'));
   app.use('/signup',genericRouter('static/signup.html'));
   app.use('/reset-password',genericRouter('static/reset-password.html'));
+  app.use('/reset-password-set',genericRouter('static/reset-password-set.html'));
   app.use('/about',genericRouter('static/about.html'));
   app.use('/booking-success',genericRouter('static/booking-success.html'));
 };

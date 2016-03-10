@@ -1,9 +1,8 @@
 var domains = require('domains');
 
+if ($('a.reset-password-request').length) {
 
-if ($('a.reset-password').length) {
-
-  $('form.reset-password').submit(function() {
+  $('form.reset-password-request').submit(function() {
 
     $('#preloader').show();
 
@@ -19,7 +18,7 @@ if ($('a.reset-password').length) {
       success: function() {
 
         $('.reset-password-request-successful').show();
-        $('form.reset-password').hide();
+        $('form.reset-password-request').hide();
         $('#preloader').hide();
 
       },
@@ -36,7 +35,7 @@ if ($('a.reset-password').length) {
 
   })
 
-  $('a.reset-password').click(function() {
+  $('a.reset-password-request').click(function() {
 
     $(this).parentsUntil('form').find('.submit').click();
 
