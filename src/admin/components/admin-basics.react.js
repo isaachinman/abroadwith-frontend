@@ -98,7 +98,7 @@ module.exports = React.createClass({
       }
     }
 
-    $.getScript("https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete", function() {});
+    $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places&callback=initAutocomplete", function() {});
 
   },
   componentDidUpdate: function() {
