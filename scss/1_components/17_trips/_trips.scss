@@ -20,6 +20,12 @@ table.trips-table {
 ul.trips {
   max-width: 1200px;
   margin: 0 auto;
+  li.active:first-child {
+    margin: 0 0 40px 0 !important;
+  }
+  li.active {
+    margin: 40px 0 !important;
+  }
   .collapsible-header {
     text-align: left;
     position: relative;
