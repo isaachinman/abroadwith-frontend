@@ -143,7 +143,7 @@ module.exports = React.createClass({
 
     return (
       <div id='map-scripts'>
-        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places,geometry&callback=initAutocomplete&types=(cities)" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&signed_in=true&libraries=places,geometry&callback=initAutocomplete&types=(cities)" async defer></script>
       </div>
     );
   }
