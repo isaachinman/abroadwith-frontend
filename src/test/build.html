@@ -83,10 +83,12 @@ var newHome = {
   },
   immersions: {
     stay: {
+      isActive: true,
       languagesOffered: ["ENG"],
       hours: 7
     },
     tandem: {
+      isActive: true,
       languagesOffered: ["ENG"],
       hours: 8,
       languagesInterested: [
@@ -97,6 +99,7 @@ var newHome = {
       ]
     },
     teacher: {
+      isActive: true,
       languagesOffered: ["ENG"],
       certifications: [],
       packages: [5,15],
@@ -151,20 +154,6 @@ var room2 = {
 };
 
 
-var publicGetHome = function(newurl){
-  $.ajax({
-    type: "GET",
-    url: DOMAINS.API+"/public/homes/"+newurl.split("/")[newurl.split("/").length-1],
-    contentType: "application/json",
-    success: function (body,text,response) {
-      $('#status').append("<h1>Get public home</h1>");
-      $('#status').append('<br/> Request:'+newurl);
-      $('#status').append('<br/>'+response.status);
-      $('#status').append('<br/> Response:'+JSON.stringify(body));
-    }
-  });
-}
-
 var getHome = function(newurl){
   $.ajax({
     type: "GET",
@@ -176,8 +165,6 @@ var getHome = function(newurl){
       $('#status').append('<br/> Request:'+newurl);
       $('#status').append('<br/>'+response.status);
       $('#status').append('<br/> Response:'+JSON.stringify(body));
-
-      publicGetHome(newurl);
     }
   });
 }
@@ -257,11 +244,12 @@ var updateComplete = function(newurl){
         body.rooms[0].img = "/static/room/1.jpg";
         body.rooms[1].price = 50.0;
         body.rooms[1].img = "/static/room/2.jpg";
+        newHome.rooms = body.rooms;
         $.ajax({
           type: "POST",
           url: newurl,
           contentType: "application/json",
-          data: JSON.stringify(body),
+          data: JSON.stringify(newHome),
           beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
           success: function (body,text,response) {
             $('#status').append("<h1>Update home</h1>");
@@ -269,15 +257,15 @@ var updateComplete = function(newurl){
             $('#status').append('<br/>'+response.status + " - "+response.getResponseHeader('Location'));
             $('#status').append('<br/> Response:'+JSON.stringify(body));
 
-            getHome(newurl)
+            getHome(newurl);
           }
         });
       }
       else{
         updateHome(newurl);
         addRooms(newurl+"/rooms");
+        getHome(newurl)
       }
-      publicGetHome(newurl);
     }
   });
 
