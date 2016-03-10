@@ -20,6 +20,8 @@ var installer = function(app) {
   app.use('/reset-password-set',genericRouter('static/reset-password-set.html'));
   app.use('/about',genericRouter('static/about.html'));
   app.use('/booking-success',genericRouter('static/booking-success.html'));
+  app.use('/email-verified-success',genericRouter('static/email-verified-success.html'));
+  app.use('/email-verified-failure',genericRouter('static/email-verified-failure.html'));
 };
 
 module.exports = installer;
