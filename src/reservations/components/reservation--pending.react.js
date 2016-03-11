@@ -11,9 +11,7 @@ var currencies = require('currencies')
 module.exports = React.createClass({
   approveReservation: function() {
 
-    var approvalObj = {
-      "reservationStatusRequest": "APPROVED"
-    }
+    var approvalObj = {"reservationStatusRequest":"APPROVED"}
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
     $.ajax({
@@ -24,7 +22,7 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
-        console.log(response)
+        // Refresh state
 
       },
       error: function() {
@@ -37,15 +35,18 @@ module.exports = React.createClass({
   },
   declineReservation: function() {
 
+    var declineObj = {"reservationStatusRequest":"CANCELLED"}
+
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
     $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/bookings/'+this.props.reservation.id,
+      url: domains.API+'/users/'+JWT.rid+'/reservations/'+this.props.reservation.id,
       type: "POST",
+      data: JSON.stringify(declineObj),
       contentType: "application/json",
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
-        console.log(response)
+        // Refresh state
 
       },
       error: function() {
@@ -73,13 +74,13 @@ module.exports = React.createClass({
 
       <li>
         <div className="collapsible-header">
-          <span className='pending-reservation'>({i18n.t('trips:status_codes.PENDING')})</span><img src={roomPhoto} className='room-thumbnail' />Tandem immersion with Jose
+          <span className='pending-reservation'>({i18n.t('trips:status_codes.PENDING')})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:reservation_with', {immersion:i18n.t('immersions:'+reservation.immersionType), guest: reservation.guestName})}
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>
             <div className='col s12 m12 l2 margin-top-20 center-align trip-user-actions'>
               <a className='btn btn-primary reservation-btn' onClick={this.approveReservation}>{i18n.t('trips:actions.approve')}</a>
-              <a className='btn btn-secondary reservation-btn no-margin-bottom'>{i18n.t('trips:actions.decline')}</a>
+              <a className='btn btn-secondary reservation-btn no-margin-bottom' onClick={this.declineReservation}>{i18n.t('trips:actions.decline')}</a>
               <div>
                 <a className='small grey-text'>{i18n.t('trips:cancellation_policy')}</a>
               </div>
@@ -87,7 +88,7 @@ module.exports = React.createClass({
                 <a><img src={guestPhoto} alt="" className="circle responsive-img reservation-profile-icon" /></a>
               </div>
               <div>
-                <a>View details</a>
+                <a>{i18n.t('trips:view_details')}</a>
               </div>
             </div>
             <div className='col s12 m12 l10 margin-top-20'>
@@ -109,10 +110,10 @@ module.exports = React.createClass({
                   <tr>
                     <td className='status'>{i18n.t('trips:status_codes.PENDING')}</td>
                     <td>{reservation.roomName}</td>
-                    <td>Eisenbahnstr. 19<br />Berlin, Germany</td>
-                    <td>2016-05-18</td>
-                    <td>2016-08-01</td>
-                    <td>1</td>
+                    <td>{reservation.homeAddress.street}<br />{reservation.homeAddress.city}, {i18n.t('countries:'+reservation.homeAddress.country)}</td>
+                    <td>{reservation.arrivalDate}</td>
+                    <td>{reservation.departureDate}</td>
+                    <td>{reservation.guestCount}</td>
                     <td><span className='large blue-text'>{currencies[reservation.chargesCurrency]}{reservation.baseCharges}</span></td>
                   </tr>
                 </tbody>
