@@ -4,16 +4,7 @@
 <h5 class='grey-text'>Who are you hosting next?</h5>
 
 <div class='row margin-top-50'>
-  <div class='col s12'>
-    <ul class="collapsible popout trips" data-collapsible="accordion">
-
-      {% include "./sections/reservation.html" %}
-      {% include "./sections/reservation--approved.html" %}
-      {% include "./sections/reservation--declined.html" %}
-      {% include "./sections/reservation--cancelled.html" %}
-
-    </ul>
-  </div>
+  <div id='reservations-container' class='col s12'></div>
 </div>
 
 {% endblock %}

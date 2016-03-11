@@ -41,3 +41,6 @@ require('./booking/booking')
 
 // Trips
 require('./trips/trips')
+
+// Reservations
+require('./reservations/reservations')
