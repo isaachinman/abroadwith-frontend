@@ -37,6 +37,10 @@ ul.trips {
     line-height: 8rem;
     font-size: 1.35rem;
     padding: 0 2rem 0 12rem;
+    &.center-align {
+      text-align: center;
+      padding: 0 1rem;
+    }
     @media #{$small-and-down} {
       font-size: 1.15rem;
       text-align: center;
