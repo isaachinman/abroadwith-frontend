@@ -66,6 +66,8 @@ module.exports = React.createClass({
 
     var reservation = this.props.reservation;
 
+    console.log(new Date(reservation.arrivalDate).getTime())
+
     var roomPhoto = domains.IMG + reservation.roomPhoto;
     var guestPhoto = domains.IMG + reservation.guestPhoto;
     var homeLink = domains.FRONTEND + '/homes/' + reservation.homeId;
