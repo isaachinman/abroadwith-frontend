@@ -40,11 +40,28 @@ module.exports = React.createClass({
     var roomPhoto = domains.IMG + reservation.roomPhoto;
     var guestPhoto = domains.IMG + reservation.guestPhoto;
 
+    var invoices = [];
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null
+
+    if (reservation.invoiceIds.length > 0) {
+      for (var i=0; i<reservation.invoiceIds.length; i++) {
+        var url = domains.FRONTEND+"/users/"+JWT.rid+"/invoices/"+reservation.invoiceIds[i]
+        var text = i18n.t('trips:invoice') + " " + (i+1)
+        invoices.push(
+          <a href={url}>{text}</a>
+        )
+      }
+    } else {
+      invoices.push(
+        i18n.t('trips:not_applicable')
+      )
+    }
+
     return (
 
       <li>
         <div className="collapsible-header">
-          <span className='approved-reservation'>({i18n.t('trips:status_codes.APPROVED')})</span><img src={roomPhoto} className='room-thumbnail' />Tandem immersion with Jose<span className='hide-on-small-and-down'> in Spain</span>
+          <span className='approved-reservation'>({i18n.t('trips:status_codes.APPROVED')})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:reservation_with', {immersion:i18n.t('immersions:'+reservation.immersionType), guest: reservation.guestName})}
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>
@@ -57,41 +74,41 @@ module.exports = React.createClass({
                 <a><img src={guestPhoto} alt="" className="circle responsive-img reservation-profile-icon" /></a>
               </div>
               <div>
-                <a>View receipt</a>
+                <a>{i18n.t('trips:view_receipt')}</a>
               </div>
             </div>
             <div className='col s12 m12 l10 margin-top-20'>
               <table className='border responsive-table trips-table'>
                 <thead>
                   <tr>
-                    <th data-field="id" className='status'>Status</th>
-                    <th data-field="id">Room name</th>
-                    <th data-field="name">Location</th>
-                    <th data-field="price">Arrival</th>
-                    <th data-field="price">Departure</th>
-                    <th data-field="price">Guests</th>
-                    <th data-field="price">Invoice(s)</th>
+                    <th data-field="id" className='status'>{i18n.t('trips:status')}</th>
+                    <th data-field="id">{i18n.t('trips:room_name')}</th>
+                    <th data-field="name">{i18n.t('trips:location')}</th>
+                    <th data-field="price">{i18n.t('common:Arrival')}</th>
+                    <th data-field="price">{i18n.t('common:Departure')}</th>
+                    <th data-field="price">{i18n.t('common:Guests')}</th>
+                    <th data-field="price">{i18n.t('trips:invoices')}</th>
                   </tr>
                 </thead>
 
                 <tbody className='grey lighten-4'>
                   <tr>
-                    <td className='status'>Accepted</td>
-                    <td>Master bedroom</td>
-                    <td>Eisenbahnstr. 19<br />Berlin, Germany</td>
-                    <td>2016-05-18</td>
-                    <td>2016-08-01</td>
-                    <td>1</td>
-                    <td><a>Invoice #1</a></td>
+                    <td className='status'>{i18n.t('trips:status_codes.APPROVED')}</td>
+                    <td>{reservation.roomName}</td>
+                    <td>{reservation.homeAddress.street}<br />{reservation.homeAddress.city}, {i18n.t('countries:'+reservation.homeAddress.country)}</td>
+                    <td>{reservation.arrivalDate}</td>
+                    <td>{reservation.departureDate}</td>
+                    <td>{reservation.guestCount}</td>
+                    <td>{invoices}</td>
                   </tr>
                   <tr>
                     <td className='status'>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td>+33659034158<br />jose@abroadwith.com</td>
+                    <td>{reservation.guestPhone}<br />{reservation.guestEmail}</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td><a>Invoice #2</a></td>
+                    <td>&nbsp;</td>
                   </tr>
                 </tbody>
               </table>

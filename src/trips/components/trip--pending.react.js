@@ -45,7 +45,7 @@ module.exports = React.createClass({
 
       <li>
         <div className="collapsible-header">
-          <span className='pending-reservation'>({i18n.t('trips:status_codes.PENDING')})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:immersion_with', {immersion:'Tandem', host: 'Jose', country: 'Spain'})}
+          <span className='pending-reservation'>({i18n.t('trips:status_codes.PENDING')})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:trip_with', {immersion:'Tandem', host: 'Jose', country: 'Spain'})}
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>

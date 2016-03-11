@@ -14,7 +14,7 @@ $('.scrollspy').scrollSpy();
 var currencies = require('currencies');
 
 var i18n = require('../../global/components/i18n');
-i18n.loadNamespaces(['homes']);
+i18n.loadNamespaces(['homes', 'immersions', 'languages']);
 
 module.exports = React.createClass({
   createBookingObject: function() {
@@ -115,8 +115,9 @@ module.exports = React.createClass({
 
       var currency = this.state.currency;
       // Refresh read-only display nodes
-      $('.immersion-display').html($('#booking-immersions').val());
-      $('.language-display').html(this.state.languageHostWillTeach);
+      $('.immersion-display').html(i18n.t('immersions:'+$('#booking-immersions').val()));
+      console.log(i18n.t('immersions:stay'))
+      $('.language-display').html(i18n.t('languages:'+this.state.languageHostWillTeach));
 
       if ($('input.booking-service:checked').length > 0) {
         var extrasDisplay = '';
