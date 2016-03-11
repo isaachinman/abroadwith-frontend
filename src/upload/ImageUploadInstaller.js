@@ -294,15 +294,62 @@ routerHome.post('/', function (req, res) {
   }
 });
 
+
+var routerId = express.Router();
+routerId.post('/', function (req, res) {
+  if(!req.decoded_token || req.decoded_token.id != req.idUserId){
+    res.status(401).send('Restricted function.');
+    return;
+  }
+  if(req.files.length > 1){
+    res.status(400).send('Multiple files are not accepted.');
+    return;
+  }
+  if(req.files.length < 1){
+    res.status(400).send('One file is required.');
+    return;
+  }
+  var imagePath = "/users/"+req.idUserId+"/ids/"+(new Date().getTime())+".jpg";
+  newHeroPhoto(req.files[0],imagePath.substring(1),function(err){
+    var result = {};
+    if(err){
+      result[req.files[0].originalname] = {
+        status:"ERROR",
+        message: err.toString()
+      }
+      res.end(JSON.stringify(result));
+    }
+    else{
+      postSingle(req,"/users/"+req.idUserId+"/verification/id",imagePath,function(err){
+        if(!err){
+          result[req.files[0].originalname] = {
+            status:"OK",
+            location: imagePath
+          }
+        }
+        else{
+          result[req.files[0].originalname] = {
+            status:"ERROR",
+            message: err.toString()
+          }
+        }
+        res.end(JSON.stringify(result));
+      });
+    }
+  });
+});
+
 var userIdHandler = require('./PhotoUserIdHandler');
 var homeIdHandler = require('./PhotoHomeIdHandler');
 var roomIdHandler = require('./PhotoRoomIdHandler');
+var idIdHandler = require('./IdUserIdHandler');
 var headerTokenHandler = require('./HeaderTokenHandler');
 
 var installer = function(app) {
   app.param('photoUserId',userIdHandler);
   app.param('photoHomeId',homeIdHandler);
   app.param('photoRoomId',roomIdHandler);
+  app.param('idUserId',idIdHandler);
 
   app.use(headerTokenHandler);
 
@@ -310,14 +357,14 @@ var installer = function(app) {
   app.use('/upload/users/:photoUserId/photo',upload.array('photos', 10));
   app.use('/upload/users/:photoUserId/photo',routerUser);
 
-  app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',routerHome);
   app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',upload.array('photos', 10));
+  app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',routerHome);
 
-  app.use('/upload/users/:photoUserId/homes/:photoHomeId/rooms/:photoRoomId/photo',routerRoom);
   app.use('/upload/users/:photoUserId/homes/:photoHomeId/rooms/:photoRoomId/photo',upload.array('photos', 10));
+  app.use('/upload/users/:photoUserId/homes/:photoHomeId/rooms/:photoRoomId/photo',routerRoom);
 
-
-
+  app.use('/upload/users/:idUserId/id',upload.array('photos', 10));
+  app.use('/upload/users/:idUserId/id',routerId);
 
   app.use('/upload',routerGet);
 };
