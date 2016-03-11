@@ -6,10 +6,7 @@ var domains = require('domains');
 
 // Component export
 module.exports = React.createClass({
-  getInitialState: function() {
-
-    var tripsDOM = []
-
+  refreshState: function() {
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     $.ajax({
@@ -22,10 +19,9 @@ module.exports = React.createClass({
         console.log(trips)
 
         var newState = {
-
           trips: trips,
-
         }
+
         if (this.isMounted()) {
           this.setState(newState);
         }
@@ -37,13 +33,17 @@ module.exports = React.createClass({
 
       }
     })
+  },
+  getInitialState: function() {
+
+    this.refreshState();
 
   },
   render: function() {
-    var tripsDOM;
     return (
       <TripsList
         trips={this.state.trips}
+        refreshState={this.refreshState}
       />
     );
   }

@@ -49,7 +49,8 @@ module.exports = React.createClass({
       languageGuestWillTeach:     languageGuestWillTeach,
       currency:                   $('#payment-currency').val(),
       serviceNames:               serviceNames,
-      paymentMethodId:            $('.booking-payment-radio input:checked').length > 0 ? parseInt($('.booking-payment-radio input:checked').attr('data-value')) : null
+      paymentMethodId:            $('.booking-payment-radio input:checked').length > 0 ? parseInt($('.booking-payment-radio input:checked').attr('data-value')) : null,
+      weeklyHours:                $('select#booking-immersions').val() === 'teacher' ? $('select#teacher-hours').val() : null
     }
 
     return bookingObj;
