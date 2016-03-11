@@ -21,6 +21,8 @@ module.exports = React.createClass({
     var roomPhoto = domains.IMG + reservation.roomPhoto;
     var guestPhoto = domains.IMG + reservation.guestPhoto;
 
+    var homeLink = domains.FRONTEND + '/homes/' + reservation.homeId;
+
     return (
 
       <li>

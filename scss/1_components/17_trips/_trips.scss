@@ -13,6 +13,12 @@ table.trips-table {
   td:not(:first-child) {
     @extend .border-bottom;
   }
+  thead.second {
+    border-bottom: none;
+    th:not(.status) {
+      border-bottom: 1px solid #ddd;
+    }
+  }
 }
 .trips-icon {
   color: lighten($havelock-blue, 15%);
@@ -54,6 +60,11 @@ ul.trips {
     left: 1rem;
     max-width: 10rem;
     max-height: 6rem;
+  }
+  span.services {
+    font-weight: 600;
+    color: $grey-chateau;
+    margin-right: 5px;
   }
 }
 .reservation-btn {

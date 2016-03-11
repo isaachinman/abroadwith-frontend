@@ -18,6 +18,10 @@
   &--teaches {
     background-color: darken($sulu, 27.5%);
   }
+  &--grey {
+    background-color: lighten($grey-chateau, 31%);
+    color: darken($grey-chateau, 5%);
+  }
   color: white;
 
   img {
