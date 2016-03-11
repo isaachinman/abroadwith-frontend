@@ -11,43 +11,62 @@ module.exports = React.createClass({
     if (typeof this.props.reservations !== 'undefined') {
 
       var reservations = this.props.reservations;
-      var reservationsDOM = [];
 
       if (reservations.length > 0) {
+
+        // One array for each reservation type
+        var reservationsDOM = [
+          pendingReservations = [],
+          approvedReservations = [],
+          cancelledReservations = [],
+          declinedReservations = []
+        ];
+
         for (var i=0; i<reservations.length; i++) {
 
           // Render trip component depending on status
           if (reservations[i].status === 'PENDING') {
-            reservationsDOM.push(
+            pendingReservations.push(
               <ReservationPending
                 reservation={reservations[i]}
               />
             )
           } else if (reservations[i].status === 'APPROVED' || reservations[i].status === 'PAID_OUT' || reservations[i].status === 'ARCHIVED') {
-            reservationsDOM.push(
+            approvedReservations.push(
               <ReservationApproved
                 reservation={reservations[i]}
               />
             )
-          } else if (reservations[i].status === 'DECLINED_BY_GUEST' || reservations[i].status === 'DECLINED_BY_HOST' || reservations[i].status === 'DECLINED_AUTOMATICALLY') {
-            reservationsDOM.push(
-              <ReservationDeclined
+          } else if (reservations[i].status === 'CANCELLED_BY_GUEST' || reservations[i].status === 'CANCELLED_BY_HOST') {
+            cancelledReservations.push(
+              <ReservationCancelled
                 reservation={reservations[i]}
               />
             )
-          } else if (reservations[i].status === 'CANCELLED_BY_GUEST' || reservations[i].status === 'CANCELLED_BY_HOST') {
-            reservationsDOM.push(
-              <ReservationCancelled
+          } else if (reservations[i].status === 'DECLINED_BY_GUEST' || reservations[i].status === 'DECLINED_BY_HOST' || reservations[i].status === 'DECLINED_AUTOMATICALLY') {
+            declinedReservations.push(
+              <ReservationDeclined
                 reservation={reservations[i]}
               />
             )
           }
         }
+
+        // Sort arrays by arrivalDate
+        for (var i=0; i<reservationsDOM.length; i++) {
+          reservationsDOM[i].sort(function(a,b) {
+            return new Date(a.props.reservation.arrivalDate).getTime() - new Date(b.props.reservation.arrivalDate).getTime();
+          })
+        }
+
+        console.log(pendingReservations)
+
       } else {
         reservationsDOM.push(
           <NoReservations />
         )
       }
+
     }
 
     return (
