@@ -113,10 +113,11 @@ module.exports = React.createClass({
                     <span>
                       <small>Choose picture</small>
                     </span>
-                    <input type="file" />
+                    <input roomid={this.props.id} className='upload-room-photo' style={this.props.inputstyle} id={'upload_photo_room_'+this.props.id} name="file" type="file" />
+
                   </div>
                   <div className="file-path-wrapper">
-                    <input className="file-path validate" type="text" defaultValue={img} />
+                    <input id={'photo_room_'+this.props.id} type="text" defaultValue={this.props.img} disabled/>
                   </div>
                 </div>
               </form>
