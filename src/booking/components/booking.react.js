@@ -38,6 +38,18 @@ module.exports = React.createClass({
       $('#guests').attr('data-value', guests);
     }
 
+    var stayType = $('select#booking-immersions option:selected').val();
+
+    if (stayType === 'stay' || stayType === 'tandem') {
+      var weeklyHours = $('select#'+stayType+'-learning').attr('data-hours');
+    } else {
+      var weeklyHours = $('select#teacher-hours').val();
+    }
+
+
+
+    $('select#booking-immersions').val() === 'teacher' ? $('select#teacher-hours').val() : null
+
     var bookingObj = {
       // Conditionally set up state per category
       stayId:                     parseInt($('select#booking-immersions option:selected').attr('data-value')),
@@ -50,7 +62,7 @@ module.exports = React.createClass({
       currency:                   $('#payment-currency').val(),
       serviceNames:               serviceNames,
       paymentMethodId:            $('.booking-payment-radio input:checked').length > 0 ? parseInt($('.booking-payment-radio input:checked').attr('data-value')) : null,
-      weeklyHours:                $('select#booking-immersions').val() === 'teacher' ? $('select#teacher-hours').val() : null
+      weeklyHours:
     }
 
     return bookingObj;
