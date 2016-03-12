@@ -7,14 +7,11 @@ var i18n = require('../../global/components/i18n');
 i18n.loadNamespaces(['trips', 'common', 'countries']);
 
 module.exports = React.createClass({
-  componentDidMount: function() {
-
-    console.log(this.props.reservation)
-
-  },
   render: function() {
 
     var reservation = this.props.reservation;
+
+    var whoCancelled = reservation.status === 'CANCELLED_BY_HOST' ? i18n.t('trips:by_you') : i18n.t('trips:by_them');
 
     var roomPhoto = domains.IMG + reservation.roomPhoto;
 
@@ -26,7 +23,7 @@ module.exports = React.createClass({
         var url = domains.FRONTEND+"/users/"+JWT.rid+"/invoices/"+reservation.invoiceIds[i]
         var text = i18n.t('trips:invoice') + " " + (i+1)
         invoices.push(
-          <a href={url}>{text}</a>
+          <div><a href={url}>{text}</a></div>
         )
       }
     } else {
@@ -35,12 +32,11 @@ module.exports = React.createClass({
       )
     }
 
-
     return (
 
       <li>
         <div className="collapsible-header">
-          <span className='cancelled-reservation'>({i18n.t('trips:status_codes.CANCELLED')})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:reservation_with', {immersion:i18n.t('immersions:'+reservation.immersionType), guest: reservation.guestName})}
+          <span className='cancelled-reservation'>({i18n.t('trips:status_codes.CANCELLED')} {whoCancelled})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:reservation_with', {immersion:i18n.t('immersions:'+reservation.immersionType), guest: reservation.guestName})}
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>
