@@ -13,7 +13,9 @@ module.exports = React.createClass({
 
     var approvalObj = {"reservationStatusRequest":"APPROVED"}
 
+    var refreshState = this.props.refreshState;
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/reservations/'+this.props.reservation.id,
       type: "POST",
@@ -22,7 +24,7 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
-        // Refresh state
+        refreshState();
 
       },
       error: function() {
@@ -37,7 +39,9 @@ module.exports = React.createClass({
 
     var declineObj = {"reservationStatusRequest":"CANCELLED"}
 
+    var refreshState = this.props.refreshState;
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/reservations/'+this.props.reservation.id,
       type: "POST",

@@ -29,12 +29,14 @@ module.exports = React.createClass({
             pendingReservations.push(
               <ReservationPending
                 reservation={reservations[i]}
+                refreshState={this.props.refreshState}
               />
             )
           } else if (reservations[i].status === 'APPROVED' || reservations[i].status === 'PAID_OUT' || reservations[i].status === 'ARCHIVED') {
             approvedReservations.push(
               <ReservationApproved
                 reservation={reservations[i]}
+                refreshState={this.props.refreshState}
               />
             )
           } else if (reservations[i].status === 'CANCELLED_BY_GUEST' || reservations[i].status === 'CANCELLED_BY_HOST') {

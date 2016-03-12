@@ -9,9 +9,10 @@ i18n.loadNamespaces(['trips', 'common', 'countries']);
 module.exports = React.createClass({
   cancelReservation: function() {
 
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
-
     var declineObj = {"reservationStatusRequest":"CANCELLED"}
+
+    var refreshState = this.props.refreshState;
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
     $.ajax({
