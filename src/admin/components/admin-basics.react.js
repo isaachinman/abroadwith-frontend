@@ -34,10 +34,8 @@ module.exports = React.createClass({
         }
         $('#phoneNumber').intlTelInput();
       })
-      $('#phoneNumber').trigger('change');
       $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js');
     })
-
 
     var placeSearch,
       autocomplete;
@@ -102,6 +100,7 @@ module.exports = React.createClass({
 
   },
   componentDidUpdate: function() {
+
     // Basics tab
     $('#firstName').val(this.props.firstName);
     $('#lastName').val(this.props.lastName);
@@ -116,6 +115,9 @@ module.exports = React.createClass({
     $('#emergency-relationship').val(this.props.emergencyRelationship);
 
     $('select#gender').material_select();
+
+    $('#phoneNumber').trigger('keyup');
+
   },
   render: function() {
 
