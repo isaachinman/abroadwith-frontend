@@ -101,11 +101,13 @@ var postSingle = function(req,path,photo,callback){
   if(domains.API_HTTP == "https"){
     post_req = https.request(post_options, function(res) {
         res.setEncoding('utf8');
+        callback();
     });
   }
   else{
     post_req = http.request(post_options, function(res) {
         res.setEncoding('utf8');
+        callback();
     });
   }
 
@@ -114,7 +116,6 @@ var postSingle = function(req,path,photo,callback){
   });
   post_req.write(post_data);
   post_req.end();
-  callback();
 }
 
 var postMultiple = function(req,path,photos,callback){
@@ -142,11 +143,13 @@ var postMultiple = function(req,path,photos,callback){
   if(domains.API_HTTP == "https"){
     post_req = https.request(post_options, function(res) {
         res.setEncoding('utf8');
+        callback();
     });
   }
   else{
     post_req = http.request(post_options, function(res) {
         res.setEncoding('utf8');
+        callback();
     });
   }
 
@@ -156,7 +159,6 @@ var postMultiple = function(req,path,photos,callback){
   // post the data
   post_req.write(post_data);
   post_req.end();
-  callback();
 }
 
 var routerUser = express.Router();

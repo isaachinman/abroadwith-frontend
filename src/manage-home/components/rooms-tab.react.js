@@ -5,7 +5,7 @@ var i18n = require('../../global/components/i18n');
 
 var jwt_decode = require('jwt-decode');
 var domains = require('domains');
-var toast = require('toast')
+var toast = require('toast');
 
 i18n.loadNamespaces('manage_home');
 
@@ -23,7 +23,7 @@ module.exports = React.createClass({
     console.log(newRoom)
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
-
+    $('#preloader').show();
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms',
       type: "POST",
@@ -31,22 +31,46 @@ module.exports = React.createClass({
       contentType: "application/json",
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
-
         console.log(response);
 
-        this.props.refreshState();
-
-        $('#add-room-form .collapsible-header').trigger('click');
-        $('#add-room-form input, select, textarea').val(null);
-
+        var thisprops = this.props;
+        var file = $('#new_room_photo')[0].files;
+        if(file){
+          var formData = new FormData();
+          for(var f = 0; f < file.length; f++){
+            formData.append('photos', file[f]);
+          }
+          $.ajax({
+            url : '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo',
+            type : 'POST',
+            data : formData,
+            cache : false,
+            contentType : false,
+            processData : false,
+            beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
+            success : function(data, textStatus, jqXHR) {
+                  thisprops.refreshState();
+                  $('#add-room-form .collapsible-header').trigger('click');
+                  $('#add-room-form input, select, textarea').val(null);
+                  $('#preloader').hide();
+            },
+            error: function(jqXHR) {
+              var message = jqXHR.responseText;
+              alert('Image upload failed: '+ message);
+              thisprops.refreshState();
+              $('#add-room-form .collapsible-header').trigger('click');
+              $('#add-room-form input, select, textarea').val(null);
+              $('#preloader').hide();
+            }
+          });
+        }
       }.bind(this),
       error: function() {
 
         alert('Something failed');
-
+        $('#preloader').hide();
       }
     })
-
   },
   saveRooms: function() {
 
@@ -65,7 +89,7 @@ module.exports = React.createClass({
       room.vacancies = $(this).find('select.vacancies').val();
       room.facilities = $(this).find('select.facilities').val();
       room.shared = $(this).find('input.shared-switch').prop('checked');
-      room.img = $(this).find('.file-path').val();
+      room.img = $(this).find("#photo_room_"+room.id).val();
       room.description = $(this).find('.room-description').val();
 
       newRoomsObj.push(room);
@@ -94,6 +118,7 @@ module.exports = React.createClass({
       var RoomsContainer = React.createClass({
         render: function() {
           var allRooms = []
+          var inputstyle = {cursor: 'pointer',position: 'absolute',opacity: 0,top: 0,left: 0,width: '100%',height: '100%'};
           rooms.forEach(function(obj) {
             allRooms.push(
               <RoomModule
@@ -107,6 +132,7 @@ module.exports = React.createClass({
                   img={obj.img}
                   description={obj.description}
                   price={obj.price}
+                  inputstyle={inputstyle}
               />
             )
           })
@@ -138,6 +164,46 @@ module.exports = React.createClass({
     )
 
     $('ul.existing-rooms').collapsible();
+
+    $('.upload-room-photo').each(function(index, value){
+      value.onchange = function(){
+        console.log(value.attributes.roomid);
+        $('a#save-rooms').addClass("disabled");
+        var file = value.files;
+        if(file){
+          var formData = new FormData();
+          var token = JSON.parse(atob(localStorage.getItem('JWT').split('.')[1]));
+          for(var f = 0; f < file.length; f++){
+            formData.append('photos', file[f]);
+          }
+          $.ajax({
+            url : '/upload/users/'+token.rid+'/homes/'+token.hid+'/rooms/'+value.attributes.roomid.nodeValue+'/photo',
+            type : 'POST',
+            data : formData,
+            cache : false,
+            contentType : false,
+            processData : false,
+            beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
+            success : function(data, textStatus, jqXHR) {
+              alert("Image uploaded!");
+              var result = JSON.parse(data);
+              for(var img in result){
+                if(result[img].status == 'OK'){
+                  console.log(result[img].location);
+                  $('#photo_room_'+value.attributes.roomid.nodeValue).val(result[img].location);
+                }
+              }
+              $('a#save-rooms').removeClass("disabled");
+            },
+            error: function(jqXHR) {
+              var message = jqXHR.responseText;
+              alert('Image upload failed: '+ message);
+              $('a#save-rooms').removeClass("disabled");
+            }
+          });
+        }
+      }
+    });
 
   },
   render: function() {
