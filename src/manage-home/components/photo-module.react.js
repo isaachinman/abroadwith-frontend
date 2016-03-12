@@ -7,7 +7,7 @@ i18n.loadNamespaces('manage_home');
 module.exports = React.createClass({
   deletePhoto: function() {
 
-    // Send deletion request to API, then reload state upon success
+    // TODO remove the image from the home photos object (the update API takes care of deleting)
     Materialize.toast(i18n.t('manage_home:photo_deleted_toast'), 4000);
 
   },
