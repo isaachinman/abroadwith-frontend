@@ -7,17 +7,22 @@ var i18n = require('../../global/components/i18n');
 i18n.loadNamespaces(['trips', 'common', 'countries']);
 
 module.exports = React.createClass({
-  cancelBooking: function() {
+  cancelReservation: function() {
+
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+    var declineObj = {"reservationStatusRequest":"CANCELLED"}
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
     $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/bookings/'+this.props.trip.id,
+      url: domains.API+'/users/'+JWT.rid+'/reservations/'+this.props.reservation.id,
       type: "POST",
+      data: JSON.stringify(declineObj),
       contentType: "application/json",
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
-        console.log(response)
+        refreshState();
 
       },
       error: function() {
@@ -26,11 +31,6 @@ module.exports = React.createClass({
 
       }
     })
-
-  },
-  componentDidMount: function() {
-
-    console.log(this.props.reservation)
 
   },
   render: function() {
@@ -48,13 +48,31 @@ module.exports = React.createClass({
         var url = domains.FRONTEND+"/users/"+JWT.rid+"/invoices/"+reservation.invoiceIds[i]
         var text = i18n.t('trips:invoice') + " " + (i+1)
         invoices.push(
-          <a href={url}>{text}</a>
+          <div><a href={url}>{text}</a></div>
         )
       }
     } else {
       invoices.push(
         i18n.t('trips:not_applicable')
       )
+    }
+
+    var guestWillTeach = reservation.languageGuestWillTeach !== null ? i18n.t('languages:'+reservation.languageGuestWillTeach) : i18n.t('trips:not_applicable');
+
+    var services = []
+
+    if (reservation.homeServices.indexOf('HALF_BOARD') === -1 && reservation.homeServices.indexOf('FULL_BOARD') === -1) {
+      var breakfast = i18n.t('trips:home_services.BREAKFAST')
+      services.push(
+        <div>{breakfast}</div>
+      );
+    }
+
+    for (var i=0; i < reservation.homeServices.length; i++) {
+      var service = i18n.t('trips:home_services.'+reservation.homeServices[i]);
+      services.push(
+        <div>{service}</div>
+      );
     }
 
     return (
@@ -66,7 +84,7 @@ module.exports = React.createClass({
         <div className="collapsible-body white">
           <div className='row relative'>
             <div className='col s12 m12 l2 margin-top-20 center-align trip-user-actions'>
-              <a className='btn btn-delete btn-flat reservation-btn'>{i18n.t('trips:cancel')}</a>
+              <a className='btn btn-delete btn-flat reservation-btn' onClick={this.cancelReservation}>{i18n.t('trips:cancel')}</a>
               <div>
                 <a className='small grey-text'>{i18n.t('trips:cancellation_policy')}</a>
               </div>
@@ -101,16 +119,32 @@ module.exports = React.createClass({
                     <td>{reservation.guestCount}</td>
                     <td>{invoices}</td>
                   </tr>
+                </tbody>
+
+                <thead className='second'>
+                  <tr>
+                    <th className='status'>&nbsp;</th>
+                    <th>{i18n.t('trips:immersion_type')}</th>
+                    <th>{i18n.t('trips:you_teach')}</th>
+                    <th>{i18n.t('trips:they_teach')}</th>
+                    <th>{i18n.t('trips:hours_per_week')}</th>
+                    <th>{i18n.t('trips:services')}</th>
+                    <th>{i18n.t('trips:contact_user', {user:reservation.guestName})}</th>
+                  </tr>
+                </thead>
+
+                <tbody className='grey lighten-4'>
                   <tr>
                     <td className='status'>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td>{i18n.t('immersions:'+reservation.immersionType)}</td>
+                    <td>{i18n.t('languages:')+reservation.languageHostWillTeach}</td>
+                    <td>{guestWillTeach}</td>
+                    <td>{reservation.weeklyHours}</td>
+                    <td>{services}</td>
                     <td>{reservation.guestPhone}<br />{reservation.guestEmail}</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
                   </tr>
                 </tbody>
+
               </table>
             </div>
           </div>

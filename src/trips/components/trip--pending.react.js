@@ -28,11 +28,6 @@ module.exports = React.createClass({
     })
 
   },
-  componentDidMount: function() {
-
-    console.log(this.props.trip)
-
-  },
   render: function() {
 
     var trip = this.props.trip;
@@ -40,6 +35,24 @@ module.exports = React.createClass({
     var roomPhoto = domains.IMG + trip.roomPhoto;
     var hostPhoto = domains.IMG + trip.hostPhoto;
     var homeLink = domains.FRONTEND + '/homes/' + trip.homeId;
+
+    var guestWillTeach = trip.languageGuestWillTeach !== null ? i18n.t('languages:'+trip.languageGuestWillTeach) : i18n.t('trips:not_applicable');
+
+    var services = []
+
+    if (trip.homeServices.indexOf('HALF_BOARD') === -1 && trip.homeServices.indexOf('FULL_BOARD') === -1) {
+      var breakfast = i18n.t('trips:home_services.BREAKFAST')
+      services.push(
+        <div>{breakfast}</div>
+      );
+    }
+
+    for (var i=0; i < trip.homeServices.length; i++) {
+      var service = i18n.t('trips:home_services.'+trip.homeServices[i]);
+      services.push(
+        <div>{service}</div>
+      );
+    }
 
     return (
 
@@ -50,7 +63,7 @@ module.exports = React.createClass({
         <div className="collapsible-body white">
           <div className='row relative'>
             <div className='col s12 m12 l2 margin-top-20 center-align trip-user-actions'>
-              <a className='btn btn-delete btn-flat reservation-btn' onClick={this.cancelTrip}>{i18n.t('trips:cancel')}</a>
+              <a className='btn btn-delete btn-flat trip-btn reservation-btn' onClick={this.cancelTrip}>{i18n.t('trips:cancel')}</a>
               <div>
                 <a className='small grey-text'>{i18n.t('trips:cancellation_policy')}</a>
               </div>
@@ -60,20 +73,17 @@ module.exports = React.createClass({
               <div>
                 <a href={homeLink}>{i18n.t('trips:view_room')}</a>
               </div>
-              <div>
-                <a>{i18n.t('trips:view_details')}</a>
-              </div>
             </div>
             <div className='col s12 m12 l10 margin-top-20'>
               <table className='border responsive-table trips-table'>
                 <thead>
                   <tr>
-                    <th data-field="id" className='status'>{i18n.t('trips:status')}</th>
-                    <th data-field="id">{i18n.t('trips:room_name')}</th>
-                    <th data-field="name">{i18n.t('trips:location')}</th>
-                    <th data-field="price">{i18n.t('common:Arrival')}</th>
-                    <th data-field="price">{i18n.t('common:Departure')}</th>
-                    <th data-field="price">{i18n.t('common:Guests')}</th>
+                    <th className='status'>{i18n.t('trips:status')}</th>
+                    <th>{i18n.t('trips:room_name')}</th>
+                    <th>{i18n.t('trips:location')}</th>
+                    <th>{i18n.t('common:Arrival')}</th>
+                    <th>{i18n.t('common:Departure')}</th>
+                    <th>{i18n.t('common:Guests')}</th>
                   </tr>
                 </thead>
 
@@ -85,6 +95,28 @@ module.exports = React.createClass({
                     <td>{trip.arrivalDate}</td>
                     <td>{trip.departureDate}</td>
                     <td>{trip.guestCount}</td>
+                  </tr>
+                </tbody>
+
+                <thead className='second'>
+                  <tr>
+                    <th className='status'>&nbsp;</th>
+                    <th>{i18n.t('trips:immersion_type')}</th>
+                    <th>{i18n.t('trips:you_teach')}</th>
+                    <th>{i18n.t('trips:they_teach')}</th>
+                    <th>{i18n.t('trips:hours_per_week')}</th>
+                    <th>{i18n.t('trips:services')}</th>
+                  </tr>
+                </thead>
+
+                <tbody className='grey lighten-4'>
+                  <tr>
+                    <td className='status'>&nbsp;</td>
+                    <td>{i18n.t('immersions:'+trip.immersionType)}</td>
+                    <td>{guestWillTeach}</td>
+                    <td>{i18n.t('languages:')+trip.languageHostWillTeach}</td>
+                    <td>{trip.weeklyHours}</td>
+                    <td>{services}</td>
                   </tr>
                 </tbody>
               </table>
