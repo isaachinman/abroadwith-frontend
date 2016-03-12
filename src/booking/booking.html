@@ -2,8 +2,6 @@
 
 <div id='booking-container'></div>
 
-{{debug}}
-
 <div class='booking-nav no-padding-top'>
 
   <ul class='table-of-contents hide-on-small-and-down'>
@@ -146,7 +144,7 @@
 
           {% if home.immersions.stay.id %}
             <div class='col s6 m6 l4 input-field stay-field immersion-field'>
-              <select id='stay-learning' class='material' data-value={{query.language}} data-hours={{home.immersions.stay.hours}}>
+              <select id='stay-learning' class='material' data-value='{{query.language}}' data-hours='{{home.immersions.stay.hours}}'>
                 {% for lang in home.immersions.stay.languagesOffered %}
                   <option value={{lang}}>{{translations.languages[lang]}}</option>
                 {% endfor %}
@@ -157,7 +155,7 @@
 
           {% if home.immersions.tandem.id %}
             <div class='col s6 m6 l4 input-field tandem-field immersion-field'>
-              <select id='tandem-learning' class='material' data-value={{query.language}} data-hours={{home.immersions.stay.hours}}>
+              <select id='tandem-learning' class='material' data-value='{{query.language}}' data-hours='{{home.immersions.stay.hours}}'>
                 {% for lang in home.immersions.tandem.languagesOffered %}
                   <option value={{lang}}>{{translations.languages[lang]}}</option>
                 {% endfor %}

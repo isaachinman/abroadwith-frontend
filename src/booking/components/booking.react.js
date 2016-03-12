@@ -41,12 +41,10 @@ module.exports = React.createClass({
     var stayType = $('select#booking-immersions option:selected').val();
 
     if (stayType === 'stay' || stayType === 'tandem') {
-      var weeklyHours = $('select#'+stayType+'-learning').attr('data-hours');
+      var weeklyHours = parseInt($('select#'+stayType+'-learning').attr('data-hours'));
     } else {
-      var weeklyHours = $('select#teacher-hours').val();
+      var weeklyHours = parseInt($('select#teacher-hours').val());
     }
-
-
 
     $('select#booking-immersions').val() === 'teacher' ? $('select#teacher-hours').val() : null
 
@@ -62,7 +60,7 @@ module.exports = React.createClass({
       currency:                   $('#payment-currency').val(),
       serviceNames:               serviceNames,
       paymentMethodId:            $('.booking-payment-radio input:checked').length > 0 ? parseInt($('.booking-payment-radio input:checked').attr('data-value')) : null,
-      weeklyHours:
+      weeklyHours:                weeklyHours
     }
 
     return bookingObj;
