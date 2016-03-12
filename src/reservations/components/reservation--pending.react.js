@@ -140,8 +140,8 @@ module.exports = React.createClass({
                     <th>{i18n.t('trips:you_teach')}</th>
                     <th>{i18n.t('trips:they_teach')}</th>
                     <th>{i18n.t('trips:hours_per_week')}</th>
-                    <th>&nbsp;</th>
                     <th>{i18n.t('trips:services')}</th>
+                    <th>&nbsp;</th>
                   </tr>
                 </thead>
 
