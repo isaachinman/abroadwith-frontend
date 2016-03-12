@@ -9,7 +9,9 @@ i18n.loadNamespaces(['trips', 'common', 'countries', 'immersions']);
 module.exports = React.createClass({
   cancelTrip: function() {
 
+    var refreshState = this.props.refreshState;
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/bookings/'+this.props.trip.id,
       type: "POST",
@@ -17,7 +19,7 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
-        console.log(response)
+        refreshState();
 
       },
       error: function() {

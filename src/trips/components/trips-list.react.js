@@ -29,12 +29,14 @@ module.exports = React.createClass({
             pendingTrips.push(
               <TripPending
                 trip={trips[i]}
+                refreshState={this.props.refreshState}
               />
             )
           } else if (trips[i].status === 'APPROVED' || trips[i].status === 'PAID_OUT' || trips[i].status === 'ARCHIVED') {
             approvedTrips.push(
               <TripApproved
                 trip={trips[i]}
+                refreshState={this.props.refreshState}
               />
             )
           } else if (trips[i].status === 'CANCELLED_BY_GUEST' || trips[i].status === 'CANCELLED_BY_HOST') {
@@ -58,7 +60,7 @@ module.exports = React.createClass({
             return new Date(a.props.trip.arrivalDate).getTime() - new Date(b.props.trip.arrivalDate).getTime();
           })
         }
-        
+
       } else {
         tripsDOM.push(
           <NoTrips />
