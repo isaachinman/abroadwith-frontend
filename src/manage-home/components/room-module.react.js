@@ -1,7 +1,11 @@
 var React = require('react');
 var i18n = require('../../global/components/i18n');
 var room = require('../../global/constants/Room');
+
 i18n.loadNamespaces(['manage_home','rooms','common']);
+
+var jwt_decode = require('jwt-decode');
+var domains = require('domains');
 
 var compileBedTypes = function(){
   var options = [];
@@ -20,6 +24,31 @@ var compileFacilities = function(){
 }
 
 module.exports = React.createClass({
+  deleteRoom: function() {
+
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+    $.ajax({
+      url: domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+this.props.id,
+      type: "DELETE",
+      contentType: "application/json",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+      success: function() {
+
+        this.refreshState();
+
+        $('#preloader').hide();
+
+      }.bind(this),
+      error: function() {
+
+        $('#preloader').hide();
+        alert('Something failed');
+
+      }
+    })
+
+  },
   render: function() {
 
     var img = this.props.img ? this.props.img : '';
@@ -133,6 +162,12 @@ module.exports = React.createClass({
             <div className="col s10 m11 l11 input-field">
               <textarea className="materialize-textarea room-description" length='127' placeholder={i18n.t('rooms:description_placeholder')} defaultValue={this.props.description}></textarea>
               <label htmlFor="room-description" className='active'>{i18n.t('manage_home:Description')}</label>
+            </div>
+          </div>
+
+          <div className='row'>
+            <div className='col s12 right-align'>
+              <a className='red-text' onClick={this.deleteRoom}>Delete room</a>
             </div>
           </div>
 

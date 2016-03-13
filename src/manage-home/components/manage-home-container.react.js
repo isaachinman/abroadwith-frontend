@@ -25,8 +25,6 @@ module.exports = React.createClass({
 
     console.log(homeObj)
 
-    console.log(domains.API)
-
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid,
       type: "POST",
