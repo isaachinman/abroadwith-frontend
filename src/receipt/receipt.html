@@ -5,7 +5,8 @@
 <div id='receipt-container'></div>
 
 <div class='container'>
-  <div class='row'>
+  <div class='row left-align'>
+
     <div class='col s12 white no-padding'>
 
       <table class='border responsive-table trips-table'>
@@ -25,7 +26,14 @@
             <td id='bookingCode' class='status'></td>
             <td id='guestFullName'></td>
             <td id='destinationShort'></td>
-            <td id='languages'></td>
+            <td id='languages'>
+              <div>
+                <span>Host taught:</span><span id='host-taught'></span>
+              </div>
+              <div>
+                <span>Guest taught:</span><span id='guest-taught'></span>
+              </div>
+            </td>
             <td id='duration'></td>
             <td id='accommodation-type'></td>
           </tr>
@@ -44,11 +52,11 @@
 
         <tbody class='grey lighten-4'>
           <tr>
-            <td class='status'>&nbsp;</td>
-            <td id='hostN'></td>
-            <td id='destinationShort'></td>
-            <td id='languages'></td>
-            <td id='duration'></td>
+            <td id='bookingCode' class='status'>&nbsp;</td>
+            <td id='hostFullName'></td>
+            <td id='destination'></td>
+            <td id='arrivalDate'></td>
+            <td id='departureDate'></td>
             <td id='accommodation-type'></td>
           </tr>
         </tbody>
@@ -56,6 +64,40 @@
       </table>
 
     </div>
+
+  </div>
+
+  <div class='row left-align'>
+    <h5 class='grey-text'>Immersion charges</h5>
+    <div class='col s12 m12 l5 white no-padding'>
+
+      <table class='border responsive-table trips-table'>
+        <thead>
+          <tr>
+            <th>Charge</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+
+        <tbody class='white lighten-4'>
+          <tr>
+            <td>Base charges</td>
+            <td id='bookingCharges'></td>
+          </tr>
+          <tr>
+            <td>Service fee and VAT</td>
+            <td id='serviceAndVatFees'></td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td id='total-charge'></td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
   </div>
 </div>
 
