@@ -1,7 +1,62 @@
 {% extends "layout.html" %} {% block content %}
 
-<h1 data-id='{{query.receipt_id}}'>Receipt</h1>
+<h1 data-id='{{query.booking_id}}'>Customer receipt</h1>
 
 <div id='receipt-container'></div>
+
+<div class='container'>
+  <div class='row'>
+    <div class='col s12 white no-padding'>
+
+      <table class='border responsive-table trips-table'>
+        <thead>
+          <tr>
+            <th class='status'>Confirmation code</th>
+            <th>Guest name</th>
+            <th>Travel destination</th>
+            <th>Languages</th>
+            <th>Duration</th>
+            <th>Accommodation type</th>
+          </tr>
+        </thead>
+
+        <tbody class='grey lighten-4'>
+          <tr>
+            <td id='bookingCode' class='status'></td>
+            <td id='guestFullName'></td>
+            <td id='destinationShort'></td>
+            <td id='languages'></td>
+            <td id='duration'></td>
+            <td id='accommodation-type'></td>
+          </tr>
+        </tbody>
+
+        <thead class='second'>
+          <tr>
+            <th class='status'></th>
+            <th>Host name</th>
+            <th>Immersion address</th>
+            <th>Arrival</th>
+            <th>Departure</th>
+            <th>Cancellation</th>
+          </tr>
+        </thead>
+
+        <tbody class='grey lighten-4'>
+          <tr>
+            <td class='status'>&nbsp;</td>
+            <td id='hostN'></td>
+            <td id='destinationShort'></td>
+            <td id='languages'></td>
+            <td id='duration'></td>
+            <td id='accommodation-type'></td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+</div>
 
 {% endblock %}

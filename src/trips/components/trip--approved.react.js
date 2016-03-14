@@ -98,13 +98,13 @@ module.exports = React.createClass({
               <table className='border responsive-table trips-table'>
                 <thead>
                   <tr>
-                    <th data-field="id" className='status'>{i18n.t('trips:status')}</th>
-                    <th data-field="id">{i18n.t('trips:room_name')}</th>
-                    <th data-field="name">{i18n.t('trips:location')}</th>
-                    <th data-field="price">{i18n.t('common:Arrival')}</th>
-                    <th data-field="price">{i18n.t('common:Departure')}</th>
-                    <th data-field="price">{i18n.t('common:Guests')}</th>
-                    <th data-field="price">{i18n.t('trips:invoices')}</th>
+                    <th className='status'>{i18n.t('trips:status')}</th>
+                    <th>{i18n.t('trips:room_name')}</th>
+                    <th>{i18n.t('trips:location')}</th>
+                    <th>{i18n.t('common:Arrival')}</th>
+                    <th>{i18n.t('common:Departure')}</th>
+                    <th>{i18n.t('common:Guests')}</th>
+                    <th>{i18n.t('trips:invoices')}</th>
                   </tr>
                 </thead>
 
