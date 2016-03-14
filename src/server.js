@@ -20,6 +20,7 @@ var installTrips = require('./trips/TripsInstaller');
 var installVerification = require('./verification/VerificationInstaller');
 var installInvoice = require('./invoice/InvoiceInstaller');
 var installReceipt = require('./receipt/ReceiptInstaller');
+var installReview = require('./review/ReviewInstaller');
 
 /** Middlewares **/
 var contextLoader = require('./global/middlewares/ContextLoader');
@@ -75,5 +76,7 @@ installVerification(app);
 installInvoice(app);
 
 installReceipt(app);
+
+installReview(app);
 
 http.createServer(app).listen(3000);
