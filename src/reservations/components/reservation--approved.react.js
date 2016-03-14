@@ -49,7 +49,11 @@ module.exports = React.createClass({
 
     if (reservation.invoiceIds.length > 0) {
       for (var i=0; i<reservation.invoiceIds.length; i++) {
+<<<<<<< HEAD
         var url = domains.FRONTEND+"/users/"+JWT.rid+"/invoices/"+reservation.invoiceIds[i]+'?invoice_id='+reservation.invoiceIds[i];
+=======
+        var url = domains.FRONTEND+"/users/"+JWT.rid+"/invoices/"+reservation.invoiceIds[i]
+>>>>>>> origin/development-unstable
         var text = i18n.t('trips:invoice') + " " + (i+1)
         invoices.push(
           <div><a href={url}>{text}</a></div>
