@@ -75,6 +75,8 @@ module.exports = React.createClass({
 
     $('#preloader').show();
 
+    var updateAdmin = this.props.updateAdmin;
+
     var verifyPhoneObj = {
       secret: this.state.phoneSecret,
       key: this.props.phoneNumber,
@@ -95,7 +97,12 @@ module.exports = React.createClass({
       },
       success: function(response) {
 
-        console.log(response)
+        console.log(response);
+
+        updateAdmin();
+
+        $('#verification-phone .collapsible-body').remove();
+
         $('#preloader').hide();
         Materialize.toast('Phone verified', 4000);
 
