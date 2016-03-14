@@ -9,6 +9,8 @@ i18n.loadNamespaces(['trips', 'common', 'countries', 'immersions']);
 module.exports = React.createClass({
   cancelTrip: function() {
 
+    $('#preloader').show();
+
     var refreshState = this.props.refreshState;
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
@@ -20,6 +22,7 @@ module.exports = React.createClass({
       success: function(response) {
 
         refreshState();
+        $('#preloader').hide();
 
       },
       error: function() {

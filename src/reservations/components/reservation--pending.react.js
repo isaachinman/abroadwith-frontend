@@ -11,6 +11,8 @@ var currencies = require('currencies')
 module.exports = React.createClass({
   approveReservation: function() {
 
+    $('#preloader').show();
+
     var approvalObj = {"reservationStatusRequest":"APPROVED"}
 
     var refreshState = this.props.refreshState;
@@ -25,6 +27,7 @@ module.exports = React.createClass({
       success: function(response) {
 
         refreshState();
+        $('#preloader').hide();
 
       },
       error: function() {
@@ -36,6 +39,8 @@ module.exports = React.createClass({
 
   },
   declineReservation: function() {
+
+    $('#preloader').show();
 
     var declineObj = {"reservationStatusRequest":"CANCELLED"}
 
@@ -51,6 +56,7 @@ module.exports = React.createClass({
       success: function(response) {
 
         refreshState();
+        $('#preloader').hide();
 
       },
       error: function() {
