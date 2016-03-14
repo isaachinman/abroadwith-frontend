@@ -1,6 +1,10 @@
 {% extends "layout.html" %} {% block content %}
 
+<<<<<<< HEAD
 <h1 data-id='{{query.invoice_id}}'>{{translations.receipts_invoices.invoice}}</h1>
+=======
+<h1 data-id='{{query.invoice_id}}'>Invoice</h1>
+>>>>>>> origin/development-unstable
 
 <div id='invoice-container'></div>
 
@@ -12,18 +16,28 @@
       <table class='border responsive-table trips-table'>
         <thead>
           <tr>
+<<<<<<< HEAD
             <th class='status'>{{translations.receipts_invoices.confirmation_code}}</th>
             <th>{{translations.receipts_invoices.date_rendered}}</th>
             <th>{{translations.receipts_invoices.guest_name}}</th>
             <th>{{translations.receipts_invoices.billing_address}}</th>
             <th>{{translations.receipts_invoices.vat_country}}</th>
             <th>{{translations.receipts_invoices.vat_rate}}</th>
+=======
+            <th class='status'>Confirmation code</th>
+            <th>Date rendered</th>
+            <th>Guest name</th>
+            <th>Immersion plan</th>
+            <th>VAT country</th>
+            <th>VAT rate</th>
+>>>>>>> origin/development-unstable
           </tr>
         </thead>
 
         <tbody class='grey lighten-4'>
           <tr>
             <td id='bookingCode' class='status'></td>
+<<<<<<< HEAD
             <td id='serviceRenderedAt'></td>
             <td id='fullName'></td>
             <td id='billingAddress'></td>
@@ -31,6 +45,13 @@
             <td>
               <span id='vatRate'></span><span>%</span>
             </td>
+=======
+            <td id='guestFullName'></td>
+            <td id='destinationShort'></td>
+            <td id='languages'></td>
+            <td id='duration'></td>
+            <td id='accommodation-type'></td>
+>>>>>>> origin/development-unstable
           </tr>
         </tbody>
 
@@ -41,19 +62,29 @@
   </div>
 
   <div class='row left-align'>
+<<<<<<< HEAD
     <h5 class='grey-text'>{{translations.receipts_invoices.service_fee}}</h5>
+=======
+    <h5 class='grey-text'>Service fee</h5>
+>>>>>>> origin/development-unstable
     <div class='col s12 m12 l5 white no-padding'>
 
       <table class='border responsive-table trips-table'>
         <thead>
           <tr>
+<<<<<<< HEAD
             <th>{{translations.receipts_invoices.charge}}</th>
             <th>{{translations.receipts_invoices.amount}}</th>
+=======
+            <th>Charge</th>
+            <th>Amount</th>
+>>>>>>> origin/development-unstable
           </tr>
         </thead>
 
         <tbody class='white lighten-4'>
           <tr>
+<<<<<<< HEAD
             <td>{{translations.receipts_invoices.base_service_fee}}</td>
             <td id='baseFees'></td>
           </tr>
@@ -64,6 +95,18 @@
           <tr>
             <td>{{translations.receipts_invoices.total_service_fee}}</td>
             <td id='totalServiceFee'></td>
+=======
+            <td>Base service fee</td>
+            <td id='bookingCharges'></td>
+          </tr>
+          <tr>
+            <td>VAT</td>
+            <td id='serviceAndVatFees'></td>
+          </tr>
+          <tr>
+            <td>Total service fee</td>
+            <td id='total-charge'></td>
+>>>>>>> origin/development-unstable
           </tr>
         </tbody>
 
