@@ -1,5 +1,7 @@
 {% extends "layout.html" %} {% block content %}
 
-<h1>Invoice</h1>
+<h1 data-id='{{query.invoice_id}}'>Invoice</h1>
+
+<div id='invoice-container'></div>
 
 {% endblock %}

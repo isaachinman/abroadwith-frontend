@@ -40,9 +40,11 @@ module.exports = React.createClass({
     var invoices = [];
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null
 
+    var receiptUrl = domains.FRONTEND+"/users/"+JWT.rid+"/bookings/"+trip.id+"/receipt?booking_id="+trip.id;
+
     if (trip.invoiceIds.length > 0) {
       for (var i=0; i<trip.invoiceIds.length; i++) {
-        var url = domains.FRONTEND+"/users/"+JWT.rid+"/bookings/"+trip.invoiceIds[i]
+        var url = domains.FRONTEND+"/users/"+JWT.rid+"/bookings/"+trip.id+"?invoice_id="+trip.invoiceIds[i];
         var text = i18n.t('trips:invoice') + " " + (i+1)
         invoices.push(
           <div><a href={url}>{text}</a></div>
@@ -89,7 +91,7 @@ module.exports = React.createClass({
                 <a><img src={hostPhoto} alt="" className="circle responsive-img reservation-profile-icon" /></a>
               </div>
               <div>
-                <a>{i18n.t('trips:view_receipt')}</a>
+                <a href={receiptUrl}>{i18n.t('trips:view_receipt')}</a>
               </div>
             </div>
             <div className='col s12 m12 l10 margin-top-20'>

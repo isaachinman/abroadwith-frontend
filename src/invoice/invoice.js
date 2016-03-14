@@ -1,11 +1,11 @@
 // Deps
 var React = require('react');
 var ReactDOM = require('react-dom');
-var TripsContainer = require('./components/trips-container.react');
+var InvoiceContainer = require('./components/invoice-container.react');
 
-if ($('#trips-container').length) {
+if ($('#invoice-container').length) {
   // Trips parent
   ReactDOM.render(
-    <TripsContainer />, document.querySelector('#trips-container')
+    <InvoiceContainer />, document.querySelector('#invoice-container')
   )
 }

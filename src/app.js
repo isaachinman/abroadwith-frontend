@@ -44,3 +44,6 @@ require('./trips/trips')
 
 // Reservations
 require('./reservations/reservations')
+
+// Invoice
+require('./invoice/invoice')

@@ -19,6 +19,7 @@ var installReservations = require('./reservations/ReservationsInstaller');
 var installTrips = require('./trips/TripsInstaller');
 var installVerification = require('./verification/VerificationInstaller');
 var installInvoice = require('./invoice/InvoiceInstaller');
+var installReceipt = require('./receipt/ReceiptInstaller');
 
 /** Middlewares **/
 var contextLoader = require('./global/middlewares/ContextLoader');
@@ -72,5 +73,7 @@ installTrips(app);
 installVerification(app);
 
 installInvoice(app);
+
+installReceipt(app);
 
 http.createServer(app).listen(3000);
