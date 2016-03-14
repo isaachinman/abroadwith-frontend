@@ -9,6 +9,8 @@ i18n.loadNamespaces(['trips', 'common', 'countries']);
 module.exports = React.createClass({
   cancelReservation: function() {
 
+    $('#preloader').show();
+
     var declineObj = {"reservationStatusRequest":"CANCELLED"}
 
     var refreshState = this.props.refreshState;
@@ -24,6 +26,7 @@ module.exports = React.createClass({
       success: function(response) {
 
         refreshState();
+        $('#preloader').hide();
 
       },
       error: function() {
