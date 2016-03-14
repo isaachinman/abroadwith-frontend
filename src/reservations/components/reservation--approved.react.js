@@ -14,9 +14,9 @@ module.exports = React.createClass({
     var declineObj = {"reservationStatusRequest":"CANCELLED"}
 
     var refreshState = this.props.refreshState;
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/reservations/'+this.props.reservation.id,
       type: "POST",
@@ -46,6 +46,8 @@ module.exports = React.createClass({
 
     var invoices = [];
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null
+
+    var receiptUrl = domains.FRONTEND+"/users/"+JWT.rid+"/bookings/"+reservation.id+"/receipt?booking_id="+reservation.id;
 
     if (reservation.invoiceIds.length > 0) {
       for (var i=0; i<reservation.invoiceIds.length; i++) {
@@ -96,7 +98,7 @@ module.exports = React.createClass({
                 <a><img src={guestPhoto} alt="" className="circle responsive-img reservation-profile-icon" /></a>
               </div>
               <div>
-                <a>{i18n.t('trips:view_receipt')}</a>
+                <a href={receiptUrl}>{i18n.t('trips:view_receipt')}</a>
               </div>
             </div>
             <div className='col s12 m12 l10 margin-top-20'>
