@@ -4,6 +4,6 @@ module.exports = function() {
   localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null;
 
   // Refresh page
-  window.location = window.location + '?has_logged_out=1';
+  window.location = '/?has_logged_out=1';
 
 }

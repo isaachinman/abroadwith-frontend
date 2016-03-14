@@ -61,9 +61,7 @@ module.exports = React.createClass({
             },
             onPaymentMethodReceived: function (obj) {
               sendPaymentNonce(obj.nonce, function() {
-                callback(function() {
-                  null;
-                });
+                callback();
               });
             },
             onReady: function() {
