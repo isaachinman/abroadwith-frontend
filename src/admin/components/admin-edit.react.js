@@ -1,8 +1,9 @@
 var React = require('react');
 var Basics = require('./admin-basics.react');
-var Notifications = require('./admin-notifications.react')
+var Notifications = require('./admin-notifications.react');
 var Payments = require('./admin-payments.react');
 var Languages = require('./admin-languages.react');
+var Verifications = require('./admin-verifications.react');
 
 var domains = require('domains');
 var jwt_decode = require('jwt-decode');
@@ -182,6 +183,7 @@ module.exports = React.createClass({
         <Notifications emailReminders={this.state.emailReminders} emailPromotions={this.state.emailPromotions} sms={this.state.smsNotifications} updateAdmin={this.updateAdmin}/>
         <Payments paymentMethods={this.state.paymentMethods} payoutMethods={this.state.payoutMethods} updateAdmin={this.updateAdmin}/>
         <Languages languagesLearning={this.state.languagesLearning} languagesKnown={this.state.languagesKnown} updateAdmin={this.updateAdmin}/>
+        <Verifications />
       </div>
 
     )
