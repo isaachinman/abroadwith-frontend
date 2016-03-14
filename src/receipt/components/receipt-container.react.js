@@ -3,12 +3,9 @@ var React = require('react');
 var jwt_decode = require('jwt-decode');
 var domains = require('domains');
 
-<<<<<<< HEAD
 var i18n = require('../../global/components/i18n');
-i18n.loadNamespaces(['immersions', 'trips']);
+i18n.loadNamespaces(['immersions', 'trips', 'languages']);
 
-=======
->>>>>>> origin/development-unstable
 var currencies = require('currencies');
 
 // Component export
@@ -31,11 +28,7 @@ module.exports = React.createClass({
         $('#bookingCode').html(response.bookingCode);
         $('#arrivalDate').html(response.arrivalDate);
         $('#departureDate').html(response.departureDate);
-<<<<<<< HEAD
         $('#duration').html(Math.round(Math.abs(((new Date(response.arrivalDate).getTime()) - (new Date(response.departureDate).getTime()))/(24*60*60*1000))))
-=======
-        $('#duration').html(Math.abs(new Date(response.arrivalDate).getTime() - new Date(response.departureDate).getTime()))
->>>>>>> origin/development-unstable
         $('#guestFullName').html(response.guestFullName);
         $('#hostFullName').html(response.hostFullName);
         $('#destination').html(response.destination);
@@ -44,10 +37,6 @@ module.exports = React.createClass({
         $('#serviceAndVatFees').html(currency+response.serviceAndVatFees);
         $('#total-charge').html(currency+(response.bookingCharges+response.serviceAndVatFees));
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/development-unstable
       }.bind(this),
       error: function() {
 
@@ -63,14 +52,12 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
-<<<<<<< HEAD
         console.log(response)
 
-        $('#immersion-type').html(i18n.t('immersions:'+response.immersionType))
-        $('#cancellation').html(i18n.t('trips:not_applicable'))
-=======
+        $('#immersion-type').html(i18n.t('immersions:'+response.immersionType));
+        $('#cancellation').html(i18n.t('trips:not_applicable'));
+        $('#cancellation').html(i18n.t('trips:not_applicable'));
 
->>>>>>> origin/development-unstable
 
       }.bind(this),
       error: function() {
