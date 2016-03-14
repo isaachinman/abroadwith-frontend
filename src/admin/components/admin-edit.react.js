@@ -169,11 +169,40 @@ module.exports = React.createClass({
     return (
 
       <div>
-        <Basics firstName={this.state.firstName} lastName={this.state.lastName} gender={this.state.gender} birthDate={this.state.birthDate} location={this.state.location} phoneNumber={this.state.phoneNumber} email={this.state.email} emergencyName={this.state.emergencyName} emergencyPhone={this.state.emergencyPhone} emergencyEmail={this.state.emergencyEmail} emergencyRelationship={this.state.emergencyRelationship} updateAdmin={this.updateAdmin}/>
-        <Notifications emailReminders={this.state.emailReminders} emailPromotions={this.state.emailPromotions} sms={this.state.smsNotifications} updateAdmin={this.updateAdmin}/>
-        <Payments paymentMethods={this.state.paymentMethods} payoutMethods={this.state.payoutMethods} updateAdmin={this.updateAdmin}/>
-        <Languages languagesLearning={this.state.languagesLearning} languagesKnown={this.state.languagesKnown} updateAdmin={this.updateAdmin}/>
-        <Verifications phoneNumber={this.state.phoneNumber} />
+        <Basics
+          firstName={this.state.firstName}
+          lastName={this.state.lastName}
+          gender={this.state.gender}
+          birthDate={this.state.birthDate}
+          location={this.state.location}
+          phoneNumber={this.state.phoneNumber}
+          email={this.state.email}
+          emergencyName={this.state.emergencyName}
+          emergencyPhone={this.state.emergencyPhone}
+          emergencyEmail={this.state.emergencyEmail}
+          emergencyRelationship={this.state.emergencyRelationship}
+          updateAdmin={this.updateAdmin}
+        />
+        <Notifications
+          emailReminders={this.state.emailReminders}
+          emailPromotions={this.state.emailPromotions}
+          sms={this.state.smsNotifications}
+          updateAdmin={this.updateAdmin}
+        />
+        <Payments
+          paymentMethods={this.state.paymentMethods}
+          payoutMethods={this.state.payoutMethods}
+          updateAdmin={this.updateAdmin}
+        />
+        <Languages
+          languagesLearning={this.state.languagesLearning}
+          languagesKnown={this.state.languagesKnown}
+          updateAdmin={this.updateAdmin}
+        />
+        <Verifications
+          phoneNumber={this.state.phoneNumber}
+          updateAdmin={this.updateAdmin}
+        />
       </div>
 
     )
