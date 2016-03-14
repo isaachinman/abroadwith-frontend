@@ -13,7 +13,7 @@ module.exports = React.createClass({
 
     $('#preloader').show();
 
-    var refreshState = this.refreshState();
+    var refreshState = this.refreshState;
 
     if (adminObj.address === null || adminObj.address.country === null) {
 
@@ -38,10 +38,10 @@ module.exports = React.createClass({
       // });
 
     } else {
-      sendObj(refreshState);
+      sendObj(refreshState());
     }
 
-    function sendObj() {
+    function sendObj(callback) {
       var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
       delete adminObj.paymentMethods;
@@ -74,9 +74,8 @@ module.exports = React.createClass({
 
   },
   refreshState: function() {
-    var JWT = localStorage.getItem('JWT') !== null
-      ? jwt_decode(localStorage.getItem('JWT'))
-      : null;
+
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     $.ajax({
       url: domains.API + '/users/' + JWT.rid,
@@ -117,19 +116,10 @@ module.exports = React.createClass({
           location: response.location,
           phoneNumber: response.phoneNumber,
           email: response.email,
-          emergencyName: response.emergencyContact && response.emergencyContact.name
-            ? response.emergencyContact.name
-            : null,
-          emergencyPhone: response.emergencyContact && response.emergencyContact.phone
-            ? response.emergencyContact.phone
-            : null,
-          emergencyEmail: response.emergencyContact && response.emergencyContact.email
-            ? response.emergencyContact.email
-            : null,
-          emergencyRelationship: response.emergencyContact && response.emergencyContact.relationship
-            ? response.emergencyContact.relationship
-            : null,
-
+          emergencyName: response.emergencyContact && response.emergencyContact.name ? response.emergencyContact.name : null,
+          emergencyPhone: response.emergencyContact && response.emergencyContact.phone ? response.emergencyContact.phone : null,
+          emergencyEmail: response.emergencyContact && response.emergencyContact.email ? response.emergencyContact.email : null,
+          emergencyRelationship: response.emergencyContact && response.emergencyContact.relationship ? response.emergencyContact.relationship : null,
           emailReminders: response.notifications.email.reminders,
           emailPromotions: response.notifications.email.promotions,
           smsNotifications: response.notifications.sms.all
@@ -183,7 +173,7 @@ module.exports = React.createClass({
         <Notifications emailReminders={this.state.emailReminders} emailPromotions={this.state.emailPromotions} sms={this.state.smsNotifications} updateAdmin={this.updateAdmin}/>
         <Payments paymentMethods={this.state.paymentMethods} payoutMethods={this.state.payoutMethods} updateAdmin={this.updateAdmin}/>
         <Languages languagesLearning={this.state.languagesLearning} languagesKnown={this.state.languagesKnown} updateAdmin={this.updateAdmin}/>
-        <Verifications />
+        <Verifications phoneNumber={this.state.phoneNumber} />
       </div>
 
     )
