@@ -78,7 +78,7 @@ module.exports = React.createClass({
       bookingObj.languageHostWillTeach !== 'undefined' && bookingObj.languageHostWillTeach !== null &&
       bookingObj.currency !== 'undefined' && bookingObj.currency !== null &&
       bookingObj.serviceNames !== 'undefined' && bookingObj.serviceNames !== null &&
-      bookingObj.paymentMethodId !== 'undefined' && bookingObj.paymentMethodId !== null
+      $('.booking-payment-radio input:checked').length > 0
     ) {
       $('#request-booking-btn').hasClass('disabled') ? $('#request-booking-btn').removeClass('disabled') : null;
     } else {
@@ -246,6 +246,8 @@ module.exports = React.createClass({
         // Select the first payment method
         $('.booking-payment-radio input').first().attr('checked', 'checked');
 
+        this.validateBooking(bookingObj);
+
         $('#preloader').hide();
 
       }.bind(this),
@@ -255,8 +257,6 @@ module.exports = React.createClass({
 
       }
     })
-
-    this.validateBooking(bookingObj);
 
   },
   componentDidMount: function() {
