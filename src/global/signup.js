@@ -165,6 +165,51 @@ if ($('form#email-signup-form').length) {
     newUser["lastName"] = profile.getFamilyName();
     newUser["email"] = profile.getEmail();
     newUser["birthDate"] = eighteenYearsAgo;
+
+    $.ajax({
+      type: "POST",
+      url: domains.API + '/users',
+      data: JSON.stringify(newUser),
+      contentType: "application/json",
+      processData: false,
+      success: function(response) {
+
+        console.log(response);
+
+        console.log(JSON.stringify(loginObj));
+
+        $.ajax({
+          type: "POST",
+          url: domains.API + '/users/login',
+          contentType: "application/json",
+          data: JSON.stringify(loginObj),
+          success: function(JWT) {
+
+            console.log(JWT);
+            localStorage.setItem('JWT', JWT.token);
+
+            // Print username into navbar
+            $('span#navbar-username').html((jwt_decode(localStorage.getItem('JWT'))).name)
+
+            // Toggle navbars
+            $('#navbar').hide();
+            $('#navbar-logged-in').show();
+            $('#navbar-logged-in .right').fadeIn('fast');
+
+            // If any modal is open, close it
+            if ($('.modal')) {
+              $('.modal').closeModal();
+              $('.lean-overlay').remove()
+            }
+
+          }
+        })
+
+      },
+      error: function(response) {
+        // Something went wrong
+      }
+    });
   }
 
   // Set permanent vars
