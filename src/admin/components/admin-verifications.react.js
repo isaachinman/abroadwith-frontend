@@ -56,6 +56,9 @@ module.exports = React.createClass({
           console.log(this.state)
         }
 
+        $('.phone-request').hide();
+        $('.phone-verify').show();
+
         $('#preloader').hide();
         Materialize.toast('Verification SMS sent', 4000);
 
