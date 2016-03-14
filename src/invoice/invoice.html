@@ -1,6 +1,6 @@
 {% extends "layout.html" %} {% block content %}
 
-<h1 data-id='{{query.invoice_id}}'>Invoice</h1>
+<h1 data-id='{{query.invoice_id}}'>{{translations.receipts_invoices.invoice}}</h1>
 
 <div id='invoice-container'></div>
 
@@ -12,23 +12,25 @@
       <table class='border responsive-table trips-table'>
         <thead>
           <tr>
-            <th class='status'>Confirmation code</th>
-            <th>Date rendered</th>
-            <th>Guest name</th>
-            <th>Immersion plan</th>
-            <th>VAT country</th>
-            <th>VAT rate</th>
+            <th class='status'>{{translations.receipts_invoices.confirmation_code}}</th>
+            <th>{{translations.receipts_invoices.date_rendered}}</th>
+            <th>{{translations.receipts_invoices.guest_name}}</th>
+            <th>{{translations.receipts_invoices.billing_address}}</th>
+            <th>{{translations.receipts_invoices.vat_country}}</th>
+            <th>{{translations.receipts_invoices.vat_rate}}</th>
           </tr>
         </thead>
 
         <tbody class='grey lighten-4'>
           <tr>
             <td id='bookingCode' class='status'></td>
-            <td id='guestFullName'></td>
-            <td id='destinationShort'></td>
-            <td id='languages'></td>
-            <td id='duration'></td>
-            <td id='accommodation-type'></td>
+            <td id='serviceRenderedAt'></td>
+            <td id='fullName'></td>
+            <td id='billingAddress'></td>
+            <td id='vatCountry'></td>
+            <td>
+              <span id='vatRate'></span><span>%</span>
+            </td>
           </tr>
         </tbody>
 
@@ -39,29 +41,29 @@
   </div>
 
   <div class='row left-align'>
-    <h5 class='grey-text'>Service fee</h5>
+    <h5 class='grey-text'>{{translations.receipts_invoices.service_fee}}</h5>
     <div class='col s12 m12 l5 white no-padding'>
 
       <table class='border responsive-table trips-table'>
         <thead>
           <tr>
-            <th>Charge</th>
-            <th>Amount</th>
+            <th>{{translations.receipts_invoices.charge}}</th>
+            <th>{{translations.receipts_invoices.amount}}</th>
           </tr>
         </thead>
 
         <tbody class='white lighten-4'>
           <tr>
-            <td>Base service fee</td>
-            <td id='bookingCharges'></td>
+            <td>{{translations.receipts_invoices.base_service_fee}}</td>
+            <td id='baseFees'></td>
           </tr>
           <tr>
-            <td>VAT</td>
-            <td id='serviceAndVatFees'></td>
+            <td>{{translations.receipts_invoices.vat}}</td>
+            <td id='vatAmount'></td>
           </tr>
           <tr>
-            <td>Total service fee</td>
-            <td id='total-charge'></td>
+            <td>{{translations.receipts_invoices.total_service_fee}}</td>
+            <td id='totalServiceFee'></td>
           </tr>
         </tbody>
 

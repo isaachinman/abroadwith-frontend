@@ -23,6 +23,8 @@ for(var i in languages){
 
     translations[i].trips = require('../../locales/'+i+"/trips.json");
 
+    translations[i].receipts_invoices = require('../../locales/'+i+"/receipts_invoices.json");
+
   }
   catch(e){
     console.log(e);

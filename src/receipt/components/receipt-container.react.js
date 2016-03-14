@@ -3,6 +3,9 @@ var React = require('react');
 var jwt_decode = require('jwt-decode');
 var domains = require('domains');
 
+var i18n = require('../../global/components/i18n');
+i18n.loadNamespaces(['immersions', 'trips']);
+
 var currencies = require('currencies');
 
 // Component export
@@ -25,7 +28,7 @@ module.exports = React.createClass({
         $('#bookingCode').html(response.bookingCode);
         $('#arrivalDate').html(response.arrivalDate);
         $('#departureDate').html(response.departureDate);
-        $('#duration').html(Math.abs(new Date(response.arrivalDate).getTime() - new Date(response.departureDate).getTime()))
+        $('#duration').html(Math.round(Math.abs(((new Date(response.arrivalDate).getTime()) - (new Date(response.departureDate).getTime()))/(24*60*60*1000))))
         $('#guestFullName').html(response.guestFullName);
         $('#hostFullName').html(response.hostFullName);
         $('#destination').html(response.destination);
@@ -33,7 +36,6 @@ module.exports = React.createClass({
         $('#bookingCharges').html(currency+response.bookingCharges);
         $('#serviceAndVatFees').html(currency+response.serviceAndVatFees);
         $('#total-charge').html(currency+(response.bookingCharges+response.serviceAndVatFees));
-
 
       }.bind(this),
       error: function() {
@@ -50,7 +52,10 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
+        console.log(response)
 
+        $('#immersion-type').html(i18n.t('immersions:'+response.immersionType))
+        $('#cancellation').html(i18n.t('trips:not_applicable'))
 
       }.bind(this),
       error: function() {
