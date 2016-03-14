@@ -21,7 +21,7 @@
             <div class='row section'>
 
               <div class='col s12 input-field center-align'>
-                <a class='btn btn-secondary btn-flat' onclick="Materialize.toast('Confirmation email sent', 4000)">Send confirmation email</a>
+                <a id='request-verification-email' class='btn btn-secondary btn-flat'>Send confirmation email</a>
               </div>
 
             </div>
@@ -41,7 +41,7 @@
             <div class='row section'>
 
               <div class='col s12 input-field center-align'>
-                <a class='btn btn-secondary btn-flat'>Send confirmation SMS</a>
+                <a id='request-verification-sms' class='btn btn-secondary btn-flat'>Send confirmation SMS</a>
               </div>
 
             </div>
@@ -50,9 +50,10 @@
 
             <div class='row section'>
 
-              <div class='col s12 m4 offset-m4 l2 offset-l5 input-field center-align'>
-                <input placeholder="Verification code" type="text" class="validate" value='Jose'>
+              <div class='col s12 m4 offset-m4 l4 offset-l4 input-field center-align'>
+                <input id='sms-verification-code' type="text" class="validate" placeholder="{{translations.users.enter_verification_code}}">
                 <label class='active'>Verification code</label>
+                <a id='verify-phone' class='btn btn-primary margin-top-20'>Verify</a>
               </div>
 
             </div>

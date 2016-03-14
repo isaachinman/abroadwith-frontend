@@ -21,6 +21,8 @@ module.exports = React.createClass({
       toast('Basics updated');
     });
 
+    return false;
+
   },
   componentDidMount: function() {
 

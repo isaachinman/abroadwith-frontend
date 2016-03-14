@@ -64,6 +64,7 @@ module.exports = React.createClass({
         console.log(pendingReservations)
 
       } else {
+        reservationsDOM = [];
         reservationsDOM.push(
           <NoReservations />
         )
