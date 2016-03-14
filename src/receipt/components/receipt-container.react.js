@@ -56,8 +56,8 @@ module.exports = React.createClass({
 
         $('#immersion-type').html(i18n.t('immersions:'+response.immersionType));
         $('#cancellation').html(i18n.t('trips:not_applicable'));
-        $('#cancellation').html(i18n.t('trips:not_applicable'));
-
+        $('#host-taught').html(i18n.t('languages:'+response.languageHostWillTeach));
+        response.languageGuestWillTeach !== null ? $('#guest-taught').html(i18n.t('languages:'+response.languageGuestWillTeach)) : $('#guest-taught').html(i18n.t('trips:not_applicable'));
 
       }.bind(this),
       error: function() {
