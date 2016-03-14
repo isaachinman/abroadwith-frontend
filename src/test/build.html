@@ -341,6 +341,7 @@ $.ajax({
       url: DOMAINS.API+'/users/login',
       contentType: "application/json",
       data: JSON.stringify(loginObj),
+      xhrFields: {withCredentials: true},
       success: function(JWT,text,response) {
         $('#status').append("<h1>Login user</h1>");
         $('#status').append('<br/> Request:'+JSON.stringify(loginObj));
