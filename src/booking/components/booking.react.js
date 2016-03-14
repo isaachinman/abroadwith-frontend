@@ -60,7 +60,9 @@ module.exports = React.createClass({
       currency:                   $('#payment-currency').val(),
       serviceNames:               serviceNames,
       paymentMethodId:            $('.booking-payment-radio input:checked').length > 0 ? parseInt($('.booking-payment-radio input:checked').attr('data-value')) : null,
-      weeklyHours:                weeklyHours
+      weeklyHours:                weeklyHours,
+      partOfDay:                  null,
+      settingNames:               $('select#meal_pref').val() !== '' ? $('select#meal_pref').val() : []
     }
 
     return bookingObj;
