@@ -1,7 +1,7 @@
 var router = require('./ReviewRouter');
 
 var installer = function(app) {
-  app.use('/users/*/reviews/*',router);
+  app.use('/users/*/review',router);
 };
 
 module.exports = installer;

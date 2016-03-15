@@ -50,3 +50,6 @@ require('./invoice/invoice')
 
 // Receipt
 require('./receipt/receipt')
+
+// Review
+require('./review/review')

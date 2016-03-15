@@ -27,6 +27,7 @@
     "node-gyp": "^3.3.0",
     "node-sass": "^3.4.2",
     "nunjucks": "^2.2.0",
+    "rating": "^0.1.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-lite": "0.0.21",
@@ -56,7 +57,9 @@
     "randomise-coordinate": "./src/global/randomise-coordinate",
     "send-payment-nonce": "./src/global/send-payment-nonce",
     "toast": "./src/global/toast",
-    "currencies": "./src/global/constants/Currencies.json"
+    "currencies": "./src/global/constants/Currencies.json",
+    "GET": "./src/global/ajax/GET",
+    "POST": "./src/global/ajax/POST"
   },
   "browserify-shim": {
     "jquery": "$",

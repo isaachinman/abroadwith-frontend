@@ -1,9 +1,9 @@
-module.exports = function(email, password) {
+var jwt_decode = require('jwt-decode');
+var domains = require('domains');
+var loginRedirect = require('login-redirect');
+var loggedIn = require('logged-in')
 
-  var jwt_decode = require('jwt-decode');
-  var domains = require('domains');
-  var loginRedirect = require('login-redirect');
-  var loggedIn = require('logged-in')
+module.exports = function(email, password) {
 
   // If a JWT is in localStorage, delete it
   localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null;

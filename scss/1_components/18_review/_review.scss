@@ -1,0 +1,32 @@
+.leave-review {
+  @extend .container;
+  @extend .row;
+  background: lighten($grey-chateau, 32.5%);
+  border-radius: 3px;
+  padding: 10px;
+  text-align: left;
+  @media #{$small-and-down} {
+    text-align: center;
+  }
+  .reviewee-card {
+    @extend .card;
+    width: 250px;
+    @media #{$small-and-down} {
+      margin: 0 auto;
+    }
+  }
+  .booking-details {
+    padding: 5px 10px 10px 10px;
+  }
+  .reviewee-image {
+    width: 250px;
+    height: 250px;
+  }
+  .review-rating {
+    font-size: 1.75rem;
+    cursor: pointer;
+    .glow {
+      color: $havelock-blue;
+    }
+  }
+}

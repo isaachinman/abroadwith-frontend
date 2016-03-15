@@ -48,6 +48,7 @@ module.exports = function (req, res, next, value) {
       response.on('end', function() {
           var parsed = JSON.parse(body);
           req.context.user = parsed;
+          req.context.debug = JSON.stringify(req.context.user);
           req.context.user.id = value; //TODO make sure it is in the return object.
           if(req.context.user.rating){
             req.context.user.ratingHTML = transformToStars(req.context.user);
