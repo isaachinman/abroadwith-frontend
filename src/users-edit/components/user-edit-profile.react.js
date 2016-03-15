@@ -1,6 +1,9 @@
 var React = require('react');
+
+var JWT = require('JWT');
+var GET = require('GET');
+
 var domains = require('domains');
-var jwt_decode = require('jwt-decode');
 
 module.exports = React.createClass({
   userEditSave: function() {
@@ -23,8 +26,6 @@ module.exports = React.createClass({
 
     console.log(userObj);
 
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
-
     $.ajax({
       url: domains.API+'/users/'+JWT.rid,
       type: "POST",
@@ -45,44 +46,35 @@ module.exports = React.createClass({
 
   },
   refreshState: function() {
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid,
-      type: "GET",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
+    var url = domains.API+'/users/'+JWT.rid;
+    var success = function(response) {
 
-        window.userObj = response;
+      window.userObj = response;
 
-        console.log(response)
+      console.log(response)
 
-        $('#user-photo').attr('src', domains.IMG + response.photo);
-        $('#about-me').val(response.aboutMe);
-        $('#education').val(response.education);
-        $('#grew-up').val(response.grewUp);
-        $('#fav-book').val(response.favBook);
-        $('#fav-film').val(response.favFilm);
-        $('#amazing-feat').val(response.amazingFeat);
-        $('#can-share').val(response.canShare);
-        $('#interests').val(response.interests);
-        $('#countries-visited').val(JSON.parse(response.countriesVisited)).trigger('change');
-        $('#countries-lived').val(JSON.parse(response.countriesLived)).trigger('change');
+      $('#user-photo').attr('src', domains.IMG + response.photo);
+      $('#about-me').val(response.aboutMe);
+      $('#education').val(response.education);
+      $('#grew-up').val(response.grewUp);
+      $('#fav-book').val(response.favBook);
+      $('#fav-film').val(response.favFilm);
+      $('#amazing-feat').val(response.amazingFeat);
+      $('#can-share').val(response.canShare);
+      $('#interests').val(response.interests);
+      $('#countries-visited').val(JSON.parse(response.countriesVisited)).trigger('change');
+      $('#countries-lived').val(JSON.parse(response.countriesLived)).trigger('change');
 
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
+    };
+    GET(url, success)
 
     // Select2
     $("select#countries-visited").select2();
     $("select#countries-lived").select2({
       allowClear: true
     });
+    
   },
   componentDidMount: function() {
 

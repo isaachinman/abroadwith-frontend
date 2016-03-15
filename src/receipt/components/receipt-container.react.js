@@ -1,5 +1,8 @@
 var React = require('react');
 
+var JWT = require('JWT');
+var GET = require('GET');
+
 var jwt_decode = require('jwt-decode');
 var domains = require('domains');
 
@@ -14,58 +17,35 @@ module.exports = React.createClass({
 
     var bookingId = $('h1').attr('data-id');
 
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+    var url = domains.API+'/users/'+JWT.rid+'/bookings/'+bookingId+'/receipt';
+    var success = function(response) {
 
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/bookings/'+bookingId+'/receipt',
-      type: "GET",
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
+      var currency = currencies[response.currency]
+      $('#bookingCode').html(response.bookingCode);
+      $('#arrivalDate').html(response.arrivalDate);
+      $('#departureDate').html(response.departureDate);
+      $('#duration').html(Math.round(Math.abs(((new Date(response.arrivalDate).getTime()) - (new Date(response.departureDate).getTime()))/(24*60*60*1000))))
+      $('#guestFullName').html(response.guestFullName);
+      $('#hostFullName').html(response.hostFullName);
+      $('#destination').html(response.destination);
+      $('#destinationShort').html(response.destinationShort);
+      $('#bookingCharges').html(currency+response.bookingCharges);
+      $('#serviceAndVatFees').html(currency+response.serviceAndVatFees);
+      $('#total-charge').html(currency+(response.bookingCharges+response.serviceAndVatFees));
 
-        console.log(response)
-        var currency = currencies[response.currency]
-        $('#bookingCode').html(response.bookingCode);
-        $('#arrivalDate').html(response.arrivalDate);
-        $('#departureDate').html(response.departureDate);
-        $('#duration').html(Math.round(Math.abs(((new Date(response.arrivalDate).getTime()) - (new Date(response.departureDate).getTime()))/(24*60*60*1000))))
-        $('#guestFullName').html(response.guestFullName);
-        $('#hostFullName').html(response.hostFullName);
-        $('#destination').html(response.destination);
-        $('#destinationShort').html(response.destinationShort);
-        $('#bookingCharges').html(currency+response.bookingCharges);
-        $('#serviceAndVatFees').html(currency+response.serviceAndVatFees);
-        $('#total-charge').html(currency+(response.bookingCharges+response.serviceAndVatFees));
+    };
+    GET(url, success)
 
-      }.bind(this),
-      error: function() {
+    var url = domains.API+'/users/'+JWT.rid+'/bookings/'+bookingId;
+    var success = function(response) {
 
-        alert('Something failed');
+      $('#immersion-type').html(i18n.t('immersions:'+response.immersionType));
+      $('#cancellation').html(i18n.t('trips:not_applicable'));
+      $('#host-taught').html(i18n.t('languages:'+response.languageHostWillTeach));
+      response.languageGuestWillTeach !== null ? $('#guest-taught').html(i18n.t('languages:'+response.languageGuestWillTeach)) : $('#guest-taught').html(i18n.t('trips:not_applicable'));
 
-      }
-    })
-
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/bookings/'+bookingId,
-      type: "GET",
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
-
-        console.log(response)
-
-        $('#immersion-type').html(i18n.t('immersions:'+response.immersionType));
-        $('#cancellation').html(i18n.t('trips:not_applicable'));
-        $('#host-taught').html(i18n.t('languages:'+response.languageHostWillTeach));
-        response.languageGuestWillTeach !== null ? $('#guest-taught').html(i18n.t('languages:'+response.languageGuestWillTeach)) : $('#guest-taught').html(i18n.t('trips:not_applicable'));
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
+    };
+    GET(url, success)
 
   },
   render: function() {

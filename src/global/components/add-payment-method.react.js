@@ -1,7 +1,11 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+
+var JWT = require('JWT');
+var GET = require('GET');
+
 var domains = require('domains');
-var jwt_decode = require('jwt-decode');
+
 var sendPaymentNonce = require('send-payment-nonce');
 
 module.exports = React.createClass({
@@ -12,83 +16,67 @@ module.exports = React.createClass({
 
     var callback = this.props.callback;
 
-    // Generate clientToken
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+    var url = domains.API+'/users/'+JWT.rid+'/clientToken';
+    var success = function(response) {
 
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/clientToken',
-      type: "GET",
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
+      var clientToken = response;
 
-        var clientToken = response;
+      $.getScript('https://js.braintreegateway.com/v2/braintree.js', function() {
 
-        $.getScript('https://js.braintreegateway.com/v2/braintree.js', function() {
+        console.log('braintree ran')
 
-          console.log('braintree ran')
-
-          // Setup braintree form
-          braintree.setup(clientToken, 'custom', {
-            id: 'add-payment-form',
-            hostedFields: {
-              number: {
-                selector: "#card-number",
-                placeholder: 'Card number'
-              },
-              cvv: {
-                selector: "#cvv",
-                placeholder: 'CVV'
-              },
-              expirationDate: {
-                selector: "#expiration-date",
-                placeholder: 'Expiry'
-              },
-              styles: {
-                "input": {
-                  "font-size":"1rem",
-                  "color":"#3A3A3A",
-                  "font-family":"Open Sans, sans serif"
-                }
+        // Setup braintree form
+        braintree.setup(clientToken, 'custom', {
+          id: 'add-payment-form',
+          hostedFields: {
+            number: {
+              selector: "#card-number",
+              placeholder: 'Card number'
+            },
+            cvv: {
+              selector: "#cvv",
+              placeholder: 'CVV'
+            },
+            expirationDate: {
+              selector: "#expiration-date",
+              placeholder: 'Expiry'
+            },
+            styles: {
+              "input": {
+                "font-size":"1rem",
+                "color":"#3A3A3A",
+                "font-family":"Open Sans, sans serif"
               }
-            },
-            paypal: {
-              container: 'paypal-container',
-              singleUse: false
-            },
-            dataCollector: {
-              paypal: true
-            },
-            onPaymentMethodReceived: function (obj) {
-              sendPaymentNonce(obj.nonce, function() {
-                callback();
-              });
-            },
-            onReady: function() {
-
-              $('#add-payment-form ul.collapsible').collapsible({
-                accordion : false
-              });
-
-              $("#paypal-container").bind("DOMSubtreeModified", function() {
-                $('#add-new-paypal').removeClass('hide');
-              });
-
             }
-          })
+          },
+          paypal: {
+            container: 'paypal-container',
+            singleUse: false
+          },
+          dataCollector: {
+            paypal: true
+          },
+          onPaymentMethodReceived: function (obj) {
+            sendPaymentNonce(obj.nonce, function() {
+              callback();
+            });
+          },
+          onReady: function() {
 
+            $('#add-payment-form ul.collapsible').collapsible();
+
+            $("#paypal-container").bind("DOMSubtreeModified", function() {
+              $('#add-new-paypal').removeClass('hide');
+            });
+
+          }
         })
 
-      }.bind(this),
-      error: function() {
+      })
 
-        alert('Something failed');
+    };
+    GET(url, success)
 
-        // If clientToken GET fails, remove all UI to prevent people from typing sensitive data in unhosted fields
-        $('#add-payment-form').remove();
-
-      }
-    })
   },
   render: function() {
 
@@ -146,7 +134,6 @@ module.exports = React.createClass({
               </div>
             </li>
           </ul>
-
 
         </form>
 

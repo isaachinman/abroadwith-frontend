@@ -1,6 +1,9 @@
 var React = require('react');
 var ReservationsList = require('./reservations-list.react')
 
+var GET = require('GET');
+var JWT = require('JWT');
+
 var jwt_decode = require('jwt-decode');
 var domains = require('domains');
 
@@ -8,32 +11,12 @@ var domains = require('domains');
 module.exports = React.createClass({
   refreshState: function() {
 
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+    var url = domains.API+'/users/'+JWT.rid+'/reservations';
+    var success = function(response) {
+      this.setState({reservations:response})
+    }.bind(this);
+    GET(url, success)
 
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/reservations',
-      type: "GET",
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(reservations) {
-
-        console.log(reservations)
-
-        var newState = {
-          reservations: reservations,
-        }
-
-        if (this.isMounted()) {
-          this.setState(newState);
-        }
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
   },
   getInitialState: function() {
 

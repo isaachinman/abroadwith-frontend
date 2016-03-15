@@ -5,44 +5,20 @@ var Payments = require('./admin-payments.react');
 var Languages = require('./admin-languages.react');
 var Verifications = require('./admin-verifications.react');
 
+var JWT = require('JWT');
+var GET = require('GET');
+
 var domains = require('domains');
-var jwt_decode = require('jwt-decode');
+
 
 module.exports = React.createClass({
   updateAdmin: function(callback) {
 
     $('#preloader').show();
 
-    var refreshState = this.refreshState;
-
-    if (adminObj.address === null || adminObj.address.country === null) {
-
-      sendObj(refreshState);
-
-      // $.ajax({
-      //   url: '//freegeoip.net/json/',
-      //   type: 'POST',
-      //   dataType: 'jsonp',
-      //   success: function(location) {
-      //
-      //     adminObj.address = {};
-      //     adminObj.address.country = location.country_name;
-      //     adminObj.address.city = location.city;
-      //
-      //     sendObj(refreshState);
-      //
-      //   },
-      //   error: function() {
-      //     sendObj(refreshState);
-      //   }
-      // });
-
-    } else {
-      sendObj(refreshState());
-    }
+    sendObj(this.refreshState);
 
     function sendObj(callback) {
-      var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
       delete adminObj.paymentMethods;
       delete adminObj.payoutMethods;
@@ -75,67 +51,55 @@ module.exports = React.createClass({
   },
   refreshState: function() {
 
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+    var url = domains.API + '/users/' + JWT.rid;
+    var success = function(response) {
 
-    $.ajax({
-      url: domains.API + '/users/' + JWT.rid,
-      type: "GET",
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))
-      },
-      success: function(response) {
+      window.adminObj = response;
 
-        window.adminObj = response;
+      console.log(response)
 
-        console.log(response)
+      // Notifications tab
+      $('#email-reminders').prop('checked', response.notifications.email.reminders)
+      $('#email-promotions').prop('checked', response.notifications.email.promotion)
+      $('#sms-notifications').prop('checked', response.notifications.sms.all)
 
-        // Notifications tab
-        $('#email-reminders').prop('checked', response.notifications.email.reminders)
-        $('#email-promotions').prop('checked', response.notifications.email.promotion)
-        $('#sms-notifications').prop('checked', response.notifications.sms.all)
-
-        // Verifications
-        function checkVerifications(type) {
-          if (response.verifications[type] === true) {
-            $('#verification-' + type + ' .collapsible-header').addClass('disabled');
-            $('#verification-' + type + ' .edit').html('<i class="fa fa-check-circle green-text fa-2x"></i>');
-          }
-        }['email', 'phone', 'id'].forEach(checkVerifications);
-
-        var newState = {
-          // Set new state vars
-          paymentMethods: response.paymentMethods,
-          payoutMethods: response.payoutMethods,
-          languagesLearning: response.userLearningLanguages,
-          languagesKnown: response.userKnownLanguages,
-
-          firstName: response.firstName,
-          lastName: response.lastName,
-          gender: response.gender,
-          birthDate: response.birthDate,
-          location: response.location,
-          phoneNumber: response.phoneNumber,
-          email: response.email,
-          emergencyName: response.emergencyContact && response.emergencyContact.name ? response.emergencyContact.name : null,
-          emergencyPhone: response.emergencyContact && response.emergencyContact.phone ? response.emergencyContact.phone : null,
-          emergencyEmail: response.emergencyContact && response.emergencyContact.email ? response.emergencyContact.email : null,
-          emergencyRelationship: response.emergencyContact && response.emergencyContact.relationship ? response.emergencyContact.relationship : null,
-          emailReminders: response.notifications.email.reminders,
-          emailPromotions: response.notifications.email.promotions,
-          smsNotifications: response.notifications.sms.all
+      // Verifications
+      function checkVerifications(type) {
+        if (response.verifications[type] === true) {
+          $('#verification-' + type + ' .collapsible-header').addClass('disabled');
+          $('#verification-' + type + ' .edit').html('<i class="fa fa-check-circle green-text fa-2x"></i>');
         }
-
-        if (this.isMounted()) {
-          this.setState(newState);
-        };
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
       }
-    })
+      ['email', 'phone', 'id'].forEach(checkVerifications);
+
+      var newState = {
+        // Set new state vars
+        paymentMethods: response.paymentMethods,
+        payoutMethods: response.payoutMethods,
+        languagesLearning: response.userLearningLanguages,
+        languagesKnown: response.userKnownLanguages,
+
+        firstName: response.firstName,
+        lastName: response.lastName,
+        gender: response.gender,
+        birthDate: response.birthDate,
+        location: response.location,
+        phoneNumber: response.phoneNumber,
+        email: response.email,
+        emergencyName: response.emergencyContact && response.emergencyContact.name ? response.emergencyContact.name : null,
+        emergencyPhone: response.emergencyContact && response.emergencyContact.phone ? response.emergencyContact.phone : null,
+        emergencyEmail: response.emergencyContact && response.emergencyContact.email ? response.emergencyContact.email : null,
+        emergencyRelationship: response.emergencyContact && response.emergencyContact.relationship ? response.emergencyContact.relationship : null,
+        emailReminders: response.notifications.email.reminders,
+        emailPromotions: response.notifications.email.promotions,
+        smsNotifications: response.notifications.sms.all
+      }
+
+      this.setState(newState);
+
+    }.bind(this);
+    GET(url, success)
+
   },
   componentDidMount: function() {
 
@@ -143,10 +107,6 @@ module.exports = React.createClass({
 
     // Delete account button
     $('#delete-account').click(function() {
-
-      var JWT = localStorage.getItem('JWT') !== null
-        ? jwt_decode(localStorage.getItem('JWT'))
-        : null;
 
       $.ajax({
         url: domains.API + '/users/' + JWT.rid,

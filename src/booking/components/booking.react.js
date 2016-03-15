@@ -1,12 +1,14 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var JWT = require('JWT');
+var GET = require('GET');
+
 var AddPaymentMethod = require('../../global/components/add-payment-method.react');
 var Paypal = require('../../global/components/payment-method--paypal.react');
 var CreditCard = require('../../global/components/payment-method--credit-card.react');
 
 var domains = require('domains');
-var jwt_decode = require('jwt-decode');
 
 require('../scrollspy');
 $('.scrollspy').scrollSpy();
@@ -91,8 +93,6 @@ module.exports = React.createClass({
 
     var bookingObj = this.createBookingObject();
 
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
-
     // Create booking
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/bookings',
@@ -119,8 +119,6 @@ module.exports = React.createClass({
   refreshState: function() {
 
     var bookingObj = this.createBookingObject();
-
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     this.setState(bookingObj, function() {
 
@@ -175,88 +173,81 @@ module.exports = React.createClass({
 
     var callback = this.refreshState;
 
-    // If user has payment methods, render them
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/paymentMethods/',
-      type: "GET",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(paymentMethods) {
+    var url = domains.API+'/users/'+JWT.rid+'/paymentMethods/';
+    var success = function(response) {
 
-        var PaymentMethodContainer = React.createClass({
-          render: function() {
+      var paymentMethods = response;
 
-            var paymentMethodHTML = []
+      var PaymentMethodContainer = React.createClass({
+        render: function() {
 
-            if (paymentMethods.length > 0) {
-              paymentMethods.forEach(function(payment) {
-                if (payment.type === 'CARD') {
-                  paymentMethodHTML.push(
-                    <div>
-                      <div class='booking-payment-radio'>
-                        <input name="payments" type="radio" data-value={payment.id} id={payment.id} />
-                        <label for={payment.id}></label>
-                      </div>
-                      <div class='booking-payment-method'>
-                        <CreditCard
-                          id={payment.id}
-                          default={payment.default}
-                          expiry={payment.expiry}
-                          lastFour={payment.lastFour}
-                          cardHolder={payment.cardHolder}
-                          deleteCallback={callback}
-                        />
-                      </div>
+          var paymentMethodHTML = []
+
+          if (paymentMethods.length > 0) {
+            paymentMethods.forEach(function(payment) {
+              if (payment.type === 'CARD') {
+                paymentMethodHTML.push(
+                  <div>
+                    <div class='booking-payment-radio'>
+                      <input name="payments" type="radio" data-value={payment.id} id={payment.id} />
+                      <label for={payment.id}></label>
                     </div>
-                  )
-                } else if (payment.type === 'PAYPAL') {
-                  paymentMethodHTML.push(
-                    <div>
-                      <div class='booking-payment-radio'>
-                        <input name="payments" type="radio" data-value={payment.id} id={payment.id} />
-                        <label for={payment.id}></label>
-                      </div>
-                      <div class='booking-payment-method'>
-                        <Paypal
-                          id={payment.id}
-                          default={payment.default}
-                          email={payment.email}
-                          deleteCallback={callback}
-                        />
-                      </div>
-
+                    <div class='booking-payment-method'>
+                      <CreditCard
+                        id={payment.id}
+                        default={payment.default}
+                        expiry={payment.expiry}
+                        lastFour={payment.lastFour}
+                        cardHolder={payment.cardHolder}
+                        deleteCallback={callback}
+                      />
+                    </div>
+                  </div>
+                )
+              } else if (payment.type === 'PAYPAL') {
+                paymentMethodHTML.push(
+                  <div>
+                    <div class='booking-payment-radio'>
+                      <input name="payments" type="radio" data-value={payment.id} id={payment.id} />
+                      <label for={payment.id}></label>
+                    </div>
+                    <div class='booking-payment-method'>
+                      <Paypal
+                        id={payment.id}
+                        default={payment.default}
+                        email={payment.email}
+                        deleteCallback={callback}
+                      />
                     </div>
 
-                  )
-                }
-              })
-            }
+                  </div>
 
-            return (
-              <div>{paymentMethodHTML}</div>
-            )
+                )
+              }
+            })
           }
-        })
 
-        // Render payment method UI
-        ReactDOM.render(
-          <PaymentMethodContainer
-          />, document.querySelector('#payment-methods')
-        )
+          return (
+            <div>{paymentMethodHTML}</div>
+          )
+        }
+      })
 
-        // Select the first payment method
-        $('.booking-payment-radio input').first().attr('checked', 'checked');
+      // Render payment method UI
+      ReactDOM.render(
+        <PaymentMethodContainer
+        />, document.querySelector('#payment-methods')
+      )
 
-        this.validateBooking(bookingObj);
+      // Select the first payment method
+      $('.booking-payment-radio input').first().attr('checked', 'checked');
 
-        $('#preloader').hide();
+      this.validateBooking(bookingObj);
 
-      }.bind(this),
-      error: function() {
+      $('#preloader').hide();
 
-        alert('Something failed');
-
-      }
-    })
+    }.bind(this);
+    GET(url, success)
 
   },
   componentDidMount: function() {

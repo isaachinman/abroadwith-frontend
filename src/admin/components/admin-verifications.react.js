@@ -1,74 +1,47 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var JWT = require('JWT');
+var GET = require('GET');
+
 var domains = require('domains');
-var jwt_decode = require('jwt-decode');
 
 module.exports = React.createClass({
   requestVerificationEmail: function() {
 
     $('#preloader').show();
 
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+    var url = domains.API + '/users/' + JWT.rid + '/verification/email';
+    var success = function() {
 
-    $.ajax({
-      url: domains.API + '/users/' + JWT.rid + '/verification/email',
-      type: "GET",
-      contentType: "application/json",
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))
-      },
-      success: function(response) {
+      $('#preloader').hide();
+      Materialize.toast('Verification email sent', 4000);
 
-        $('#preloader').hide();
-        Materialize.toast('Verification email sent', 4000);
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
+    };
+    GET(url, success)
 
   },
   requestVerificationSMS: function() {
 
     $('#preloader').show();
 
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+    var url = domains.API + '/users/' + JWT.rid + '/verification/phone';
+    var success = function(response) {
 
-    $.ajax({
-      url: domains.API + '/users/' + JWT.rid + '/verification/phone',
-      type: "GET",
-      contentType: "application/json",
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))
-      },
-      success: function(phoneSecret) {
-
-        var newState = {
-          phoneSecret: phoneSecret
-        }
-
-        if (this.isMounted()) {
-          this.setState(newState);
-          console.log(this.state)
-        }
-
-        $('.phone-request').hide();
-        $('.phone-verify').show();
-
-        $('#preloader').hide();
-        Materialize.toast('Verification SMS sent', 4000);
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
+      var newState = {
+        phoneSecret: response
       }
-    })
+
+      this.setState(newState);
+
+      $('.phone-request').hide();
+      $('.phone-verify').show();
+
+      $('#preloader').hide();
+      Materialize.toast('Verification SMS sent', 4000);
+
+    }.bind(this);
+    GET(url, success)
 
   },
   verifyPhone: function() {
@@ -84,8 +57,6 @@ module.exports = React.createClass({
     }
 
     console.log(verifyPhoneObj)
-
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     $.ajax({
       url: domains.API + '/users/' + JWT.rid + '/verification/phone',

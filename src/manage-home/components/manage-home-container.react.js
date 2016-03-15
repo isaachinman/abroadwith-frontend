@@ -7,10 +7,12 @@ var RoomsTab =            require('./rooms-tab.react');
 var PhotosTab =           require('./photos-tab.react');
 var PricingTab =          require('./pricing-tab.react');
 
+var JWT = require('JWT');
+var GET = require('GET');
+
 var i18n = require('../../global/components/i18n');
 i18n.loadNamespaces(['manage_home','homes']);
 
-var jwt_decode = require('jwt-decode');
 var domains = require('domains');
 
 module.exports = React.createClass({
@@ -20,8 +22,6 @@ module.exports = React.createClass({
 
     delete homeObj.GENERAL;
     var updateHome = this.updateHome;
-
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     console.log(homeObj)
 
@@ -136,51 +136,38 @@ module.exports = React.createClass({
 
   },
   refreshState: function() {
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid,
-      type: "GET",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
+    var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
+    var success = function(response) {
 
-        console.log(response)
+      window.homeObj = response;
 
-        window.homeObj = response;
+      var newState = {
 
-        var newState = {
-
-          // Conditionally set up state per category
-          published:                       response.isActive,
-          basics:                          response.basics ? response.basics : null,
-          immersions:                      response.immersions ? response.immersions : null,
-          location:                        response.location ? response.location : null,
-          description:                     response.description ? response.description : null,
-          rooms:                           response.rooms ? response.rooms : null,
-          photos:                          response.photos ? response.photos : null,
-          pricing:                         response.pricing ? response.pricing : null,
-          currency:                        response.pricing ? response.pricing.currency : null,
-          stayAvailableLanguages:          response.stayAvailableLanguages ? response.stayAvailableLanguages : null,
-          tandemAvailableLanguages:        response.tandemAvailableLanguages ? response.tandemAvailableLanguages : null,
-          tandemAvailableLearnLanguages:   response.tandemAvailableLearnLanguages ? response.tandemAvailableLearnLanguages : null,
-          teacherAvailableLanguages:       response.teacherAvailableLanguages ? response.teacherAvailableLanguages : null
-
-        }
-        if (this.isMounted()) {
-          this.setState(newState);
-          console.log(this.state)
-        }
-
-        // Refresh selects
-        $('select.material').material_select();
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
+        // Conditionally set up state per category
+        published:                       response.isActive,
+        basics:                          response.basics ? response.basics : null,
+        immersions:                      response.immersions ? response.immersions : null,
+        location:                        response.location ? response.location : null,
+        description:                     response.description ? response.description : null,
+        rooms:                           response.rooms ? response.rooms : null,
+        photos:                          response.photos ? response.photos : null,
+        pricing:                         response.pricing ? response.pricing : null,
+        currency:                        response.pricing ? response.pricing.currency : null,
+        stayAvailableLanguages:          response.stayAvailableLanguages ? response.stayAvailableLanguages : null,
+        tandemAvailableLanguages:        response.tandemAvailableLanguages ? response.tandemAvailableLanguages : null,
+        tandemAvailableLearnLanguages:   response.tandemAvailableLearnLanguages ? response.tandemAvailableLearnLanguages : null,
+        teacherAvailableLanguages:       response.teacherAvailableLanguages ? response.teacherAvailableLanguages : null
 
       }
-    })
+
+      this.setState(newState);
+
+      // Refresh selects
+      $('select.material').material_select();
+      
+    }.bind(this);
+    GET(url, success)
 
   },
   render: function() {

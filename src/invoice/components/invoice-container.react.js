@@ -1,5 +1,8 @@
 var React = require('react');
 
+var JWT = require('JWT');
+var GET = require('GET');
+
 var jwt_decode = require('jwt-decode');
 var domains = require('domains');
 
@@ -14,37 +17,22 @@ module.exports = React.createClass({
 
     var invoiceId = $('h1').attr('data-id');
 
+    var url = domains.API+'/users/'+JWT.rid+'/invoices/'+invoiceId;
+    var success = function(response) {
 
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+      var currency = currencies[response.currency]
+      $('#bookingCode').html(response.bookingCode);
+      $('#serviceRenderedAt').html(response.serviceRenderedAt);
+      $('#billingAddress').html(response.billingAddress);
+      $('#fullName').html(response.fullName);
+      $('#vatCountry').html(i18n.t('countries:'+response.vatCountry));
+      $('#vatRate').html(response.vatRate);
+      $('#baseFees').html(currency+response.baseFees);
+      $('#vatAmount').html(currency+response.vatAmount);
+      $('#totalServiceFee').html(currency+response.totalServiceFee);
 
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/invoices/'+invoiceId,
-      type: "GET",
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
-
-        console.log(response)
-
-        var currency = currencies[response.currency]
-
-        $('#bookingCode').html(response.bookingCode);
-        $('#serviceRenderedAt').html(response.serviceRenderedAt);
-        $('#billingAddress').html(response.billingAddress);
-        $('#fullName').html(response.fullName);
-        $('#vatCountry').html(i18n.t('countries:'+response.vatCountry));
-        $('#vatRate').html(response.vatRate);
-        $('#baseFees').html(currency+response.baseFees);
-        $('#vatAmount').html(currency+response.vatAmount);
-        $('#totalServiceFee').html(currency+response.totalServiceFee);
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
+    };
+    GET(url, success)
 
   },
   render: function() {
