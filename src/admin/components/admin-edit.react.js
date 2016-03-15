@@ -7,9 +7,9 @@ var Verifications = require('./admin-verifications.react');
 
 var JWT = require('JWT');
 var GET = require('GET');
+var POST = require('POST');
 
 var domains = require('domains');
-
 
 module.exports = React.createClass({
   updateAdmin: function(callback) {
@@ -26,26 +26,13 @@ module.exports = React.createClass({
 
       console.log(adminObj)
 
-      $.ajax({
-        url: domains.API + '/users/' + JWT.rid,
-        type: "POST",
-        data: JSON.stringify(adminObj),
-        contentType: "application/json",
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))
-        },
-        success: function(response) {
+      var url = domains.API + '/users/' + JWT.rid;
+      var success = function() {
+        $('#preloader').hide();
+        callback();
+      }
+      POST(url, adminObj, success);
 
-          $('#preloader').hide();
-          callback();
-
-        }.bind(this),
-        error: function() {
-
-          alert('Something failed');
-
-        }
-      })
     }
 
   },

@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 
 var JWT = require('JWT');
 var GET = require('GET');
+var POST = require('POST');
 
 var domains = require('domains');
 
@@ -58,32 +59,20 @@ module.exports = React.createClass({
 
     console.log(verifyPhoneObj)
 
-    $.ajax({
-      url: domains.API + '/users/' + JWT.rid + '/verification/phone',
-      type: "POST",
-      data: JSON.stringify(verifyPhoneObj),
-      contentType: "application/json",
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))
-      },
-      success: function(response) {
+    var url = domains.API + '/users/' + JWT.rid + '/verification/phone';
+    var success = function(response) {
 
-        console.log(response);
+      console.log(response);
 
-        updateAdmin();
+      updateAdmin();
 
-        $('#verification-phone .collapsible-body').remove();
+      $('#verification-phone .collapsible-body').remove();
 
-        $('#preloader').hide();
-        Materialize.toast('Phone verified', 4000);
+      $('#preloader').hide();
+      Materialize.toast('Phone verified', 4000);
 
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
+    }
+    POST(url, verifyPhoneObj, success);
 
   },
   componentDidMount: function() {

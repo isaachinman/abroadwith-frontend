@@ -1,4 +1,6 @@
-var jwt_decode = require('jwt-decode');
+var domains = require('domains');
+var POST = require('POST');
+
 var login = require('login');
 var loginRedirect = require('login-redirect');
 
@@ -58,22 +60,13 @@ $('.fb-login').click(function() {
 
         loginObj.email = response.email;
 
-        $.ajax({
-          type: "POST",
-          url: domains.API + '/users/login',
-          contentType: "application/json",
-          data: JSON.stringify(loginObj),
-          success: function(JWT) {
-
-            console.log(JWT);
-            localStorage.setItem('JWT', JWT.token);
-
-            loginRedirect();
-
-            loggedIn();
-
-          }
-        })
+        var url = domains.API + '/users/login';
+        var success = function(response) {
+          localStorage.setItem('JWT', response.token);
+          loginRedirect();
+          loggedIn();
+        }
+        POST(url, loginObj, success);
 
       })
     } else if (response.status === 'not_authorized') {

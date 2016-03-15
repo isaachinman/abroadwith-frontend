@@ -1,7 +1,8 @@
 var React = require('react');
 
-var jwt_decode = require('jwt-decode');
 var domains = require('domains');
+var JWT = require('JWT');
+var POST = require('POST');
 
 var i18n = require('../../global/components/i18n');
 i18n.loadNamespaces(['trips', 'common', 'countries']);
@@ -13,28 +14,12 @@ module.exports = React.createClass({
 
     var declineObj = {"reservationStatusRequest":"CANCELLED"}
 
-    var refreshState = this.props.refreshState;
-
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
-
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/reservations/'+this.props.reservation.id,
-      type: "POST",
-      data: JSON.stringify(declineObj),
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
-
-        refreshState();
-        $('#preloader').hide();
-
-      },
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
+    var url = domains.API+'/users/'+JWT.rid+'/reservations/'+this.props.reservation.id;
+    var success = function() {
+      this.props.refreshState();
+      $('#preloader').hide();
+    }.bind(this)
+    POST(url, declineObj, success);
 
   },
   render: function() {
@@ -45,7 +30,6 @@ module.exports = React.createClass({
     var guestPhoto = domains.IMG + reservation.guestPhoto;
 
     var invoices = [];
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null
 
     var receiptUrl = domains.FRONTEND+"/users/"+JWT.rid+"/bookings/"+reservation.id+"/receipt?booking_id="+reservation.id;
 

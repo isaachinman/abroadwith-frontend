@@ -1,23 +1,20 @@
+var domains = require('domains');
+
+var loggedIn = require('logged-in');
+
 module.exports = function(callback) {
-
-  var domains = require('domains');
-  var loggedIn = require('logged-in');
-
-  var jwt_decode = require('jwt-decode');
 
   var refreshObj = {
     token: localStorage.getItem('JWT')
   }
 
+  // This POST needs to be custom, as the headers are different to all others
   $.ajax({
     type: "POST",
     url: domains.API + '/users/login',
     contentType: "application/json",
     data: JSON.stringify(refreshObj),
-    processData: false,
-    success: function(response){
-
-      console.log(jwt_decode(response.token))
+    success: function(response) {
 
       // Delete old token
       localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null;
@@ -32,11 +29,11 @@ module.exports = function(callback) {
       callback();
 
     },
-    error: function(response) {
-      // Something went wrong
-      console.log('something went wrong');
+    error: function() {
+
+      alert('Something failed');
 
     }
-  });
+  })
 
 }

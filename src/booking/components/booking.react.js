@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 
 var JWT = require('JWT');
 var GET = require('GET');
+var POST = require('POST');
 
 var AddPaymentMethod = require('../../global/components/add-payment-method.react');
 var Paypal = require('../../global/components/payment-method--paypal.react');
@@ -93,27 +94,11 @@ module.exports = React.createClass({
 
     var bookingObj = this.createBookingObject();
 
-    // Create booking
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/bookings',
-      type: "POST",
-      data: JSON.stringify(bookingObj),
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
-
-        // Booking was successfully created
-        window.location = '/booking-success';
-
-      }.bind(this),
-      error: function() {
-
-        $('#preloader').hide();
-
-        alert('Something failed');
-
-      }
-    })
+    var url = domains.API+'/users/'+JWT.rid+'/bookings';
+    var success = function() {
+      window.location = '/booking-success';
+    }
+    POST(url, bookingObj, success);
 
   },
   refreshState: function() {
@@ -153,23 +138,12 @@ module.exports = React.createClass({
 
     // Get price
     delete bookingObj.paymentMethodId;
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/bookings/price',
-      type: "POST",
-      data: JSON.stringify(bookingObj),
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
-
-        $('.total-price').html(currencies[this.state.currency]+Math.ceil(response));
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
+    var url = domains.API+'/users/'+JWT.rid+'/bookings/price';
+    var data = {};
+    var success = function(response) {
+      $('.total-price').html(currencies[this.state.currency]+Math.ceil(response));
+    }.bind(this);
+    POST(url, bookingObj, success);
 
     var callback = this.refreshState;
 

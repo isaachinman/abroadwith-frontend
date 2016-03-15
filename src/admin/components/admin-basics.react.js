@@ -34,7 +34,7 @@ module.exports = React.createClass({
         if (this.value.charAt(0) !== '+') {
           this.value = '+' + this.value;
         }
-        $('#phoneNumber').intlTelInput();
+        $(this).intlTelInput();
       })
       $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js');
     })

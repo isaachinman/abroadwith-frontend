@@ -1,5 +1,6 @@
-var jwt_decode = require('jwt-decode');
 var domains = require('domains');
+var POST = require('POST');
+
 var loginRedirect = require('login-redirect');
 var loggedIn = require('logged-in')
 
@@ -10,34 +11,18 @@ module.exports = function(email, password) {
 
   $('#preloader').show();
 
-  var loginObj = {}
-  loginObj.email = email,
-  loginObj.password = password,
+  var loginObj = {
+    email: email,
+    password: password
+  }
 
-  console.log(loginObj)
+  var url = domains.API + '/users/login';
+  var success = function(response) {
 
-  $.ajax({
-    type: "POST",
-    url: domains.API + '/users/login',
-    contentType: "application/json",
-    data: JSON.stringify(loginObj),
-    success: function(JWT) {
+    localStorage.setItem('JWT', response.token);
+    location.reload();
 
-      localStorage.setItem('JWT', JWT.token);
-
-      loginRedirect();
-
-      loggedIn();
-
-      $('#preloader').hide();
-
-    },
-    error: function() {
-
-      $('#preloader').hide();
-      alert('Login failed');
-
-    }
-  })
+  }
+  POST(url, loginObj, success);
 
 }
