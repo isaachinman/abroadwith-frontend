@@ -25,8 +25,10 @@ module.exports = React.createClass({
       inboxSetup.forEach(function(thread) {
 
         messageHTML.push(
-          <li className='message-trigger' data-target={thread.id}><a>Conversation with {thread.with.name}</a></li>
+          <li className='message-trigger' data-target={thread.id}><a>Conversation with {thread.with.firstName}</a></li>
         );
+
+        var theirPhoto = thread.with.photo !== null ? domains.IMG + thread.with.photo : 'https://tracker.moodle.org/secure/attachment/30912/f3.png';
 
         threadHTML.push(
           <Thread
@@ -35,7 +37,7 @@ module.exports = React.createClass({
             yourId={yourId}
             yourPhoto={yourPhoto}
             them={thread.with.firstName}
-            theirPhoto={thread.with.photo}
+            theirPhoto={theirPhoto}
             startDate={thread.arrival}
             endDate={thread.departure}
           />

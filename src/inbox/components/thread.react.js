@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
     var yourId = this.props.yourId;
     var yourPhoto = this.props.yourPhoto;
-    var theirPhoto = domains.IMG + this.props.theirPhoto;
+    var theirPhoto = this.props.theirPhoto;
     inputObj.reverse().forEach(function(message) {
       if (message.author === yourId) {
         containerObj.push(
@@ -96,7 +96,7 @@ module.exports = React.createClass({
     var id = this.props.id;
     var yourId = this.props.yourId;
     var yourPhoto = this.props.yourPhoto;
-    var theirPhoto = domains.IMG + this.props.theirPhoto;
+    var theirPhoto = this.props.theirPhoto;
 
     var lastTimestamp = this.state.messages[0].props.timestamp;
 
