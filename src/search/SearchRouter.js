@@ -35,8 +35,20 @@ router.post('/', function (req, res) {
     search_response.params.currency = req.query.currency;
   }
   else{
-    search_response.params.currency = 'EUR';
+    if(req.cookies && req.cookies['ui-currency']){
+      search_response.params.currency = req.cookies['ui-currency'];
+    }
+    else{
+      search_response.params.currency = 'EUR';
+    }
   }
+
+  if(!req.query.minPrice) req.query.minPrice = '*';
+    else req.query.minPrice = req.query.minPrice+'.00,'+search_response.params.currency;
+  if(!req.query.maxPrice) req.query.maxPrice = '*';
+    else req.query.maxPrice = req.query.maxPrice+'.00,'+search_response.params.currency;
+
+  query.push('roomPrice:['+req.query.minPrice+' TO '+req.query.maxPrice+']')
 
   if(req.query.minLat && req.query.minLng && req.query.maxLat && req.query.maxLng){
     search_response.params.location = {};
@@ -77,12 +89,12 @@ router.post('/', function (req, res) {
 
   if(req.query.guests){
     search_response.params.guests = req.query.guests;
-    //TODO capacity search
+    query.push('roomVacancies:['+req.query.guests+' TO *]');
   }
 
-  if(req.query.lang){
-    search_response.params.lang = req.query.lang;
-    query.push('homeLanguages:'+req.query.lang);
+  if(req.query.language){
+    search_response.params.language = req.query.language;
+    query.push('offeredLanguages:(' + req.query.language + ')');
   }
 
   var filters = [];
@@ -151,7 +163,7 @@ router.post('/', function (req, res) {
   }
 
   if(filters.length > 0){
-    query.push(filters.join(" "));
+    query.push("filters:("+filters.join(" ")+")");
   }
 
   if(req.query.lnglvl){
@@ -173,8 +185,8 @@ router.post('/', function (req, res) {
   else{
     search_response.params.pageSize = 25;
   }
-
-  options.path += '?q=+'+encodeURIComponent(query.join(" AND "))+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')';
+  console.log(query.join(" AND "));
+  options.path += '?q='+encodeURIComponent(query.join(" AND "))+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')';
   console.log(options.path);
   http.get(options, function(resp){
     var body = '';
