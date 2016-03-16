@@ -158,13 +158,57 @@ if ($('form#email-signup-form').length) {
     })
   }
 
-  // Google signup function
-  window.onSignIn = function(googleUser) {
+  window.googleLogIn = function(googleUser) {
+
+    var loginObj = {
+      email: googleUser.getBasicProfile().getEmail(),
+      googleToken: googleUser.getAuthResponse().id_token
+    }
+
+    console.log(loginObj)
+
+    $.ajax({
+      type: "POST",
+      url: domains.API + '/users/login',
+      contentType: "application/json",
+      data: JSON.stringify(loginObj),
+      success: function(JWT) {
+
+        console.log(JWT);
+        localStorage.setItem('JWT', JWT.token);
+
+        // Print username into navbar
+        $('span#navbar-username').html((jwt_decode(localStorage.getItem('JWT'))).name)
+
+        // Toggle navbars
+        $('#navbar').hide();
+        $('#navbar-logged-in').show();
+        $('#navbar-logged-in .right').fadeIn('fast');
+
+        // If any modal is open, close it
+        if ($('.modal')) {
+          $('.modal').closeModal();
+          $('.lean-overlay').remove()
+        }
+      }
+    })
+  }
+
+  window.googleSignUp = function(googleUser) {
+
     var profile = googleUser.getBasicProfile();
     newUser["firstName"] = profile.getGivenName();
     newUser["lastName"] = profile.getFamilyName();
     newUser["email"] = profile.getEmail();
     newUser["birthDate"] = eighteenYearsAgo;
+    newUser["googleId"] = googleUser.getBasicProfile().getId();
+
+    console.log(newUser)
+
+    var loginObj = {
+      email: newUser["email"],
+      googleToken: googleUser.getAuthResponse().id_token
+    }
 
     $.ajax({
       type: "POST",
@@ -211,6 +255,14 @@ if ($('form#email-signup-form').length) {
       }
     });
   }
+
+  $('a#google-login').click(function() {
+    $.getScript('https://apis.google.com/js/platform.js');
+  })
+
+  $('a#google-signup').click(function() {
+    $.getScript('https://apis.google.com/js/platform.js');
+  })
 
   // Set permanent vars
   var emailSignup = $('button#email-signup');

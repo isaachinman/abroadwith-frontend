@@ -17,11 +17,6 @@ function notLoggedIn() {
   // Show logged out navbar
   $('#navbar .right').fadeIn('fast');
 
-  // Init Google login
-  var googleScript = document.createElement('script');
-  googleScript.type = 'text/javascript';
-  googleScript.src = 'https://apis.google.com/js/platform.js';
-  $('body').append(googleScript);
 
 }
 

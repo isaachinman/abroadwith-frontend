@@ -1,5 +1,4 @@
 var domains = require('domains');
-var POST = require('POST');
 
 var loginRedirect = require('login-redirect');
 var loggedIn = require('logged-in')
@@ -16,13 +15,24 @@ module.exports = function(email, password) {
     password: password
   }
 
-  var url = domains.API + '/users/login';
-  var success = function(response) {
+  console.log(loginObj)
 
-    localStorage.setItem('JWT', response.token);
-    location.reload();
+  $.ajax({
+    type: "POST",
+    url: domains.API + '/users/login',
+    contentType: "application/json",
+    data: JSON.stringify(loginObj),
+    success: function(response) {
 
-  }
-  POST(url, loginObj, success);
+      localStorage.setItem('JWT', response.token);
+      location.reload();
+
+    },
+    error: function() {
+
+      alert('Login failed')
+
+    }
+  })
 
 }
