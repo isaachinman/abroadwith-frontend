@@ -161,47 +161,6 @@ if ($('form#email-signup-form').length) {
   // Main google script
   $.getScript('https://apis.google.com/js/platform.js');
 
-  window.googleLoginCounter = 0;
-  window.googleLogin = function(googleUser) {
-
-    if (++googleLoginCounter < 2) {
-      return;
-    }
-
-    var loginObj = {
-      email: googleUser.getBasicProfile().getEmail(),
-      googleToken: googleUser.getAuthResponse().id_token
-    }
-
-    console.log(loginObj)
-
-    $.ajax({
-      type: "POST",
-      url: domains.API + '/users/login',
-      contentType: "application/json",
-      data: JSON.stringify(loginObj),
-      success: function(JWT) {
-
-        console.log(JWT);
-        localStorage.setItem('JWT', JWT.token);
-
-        // Print username into navbar
-        $('span#navbar-username').html((jwt_decode(localStorage.getItem('JWT'))).name)
-
-        // Toggle navbars
-        $('#navbar').hide();
-        $('#navbar-logged-in').show();
-        $('#navbar-logged-in .right').fadeIn('fast');
-
-        // If any modal is open, close it
-        if ($('.modal')) {
-          $('.modal').closeModal();
-          $('.lean-overlay').remove()
-        }
-      }
-    })
-  }
-
   window.googleSignupCounter = 0;
   window.googleSignup = function(googleUser) {
 

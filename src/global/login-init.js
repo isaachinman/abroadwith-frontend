@@ -22,9 +22,10 @@ function notLoggedIn() {
 
 $('form.email-login').submit(function() {
   $('#preloader').show();
-  var email = $(this).find('.login-email').val()
-  var password = $(this).find('.login-password').val()
-  login(email, password);
+  login({
+    email: $(this).find('.login-email').val(),
+    password: $(this).find('.login-password').val()
+  });
   return false;
 })
 
@@ -44,33 +45,33 @@ $('.fb-login').click(function() {
 
       $('#preloader').show();
 
-      console.log(response.authResponse);
-
-      var loginObj = {};
-      loginObj.facebookToken = response.authResponse.accessToken;
+      var facebookToken = response.authResponse.accessToken;
 
       FB.api('/me', {
         fields: 'email'
       }, function(response) {
 
-        loginObj.email = response.email;
-
-        var url = domains.API + '/users/login';
-        var success = function(response) {
-          localStorage.setItem('JWT', response.token);
-          loginRedirect();
-          loggedIn();
-        }
-        POST(url, loginObj, success);
+        login({
+          email: response.email,
+          facebookToken: facebookToken
+        })
 
       })
-    } else if (response.status === 'not_authorized') {
-      // Not authorised
-    } else {
-      // Not logged into Facebook
     }
   }, {
     scope: 'email'
   })
 
 })
+
+window.googleLoginCounter = 0;
+window.googleLogin = function(googleUser) {
+
+  if (++googleLoginCounter < 2) { return };
+
+  login({
+    email: googleUser.getBasicProfile().getEmail(),
+    googleToken: googleUser.getAuthResponse().id_token
+  })
+
+}
