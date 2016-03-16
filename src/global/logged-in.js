@@ -12,7 +12,7 @@ module.exports = function() {
   // Toggle navbars
   $('#navbar').remove();
   $('#choose-languages-modal').remove();
-  $('#log-in-modal').remove();
+  $('#login-modal').remove();
   $('#sign-up-modal').remove();
   $('#navbar-logged-in').show();
   $('#navbar-logged-in .right').fadeIn('fast');
