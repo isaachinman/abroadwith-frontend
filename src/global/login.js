@@ -10,8 +10,6 @@ module.exports = function(loginObj) {
 
   $('#preloader').show();
 
-  console.log(loginObj)
-
   $.ajax({
     type: "POST",
     url: domains.API + '/users/login',
