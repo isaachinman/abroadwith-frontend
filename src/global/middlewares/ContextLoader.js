@@ -30,5 +30,12 @@ module.exports = function (req, res, next) {
     domains: domains
   }
   req.context.query = req.query;
+  
+  if(req.cookies && req.cookies['ui-currency']){
+    req.context.currency = req.cookies['ui-currency'];
+  }
+  else{
+    req.context.currency = 'EUR';
+  }
   next();
 };

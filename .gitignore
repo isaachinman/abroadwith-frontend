@@ -4,3 +4,4 @@ locales
 *.log
 .DS_Store
 login.* #Except for login.js
+rates.json
