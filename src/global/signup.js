@@ -158,7 +158,15 @@ if ($('form#email-signup-form').length) {
     })
   }
 
-  window.googleLogIn = function(googleUser) {
+  // Main google script
+  $.getScript('https://apis.google.com/js/platform.js');
+
+  window.googleLoginCounter = 0;
+  window.googleLogin = function(googleUser) {
+
+    if (++googleLoginCounter < 2) {
+      return;
+    }
 
     var loginObj = {
       email: googleUser.getBasicProfile().getEmail(),
@@ -194,7 +202,12 @@ if ($('form#email-signup-form').length) {
     })
   }
 
-  window.googleSignUp = function(googleUser) {
+  window.googleSignupCounter = 0;
+  window.googleSignup = function(googleUser) {
+
+    if (++googleSignupCounter < 2) {
+      return;
+    }
 
     var profile = googleUser.getBasicProfile();
     newUser["firstName"] = profile.getGivenName();
@@ -255,14 +268,6 @@ if ($('form#email-signup-form').length) {
       }
     });
   }
-
-  $('a#google-login').click(function() {
-    $.getScript('https://apis.google.com/js/platform.js');
-  })
-
-  $('a#google-signup').click(function() {
-    $.getScript('https://apis.google.com/js/platform.js');
-  })
 
   // Set permanent vars
   var emailSignup = $('button#email-signup');
