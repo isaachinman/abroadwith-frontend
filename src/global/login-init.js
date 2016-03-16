@@ -17,7 +17,6 @@ function notLoggedIn() {
   // Show logged out navbar
   $('#navbar .right').fadeIn('fast');
 
-
 }
 
 $('form.email-login').submit(function() {
@@ -30,8 +29,6 @@ $('form.email-login').submit(function() {
 })
 
 $('#login-modal-btn').length ? $('#login-modal-btn').click(function() {
-  console.log('trigger')
-  console.log(($(this).parentsUntil('.email-login')))
   $('.email-login').submit();
 }) : null;
 
