@@ -16,8 +16,6 @@ module.exports = function(k) {
 
     language.select2('val', '');
     language.val('');
-    level.val('');
-    level.material_select();
 
   }
 
