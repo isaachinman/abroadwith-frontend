@@ -1,21 +1,28 @@
 var React = require('react');
+
+var domains = require('domains');
+var JWT = require('JWT');
+var GET = require('GET');
+
 var Thread = require('./thread.react');
 
 module.exports = React.createClass({
   componentDidMount: function() {
 
-    $.get( "users/1/messages", function(response) {
-      var inboxSetup = JSON.parse(response);
+    var url = domains.API + '/users/' + JWT.rid + '/messages';
+    var success = function(response) {
+
+      var inboxSetup = response;
       console.log(inboxSetup)
 
-      var yourName = inboxSetup.current_user.name;
-      var yourId = inboxSetup.current_user.id;
-      var yourPhoto = 'https://img.abroadwith.com' + inboxSetup.current_user.photo;
+      var yourName = JWT.name;
+      var yourId = JWT.rid;
+      var yourPhoto = JWT.img ? JWT.img : 'https://tracker.moodle.org/secure/attachment/30912/f3.png';
 
       var messageHTML = [];
       var threadHTML = [];
 
-      inboxSetup.threads.forEach(function(thread) {
+      inboxSetup.forEach(function(thread) {
 
         messageHTML.push(
           <li className='message-trigger' data-target={thread.id}><a>Conversation with {thread.with.name}</a></li>
@@ -27,10 +34,10 @@ module.exports = React.createClass({
             yourName={yourName}
             yourId={yourId}
             yourPhoto={yourPhoto}
-            them={thread.with.name}
+            them={thread.with.firstName}
             theirPhoto={thread.with.photo}
-            startDate={thread.from_date}
-            endDate={thread.to_date}
+            startDate={thread.arrival}
+            endDate={thread.departure}
           />
         )
 
@@ -58,20 +65,15 @@ module.exports = React.createClass({
 
           $('ul.message-list li.message-trigger').click(activateThread);
           $('ul.message-list li:first-child').trigger('click');
-          
+
         });
 
       }
 
 
+    }.bind(this);
+    GET(url, success)
 
-
-
-    }.bind(this));
-    // For each thread
-      // Generate sidebar li
-        // onclick, initialise thread
-      // Generate actual message html
 
   },
   render: function() {

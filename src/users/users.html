@@ -9,7 +9,7 @@
 
     <div class='info'>
       <div class='col s12 center-on-small'>
-        <h1>{{user.firstName}}</h1>
+        <h1>{{user.firstName}} {{user.home.id}}</h1>
 
         {% if user.ratingCount %}
           <span class='rating'>
@@ -63,6 +63,11 @@
           </p>
         {% endif %}
 
+      </div>
+
+      <div class='col s12 margin-top-20'>
+        <a class='modal-trigger' href='#send-message-modal'>Send message</a>
+        {% include "../partials/modals/3_message/send-message-modal.html" %}
       </div>
 
     </div>

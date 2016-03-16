@@ -38,7 +38,7 @@
 
 <div class='home-title row z-depth-1'>
   <div class='row no-margin'>
-    <h1>
+    <h1 data-home-id='{{home.id}}'>
       {{home.host.firstName}}'s
       {% if home.basics.family %}
         {{translations.common.family_home}}
@@ -177,7 +177,7 @@
             <div class='divider'></div>
           </div>
           <div class='col s12 bottom center-align'>
-            <a class='btn btn-secondary'>{{translations.common.Contact_host}}</a>
+            <a class='btn btn-secondary modal-trigger' href='#send-message-modal'>{{translations.common.Contact_host}}</a>
           </div>
         </div>
       </div>
@@ -187,6 +187,8 @@
   </div>
 
 </div>
+
+{% include "../partials/modals/3_message/send-message-modal.html" %}
 
 <div class='home-section-divider'></div>
 
@@ -215,13 +217,13 @@
         <div class='row'>
           <div class='col s12 m12 l6'>
             <div class='input-field '>
-              <input id='arrival' type="text" class='datepicker' value='' placeholder='{{translations.common.Arrival}}' />
+              <input id='arrival' type="text" class='datepicker arrival' value='' placeholder='{{translations.common.Arrival}}' />
               <label htmlFor='arrival' class='active left'>{{translations.common.Arrival}}</label>
             </div>
           </div>
           <div class='col s12 m12 l6'>
             <div class='input-field '>
-              <input id='departure' type="text" class="datepicker" value='' placeholder='{{translations.common.Departure}}' />
+              <input id='departure' type="text" class="datepicker departure" value='' placeholder='{{translations.common.Departure}}' />
               <label htmlFor='departure' class='active left'>{{translations.common.Departure}}</label>
             </div>
           </div>

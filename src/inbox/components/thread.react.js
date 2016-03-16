@@ -2,6 +2,11 @@ var React = require('react');
 var ReceivedMessage = require('./received-message.react');
 var SentMessage = require('./sent-message.react');
 
+var domains = require('domains');
+var JWT = require('JWT');
+var GET = require('GET');
+var POST = require('POST');
+
 var i18n = require('../../global/components/i18n');
 i18n.loadNamespaces(['common', 'inbox']);
 
@@ -44,15 +49,15 @@ module.exports = React.createClass({
 
       input.val('');
 
-      $.ajax({
-        type: "POST",
-        url: "/users/1/messages/"+id,
-        data: JSON.stringify({
-          message: newMessage
-        }),
-        contentType: "application/json",
-        success: this.refreshMessages()
-      });
+      var message = {
+        message: newMessage
+      }
+
+      var url = domains.API + '/users/' + JWT.rid + '/messages/' + this.props.id;
+      var success = function() {
+        this.refreshMessages()
+      }.bind(this)
+      POST(url, message, success);
 
     }
 
@@ -62,9 +67,10 @@ module.exports = React.createClass({
     var id = this.props.id;
     var messages = [];
 
-    $.get( 'users/1/messages/'+id+'?size=10', function(response) {
+    var url = domains.API + '/users/' + JWT.rid + '/messages/' + this.props.id + '?size=10';
+    var success = function(response) {
 
-      var messageSetup = JSON.parse(response);
+      var messageSetup = response;
 
       console.log(messageSetup);
 
@@ -81,7 +87,8 @@ module.exports = React.createClass({
       var activeMsg = $('.message-body.active');
       activeMsg.scrollTop(activeMsg[0].scrollHeight);
 
-    }.bind(this));
+    }.bind(this);
+    GET(url, success)
 
   },
   moreMessages: function() {
@@ -93,16 +100,13 @@ module.exports = React.createClass({
 
     var lastTimestamp = this.state.messages[0].props.timestamp;
 
-    console.log(lastTimestamp);
-
     var messages = this.state.messages;
     var newMessages = [];
 
-    $.get( 'users/1/messages/'+id+'?timestamp='+lastTimestamp+'&size=10', function(response) {
+    var url = domains.API + '/users/' + JWT.rid + '/messages/' + this.props.id + '?size=10&timestamp=' + lastTimestamp;
+    var success = function(response) {
 
-      var messageSetup = JSON.parse(response);
-
-      messageSetup.forEach(function(message) {
+      response.forEach(function(message) {
         if (message.author === yourId) {
           messages.unshift(
             <SentMessage
@@ -122,30 +126,26 @@ module.exports = React.createClass({
         }
       })
 
-      console.log(messages);
-
       var newState = {
         messages: messages
       }
 
-      if (this.isMounted()) {
-        this.setState(newState);
-      }
+      this.setState(newState);
 
-    }.bind(this));
+    }.bind(this);
+    GET(url, success)
 
   },
   componentDidMount: function() {
 
-    $.get( "users/1/messages/"+this.props.id+'?size=10', function(response) {
+    var url = domains.API + '/users/' + JWT.rid + '/messages/' + this.props.id + '?size=10';
+    var success = function(response) {
+
+      console.log(response)
 
       var messages = []
-      var messageSetup = JSON.parse(response);
-      var yourId = this.props.yourId;
-      var yourPhoto = this.props.yourPhoto;
-      var theirPhoto = 'https://img.abroadwith.com' + this.props.theirPhoto;
 
-      this.renderMessages(messageSetup, messages)
+      this.renderMessages(response, messages)
 
       var newState = {
         messages: messages
@@ -155,7 +155,8 @@ module.exports = React.createClass({
         this.setState(newState);
       }
 
-    }.bind(this));
+    }.bind(this);
+    GET(url, success)
 
   },
   render: function() {
@@ -170,7 +171,7 @@ module.exports = React.createClass({
             {i18n.t('inbox:this_is_a_conversation')} {this.props.them}
           </div>
           <div className='subtitle'>
-            {this.props.yourName} {i18n.t('inbox:intro_msg_stay')} {this.props.them} {i18n.t('common:words.from')} <strong>{this.props.startDate}</strong> {i18n.t('common:words.to')} <strong>{this.props.endDate}</strong>
+            {this.props.them} {i18n.t('inbox:intro_msg_stay')} {this.props.yourName} {i18n.t('common:words.from')} <strong>{this.props.startDate}</strong> {i18n.t('common:words.to')} <strong>{this.props.endDate}</strong>
           </div>
         </div>
 

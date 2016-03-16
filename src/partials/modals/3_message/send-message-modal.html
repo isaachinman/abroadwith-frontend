@@ -1,0 +1,32 @@
+<div id="send-message-modal" class="modal">
+  <div class="modal-content center-align">
+
+    <div class='row'>
+      <div class='col s12'>
+        <h4>Send a message</h4>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col s12 m6 l6'>
+        <input id='message-arrival' type="text" placeholder='{{translations.common.Arrival}}' class='datepicker arrival'>
+      </div>
+      <div class='col s12 m6 l6'>
+        <input id='message-departure' type="text" placeholder='{{translations.common.Departure}}' class='datepicker departure'>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col s12 manage-home-section'>
+        <textarea id="message-content" class="materialize-textarea" placeholder='Start your message...' length='2000'></textarea>
+      </div>
+    </div>
+
+    <div class='row no-margin-bottom'>
+      <div class='col s12 margin-top-50'>
+        <a class='btn btn-primary btn-flat create-new-message-thread'>Send message</a>
+      </div>
+    </div>
+
+  </div>
+</div>

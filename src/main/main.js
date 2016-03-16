@@ -1,7 +1,14 @@
 var Wallop = require('wallop');
+var newMessageThread = require('new-message-thread');
 
 // Initialisations
 $(document).ready(function() {
+
+  if ($('a.create-new-message-thread').length) {
+    $('a.create-new-message-thread').click(function() {
+      newMessageThread();
+    })
+  }
 
   if ($('#hero-search').length) {
     $('#hero-search').click(function() {
@@ -69,7 +76,7 @@ $(document).ready(function() {
   }
 
   // Arrival datepicker
-  if ($('#arrival').length) {
+  if ($('input.arrival').length) {
 
     // Set up min and max dates
     var today = new Date();
@@ -77,8 +84,9 @@ $(document).ready(function() {
     var yearToday = new Date(today.getTime() + 365 * 24 * 60 * 60 * 1000);
 
     // Initialise datepicker
-    $('#arrival').pickadate({
+    $('input.arrival').pickadate({
 
+      container: 'body',
       clear: '',
       format: 'yyyy-mm-dd',
       min:tomorrow,
@@ -107,10 +115,12 @@ $(document).ready(function() {
   }
 
   // Departure datepicker
-  if ($('#departure').length) {
+  if ($('input.departure').length) {
     var today = new Date();
     var weekToday = new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000);
-    $('#departure').pickadate({
+    $('input.departure').pickadate({
+
+      container: 'body',
       clear: '',
       format: 'yyyy-mm-dd',
       min:weekToday,
