@@ -5,12 +5,6 @@ var select2 = require('select2-browserify');
 
 require('materialize');
 
-// Home page
-require('./main/main');
-
-// Search page
-require('./search/search');
-
 // Globals
 require('./global/currency-dropdown');
 require('./global/signup');
@@ -20,6 +14,12 @@ require('./global/logout-init');
 require('./global/home-creation');
 require('./global/reset-password-request');
 require('./global/reset-password-set');
+
+// Home page
+require('./main/main');
+
+// Search page
+require('./search/search');
 
 // Manage home
 require('./manage-home/manage-home');

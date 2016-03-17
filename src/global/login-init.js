@@ -33,8 +33,6 @@ $('#login-modal-btn').length ? $('#login-modal-btn').click(function() {
 }) : null;
 
 // Facebook login
-
-
 $('.fb-login').click(function() {
 
   FB.login(function(response) {

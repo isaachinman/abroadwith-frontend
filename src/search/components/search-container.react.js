@@ -107,9 +107,8 @@ module.exports = React.createClass({
         results:          response.results
       }
 
-      if (this.isMounted()) {
-        this.setState(newState);
-      };
+      this.setState(newState);
+
     }.bind(this))
   },
   componentDidUpdate: function() {
@@ -185,6 +184,7 @@ module.exports = React.createClass({
           minPrice={this.state.minPrice}
           maxPrice={this.state.maxPrice}
           handleChange={this.handleChange}
+          currency={this.state.currency}
         />
 
         <LanguageCourse

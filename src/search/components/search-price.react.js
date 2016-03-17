@@ -1,4 +1,6 @@
 var React = require('react');
+
+var currencies = require('currencies');
 require('wnumb');
 
 module.exports = React.createClass({
@@ -10,7 +12,7 @@ module.exports = React.createClass({
 
     // Establish some vars to use in child scopes
     var handleChange = this.props.handleChange;
-    var slider = document.getElementById('price-slider');
+    window.slider = document.getElementById('price-slider');
 
     // If min/max aren't defined, set to absolute range
     var minPrice, maxPrice
@@ -25,6 +27,10 @@ module.exports = React.createClass({
       maxPrice = this.props.maxPrice;
     }
 
+    $.getScript('https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.2.1/nouislider.min.js', function() {
+
+    })
+
     // Init nouislider
     noUiSlider.create(slider, {
     	start: [minPrice, maxPrice],
@@ -37,7 +43,8 @@ module.exports = React.createClass({
       tooltips: true,
       format: wNumb({
         decimals:0,
-        prefix: $('#ui-currency option:selected').attr('data-symbol'),
+        // Disabling currency prefix until I can find a solution for updating
+        // prefix: currencies[this.props.currency],
         encoder: function(a) {
           return a === 2000 ? a + '+' : a;
         }
