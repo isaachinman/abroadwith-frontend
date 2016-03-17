@@ -42,6 +42,165 @@
 
             <div id='existing-payout-methods' class='row no-margin-bottom'></div>
 
+            <div class='row'>
+
+              <div class='col s12 m6 l6'>
+                <div class='add-payout'>
+                  <div class='header'>
+                    <div class='title'>Add bank account</div>
+                    <div class='subtitle'>Get paid directly into your bank account</div>
+                  </div>
+
+                  <form id='add-bank-payout' style='display:none'>
+
+                    <div class='row'>
+                      <div class='col s12 m6 l6 input-field'>
+                        <input id='bank-first-name' type="text" class="validate" required>
+                        <label class='inert'>First name</label>
+                      </div>
+                      <div class='col s12 m6 l6 input-field'>
+                        <input id='bank-last-name' type="text" class="validate" required>
+                        <label class='inert'>Last name</label>
+                      </div>
+                      <div class='col s12 input-field'>
+                        <input id='bank-address-one' type="text" class="validate" required>
+                        <label class='inert'>Billing address</label>
+                      </div>
+                      <div class='col s12 input-field'>
+                        <input id='bank-address-two' type="text" class="validate">
+                        <label class='inert'>Billing address 2 / Zone</label>
+                      </div>
+                      <div class='col s12 m6 l6 input-field'>
+                        <input id='bank-city' type="text" class="validate" required>
+                        <label class='inert'>City</label>
+                      </div>
+                      <div class='col s12 m6 l6 input-field' required>
+                        <input id='bank-state' type="text" class="validate">
+                        <label class='inert'>State / Province</label>
+                      </div>
+                      <div class='col s12 m6 l6 input-field' required>
+                        <input id='bank-postcode' type="text" class="validate">
+                        <label class='inert'>Postal code</label>
+                      </div>
+                      <div class='col s12 m6 l6 input-field'>
+                        <select id='bank-country' class='billing-country'>
+                          <option disabled selected></option>
+                          {% for country, code in constants.default_bank_currencies %}
+                            <option value={{country}}>{{translations.countries[country]}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class='iban-ui'>
+                        <div class='col s12 input-field'>
+                          <input id="iban" type="text" class="validate" required>
+                          <label for="iban">IBAN</label>
+                        </div>
+                        <div class='col s12 input-field'>
+                          <input id="iban-again" type="text" class="validate" required>
+                          <label for="iban-abain">Enter IBAN again</label>
+                        </div>
+                        <div class='col s12 input-field'>
+                          <input id="swift-bic" type="text" class="validate" required>
+                          <label for="swift-bic">SWIFT/BIC code</label>
+                        </div>
+                      </div>
+                      <div class='routing-ui' style='display:none'>
+                        <div class='col s12 input-field'>
+                          <input id="routing-account-number" type="text" class="validate">
+                          <label for="routing-account-number">Account number</label>
+                        </div>
+                        <div class='col s12 input-field'>
+                          <input id="routing-account-number-again" type="text" class="validate">
+                          <label for="routing-account-number-again">Enter account number again</label>
+                        </div>
+                        <div class='col s12 input-field'>
+                          <input id="routing-number" type="text" class="validate">
+                          <label for="routing-number">Routing number</label>
+                        </div>
+                      </div>
+                      <div class='col s12 input-field left-align grey-text'>
+                        Currency: <span id='bank-currency'></span>
+                      </div>
+                    </div>
+
+                    <div class='footer'>
+                      <button type='submit' class='btn btn-primary btn-flat'>Add bank account</a>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+
+              <div class='col s12 m6 l6'>
+                <div class='add-payout'>
+                  <div class='header'>
+                    <div class='title'>Add PayPal account</div>
+                    <div class='subtitle'>Get paid into your PayPal account</div>
+                  </div>
+
+                  <form id='add-paypal-payout' style='display:none'>
+
+                    <div class='row'>
+                      <div class='col s12 m6 l6 input-field'>
+                        <input id='paypal-first-name' type="text" class="validate" required>
+                        <label class='inert'>First name</label>
+                      </div>
+                      <div class='col s12 m6 l6 input-field'>
+                        <input id='paypal-last-name' type="text" class="validate" required>
+                        <label class='inert'>Last name</label>
+                      </div>
+                      <div class='col s12 input-field'>
+                        <input id="paypal-email" type="email" class="validate">
+                        <label for="paypal-email">PayPal email address</label>
+                      </div>
+                      <div class='col s12 input-field'>
+                        <input id="paypal-email-again" type="email" class="validate">
+                        <label class='inert'>Enter email again</label>
+                      </div>
+                      <div class='col s12 input-field'>
+                        <input id='paypal-address-one' type="text" class="validate">
+                        <label class='inert'>Billing address</label>
+                      </div>
+                      <div class='col s12 input-field'>
+                        <input id='paypal-address-two' type="text" class="validate">
+                        <label class='inert'>Billing address 2 / Zone</label>
+                      </div>
+                      <div class='col s12 m6 l6 input-field'>
+                        <input id='paypal-city' type="text" class="validate">
+                        <label class='inert'>City</label>
+                      </div>
+                      <div class='col s12 m6 l6 input-field'>
+                        <input id='paypal-state' type="text" class="validate">
+                        <label class='inert'>State / Province</label>
+                      </div>
+                      <div class='col s12 m6 l6 input-field'>
+                        <input id='paypal-postcode' type="text" class="validate">
+                        <label class='inert'>Postal code</label>
+                      </div>
+                      <div class='col s12 m6 l6 input-field'>
+                        <select id='paypal-country' class='billing-country'>
+                          <option disabled selected></option>
+                          {% for country, code in translations.countries %}
+                            <option value={{country}}>{{translations.countries[country]}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class='col s12 input-field left-align grey-text'>
+                        Currency: <span id='paypal-currency'></span>
+                      </div>
+                    </div>
+
+                    <div class='footer'>
+                      <button type='submit' class='btn btn-primary btn-flat'>Add PayPal account</a>
+                    </div>
+
+                  </form>
+
+                </div>
+              </div>
+
+            </div>
+
           </div>
         </li>
       </ul>

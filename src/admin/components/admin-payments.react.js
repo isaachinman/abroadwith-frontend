@@ -108,6 +108,7 @@ module.exports = React.createClass({
                     id={payment.id}
                     default={payment.isDefault}
                     lastFour={payment.ibanCode}
+                    deleteCallback={updateAdmin}
                   />
                 </div>
               )
@@ -118,6 +119,7 @@ module.exports = React.createClass({
                     id={payment.id}
                     default={payment.isDefault}
                     lastFour={payment.routingAccountNumber}
+                    deleteCallback={updateAdmin}
                   />
                 </div>
               )
@@ -135,9 +137,11 @@ module.exports = React.createClass({
             }
           })
           payoutHTML.push(
-            <AddPayoutMethod
-              updateAdmin={updateAdmin.bind(this)}
-            />
+            <div className='col s12 m6 l4'>
+              <AddPayoutMethod
+                updateAdmin={updateAdmin.bind(this)}
+              />
+            </div>
           )
           return (
             <div>{payoutHTML}</div>
