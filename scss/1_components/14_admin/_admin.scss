@@ -88,6 +88,39 @@ a.privacy-btn {
   }
 }
 
+.add-payout {
+  margin-top: 20px;
+  min-height: 180px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  .header {
+    background: lighten($ziggurat, 20%);
+    border-bottom: 1px solid lighten($ziggurat, 10%);
+    height: 180px;
+    padding-top: 50px;
+    cursor: pointer;
+    &:hover {
+      .title {
+        color: $havelock-blue;
+      }
+    }
+  }
+  .title {
+    font-size: 1.65rem;
+  }
+  .subtitle {
+
+    @extend .grey-text;
+  }
+  .footer {
+    background: lighten($ziggurat, 20%);
+    border-top: 1px solid lighten($ziggurat, 10%);
+    border-bottom: 1px solid lighten($ziggurat, 10%);
+    padding: 30px 0;
+  }
+}
+
 // Phone validation flags
 .iti-flag {background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/img/flags.png");}
 .intl-tel-input {

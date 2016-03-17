@@ -60,6 +60,8 @@
     "send-payment-nonce": "./src/global/send-payment-nonce",
     "toast": "./src/global/toast",
     "currencies": "./src/global/constants/Currencies.json",
+    "default-bank-currencies": "./src/global/constants/DefaultBankCurrencies",
+    "default-paypal-currencies": "./src/global/constants/DefaultPaypalCurrencies",
     "JWT": "./src/global/jwt",
     "GET": "./src/global/ajax/GET",
     "POST": "./src/global/ajax/POST",
@@ -69,7 +71,7 @@
     "jquery": "$",
     "materialize": "materialize",
     "react-nouislider": {
-      "depends": "react-lite"
+      "depends": "react"
     }
   },
   "scripts": {
@@ -86,7 +88,7 @@
     "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
     "start": "node src/server.js",
     "fullstart": "npm run build && npm run start",
-    "browsersync": "browser-sync start --reload-delay 1000 --proxy 'http://localhost:3000' --files 'build/css/*.css, build/app.js, src/*/*.html'"
+    "browsersync": "browser-sync start --reload-delay 1000 --proxy 'http://localhost:3000' --files 'build/css/*.css, build/app.js, src/*/*.html, src/*/*/*.html'"
   },
   "main": "server.js",
   "repository": {

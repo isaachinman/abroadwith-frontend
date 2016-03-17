@@ -3,19 +3,22 @@ var ReactDOM = require('react-dom');
 var CreditCard = require('../../global/components/payment-method--credit-card.react');
 var Paypal = require('../../global/components/payment-method--paypal.react');
 var AddPaymentMethod = require('../../global/components/add-payment-method.react');
-var Bank = require('../../global/components/payment-method--bank.react');
+var Bank = require('../../global/components/payout-method--bank.react');
+var PaypalPayout = require('../../global/components/payout-method--paypal.react');
 var AddPayoutMethod = require('../../global/components/add-payout-method.react');
+
+var JWT = require('JWT');
 
 module.exports = React.createClass({
   componentDidUpdate: function() {
+
+    var updateAdmin = this.props.updateAdmin;
 
     var paymentMethodHTML = [];
 
     if (typeof this.props.paymentMethods !== 'undefined' && this.props.paymentMethods.length > 0) {
 
       var paymentMethods = this.props.paymentMethods;
-
-      var updateAdmin = this.props.updateAdmin;
 
       var PaymentMethodContainer = React.createClass({
         render: function() {
@@ -86,11 +89,13 @@ module.exports = React.createClass({
       />, document.querySelector('#existing-payment-methods')
     )
 
-    if (typeof this.props.payoutMethods !== 'undefined' && this.props.payoutMethods.length > 0) {
+    if (JWT.hid) {
 
       $('.payouts').removeClass('hide');
 
       var payoutMethods = this.props.payoutMethods;
+
+      console.log(this.props.payoutMethods)
 
       var PayoutMethodContainer = React.createClass({
         render: function() {
@@ -98,22 +103,41 @@ module.exports = React.createClass({
           payoutMethods.forEach(function(payment) {
             if (payment.type === 'BANK') {
               payoutHTML.push(
-                <Bank
-                  default={payment.default}
-                  lastFour={payment.lastFour}
-                />
+                <div className='col s12 m6 l4'>
+                  <Bank
+                    id={payment.id}
+                    default={payment.isDefault}
+                    lastFour={payment.ibanCode}
+                  />
+                </div>
+              )
+            } else if (payment.type === 'ROUTING_TRANSIT') {
+              payoutHTML.push(
+                <div className='col s12 m6 l4'>
+                  <Bank
+                    id={payment.id}
+                    default={payment.isDefault}
+                    lastFour={payment.routingAccountNumber}
+                  />
+                </div>
               )
             } else if (payment.type === 'PAYPAL') {
               payoutHTML.push(
-                <Paypal
-                  default={payment.default}
-                  email={payment.email}
-                />
+                <div className='col s12 m6 l4'>
+                  <PaypalPayout
+                    id={payment.id}
+                    default={payment.isDefault}
+                    email={payment.email}
+                    deleteCallback={updateAdmin}
+                  />
+                </div>
               )
             }
           })
           payoutHTML.push(
-            // Add payout method
+            <AddPayoutMethod
+              updateAdmin={updateAdmin.bind(this)}
+            />
           )
           return (
             <div>{payoutHTML}</div>

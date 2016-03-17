@@ -10,6 +10,12 @@ if ($('#admin-edit').length) {
     <AdminEdit />, document.querySelector('#admin-edit')
   )
 
+  // Clicking on add payout method headers toggles the form
+  $('.add-payout .header').click(function() {
+    console.log('click')
+    $(this).next().slideToggle();
+  })
+
   $("#user_id_upload").change(function()
   {
       $('#user_id_upload').each(function(index, value)

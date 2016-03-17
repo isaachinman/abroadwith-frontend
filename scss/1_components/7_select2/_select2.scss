@@ -332,7 +332,7 @@ disabled look for disabled choices in the results dropdown
 }
 
 .select2-default {
-    color: #776B68 !important;
+  @extend .grey-text;
 }
 
 .select2-container-multi .select2-choices .select2-search-choice {

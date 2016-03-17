@@ -8,7 +8,7 @@ label {
   color: $input-border-color;
 }
 
-label[for='arrival'], label[for='departure'], label[for='birthday'], label[for='birthDate'], label[for='password'], label[for='email'] {
+label.inert, label[for='arrival'], label[for='departure'], label[for='birthday'], label[for='birthDate'], label[for='password'], label[for='email'] {
   pointer-events: none;
 }
 
