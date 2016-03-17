@@ -23,24 +23,26 @@ module.exports = React.createClass({
       var markerId = 0;
 
       var currency = this.props.currency;
+      var query = this.props.query;
 
       this.props.results.forEach(function(obj) {
         var result = <IndividualResult
-              key={obj.roomId}
-              homeId={obj.homeId}
-              markerId={markerId}
-              immersions={obj.immersions}
-              price={Math.ceil(obj.price)}
-              currency={currency}
-              roomPhoto={obj.roomPhoto}
-              homePhotos={obj.homePhotos}
-              host={obj.hostName}
-              homeType={obj.homeType}
-              reviewCount={obj.reviewCount}
-              rating={obj.rating}
-              hostPhoto={obj.hostPhoto}
-              courseCount={obj.nearbySchools}
-          />;
+          query={query}
+          key={obj.roomId}
+          homeId={obj.homeId}
+          markerId={markerId}
+          immersions={obj.immersions}
+          price={Math.ceil(obj.price)}
+          currency={currency}
+          roomPhoto={obj.roomPhoto}
+          homePhotos={obj.homePhotos}
+          host={obj.hostName}
+          homeType={obj.homeType}
+          reviewCount={obj.reviewCount}
+          rating={obj.rating}
+          hostPhoto={obj.hostPhoto}
+          courseCount={obj.nearbySchools}
+        />;
         results.push(result);
         markerId++;
       })

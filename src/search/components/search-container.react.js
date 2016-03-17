@@ -37,7 +37,7 @@ module.exports = React.createClass({
       $('#house-type'),
     ]
 
-    var url = '/search?';
+    var url = '?';
 
     var counter = 0;
 
@@ -56,10 +56,9 @@ module.exports = React.createClass({
     }
 
     // Get price data
-    var minPrice = (($('.noUi-handle-lower').find('.noUi-tooltip').html()).substring(1));
-    minPrice != undefined ? url = url + '&minPrice=' + minPrice : null;
-    var maxPrice = ($('.noUi-handle-upper').find('.noUi-tooltip').html()).substring(1);
-    maxPrice != undefined ? url = url + '&maxPrice=' + maxPrice : null;
+    var minPrice = parseInt(($('.noUi-handle-lower').find('.noUi-tooltip').html()));
+    var maxPrice = parseInt($('.noUi-handle-upper').find('.noUi-tooltip').html());
+    url = url + '&minPrice=' + minPrice + '&maxPrice=' + maxPrice;
 
     // Get course
     var course = 'course=' + $('#language-switch').is(':checked') ? url = url + '&course=' + ($('#language-school').val()) : null;
@@ -77,11 +76,12 @@ module.exports = React.createClass({
 
     console.log(url)
 
-    $.post(url, function(data) {
+    $.post('/search'+url, function(data) {
       var response = JSON.parse(data);
 
       var newState = {
         // Set new state vars
+        query:            url,
         minPrice:         response.resultDetails.minPrice,
         maxPrice:         response.resultDetails.maxPrice,
         currency:         response.params.currency,
@@ -107,7 +107,9 @@ module.exports = React.createClass({
         results:          response.results
       }
 
-      this.setState(newState);
+      this.setState(newState, function(){
+        console.log(this.state)
+      });
 
     }.bind(this))
   },
@@ -203,6 +205,7 @@ module.exports = React.createClass({
         <Results
           currency={this.state.currency}
           results={this.state.results}
+          query={this.state.query}
         />
 
         <Pagination
