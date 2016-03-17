@@ -27,10 +27,10 @@ module.exports = function (req, res, next, value) {
           req.context.home = parsed;
           req.context.home.id = value; //TODO make sure it is in the return object.
           for(var i = 0; i < req.context.home.rooms.length; i++){
-            req.context.home.rooms[i].price = currency(req.context.home.rooms[i].price,req.context.home.currency,req.context.currency);
+            req.context.home.rooms[i].price = currency(req.context.home.rooms[i].price,req.context.home.pricing.currency,req.context.currency);
           }
-          req.context.home.immersions.teacher.hourly = currency(req.context.home.immersions.teacher.hourly,req.context.home.currency,req.context.currency);
-          
+          req.context.home.immersions.teacher.hourly = currency(req.context.home.immersions.teacher.hourly,req.context.home.pricing.currency,req.context.currency);
+
           req.context.debug = JSON.stringify(req.context.home);
           next();
       });
