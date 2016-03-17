@@ -35,7 +35,7 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function() {
 
-        this.refreshState();
+        this.props.refreshState();
 
         $('#preloader').hide();
 

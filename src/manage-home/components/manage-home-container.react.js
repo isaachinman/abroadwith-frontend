@@ -7,13 +7,13 @@ var RoomsTab =            require('./rooms-tab.react');
 var PhotosTab =           require('./photos-tab.react');
 var PricingTab =          require('./pricing-tab.react');
 
+var domains = require('domains');
 var JWT = require('JWT');
 var GET = require('GET');
+var POST = require('POST');
 
 var i18n = require('../../global/components/i18n');
 i18n.loadNamespaces(['manage_home','homes']);
-
-var domains = require('domains');
 
 module.exports = React.createClass({
   updateHome: function(callback){
@@ -23,58 +23,48 @@ module.exports = React.createClass({
     delete homeObj.GENERAL;
     var updateHome = this.updateHome;
 
-    console.log(homeObj)
+    var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
+    var success = function(response) {
 
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid,
-      type: "POST",
-      data: JSON.stringify(homeObj),
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(homeStatus) {
+      var homeStatus = response;
+      console.log(homeStatus)
 
-        console.log(JSON.stringify(homeStatus))
+      // Update status bar
+      var publishedBar = $('#published-status');
+      if (homeStatus.activated === false) {
 
-        // Update status bar
-        var publishedBar = $('#published-status');
-        if (homeStatus.activated === false) {
+        // If home is active, swap classes and text of publishedBar
+        publishedBar.addClass('manage-home-info-text--unpublished');
+        publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + i18n.t('homes:published_codes.'+homeStatus.code) + ')');
 
-          // If home is active, swap classes and text of publishedBar
-          publishedBar.addClass('manage-home-info-text--unpublished');
-          publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + i18n.t('homes:published_codes.'+homeStatus.code) + ')');
+      } else if (homeStatus.activated === true) {
 
-        } else if (homeStatus.activated === true) {
+        // If home is inactive, swap classes and text of publishedBar
+        publishedBar.addClass('manage-home-info-text--published');
+        publishedBar.html(i18n.t('homes:published_codes.'+homeStatus.code) + ' (' + '<a id="unpublish-home">Click here to unpublish</a>' + ')');
 
-          // If home is inactive, swap classes and text of publishedBar
-          publishedBar.addClass('manage-home-info-text--published');
-          publishedBar.html(i18n.t('homes:published_codes.'+homeStatus.code) + ' (' + '<a id="unpublish-home">Click here to unpublish</a>' + ')');
-
-          // If home is inactive, create an unpublish function
-          $('a#unpublish-home').click(function() {
-            homeObj.immersions.stay.languagesOffered = [];
-            homeObj.immersions.tandem.languagesOffered = [];
-            homeObj.immersions.teacher.languagesOffered = [];
-            updateHome(function() {
-              return;
-            });
-          })
-
-        }
-
-        $('#preloader').hide();
-
-        this.refreshState();
-
-        callback();
-
-      }.bind(this),
-      error: function() {
-
-        $('#preloader').hide();
-        alert('Something failed');
+        // If home is inactive, create an unpublish function
+        $('a#unpublish-home').click(function() {
+          homeObj.immersions.stay.languagesOffered = [];
+          homeObj.immersions.tandem.languagesOffered = [];
+          homeObj.immersions.teacher.languagesOffered = [];
+          updateHome(function() {
+            return;
+          });
+        })
 
       }
-    })
+
+      $('#preloader').hide();
+
+      this.refreshState();
+
+      callback();
+
+    }.bind(this)
+    POST(url, homeObj, success);
+
+    console.log(homeObj)
 
   },
   componentDidMount: function() {
@@ -165,7 +155,7 @@ module.exports = React.createClass({
 
       // Refresh selects
       $('select.material').material_select();
-      
+
     }.bind(this);
     GET(url, success)
 

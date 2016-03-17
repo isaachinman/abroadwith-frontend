@@ -1,7 +1,7 @@
 var React = require('react');
 
-var jwt_decode = require('jwt-decode');
 var domains = require('domains');
+var JWT = require('JWT');
 
 var i18n = require('../../global/components/i18n');
 i18n.loadNamespaces(['trips', 'common', 'countries']);
@@ -11,12 +11,11 @@ module.exports = React.createClass({
 
     var trip = this.props.trip;
 
-    var whoCancelled = trip.status === 'CANCELLED_BY_HOST' ? i18n.t('trips:by_you') : i18n.t('trips:by_them');
+    var whoCancelled = trip.status === 'CANCELLED_BY_HOST' ? i18n.t('trips:by_them') : i18n.t('trips:by_you');
 
     var roomPhoto = domains.IMG + trip.roomPhoto;
 
     var invoices = [];
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null
 
     if (trip.invoiceIds.length > 0) {
       for (var i=0; i<trip.invoiceIds.length; i++) {

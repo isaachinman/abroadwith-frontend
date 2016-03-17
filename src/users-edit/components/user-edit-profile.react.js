@@ -1,9 +1,9 @@
 var React = require('react');
 
+var domains = require('domains');
 var JWT = require('JWT');
 var GET = require('GET');
-
-var domains = require('domains');
+var POST = require('POST');
 
 module.exports = React.createClass({
   userEditSave: function() {
@@ -26,23 +26,11 @@ module.exports = React.createClass({
 
     console.log(userObj);
 
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid,
-      type: "POST",
-      data: JSON.stringify(userObj),
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
-
-        this.refreshState();
-
-      }.bind(this),
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
+    var url = domains.API+'/users/'+JWT.rid;
+    var success = function() {
+      this.refreshState()
+    }.bind(this)
+    POST(url, userObj, success);
 
   },
   refreshState: function() {
@@ -74,7 +62,7 @@ module.exports = React.createClass({
     $("select#countries-lived").select2({
       allowClear: true
     });
-    
+
   },
   componentDidMount: function() {
 

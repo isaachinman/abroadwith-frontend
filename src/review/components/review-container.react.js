@@ -1,8 +1,9 @@
 var React = require('react');
 var Rating = require('rating');
 
-var jwt_decode = require('jwt-decode');
 var domains = require('domains');
+var JWT = require('JWT');
+var POST = require('POST');
 
 // Component export
 module.exports = React.createClass({
@@ -20,10 +21,9 @@ module.exports = React.createClass({
     });
 
     // Send review button
-    var sendReview = this.sendReview;
     $('a#send-review').click(function() {
-      sendReview();
-    });
+      this.sendReview();
+    }.bind(this));
 
     // Initialise star rating
     var container = document.querySelector('.rating');
@@ -52,16 +52,10 @@ module.exports = React.createClass({
   },
   validateReview: function() {
 
-    var reviewValid = false;
-
     if ($('textarea#review').val().length >= 20 && this.state.rating !== null) {
-      reviewValid = true;
-    }
-
-    if (reviewValid === true && $('a#send-review').hasClass('disabled')) {
-      $('a#send-review').removeClass('disabled');
-    } else if (reviewValid === false && !($('a#send-review').hasClass('disabled'))) {
-      $('a#send-review').addClass('disabled');
+      $('a#send-review').hasClass('disabled') ? $('a#send-review').removeClass('disabled') : null;
+    } else {
+      $('a#send-review').hasClass('disabled') ? null : $('a#send-review').addClass('disabled');
     }
 
   },
@@ -69,31 +63,15 @@ module.exports = React.createClass({
 
     $('#preloader').show();
 
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
-
     var reviewObj = this.state;
     reviewObj.description = $('textarea#review').val();
     console.log(reviewObj);
 
-    $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/reviews',
-      type: "POST",
-      data: JSON.stringify(reviewObj),
-      contentType: "application/json",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-      success: function(response) {
-
-        $('#preloader').hide();
-
-        console.log(response)
-
-      },
-      error: function() {
-
-        alert('Something failed');
-
-      }
-    })
+    var url = domains.API+'/users/'+JWT.rid+'/reviews';
+    var success = function() {
+      $('#preloader').hide();
+    }
+    POST(url, reviewObj, success);
 
   },
   render: function() {
