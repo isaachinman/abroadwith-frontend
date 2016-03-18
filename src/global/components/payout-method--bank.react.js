@@ -2,6 +2,7 @@ var React = require('react');
 
 var domains = require('domains');
 var JWT = require('JWT');
+var POST = require('POST');
 
 module.exports = React.createClass({
   deletePayoutMethod: function() {
@@ -29,13 +30,25 @@ module.exports = React.createClass({
       }
     })
   },
+  setPayoutMethodDefault: function() {
+
+    $('#preloader').show();
+
+    var url = domains.API + '/users/' + JWT.rid + '/payoutMethods/' + this.props.id;
+    var success = function() {
+      $('#preloader').hide();
+      this.props.deleteCallback();
+    }.bind(this)
+    POST(url, adminObj, success);
+
+  },
   render: function() {
     if (this.props.default === true) {
       var defaultHTML = <div className='default-payment-overlay'></div>;
       var defaultText = <span className="grey-text text-darken-1">Default</span>;
     } else {
       var defaultHTML = null;
-      var defaultText = <a>Set as default</a>;
+      var defaultText = <a onClick={this.setPayoutMethodDefault}>Set as default</a>;
     }
     return (
       <div className='payment-method'>

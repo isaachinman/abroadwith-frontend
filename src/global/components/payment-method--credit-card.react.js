@@ -14,7 +14,7 @@ module.exports = React.createClass({
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     $.ajax({
-      url: domains.API+'/users/'+JWT.rid+'/paymentMethod/'+this.props.id,
+      url: domains.API+'/users/'+JWT.rid+'/paymentMethods/'+this.props.id,
       type: "DELETE",
       contentType: "application/json",
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},

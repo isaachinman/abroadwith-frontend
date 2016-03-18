@@ -3,13 +3,12 @@ var ReactDOM = require('react-dom');
 
 var domains = require('domains');
 var JWT = require('JWT');
+var POST = require('POST');
 
 module.exports = React.createClass({
   deletePayoutMethod: function() {
 
     $('#preloader').show();
-
-    var deleteCallback = this.props.deleteCallback;
 
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/payoutMethods/'+this.props.id,
@@ -18,9 +17,7 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
-        deleteCallback(function() {
-          null;
-        });
+        this.props.deleteCallback();
 
       }.bind(this),
       error: function() {
@@ -30,16 +27,29 @@ module.exports = React.createClass({
       }
     })
   },
+  setPayoutMethodDefault: function() {
+
+    $('#preloader').show();
+
+    var url = domains.API + '/users/' + JWT.rid + '/payoutMethods/' + this.props.id;
+    var success = function() {
+      $('#preloader').hide();
+      this.props.deleteCallback();
+    }.bind(this)
+    POST(url, adminObj, success);
+
+  },
   render: function() {
     if (this.props.default === true) {
       var defaultHTML = <div className='default-payment-overlay'></div>;
-      var defaultText = 'Default';
+      var defaultText = <span className="grey-text text-darken-1">Default</span>;
     } else {
       var defaultHTML = null;
-      var defaultText = <a>Set as default</a>;
+      var defaultText = <a onClick={this.setPayoutMethodDefault}>Set as default</a>;
     }
     return (
       <div className='payment-method'>
+        {defaultHTML}
         <div className='number'>
           {this.props.email}
         </div>

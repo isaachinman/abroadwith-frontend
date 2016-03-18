@@ -13,6 +13,7 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/bookings';
     var success = function(response) {
+      console.log(response)
       this.setState({trips:response})
     }.bind(this);
     GET(url, success)

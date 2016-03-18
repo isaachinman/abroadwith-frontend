@@ -49,9 +49,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: $ziggurat;
-    border: 2px solid $havelock-blue;
-    opacity: .15;
+    border: 2px solid lighten($sulu, 15%);
   }
 }
 .add-payment {
