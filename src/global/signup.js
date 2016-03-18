@@ -1,6 +1,6 @@
-var domains = require('domains');
 var login = require('./login');
-var jwt_decode = require('jwt-decode');
+var processLanguageChips = require('process-language-chips');
+
 var domains = require('domains');
 
 // Language-learn select
@@ -8,9 +8,6 @@ $('select#learning-language').length ? $('select#learning-language').select2() :
 
 // Language-known select
 $('select#known-language').length ? $('select#known-language').select2() : null;
-
-// Process language chips
-var processLanguageChips = require('process-language-chips');
 
 // If on signup page, remove language and signup modals
 if(window.location.href.indexOf("signup") > -1) {
@@ -23,7 +20,6 @@ $('a#add-learning-language').length ? $('a#add-learning-language').click(functio
 
 // If add known language button exists, give it a click event
 $('a#add-known-language').length ? $('a#add-known-language').click(function() { processLanguageChips('known'); }) : null;
-
 
 // Form submit
 if ($('form#email-signup-form').length) {
