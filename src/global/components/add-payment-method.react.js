@@ -66,6 +66,7 @@ module.exports = React.createClass({
             window.braintreeIntegration = integration;
 
             $('#add-payment-form ul.collapsible').collapsible();
+            $('#braintree-preloader').hide();
 
             $("#paypal-container").bind("DOMSubtreeModified", function() {
               $('#add-new-paypal').removeClass('hide');
@@ -87,7 +88,22 @@ module.exports = React.createClass({
 
     return (
 
-        <form id="add-payment-form" className='center-align'>
+        <form id="add-payment-form" className='center-align relative'>
+
+          <div id='braintree-preloader' className='preloader-container preloader-container--absolute'>
+            <div className="preloader-wrapper big active">
+              <div className="spinner-layer spinner-blue-only">
+                <div className="circle-clipper left">
+                  <div className="circle"></div>
+                </div><div className="gap-patch">
+                  <div className="circle"></div>
+                </div><div className="circle-clipper right">
+                  <div className="circle"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className='title'>Add payment method</div>
           <ul className="collapsible" data-collapsible="accordion">
             <li>

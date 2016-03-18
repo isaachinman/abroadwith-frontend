@@ -4,7 +4,6 @@ nav {
 main {
   margin-top: -1px;
 }
-
 .no-padding {
   padding: 0;
 }
@@ -173,6 +172,10 @@ a.overlay {
   -webkit-justify-content: center;
   justify-content: center;
   position: fixed;
+  &--absolute {
+    position: absolute;
+    background: rgba(0,0,0,.05);
+  }
   z-index: 99999;
   top: 0;
   left: 0;
