@@ -20,7 +20,8 @@ var UiCurrency = React.createClass({
     })
 
     $('select#ui-language').change(function() {
-      document.domain = $(this).val() + '.abroadwith.com'
+      console.log(window.location.href.replace(/^[^.]*/, $(this).val()))
+      window.location = (window.location.href.replace(/^[^.]*/, $(this).val()))
     })
 
   },
