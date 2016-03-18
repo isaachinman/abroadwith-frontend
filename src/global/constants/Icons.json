@@ -2,17 +2,43 @@
   "facilities":{
     "MIRROR":"fa-fire",
     "DESK":"fa-fire",
-    "HEATING":"fa-fire"
+    "HEATING":"fa-fire",
+    "DRESSER":"",
+    "BEDSIDE_LOCKER":"",
+    "WARDROBE":"",
+    "AIR_CONDITIONING":"",
+    "BATHROOM":"",
+    "FRIDGE":"",
+    "HANGERS":"",
+    "HAIR_DRYER":"",
+    "IRON":"",
+    "LOCK":""
   },
   "amenities":{
+    "ESSENTIALS":"",
+    "TV":"",
+    "CABLE_TV":"",
+    "HEATING":"",
+    "KITCHEN":"",
+    "INTERNET":"",
+    "WIFI":"",
     "AIR_CONDITIONING":"fa-fire"
   },
   "preferences":{
-    "FAMILY_FRIENDLY":"fa-fire"
+    "FAMILY_FRIENDLY":"fa-fire",
+    "LGBT_FRIENDLY":"fa-fire",
+    "PETS_ALLOWED":"fa-fire",
+    "PETS_LIVE_IN_THE_HOUSE":"fa-fire",
+    "SMOKING_ALLOWED":"fa-fire",
+    "WHEELCHAIR_ACCESSIBLE":"fa-fire",
+    "SMOKING_ALLOWED":"fa-fire"
   },
   "services":{
     "CLEANING":"fa-fire",
-    "FULL_BOARD":"fa-fire"
+    "FULL_BOARD":"fa-fire",
+    "ONLY_BREAKFAST":"",
+    "AIRPORT_PICKUP":"",
+    "LAUNDRY":""
   },
   "extras":{
     "DRYER":"fa-fire"
