@@ -8,6 +8,7 @@ var Verifications = require('./admin-verifications.react');
 var JWT = require('JWT');
 var GET = require('GET');
 var POST = require('POST');
+var DELETE = require('DELETE');
 
 var domains = require('domains');
 
@@ -92,22 +93,35 @@ module.exports = React.createClass({
 
     this.refreshState();
 
-    // Delete account button
-    $('#delete-account').click(function() {
+    // Reset password button
+    $('a#change-password').click(function() {
+
+      $('#preloader').show();
 
       $.ajax({
-        url: domains.API + '/users/' + JWT.rid,
-        type: 'DELETE',
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))
+        type: "POST",
+        url: domains.API + '/passwords/reset',
+        contentType: "application/json",
+        data: JSON.stringify({email:JWT.email}),
+        success: function() {
+          $('#preloader').hide();
+          Materialize.toast('Password reset email sent', 4000)
         },
-        success: function(result) {
-
-          localStorage.removeItem('JWT');
-          document.location.href = "/";
-
+        error: function() {
+          $('#preloader').hide();
         }
-      });
+      })
+
+    })
+
+    // Delete account button
+    $('#delete-account').click(function() {
+      var url = domains.API + '/users/' + JWT.rid;
+      var success = function() {
+        localStorage.removeItem('JWT');
+        document.location.href = "/";
+      }
+      DELETE(url, success);
     })
 
     // All google maps stuff here
@@ -119,7 +133,6 @@ module.exports = React.createClass({
         street_number: 'short_name',
         route: 'long_name',
         locality: 'short_name',
-        administrative_area_level_1: 'short_name',
         country: 'short_name',
         postal_code: 'short_name'
       };
@@ -140,14 +153,11 @@ module.exports = React.createClass({
             newAddress[addressType] = val;
           }
         }
-
         adminObj.address === null ? adminObj.address = {} : null;
         newAddress.locality ? adminObj.address.city = newAddress.locality : null;
         newAddress.country ? adminObj.address.country = newAddress.country : null;
       });
-
     });
-
   },
   render: function() {
 
