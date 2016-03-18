@@ -19,6 +19,7 @@ module.exports = React.createClass({
 
         // Compile stay object
         newImmersionsObj.stay = {};
+        newImmersionsObj.stay.isActive = true;
         newImmersionsObj.stay.hours = $('#stay-hours').val();
         newImmersionsObj.stay.languagesOffered = $('#stay-languages-offered').val();
 
@@ -27,7 +28,9 @@ module.exports = React.createClass({
       if ($('#tandem-switch').is(':checked')) {
 
         // Compile tandem object
+
         newImmersionsObj.tandem = {};
+        newImmersionsObj.tandem.isActive = true;
         newImmersionsObj.tandem.hours = $('#tandem-hours').val();
         newImmersionsObj.tandem.languagesOffered = $('#tandem-languages-offered').val();
         newImmersionsObj.tandem.languagesInterested = [];
@@ -47,6 +50,7 @@ module.exports = React.createClass({
 
         // Compile teacher object
         newImmersionsObj.teacher = {};
+        newImmersionsObj.teacher.isActive = true;
         newImmersionsObj.teacher.packages = $('#packages').val();
         newImmersionsObj.teacher.hourly = parseInt($('#teacher-rate').val());
         newImmersionsObj.teacher.languagesOffered = $('#teacher-languages-offered').val();
