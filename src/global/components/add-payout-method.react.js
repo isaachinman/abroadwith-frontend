@@ -133,11 +133,13 @@ module.exports = React.createClass({
         $('.iban-ui input').removeAttr('required', 'required');
         $('.routing-ui').show();
         $('.routing-ui input').attr('required', 'required');
+        $('#bank-state').attr('required', 'required');
       } else {
         // Render IBAN bank UI
         this.setState({bank:'BANK'})
         $('.iban-ui').show();
         $('.iban-ui input').attr('required', 'required');
+        $('#bank-state').removeAttr('required');
         $('.routing-ui').hide();
         $('.routing-ui input').removeAttr('required', 'required');
       }
