@@ -7,12 +7,54 @@ var Bank = require('../../global/components/payout-method--bank.react');
 var PaypalPayout = require('../../global/components/payout-method--paypal.react');
 var AddPayoutMethod = require('../../global/components/add-payout-method.react');
 
+var domains = require('domains');
 var JWT = require('JWT');
+var POST = require('POST');
+var DELETE = require('DELETE');
 
 module.exports = React.createClass({
+  deletePaymentMethod: function(id) {
+
+    $('#preloader').show();
+
+    var url = domains.API + '/users/' + JWT.rid + '/paymentMethods/' + id;
+    var deletePaymentSuccess = function(response) {
+      $('#preloader').hide();
+      this.props.updateAdmin();
+    }.bind(this)
+    DELETE(url, deletePaymentSuccess);
+
+  },
+  deletePayoutMethod: function(id) {
+
+    $('#preloader').show();
+
+    var url = domains.API + '/users/' + JWT.rid + '/payoutMethods/' + id;
+    var deletePayoutSuccess = function(response) {
+      $('#preloader').hide();
+      this.props.updateAdmin();
+    }.bind(this)
+    DELETE(url, deletePayoutSuccess);
+
+  },
+  setPayoutMethodDefault: function(id) {
+
+    $('#preloader').show();
+
+    var url = domains.API + '/users/' + JWT.rid + '/payoutMethods/' + id;
+    var success = function() {
+      $('#preloader').hide();
+      this.props.updateAdmin();
+    }.bind(this)
+    POST(url, {}, success);
+
+  },
   componentDidUpdate: function() {
 
     var updateAdmin = this.props.updateAdmin;
+    var deletePaymentMethod = this.deletePaymentMethod;
+    var deletePayoutMethod = this.deletePayoutMethod;
+    var setPayoutMethodDefault = this.setPayoutMethodDefault;
 
     var paymentMethodHTML = [];
 
@@ -34,7 +76,7 @@ module.exports = React.createClass({
                     expiry={payment.expiry}
                     lastFour={payment.lastFour}
                     cardHolder={payment.cardHolder}
-                    deleteCallback={updateAdmin.bind(this)}
+                    deletePaymentMethod={function() { deletePaymentMethod(payment.id) } }
                   />
                 </div>
               )
@@ -45,7 +87,7 @@ module.exports = React.createClass({
                     id={payment.id}
                     default={payment.default}
                     email={payment.email}
-                    deleteCallback={updateAdmin.bind(this)}
+                    deletePaymentMethod={function() { deletePaymentMethod(payment.id) } }
                   />
                 </div>
               )
@@ -108,7 +150,8 @@ module.exports = React.createClass({
                     id={payment.id}
                     default={payment.isDefault}
                     lastFour={payment.ibanCode}
-                    deleteCallback={updateAdmin}
+                    setPayoutMethodDefault={function() { setPayoutMethodDefault(payment.id) } }
+                    deletePayoutMethod={function() { deletePayoutMethod(payment.id) } }
                   />
                 </div>
               )
@@ -119,7 +162,8 @@ module.exports = React.createClass({
                     id={payment.id}
                     default={payment.isDefault}
                     lastFour={payment.routingAccountNumber}
-                    deleteCallback={updateAdmin}
+                    setPayoutMethodDefault={function() { setPayoutMethodDefault(payment.id) } }
+                    deletePayoutMethod={function() { deletePayoutMethod(payment.id) } }
                   />
                 </div>
               )
@@ -130,7 +174,8 @@ module.exports = React.createClass({
                     id={payment.id}
                     default={payment.isDefault}
                     email={payment.email}
-                    deleteCallback={updateAdmin}
+                    setPayoutMethodDefault={function() { setPayoutMethodDefault(payment.id) } }
+                    deletePayoutMethod={function() { deletePayoutMethod(payment.id) } }
                   />
                 </div>
               )

@@ -65,6 +65,7 @@
     "JWT": "./src/global/jwt",
     "GET": "./src/global/ajax/GET",
     "POST": "./src/global/ajax/POST",
+    "DELETE": "./src/global/ajax/DELETE",
     "new-message-thread": "./src/global/new-message-thread"
   },
   "browserify-shim": {
