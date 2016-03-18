@@ -135,7 +135,7 @@ module.exports = React.createClass({
 
       $('.payouts').removeClass('hide');
 
-      var payoutMethods = this.props.payoutMethods;
+      var payoutMethods = this.props.payoutMethods.sort(function(a,b){return b.isDefault-a.isDefault});
 
       console.log(this.props.payoutMethods)
 
