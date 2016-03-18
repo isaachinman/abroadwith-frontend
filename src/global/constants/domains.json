@@ -4,5 +4,6 @@
   "API_PORT": 443,
   "API_HTTP": "https",
   "FRONTEND": "http://localhost:3000",
-  "IMG": "https://img.abroadwith.com"
+  "IMG": "https://img.abroadwith.com",
+  "LANGUAGE_DOMAIN": "https://{{lang}}.abroadwith.com"
 }
