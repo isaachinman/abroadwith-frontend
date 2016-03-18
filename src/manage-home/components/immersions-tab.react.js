@@ -167,7 +167,7 @@ module.exports = React.createClass({
           interestedLanguageChips.push("<div class='chip' data-lang="+this.lang+">"+ i18n.t('languages:'+this.lang) +"<i class='material-icons'>close</i></div>");
         })
       }
-      $('#tandem-language-interested-chips').append(interestedLanguageChips);
+      $('#tandem-language-interested-chips').html(interestedLanguageChips);
 
       // Teacher vars
       if (this.props.immersions.teacher !== null) {
