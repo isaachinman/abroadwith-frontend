@@ -19,6 +19,10 @@ var UiCurrency = React.createClass({
       console.log(Cookies.get('ui-currency'))
     })
 
+    $('select#ui-language').change(function() {
+      document.domain = $(this).val() + '.abroadwith.com'
+    })
+
   },
   render: function() {
 
@@ -28,8 +32,8 @@ var UiCurrency = React.createClass({
   }
 });
 
-if ($('#ui-language-container').length) {
+if ($('#ui-currency-and-language-container').length) {
   ReactDOM.render(
-    <UiCurrency />, document.getElementById('ui-language-container')
+    <UiCurrency />, document.getElementById('ui-currency-and-language-container')
   );
 }
