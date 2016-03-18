@@ -66,8 +66,6 @@ module.exports = React.createClass({
           return;
         }
 
-        $('a#save-location').hasClass('disabled') ? $('a#save-location').removeClass('disabled') : null;
-
         // Clear out the old markers.
         markers.forEach(function(marker) {
           marker.setMap(null);
@@ -96,6 +94,7 @@ module.exports = React.createClass({
           if (newLocationObj.street == undefined || newLocationObj.city == undefined || newLocationObj.country == undefined || newLocationObj.lat == undefined || newLocationObj.lng == undefined) {
             alert('Invalid address')
           } else {
+            $('a#save-location').hasClass('disabled') ? $('a#save-location').removeClass('disabled') : null;
             typeof circle !== 'undefined' ? circle.setMap(null) : null;
             window.circle = new google.maps.Circle({
               map: map,
