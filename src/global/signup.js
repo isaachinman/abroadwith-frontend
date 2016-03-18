@@ -129,6 +129,9 @@ if ($('form#email-signup-form').length) {
   $.getScript('https://apis.google.com/js/platform.js');
 
   window.googleSignupCounter = 0;
+  setTimeout(function() {
+    googleSignupCounter === 0 ? googleSignupCounter = 1 : null;
+  }, 1500)
   window.googleSignup = function(googleUser) {
 
     if (++googleSignupCounter < 2) {
