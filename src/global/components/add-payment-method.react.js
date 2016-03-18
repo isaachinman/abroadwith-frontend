@@ -61,7 +61,9 @@ module.exports = React.createClass({
               callback();
             });
           },
-          onReady: function() {
+          onReady: function(integration) {
+
+            window.braintreeIntegration = integration;
 
             $('#add-payment-form ul.collapsible').collapsible();
 
@@ -77,6 +79,9 @@ module.exports = React.createClass({
     };
     GET(url, success)
 
+  },
+  componentWillUnmount: function() {
+    braintreeIntegration.teardown();
   },
   render: function() {
 
