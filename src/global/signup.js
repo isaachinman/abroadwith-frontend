@@ -189,9 +189,7 @@ if ($('form#email-signup-form').length) {
   // Language submit
   function applyLanguages() {
 
-    console.log('trigger')
-
-    if ($('#language-known-chips').find('.language-known-chip').length) {
+    if ($('#language-known-chips').find('.language-known-chip').length > 0) {
 
       // Mandatory known languages
       newUser["userKnownLanguages"] = [];
@@ -221,6 +219,9 @@ if ($('form#email-signup-form').length) {
 
       }
 
+      $('#choose-languages-modal').closeModal();
+      $('#sign-up-modal').openModal();
+
     } else {
       if ($('#languages-not-valid').hasClass('hide')) {
         $('#languages-not-valid').removeClass('hide');
@@ -230,8 +231,6 @@ if ($('form#email-signup-form').length) {
 
   $('#apply-languages').click(function() {
     applyLanguages();
-    $('#choose-languages-modal').closeModal();
-    $('#sign-up-modal').openModal();
   });
 
   if ($('#apply-languages-signup-page').length) {
