@@ -305,6 +305,11 @@ if ($('form#email-signup-form').length) {
       var email = newUser.email;
       var password = newUser.password;
 
+      var loginObj = {
+        email: email,
+        password: password
+      }
+
       $.ajax({
         type: "POST",
         url: domains.API + '/users',
@@ -314,7 +319,7 @@ if ($('form#email-signup-form').length) {
         success: function(response) {
 
           console.log(response);
-          login(email, password);
+          login(loginObj);
 
         },
         error: function(response) {
