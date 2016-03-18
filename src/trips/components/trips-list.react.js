@@ -62,6 +62,7 @@ module.exports = React.createClass({
         }
 
       } else {
+        var tripsDOM = [];
         tripsDOM.push(
           <NoTrips />
         )
