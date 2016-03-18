@@ -66,6 +66,7 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
+    $('a#view-public-profile').attr('href', '/users/' + JWT.rid)
     this.refreshState();
 
   },
