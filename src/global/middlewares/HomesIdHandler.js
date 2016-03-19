@@ -29,8 +29,10 @@ module.exports = function (req, res, next, value) {
           for(var i = 0; i < req.context.home.rooms.length; i++){
             req.context.home.rooms[i].price = currency(req.context.home.rooms[i].price,req.context.home.pricing.currency,req.context.currency);
           }
-          req.context.home.immersions.teacher.hourly = currency(req.context.home.immersions.teacher.hourly,req.context.home.pricing.currency,req.context.currency);
-
+          if (req.context.home.immersions.teacher !== null) {
+            req.context.home.immersions.teacher.hourly = currency(req.context.home.immersions.teacher.hourly,req.context.home.pricing.currency,req.context.currency);
+          }
+          
           req.context.debug = JSON.stringify(req.context.home);
           next();
       });
