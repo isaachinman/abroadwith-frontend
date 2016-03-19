@@ -82,7 +82,7 @@ module.exports = React.createClass({
                 <a><img src={guestPhoto} alt="" className="circle responsive-img reservation-profile-icon" /></a>
               </div>
               <div>
-                <a href={receiptUrl}>{i18n.t('trips:view_receipt')}</a>
+                <a href={receiptUrl}>{i18n.t('trips:view_itinerary')}</a>
               </div>
             </div>
             <div className='col s12 m12 l10 margin-top-20'>
