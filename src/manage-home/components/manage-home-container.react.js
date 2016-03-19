@@ -113,9 +113,9 @@ module.exports = React.createClass({
 
         // If home is active, create an unpublish function
         $('a#unpublish-home').click(function() {
-          homeObj.immersions.stay.languagesOffered = [];
-          homeObj.immersions.tandem.languagesOffered = [];
-          homeObj.immersions.teacher.languagesOffered = [];
+          homeObj.immersions.stay.isActive = false;
+          homeObj.immersions.tandem.isActive = false;
+          homeObj.immersions.teacher.isActive = false;
           updateHome(function() {
             return;
           });
