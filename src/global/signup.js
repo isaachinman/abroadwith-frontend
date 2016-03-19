@@ -1,6 +1,6 @@
-var domains = require('domains');
 var login = require('./login');
-var jwt_decode = require('jwt-decode');
+var processLanguageChips = require('process-language-chips');
+
 var domains = require('domains');
 
 // Language-learn select
@@ -8,9 +8,6 @@ $('select#learning-language').length ? $('select#learning-language').select2() :
 
 // Language-known select
 $('select#known-language').length ? $('select#known-language').select2() : null;
-
-// Process language chips
-var processLanguageChips = require('process-language-chips');
 
 // If on signup page, remove language and signup modals
 if(window.location.href.indexOf("signup") > -1) {
@@ -23,7 +20,6 @@ $('a#add-learning-language').length ? $('a#add-learning-language').click(functio
 
 // If add known language button exists, give it a click event
 $('a#add-known-language').length ? $('a#add-known-language').click(function() { processLanguageChips('known'); }) : null;
-
 
 // Form submit
 if ($('form#email-signup-form').length) {
@@ -133,6 +129,9 @@ if ($('form#email-signup-form').length) {
   $.getScript('https://apis.google.com/js/platform.js');
 
   window.googleSignupCounter = 0;
+  setTimeout(function() {
+    googleSignupCounter === 0 ? googleSignupCounter = 1 : null;
+  }, 1500)
   window.googleSignup = function(googleUser) {
 
     if (++googleSignupCounter < 2) {
@@ -193,9 +192,7 @@ if ($('form#email-signup-form').length) {
   // Language submit
   function applyLanguages() {
 
-    console.log('trigger')
-
-    if ($('#language-known-chips').find('.language-known-chip').length) {
+    if ($('#language-known-chips').find('.language-known-chip').length > 0) {
 
       // Mandatory known languages
       newUser["userKnownLanguages"] = [];
@@ -225,6 +222,9 @@ if ($('form#email-signup-form').length) {
 
       }
 
+      $('#choose-languages-modal').closeModal();
+      $('#sign-up-modal').openModal();
+
     } else {
       if ($('#languages-not-valid').hasClass('hide')) {
         $('#languages-not-valid').removeClass('hide');
@@ -234,8 +234,6 @@ if ($('form#email-signup-form').length) {
 
   $('#apply-languages').click(function() {
     applyLanguages();
-    $('#choose-languages-modal').closeModal();
-    $('#sign-up-modal').openModal();
   });
 
   if ($('#apply-languages-signup-page').length) {
@@ -310,6 +308,11 @@ if ($('form#email-signup-form').length) {
       var email = newUser.email;
       var password = newUser.password;
 
+      var loginObj = {
+        email: email,
+        password: password
+      }
+
       $.ajax({
         type: "POST",
         url: domains.API + '/users',
@@ -319,7 +322,7 @@ if ($('form#email-signup-form').length) {
         success: function(response) {
 
           console.log(response);
-          login(email, password);
+          login(loginObj);
 
         },
         error: function(response) {

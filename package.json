@@ -8,7 +8,7 @@
     "babelify": "^7.2.0",
     "basic-auth-connect": "^1.0.0",
     "body-parser": "^1.15.0",
-    "braintree": "^1.35.1",
+    "braintree": "^1.36.0",
     "browserify": "^12.0.1",
     "browserify-shim": "^3.8.12",
     "cookie-parser": "^1.4.1",
@@ -16,7 +16,6 @@
     "express": "^4.13.3",
     "i18next": "^2.0.20",
     "i18next-xhr-backend": "^0.3.0",
-    "iban": "0.0.6",
     "jquery": "^2.2.0",
     "js-cookie": "^2.1.0",
     "jsonwebtoken": "^5.5.4",
@@ -60,16 +59,19 @@
     "send-payment-nonce": "./src/global/send-payment-nonce",
     "toast": "./src/global/toast",
     "currencies": "./src/global/constants/Currencies.json",
+    "default-bank-currencies": "./src/global/constants/DefaultBankCurrencies",
+    "default-paypal-currencies": "./src/global/constants/DefaultPaypalCurrencies",
     "JWT": "./src/global/jwt",
     "GET": "./src/global/ajax/GET",
     "POST": "./src/global/ajax/POST",
+    "DELETE": "./src/global/ajax/DELETE",
     "new-message-thread": "./src/global/new-message-thread"
   },
   "browserify-shim": {
     "jquery": "$",
     "materialize": "materialize",
     "react-nouislider": {
-      "depends": "react-lite"
+      "depends": "react"
     }
   },
   "scripts": {
@@ -86,7 +88,7 @@
     "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
     "start": "node src/server.js",
     "fullstart": "npm run build && npm run start",
-    "browsersync": "browser-sync start --reload-delay 1000 --proxy 'http://localhost:3000' --files 'build/css/*.css, build/app.js, src/*/*.html'"
+    "browsersync": "browser-sync start --reload-delay 1000 --proxy 'http://localhost:3000' --files 'build/css/*.css, build/app.js, src/*/*.html, src/*/*/*.html'"
   },
   "main": "server.js",
   "repository": {

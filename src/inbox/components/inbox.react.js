@@ -5,15 +5,13 @@ var JWT = require('JWT');
 var GET = require('GET');
 
 var Thread = require('./thread.react');
+var NoMessages = require('./no-messages.react');
 
 module.exports = React.createClass({
   componentDidMount: function() {
 
     var url = domains.API + '/users/' + JWT.rid + '/messages';
     var success = function(response) {
-
-      var inboxSetup = response;
-      console.log(inboxSetup)
 
       var yourName = JWT.name;
       var yourId = JWT.rid;
@@ -22,32 +20,41 @@ module.exports = React.createClass({
       var messageHTML = [];
       var threadHTML = [];
 
-      inboxSetup.forEach(function(thread) {
+      if (response.length > 0) {
 
-        messageHTML.push(
-          <li className='message-trigger' data-target={thread.id}><a>Conversation with {thread.with.firstName}</a></li>
-        );
+        response.forEach(function(thread) {
 
-        var theirPhoto = thread.with.photo !== null ? domains.IMG + thread.with.photo : 'https://tracker.moodle.org/secure/attachment/30912/f3.png';
+          messageHTML.push(
+            <li className='message-trigger' data-target={thread.id}><a>Conversation with {thread.with.firstName}</a></li>
+          );
 
-        threadHTML.push(
-          <Thread
-            id={thread.id}
-            yourName={yourName}
-            yourId={yourId}
-            yourPhoto={yourPhoto}
-            them={thread.with.firstName}
-            theirPhoto={theirPhoto}
-            startDate={thread.arrival}
-            endDate={thread.departure}
-          />
-        )
+          var theirPhoto = thread.with.photo !== null ? domains.IMG + thread.with.photo : 'https://tracker.moodle.org/secure/attachment/30912/f3.png';
 
-      });
+          threadHTML.push(
+            <Thread
+              id={thread.id}
+              yourName={yourName}
+              yourId={yourId}
+              yourPhoto={yourPhoto}
+              them={thread.with.firstName}
+              theirPhoto={theirPhoto}
+              startDate={thread.arrival}
+              endDate={thread.departure}
+            />
+          )
 
-      var newState = {
-        messageList: messageHTML,
-        threads: threadHTML
+        });
+
+        var newState = {
+          messageList: messageHTML,
+          threads: threadHTML
+        }
+
+      } else {
+        var newState = {
+          messageList: [<li></li>],
+          threads: [<Thread />]
+        }
       }
 
       if (this.isMounted()) {

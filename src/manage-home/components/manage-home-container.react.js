@@ -130,6 +130,8 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
 
+      console.log(response)
+
       window.homeObj = response;
 
       var newState = {

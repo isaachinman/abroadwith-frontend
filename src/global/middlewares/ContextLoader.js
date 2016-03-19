@@ -6,6 +6,7 @@ var home = require('../constants/Home');
 var currencies = require('../constants/Currencies');
 var icons = require('../constants/Icons');
 var domains = require('../constants/domains');
+var default_bank_currencies = require('../constants/DefaultBankCurrencies');
 
 module.exports = function (req, res, next) {
   var prefix = req.hostname.substring(0,2);
@@ -27,10 +28,11 @@ module.exports = function (req, res, next) {
     users: user,
     currencies: currencies,
     icons: icons,
-    domains: domains
+    domains: domains,
+    default_bank_currencies: default_bank_currencies
   }
   req.context.query = req.query;
-  
+
   if(req.cookies && req.cookies['ui-currency']){
     req.context.currency = req.cookies['ui-currency'];
   }

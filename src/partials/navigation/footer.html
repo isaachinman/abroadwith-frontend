@@ -3,12 +3,12 @@
     <div class="row">
       <div class="col s12 m5 l2">
 
-        <div id='ui-language-container'></div>
+        <div id='ui-currency-and-language-container'></div>
 
         <select id='ui-language' class='material'>
-          <option value='ENG'>{{translations.languages.ENG}}</option>
-          <option value='SPA'>{{translations.languages.SPA}}</option>
-          <option value='POR'>{{translations.languages.POR}}</option>
+          {% for domain, language in constants.ui_languages %}
+          <option value={{domain}}>{{translations.languages[language.iso]}}</option>
+          {% endfor %}
         </select>
 
         <select id='ui-currency' class='material'>

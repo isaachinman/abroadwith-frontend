@@ -49,9 +49,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: $ziggurat;
-    border: 2px solid $havelock-blue;
-    opacity: .15;
+    border: 2px solid lighten($sulu, 15%);
   }
 }
 .add-payment {
@@ -85,6 +83,39 @@ a.privacy-btn {
 .chip-container {
   div {
     display: inline-block;
+  }
+}
+
+.add-payout {
+  margin-top: 20px;
+  min-height: 180px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  .header {
+    background: lighten($ziggurat, 20%);
+    border-bottom: 1px solid lighten($ziggurat, 10%);
+    height: 180px;
+    padding-top: 50px;
+    cursor: pointer;
+    &:hover {
+      .title {
+        color: $havelock-blue;
+      }
+    }
+  }
+  .title {
+    font-size: 1.65rem;
+  }
+  .subtitle {
+
+    @extend .grey-text;
+  }
+  .footer {
+    background: lighten($ziggurat, 20%);
+    border-top: 1px solid lighten($ziggurat, 10%);
+    border-bottom: 1px solid lighten($ziggurat, 10%);
+    padding: 30px 0;
   }
 }
 

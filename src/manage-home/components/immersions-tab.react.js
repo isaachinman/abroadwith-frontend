@@ -19,6 +19,7 @@ module.exports = React.createClass({
 
         // Compile stay object
         newImmersionsObj.stay = {};
+        newImmersionsObj.stay.isActive = true;
         newImmersionsObj.stay.hours = $('#stay-hours').val();
         newImmersionsObj.stay.languagesOffered = $('#stay-languages-offered').val();
 
@@ -27,7 +28,9 @@ module.exports = React.createClass({
       if ($('#tandem-switch').is(':checked')) {
 
         // Compile tandem object
+
         newImmersionsObj.tandem = {};
+        newImmersionsObj.tandem.isActive = true;
         newImmersionsObj.tandem.hours = $('#tandem-hours').val();
         newImmersionsObj.tandem.languagesOffered = $('#tandem-languages-offered').val();
         newImmersionsObj.tandem.languagesInterested = [];
@@ -47,6 +50,7 @@ module.exports = React.createClass({
 
         // Compile teacher object
         newImmersionsObj.teacher = {};
+        newImmersionsObj.teacher.isActive = true;
         newImmersionsObj.teacher.packages = $('#packages').val();
         newImmersionsObj.teacher.hourly = parseInt($('#teacher-rate').val());
         newImmersionsObj.teacher.languagesOffered = $('#teacher-languages-offered').val();
@@ -145,14 +149,16 @@ module.exports = React.createClass({
       }
 
       if (this.props.immersions.stay !== null) {
-        this.props.immersions.stay !== null ? stayLanguagesOffered.val(this.props.immersions.stay.languagesOffered) : null;
-        this.props.immersions.stay !== null ? $('#stay-hours').val(this.props.immersions.stay.hours) : null;
+        stayLanguagesOffered.val(this.props.immersions.stay.languagesOffered);
+        $('#stay-hours').val(this.props.immersions.stay.hours);
+        $('input#stay-switch').attr('checked', this.props.immersions.stay.isActive);
       }
 
       // Tandem vars
       if (this.props.immersions.tandem !== null) {
-        this.props.immersions.tandem !== null ? tandemLanguagesOffered.val(this.props.immersions.tandem.languagesOffered) : null;
-        this.props.immersions.tandem !== null ? $('#tandem-hours').val(this.props.immersions.tandem.hours) : null;
+        tandemLanguagesOffered.val(this.props.immersions.tandem.languagesOffered);
+        $('#tandem-hours').val(this.props.immersions.tandem.hours);
+        $('input#tandem-switch').attr('checked', this.props.immersions.tandem.isActive);
       }
 
       var interestedLanguageChips = [];
@@ -163,7 +169,7 @@ module.exports = React.createClass({
           interestedLanguageChips.push("<div class='chip' data-lang="+this.lang+">"+ i18n.t('languages:'+this.lang) +"<i class='material-icons'>close</i></div>");
         })
       }
-      $('#tandem-language-interested-chips').append(interestedLanguageChips);
+      $('#tandem-language-interested-chips').html(interestedLanguageChips);
 
       // Teacher vars
       if (this.props.immersions.teacher !== null) {
@@ -173,6 +179,8 @@ module.exports = React.createClass({
         this.props.immersions.teacher.hourly !== null ? $('#teacher-rate').val(this.props.immersions.teacher.hourly + this.props.currency) : null;
         $('#packages').val(this.props.immersions.teacher.packages);
         $('#material-costs').val(this.props.immersions.teacher.materials + this.props.currency);
+
+        $('input#teacher-switch').attr('checked', this.props.immersions.teacher.isActive);
 
       }
 

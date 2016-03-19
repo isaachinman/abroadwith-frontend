@@ -8,6 +8,7 @@ var Verifications = require('./admin-verifications.react');
 var JWT = require('JWT');
 var GET = require('GET');
 var POST = require('POST');
+var DELETE = require('DELETE');
 
 var domains = require('domains');
 
@@ -92,24 +93,71 @@ module.exports = React.createClass({
 
     this.refreshState();
 
-    // Delete account button
-    $('#delete-account').click(function() {
+    // Reset password button
+    $('a#change-password').click(function() {
+
+      $('#preloader').show();
 
       $.ajax({
-        url: domains.API + '/users/' + JWT.rid,
-        type: 'DELETE',
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))
+        type: "POST",
+        url: domains.API + '/passwords/reset',
+        contentType: "application/json",
+        data: JSON.stringify({email:JWT.email}),
+        success: function() {
+          $('#preloader').hide();
+          Materialize.toast('Password reset email sent', 4000)
         },
-        success: function(result) {
-
-          localStorage.removeItem('JWT');
-          document.location.href = "/";
-
+        error: function() {
+          $('#preloader').hide();
         }
-      });
+      })
+
     })
 
+    // Delete account button
+    $('#delete-account').click(function() {
+      var url = domains.API + '/users/' + JWT.rid;
+      var success = function() {
+        localStorage.removeItem('JWT');
+        document.location.href = "/";
+      }
+      DELETE(url, success);
+    })
+
+    // All google maps stuff here
+    $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places", function() {
+
+      var placeSearch,
+        autocomplete;
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'short_name',
+        country: 'short_name',
+        postal_code: 'short_name'
+      };
+
+      var newAddress = {};
+
+      // Home address autocomplete
+      homeAddressAutocomplete = new google.maps.places.Autocomplete(
+        (document.getElementById('user-address')), {types: ['geocode']});
+      homeAddressAutocomplete.addListener('place_changed', function() {
+        // Get the place details from the autocomplete object.
+        var place = homeAddressAutocomplete.getPlace();
+
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            newAddress[addressType] = val;
+          }
+        }
+        adminObj.address === null ? adminObj.address = {} : null;
+        newAddress.locality ? adminObj.address.city = newAddress.locality : null;
+        newAddress.country ? adminObj.address.country = newAddress.country : null;
+      });
+    });
   },
   render: function() {
 

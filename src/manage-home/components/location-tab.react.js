@@ -60,13 +60,11 @@ module.exports = React.createClass({
       // Listen for the event fired when the user selects a prediction and retrieve
       // more details for that place.
       searchBox.addListener('places_changed', function() {
-        var places = searchBox.getPlaces();
 
+        var places = searchBox.getPlaces();
         if (places.length == 0) {
           return;
         }
-
-        $('a#save-location').hasClass('disabled') ? $('a#save-location').removeClass('disabled') : null;
 
         // Clear out the old markers.
         markers.forEach(function(marker) {
@@ -77,37 +75,10 @@ module.exports = React.createClass({
         // For each place, get the icon, name and location.
         var bounds = new google.maps.LatLngBounds();
         places.forEach(function(place) {
-          var icon = {
-            url: place.icon,
-            size: new google.maps.Size(71, 71),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
-          };
-
-          typeof circle !== 'undefined' ? circle.setMap(null) : null;
-          window.circle = new google.maps.Circle({
-            map: map,
-            radius: 150,    // 10 miles in metres
-            strokeColor: '#4A91E2',
-            strokeOpacity: 0.8,
-            fillColor: '#4A91E2',
-            fillOpacity: 0.35,
-            center: place.geometry.location
-          });
-
-          if (place.geometry.viewport) {
-            // Only geocodes have viewport.
-            bounds.union(place.geometry.viewport);
-          } else {
-            bounds.extend(place.geometry.location);
-          }
-
-          window.newCoordinates = place.geometry.location;
 
           var googleResponse = place.address_components;
-
           var googleResponseParsed={};
+
           $.each(googleResponse, function(k,v1) {jQuery.each(v1.types, function(k2, v2){googleResponseParsed[v2]=v1.short_name});})
 
           window.newLocationObj = {
@@ -120,9 +91,37 @@ module.exports = React.createClass({
             "lng":randomiseCoordinate(place.geometry.location.lng())
           }
 
+          if (newLocationObj.street == undefined || newLocationObj.city == undefined || newLocationObj.country == undefined || newLocationObj.lat == undefined || newLocationObj.lng == undefined) {
+            alert('Invalid address')
+          } else {
+            $('a#save-location').hasClass('disabled') ? $('a#save-location').removeClass('disabled') : null;
+            typeof circle !== 'undefined' ? circle.setMap(null) : null;
+            window.circle = new google.maps.Circle({
+              map: map,
+              radius: 150,
+              strokeColor: '#4A91E2',
+              strokeOpacity: 0.8,
+              fillColor: '#4A91E2',
+              fillOpacity: 0.35,
+              center: place.geometry.location
+            });
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+
+
+            map.fitBounds(bounds);
+            map.setZoom(16);
+          }
+
+          console.log(newLocationObj)
+
         });
-        map.fitBounds(bounds);
-        map.setZoom(16);
+
       });
     }
     $('#location-tab').click(initHiddenMap)

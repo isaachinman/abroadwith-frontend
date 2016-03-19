@@ -22,10 +22,12 @@ if ($('a.reset-password').length) {
         $('#preloader').show();
 
         var passwordResetObj = {
-          id: "secretGoesHere",
-          email: $('form.reset-password input[type=email]'),
+          id: $('h1').attr('data-secret'),
+          email: $('form.reset-password input[type=email]').val(),
           password: firstPassword
         }
+
+        console.log(passwordResetObj)
 
         $.ajax({
           type: "POST",

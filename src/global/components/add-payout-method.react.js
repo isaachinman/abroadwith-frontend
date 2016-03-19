@@ -1,126 +1,168 @@
 var React = require('react');
-require('iban')
+
+var domains = require('domains');
+var JWT = require('JWT');
+var POST = require('POST');
+
+var defaultBankCurrencies = require('default-bank-currencies');
+var defaultPaypalCurrencies = require('default-paypal-currencies');
+
+var i18n = require('../../global/components/i18n');
+i18n.loadNamespaces(['countries']);
 
 module.exports = React.createClass({
-  componentDidUpdate: function() {
+  addBankPayout: function() {
+
+    var updateAdmin = this.props.updateAdmin;
+
+    if ($('#bank-country').val() === null || this.state.bank === 'undefined') {
+      return;
+    }
+
+    if (this.state.bank === 'BANK' && $('#iban').val() !== $('#iban-again').val()) {
+      return;
+    }
+
+    if (this.state.bank === 'ROUTING_TRANSIT' && $('#routing-account-number').val() !== $('#routing-account-number-again').val()) {
+      return;
+    }
+
+    var newBankPayoutObj = {
+      type: this.state.bank,
+      firstName: $('#bank-first-name').val(),
+      lastName: $('#bank-last-name').val(),
+      address: {
+        street: $('#bank-address-one').val(),
+        complement: $('#bank-address-two').val(),
+        city: $('#bank-city').val(),
+        state: $('#bank-state').val(),
+        zipCode: $('#bank-postcode').val(),
+        country: $('#bank-country').val(),
+      }
+    }
+
+    if (this.state.bank === 'BANK') {
+      newBankPayoutObj.ibanCode = $('#iban').val();
+      newBankPayoutObj.swiftBicCode = $('#swift-bic').val();
+    } else if (this.state.bank === 'ROUTING_TRANSIT') {
+      newBankPayoutObj.routingAccountNumber = $('#routing-account-number').val();
+      newBankPayoutObj.routerNumber = $('#routing-number').val();
+    }
+
+    $('#preloader').show();
+
+    console.log(newBankPayoutObj)
+
+    var url = domains.API + '/users/' + JWT.rid + '/payoutMethods';
+    var success = function(response) {
+      $('#preloader').hide();
+      updateAdmin();
+      $('.add-payout .header').next().slideUp();
+    }
+    POST(url, newBankPayoutObj, success);
+
+
+  },
+  addPaypalPayout: function() {
+
+    var updateAdmin = this.props.updateAdmin;
+
+    if ($('#paypal-country').val() === null) {
+      return;
+    }
+
+    if ($('#paypal-email').val() !== $('#paypal-email-again').val()) {
+      return;
+    }
+
+    var newPaypalPayoutObj = {
+      type: 'PAYPAL',
+      firstName: $('#paypal-first-name').val(),
+      lastName: $('#paypal-last-name').val(),
+      email: $('#paypal-email').val(),
+      address: {
+        street: $('#paypal-address-one').val(),
+        complement: $('#paypal-address-two').val(),
+        city: $('#paypal-city').val(),
+        state: $('#paypal-state').val(),
+        zipCode: $('#paypal-postcode').val(),
+        country: $('#paypal-country').val(),
+      }
+    }
+
+    $('#preloader').show();
+
+    console.log(newPaypalPayoutObj)
+
+    var url = domains.API + '/users/' + JWT.rid + '/payoutMethods';
+    var success = function(response) {
+      $('#preloader').hide();
+      updateAdmin();
+      $('.add-payout .header').next().slideUp();
+    }
+    POST(url, newPaypalPayoutObj, success);
+
   },
   componentDidMount: function() {
 
-    $('.collapsible').collapsible({
-      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-    });
+    $('form#add-bank-payout').submit(function(e) {
+      this.addBankPayout();
+      return false;
+    }.bind(this))
 
-    // Temporary client token for testing
-    var clientToken = $('#client-token').attr('data-token');
+    $('form#add-paypal-payout').submit(function(e) {
+      this.addPaypalPayout();
+      return false
+    }.bind(this))
 
-    $.getScript('https://js.braintreegateway.com/v2/braintree.js', function() {
-
-      console.log('braintree ran')
-
-      // Setup braintree form
-      braintree.setup(clientToken, 'custom', {
-        id: 'add-payment-form',
-        hostedFields: {
-          number: {
-            selector: "#card-number",
-            placeholder: 'Card number'
-          },
-          cvv: {
-            selector: "#cvv",
-            placeholder: 'CVV'
-          },
-          expirationDate: {
-            selector: "#expiration-date",
-            placeholder: 'Expiry'
-          },
-          styles: {
-            "input": {
-              "font-size":"1rem",
-              "color":"#3A3A3A",
-              "font-family":"Open Sans, sans serif"
-            }
-          }
-        },
-        paypal: {
-          container: 'paypal-container',
-          singleUse: false,
-          onPaymentMethodReceived: function (obj) {
-            console.log(obj)
-          }
-        },
-        dataCollector: {
-          paypal: true
-        },
-        onPaymentMethodReceived: function (obj) {
-          console.log(obj)
-        },
-        onReady: function() {
-
-            $("#paypal-container").bind("DOMSubtreeModified", function() {
-              $('#add-new-paypal').removeClass('hide');
-            });
-
-        }
-      })
-
+    // Initialise billing country selects
+    $("select.billing-country").each(function() {
+      $(this).select2({
+        placeholder: "Country"
+      });
     })
+
+    // Change function for bank country select
+    $('select#bank-country').change(function() {
+      var country = $('select#bank-country').val()
+      $('#bank-currency').html(defaultBankCurrencies[country])
+      if (country === 'CA' || country === 'GU' || country === 'MH' || country === 'PR' || country === 'US') {
+        // Render Routing bank UI
+        this.setState({bank:'ROUTING_TRANSIT'})
+        $('.iban-ui').hide();
+        $('.iban-ui input').removeAttr('required', 'required');
+        $('.routing-ui').show();
+        $('.routing-ui input').attr('required', 'required');
+        $('#bank-state').attr('required', 'required');
+      } else {
+        // Render IBAN bank UI
+        this.setState({bank:'BANK'})
+        $('.iban-ui').show();
+        $('.iban-ui input').attr('required', 'required');
+        $('#bank-state').removeAttr('required');
+        $('.routing-ui').hide();
+        $('.routing-ui input').removeAttr('required', 'required');
+      }
+    }.bind(this))
+
+    // Change function for paypal country select
+    $('select#paypal-country').change(function() {
+      var country = $(this).val()
+      $('#paypal-currency').html(defaultPaypalCurrencies[country] ? defaultPaypalCurrencies[country] : 'EUR')
+    })
+
+  },
+  componentWillUnmount: function() {
+    $('select#bank-country').off();
+    $('select#paypal-country').off();
+    $('form#add-bank-payout').off();
+    $('form#add-paypal-payout').off();
   },
   render: function() {
 
     return (
 
-        <form id="add-payment-form" className='card-reveal'>
-          <div class='title'>Add payment method</div>
-          <ul className="collapsible" data-collapsible="accordion">
-            <li>
-              <div className="collapsible-header">Credit card</div>
-              <div className="collapsible-body">
-                <div className='row'>
-
-                  <div className='col s12'>
-
-                    <div className='input-field'>
-                      <div id="card-number" className='braintree-input'></div>
-                    </div>
-                  </div>
-
-                  <div className='col s6'>
-                    <div className='input-field'>
-                      <div id="cvv" className='braintree-input'></div>
-                    </div>
-                  </div>
-
-                  <div className='col s6'>
-                    <div className='input-field'>
-                      <div id="expiration-date" className='braintree-input'></div>
-                    </div>
-                  </div>
-
-                  <div className='col s12'>
-                    <input id='add-new-card' className='btn btn-flat btn-secondary' type="submit" value="Add card" />
-                  </div>
-
-                  </div>
-
-                </div>
-            </li>
-            <li>
-              <div className="collapsible-header">Paypal</div>
-              <div className="collapsible-body">
-
-                <div id='paypal-container' className='row no-margin-bottom section center-align'></div>
-
-                <div className='row'>
-                  <div className='col s12'>
-                    <input id='add-new-paypal' className='btn btn-flat btn-secondary hide' type="submit" value="Add Paypal" />
-                  </div>
-                </div>
-
-              </div>
-            </li>
-          </ul>
-
-        </form>
+      <div></div>
 
     );
   }
