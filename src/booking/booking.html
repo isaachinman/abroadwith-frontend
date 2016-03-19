@@ -238,10 +238,10 @@
             </select>
             <label for="EXTRA_GUEST" class='dark'>{{translations.booking.extra_guests}}</label>
           </div>
-
           {% for extra in home.pricing.extras %}
             {% if extra.service != 'EXTRA_GUEST' and extra.service != 'FULL_BOARD' and extra.service != 'HALF_BOARD' %}
               <div class='col s12 input-field'>
+
                 <input id={{extra.service}} type="checkbox" class="filled-in booking-service" data-value={{extra.service}} data-price={{extra.cost}} />
                 <label for={{extra.service}} class='dark'>{{translations.homes.extras[extra.service]}} ({{constants.currencies[home.pricing.currency]}}{{extra.cost}}{% if extra.service != 'AIRPORT_PICKUP' %}/week{% endif %})</label>
               </div>

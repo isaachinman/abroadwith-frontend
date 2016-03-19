@@ -68,6 +68,8 @@ module.exports = React.createClass({
       settingNames:               $('select#meal_pref').val() !== '' ? $('select#meal_pref').val() : []
     }
 
+    console.log(bookingObj)
+
     return bookingObj;
 
   },
