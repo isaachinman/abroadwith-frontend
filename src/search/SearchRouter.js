@@ -1,6 +1,5 @@
 var express = require('express');
 var nunjucks = require('nunjucks');
-var translations = require('../utils/Translations');
 
 var router = express.Router();
 

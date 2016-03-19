@@ -1,4 +1,4 @@
-var translations = require('../../utils/Translations');
+var translations = require('../util/Translations');
 var ui_languages = require('../constants/UILanguages');
 var user_languages = require('../constants/UserLanguages');
 var user = require('../constants/User');
