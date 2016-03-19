@@ -26,35 +26,6 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
 
-      var homeStatus = response;
-      console.log(homeStatus)
-
-      // Update status bar
-      var publishedBar = $('#published-status');
-      if (homeStatus.activated === false) {
-
-        // If home is active, swap classes and text of publishedBar
-        publishedBar.addClass('manage-home-info-text--unpublished');
-        publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + i18n.t('homes:published_codes.'+homeStatus.code) + ')');
-
-      } else if (homeStatus.activated === true) {
-
-        // If home is inactive, swap classes and text of publishedBar
-        publishedBar.addClass('manage-home-info-text--published');
-        publishedBar.html(i18n.t('homes:published_codes.'+homeStatus.code) + ' (' + '<a id="unpublish-home">Click here to unpublish</a>' + ')');
-
-        // If home is inactive, create an unpublish function
-        $('a#unpublish-home').click(function() {
-          homeObj.immersions.stay.languagesOffered = [];
-          homeObj.immersions.tandem.languagesOffered = [];
-          homeObj.immersions.teacher.languagesOffered = [];
-          updateHome(function() {
-            return;
-          });
-        })
-
-      }
-
       $('#preloader').hide();
 
       this.refreshState();
@@ -131,6 +102,32 @@ module.exports = React.createClass({
     var success = function(response) {
 
       console.log(response)
+
+      // Update status bar
+      var publishedBar = $('#published-status');
+      if (response.homeActivationResponse.activated === false) {
+
+        // If home is active, swap classes and text of publishedBar
+        publishedBar.addClass('manage-home-info-text--unpublished');
+        publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + i18n.t('homes:published_codes.'+response.homeActivationResponse.code) + ')');
+
+        // If home is active, create an unpublish function
+        $('a#unpublish-home').click(function() {
+          homeObj.immersions.stay.languagesOffered = [];
+          homeObj.immersions.tandem.languagesOffered = [];
+          homeObj.immersions.teacher.languagesOffered = [];
+          updateHome(function() {
+            return;
+          });
+        })
+
+      } else if (response.homeActivationResponse.activated === true) {
+
+        // If home is inactive, swap classes and text of publishedBar
+        publishedBar.addClass('manage-home-info-text--published');
+        publishedBar.html(i18n.t('homes:published_codes.'+response.homeActivationResponse.code) + ' (' + '<a id="unpublish-home">Click here to unpublish</a>' + ')');
+
+      }
 
       window.homeObj = response;
 
