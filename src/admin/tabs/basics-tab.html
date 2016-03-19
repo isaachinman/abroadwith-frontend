@@ -5,7 +5,7 @@
     <div class='admin-block'>
 
       <div class='row'>
-        <h4>Tell us about yourself</h4>
+        <h4>{{tranlations.admin.contact_info_title}}</h4>
       </div>
 
       <div class='manage-home-section'>
@@ -15,28 +15,28 @@
             <i class="fa fa-user fa-2x"></i>
           </div>
           <div class='col s10 m2 l2 input-field'>
-            <input id='firstName' name='firstName' placeholder="First name" type="text" class="validate" required>
-            <label class='active'>First name</label>
+            <input id='firstName' name='firstName' placeholder="{{translations.users.first_name_placeholder}}" type="text" class="validate" required>
+            <label class='active'>{{translations.users.first_name_label}}</label>
           </div>
           <div class='col s10 m2 l2 input-field'>
-            <input id='lastName' name='lastName' placeholder="Last name" type="text" class="validate" required>
-            <label class='active'>Last name</label>
+            <input id='lastName' name='lastName' placeholder="{{translations.users.last_name_placeholder}}" type="text" class="validate" required>
+            <label class='active'>{{translations.users.last_name_label}}</label>
           </div>
 
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
             <i class="fa fa-map-marker fa-2x"></i>
           </div>
           <div class='col s10 m3 l3 input-field'>
-            <input placeholder="Where do you live?" id="user-address" type="text" class="validate">
-            <label class='active'>Home address</label>
+            <input placeholder="{{translations.users.home_address_placeholder}}" id="user-address" type="text" class="validate">
+            <label class='active'>{{translations.users.home_address_label}}</label>
           </div>
 
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
             <i class="fa fa-calendar-o fa-2x"></i>
           </div>
           <div class='col s10 m2 l2 input-field'>
-            <input id='birthDate' type="date" placeholder='Birthday' class='datepicker datepicker-birthday' value='1990-01-01' required>
-            <label class='active'>Birthday</label>
+            <input id='birthDate' type="date" placeholder='{{translations.users.birth_date_placeholder}}' class='datepicker datepicker-birthday' value='1990-01-01' required>
+            <label class='active'>{{translations.users.birth_date_label}}</label>
           </div>
         </div>
 
@@ -48,16 +48,16 @@
             <i class="fa fa-envelope-o fa-2x"></i>
           </div>
           <div class='col s10 m4 l4 input-field'>
-            <input id='user-email' name='email' placeholder="Email" type="email" class="validate" required>
-            <label class='active' data-error="Incorrect" data-success="Correct">Email</label>
+            <input id='user-email' name='email' placeholder="{{translations.users.email_placeholder}}" type="email" class="validate" required>
+            <label class='active' data-error="{{translations.common.words.Incorrect}}" data-success="{{translations.common.words.Correct}}">{{translations.users.email_label}}</label>
           </div>
 
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
             <i class="fa fa-mobile fa-2x"></i>
           </div>
           <div class='col s10 m3 l3 input-field'>
-            <input id='phoneNumber' name='phoneNumber' placeholder="Phone number" type="tel" class="validate">
-            <label class='active'>Phone number</label>
+            <input id='phoneNumber' name='phoneNumber' placeholder="{{translations.users.phone_number_placeholder}}" type="tel" class="validate">
+            <label class='active'>{{translations.users.phone_number_label}}</label>
           </div>
 
           <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
@@ -65,12 +65,12 @@
           </div>
           <div class='col s10 m2 l2 input-field'>
             <select id='gender' name='gender' class='material' required>
-              <option value="" selected disabled>Choose gender</option>
-              <option value="MALE">Male</option>
-              <option value="FEMALE">Female</option>
-              <option value="OTHER">Other</option>
+              <option value="" selected disabled>{{translations.users.gender_placeholder}}</option>
+              <option value="MALE">{{translations.users.genders.MALE}}</option>
+              <option value="FEMALE">{{translations.users.genders.FEMALE}}</option>
+              <option value="OTHER">{{translations.users.genders.OTHER}}</option>
             </select>
-            <label>Gender</label>
+            <label>{{translations.users.gender_label}}</label>
           </div>
 
         </div>
@@ -81,7 +81,7 @@
 
           <div class='row grey-text left-align'>
             <div class='col s12 m10 offset-m1 l10 offset-l1'>
-              <h6>Emergency contact</h6>
+              <h6>{{translations.admin.contact_info_emergency_contact_title}}</h6>
             </div>
           </div>
 
@@ -89,20 +89,20 @@
             <i class="fa fa-exclamation-triangle fa-2x"></i>
           </div>
           <div class='col s10 m3 l3 input-field'>
-            <input id='emergency-name' placeholder="Name" type="text" class="validate">
-            <label class='active'>Name</label>
+            <input id='emergency-name' placeholder="{{translations.users.emergency_contact_name_placeholder}}" type="text" class="validate">
+            <label class='active'>{{translations.users.emergency_contact_name_label}}</label>
           </div>
           <div class='col s10 m2 l2 input-field'>
-            <input id='emergency-phone' placeholder="Phone" type="text" class="validate">
-            <label class='active'>Phone number</label>
+            <input id='emergency-phone' placeholder="{{translations.users.emergency_contact_phone_number_placeholder}}" type="text" class="validate">
+            <label class='active'>{{translations.users.emergency_contact_phone_number_label}}</label>
           </div>
           <div class='col s10 m3 l3 input-field'>
-            <input id='emergency-email' placeholder="Email" type="text" class="validate">
-            <label class='active'>Email</label>
+            <input id='emergency-email' placeholder="{{translations.users.emergency_contact_email_placeholder}}" type="text" class="validate">
+            <label class='active'>{{translations.users.emergency_contact_email_label}}</label>
           </div>
           <div class='col s10 m3 l3 input-field'>
-            <input id='emergency-relationship' placeholder="Relationship" type="text" class="validate">
-            <label class='active'>Relationship</label>
+            <input id='emergency-relationship' placeholder="{{translations.users.emergency_contact_relationship_placeholder}}" type="text" class="validate">
+            <label class='active'>{{translations.users.emergency_contact_relationship_label}}</label>
           </div>
         </div>
 
@@ -111,7 +111,7 @@
     </div>
 
     <div class='row bottom'>
-      <button type='submit' id='save-basics' class='btn btn-primary admin-save-btn'>Save</button>
+      <button type='submit' id='save-basics' class='btn btn-primary admin-save-btn'>{{translations.admin.save_button}}</button>
     </div>
 
   </div>
