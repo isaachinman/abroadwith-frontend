@@ -7,7 +7,7 @@ var jwt_decode = require('jwt-decode');
 var domains = require('domains');
 
 var i18n = require('../../global/components/i18n');
-i18n.loadNamespaces(['immersions', 'trips', 'languages']);
+i18n.loadNamespaces(['immersions', 'trips', 'languages', 'receipts_invoices']);
 
 var currencies = require('currencies');
 
@@ -19,6 +19,8 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/bookings/'+bookingId+'/receipt';
     var success = function(response) {
+
+      console.log(response)
 
       var currency = currencies[response.currency]
       $('#bookingCode').html(response.bookingCode);
@@ -38,6 +40,20 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/bookings/'+bookingId;
     var success = function(response) {
+
+      console.log(response)
+
+      var currency = currencies[response.chargesCurrency]
+
+      var paymentsSettled = [];
+      if (response.transactions.length > 0) {
+        for (var i=0; i<response.transactions.length; i++) {
+          paymentsSettled.push('<td>'+currency+response.transactions[i].amount+'</td><td>'+i18n.t('receipts_invoices:payment_statuses.'+response.transactions[i].status)+' ('+response.transactions[i].date[0]+'-'+(('0'+response.transactions[i].date[1]).slice(-2))+'-'+response.transactions[i].date[2]+')</td>')
+        }
+      } else {
+        paymentsSettled.push('<td>'+i18n.t('trips:not_applicable')+'</td><td></td>')
+      }
+      $('#payments-settled').html(paymentsSettled);
 
       $('#immersion-type').html(i18n.t('immersions:'+response.immersionType));
       $('#cancellation').html(i18n.t('trips:not_applicable'));

@@ -69,10 +69,10 @@
   </div>
 
   <div class='row left-align'>
-    <h5 class='grey-text'>{{translations.receipts_invoices.immersion_charges}}</h5>
-    <div class='col s12 m12 l5 white no-padding'>
+    <div class='col s12 m12 l5 no-padding'>
+      <h5 class='grey-text'>{{translations.receipts_invoices.immersion_charges}}</h5>
 
-      <table class='border responsive-table trips-table'>
+      <table class='border responsive-table trips-table white'>
         <thead>
           <tr>
             <th>{{translations.receipts_invoices.charge}}</th>
@@ -93,6 +93,25 @@
             <td>{{translations.receipts_invoices.total}}</td>
             <td id='total-charge'></td>
           </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class='col s12 m12 l5 offset-l1 no-padding'>
+      <h5 class='grey-text'>{{translations.receipts_invoices.payment_settled}}</h5>
+
+      <table class='border responsive-table white'>
+        <thead>
+          <tr>
+            <th>{{translations.receipts_invoices.charge}}</th>
+            <th>{{translations.receipts_invoices.status}}</th>
+          </tr>
+        </thead>
+
+        <tbody class='white lighten-4 border'>
+          <tr id='payments-settled'></tr>
         </tbody>
 
       </table>
