@@ -45,11 +45,12 @@ module.exports = React.createClass({
 
       if (response.hostId === JWT.rid) {
         // User is host
-        console.log('user is host')
+        $('h1').html(i18n.t('receipts_invoices:immersion_confirmation'));
         $('#serviceAndVatFees').html((currency+(response.baseCharges*.03).toFixed(2)));
         $('#total-charge').html(currency+((response.baseCharges*.97).toFixed(2)));
       } else {
         // User is guest
+        $('h1').html(i18n.t('receipts_invoices:customer_receipt'));
         $('#serviceAndVatFees').html(currency+(response.totalCharges-response.baseCharges));
         $('#total-charge').html(currency+((response.totalCharges).toFixed(2)));
       }
