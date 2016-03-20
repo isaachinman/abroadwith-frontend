@@ -26,6 +26,8 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
 
+      console.log('response:' +response)
+
       $('#preloader').hide();
 
       this.refreshState();
@@ -34,8 +36,6 @@ module.exports = React.createClass({
 
     }.bind(this)
     POST(url, homeObj, success);
-
-    console.log(homeObj)
 
   },
   componentDidMount: function() {

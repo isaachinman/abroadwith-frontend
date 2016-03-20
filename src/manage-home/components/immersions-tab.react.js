@@ -13,7 +13,7 @@ module.exports = React.createClass({
     if ($('.immersion-switch:checked').length > 0) {
 
       // Create new immersions object
-      var newImmersionsObj = {};
+      var newImmersionsObj = homeObj.immersions;
 
       if ($('#stay-switch').is(':checked')) {
 
@@ -23,19 +23,20 @@ module.exports = React.createClass({
         newImmersionsObj.stay.hours = $('#stay-hours').val();
         newImmersionsObj.stay.languagesOffered = $('#stay-languages-offered').val();
 
+      } else {
+        newImmersionsObj.stay.isActive = false;
       }
 
       if ($('#tandem-switch').is(':checked')) {
 
         // Compile tandem object
-
         newImmersionsObj.tandem = {};
         newImmersionsObj.tandem.isActive = true;
         newImmersionsObj.tandem.hours = $('#tandem-hours').val();
         newImmersionsObj.tandem.languagesOffered = $('#tandem-languages-offered').val();
         newImmersionsObj.tandem.languagesInterested = [];
         $('#tandem-language-interested-chips .chip[data-lang]').each(function() {
-          var discount = $('#tandem-discount').val() !== '' ? $('#tandem-discount').val() : null;
+          var discount = $('#tandem-discount').val() !== '' ? parseInt($('#tandem-discount').val()) : null;
           newImmersionsObj.tandem.languagesInterested.push(
             {
               "lang":$(this).attr('data-lang'),
@@ -44,6 +45,8 @@ module.exports = React.createClass({
           )
         })
 
+      } else {
+        newImmersionsObj.tandem.isActive = false;
       }
 
       if ($('#teacher-switch').is(':checked')) {
@@ -55,12 +58,16 @@ module.exports = React.createClass({
         newImmersionsObj.teacher.hourly = parseInt($('#teacher-rate').val());
         newImmersionsObj.teacher.languagesOffered = $('#teacher-languages-offered').val();
 
+      } else {
+        newImmersionsObj.teacher.isActive = false;
       }
 
       // Modify home object, using new immersions object
       if (typeof homeObj !== 'undefined') {
 
         homeObj.immersions = newImmersionsObj;
+
+        console.log(newImmersionsObj)
 
         this.props.updateHome(function() {
           toast('Immersions updated');
@@ -71,18 +78,23 @@ module.exports = React.createClass({
     }
 
   },
+  validateImmersionSaveButton: function() {
+    if ($('.immersion-switch:checked').length > 0) {
+      $('a#save-immersions').hasClass('disabled') ? $('a#save-immersions').removeClass('disabled') : null;
+    } else {
+      $('a#save-immersions').hasClass('disabled') ? null : $('a#save-immersions').addClass('disabled');
+    }
+  },
+  componentDidUpdate: function() {
+    this.validateImmersionSaveButton();
+  },
+  componentWillUnmount: function() {
+    $('.immersion-switch').off();
+  },
   componentDidMount: function() {
 
-    $('.immersion-switch').change(validateImmersionSaveButton);
-    validateImmersionSaveButton();
-
-    function validateImmersionSaveButton() {
-      if ($('.immersion-switch:checked').length > 0) {
-        $('a#save-immersions').hasClass('disabled') ? $('a#save-immersions').removeClass('disabled') : null;
-      } else {
-        $('a#save-immersions').hasClass('disabled') ? null : $('a#save-immersions').addClass('disabled');
-      }
-    }
+    $('.immersion-switch').change(this.validateImmersionSaveButton());
+    this.validateImmersionSaveButton();
 
     $('a#save-immersions').click(this.saveImmersions);
 
@@ -120,7 +132,7 @@ module.exports = React.createClass({
     if (this.props.immersions) {
 
       if (this.props.immersions.tandem) {
-        $('#tandem-discount').val(this.props.immersions.tandem.languagesInterested[0].discount)
+        $('#tandem-discount').val(this.props.immersions.tandem.languagesInterested[0].discount + '%')
       }
 
       // Populate stay offered dropdown

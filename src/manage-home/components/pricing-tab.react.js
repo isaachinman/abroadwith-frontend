@@ -48,8 +48,8 @@ module.exports = React.createClass({
       function createPricingObject(category, item) {
         if ($('input#'+item).val() !== '') {
           var newPriceObj = {
-            "service": item,
-            "cost": parseInt($('input#'+item).val())
+            "name": item,
+            "amount": parseInt($('input#'+item).val())
           }
           newPricingObj[category].push(newPriceObj);
         }
@@ -99,10 +99,13 @@ module.exports = React.createClass({
 
     // Set price vars
     if (this.props.pricing && this.props.pricing.currency) {
+
       $('select#currency').val(this.props.pricing.currency);
-      this.props.pricing.discounts.oneMonthDiscount ? $('input#one-month-discount').val(this.props.pricing.discounts.oneMonthDiscount.amount + '%') : null;
-      this.props.pricing.discounts.threeMonthDiscount ? $('input#three-month-discount').val(this.props.pricing.discounts.threeMonthDiscount.amount + '%') : null;
-      this.props.pricing.discounts.sixMonthDiscount ? $('input#six-month-discount').val(this.props.pricing.discounts.sixMonthDiscount.amount + '%') : null;
+
+      for (var i=0; i<this.props.pricing.discounts.length; i++) {
+        $('#'+this.props.pricing.discounts[i].name).val(this.props.pricing.discounts[i].amount + '%')
+      }
+
       this.props.pricing.extras.EXTRA_GUEST ? $('input#EXTRA_GUEST').val(this.props.pricing.extras.EXTRA_GUEST.cost) : null;
       this.props.pricing.extras.FULL_BOARD ? $('input#FULL_BOARD').val(this.props.pricing.extras.FULL_BOARD.cost) : null;
       this.props.pricing.extras.HALF_BOARD ? $('input#HALF_BOARD').val(this.props.pricing.extras.HALF_BOARD.cost) : null;
