@@ -4,8 +4,8 @@ var room = require('../../global/constants/Room');
 
 i18n.loadNamespaces(['manage_home','rooms','common']);
 
-var jwt_decode = require('jwt-decode');
 var domains = require('domains');
+var JWT = require('JWT');
 
 var compileBedTypes = function(){
   var options = [];
@@ -25,8 +25,6 @@ var compileFacilities = function(){
 
 module.exports = React.createClass({
   deleteRoom: function() {
-
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+this.props.id,
@@ -49,8 +47,14 @@ module.exports = React.createClass({
     })
 
   },
+  componentDidMount: function() {
+    $('li[data-id="'+this.props.id+'"]').find('select.bed-type option[value="'+this.props.bed+'"]').attr('selected','selected');
+    $('li[data-id="'+this.props.id+'"]').find('select.facilities').val(this.props.facilities);
+    $('li[data-id="'+this.props.id+'"]').find('select.material').material_select();
+  },
   render: function() {
 
+    console.log(this.props)
     var img = this.props.img ? this.props.img : '';
 
     return (
@@ -76,7 +80,7 @@ module.exports = React.createClass({
               <i className="fa fa-bed fa-2x"></i>
             </div>
             <div className='col s12 m6 l6 input-field'>
-              <select className='material bed-type' defaultValue={this.props.bed}>
+              <select className='material bed-type' value={this.props.bed}>
                 <option value="" disabled>{i18n.t('rooms:bed_types_placeholder')}</option>
                 {compileBedTypes()}
               </select>
@@ -105,7 +109,7 @@ module.exports = React.createClass({
               <i className="fa fa-lock fa-2x"></i>
             </div>
             <div className='col s10 m6 l6 input-field'>
-              <select className='material facilities' multiple defaultValue={this.props.facilities}>
+              <select className='material facilities' multiple>
                 <option value="" disabled>{i18n.t('rooms:facilities_placeholder')}</option>
                 {compileFacilities()}
               </select>
@@ -125,7 +129,7 @@ module.exports = React.createClass({
               <div className="switch">
                 <label>
                   {i18n.t('common:words.No')}
-                  <input type="checkbox" className='shared-switch' defaultValue={this.props.shared} />
+                  <input type="checkbox" className='shared-switch' checked={this.props.shared} />
                   <span className="lever"></span>
                   {i18n.t('common:words.Yes')}
                 </label>
