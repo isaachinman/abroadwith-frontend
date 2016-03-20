@@ -31,10 +31,6 @@ module.exports = React.createClass({
       $('#hostFullName').html(response.hostFullName);
       $('#destination').html(response.destination);
       $('#destinationShort').html(response.destinationShort);
-      $('#bookingCharges').html(currency+response.bookingCharges);
-      $('#serviceAndVatFees').html(currency+response.serviceAndVatFees);
-      $('#total-charge').html(currency+((response.bookingCharges+response.serviceAndVatFees).toFixed(2)));
-
     };
     GET(url, success)
 
@@ -44,6 +40,20 @@ module.exports = React.createClass({
       console.log(response)
 
       var currency = currencies[response.chargesCurrency]
+
+      $('#base-charges').html(currency+((response.baseCharges).toFixed(2)));
+
+      if (response.hostId === JWT.rid) {
+        // User is host
+        console.log('user is host')
+        $('#serviceAndVatFees').html('0');
+        $('#total-charge').html(currency+((response.baseCharges).toFixed(2)));
+      } else {
+        // User is guest
+        $('#serviceAndVatFees').html(currency+(response.totalCharges-response.baseCharges));
+        $('#total-charge').html(currency+((response.totalCharges).toFixed(2)));
+      }
+
 
       var paymentsSettled = [];
       if (response.transactions.length > 0) {
