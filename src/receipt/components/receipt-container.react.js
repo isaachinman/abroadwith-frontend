@@ -33,7 +33,7 @@ module.exports = React.createClass({
       $('#destinationShort').html(response.destinationShort);
       $('#bookingCharges').html(currency+response.bookingCharges);
       $('#serviceAndVatFees').html(currency+response.serviceAndVatFees);
-      $('#total-charge').html(currency+(response.bookingCharges+response.serviceAndVatFees));
+      $('#total-charge').html(currency+((response.bookingCharges+response.serviceAndVatFees).toFixed(2)));
 
     };
     GET(url, success)
