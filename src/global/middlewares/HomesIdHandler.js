@@ -5,18 +5,18 @@ var currency = require('../../global/util/CurrencyExchange');
 module.exports = function (req, res, next, value) {
   if(!req.context) req.context = {};
   if(isNaN(value) || parseInt(Number(value)) != value || isNaN(parseInt(value, 10))){
-    res.status(404).send('Not a proper home id.');
+    next('Not a proper home id.');
     return;
   }
   https.get(domains.API + "/public/homes/"+value,
     function (response) {
       var body = '';
       if(response.statusCode == 404){
-        res.status(404).send('Home not found.');
+        next('Home not found.');
         return;
       }
       if(response.statusCode != 200){
-        res.status(response.statusCode).send('Unexpected response.');
+        next('Unexpected response.');
         return;
       }
       response.on('data', function(d) {
@@ -36,7 +36,6 @@ module.exports = function (req, res, next, value) {
           next();
       });
   }).on('error', function(e) {
-    console.log(e);
-    res.status(500).send("Can't connect to API.");
+    next("Can't connect to API. Error: " + e);
   });
 }

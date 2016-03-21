@@ -17,4 +17,11 @@ i18next.use(i18nextXHR).init({
   ns:[]
 });
 
+i18next.on('failedLoading', function(lng, ns, msg) {
+  console.log("Something failed while loading.");
+  console.log("lng",lng);
+  console.log("ns",ns);
+  console.log("msg",msg);
+});
+
 module.exports = i18next;

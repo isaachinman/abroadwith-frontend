@@ -37,14 +37,6 @@ app.use('/*', contextLoader);
 
 app.use('/*', authentication);
 
-/** BEGIN TEST **/
-//TODO remove this.
-var installTest = require('./test/TestInstaller');
-var installMessaging = require('./test/MessagingInstaller');
-installTest(app);
-installMessaging(app);
-/** END TEST **/
-
 installImageUpload(app);
 
 installMain(app);
@@ -78,5 +70,15 @@ installInvoice(app);
 installReceipt(app);
 
 installReview(app);
+
+app.use(function(err, req, res, next) {
+  console.log("[ERROR]",err);
+  res.redirect("/");
+});
+
+app.use(function(req, res, next) {
+  console.log("[ERROR]","Page not found.");
+  res.redirect("/");
+});
 
 http.createServer(app).listen(3000);
