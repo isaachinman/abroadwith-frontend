@@ -59,6 +59,7 @@ module.exports = React.createClass({
           onPaymentMethodReceived: function (obj) {
             sendPaymentNonce(obj.nonce, function() {
               callback();
+              $('#add-payment-method').remove();
             });
           },
           onReady: function(integration) {

@@ -4,6 +4,7 @@ var ReactDOM = require('react-dom');
 var JWT = require('JWT');
 var GET = require('GET');
 var POST = require('POST');
+var DELETE = require('DELETE');
 
 var AddPaymentMethod = require('../../global/components/add-payment-method.react');
 var Paypal = require('../../global/components/payment-method--paypal.react');
@@ -103,6 +104,18 @@ module.exports = React.createClass({
     POST(url, bookingObj, success);
 
   },
+  deletePaymentMethod: function(id) {
+
+    $('#preloader').show();
+
+    var url = domains.API + '/users/' + JWT.rid + '/paymentMethods/' + id;
+    var deletePaymentSuccess = function(response) {
+      $('#preloader').hide();
+      this.refreshState();
+    }.bind(this)
+    DELETE(url, deletePaymentSuccess);
+
+  },
   refreshState: function() {
 
     var bookingObj = this.createBookingObject();
@@ -153,6 +166,7 @@ module.exports = React.createClass({
     var success = function(response) {
 
       var paymentMethods = response;
+      var deletePaymentMethod = this.deletePaymentMethod;
 
       var PaymentMethodContainer = React.createClass({
         render: function() {
@@ -175,7 +189,7 @@ module.exports = React.createClass({
                         expiry={payment.expiry}
                         lastFour={payment.lastFour}
                         cardHolder={payment.cardHolder}
-                        deleteCallback={callback}
+                        deletePaymentMethod={function() { deletePaymentMethod(payment.id) } }
                       />
                     </div>
                   </div>
@@ -192,7 +206,7 @@ module.exports = React.createClass({
                         id={payment.id}
                         default={payment.default}
                         email={payment.email}
-                        deleteCallback={callback}
+                        deletePaymentMethod={function() { deletePaymentMethod(payment.id) } }
                       />
                     </div>
 
