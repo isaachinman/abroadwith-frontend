@@ -101,6 +101,9 @@ module.exports = React.createClass({
     $('#teacher-rate').keyup(function() {
       this.validateTeacher();
     }.bind(this));
+    $('#tandem-language-interested-chips').bind('DOMSubtreeModified', function() {
+      this.validateTandem();
+    }.bind(this))
   },
   componentDidMount: function() {
 
@@ -112,9 +115,7 @@ module.exports = React.createClass({
     var validateTandem = this.validateTandem;
     $('#tandem-hours').change(validateTandem);
     $('#tandem-languages-offered').change(validateTandem);
-    $('#tandem-language-interested-chips').bind('DOMSubtreeModified', function() {
-      validateTandem();
-    })
+
 
     // Validate teacher immersion
     $('#packages').change(this.validateTeacher);
