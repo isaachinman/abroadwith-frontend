@@ -14,6 +14,7 @@ var genericRouter = function(file){
 
 var installer = function(app) {
   app.use('/terms',genericRouter('static/terms.html'));
+  app.use('/privacy',genericRouter('static/privacy.html'));
   app.use('/login',genericRouter('static/login.html'));
   app.use('/signup',genericRouter('static/signup.html'));
   app.use('/reset-password',genericRouter('static/reset-password.html'));
