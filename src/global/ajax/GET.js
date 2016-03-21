@@ -16,6 +16,7 @@ module.exports = function(url, success, error) {
     error: function() {
 
       error !== 'undefined' ? error : alert('Something failed');
+      $('#preloader').hide();
 
     }
   })
