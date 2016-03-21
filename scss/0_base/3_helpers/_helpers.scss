@@ -17,6 +17,12 @@ main {
 .no-padding-bottom {
   padding-bottom: 0 !important;
 }
+.padding-top-50 {
+  padding-top: 50px;
+}
+.padding-bottom-50 {
+  padding-bottom: 50px;
+}
 .no-margin {
   margin: 0;
 }
@@ -25,6 +31,9 @@ main {
 }
 .margin-top-negative {
   margin-top: -1rem;
+}
+.margin-top-bottom-20 {
+  margin-bottom: -20px;
 }
 .margin-half-sides {
   margin: .5rem;
@@ -219,6 +228,9 @@ table {
 }
 .blue-text {
   color: $havelock-blue !important;
+}
+.secondary-bg {
+  background: lighten($ziggurat, 16%);
 }
 .btn.disabled {
   pointer-events: none;
