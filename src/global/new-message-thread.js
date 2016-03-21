@@ -1,4 +1,7 @@
 var domains = require('domains');
+
+var toast = require('toast');
+
 var JWT = require('JWT');
 var POST = require('POST');
 
@@ -20,7 +23,7 @@ module.exports = function() {
     console.log(response)
     $('#preloader').hide();
     $('#send-message-modal').closeModal();
-    Materialize.toast('Message sent', 4000);
+    toast('Message sent', 4000);
   }
   POST(url, threadObj, success);
 

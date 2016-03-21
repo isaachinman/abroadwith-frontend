@@ -6,13 +6,21 @@ var domains = require('domains');
 module.exports = React.createClass({
   componentDidUpdate: function() {
     if (this.props.photos) {
+
+      var updateHome = this.props.updateHome;
       var photos = this.props.photos;
 
       var PhotoContainer = React.createClass({
         render: function() {
           var allPhotos = []
           photos.forEach(function(url) {
-            allPhotos.push(<PhotoModule src={domains.IMG + url} key={url} />)
+            allPhotos.push(
+              <PhotoModule
+                src={domains.IMG + url}
+                key={url}
+                updateHome={updateHome}
+              />
+            )
           })
           return (
             <div>{allPhotos}</div>

@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var toast = require('toast');
+
 var JWT = require('JWT');
 var GET = require('GET');
 var POST = require('POST');
@@ -16,7 +18,7 @@ module.exports = React.createClass({
     var success = function() {
 
       $('#preloader').hide();
-      Materialize.toast('Verification email sent', 4000);
+      toast('Verification email sent', 4000);
 
     };
     GET(url, success)
@@ -39,7 +41,7 @@ module.exports = React.createClass({
       $('.phone-verify').show();
 
       $('#preloader').hide();
-      Materialize.toast('Verification SMS sent', 4000);
+      toast('Verification SMS sent', 4000);
 
     }.bind(this);
     GET(url, success)
@@ -69,7 +71,7 @@ module.exports = React.createClass({
       $('#verification-phone .collapsible-body').remove();
 
       $('#preloader').hide();
-      Materialize.toast('Phone verified', 4000);
+      toast('Phone verified', 4000);
 
     }
     POST(url, verifyPhoneObj, success);

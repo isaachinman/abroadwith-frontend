@@ -7,6 +7,8 @@ var RoomsTab =            require('./rooms-tab.react');
 var PhotosTab =           require('./photos-tab.react');
 var PricingTab =          require('./pricing-tab.react');
 
+var toast = require('toast');
+
 var domains = require('domains');
 var JWT = require('JWT');
 var GET = require('GET');
@@ -111,21 +113,21 @@ module.exports = React.createClass({
         publishedBar.addClass('manage-home-info-text--unpublished');
         publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + i18n.t('homes:published_codes.'+response.homeActivationResponse.code) + ')');
 
-        // If home is active, create an unpublish function
-        $('a#unpublish-home').click(function() {
-          homeObj.immersions.stay.isActive = false;
-          homeObj.immersions.tandem.isActive = false;
-          homeObj.immersions.teacher.isActive = false;
-          updateHome(function() {
-            return;
-          });
-        })
-
       } else if (response.homeActivationResponse.activated === true) {
 
         // If home is inactive, swap classes and text of publishedBar
         publishedBar.addClass('manage-home-info-text--published');
         publishedBar.html(i18n.t('homes:published_codes.'+response.homeActivationResponse.code) + ' (' + '<a id="unpublish-home">Click here to unpublish</a>' + ')');
+
+        // If home is active, create an unpublish function
+        $('a#unpublish-home').click(function() {
+          homeObj.immersions.stay.isActive = false;
+          homeObj.immersions.tandem.isActive = false;
+          homeObj.immersions.teacher.isActive = false;
+          this.updateHome(function() {
+            toast('Home deactivated')
+          });
+        }.bind(this))
 
       }
 

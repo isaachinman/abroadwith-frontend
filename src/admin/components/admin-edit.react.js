@@ -5,6 +5,8 @@ var Payments = require('./admin-payments.react');
 var Languages = require('./admin-languages.react');
 var Verifications = require('./admin-verifications.react');
 
+var toast = require('toast');
+
 var JWT = require('JWT');
 var GET = require('GET');
 var POST = require('POST');
@@ -105,7 +107,7 @@ module.exports = React.createClass({
         data: JSON.stringify({email:JWT.email}),
         success: function() {
           $('#preloader').hide();
-          Materialize.toast('Password reset email sent', 4000)
+          toast('Password reset email sent', 4000)
         },
         error: function() {
           $('#preloader').hide();
