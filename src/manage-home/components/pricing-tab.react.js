@@ -2,7 +2,10 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var RoomPriceModule = require('./room-price-module.react');
 var i18n = require('../../global/components/i18n');
+
 var toast = require('toast');
+
+var currencies = require('currencies');
 
 module.exports = React.createClass({
   savePricing: function() {
@@ -45,7 +48,7 @@ module.exports = React.createClass({
 
       newPricingObj.currency = $('select#currency').val();
 
-      function createPricingObject(category, item) {
+      function createDiscountObject(category, item) {
         if ($('input#'+item).val() !== '') {
           var newPriceObj = {
             "name": item,
@@ -55,15 +58,25 @@ module.exports = React.createClass({
         }
       }
 
-      createPricingObject('discounts', 'oneMonthDiscount');
-      createPricingObject('discounts', 'threeMonthDiscount');
-      createPricingObject('discounts', 'sixMonthDiscount');
-      createPricingObject('extras', 'EXTRA_GUEST');
-      createPricingObject('extras', 'FULL_BOARD');
-      createPricingObject('extras', 'HALF_BOARD');
-      createPricingObject('extras', 'LAUNDRY');
-      createPricingObject('extras', 'CLEANING');
-      createPricingObject('extras', 'AIRPORT_PICKUP');
+      function createServiceObject(category, item) {
+        if ($('input#'+item).val() !== '') {
+          var newPriceObj = {
+            "service": item,
+            "cost": parseInt(Number(($('input#'+item).val().replace(/[^0-9\.]+/g,""))))
+          }
+          newPricingObj[category].push(newPriceObj);
+        }
+      }
+
+      createDiscountObject('discounts', 'oneMonthDiscount');
+      createDiscountObject('discounts', 'threeMonthDiscount');
+      createDiscountObject('discounts', 'sixMonthDiscount');
+      createServiceObject('extras', 'EXTRA_GUEST');
+      createServiceObject('extras', 'FULL_BOARD');
+      createServiceObject('extras', 'HALF_BOARD');
+      createServiceObject('extras', 'LAUNDRY');
+      createServiceObject('extras', 'CLEANING');
+      createServiceObject('extras', 'AIRPORT_PICKUP');
 
       // Set new tandem discounts
       if ($('#tandem-discount').val() !== '' && $('#tandem-discount').val() !== 'undefined' && $('#tandem-discount').val() !== null && homeObj.immersions.tandem !== null && homeObj.immersions.tandem.languagesInterested !== null && homeObj.immersions.tandem.languagesInterested.length > 0) {
@@ -106,12 +119,11 @@ module.exports = React.createClass({
         $('#'+this.props.pricing.discounts[i].name).val(this.props.pricing.discounts[i].amount + '%')
       }
 
-      this.props.pricing.extras.EXTRA_GUEST ? $('input#EXTRA_GUEST').val(this.props.pricing.extras.EXTRA_GUEST.cost) : null;
-      this.props.pricing.extras.FULL_BOARD ? $('input#FULL_BOARD').val(this.props.pricing.extras.FULL_BOARD.cost) : null;
-      this.props.pricing.extras.HALF_BOARD ? $('input#HALF_BOARD').val(this.props.pricing.extras.HALF_BOARD.cost) : null;
-      this.props.pricing.extras.LAUNDRY ? $('input#LAUNDRY').val(this.props.pricing.extras.LAUNDRY.cost) : null;
-      this.props.pricing.extras.CLEANING ? $('input#CLEANING').val(this.props.pricing.extras.CLEANING.cost) : null;
-      this.props.pricing.extras.AIRPORT_PICKUP ? $('input#AIRPORT_PICKUP').val(this.props.pricing.extras.AIRPORT_PICKUP.cost) : null;
+      for (var i=0; i<this.props.pricing.extras.length; i++) {
+        console.log(this.props.pricing.extras[i].service)
+        $('#'+this.props.pricing.extras[i].service).val(currencies[this.props.pricing.currency]+ this.props.pricing.extras[i].cost);
+      }
+
     }
 
     // Create room modules if rooms exist

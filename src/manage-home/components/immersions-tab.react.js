@@ -93,7 +93,7 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
-    $('.immersion-switch').change(this.validateImmersionSaveButton());
+    $('.immersion-switch').change(this.validateImmersionSaveButton);
     this.validateImmersionSaveButton();
 
     $('a#save-immersions').click(this.saveImmersions);
