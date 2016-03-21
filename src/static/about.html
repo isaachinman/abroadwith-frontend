@@ -3,7 +3,7 @@
 <h1>{{translations.about.title}}</h1>
 
 <div class='row'>
-  <div class='col s12 m10 offset-m1 l10 offset-l1 left-align manage-home-section'>
+  <div class='col s12 m10 offset-m1 l10 offset-l1 left-align'>
     <p class='large'>
       {{translations.about.introduction_paragraph_1}}
     </p>
@@ -13,7 +13,9 @@
   </div>
 </div>
 
-<div class='row'>
+<div class='divider'></div>
+
+<div class='row section'>
   <div class='col s12 m10 offset-m1 l10 offset-l1 left-align'>
     <h4>{{translations.about.our_product}}</h4>
     <p class='large'>
@@ -22,23 +24,35 @@
   </div>
 </div>
 
-<div class='row'>
+<div class='divider'></div>
+
+<div class='row section'>
   <div class='col s12 m10 offset-m1 l10 offset-l1 left-align'>
     <h5>{{translations.about.we_offer_immersions}}</h5>
-    <p>
-      • {{translations.about.stay_description}}
-    </p>
-    <p>
-      • {{translations.about.tandem_description}}
-    </p>
-    <p>
-      • {{translations.about.teacher_description}}
-    </p>
+    <div>
+      <div class='col s12 m12 l4'>
+        <p>
+          <span class='large'>{{translations.common.Stay}}:</span> {{translations.about.stay_description}}
+        </p>
+      </div>
+      <div class='col s12 m12 l4'>
+        <p>
+          <span class='large'>{{translations.common.Tandem}}:</span> {{translations.about.tandem_description}}
+        </p>
+      </div>
+      <div class='col s12 m12 l4'>
+        <p>
+          <span class='large'>{{translations.common.Teachers_stay}}:</span> {{translations.about.teacher_description}}
+        </p>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class='row'>
-  <div class='col s12 m10 offset-m1 l10 offset-l1 left-align large'>
+<div class='divider'></div>
+
+<div class='row section left-align'>
+  <div class='col s12 m10 offset-m1 l10 offset-l1 large'>
     Learn more about <a href='/host'>how to become an Immersion host</a> or get ready to <a href='/popular-languages'>learn a language abroad.</a>
   </div>
 </div>
