@@ -3,7 +3,6 @@ var React = require('react');
 var JWT = require('JWT');
 var GET = require('GET');
 
-var jwt_decode = require('jwt-decode');
 var domains = require('domains');
 
 var currencies = require('currencies');
