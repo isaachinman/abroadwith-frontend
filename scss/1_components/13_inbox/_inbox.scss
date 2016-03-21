@@ -58,7 +58,7 @@ ul.message-list {
   overflow: hidden;
   overflow-y: scroll;
   @media #{$medium-and-up} {
-    width: calc(100vw - 260px);
+    width: calc(100vw - 240px);
   }
   padding: 20px 20px 0 20px;
   .msg {
