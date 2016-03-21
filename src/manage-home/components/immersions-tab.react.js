@@ -4,7 +4,7 @@ var i18n = require('../../global/components/i18n');
 var LanguageDropdown = require('./language-dropdown.react');
 var toast = require('toast');
 
-i18n.loadNamespaces(['languages','manage_home']);
+i18n.loadNamespaces(['languages','manage_home', 'immersions']);
 
 module.exports = React.createClass({
   saveImmersions: function() {
@@ -24,7 +24,7 @@ module.exports = React.createClass({
         newImmersionsObj.stay.languagesOffered = $('#stay-languages-offered').val();
 
       } else {
-        newImmersionsObj.stay.isActive = false;
+        newImmersionsObj.stay === null ? newImmersionsObj.stay = null : newImmersionsObj.stay.isActive = false;
       }
 
       if ($('#tandem-switch').is(':checked')) {
@@ -46,7 +46,7 @@ module.exports = React.createClass({
         })
 
       } else {
-        newImmersionsObj.tandem.isActive = false;
+        newImmersionsObj.tandem === null ? newImmersionsObj.tandem = null : newImmersionsObj.tandem.isActive = false;
       }
 
       if ($('#teacher-switch').is(':checked')) {
@@ -59,7 +59,7 @@ module.exports = React.createClass({
         newImmersionsObj.teacher.languagesOffered = $('#teacher-languages-offered').val();
 
       } else {
-        newImmersionsObj.teacher.isActive = false;
+        newImmersionsObj.teacher === null ? newImmersionsObj.teacher = null : newImmersionsObj.teacher.isActive = false;
       }
 
       // Modify home object, using new immersions object
@@ -85,16 +85,54 @@ module.exports = React.createClass({
       $('a#save-immersions').hasClass('disabled') ? null : $('a#save-immersions').addClass('disabled');
     }
   },
+  validateStay: function() {
+    if ($('#stay-hours').val() !== null && $('#stay-languages-offered').val() !== null) {
+      $('#stay-switch').attr('disabled', false);
+    } else {
+      $('#stay-switch').attr('disabled', true);
+    }
+  },
+  validateTandem: function() {
+    if ($('#tandem-hours').val() !== null && $('#tandem-languages-offered').val() !== null && $('#tandem-language-interested-chips').find('.language-chip').length > 0) {
+      $('#tandem-switch').attr('disabled', false);
+    } else {
+      $('#tandem-switch').attr('disabled', true);
+    }
+  },
+  validateTeacher: function() {
+    if ($('#packages').val() !== null && $('#teacher-rate').val() !== null && $('#teacher-rate').val() !== '' && $('#teacher-languages-offered').val() !== null) {
+      $('#teacher-switch').attr('disabled', false);
+    } else {
+      $('#teacher-switch').attr('disabled', true);
+    }
+  },
   componentDidUpdate: function() {
     this.validateImmersionSaveButton();
-  },
-  componentWillUnmount: function() {
-    $('.immersion-switch').off();
+    $('#teacher-rate').keyup(function() {
+      this.validateTeacher();
+    }.bind(this));
   },
   componentDidMount: function() {
 
+    // Validate save button
     $('.immersion-switch').change(this.validateImmersionSaveButton);
     this.validateImmersionSaveButton();
+
+    // Validate stay immersion
+    $('#stay-hours').change(this.validateStay);
+    $('#stay-languages-offered').change(this.validateStay);
+
+    // Validate tandem immersion
+    var validateTandem = this.validateTandem;
+    $('#tandem-hours').change(validateTandem);
+    $('#tandem-languages-offered').change(validateTandem);
+    $('#tandem-language-interested-chips').bind('DOMSubtreeModified', function() {
+      validateTandem();
+    })
+
+    // Validate teacher immersion
+    $('#packages').change(this.validateTeacher);
+    $('#teacher-languages-offered').change(this.validateTeacher);
 
     $('a#save-immersions').click(this.saveImmersions);
 
@@ -134,28 +172,27 @@ module.exports = React.createClass({
       if (this.props.immersions.tandem) {
         $('#tandem-discount').val(this.props.immersions.tandem.languagesInterested[0].discount + '%')
       }
-
       // Populate stay offered dropdown
       var stayLanguagesOffered = $('#stay-languages-offered');
-      stayLanguagesOffered.html('');
+      stayLanguagesOffered.html('<option value="" disabled>'+i18n.t('immersions:languages_offered_placeholder')+'</option>');
       for (var i=0; i<this.props.stayAvailableLanguages.length; i++) {
         stayLanguagesOffered.append("<option value='"+this.props.stayAvailableLanguages[i]+"'>"+i18n.t('languages:'+this.props.stayAvailableLanguages[i])+"</option>")
       }
       // Populate tandem offered dropdown
       var tandemLanguagesOffered = $('#tandem-languages-offered');
-      tandemLanguagesOffered.html('');
+      tandemLanguagesOffered.html('<option value="" disabled>'+i18n.t('immersions:languages_offered_placeholder')+'</option>');
       for (var i=0; i<this.props.tandemAvailableLanguages.length; i++) {
         tandemLanguagesOffered.append("<option value='"+this.props.tandemAvailableLanguages[i]+"'>"+i18n.t('languages:'+this.props.tandemAvailableLanguages[i])+"</option>")
       }
       // Populate tandem learning dropdown
       var tandemLanguagesInterested = $('#tandem-language-sought');
-      tandemLanguagesInterested.html('');
+      tandemLanguagesInterested.html('<option value="" disabled>'+i18n.t('immersions:languages_offered_placeholder')+'</option>');
       for (var i=0; i<this.props.tandemAvailableLearnLanguages.length; i++) {
         tandemLanguagesInterested.append("<option value='"+this.props.tandemAvailableLearnLanguages[i]+"'>"+i18n.t('languages:'+this.props.tandemAvailableLearnLanguages[i])+"</option>")
       }
       // Populate teacher offered dropdown
       var teacherLanguagesOffered = $('#teacher-languages-offered');
-      teacherLanguagesOffered.html('');
+      teacherLanguagesOffered.html('<option value="" disabled>'+i18n.t('immersions:languages_offered_placeholder')+'</option>');
       for (var i=0; i<this.props.teacherAvailableLanguages.length; i++) {
         teacherLanguagesOffered.append("<option value='"+this.props.teacherAvailableLanguages[i]+"'>"+i18n.t('languages:'+this.props.teacherAvailableLanguages[i])+"</option>")
       }

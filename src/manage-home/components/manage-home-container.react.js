@@ -100,6 +100,8 @@ module.exports = React.createClass({
   },
   refreshState: function() {
 
+    $('input').off();
+
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
 

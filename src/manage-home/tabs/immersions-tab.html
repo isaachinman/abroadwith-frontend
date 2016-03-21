@@ -14,7 +14,7 @@
         <div class="switch switch-absolute">
           <label>
             {{ translations.common.words.No }}
-            <input id='stay-switch' type="checkbox" class='immersion-switch' />
+            <input id='stay-switch' type="checkbox" class='immersion-switch' disabled />
             <span class="lever"></span>
             {{ translations.common.words.Yes }}
           </label>
@@ -52,9 +52,7 @@
               <i class="fa fa-language fa-2x"></i>
             </div>
             <div class='col s10 m6 l6 input-field'>
-              <select id='stay-languages-offered' class='material' multiple>
-                <option value="" disabled>{{ translations.immersions.languages_offered_placeholder }}</option>
-              </select>
+              <select id='stay-languages-offered' class='material' multiple></select>
               <label>{{ translations.immersions.languages_offered_label }}</label>
             </div>
 
@@ -69,7 +67,7 @@
         <div class="switch switch-absolute">
           <label>
             {{ translations.common.words.No }}
-            <input id='tandem-switch' type="checkbox" class='immersion-switch' />
+            <input id='tandem-switch' type="checkbox" disabled class='immersion-switch' />
             <span class="lever"></span>
             {{ translations.common.words.Yes }}
           </label>
@@ -148,7 +146,7 @@
         <div class="switch switch-absolute">
           <label>
             {{ translations.common.words.No }}
-            <input id='teacher-switch' type="checkbox" class='immersion-switch' />
+            <input id='teacher-switch' type="checkbox" disabled class='immersion-switch' />
             <span class="lever"></span>
             {{ translations.common.words.Yes }}
           </label>
