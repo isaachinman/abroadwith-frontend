@@ -3,6 +3,7 @@
 require('jquery');
 var select2 = require('select2-browserify');
 
+// Main materialize script
 require('materialize');
 
 // Globals

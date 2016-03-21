@@ -1,11 +1,13 @@
 var React = require('react');
+var Thread = require('./thread.react');
+var NoMessages = require('./no-messages.react');
+
+var i18n = require('../../global/components/i18n');
+i18n.loadNamespaces(['inbox']);
 
 var domains = require('domains');
 var JWT = require('JWT');
 var GET = require('GET');
-
-var Thread = require('./thread.react');
-var NoMessages = require('./no-messages.react');
 
 module.exports = React.createClass({
   componentDidMount: function() {
@@ -51,9 +53,11 @@ module.exports = React.createClass({
         }
 
       } else {
+        messageHTML.push(<li><a className='grey-text'>{i18n.t('inbox:no_messages')}</a></li>)
+        threadHTML.push(<NoMessages />)
         var newState = {
-          messageList: [<li></li>],
-          threads: [<Thread />]
+          messageList: messageHTML,
+          threads: threadHTML
         }
       }
 
