@@ -51,55 +51,49 @@ module.exports = React.createClass({
 
     $('#preloader').show();
 
-    var updateAdmin = this.props.updateAdmin;
-
     var verifyPhoneObj = {
       secret: this.state.phoneSecret,
       key: this.props.phoneNumber,
       shortCode: parseInt($('#sms-verification-code').val())
     }
 
-    console.log(verifyPhoneObj)
-
     var url = domains.API + '/users/' + JWT.rid + '/verification/phone';
     var success = function(response) {
 
       console.log(response);
 
-      updateAdmin();
+      this.props.updateAdmin();
 
       $('#verification-phone .collapsible-body').remove();
 
       $('#preloader').hide();
       toast('Phone verified', 4000);
 
-    }
+    }.bind(this)
     POST(url, verifyPhoneObj, success);
 
   },
   componentDidUpdate: function() {
 
+    // Request email verification
+    $('a#request-verification-email').click(function() {
+      requestVerificationEmail()
+    }.bind(this));
+
+    // Request SMS verification
     if (this.props.phoneNumber !== null) {
-      $('a#request-verification-sms').removeClass('disabled')
+      $('a#request-verification-sms').removeClass('disabled');
+      $('#please-add-a-phone').hide();
       $('a#verify-phone').click(function() {
-        verifyPhone();
+        this.verifyPhone();
       }.bind(this))
       $('a#request-verification-sms').click(function() {
-        requestVerificationSMS()
+        this.requestVerificationSMS()
       }.bind(this));
     } else {
       $('a#request-verification-sms').addClass('disabled');
       $('#please-add-a-phone').show();
     }
-
-  },
-  componentDidMount: function() {
-
-    var requestVerificationEmail = this.requestVerificationEmail;
-    $('a#request-verification-email').click(function() {
-      requestVerificationEmail()
-    });
-
 
   },
   render: function() {
