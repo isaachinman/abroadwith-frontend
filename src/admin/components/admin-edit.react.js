@@ -7,12 +7,11 @@ var Verifications = require('./admin-verifications.react');
 
 var toast = require('toast');
 
+var domains = require('domains');
 var JWT = require('JWT');
 var GET = require('GET');
 var POST = require('POST');
 var DELETE = require('DELETE');
-
-var domains = require('domains');
 
 module.exports = React.createClass({
   updateAdmin: function(callback) {
