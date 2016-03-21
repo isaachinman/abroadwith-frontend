@@ -5,8 +5,8 @@ var toast = require('toast')
 module.exports = React.createClass({
   saveNotifications: function() {
 
-    adminObj.notifications.email.promotion = $('#email-reminders').prop('checked');
-    adminObj.notifications.email.reminders = $('#email-promotions').prop('checked');
+    adminObj.notifications.email.reminders = $('#email-reminders').prop('checked');
+    adminObj.notifications.email.promotion = $('#email-promotions').prop('checked');
     adminObj.notifications.sms.all         = $('#sms-notifications').prop('checked');
 
     console.log(adminObj)

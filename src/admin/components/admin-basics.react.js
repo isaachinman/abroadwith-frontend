@@ -8,7 +8,7 @@ module.exports = React.createClass({
     adminObj.lastName = $('#lastName').val();
     adminObj.gender = $('#gender').val();
     adminObj.birthDate = $('#birthDate').val();
-    adminObj.location = $('#location').val();
+    adminObj.location = $('#user-address').val();
     $('#phoneNumber').intlTelInput('isValidNumber') ? adminObj.phoneNumber = $('#phoneNumber').val() : null;
     adminObj.email = $('#user-email').val();
     adminObj.emergencyContact ? null : adminObj.emergencyContact = {};
@@ -47,7 +47,7 @@ module.exports = React.createClass({
     $('#lastName').val(this.props.lastName);
     $('#gender').val(this.props.gender);
     $('#birthDate').val(this.props.birthDate);
-    $('#location').val(this.props.location);
+    $('#user-address').val(this.props.location);
     $('#phoneNumber').val(this.props.phoneNumber);
     $('#user-email').val(this.props.email);
     $('#emergency-name').val(this.props.emergencyName);
