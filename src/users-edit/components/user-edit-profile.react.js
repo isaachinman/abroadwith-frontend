@@ -42,7 +42,7 @@ module.exports = React.createClass({
 
       console.log(response)
 
-      $('#user-photo').attr('src', domains.IMG + response.photo);
+      response.photo !== null ? $('#user-photo').attr('src', domains.IMG + response.photo) : null;
       $('#about-me').val(response.aboutMe);
       $('#education').val(response.education);
       $('#grew-up').val(response.grewUp);
