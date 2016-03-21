@@ -58,6 +58,9 @@ i.circle {
 }
 .text-shadow {
   text-shadow: 2px 2px 2px rgba(50,50,50,.35);
+  &--heavy {
+    text-shadow: 4px 3px 6px rgba(0,0,0,1);
+  }
 }
 .no-shadow {
   box-shadow: none;
