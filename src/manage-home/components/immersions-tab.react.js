@@ -101,12 +101,14 @@ module.exports = React.createClass({
     $('#teacher-rate').keyup(function() {
       this.validateTeacher();
     }.bind(this));
-    $('#tandem-language-interested-chips').bind('DOMSubtreeModified', function() {
+    $('#add-tandem-language').click(function() {
+      this.validateTandem()
+    }.bind(this));
+    $('.chip').click(function() {
       this.validateTandem();
-    }.bind(this))
+    }.bind(this));
   },
   componentDidMount: function() {
-
     // Validate stay immersion
     $('#stay-hours').change(this.validateStay);
     $('#stay-languages-offered').change(this.validateStay);
