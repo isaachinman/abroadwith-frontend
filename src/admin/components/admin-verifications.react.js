@@ -77,22 +77,28 @@ module.exports = React.createClass({
     POST(url, verifyPhoneObj, success);
 
   },
+  componentDidUpdate: function() {
+
+    if (this.props.phoneNumber !== null) {
+      $('a#request-verification-sms').removeClass('disabled')
+      $('a#verify-phone').click(function() {
+        verifyPhone();
+      }.bind(this))
+      $('a#request-verification-sms').click(function() {
+        requestVerificationSMS()
+      }.bind(this));
+    } else {
+      $('a#request-verification-sms').addClass('disabled');
+      $('#please-add-a-phone').show();
+    }
+
+  },
   componentDidMount: function() {
 
     var requestVerificationEmail = this.requestVerificationEmail;
     $('a#request-verification-email').click(function() {
       requestVerificationEmail()
     });
-
-    var requestVerificationSMS = this.requestVerificationSMS;
-    $('a#request-verification-sms').click(function() {
-      requestVerificationSMS()
-    });
-
-    var verifyPhone = this.verifyPhone;
-    $('a#verify-phone').click(function() {
-      verifyPhone();
-    })
 
 
   },
