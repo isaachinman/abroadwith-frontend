@@ -4,7 +4,7 @@ var domains = require('domains');
 var JWT = require('JWT');
 var POST = require('POST');
 
-var i18n = require('../../global/components/i18n');
+var i18n = require('../../global/util/i18n');
 
 module.exports = React.createClass({
   cancelTrip: function() {

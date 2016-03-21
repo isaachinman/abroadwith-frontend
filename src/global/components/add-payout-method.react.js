@@ -7,7 +7,7 @@ var POST = require('POST');
 var defaultBankCurrencies = require('default-bank-currencies');
 var defaultPaypalCurrencies = require('default-paypal-currencies');
 
-var i18n = require('../../global/components/i18n');
+var i18n = require('../../global/util/i18n');
 
 module.exports = React.createClass({
   addBankPayout: function() {

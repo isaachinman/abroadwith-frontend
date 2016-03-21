@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var i18n = require('../../global/components/i18n');
+var i18n = require('../../global/util/i18n');
 
 var toast = require('toast');
 

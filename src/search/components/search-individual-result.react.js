@@ -3,7 +3,7 @@ var React = require('react');
 var domains = require('domains');
 var currencies = require('currencies');
 
-var i18n = require('../../global/components/i18n');
+var i18n = require('../../global/util/i18n');
 
 module.exports = React.createClass({
   mapHover: function(id) {

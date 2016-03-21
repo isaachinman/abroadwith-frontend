@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var RoomModule = require('./room-module.react');
-var i18n = require('../../global/components/i18n');
+var i18n = require('../../global/util/i18n');
 
 var domains = require('domains');
 var JWT = require('JWT');

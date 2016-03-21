@@ -9,7 +9,7 @@ var Results =         require('./search-results.react');
 var Pagination =      require('./search-pagination.react');
 var Map =             require('./search-map.react');
 
-var i18n = require('../../global/components/i18n');
+var i18n = require('../../global/util/i18n');
 
 module.exports = React.createClass({
   handleChange: function() {
