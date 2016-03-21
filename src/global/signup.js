@@ -222,8 +222,15 @@ if ($('form#email-signup-form').length) {
 
       }
 
-      $('#choose-languages-modal').closeModal();
-      $('#sign-up-modal').openModal();
+      if ($('#choose-languages-modal').length) {
+        $('#choose-languages-modal').closeModal();
+        $('#sign-up-modal').openModal();
+      }
+
+      if ($('#apply-languages-signup-page').length) {
+        $('#choose-languages').hide();
+        $('#sign-up').show();
+      }
 
     } else {
       if ($('#languages-not-valid').hasClass('hide')) {
@@ -239,8 +246,6 @@ if ($('form#email-signup-form').length) {
   if ($('#apply-languages-signup-page').length) {
     $('#apply-languages-signup-page').click(function() {
       applyLanguages();
-      $('#choose-languages').hide();
-      $('#sign-up').show();
     })
   }
 
