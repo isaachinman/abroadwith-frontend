@@ -73,7 +73,7 @@ module.exports = React.createClass({
     POST(url, verifyPhoneObj, success);
 
   },
-  componentDidUpdate: function() {
+  componentDidMount: function() {
 
     // Request email verification
     $('a#request-verification-email').click(function() {
@@ -95,6 +95,11 @@ module.exports = React.createClass({
       $('#please-add-a-phone').show();
     }
 
+  },
+  componentWillUnmount: function() {
+    $('#verifications a').each(function() {
+      $(this).off();
+    });
   },
   render: function() {
     return (
