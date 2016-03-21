@@ -8,7 +8,6 @@ var defaultBankCurrencies = require('default-bank-currencies');
 var defaultPaypalCurrencies = require('default-paypal-currencies');
 
 var i18n = require('../../global/components/i18n');
-i18n.loadNamespaces(['countries']);
 
 module.exports = React.createClass({
   addBankPayout: function() {

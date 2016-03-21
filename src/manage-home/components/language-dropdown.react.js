@@ -1,7 +1,6 @@
 var React = require('react');
 var i18n = require('../../global/components/i18n');
 var room = require('../../global/constants/Room');
-i18n.loadNamespaces(['languages','manage_home']);
 
 
 module.exports = React.createClass({

@@ -9,8 +9,6 @@ var POST = require('POST');
 
 var toast = require('toast');
 
-i18n.loadNamespaces('manage_home');
-
 module.exports = React.createClass({
   addRoom: function() {
 

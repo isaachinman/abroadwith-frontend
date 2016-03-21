@@ -8,8 +8,6 @@ var domains = require('domains');
 var JWT = require('JWT');
 var DELETE = require('DELETE');
 
-i18n.loadNamespaces('manage_home');
-
 module.exports = React.createClass({
   deletePhoto: function() {
 

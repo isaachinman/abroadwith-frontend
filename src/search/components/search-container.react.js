@@ -10,7 +10,6 @@ var Pagination =      require('./search-pagination.react');
 var Map =             require('./search-map.react');
 
 var i18n = require('../../global/components/i18n');
-i18n.loadNamespaces(['languages']);
 
 module.exports = React.createClass({
   handleChange: function() {

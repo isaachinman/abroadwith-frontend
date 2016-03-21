@@ -5,8 +5,6 @@ var processLanguageChips = require('process-language-chips');
 
 var toast = require('toast');
 
-i18n.loadNamespaces(['languages', 'common']);
-
 module.exports = React.createClass({
   saveLanguages: function() {
 

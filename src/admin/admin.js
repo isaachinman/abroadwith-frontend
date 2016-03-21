@@ -4,9 +4,8 @@ var ReactDOM = require('react-dom');
 var AdminEdit = require('./components/admin-edit.react');
 var i18n = require('../global/util/i18n');
 
-
 if ($('#admin-edit').length) {
-  i18n.loadNamespaces(['admin','users'],function(){
+  i18n.loadNamespaces(['admin','users','languages', 'common','countries'],function(){
     // Admin parent
     ReactDOM.render(
       <AdminEdit />, document.querySelector('#admin-edit')

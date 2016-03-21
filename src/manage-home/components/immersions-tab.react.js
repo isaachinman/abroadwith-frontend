@@ -4,7 +4,6 @@ var i18n = require('../../global/components/i18n');
 var LanguageDropdown = require('./language-dropdown.react');
 var toast = require('toast');
 
-i18n.loadNamespaces(['languages','manage_home', 'immersions']);
 
 module.exports = React.createClass({
   saveImmersions: function() {

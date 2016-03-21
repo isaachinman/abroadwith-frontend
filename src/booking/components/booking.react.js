@@ -18,7 +18,6 @@ $('.scrollspy').scrollSpy();
 var currencies = require('currencies');
 
 var i18n = require('../../global/components/i18n');
-i18n.loadNamespaces(['homes', 'immersions', 'languages']);
 
 module.exports = React.createClass({
   createBookingObject: function() {

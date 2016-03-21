@@ -8,7 +8,6 @@ var domains = require('domains');
 var currencies = require('currencies');
 
 var i18n = require('../../global/components/i18n');
-i18n.loadNamespaces(['countries']);
 
 // Component export
 module.exports = React.createClass({

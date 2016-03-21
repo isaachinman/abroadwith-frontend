@@ -5,7 +5,6 @@ var JWT = require('JWT');
 var POST = require('POST');
 
 var i18n = require('../../global/components/i18n');
-i18n.loadNamespaces(['trips', 'common', 'countries', 'homes', 'languages']);
 
 var currencies = require('currencies')
 

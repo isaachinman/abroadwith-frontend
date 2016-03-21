@@ -15,7 +15,6 @@ var GET = require('GET');
 var POST = require('POST');
 
 var i18n = require('../../global/components/i18n');
-i18n.loadNamespaces(['manage_home','homes']);
 
 module.exports = React.createClass({
   updateHome: function(callback){
