@@ -140,4 +140,11 @@
     background-size: cover;
     background-attachment: scroll;
   }
+  &--about {
+    height: 400px;
+    background: url(https://img.abroadwith.com/app/hero/hero_about.jpg);
+    background-size: cover;
+    background-attachment: scroll;
+    margin: 0;
+  }
 }

@@ -11,9 +11,11 @@ module.exports = React.createClass({
 
     console.log(adminObj)
 
-    this.props.updateAdmin(function() {
-      toast('Notifications updated');
-    });
+    this.props.updateAdmin(notificationToast());
+
+    function notificationToast() {
+      toast('Notifications updated')
+    }
 
   },
   componentDidMount: function() {

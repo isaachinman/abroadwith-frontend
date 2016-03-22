@@ -21,69 +21,74 @@ module.exports = React.createClass({
 
       var clientToken = response;
 
-      $.getScript('https://js.braintreegateway.com/v2/braintree.js', function() {
+      if (window.braintreeRan !== true) {
 
-        console.log('braintree ran')
+        $.getScript('https://js.braintreegateway.com/v2/braintree.js', function() {
 
-        // Setup braintree form
-        braintree.setup(clientToken, 'custom', {
-          id: 'add-payment-form',
-          hostedFields: {
-            number: {
-              selector: "#card-number",
-              placeholder: 'Card number'
-            },
-            cvv: {
-              selector: "#cvv",
-              placeholder: 'CVV'
-            },
-            expirationDate: {
-              selector: "#expiration-date",
-              placeholder: 'Expiry'
-            },
-            styles: {
-              "input": {
-                "font-size":"1rem",
-                "color":"#3A3A3A",
-                "font-family":"Open Sans, sans serif"
+          window.braintreeRan = true;
+
+          console.log('braintree ran')
+
+          // Setup braintree form
+          braintree.setup(clientToken, 'custom', {
+            id: 'add-payment-form',
+            hostedFields: {
+              number: {
+                selector: "#card-number",
+                placeholder: 'Card number'
+              },
+              cvv: {
+                selector: "#cvv",
+                placeholder: 'CVV'
+              },
+              expirationDate: {
+                selector: "#expiration-date",
+                placeholder: 'Expiry'
+              },
+              styles: {
+                "input": {
+                  "font-size":"1rem",
+                  "color":"#3A3A3A",
+                  "font-family":"Open Sans, sans serif"
+                }
               }
+            },
+            paypal: {
+              container: 'paypal-container',
+              singleUse: false
+            },
+            dataCollector: {
+              paypal: true
+            },
+            onPaymentMethodReceived: function (obj) {
+              sendPaymentNonce(obj.nonce, function() {
+                callback();
+                $('#add-payment-method').remove();
+              });
+            },
+            onReady: function(integration) {
+
+              window.braintreeIntegration = integration;
+
+              $('#add-payment-form ul.collapsible').collapsible();
+              $('#braintree-preloader').hide();
+
+              $("#paypal-container").bind("DOMSubtreeModified", function() {
+                $('#add-new-paypal').removeClass('hide');
+              });
+
             }
-          },
-          paypal: {
-            container: 'paypal-container',
-            singleUse: false
-          },
-          dataCollector: {
-            paypal: true
-          },
-          onPaymentMethodReceived: function (obj) {
-            sendPaymentNonce(obj.nonce, function() {
-              callback();
-              $('#add-payment-method').remove();
-            });
-          },
-          onReady: function(integration) {
+          })
 
-            window.braintreeIntegration = integration;
-
-            $('#add-payment-form ul.collapsible').collapsible();
-            $('#braintree-preloader').hide();
-
-            $("#paypal-container").bind("DOMSubtreeModified", function() {
-              $('#add-new-paypal').removeClass('hide');
-            });
-
-          }
         })
-
-      })
+      }
 
     };
     GET(url, success)
 
   },
   componentWillUnmount: function() {
-    braintreeIntegration.teardown();
+    typeof braintreeIntegration !== 'undefined' ? braintreeIntegration.teardown() : null;
   },
   render: function() {
 

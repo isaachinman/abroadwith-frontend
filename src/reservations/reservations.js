@@ -5,7 +5,7 @@ var ReservationsContainer = require('./components/reservations-container.react')
 var i18n = require('../global/util/i18n');
 
 if ($('#reservations-container').length) {
-  i18n.loadNamespaces(['trips', 'common', 'countries', 'homes', 'languages'],function(){
+  i18n.loadNamespaces(['trips', 'common', 'countries', 'homes', 'languages', 'immersions'],function(){
     // Reservations parent
     ReactDOM.render(
       <ReservationsContainer />, document.querySelector('#reservations-container')

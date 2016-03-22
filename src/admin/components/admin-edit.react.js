@@ -25,6 +25,7 @@ module.exports = React.createClass({
       delete adminObj.paymentMethods;
       delete adminObj.payoutMethods;
       delete adminObj.verifications;
+      delete adminObj.email;
 
       console.log(adminObj)
 

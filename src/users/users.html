@@ -4,12 +4,16 @@
   <div class='container row left-align'>
 
     <div class='user-image'>
-      <img src='{{ constants.domains.IMG }}{{user.photo}}'>
+      {% if user.photo %}
+        <img src='{{ constants.domains.IMG }}{{user.photo}}'>
+      {% else %}
+        <img src='{{ constants.domains.IMG }}/users/default.jpg'>
+      {% endif %}
     </div>
 
     <div class='info'>
       <div class='col s12 center-on-small'>
-        <h1>{{user.firstName}} {{user.home.id}}</h1>
+        <h1>{{user.firstName}}</h1>
 
         {% if user.ratingCount %}
           <span class='rating'>
@@ -27,7 +31,7 @@
       <div class='col s10 quick-facts'>
 
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{user.age}}{% if user.gender %}, {{translations.common[user.gender]}}{% endif %}
+          <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{user.age}}{% if user.gender %}, {{translations.users.genders[user.gender]}}{% endif %}
         </p>
         <p class='home-details'>
           <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>{{translations.common.Joined}} {{translations.months.short[user.joinedMonth]}} {{user.joinedYear}}
@@ -65,10 +69,12 @@
 
       </div>
 
-      <div class='col s12 margin-top-20'>
-        <a class='modal-trigger' href='#send-message-modal'>Send message</a>
-        {% include "../partials/modals/3_message/send-message-modal.html" %}
-      </div>
+      {% if user.host %}
+        <div class='col s12 margin-top-20'>
+          <a class='modal-trigger' href='#send-message-modal'>Send message</a>
+          {% include "../partials/modals/3_message/send-message-modal.html" %}
+        </div>
+      {% endif %}
 
     </div>
 
@@ -368,7 +374,7 @@
               <div class='divider'></div>
             </div>
             <div class='col s12 bottom center-align'>
-              <a class='btn btn-secondary '>{{translations.common.View_home}}</a>
+              <a class='btn btn-secondary' href='/homes/{{user.home.id}}'>{{translations.common.View_home}}</a>
             </div>
           </div>
 
@@ -463,7 +469,7 @@
 
             </div>
             <div class='col s4 right-align bottom'>
-              <a class='btn btn-primary' href="/homes/94/booking?arrival=2016-04-01&departure=2016-04-08&room_id=207">{{translations.common.Book_now}}</a>
+              <a class='btn btn-primary btn-book' href="/homes/94/booking?arrival=2016-04-01&departure=2016-04-08&room_id=207">{{translations.common.Book_now}}</a>
             </div>
           </div>
 

@@ -2,9 +2,7 @@ var React = require('react');
 var toast = require('toast');
 
 var domains = require('domains');
-var jwt_decode = require('jwt-decode');
-
-var refreshToken = require('refresh-token');
+var JWT = require('JWT');
 
 module.exports = React.createClass({
   saveBasics: function() {
@@ -28,7 +26,6 @@ module.exports = React.createClass({
 
     $('a#delete-home').click(function() {
 
-      var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
       $.ajax({
         url: domains.API + '/users/' + JWT.rid + '/homes/' + JWT.hid,
         type: 'DELETE',
@@ -39,11 +36,9 @@ module.exports = React.createClass({
 
           console.log(result)
 
-          refreshToken(goToHome);
-
-          function goToHome() {
+          refreshToken(function() {
             window.location = '/'
-          }
+          });
 
         }
       });

@@ -1,11 +1,9 @@
 var React = require('react');
 var ReservationsList = require('./reservations-list.react')
 
+var domains = require('domains');
 var GET = require('GET');
 var JWT = require('JWT');
-
-var jwt_decode = require('jwt-decode');
-var domains = require('domains');
 
 // Component export
 module.exports = React.createClass({

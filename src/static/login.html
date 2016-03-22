@@ -1,7 +1,12 @@
 {% extends "layout.html" %} {% block title %} {{ translations.login.title }} {% endblock %} {% block content %}
 
+<script>
+  var loginModal = document.getElementById('login-modal');
+  loginModal.innerHTML = '';
+</script>
+
 <div class='row margin-top-50'>
-  <div class='col s12 m8 offset-m2 l8 offset-l2'>
+  <div class='col s12 m8 offset-m2 l6 offset-l3'>
     <ul class="collapsible no-shadow" data-collapsible="accordion">
       <li>
         <div class="collapsible-header active email-header hide-on-small-and-down">Log in with email</div>
@@ -62,10 +67,10 @@
         height: 100% !important;
       }
     </style>
-    <a class='btn btn-signup btn-signup--google relative'>
-        Log in with Google
-        <div class='g-signin2' data-onsuccess="onSignIn"></div>
-      </a>
+    <a id='google-login' class='btn btn-signup btn-signup--google relative'>
+      Log in with Google
+      <div class="g-signin2" data-onsuccess="googleLogin"></div>
+    </a>
   </div>
 </div>
 

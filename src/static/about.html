@@ -1,8 +1,11 @@
 {% extends "layout.html" %} {% block title %} {{ translations.about.title }} {% endblock %} {% block content %}
 
-<h1 class='margin-bottom-50'>{{translations.about.title}}</h1>
-
-<div class='divider'></div>
+<div class='row hero hero--about card'>
+  <div class='col s12 title'>
+    <h1>{{translations.about.title}}</h1>
+    <h5>A one stop platform for language and cultural exchange</h5>
+  </div>
+</div>
 
 <div class='row padding-top-50 padding-bottom-50 no-margin secondary-bg'>
   <div class='col s12 m10 offset-m1 l10 offset-l1 left-align large'>
@@ -23,10 +26,10 @@
 
 <div class='row margin-top-50 margin-bottom-50'>
   <div class='col s12 m10 offset-m1 l10 offset-l1'>
-    <h5 class='margin-bottom-20'>{{translations.about.we_offer_immersions}}</h5>
+    <h5 class='margin-bottom-50'>{{translations.about.we_offer_immersions}}</h5>
     <div class='margin-top-20'>
       <div class='col s12 m12 l4'>
-        <div class='card section no-padding-top'>
+        <div class='card section no-padding-top card-height--300'>
           <div class='card-content'>
             <span class='card-title grey-text'><strong>{{translations.common.Stay}}:</strong></span>
             <p>
@@ -36,7 +39,7 @@
         </div>
       </div>
       <div class='col s12 m12 l4'>
-        <div class='card section no-padding-top'>
+        <div class='card section no-padding-top card-height--300'>
           <div class='card-content'>
             <span class='card-title grey-text'><strong>{{translations.common.Tandem}}:</strong></span>
             <p>
@@ -46,7 +49,7 @@
         </div>
       </div>
       <div class='col s12 m12 l4'>
-        <div class='card section no-padding-top'>
+        <div class='card section no-padding-top card-height--300'>
           <div class='card-content'>
             <span class='card-title grey-text'><strong>{{translations.common.Teachers_stay}}:</strong></span>
             <p>
