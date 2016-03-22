@@ -16,7 +16,7 @@ module.exports = React.createClass({
 
       var yourName = JWT.name;
       var yourId = JWT.rid;
-      var yourPhoto = JWT.img ? JWT.img : 'https://tracker.moodle.org/secure/attachment/30912/f3.png';
+      var yourPhoto = JWT.img ? domains.IMG + JWT.img : 'https://tracker.moodle.org/secure/attachment/30912/f3.png';
 
       var messageHTML = [];
       var threadHTML = [];
