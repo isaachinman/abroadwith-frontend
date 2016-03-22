@@ -6,6 +6,9 @@ var TripCancelled = require('./trip--cancelled.react');
 var NoTrips = require('./no-trips.react')
 
 module.exports = React.createClass({
+  componentDidMount: function() {
+    $('ul.trips').collapsible()
+  },
   render: function() {
 
     if (typeof this.props.trips !== 'undefined') {

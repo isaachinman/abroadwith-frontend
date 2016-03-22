@@ -12,7 +12,7 @@ module.exports = React.createClass({
 
     var whoCancelled = trip.status === 'CANCELLED_BY_HOST' ? i18n.t('trips:by_them') : i18n.t('trips:by_you');
 
-    var roomPhoto = domains.IMG + trip.roomPhoto;
+    var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : '';
 
     var invoices = [];
 

@@ -17,8 +17,8 @@ module.exports = React.createClass({
 
     var whoDeclined = reservation.status === 'DECLINED_BY_HOST' ? i18n.t('trips:by_you') : i18n.t('trips:by_them');
 
-    var roomPhoto = domains.IMG + reservation.roomPhoto;
-    var guestPhoto = domains.IMG + reservation.guestPhoto;
+    var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : '';
+    var guestPhoto = reservation.hostPhoto ? domains.IMG + reservation.hostPhoto : '';
 
     var homeLink = domains.FRONTEND + '/homes/' + reservation.homeId;
 

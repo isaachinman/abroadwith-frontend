@@ -23,8 +23,8 @@ module.exports = React.createClass({
 
     var trip = this.props.trip;
 
-    var roomPhoto = domains.IMG + trip.roomPhoto;
-    var hostPhoto = domains.IMG + trip.hostPhoto;
+    var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : '';
+    var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto : '';
     var homeLink = domains.FRONTEND + '/homes/' + trip.homeId;
 
     var guestWillTeach = trip.languageGuestWillTeach !== null ? i18n.t('languages:'+trip.languageGuestWillTeach) : i18n.t('trips:not_applicable');

@@ -6,6 +6,9 @@ var ReservationCancelled = require('./reservation--cancelled.react');
 var NoReservations = require('./no-reservations.react');
 
 module.exports = React.createClass({
+  componentDidMount: function() {
+    $('ul.trips').collapsible()
+  },
   render: function() {
 
     if (typeof this.props.reservations !== 'undefined') {
@@ -71,7 +74,6 @@ module.exports = React.createClass({
       }
 
     }
-
     return (
       <ul class="collapsible popout trips" data-collapsible="accordion">
 
