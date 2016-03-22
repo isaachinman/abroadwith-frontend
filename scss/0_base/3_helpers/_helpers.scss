@@ -235,3 +235,8 @@ table {
 .btn.disabled {
   pointer-events: none;
 }
+.card-height {
+  &--300 {
+    min-height: 300px;
+  }
+}
