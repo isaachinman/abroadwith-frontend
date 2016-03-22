@@ -6,7 +6,7 @@ var router = express.Router();
 var http = require('http');
 
 var solr = {
-  host: 'ec2-52-29-86-131.eu-central-1.compute.amazonaws.com',
+  host: 'ec2-52-58-71-36.eu-central-1.compute.amazonaws.com',
   port: 8983,
   path: '/solr/Search/select'
 };
