@@ -1,5 +1,7 @@
 .hero {
   color: white;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
   .title {
     @extend .text-shadow;
     margin: 80px 0 50px 0;
@@ -140,11 +142,19 @@
     background-size: cover;
     background-attachment: scroll;
   }
-  &--about {
+  &--fixed-height {
     height: 400px;
-    background: url(https://img.abroadwith.com/app/hero/hero_about.jpg);
-    background-size: cover;
+    background-size: cover !important;
     background-attachment: scroll;
     margin: 0;
+  }
+  &--about {
+    background: url(https://img.abroadwith.com/app/hero/hero_about.jpg);
+  }
+  &--host {
+    background: url(https://img.abroadwith.com/app/hero/hero_host.jpg);
+  }
+  &--why-abroadwith {
+    background: url(https://img.abroadwith.com/app/hero/hero_why_abroadwith.jpg);
   }
 }

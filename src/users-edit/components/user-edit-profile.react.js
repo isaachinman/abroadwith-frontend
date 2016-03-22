@@ -11,6 +11,7 @@ module.exports = React.createClass({
     delete userObj.paymentMethods;
     delete userObj.payoutMethods;
     delete userObj.verifications;
+    delete userObj.email;
 
     // Fill values
     $('#about-me').val() !== 'undefined'          ? userObj.aboutMe = $('#about-me').val() : null;

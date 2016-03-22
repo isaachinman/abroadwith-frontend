@@ -7,12 +7,10 @@ var i18n = require('../global/util/i18n');
 
 
 if ($('#search-container').length) {
-  i18n.loadNamespaces(['languages','common'],function(){
+  i18n.loadNamespaces(['languages','common', 'homes'],function(){
     // Search parent
     ReactDOM.render(
-      <SearchContainer
-      source='/search'
-      />, document.querySelector('#search-container')
+      <SearchContainer />, document.querySelector('#search-container')
     )
   });
 }

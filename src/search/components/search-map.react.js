@@ -44,98 +44,113 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
+
+
     window.initAutocomplete = function() {
 
-      $('#map-scripts').append("<script src='https://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.9/src/markerwithlabel_packed.js'></script>");
+      $.getScript('https://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.9/src/markerwithlabel_packed.js', function() {
 
-      window.defaultIcon = {
-        url: 'data:image/svg+xml;utf-8,' +
-        encodeURIComponent($('#default-icon').html())
-      }
-      window.hoverIcon = {
-        url: 'data:image/svg+xml;utf-8,' +
-        encodeURIComponent($('#hover-icon').html())
-      }
+        window.defaultIcon = {
+          url: 'data:image/svg+xml;utf-8,' +
+          encodeURIComponent($('#default-icon').html())
+        }
+        window.hoverIcon = {
+          url: 'data:image/svg+xml;utf-8,' +
+          encodeURIComponent($('#hover-icon').html())
+        }
 
-      window.bigMap = new google.maps.Map(document.getElementById('search-map'), {
-        center: {
-          lat: 20,
-          lng: 0
-        },
-        zoom: 2,
-        options: {
-          scrollwheel: false,
-          mapTypeControl: false,
-          streetViewControl: false
-        },
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: [
-          {
-            "featureType": "all",
-            "elementType": "all",
-            "stylers": [
-              {
-                "hue": "#909AA8"
-              }, {
-                "visibility": "simplified"
-              }, {
-                "lightness": "20"
-              }, {
-                "gamma": "1.5"
-              }
-            ]
+        window.bigMap = new google.maps.Map(document.getElementById('search-map'), {
+          center: {
+            lat: 20,
+            lng: 0
+          },
+          zoom: 2,
+          options: {
+            scrollwheel: false,
+            mapTypeControl: false,
+            streetViewControl: false
+          },
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          styles: [
+            {
+              "featureType": "all",
+              "elementType": "all",
+              "stylers": [
+                {
+                  "hue": "#909AA8"
+                }, {
+                  "visibility": "simplified"
+                }, {
+                  "lightness": "20"
+                }, {
+                  "gamma": "1.5"
+                }
+              ]
+            }
+          ]
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('location');
+        var searchBox = new google.maps.places.SearchBox(input);
+
+        $('#location').keydown(function(event) {
+
+          if (event.keyCode == 10 || event.keyCode == 13) {
+            event.preventDefault();
+            google.maps.event.trigger(searchBox, 'place_changed');
           }
-        ]
-      });
 
-      // Create the search box and link it to the UI element.
-      var input = document.getElementById('location');
-      var searchBox = new google.maps.places.SearchBox(input);
-
-      $('#location').keydown(function(event) {
-
-        if (event.keyCode == 10 || event.keyCode == 13) {
-          event.preventDefault();
-          google.maps.event.trigger(searchBox, 'place_changed');
-        }
-
-      });
-
-      // Bias the SearchBox results towards current map's viewport.
-      bigMap.addListener('bounds_changed', function() {
-        searchBox.setBounds(bigMap.getBounds());
-      });
-
-      bigMap.addListener('zoom_changed', handleChange);
-      bigMap.addListener('dragend', handleChange);
-
-      window.markers = [];
-
-      // Listen for the event fired when the user selects a prediction and retrieve
-      // more details for that place.
-      searchBox.addListener('places_changed', function() {
-
-        var places = searchBox.getPlaces();
-
-        if (places.length == 0) {
-          return;
-        }
-
-        // Clear out the old markers.
-        markers.forEach(function(marker) {
-          marker.setMap(null);
         });
-        markers = [];
 
-        // For each place, get the icon, name and location.
-        var bounds = new google.maps.LatLngBounds();
-        places.forEach(function(place) {
-          bigMap.setCenter(place.geometry.location);
-          bigMap.setZoom(9)
+        // Bias the SearchBox results towards current map's viewport.
+        bigMap.addListener('bounds_changed', function() {
+          searchBox.setBounds(bigMap.getBounds());
+        });
+
+        bigMap.addListener('zoom_changed', handleChange);
+        bigMap.addListener('dragend', handleChange);
+
+        window.markers = [];
+
+        searchBox.addListener('places_changed', function() {
+
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            bigMap.setCenter(place.geometry.location);
+            bigMap.setZoom(9)
+            handleChange();
+          });
+
+        });
+
+        if ($('#search-map').attr('data-location') !== '') {
+          // There is a prefilled string location query
+          $('input#location').val(($('#search-map').attr('data-location').replace(/_/g, " ")));
+
+          $('input#location').focus();
+          google.maps.event.trigger(searchBox, 'places_changed');
+
+
+        } else {
           handleChange();
-        });
+        }
 
       });
+
     }
 
   },

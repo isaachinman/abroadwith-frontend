@@ -32,8 +32,11 @@ main {
 .margin-top-negative {
   margin-top: -1rem;
 }
-.margin-top-bottom-20 {
-  margin-bottom: -20px;
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+.margin-bottom-20 {
+  margin-bottom: 20px;
 }
 .margin-half-sides {
   margin: .5rem;
@@ -230,7 +233,7 @@ table {
   color: $havelock-blue !important;
 }
 .secondary-bg {
-  background: lighten($ziggurat, 16%);
+  background: lighten($ziggurat, 14%);
 }
 .btn.disabled {
   pointer-events: none;

@@ -158,8 +158,6 @@ module.exports = React.createClass({
       activeNodes[i].change(handleChange);
     }
 
-    handleChange();
-
   },
   render: function() {
     return (
