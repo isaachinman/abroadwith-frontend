@@ -102,14 +102,14 @@ $(document).ready(function() {
       // onSet, make departure datepicker have a min value of arrival + 1
       onSet: function(e) {
         if (e.select) {
-          var dateString = ($('#arrival').val()).split('-').join('/');
+          var dateString = ($(this).val()).split('-').join('/');
           dateObj = new Date(dateString);
           var arrivalPlusOne = new Date(dateObj.getTime() + 1 * 24 * 60 * 60 * 1000);
           departurePicker.set('clear');
           departurePicker.set('min', arrivalPlusOne);
           this.close();
         }
-      }
+      }.bind(this)
 
     });
   }
@@ -136,7 +136,7 @@ $(document).ready(function() {
         }
       }
     });
-    var departurePicker = $('#departure').pickadate('picker');
+    var departurePicker = $('input.departure').pickadate('picker');
   }
 
   // Fix stupid focus issue with datepickers

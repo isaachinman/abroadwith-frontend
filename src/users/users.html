@@ -27,7 +27,7 @@
       <div class='col s10 quick-facts'>
 
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{user.age}}{% if user.gender %}, {{translations.common[user.gender]}}{% endif %}
+          <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{user.age}}{% if user.gender %}, {{translations.users.genders[user.gender]}}{% endif %}
         </p>
         <p class='home-details'>
           <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>{{translations.common.Joined}} {{translations.months.short[user.joinedMonth]}} {{user.joinedYear}}
@@ -65,10 +65,12 @@
 
       </div>
 
-      <div class='col s12 margin-top-20'>
-        <a class='modal-trigger' href='#send-message-modal'>Send message</a>
-        {% include "../partials/modals/3_message/send-message-modal.html" %}
-      </div>
+      {% if user.host %}
+        <div class='col s12 margin-top-20'>
+          <a class='modal-trigger' href='#send-message-modal'>Send message</a>
+          {% include "../partials/modals/3_message/send-message-modal.html" %}
+        </div>
+      {% endif %}
 
     </div>
 
