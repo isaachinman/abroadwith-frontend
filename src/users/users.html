@@ -4,7 +4,11 @@
   <div class='container row left-align'>
 
     <div class='user-image'>
-      <img src='{{ constants.domains.IMG }}{{user.photo}}'>
+      {% if user.photo %}
+        <img src='{{ constants.domains.IMG }}{{user.photo}}'>
+      {% else %}
+        <img src='{{ constants.domains.IMG }}/users/default.jpg'>
+      {% endif %}
     </div>
 
     <div class='info'>

@@ -16,7 +16,7 @@ module.exports = React.createClass({
 
       var yourName = JWT.name;
       var yourId = JWT.rid;
-      var yourPhoto = JWT.img ? domains.IMG + JWT.img : 'https://tracker.moodle.org/secure/attachment/30912/f3.png';
+      var yourPhoto = JWT.img ? domains.IMG + JWT.img : domains.IMG + '/users/default.jpg';
 
       var messageHTML = [];
       var threadHTML = [];
@@ -29,7 +29,7 @@ module.exports = React.createClass({
             <li className='message-trigger' data-target={thread.id}><a>Conversation with {thread.with.firstName}</a></li>
           );
 
-          var theirPhoto = thread.with.photo !== null ? domains.IMG + thread.with.photo : 'https://tracker.moodle.org/secure/attachment/30912/f3.png';
+          var theirPhoto = thread.with.photo !== null ? domains.IMG + thread.with.photo : domains.IMG + '/users/default.jpg';
 
           threadHTML.push(
             <Thread
