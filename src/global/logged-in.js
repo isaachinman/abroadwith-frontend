@@ -2,6 +2,8 @@ module.exports = function() {
 
   var jwt_decode = require('jwt-decode');
 
+  console.log('benchmark')
+
   // Get JWT
   var JWT = jwt_decode(localStorage.getItem('JWT'));
   console.log(JWT);
