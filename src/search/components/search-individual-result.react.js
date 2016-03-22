@@ -107,9 +107,9 @@ module.exports = React.createClass({
               {i18n.t('common:home_of', {first_name: this.props.host})}
 
               <div className='subtitle'>
-                {this.props.homeType}
+                {i18n.t('homes:home_types.'+this.props.homeType)}
                 <i className="fa fa-angle-right"></i>
-                Kreuzberg
+                {this.props.neighbourhood}
               </div>
             </div>
             <div className='rating'>

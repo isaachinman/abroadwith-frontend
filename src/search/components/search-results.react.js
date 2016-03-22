@@ -26,6 +26,7 @@ module.exports = React.createClass({
       var query = this.props.query;
 
       this.props.results.forEach(function(obj) {
+        console.log(obj)
         var result = <IndividualResult
           query={query}
           key={obj.roomId}
@@ -42,6 +43,7 @@ module.exports = React.createClass({
           rating={obj.rating}
           hostPhoto={obj.hostPhoto}
           courseCount={obj.nearbySchools}
+          neighbourhood={obj.homeNeighbourhood}
         />;
         results.push(result);
         markerId++;
