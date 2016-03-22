@@ -225,7 +225,6 @@ var processResults = function(search_response){
     if(results[i].price < search_response.resultDetails.minPrice){
       search_response.resultDetails.minPrice = results[i].price;
     }
-    results[i].homeType = results[i].homeType.toLowerCase();
     var location = results[i].location.split(',');
     results[i].lat = location[0];
     results[i].lng = location[1];
