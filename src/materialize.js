@@ -1408,6 +1408,10 @@ $(document).ready(function(){
       if (newToast.parentNode === null)
         window.clearInterval(counterInterval);
 
+      // If toast is not being dragged, decrease its time remaining
+      if (!newToast.classList.contains('panning')) {
+        timeLeft -= 20;
+      }
 
       if (timeLeft <= 0) {
         // Animate toast out
@@ -1453,6 +1457,8 @@ $(document).ready(function(){
           // Insert as text;
           toast.innerHTML = html;
         }
+        // Bind hammer
+
 
         return toast;
     }

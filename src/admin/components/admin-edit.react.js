@@ -5,8 +5,6 @@ var Payments = require('./admin-payments.react');
 var Languages = require('./admin-languages.react');
 var Verifications = require('./admin-verifications.react');
 
-var refreshToken = require('refresh-token');
-
 var toast = require('toast');
 
 var domains = require('domains');
@@ -87,8 +85,6 @@ module.exports = React.createClass({
       }
 
       this.setState(newState);
-
-      refreshToken();
 
     }.bind(this);
     GET(url, success)
