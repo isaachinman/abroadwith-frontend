@@ -368,7 +368,6 @@ var installer = function(app) {
   app.use('/upload/users/:idUserId/id',upload.array('photos', 10));
   app.use('/upload/users/:idUserId/id',routerId);
 
-  app.use('/upload',routerGet);
 };
 
 module.exports = installer;
