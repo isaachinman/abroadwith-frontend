@@ -2,8 +2,6 @@ module.exports = function() {
 
   var jwt_decode = require('jwt-decode');
 
-  console.log('benchmark')
-
   // Get JWT
   var JWT = jwt_decode(localStorage.getItem('JWT'));
   console.log(JWT);
@@ -11,7 +9,7 @@ module.exports = function() {
   // Print username into navbar
   $('span#navbar-username').html(JWT.name)
 
-  // Toggle navbars
+  // Remove modals
   $('#choose-languages-modal').remove();
   $('#login-modal').remove();
   $('#sign-up-modal').remove();
@@ -23,7 +21,7 @@ module.exports = function() {
   }
 
   // Swap UI
-  $('.logged-out').fadeOut();
+  $('.logged-out').hide();
   $('.logged-in').fadeIn();
 
   // If user has a home, modify UI

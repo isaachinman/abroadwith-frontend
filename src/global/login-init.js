@@ -9,10 +9,6 @@ var loggedIn = require('logged-in');
 if (localStorage.getItem('JWT') !== null) {
   loggedIn();
 } else {
-  notLoggedIn();
-}
-
-function notLoggedIn() {
   $('.logged-out').fadeIn();
 }
 
