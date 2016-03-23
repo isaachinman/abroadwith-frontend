@@ -1,5 +1,4 @@
 var express = require('express');
-var basicAuth = require('basic-auth-connect');
 var http = require('http');
 var nunjucks = require('nunjucks');
 
@@ -37,6 +36,31 @@ app.use('/*', contextLoader);
 
 app.use('/*', authentication);
 
+var winston = require('winston');
+winston.add(require('winston-daily-rotate-file'), {
+  filename: 'logs/requests.log',
+  datePattern: '.yyyy-MM-dd.HH'
+});
+winston.remove(winston.transports.Console);
+
+app.use(function(req, res, next) {
+  var log = {};
+  log.baseUrl = req.baseUrl;
+  log.originalUrl = req.originalUrl
+  log.path = req.path;
+  log.hostname = req.hostname;
+  log.query = req.query;
+  log.ip = req.ip;
+  log.method = req.method;
+  log.params = req.params;
+  log.query = req.query;
+  log.secure = req.secure;
+  log.cookies = req.cookies;
+  log.user = req.logged_user;
+  winston.info("[Request]",log);
+  next();
+});
+
 installImageUpload(app);
 
 installMain(app);
@@ -72,12 +96,12 @@ installReceipt(app);
 installReview(app);
 
 app.use(function(err, req, res, next) {
-  console.log("[ERROR]",err);
+  winston.error("[ERROR]",err);
   res.redirect("/");
 });
 
 app.use(function(req, res, next) {
-  console.log("[ERROR]","Page not found.");
+  winston.error("[ERROR]","Page not found.");
   res.redirect("/");
 });
 

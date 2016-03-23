@@ -3,6 +3,8 @@ var nunjucks = require('nunjucks');
 
 var router = express.Router();
 
+var winston = require('winston');
+
 var http = require('http');
 
 var solr = {
@@ -184,9 +186,10 @@ router.post('/', function (req, res) {
   else{
     search_response.params.pageSize = 25;
   }
-  console.log(query.join(" AND "));
+
+  winston.info("[Search Query]",query.join(" AND "));
   options.path += '?q='+encodeURIComponent(query.join(" AND "))+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')';
-  console.log(options.path);
+
   http.get(options, function(resp){
     var body = '';
     resp.on('data', function(chunk) {
@@ -204,6 +207,7 @@ router.post('/', function (req, res) {
         search_response.results = solr_result.response.docs;
         processResults(search_response);
       }
+      winston.info("[Search Response]",search_response);
       res.send(JSON.stringify(search_response));
     });
   }).on("error", function(e){
