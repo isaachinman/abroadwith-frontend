@@ -103,7 +103,6 @@ module.exports = React.createClass({
 
         });
 
-        // Bias the SearchBox results towards current map's viewport.
         bigMap.addListener('bounds_changed', function() {
           searchBox.setBounds(bigMap.getBounds());
         });
@@ -141,11 +140,13 @@ module.exports = React.createClass({
           // There is a prefilled string location query
           $('input#location').val(($('#search-map').attr('data-location').replace(/_/g, " ")));
 
-          $('input#location').focus();
+          console.log($('#location').val())
           google.maps.event.trigger(searchBox, 'places_changed');
 
 
         } else {
+
+          // This is the main initial GET for search page
           handleChange();
         }
 
