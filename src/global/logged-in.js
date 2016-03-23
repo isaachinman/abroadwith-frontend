@@ -12,7 +12,6 @@ module.exports = function() {
   $('span#navbar-username').html(JWT.name)
 
   // Toggle navbars
-  $('#navbar').remove();
   $('#choose-languages-modal').remove();
   $('#login-modal').remove();
   $('#sign-up-modal').remove();
@@ -25,10 +24,14 @@ module.exports = function() {
     $('.lean-overlay').remove()
   }
 
+  // Swap UI
+  $('.logged-out').fadeOut();
+  $('.logged-in').fadeIn();
+
   // If user has a home, modify UI
   if (JWT.hid) {
-    $('#navbar-logged-in .become-a-host').hide();
-    $('#navbar-logged-in .your-home').show();
+    $('.become-a-host').hide();
+    $('.your-home').show();
   }
 
   $('#preloader').hide();

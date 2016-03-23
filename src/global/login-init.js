@@ -13,10 +13,7 @@ if (localStorage.getItem('JWT') !== null) {
 }
 
 function notLoggedIn() {
-
-  // Show logged out navbar
-  $('#navbar .right').fadeIn('fast');
-
+  $('.logged-out').fadeIn();
 }
 
 $('form.email-login').submit(function() {
