@@ -39,7 +39,7 @@ app.use('/*', authentication);
 var winston = require('winston');
 winston.add(require('winston-daily-rotate-file'), {
   filename: 'logs/requests.log',
-  datePattern: '.yyyy-MM-dd.HH'
+  datePattern: '.yyyy-MM-dd'
 });
 winston.remove(winston.transports.Console);
 
