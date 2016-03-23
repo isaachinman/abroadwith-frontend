@@ -29,29 +29,31 @@ module.exports = React.createClass({
 
     $.getScript('https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.2.1/nouislider.min.js', function() {
 
+      // Init nouislider
+      noUiSlider.create(slider, {
+      	start: [minPrice, maxPrice],
+      	connect: true,
+      	range: {
+      		'min': 0,
+      		'max': 500
+      	},
+        step: 10,
+        tooltips: true,
+        format: wNumb({
+          decimals:0,
+          // Disabling currency prefix until I can find a solution for updating
+          // prefix: currencies[this.props.currency],
+          encoder: function(a) {
+            return a === 2000 ? a + '+' : a;
+          }
+        })
+      });
+
+      slider.noUiSlider.on('set', handleChange);
+
     })
 
-    // Init nouislider
-    noUiSlider.create(slider, {
-    	start: [minPrice, maxPrice],
-    	connect: true,
-    	range: {
-    		'min': 0,
-    		'max': 500
-    	},
-      step: 10,
-      tooltips: true,
-      format: wNumb({
-        decimals:0,
-        // Disabling currency prefix until I can find a solution for updating
-        // prefix: currencies[this.props.currency],
-        encoder: function(a) {
-          return a === 2000 ? a + '+' : a;
-        }
-      })
-    });
 
-    slider.noUiSlider.on('set', handleChange);
 
   },
   render: function() {

@@ -2,6 +2,9 @@
   color: white;
   background-repeat: no-repeat !important;
   background-position: center !important;
+  .select2-chosen {
+    color: $americano;
+  }
   .title {
     @extend .text-shadow;
     margin: 80px 0 50px 0;
