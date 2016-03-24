@@ -37,6 +37,8 @@ module.exports = React.createClass({
 
         var formData = new FormData();
 
+
+
         for(var i = 0; i < file.length; i++){
           formData.append('photos', file[i]);
         }
