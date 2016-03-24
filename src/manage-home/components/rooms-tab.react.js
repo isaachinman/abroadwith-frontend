@@ -30,36 +30,31 @@ module.exports = React.createClass({
 
       console.log(response);
 
-      var thisprops = this.props;
+      var refreshState = this.props.refreshState;
       var file = $('#new_room_photo')[0].files;
-      if(file){
+
+      if (file.length > 0) {
+
         var formData = new FormData();
-        for(var f = 0; f < file.length; f++){
-          formData.append('photos', file[f]);
+
+        for(var i = 0; i < file.length; i++){
+          formData.append('photos', file[i]);
         }
-        $.ajax({
-          url : '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo',
-          type : 'POST',
-          data : formData,
-          cache : false,
-          contentType : false,
-          processData : false,
-          beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
-          success : function(data, textStatus, jqXHR) {
-                thisprops.refreshState();
-                $('#add-room-form .collapsible-header').trigger('click');
-                $('#add-room-form input, select, textarea').val(null);
-                $('#preloader').hide();
-          },
-          error: function(jqXHR) {
-            var message = jqXHR.responseText;
-            alert('Image upload failed: '+ message);
-            thisprops.refreshState();
-            $('#add-room-form .collapsible-header').trigger('click');
-            $('#add-room-form input, select, textarea').val(null);
-            $('#preloader').hide();
-          }
-        });
+
+        var url = '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo';
+        var success = function(response) {
+          $('#add-room-form .collapsible-header').trigger('click');
+          $('#add-room-form input, select, textarea').val(null);
+          refreshState();
+          $('#preloader').hide();
+        }
+        POST(url, formData, success)
+
+      } else {
+        $('#add-room-form .collapsible-header').trigger('click');
+        $('#add-room-form input, select, textarea').val(null);
+        this.props.refreshState();
+        $('#preloader').hide();
       }
 
     }.bind(this);
@@ -118,18 +113,18 @@ module.exports = React.createClass({
           rooms.forEach(function(obj) {
             allRooms.push(
               <RoomModule
-                  id={obj.id}
-                  key={obj.id}
-                  roomName={obj.name}
-                  bed={obj.bed}
-                  vacancies={obj.vacancies}
-                  facilities={obj.facilities}
-                  shared={obj.shared}
-                  img={obj.img}
-                  description={obj.description}
-                  price={obj.price}
-                  inputstyle={inputstyle}
-                  refreshState={refreshState}
+                id={obj.id}
+                key={obj.id}
+                roomName={obj.name}
+                bed={obj.bed}
+                vacancies={obj.vacancies}
+                facilities={obj.facilities}
+                shared={obj.shared}
+                img={obj.img}
+                description={obj.description}
+                price={obj.price}
+                inputstyle={inputstyle}
+                refreshState={refreshState}
               />
             )
           })

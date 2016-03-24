@@ -148,7 +148,7 @@ module.exports = React.createClass({
 
                   </div>
                   <div className="file-path-wrapper">
-                    <input id={'photo_room_'+this.props.id} type="text" defaultValue={this.props.img} disabled/>
+                    <input id={'photo_room_'+this.props.id} type="text" defaultValue={this.props.img}/>
                   </div>
                 </div>
               </form>
