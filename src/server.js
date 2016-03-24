@@ -51,7 +51,7 @@ app.use(function(req, res, next) {
   log.hostname = req.hostname;
   log.query = req.query;
   log.ip = req.ip;
-  log.forwardedFor = req.headers['X-Forwarded-For'];
+  log.headers = req.headers;
   log.method = req.method;
   log.params = req.params;
   log.query = req.query;
