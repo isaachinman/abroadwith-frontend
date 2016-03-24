@@ -12,8 +12,8 @@
 // Reset
 @import "./node_modules/materialize-css/sass/components/normalize";
 
-// components
-@import "./node_modules/materialize-css/sass/components/global";
+// Components
+@import "static/global";
 @import "./node_modules/materialize-css/sass/components/grid";
 @import "./node_modules/materialize-css/sass/components/navbar";
 @import "./node_modules/materialize-css/sass/components/cards";
@@ -22,7 +22,6 @@
 @import "static/tooltip";
 @import "./node_modules/materialize-css/sass/components/buttons";
 @import "./node_modules/materialize-css/sass/components/dropdown";
-// @import "components/waves";
 @import "static/modal";
 @import "static/collapsible";
 @import "static/chips";
@@ -31,8 +30,5 @@
 @import "static/table_of_contents";
 @import "./node_modules/materialize-css/sass/components/sideNav";
 @import "./node_modules/materialize-css/sass/components/preloader";
-// @import "./node_modules/materialize-css/sass/components/slider";
-// @import "./node_modules/materialize-css/sass/components/carousel";
 @import "./node_modules/materialize-css/sass/components/date_picker/default.scss";
 @import "./node_modules/materialize-css/sass/components/date_picker/default.date.scss";
-// @import "components/date_picker/default.time.scss";

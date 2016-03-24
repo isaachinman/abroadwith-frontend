@@ -55,9 +55,11 @@ module.exports = React.createClass({
     }
 
     // Get price data
-    var minPrice = parseInt(($('.noUi-handle-lower').find('.noUi-tooltip').html()));
-    var maxPrice = parseInt($('.noUi-handle-upper').find('.noUi-tooltip').html());
-    url = url + '&minPrice=' + minPrice + '&maxPrice=' + maxPrice;
+    if ($('.noUi-handle-lower').length && $('.noUi-handle-upper').length) {
+      var minPrice = parseInt(($('.noUi-handle-lower').find('.noUi-tooltip').html()));
+      var maxPrice = parseInt($('.noUi-handle-upper').find('.noUi-tooltip').html());
+      url = url + '&minPrice=' + minPrice + '&maxPrice=' + maxPrice;
+    }
 
     // Get course
     var course = 'course=' + $('#language-switch').is(':checked') ? url = url + '&course=' + ($('#language-school').val()) : null;

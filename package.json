@@ -34,6 +34,7 @@
     "react-nouislider": "^1.9.1",
     "select2-browserify": "^3.4.5",
     "uglifyify": "^3.0.1",
+    "uglifyjs": "^2.4.10",
     "uncss": "^0.13.0",
     "wallop": "^2.2.3",
     "winston": "^2.2.0",
@@ -91,7 +92,8 @@
     "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
     "start": "node src/server.js",
     "fullstart": "npm run build && npm run start",
-    "browsersync": "browser-sync start --reload-delay 1000 --proxy 'http://localhost:3000' --files 'build/css/*.css, build/app.js, src/*/*.html, src/*/*/*.html'"
+    "browsersync": "browser-sync start --reload-delay 1000 --proxy 'http://localhost:3000' --files 'build/css/*.css, build/app.js, src/*/*.html, src/*/*/*.html'",
+    "production": "npm run build && uglifyjs build/app.js -o build/app.js --compress --mangle"
   },
   "main": "server.js",
   "repository": {

@@ -18,13 +18,13 @@ module.exports = React.createClass({
     adminObj.emergencyContact.email = $('#emergency-email').val();
     adminObj.emergencyContact.relationship = $('#emergency-relationship').val();
 
-    this.props.updateAdmin(refreshTokenAndToast());
-
-    function refreshTokenAndToast() {
+    this.props.updateAdmin(function() {
+      $('#preloader').show();
       refreshToken(function() {
+        $('#preloader').hide();
         toast('Basics updated');
       });
-    }
+    });
 
     return false;
 

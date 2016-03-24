@@ -14,7 +14,7 @@ var POST = require('POST');
 var DELETE = require('DELETE');
 
 module.exports = React.createClass({
-  updateAdmin: function(callback) {
+  updateAdmin: function(firstCallback) {
 
     $('#preloader').show();
 
@@ -32,7 +32,7 @@ module.exports = React.createClass({
       var url = domains.API + '/users/' + JWT.rid;
       var success = function() {
         $('#preloader').hide();
-        callback();
+        firstCallback();
       }
       POST(url, adminObj, success);
 
