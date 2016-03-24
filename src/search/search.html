@@ -144,6 +144,7 @@
               </div>
               <div class='col s5'>
                 <select id='meal_plan' class='material'>
+                  <option disabled selected>{{translations.search.BREAKFAST_ONLY}}</option>
                   {% for optionCode, optionName in translations.search.meal_choice %}
                     <option value={{optionCode}}>{{optionName}}</option>
                   {% endfor %}
