@@ -13,12 +13,13 @@ $(document).ready(function() {
   if ($('#hero-search').length) {
     $('#hero-search').click(function() {
 
-      var language = $('#language option:selected').val() !== '' ? '&language=' + $('#language option:selected').attr('data-lang') : '';
+      var language = $('#language option:selected').val() !== '' ? '?language=' + $('#language option:selected').attr('data-lang') : '';
+      var location = $('#location').val() !== '' ? '&location_string=' + ($('#location').val()).replace(/ /g,"_") : '';
       var arrival = $('#arrival').val() !== '' ? '&arrival=' + $('#arrival').val() : '';
       var departure = $('#departure').val() !== '' ? '&departure=' + $('#departure').val() : '';
       var guests = $('#guest-count').val() !== 'undefined' ? '&guests=' + $('#guest-count').val() : '';
 
-      var url = '/search?minLat=53.27221892583479&minLng=14.0710001425781&maxLat=51.75469082335137&maxLng=12.73890785742185' + language + arrival + departure + guests;
+      var url = '/search' + language + location + arrival + departure + guests;
 
       window.location = url;
 

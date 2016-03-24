@@ -60,6 +60,7 @@ module.exports = React.createClass({
           lat: 20,
           lng: 0
         },
+        noClear: true,
         zoom: 2,
         options: {
           scrollwheel: false,
@@ -85,6 +86,9 @@ module.exports = React.createClass({
           }
         ]
       });
+
+      // Create a PlacesService to run prefilled text queries
+      var service = new google.maps.places.PlacesService(bigMap);
 
       // Create the search box and link it to the UI element.
       var input = document.getElementById('location');
@@ -132,12 +136,21 @@ module.exports = React.createClass({
 
       });
 
+      // There is a prefilled string location query
       if ($('#search-map').attr('data-location') !== '') {
-        // There is a prefilled string location query
-        $('input#location').val(($('#search-map').attr('data-location').replace(/_/g, " ")));
 
-        console.log($('#location').val())
-        google.maps.event.trigger(searchBox, 'places_changed');
+        // Set input value to prefilled string
+        $('input#location').val(($('#search-map').attr('data-location').replace(/_/g, " ")))
+
+        // Compile a request
+        request = {
+          query: $('#search-map').attr('data-location').replace(/_/g, " ")
+        };
+
+        // Send request and trigger place change with response
+        service.textSearch(request, function(places) {
+          searchBox.set('places', places || [])
+        });
 
       } else {
 
