@@ -3,7 +3,7 @@ module.exports = function() {
   var jwt_decode = require('jwt-decode');
 
   // Get JWT
-  var JWT = jwt_decode(localStorage.getItem('JWT'));
+  var JWT = localStorage.getItem('JWT') ? jwt_decode(localStorage.getItem('JWT')) : null;
   console.log(JWT);
 
   // Print username into navbar
