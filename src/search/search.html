@@ -5,19 +5,19 @@
 
     <div class='container'>
 
-      <div class='row valign-wrapper section' onChange={this.handleChange}>
-        <div class='input-field col s2 grey-text'>
+      <div class='row section' onChange={this.handleChange}>
+        <div class='input-field col s12 m3 l2 grey-text'>
           <div class='chip chip-grey'>{{translations.common.Dates}}</div>
         </div>
-        <div class='input-field col s3 valign'>
+        <div class='input-field col s12 m3 l3'>
           <input id='arrival' type="text" class='datepicker arrival' value='{{query.arrival}}' />
           <label for='arrival' class='active'>{{translations.common.Arrival}}</label>
         </div>
-        <div class='input-field col s3 valign'>
+        <div class='input-field col s12 m3 l3'>
           <input id='departure' type="text" class="datepicker departure" value='{{query.departure}}' />
           <label for='departure' class='active'>{{translations.common.Departure}}</label>
         </div>
-        <div class='input-field col s4'>
+        <div class='input-field col s12 m3 l4'>
           <select id='guests' class='material'>
             {% for i in range (1,5) %}
               {% if query.guests == i %}
@@ -32,11 +32,11 @@
 
       <div class='divider'></div>
 
-      <div class='row section valign-wrapper'>
-        <div class='col s2 grey-text'>
+      <div class='row section'>
+        <div class='col s12 m3 l2 grey-text'>
           <div class='chip chip-grey'>{{translations.common.Language}}</div>
         </div>
-        <div class='col s3'>
+        <div class='col s12 m9 l3'>
           <select id="language" type="text" class="validate border-radius-left">
             <option></option>
             {% for code, lang in translations.languages %}
@@ -48,10 +48,10 @@
             {% endfor %}
           </select>
         </div>
-        <div class='col s2 grey-text'>
+        <div class='col s12 m3 l2 grey-text'>
           <div class='chip chip-grey'>{{translations.common.Immersion}}</div>
         </div>
-        <div class='col s5'>
+        <div class='col s12 m9 l5'>
           <select id='immersions' class='material' multiple>
             <option value="" disabled>{{translations.common.choose_immersion_type}}</option>
             <option value="stay">{{translations.common.Stay}}</option>
@@ -63,11 +63,11 @@
 
       <div class='divider tandem-language hide'></div>
 
-      <div class='row section valign-wrapper tandem-language hide'>
-        <div class='col s7 grey-text'>
+      <div class='row section tandem-language hide'>
+        <div class='col s12 m6 l7 grey-text'>
           <div class='chip chip-grey'>{{translations.search.your_tandem_language}}</div>
         </div>
-        <div class='col s5'>
+        <div class='col s12 m6 l5'>
           <select id="language-teach" type="text" class="validate border-radius-left">
             <option></option>
             {% for code, lang in translations.languages %}
@@ -80,19 +80,19 @@
       <div class='divider'></div>
 
       <div class='row valign-wrapper section'>
-        <div class='col s2 grey-text'>
+        <div class='col s12 m3 l2 grey-text'>
           <div class='chip chip-grey'>{{translations.common.Price}}</div>
         </div>
-        <div id='price-slider' class='col s10 valign'></div>
+        <div id='price-slider' class='col s12 m9 l10 valign'></div>
       </div>
 
       <div class='divider'></div>
 
-      <div class='row section valign-wrapper'>
-        <div class='col s5 grey-text'>
+      <div class='row section'>
+        <div class='col s7 m5 l5 grey-text'>
           <div class='chip chip-grey'>{{translations.search.add_language_course}}</div>
         </div>
-        <div class='col s3'>
+        <div class='col s5 m5 l3 margin-top-10'>
           <div class="switch">
             <label>
               {{translations.common.words.No}}
@@ -102,7 +102,7 @@
             </label>
           </div>
         </div>
-        <div class='col s4'>
+        <div class='col s12 m2 l4'>
           <select id='language-school' class='material' disabled>
             <option value="A1">A1</option>
             <option value="A2">A2</option>
@@ -126,9 +126,9 @@
           </div>
           <div class="collapsible-body container">
 
-            <div class='row section valign-wrapper'>
+            <div class='row section'>
 
-              <div class='col s1 valign center-align'>
+              <div class='col s1 center-align'>
                 <i class="fa fa-user fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
@@ -139,7 +139,7 @@
                 </select>
               </div>
 
-              <div class='col s1 valign center-align'>
+              <div class='col s1 center-align'>
                 <i class="fa fa-cutlery fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
@@ -155,8 +155,8 @@
 
             <div class='divider'></div>
 
-            <div class='row section valign-wrapper'>
-              <div class='col s1 valign center-align'>
+            <div class='row section'>
+              <div class='col s1 center-align'>
                 <i class="fa fa-asterisk fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
@@ -169,7 +169,7 @@
                 </select>
               </div>
 
-              <div class='col s1 valign center-align'>
+              <div class='col s1 center-align'>
                 <i class="fa fa-exclamation-circle fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
@@ -185,8 +185,8 @@
 
             <div class='divider'></div>
 
-            <div class='row section valign-wrapper'>
-              <div class='col s1 valign center-align'>
+            <div class='row section'>
+              <div class='col s1 center-align'>
                 <i class="fa fa-bed fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
@@ -200,7 +200,7 @@
                   <option value="pool">{{translations.homes.extras.POOL}}</option>
                 </select>
               </div>
-              <div class='col s1 valign center-align'>
+              <div class='col s1 center-align'>
                 <i class="fa fa-home fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
