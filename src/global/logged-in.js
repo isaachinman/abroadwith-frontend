@@ -30,6 +30,9 @@ module.exports = function() {
     $('.your-home').show();
   }
 
+  // Get unread message count
+  require('./get-unread-message-count');
+
   $('#preloader').hide();
 
 }

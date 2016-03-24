@@ -12,7 +12,7 @@
     bottom: 7%;
   }
   @media #{$large-and-up} {
-    bottom: 5%;
+    bottom: 4.25%;
     right: 7%;
   }
 }
@@ -30,7 +30,7 @@
   min-height: $toast-height;
   line-height: 1.5em;
   word-break: break-all;
-  background-color: rgba(68,56,53,.65);
+  background-color: rgba(68,56,53,.85);
   padding: 10px 25px;
   font-size: 1.1rem;
   letter-spacing: 1.05px;

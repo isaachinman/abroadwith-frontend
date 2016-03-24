@@ -203,3 +203,13 @@ ul.message-list {
     margin: 0 0 5px 0;
   }
 }
+span.unread-messages {
+  position: absolute;
+  font-size: .8rem;
+  top: -5px;
+  right: 12px;
+}
+li.logged-in.messages {
+  text-align: center;
+  min-width: 4rem;
+}

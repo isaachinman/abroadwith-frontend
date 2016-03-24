@@ -103,7 +103,7 @@ $(document).ready(function() {
       // onSet, make departure datepicker have a min value of arrival + 1
       onSet: function(e) {
         if (e.select) {
-          $('input.arrival').close();
+          $(this).close();
           var dateString = ($(this).val()).split('-').join('/');
           dateObj = new Date(dateString);
           var arrivalPlusOne = new Date(dateObj.getTime() + 1 * 24 * 60 * 60 * 1000);

@@ -62,12 +62,13 @@ module.exports = React.createClass({
 
       console.log(response);
 
-      this.props.updateAdmin();
+      this.props.updateAdmin(function() {
+        $('#verification-phone .collapsible-body').remove();
+        $('#preloader').hide();
+        toast('Phone verified', 4000);
+      });
 
-      $('#verification-phone .collapsible-body').remove();
 
-      $('#preloader').hide();
-      toast('Phone verified', 4000);
 
     }.bind(this)
     POST(url, verifyPhoneObj, success);
@@ -77,7 +78,7 @@ module.exports = React.createClass({
 
     // Request email verification
     $('a#request-verification-email').click(function() {
-      requestVerificationEmail()
+      this.requestVerificationEmail()
     }.bind(this));
 
     // Request SMS verification

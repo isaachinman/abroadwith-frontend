@@ -6,6 +6,9 @@
   height: 240px;
   border-radius: 50%;
   margin: 0 0 0 20px;
+  img {
+    max-width: 100%;
+  }
   @media #{$small-and-down} {
     display: none;
   }
