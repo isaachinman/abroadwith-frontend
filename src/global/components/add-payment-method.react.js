@@ -147,14 +147,14 @@ module.exports = React.createClass({
               </div>
             </li>
             <li>
-              <div className="collapsible-header">Paypal</div>
+              <div className="collapsible-header">PayPal</div>
               <div className="collapsible-body">
 
                 <div id='paypal-container' className='row no-margin-bottom section center-align'></div>
 
                 <div className='row'>
                   <div className='col s12'>
-                    <input id='add-new-paypal' className='btn btn-flat btn-primary hide' type="submit" value="Add Paypal" onClick={this.showPreloader} />
+                    <input id='add-new-paypal' className='btn btn-flat btn-primary hide' type="submit" value="Add PayPal" onClick={this.showPreloader} />
                   </div>
                 </div>
 
