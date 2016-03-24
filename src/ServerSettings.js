@@ -1,4 +1,4 @@
-var configuration ={
+var configuration = {
   strict: false,
   public_key: "-----BEGIN PUBLIC KEY-----\n"+
   "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwiFPc0o+YUiBbrXkF7SA"+
@@ -12,7 +12,8 @@ var configuration ={
 }
 
 try{
-  configuration = require("production.properties");
+  configuration = require("../production.json");
+  console.log("Loaded the following configuration:",configuration);
 }
 catch(e){
   console.log("Couldn't load production properties, using development settings.")
