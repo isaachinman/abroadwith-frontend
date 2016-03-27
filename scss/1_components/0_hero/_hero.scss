@@ -9,10 +9,6 @@
     @extend .text-shadow;
     margin: 80px 0 50px 0;
   }
-  .input-row {
-    background: white;
-    border-radius: 3px;
-  }
   .input-strip {
     color: $americano;
     margin-top: 20vh;
@@ -21,7 +17,6 @@
     .language {
       width: calc(100% - 680px);
       height: 3rem;
-      background: white;
     }
     .location {
       max-width: 160px;
@@ -38,8 +33,6 @@
     .search {
       float: right;
       width: 160px;
-      margin: 0;
-      padding: 0;
     }
     @media #{$medium-and-down} {
       .language {
@@ -55,7 +48,6 @@
         max-width: 90px;
       }
       .search {
-        float: right;
         width: 120px;
       }
     }
@@ -67,7 +59,6 @@
         max-width: 100px;
       }
       .search {
-        float: right;
         width: 120px;
       }
     }
@@ -76,40 +67,23 @@
       height: 3rem;
       line-height: 3rem;
       width: 100%;
-      -webkit-border-top-left-radius: 0;
-      -webkit-border-bottom-left-radius: 0;
-      -moz-border-radius-topleft: 0;
-      -moz-border-radius-bottomleft: 0;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
+      border-radius: 0 3px 3px 0;
     }
     .border-radius-left {
-      -webkit-border-top-left-radius: 3px;
-      -webkit-border-bottom-left-radius: 3px;
-      -moz-border-radius-topleft: 3px;
-      -moz-border-radius-bottomleft: 3px;
-      border-top-left-radius: 3px;
-      border-bottom-left-radius: 3px;
+      border-radius: 3px 0 0 3px;
       overflow: hidden;
     }
     .col {
       padding: 0;
     }
-    .select2-choice {
-      background: white;
-    }
     .select2-container {
       background: white;
-      border-bottom: 1px solid #eee;
-      color: $americano;
       padding: 0 10px;
     }
     input {
-      width: 100%;
       background: white !important;
-      margin: 0;
       padding: 0 10px;
-      border-bottom: none;
+      margin: 0;
       &::-webkit-input-placeholder {
         color: $americano;
       }
@@ -126,9 +100,6 @@
     input, .language {
       box-sizing: border-box;
       border-right: 1px solid #ddd;
-    }
-    .input-field {
-      margin-top: 0;
     }
     span.caret {
       z-index: 1;

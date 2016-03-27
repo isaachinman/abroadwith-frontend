@@ -1,37 +1,37 @@
 footer {
   @extend .z-depth-1;
   text-align: left;
- .select-wrapper {
-   color: white;
-   input.select-dropdown {
-     border-color: white;
-   }
-   span.caret {
-     color: white;
-   }
- }
- .footer-copyright {
-   height: 70px !important;
-   .container {
-     height: 70px;
-   }
-   i {
-     background: darken($havelock-blue, 7.5%);
-     border-radius: 50px;
-     display: inline-block;
-     height: 50px;
-     line-height: 50px;
-     margin: 0 5px 20px 0;
-     width: 50px;
-     font-size: 25px;
-     text-align: center;
-     &:hover {
-       background: $ziggurat;
-       color: $americano;
-     }
+  .select-wrapper {
+    color: white;
+    input.select-dropdown {
+      border-color: white;
+    }
+    span.caret {
+      color: white;
     }
   }
- }
+}
+.footer-copyright {
+  height: 70px !important;
+  .container {
+    height: 70px;
+  }
+  i {
+    background: darken($havelock-blue, 7.5%);
+    border-radius: 50px;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 5px 20px 0;
+    width: 50px;
+    font-size: 25px;
+    text-align: center;
+    &:hover {
+      background: $ziggurat;
+      color: $americano;
+    }
+  }
+}
 // Make footer sticky
 body {
   display: flex;
