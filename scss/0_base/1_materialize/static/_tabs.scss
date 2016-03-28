@@ -28,10 +28,12 @@
     height: 64px;
   }
   .indicator {
-
-    @-moz-document url-prefix() {
-      margin-bottom: -16px;
+    @media #{$small-and-down} {
+      @-moz-document url-prefix() {
+        margin-bottom: -16px;
+      }
     }
+
     bottom: 16px;
 
   }
