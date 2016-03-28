@@ -21,19 +21,24 @@
     }
   }
   .tabs {
+    position: relative;
     margin-bottom: -16px !important;
     overflow-x: auto;
     overflow-y: hidden;
     height: 64px;
   }
   .indicator {
-    margin-bottom: 16px;
+
+    @-moz-document url-prefix() {
+      margin-bottom: -16px;
+    }
+    bottom: 16px;
+
   }
 }
 .tabs {
   @include flexbox();
   position: relative;
-  height: 48px;
   background-color: lighten($ziggurat, 15%);
   margin: 0 auto 1rem auto;
   width: 100%;
@@ -78,7 +83,7 @@
   }
   .indicator {
     position: absolute;
-    bottom: 0;
+
     height: 2px;
     background-color: $tabs-underline-color;
     will-change: left, right;
