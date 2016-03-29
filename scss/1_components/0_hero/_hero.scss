@@ -74,7 +74,6 @@
       overflow: hidden;
     }
     .col {
-      background: white;
       padding: 0;
     }
     .select2-container {
@@ -101,6 +100,10 @@
     input, .language {
       box-sizing: border-box;
       border-right: 1px solid #ddd;
+    }
+    .select2-choice {
+      padding: 0 10px;
+      background: white;
     }
     span.caret {
       z-index: 1;
