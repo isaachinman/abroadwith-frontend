@@ -1,6 +1,9 @@
 .profile-slider {
   min-height: 300px;
   max-height: 400px;
+  @media #{$small-and-down} {
+    max-height: 300px;
+  }
   position: relative;
   background: lighten($ziggurat, 10%);
   .wallop, .Wallop-list, .Wallop-item, img {

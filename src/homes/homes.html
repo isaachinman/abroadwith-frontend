@@ -217,13 +217,13 @@
         <div class='row'>
           <div class='col s12 m12 l6'>
             <div class='input-field '>
-              <input id='arrival' type="text" class='datepicker arrival' placeholder='{{translations.common.Arrival}}' value={{query.arrival}} />
+              <input id='arrival' type="text" class='datepicker arrival' placeholder='{{translations.common.Arrival}}' {% if query.arrival %} value={{query.arrival}} {% endif %} />
               <label htmlFor='arrival' class='active left'>{{translations.common.Arrival}}</label>
             </div>
           </div>
           <div class='col s12 m12 l6'>
             <div class='input-field '>
-              <input id='departure' type="text" class="datepicker departure" placeholder='{{translations.common.Departure}}'value={{query.departure}} />
+              <input id='departure' type="text" class="datepicker departure" placeholder='{{translations.common.Departure}}' {% if query.departure %} value={{query.departure}} {% endif %} />
               <label htmlFor='departure' class='active left'>{{translations.common.Departure}}</label>
             </div>
           </div>
