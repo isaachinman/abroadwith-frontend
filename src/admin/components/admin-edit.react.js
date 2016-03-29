@@ -32,7 +32,8 @@ module.exports = React.createClass({
       var url = domains.API + '/users/' + JWT.rid;
       var success = function() {
         $('#preloader').hide();
-        firstCallback();
+        callback();
+        typeof firstCallback === 'function' ? firstCallback() : null;
       }
       POST(url, adminObj, success);
 

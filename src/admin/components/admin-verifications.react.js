@@ -68,8 +68,6 @@ module.exports = React.createClass({
         toast('Phone verified', 4000);
       });
 
-
-
     }.bind(this)
     POST(url, verifyPhoneObj, success);
 
@@ -81,8 +79,11 @@ module.exports = React.createClass({
       this.requestVerificationEmail()
     }.bind(this));
 
+  },
+  componentDidUpdate: function() {
     // Request SMS verification
-    if (this.props.phoneNumber !== null) {
+    if (this.props.phoneNumber !== null && typeof this.props.phoneNumber !== 'undefined') {
+      console.log('ok for verification')
       $('a#request-verification-sms').removeClass('disabled');
       $('#please-add-a-phone').hide();
       $('a#verify-phone').click(function() {
@@ -92,10 +93,10 @@ module.exports = React.createClass({
         this.requestVerificationSMS()
       }.bind(this));
     } else {
+      console.log('no for verification')
       $('a#request-verification-sms').addClass('disabled');
       $('#please-add-a-phone').show();
     }
-
   },
   componentWillUnmount: function() {
     $('#verifications a').each(function() {
@@ -103,6 +104,7 @@ module.exports = React.createClass({
     });
   },
   render: function() {
+
     return (
       <div></div>
     );
