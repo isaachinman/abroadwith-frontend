@@ -191,7 +191,7 @@ module.exports = React.createClass({
             processData : false,
             beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
             success : function(data, textStatus, jqXHR) {
-              toast("Image uploaded!");
+              toast("Image uploaded");
               var result = JSON.parse(data);
               for(var img in result){
                 if(result[img].status == 'OK'){
