@@ -76,8 +76,33 @@ $(document).ready(function() {
     $(".button-collapse").sideNav();
   }
 
+  // Departure datepicker
+  if ($('input.departure').length) {
+    var departurePicker = $('input.departure').pickadate('picker');
+    var today = new Date();
+    var weekToday = new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000);
+    $('input.departure').pickadate({
+
+      container: 'body',
+      clear: '',
+      format: 'yyyy-mm-dd',
+      min:weekToday,
+      // If departure date exists, set as default
+      onStart: function() {
+        // if (pageContext.departure) {
+        //   $('#departure').val(pageContext.departure);
+        // }
+      },
+      onSet: function(e) {
+        if (e.select) {
+          this.close();
+        }
+      }
+    });
+  }
+
   // Arrival datepicker
-  if ($('input.arrival').length) {
+  if ($('input.arrival').length && $('input.departure').length) {
 
     // Set up min and max dates
     var today = new Date();
@@ -103,41 +128,16 @@ $(document).ready(function() {
       // onSet, make departure datepicker have a min value of arrival + 1
       onSet: function(e) {
         if (e.select) {
-          $(this).close();
-          var dateString = ($(this).val()).split('-').join('/');
+          var dateString = ($('#arrival').val()).split('-').join('/');
           dateObj = new Date(dateString);
           var arrivalPlusOne = new Date(dateObj.getTime() + 1 * 24 * 60 * 60 * 1000);
-          departurePicker.set('clear');
-          departurePicker.set('min', arrivalPlusOne);
+          $('input#departure').pickadate('picker').set('clear');
+          $('input#departure').pickadate('picker').set('min', arrivalPlusOne);
+          $(this).close();
         }
       }.bind(this)
 
     });
-  }
-
-  // Departure datepicker
-  if ($('input.departure').length) {
-    var today = new Date();
-    var weekToday = new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000);
-    $('input.departure').pickadate({
-
-      container: 'body',
-      clear: '',
-      format: 'yyyy-mm-dd',
-      min:weekToday,
-      // If departure date exists, set as default
-      onStart: function() {
-        // if (pageContext.departure) {
-        //   $('#departure').val(pageContext.departure);
-        // }
-      },
-      onSet: function(e) {
-        if (e.select) {
-          this.close();
-        }
-      }
-    });
-    var departurePicker = $('input.departure').pickadate('picker');
   }
 
   // Fix stupid focus issue with datepickers

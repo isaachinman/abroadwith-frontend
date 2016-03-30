@@ -53,5 +53,8 @@ require('./invoice/invoice')
 // Receipt
 require('./receipt/receipt')
 
+// Immersion confirmation
+require('./immersion-confirmation/immersion-confirmation')
+
 // Review
 require('./review/review')

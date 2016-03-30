@@ -126,6 +126,14 @@ module.exports = React.createClass({
 
     }
 
+    if (this.props.immersions) {
+      if (this.props.immersions.tandem === null) {
+        $('.tandem-discount-field').hide();
+      } else  {
+        $('.tandem-discount-field').show();
+      }
+    }
+
     // Create room modules if rooms exist
     var rooms = [];
     if (this.props.rooms.length > 0 && this.props.pricing) {
