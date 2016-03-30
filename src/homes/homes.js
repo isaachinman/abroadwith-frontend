@@ -17,6 +17,8 @@ if ($('.go-to-booking').length) {
   // Click function for book buttons
   $('.go-to-booking').click(function() {
 
+    var bookingUrl = '/homes/' + $(this).attr('data-hid') + '/booking?arrival=' + $('#arrival').val() + '&departure=' + $('#departure').val() + '&room_id=' + $(this).attr('data-rid');
+
     if ($('#arrival').val() !== '' && $('#departure').val() !== '') {
 
       $('#preloader').show();
@@ -46,7 +48,7 @@ if ($('.go-to-booking').length) {
         beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
         success: function(response) {
 
-          window.location = '/homes/' + $(this).attr('data-hid') + '/booking?arrival=' + $('#arrival').val() + '&departure=' + $('#departure').val() + '&room_id=' + $(this).attr('data-rid');
+          window.location = bookingUrl;
 
         },
         error: function() {
