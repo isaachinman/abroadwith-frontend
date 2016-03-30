@@ -1,6 +1,6 @@
-{% extends "layout.html" %} {% block title %} {{ translations.signup.title }} {% endblock %} {% block content %}
+{% extends "layout.html" %} {% block title %} {{ translations.common.signup_title }} {% endblock %} {% block content %}
 
-<h1 class='hide'>Sign up</h1>
+<h1 class='hide'>{{ translations.common.signup_title }}</h1>
 
 <div id="choose-languages" class="container center-align margin-top-50">
 
@@ -80,7 +80,7 @@
   <a id='apply-languages-signup-page' class='btn-flat btn-primary'>Next</a>
 
   <div id='languages-not-valid' class='col s10 offset-s1 hide'>
-    Please choose at least one known language
+    {{translations.common.languages_choose_at_least_one}}
   </div>
 
 </div>
