@@ -2,7 +2,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var UserEditProfile = require('./components/user-edit-profile.react');
+
 var domains = require('domains');
+
+var toast = require('toast');
 
 if ($('#user-edit-profile').length) {
   // Search parent
@@ -22,6 +25,9 @@ if ($('#user-edit-profile').length) {
               for(var f = 0; f < file.length; f++){
                 formData.append('photos', file[f]);
               }
+
+              $('#preloader').show();
+
               $.ajax({
                 url : '/upload/users/'+token.rid+'/photo',
                 type : 'POST',
@@ -31,6 +37,7 @@ if ($('#user-edit-profile').length) {
                 processData : false,
                 beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
                 success : function(data, textStatus, jqXHR) {
+
                       var message = jqXHR.responseText;
                       var result = JSON.parse(data);
                       for(var img in result){
@@ -39,10 +46,12 @@ if ($('#user-edit-profile').length) {
                           window.userObj.photo = result[img].location;
                         }
                       }
+                      $('#preloader').hide();
                 },
                 error: function(jqXHR) {
                   var message = jqXHR.responseText;
-                  alert('Failed: '+ message);
+                  $('#preloader').hide();
+                  toast('Failed: '+ message);
 
                 }
               });
