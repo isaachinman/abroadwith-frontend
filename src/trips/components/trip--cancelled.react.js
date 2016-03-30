@@ -18,7 +18,7 @@ module.exports = React.createClass({
 
     if (trip.invoiceIds.length > 0) {
       for (var i=0; i<trip.invoiceIds.length; i++) {
-        var url = domains.FRONTEND+"/users/"+JWT.rid+"/invoices/"+trip.invoiceIds[i]
+        var url = "/users/"+JWT.rid+"/invoices/"+trip.invoiceIds[i]
         var text = i18n.t('trips:invoice') + " " + (i+1)
         invoices.push(
           <div><a href={url}>{text}</a></div>
