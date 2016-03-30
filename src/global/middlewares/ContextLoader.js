@@ -14,6 +14,7 @@ module.exports = function (req, res, next) {
 
   if(value) {
     req.language = prefix;
+    res.cookie('ui-language',prefix);
   }
   else{
     //TODO read header and/or cookie
