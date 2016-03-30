@@ -12,14 +12,14 @@
 
   <div class='section no-padding'>
     <div class='row'>
-      <a id='request-booking-btn' class='btn btn-primary disabled'>Request booking</a>
+      <a id='request-booking-btn' class='btn btn-primary disabled'>{{translations.booking.request_booking_button}}</a>
     </div>
   </div>
 
   <div class='row primary-info hide-on-small-and-down'>
     <div class='left'>
       <div class='col s12'>
-        <div id='hid' class='host-name' data-hid={{home.id}}><strong>Margarite's home</strong></div>
+        <div id='hid' class='host-name' data-hid={{home.id}}><strong>{{translations.booking.home_name | replace('[firstName]',home.host.firstName)}}</strong></div>
         <div class='small grey-text text-darken-1'>
           {% for room in home.rooms %}
             {% if room.id == query.room_id %}
@@ -353,7 +353,7 @@
                 <option value={{currency}} data-symbol={{symbol}}>{{currency}}</option>
               {% endfor %}
             </select>
-            <label>Currency</label>
+            <label>{{translations.booking.currency_label}}</label>
           </div>
 
         </div>
