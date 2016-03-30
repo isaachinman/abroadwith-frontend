@@ -98,7 +98,7 @@ module.exports = React.createClass({
     if (typeof homeObj !== 'undefined') {
       homeObj.rooms = newRoomsObj;
       this.props.updateHome(function() {
-        toast('Rooms updated');
+        toast(i18n.t('manage_home:room_updated_toast'));
       });
       console.log(newRoomsObj);
     }

@@ -171,7 +171,7 @@ module.exports = React.createClass({
 
           <div className='row'>
             <div className='col s12 right-align'>
-              <a className='red-text' onClick={this.deleteRoom}>Delete room</a>
+              <a className='red-text' onClick={this.deleteRoom}>{i18n.t('manage_home:rooms_delete')}</a>
             </div>
           </div>
 

@@ -3,7 +3,7 @@
   <div class='manage-home-block'>
 
     <div class='row'>
-      <h4>Define your pricing</h4>
+      <h4>{{translations.manage_home.pricing_title}}</h4>
     </div>
 
     <div class='manage-home-section'>
@@ -14,12 +14,12 @@
         </div>
         <div class='col s10 m1 l1 input-field'>
           <select id='currency' class='material'>
-            <option disabled selected>Choose</option>
+            <option disabled selected>{{translations.manage_home.pricing_currency_placeholder}}</option>
             {% for currency, symbol in constants.currencies %}
               <option value={{currency}}>{{currency}}</option>
             {% endfor %}
           </select>
-          <label>Currency</label>
+          <label>{{translations.manage_home.pricing_currency_label}}</label>
         </div>
 
         <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
@@ -27,15 +27,15 @@
         </div>
         <div class='col s2 m2 l2 left-align input-field'>
           <input id='oneMonthDiscount' type="text" class="validate no-margin" placeholder='5%' />
-          <label class='active'>1 month discount</label>
+          <label class='active'>{{translations.manage_home.pricing_discount1}}</label>
         </div>
         <div class='col s2 m2 l2 left-align input-field'>
           <input id='threeMonthDiscount' type="text" class="validate no-margin" placeholder='7%' />
-          <label class='active'>3 month discount</label>
+          <label class='active'>{{translations.manage_home.pricing_discount3}}</label>
         </div>
         <div class='col s2 m2 l2 left-align input-field'>
           <input id='sixMonthDiscount' type="text" class="validate no-margin" placeholder='14%' />
-          <label class='active'>6+ month discount</label>
+          <label class='active'>{{translations.manage_home.pricing_discount6}}</label>
         </div>
 
         <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1 tandem-discount-field'>
@@ -43,7 +43,7 @@
         </div>
         <div class='col s2 m2 l2 left-align input-field tandem-discount-field'>
           <input id='tandem-discount' type="text" class="validate no-margin" placeholder='20%' />
-          <label class='active'>Tandem discount</label>
+          <label class='active'>{{translations.manage_home.pricing_discount_tandem}}</label>
         </div>
       </div>
 
@@ -53,7 +53,7 @@
 
         <div class='col s12 m12 l4 left-align'>
 
-          <label>Room rates (weekly)</label>
+          <label>{{translations.manage_home.pricing_room_rates}}</label>
 
           <ul id='rooms-pricing' class="collection">
             <li id='no-rooms-pricing' class="collection-item"><span class="title">{{translations.manage_home.message_no_rooms}}</span><br></br><a class='light'>{{translations.manage_home.message_to_create_rooms}}</a></li>
@@ -62,7 +62,7 @@
         </div>
 
         <div class='col s12 m12 l8 left-align'>
-          <label>Extra charges</label>
+          <label>{{translations.manage_home.pricing_extra_charges}}</label>
 
           <ul class="collection with-header extra-charges-collection">
 
@@ -73,7 +73,7 @@
                 </div>
                 <div class='col s9 input-field'>
                   <input id='EXTRA_GUEST' type="text" class="validate no-margin" placeholder='€20' />
-                  <label class='active'>Extra guest</label>
+                  <label class='active'>{{translations.homes.extras.EXTRA_GUEST}}</label>
                 </div>
               </div>
             </li>
@@ -85,7 +85,7 @@
                 </div>
                 <div class='col s9 input-field'>
                   <input id='FULL_BOARD' type="text" class="validate no-margin" placeholder='€20' />
-                  <label class='active'>Full board</label>
+                  <label class='active'>{{translations.homes.menus_offered.FULL_BOARD}}</label>
                 </div>
               </div>
             </li>
@@ -97,7 +97,7 @@
                 </div>
                 <div class='col s9 input-field'>
                   <input id='HALF_BOARD' type="text" class="validate no-margin" placeholder='€20' />
-                  <label class='active'>Half board</label>
+                  <label class='active'>{{translations.homes.menus_offered.HALF_BOARD}}</label>
                 </div>
               </div>
             </li>
@@ -109,7 +109,7 @@
                 </div>
                 <div class='col s9 input-field'>
                   <input id='LAUNDRY' type="text" class="validate no-margin" placeholder='€20' />
-                  <label class='active'>Laundry service</label>
+                  <label class='active'>{{translations.homes.extras.LAUNDRY}}</label>
                 </div>
               </div>
             </li>
@@ -121,7 +121,7 @@
                 </div>
                 <div class='col s9 input-field'>
                   <input id='CLEANING' type="text" class="validate no-margin" placeholder='€20' />
-                  <label class='active'>Cleaning service</label>
+                  <label class='active'>{{translations.homes.extras.CLEANING}}</label>
                 </div>
               </div>
             </li>
@@ -133,7 +133,7 @@
                 </div>
                 <div class='col s9 input-field'>
                   <input id='AIRPORT_PICKUP' type="text" class="validate no-margin" placeholder='€20' />
-                  <label class='active'>Airport pickup</label>
+                  <label class='active'>{{translations.homes.extras.AIRPORT_PICKUP}}</label>
                 </div>
               </div>
             </li>
@@ -150,7 +150,7 @@
 
   <div class='row'>
     <div class='col s6 offset-s3'>
-      <a id='save-pricing' class='btn btn-primary save-btn'>Save</a>
+      <a id='save-pricing' class='btn btn-primary save-btn'>{{translations.manage_home.save_button}}</a>
     </div>
   </div>
 
