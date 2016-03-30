@@ -3,7 +3,7 @@
   <div class='admin-block'>
 
     <div class='row'>
-      <h4>Your languages</h4>
+      <h4>{{translations.admin.languages_title}}</h4>
     </div>
 
     <div class='manage-home-section'>
@@ -52,7 +52,7 @@
           <h5>{{ translations.common.languages_known }}:</h5>
         </div>
         <div class='col s5 m3 l3 input-field'>
-          <select id="known-language" type="text" class="validate no-margin" data-placeholder='Language'>
+          <select id="known-language" type="text" class="validate no-margin" data-placeholder='{{translations.admin.language_placeholder}}'>
             <option></option>
             {% for langCode, language in translations.languages %}
               <option data-lang={{langCode}}>{{ language }}</option>

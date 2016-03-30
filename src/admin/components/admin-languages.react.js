@@ -62,7 +62,7 @@ module.exports = React.createClass({
           languagesKnown.forEach(function(lang) {
 
             languagesKnownHTML.push(
-              <div className="language-known-chip chip" data-lang={lang.language} data-level={lang.level}>{i18n.t('languages:'+lang.language)} ({(i18n.t('common:'+lang.level))})<i className="material-icons">close</i></div>
+              <div className="language-known-chip chip" data-lang={lang.language} data-level={lang.level}>{i18n.t('languages:'+lang.language)} ({(i18n.t('users:language_levels.'+lang.level))})<i className="material-icons">close</i></div>
             )
           })
           return (
@@ -86,7 +86,7 @@ module.exports = React.createClass({
           var languagesLearningHTML = []
           languagesLearning.forEach(function(lang) {
             languagesLearningHTML.push(
-              <div className="language-learning-chip chip" data-lang={lang.language} data-level={lang.level}>{i18n.t('languages:'+lang.language)} ({(i18n.t('common:'+'learningLevels.'+lang.level))})<i className="material-icons">close</i></div>
+              <div className="language-learning-chip chip" data-lang={lang.language} data-level={lang.level}>{i18n.t('languages:'+lang.language)} ({(i18n.t('users:language_levels.'+lang.level))})<i className="material-icons">close</i></div>
             )
           })
           return (

@@ -41,13 +41,13 @@ if ($('#admin-edit').length) {
                         var result = JSON.parse(data);
                         for(var img in result){
                           if(result[img].status == 'OK'){
-                            alert(i18n.t('admin#upload_id_success_alert'));
+                            alert(i18n.t('admin:upload_id_success_alert'));
                           }
                         }
                   },
                   error: function(jqXHR) {
                     var message = jqXHR.responseText;
-                    alert(i18n.t('admin#upload_id_failed_alert') + ' ' + message);
+                    alert(i18n.t('admin:upload_id_failed_alert') + ' ' + message);
                   }
                 });
             }

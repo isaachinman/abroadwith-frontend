@@ -5,7 +5,7 @@
   <div class='admin-block admin-block--no-save'>
 
     <div class='row'>
-      <h4>Let's talk money</h4>
+      <h4>{{translations.admin.payments_title}}</h4>
     </div>
 
     <div class='row'>
@@ -13,7 +13,7 @@
       <ul class="collapsible rooms-collapsible" data-collapsible="accordion">
         <li class='white'>
           <div class="collapsible-header active">
-            Payment methods
+            {{translations.admin.payments_payment_methods}}
           </div>
           <div class="edit grey-text text-lighten-1">
             <i class="fa fa-credit-card fa-2x"></i>
@@ -33,7 +33,7 @@
       <ul class="collapsible rooms-collapsible" data-collapsible="accordion">
         <li class='white'>
           <div class="collapsible-header active">
-            Payout methods
+            {{translations.admin.payments_pay}}
           </div>
           <div class="edit grey-text text-lighten-1">
             <i class="fa fa-university fa-2x"></i>
@@ -47,8 +47,8 @@
               <div class='col s12 m6 l6'>
                 <div class='add-payout'>
                   <div class='header'>
-                    <div class='title'>Add bank account</div>
-                    <div class='subtitle'>Get paid directly into your bank account</div>
+                    <div class='title'>{{translations.admin.payments_add_bank_account}}</div>
+                    <div class='subtitle'>{{translations.admin.payments_add_bank_account_subtext}}</div>
                   </div>
 
                   <form id='add-bank-payout' style='display:none'>
@@ -56,31 +56,31 @@
                     <div class='row'>
                       <div class='col s12 m6 l6 input-field'>
                         <input id='bank-first-name' type="text" class="validate" required>
-                        <label class='inert'>First name</label>
+                        <label class='inert'>{{translations.admin.payments_first_name}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
                         <input id='bank-last-name' type="text" class="validate" required>
-                        <label class='inert'>Last name</label>
+                        <label class='inert'>{{translations.admin.payments_last_name}}</label>
                       </div>
                       <div class='col s12 input-field'>
                         <input id='bank-address-one' type="text" class="validate" required>
-                        <label class='inert'>Billing address</label>
+                        <label class='inert'>{{translations.admin.payments_billing_address}}</label>
                       </div>
                       <div class='col s12 input-field'>
                         <input id='bank-address-two' type="text" class="validate">
-                        <label class='inert'>Billing address 2 / Zone</label>
+                        <label class='inert'>{{translations.admin.payments_billing_address2}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
                         <input id='bank-city' type="text" class="validate" required>
-                        <label class='inert'>City</label>
+                        <label class='inert'>{{translations.admin.payments_city}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field' required>
                         <input id='bank-state' type="text" class="validate">
-                        <label class='inert'>State / Province</label>
+                        <label class='inert'>{{translations.admin.payments_state}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field' required>
                         <input id='bank-postcode' type="text" class="validate">
-                        <label class='inert'>Postal code</label>
+                        <label class='inert'>{{translations.admin.payments_zipcode}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
                         <select id='bank-country' class='billing-country'>
@@ -93,38 +93,38 @@
                       <div class='iban-ui'>
                         <div class='col s12 input-field'>
                           <input id="iban" type="text" class="validate" required>
-                          <label class='inert' for="iban">IBAN</label>
+                          <label class='inert' for="iban">{{translations.admin.payments_bank_iban}}</label>
                         </div>
                         <div class='col s12 input-field'>
                           <input id="iban-again" type="text" class="validate" required>
-                          <label class='inert' for="iban-abain">Enter IBAN again</label>
+                          <label class='inert' for="iban-abain">{{translations.admin.payments_iban2}}</label>
                         </div>
                         <div class='col s12 input-field'>
                           <input id="swift-bic" type="text" class="validate" required>
-                          <label class='inert' for="swift-bic">SWIFT/BIC code</label>
+                          <label class='inert' for="swift-bic">{{translations.admin.payments_bank_swift}}</label>
                         </div>
                       </div>
                       <div class='routing-ui' style='display:none'>
                         <div class='col s12 input-field'>
                           <input id="routing-account-number" type="text" class="validate">
-                          <label class='inert' for="routing-account-number">Account number</label>
+                          <label class='inert' for="routing-account-number">  {{translations.admin.payments_bank_account}}</label>
                         </div>
                         <div class='col s12 input-field'>
                           <input id="routing-account-number-again" type="text" class="validate">
-                          <label class='inert' for="routing-account-number-again">Enter account number again</label>
+                          <label class='inert' for="routing-account-number-again">  {{translations.admin.payments_bank_account2}}</label>
                         </div>
                         <div class='col s12 input-field'>
                           <input id="routing-number" type="text" class="validate">
-                          <label class='inert' for="routing-number">Routing number</label>
+                          <label class='inert' for="routing-number">  {{translations.admin.payments_bank_routing}}</label>
                         </div>
                       </div>
                       <div class='col s12 input-field left-align grey-text'>
-                        Currency: <span id='bank-currency'></span>
+                        {{translations.admin.payments_currency}}: <span id='bank-currency'></span>
                       </div>
                     </div>
 
                     <div class='footer'>
-                      <button type='submit' class='btn btn-primary btn-flat'>Add bank account</a>
+                      <button type='submit' class='btn btn-primary btn-flat'>{{translations.admin.payments_add_bank_account}}</a>
                     </div>
 
                   </form>
@@ -143,39 +143,39 @@
                     <div class='row'>
                       <div class='col s12 m6 l6 input-field'>
                         <input id='paypal-first-name' type="text" class="validate" required>
-                        <label class='inert'>First name</label>
+                        <label class='inert'>  {{translations.admin.payments_first_name}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
                         <input id='paypal-last-name' type="text" class="validate" required>
-                        <label class='inert'>Last name</label>
+                        <label class='inert'>  {{translations.admin.payments_last_name}}</label>
                       </div>
                       <div class='col s12 input-field'>
                         <input id="paypal-email" type="email" class="validate">
-                        <label class='inert' for="paypal-email">PayPal email address</label>
+                        <label class='inert' for="paypal-email">  {{translations.admin.payments_paypal_email}}</label>
                       </div>
                       <div class='col s12 input-field'>
                         <input id="paypal-email-again" type="email" class="validate">
-                        <label class='inert'>Enter email again</label>
+                        <label class='inert'>  {{translations.admin.payments_paypal_email2}}</label>
                       </div>
                       <div class='col s12 input-field'>
                         <input id='paypal-address-one' type="text" class="validate">
-                        <label class='inert'>Billing address</label>
+                        <label class='inert'>  {{translations.admin.payments_billing_address}}</label>
                       </div>
                       <div class='col s12 input-field'>
                         <input id='paypal-address-two' type="text" class="validate">
-                        <label class='inert'>Billing address 2 / Zone</label>
+                        <label class='inert'>  {{translations.admin.payments_billing_address2}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
                         <input id='paypal-city' type="text" class="validate">
-                        <label class='inert'>City</label>
+                        <label class='inert'>  {{translations.admin.payments_city}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
                         <input id='paypal-state' type="text" class="validate">
-                        <label class='inert'>State / Province</label>
+                        <label class='inert'>  {{translations.admin.payments_state}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
                         <input id='paypal-postcode' type="text" class="validate">
-                        <label class='inert'>Postal code</label>
+                        <label class='inert'>  {{translations.admin.payments_zipcode}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
                         <select id='paypal-country' class='billing-country'>
@@ -186,12 +186,12 @@
                         </select>
                       </div>
                       <div class='col s12 input-field left-align grey-text'>
-                        Currency: <span id='paypal-currency'></span>
+                          {{translations.admin.payments_currency}}: <span id='paypal-currency'></span>
                       </div>
                     </div>
 
                     <div class='footer'>
-                      <button type='submit' class='btn btn-primary btn-flat'>Add PayPal account</a>
+                      <button type='submit' class='btn btn-primary btn-flat'>  {{translations.admin.payments_add_paypal_account}}</a>
                     </div>
 
                   </form>
