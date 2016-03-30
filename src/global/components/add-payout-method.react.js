@@ -4,6 +4,8 @@ var domains = require('domains');
 var JWT = require('JWT');
 var POST = require('POST');
 
+var toast = require('toast');
+
 var defaultBankCurrencies = require('default-bank-currencies');
 var defaultPaypalCurrencies = require('default-paypal-currencies');
 
@@ -12,6 +14,8 @@ var i18n = require('../../global/util/i18n');
 module.exports = React.createClass({
   addBankPayout: function() {
 
+    this.changeBankCountry();
+
     var updateAdmin = this.props.updateAdmin;
 
     if ($('#bank-country').val() === null || this.state.bank === 'undefined') {
@@ -19,10 +23,12 @@ module.exports = React.createClass({
     }
 
     if (this.state.bank === 'BANK' && $('#iban').val() !== $('#iban-again').val()) {
+      toast("IBANs don't match");
       return;
     }
 
     if (this.state.bank === 'ROUTING_TRANSIT' && $('#routing-account-number').val() !== $('#routing-account-number-again').val()) {
+      toast("Account numbers don't match");
       return;
     }
 
@@ -123,25 +129,7 @@ module.exports = React.createClass({
 
     // Change function for bank country select
     $('select#bank-country').change(function() {
-      var country = $('select#bank-country').val()
-      $('#bank-currency').html(defaultBankCurrencies[country])
-      if (country === 'CA' || country === 'GU' || country === 'MH' || country === 'PR' || country === 'US') {
-        // Render Routing bank UI
-        this.setState({bank:'ROUTING_TRANSIT'})
-        $('.iban-ui').hide();
-        $('.iban-ui input').removeAttr('required', 'required');
-        $('.routing-ui').show();
-        $('.routing-ui input').attr('required', 'required');
-        $('#bank-state').attr('required', 'required');
-      } else {
-        // Render IBAN bank UI
-        this.setState({bank:'BANK'})
-        $('.iban-ui').show();
-        $('.iban-ui input').attr('required', 'required');
-        $('#bank-state').removeAttr('required');
-        $('.routing-ui').hide();
-        $('.routing-ui input').removeAttr('required', 'required');
-      }
+      this.changeBankCountry();
     }.bind(this))
 
     // Change function for paypal country select
@@ -150,6 +138,27 @@ module.exports = React.createClass({
       $('#paypal-currency').html(defaultPaypalCurrencies[country] ? defaultPaypalCurrencies[country] : 'EUR')
     })
 
+  },
+  changeBankCountry: function() {
+    var country = $('select#bank-country').val()
+    $('#bank-currency').html(defaultBankCurrencies[country])
+    if (country === 'CA' || country === 'GU' || country === 'MH' || country === 'PR' || country === 'US') {
+      // Render Routing bank UI
+      this.setState({bank:'ROUTING_TRANSIT'})
+      $('.iban-ui').hide();
+      $('.iban-ui input').removeAttr('required', 'required');
+      $('.routing-ui').show();
+      $('.routing-ui input').attr('required', 'required');
+      $('#bank-state').attr('required', 'required');
+    } else {
+      // Render IBAN bank UI
+      this.setState({bank:'BANK'})
+      $('.iban-ui').show();
+      $('.iban-ui input').attr('required', 'required');
+      $('#bank-state').removeAttr('required');
+      $('.routing-ui').hide();
+      $('.routing-ui input').removeAttr('required', 'required');
+    }
   },
   componentWillUnmount: function() {
     $('select#bank-country').off();
