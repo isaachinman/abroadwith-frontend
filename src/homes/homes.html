@@ -322,7 +322,7 @@
           </div>
 
           <div class='col s4 right-align bottom'>
-            <a class='btn btn-primary btn-book tooltipped go-to-booking' data-position='bottom' data-delay='50' data-tooltip='{{translations.homes.pick_dates_tooltip}}' data-hid={{home.id}} data-rid={{room.id}}>{{translations.common.Book_now}}</a>
+            <a class='btn btn-primary btn-book tooltipped go-to-booking' data-position='bottom' data-delay='50' data-tooltip='{{translations.homes.pick_dates_tooltip}}' data-hid={{home.id}} data-rid={{room.id}} {% if home.immersions.stay.id %} data-stay-id={{home.immersions.stay.id}} {% elif home.immersions.tandem.id %} data-stay-id={{home.immersions.tandem.id}} {% elif home.immersions.teacher.id %} data-stay-id={{home.immersions.teacher.id}} {% endif %}>{{translations.common.Book_now}}</a>
           </div>
 
         </div>
