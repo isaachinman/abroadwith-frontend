@@ -29,7 +29,7 @@ if ($('.go-to-booking').length) {
         departureDate:              $('#departure').val(),
         roomId:                     parseInt($(this).attr('data-rid')),
         guestCount:                 1,
-        languageHostWillTeach:      $('.chip--speaks:first-child').attr('data-lang'),
+        languageHostWillTeach:      $('.chip--speaks').first().attr('data-lang'),
         languageGuestWillTeach:     null,
         currency:                   'EUR',
         serviceNames:               null,
