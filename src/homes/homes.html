@@ -5,9 +5,7 @@
   <div class="wallop">
     <div class="Wallop-list">
       {% for photo in home.photos %}
-      <div class="Wallop-item">
-        <img src="{{constants.domains.IMG}}{{photo}}" />
-      </div>
+      <div class="Wallop-item" style='background-image: url({{constants.domains.IMG}}{{photo}})'></div>
       {% endfor %}
     </div>
     <a class="Wallop-buttonPrevious white-text"><i class="fa fa-chevron-circle-left fa-2x"></i></a>

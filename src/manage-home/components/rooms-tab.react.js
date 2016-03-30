@@ -60,6 +60,9 @@ module.exports = React.createClass({
             $('#preloader').hide();
           }
         });
+      } else {
+        thisprops.refreshState();
+        $('#preloader').hide();
       }
 
     }.bind(this);

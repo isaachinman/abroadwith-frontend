@@ -4,6 +4,8 @@ var ReactDOM = require('react-dom');
 var AdminEdit = require('./components/admin-edit.react');
 var i18n = require('../global/util/i18n');
 
+var toast = require('toast');
+
 if ($('#admin-edit').length) {
   i18n.loadNamespaces(['admin','users','languages', 'common','countries'],function(){
     // Admin parent
@@ -28,6 +30,9 @@ if ($('#admin-edit').length) {
                 for(var f = 0; f < file.length; f++){
                   formData.append('photos', file[f]);
                 }
+
+                $('#preloader').show();
+
                 $.ajax({
                   url : '/upload/users/'+token.rid+'/id',
                   type : 'POST',
@@ -37,17 +42,22 @@ if ($('#admin-edit').length) {
                   processData : false,
                   beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
                   success : function(data, textStatus, jqXHR) {
-                        var message = jqXHR.responseText;
-                        var result = JSON.parse(data);
-                        for(var img in result){
-                          if(result[img].status == 'OK'){
-                            alert(i18n.t('admin:upload_id_success_alert'));
-                          }
-                        }
+
+                    var message = jqXHR.responseText;
+                    var result = JSON.parse(data);
+                    for(var img in result){
+                      if(result[img].status == 'OK'){
+                        toast(i18n.t('admin:upload_id_success_alert'));
+                      }
+                    }
+                    $('#preloader').hide();
+
+
                   },
                   error: function(jqXHR) {
                     var message = jqXHR.responseText;
-                    alert(i18n.t('admin:upload_id_failed_alert') + ' ' + message);
+                    toast(i18n.t('admin:upload_id_failed_alert') + ' ' + message);
+                    $('#preloader').hide();
                   }
                 });
             }

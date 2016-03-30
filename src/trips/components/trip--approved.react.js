@@ -125,7 +125,7 @@ module.exports = React.createClass({
                     <td className='status'>&nbsp;</td>
                     <td>{i18n.t('immersions:'+trip.immersionType)}</td>
                     <td>{guestWillTeach}</td>
-                    <td>{i18n.t('languages:')+trip.languageHostWillTeach}</td>
+                    <td>{i18n.t('languages:'+trip.languageHostWillTeach)}</td>
                     <td>{trip.weeklyHours}</td>
                     <td>{services}</td>
                     <td>{trip.hostPhone}<br />{trip.hostEmail}</td>

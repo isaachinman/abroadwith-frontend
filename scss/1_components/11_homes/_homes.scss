@@ -9,6 +9,8 @@
   .wallop, .Wallop-list, .Wallop-item, img {
     min-height: 300px;
     max-height: 400px;
+    background-position: center;
+    background-size: cover;
   }
   img, .Wallop-item {
     height: 100%;
