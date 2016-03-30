@@ -73,7 +73,7 @@ module.exports = React.createClass({
               <i className="fa fa-tag fa-2x"></i>
             </div>
             <div className="col s10 m4 l4 input-field">
-              <input type="text" className="validate room-name" placeholder={i18n.t('rooms:room_name_placeholder')} length='35' defaultValue={this.props.roomName} />
+              <input type="text" className="validate room-name" placeholder={i18n.t('rooms:room_name_placeholder')} length='35' maxlength='35' defaultValue={this.props.roomName} />
               <label htmlFor="room-name" className='active'>{i18n.t('rooms:room_name_label')}</label>
             </div>
             <div className='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
@@ -164,7 +164,7 @@ module.exports = React.createClass({
               <i className="fa fa-file-text-o fa-2x"></i>
             </div>
             <div className="col s10 m11 l11 input-field">
-              <textarea className="materialize-textarea room-description" length='127' placeholder={i18n.t('rooms:description_placeholder')} defaultValue={this.props.description}></textarea>
+              <textarea className="materialize-textarea room-description" length='127' maxlength='127' placeholder={i18n.t('rooms:description_placeholder')} defaultValue={this.props.description}></textarea>
               <label htmlFor="room-description" className='active'>{i18n.t('manage_home:Description')}</label>
             </div>
           </div>
