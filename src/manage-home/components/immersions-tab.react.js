@@ -4,6 +4,8 @@ var i18n = require('../../global/util/i18n');
 var LanguageDropdown = require('./language-dropdown.react');
 var toast = require('toast');
 
+var currencies = require('currencies');
+
 
 module.exports = React.createClass({
   saveImmersions: function() {
@@ -232,7 +234,7 @@ module.exports = React.createClass({
 
         teacherLanguagesOffered.val(this.props.immersions.teacher.languagesOffered);
 
-        this.props.immersions.teacher.hourly !== null ? $('#teacher-rate').val(this.props.immersions.teacher.hourly + this.props.currency) : null;
+        this.props.immersions.teacher.hourly !== null ? $('#teacher-rate').val(currencies[this.props.currency] + this.props.immersions.teacher.hourly) : null;
         $('#packages').val(this.props.immersions.teacher.packages);
         $('#material-costs').val(this.props.immersions.teacher.materials + this.props.currency);
 

@@ -80,7 +80,7 @@ module.exports = React.createClass({
                   processData : false,
                   beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
                   success : function(data, textStatus, jqXHR) {
-                        toast('Images uploaded!');
+                        toast('Images uploaded');
                         refresh();
                         $('#preloader').hide();
                   },

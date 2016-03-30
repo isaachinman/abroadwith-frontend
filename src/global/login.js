@@ -19,7 +19,7 @@ module.exports = function(loginObj) {
     success: function(response) {
 
       localStorage.setItem('JWT', response.token);
-      location.reload();
+      loginRedirect();
 
     },
     error: function() {

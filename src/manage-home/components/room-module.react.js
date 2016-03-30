@@ -54,8 +54,8 @@ module.exports = React.createClass({
   },
   render: function() {
 
-    console.log(this.props)
-    var img = this.props.img ? this.props.img : '';
+    console.log(this.props.img)
+    var img = this.props.img !== null ? this.props.img : '';
 
     return (
 
@@ -150,7 +150,7 @@ module.exports = React.createClass({
 
                   </div>
                   <div className="file-path-wrapper">
-                    <input id={'photo_room_'+this.props.id} type="text" defaultValue={this.props.img}/>
+                    <input id={'photo_room_'+this.props.id} type="text" defaultValue={img}/>
                   </div>
                 </div>
               </form>
