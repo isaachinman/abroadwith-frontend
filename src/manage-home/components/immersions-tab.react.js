@@ -176,7 +176,7 @@ module.exports = React.createClass({
 
     if (this.props.immersions) {
 
-      if (this.props.immersions.tandem) {
+      if (this.props.immersions.tandem && typeof this.props.immersions.tandem.languagesInterested[0] !== 'undefined') {
         $('#tandem-discount').val(this.props.immersions.tandem.languagesInterested[0].discount + '%')
       }
       // Populate stay offered dropdown
