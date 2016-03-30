@@ -24,6 +24,8 @@ var compileFacilities = function(){
 module.exports = React.createClass({
   deleteRoom: function() {
 
+    $('#preloader').show();
+
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+this.props.id,
       type: "DELETE",

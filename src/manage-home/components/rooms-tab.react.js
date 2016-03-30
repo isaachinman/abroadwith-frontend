@@ -28,6 +28,8 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms';
     var success = function(response) {
 
+      $('#add-room-form .collapsible-header').trigger('click');
+
       console.log(response);
 
       var thisprops = this.props;
@@ -167,6 +169,7 @@ module.exports = React.createClass({
 
     $('.upload-room-photo').each(function(index, value){
       value.onchange = function(){
+
         console.log(value.attributes.roomid);
         $('a#save-rooms').addClass("disabled");
         var file = value.files;
@@ -176,6 +179,9 @@ module.exports = React.createClass({
           for(var f = 0; f < file.length; f++){
             formData.append('photos', file[f]);
           }
+
+          $('#preloader').show();
+
           $.ajax({
             url : '/upload/users/'+token.rid+'/homes/'+token.hid+'/rooms/'+value.attributes.roomid.nodeValue+'/photo',
             type : 'POST',
@@ -194,8 +200,10 @@ module.exports = React.createClass({
                 }
               }
               $('a#save-rooms').removeClass("disabled");
+              $('#preloader').hide();
             },
             error: function(jqXHR) {
+              $('#preloader').hide();
               var message = jqXHR.responseText;
               alert('Image upload failed: '+ message);
               $('a#save-rooms').removeClass("disabled");

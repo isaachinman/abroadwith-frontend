@@ -8,6 +8,8 @@ var POST = require('POST');
 module.exports = React.createClass({
   userEditSave: function() {
 
+    $('#preloader').show();
+
     delete userObj.paymentMethods;
     delete userObj.payoutMethods;
     delete userObj.verifications;
@@ -29,7 +31,8 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid;
     var success = function() {
-      this.refreshState()
+      this.refreshState();
+      $('#preloader').hide();
     }.bind(this)
     POST(url, userObj, success);
 

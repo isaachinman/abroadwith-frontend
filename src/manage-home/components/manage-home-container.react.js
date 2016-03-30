@@ -80,13 +80,13 @@ module.exports = React.createClass({
                   processData : false,
                   beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
                   success : function(data, textStatus, jqXHR) {
-                        alert('Images uploaded!');
+                        toast('Images uploaded!');
                         refresh();
                         $('#preloader').hide();
                   },
                   error: function(jqXHR) {
                     var message = jqXHR.responseText;
-                    alert('Failed: '+ message);
+                    toast('Failed: '+ message);
                     $('#preloader').hide();
                   }
                 });
