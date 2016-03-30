@@ -19,7 +19,7 @@
   <div class='row primary-info hide-on-small-and-down'>
     <div class='left'>
       <div class='col s12'>
-        <div class='host-name'><strong>Margarite's home</strong></div>
+        <div id='hid' class='host-name' data-hid={{home.id}}><strong>Margarite's home</strong></div>
         <div class='small grey-text text-darken-1'>
           {% for room in home.rooms %}
             {% if room.id == query.room_id %}
@@ -375,7 +375,7 @@
           </div>
 
           <div class='col s12 border'>
-            <textarea id="textarea1" class="materialize-textarea" length="2000" placeholder="{{translations.booking.message_placeholder}}"></textarea>
+            <textarea id="message-to-host" class="materialize-textarea" length="2000" placeholder="{{translations.booking.message_placeholder}}"></textarea>
           </div>
 
         </div>
