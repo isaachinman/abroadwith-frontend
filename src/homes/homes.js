@@ -32,7 +32,7 @@ if ($('.go-to-booking').length) {
         languageHostWillTeach:      $('.chip--speaks').first().attr('data-lang'),
         languageGuestWillTeach:     null,
         currency:                   'EUR',
-        serviceNames:               null,
+        serviceNames:               [],
         weeklyHours:                7,
         partOfDay:                  null,
         settingNames:               []
