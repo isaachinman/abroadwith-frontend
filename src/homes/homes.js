@@ -33,7 +33,6 @@ if ($('.go-to-booking').length) {
         languageGuestWillTeach:     null,
         currency:                   'EUR',
         serviceNames:               null,
-        paymentMethodId:            null,
         weeklyHours:                7,
         partOfDay:                  null,
         settingNames:               []
