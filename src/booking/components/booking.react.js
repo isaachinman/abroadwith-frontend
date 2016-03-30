@@ -98,7 +98,30 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/bookings';
     var success = function() {
-      window.location = '/booking-success';
+
+      // Guest has input a message to host, so create a new thread
+      if ($('#message-to-host').val() !== '') {
+
+        var threadObj = {
+          homeId: $('#hid').attr('data-hid'),
+          arrival: $('#arrival').html(),
+          departure: $('#departure').html(),
+          message: $('#message-to-host').val()
+        }
+
+        var url = domains.API + '/users/' + JWT.rid + '/messages';
+
+        var success = function(response) {
+          window.location = '/booking-success';
+        }
+
+        POST(url, threadObj, success);
+
+      } else {
+        window.location = '/booking-success';
+      }
+
+
     }
     POST(url, bookingObj, success);
 
