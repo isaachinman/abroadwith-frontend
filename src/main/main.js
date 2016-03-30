@@ -1,6 +1,8 @@
 var Wallop = require('wallop');
 var newMessageThread = require('new-message-thread');
 
+var i18n = require('../global/util/i18n');
+
 // Initialisations
 $(document).ready(function() {
 
@@ -46,19 +48,23 @@ $(document).ready(function() {
     });
   }
 
-  // Select2 language to learn
-  if ($('select#language').length) {
-    $("select#language").select2({
-      placeholder: "Pick a language to learn"
-    });
-  }
 
-  // Select2 language to teach
-  if ($('select#language-teach').length) {
-    $("select#language-teach").select2({
-      placeholder: "What language do you want to teach?"
-    });
-  }
+  i18n.loadNamespaces(['search'],function(){
+    // Select2 language to learn
+    if ($('select#language').length) {
+      $("select#language").select2({
+        placeholder: i18n.t('search:language_to_learn')
+      });
+    }
+
+    // Select2 language to teach
+    if ($('select#language-teach').length) {
+      $("select#language-teach").select2({
+        placeholder: i18n.t('search:language_to_teach')
+      });
+    }
+  });
+
 
   // Modal
   if ($('.modal-trigger').length) {
