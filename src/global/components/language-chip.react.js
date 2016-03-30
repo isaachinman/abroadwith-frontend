@@ -1,4 +1,5 @@
 require('react');
+var i18n = require('../util/i18n');
 
 module.exports = React.createClass({
   render: function() {

@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var i18n = require('../util/i18n');
+
 module.exports = React.createClass({
   render: function() {
     if (this.props.default === true) {
@@ -8,7 +10,7 @@ module.exports = React.createClass({
       var defaultText = <span className="grey-text text-darken-1">Default</span>;
     } else {
       var defaultHTML = null;
-      var defaultText = <a onClick={this.props.setPayoutMethodDefault}>Set as default</a>;
+      var defaultText = <a onClick={this.props.setPayoutMethodDefault}>{i18n.t('common:Set_as_default')}</a>;
     }
     return (
       <div className='payment-method'>
@@ -17,11 +19,11 @@ module.exports = React.createClass({
           {this.props.email}
         </div>
         <div className='secondary grey-text'>
-          Connected
+          {i18n.t('common:Connected')}
         </div>
         <div className='actions'>
           {defaultText}
-          <a onClick={this.props.deletePayoutMethod}>Remove</a>
+          <a onClick={this.props.deletePayoutMethod}>{i18n.t('common:Remove')}</a>
         </div>
         <div className='type'>
           <i className="fa fa-cc-paypal"></i>

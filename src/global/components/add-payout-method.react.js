@@ -9,7 +9,7 @@ var toast = require('toast');
 var defaultBankCurrencies = require('default-bank-currencies');
 var defaultPaypalCurrencies = require('default-paypal-currencies');
 
-var i18n = require('../../global/util/i18n');
+var i18n = require('../util/i18n');
 
 module.exports = React.createClass({
   addBankPayout: function() {
@@ -23,12 +23,12 @@ module.exports = React.createClass({
     }
 
     if (this.state.bank === 'BANK' && $('#iban').val() !== $('#iban-again').val()) {
-      toast("IBANs don't match");
+      toast(i18n.t("admin:payments_ibans_no_match"));
       return;
     }
 
     if (this.state.bank === 'ROUTING_TRANSIT' && $('#routing-account-number').val() !== $('#routing-account-number-again').val()) {
-      toast("Account numbers don't match");
+      toast(i18n.t("admin:payments_accounts_no_match"));
       return;
     }
 

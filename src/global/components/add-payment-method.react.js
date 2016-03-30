@@ -8,6 +8,8 @@ var domains = require('domains');
 
 var sendPaymentNonce = require('send-payment-nonce');
 
+var i18n = require('../util/i18n');
+
 module.exports = React.createClass({
   showPreloader: function() {
     $('#preloader').show()
@@ -37,15 +39,15 @@ module.exports = React.createClass({
             hostedFields: {
               number: {
                 selector: "#card-number",
-                placeholder: 'Card number'
+                placeholder: i18n.t("common:card_number_placeholder")
               },
               cvv: {
                 selector: "#cvv",
-                placeholder: 'CVV'
+                placeholder: i18n.t("common:cvv_placeholder")
               },
               expirationDate: {
                 selector: "#expiration-date",
-                placeholder: 'MM/YYYY'
+                placeholder: i18n.t("common:expiration_placeholder")
               },
               styles: {
                 "input": {
@@ -117,10 +119,10 @@ module.exports = React.createClass({
             </div>
           </div>
 
-          <div className='title'>Add payment method</div>
+          <div className='title'>{i18n.t("common:Add_payment_method")}</div>
           <ul className="collapsible" data-collapsible="accordion">
             <li>
-              <div className="collapsible-header">Credit card</div>
+              <div className="collapsible-header">{i18n.t("common:Credit_card")}</div>
               <div className="collapsible-body">
                 <div className='row'>
 
@@ -147,21 +149,21 @@ module.exports = React.createClass({
 
                 <div className='row'>
                   <div className='col s12'>
-                    <input id='add-new-card' className='btn btn-flat btn-primary' type="submit" value="Add card" onClick={this.showPreloader} />
+                    <input id='add-new-card' className='btn btn-flat btn-primary' type="submit" value={i18n.t('common:add_card_button')} onClick={this.showPreloader} />
                   </div>
                 </div>
 
               </div>
             </li>
             <li>
-              <div className="collapsible-header">PayPal</div>
+              <div className="collapsible-header">{i18n.t("common:PayPal")}</div>
               <div className="collapsible-body">
 
                 <div id='paypal-container' className='row no-margin-bottom section center-align'></div>
 
                 <div className='row'>
                   <div className='col s12'>
-                    <input id='add-new-paypal' className='btn btn-flat btn-primary hide' type="submit" value="Add PayPal" onClick={this.showPreloader} />
+                    <input id='add-new-paypal' className='btn btn-flat btn-primary hide' type="submit" value={i18n.t('common:add_paypal_button')} onClick={this.showPreloader} />
                   </div>
                 </div>
 

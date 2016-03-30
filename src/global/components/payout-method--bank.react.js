@@ -1,5 +1,7 @@
 var React = require('react');
 
+var i18n = require('../util/i18n');
+
 var domains = require('domains');
 var JWT = require('JWT');
 var POST = require('POST');
@@ -11,7 +13,7 @@ module.exports = React.createClass({
       var defaultText = <span className="grey-text text-darken-1">Default</span>;
     } else {
       var defaultHTML = null;
-      var defaultText = <a onClick={this.props.setPayoutMethodDefault}>Set as default</a>;
+      var defaultText = <a onClick={this.props.setPayoutMethodDefault}>{i18n.t('common:Set_as_default')}</a>;
     }
     return (
       <div className='payment-method'>
@@ -20,11 +22,11 @@ module.exports = React.createClass({
           <span className='grey-text'>XXXXXXXXXXXX</span><span className='grey-text text-darken-1'>{this.props.lastFour}</span>
         </div>
         <div className='secondary grey-text'>
-          Bank account
+          {i18n.t('common:Bank_account')}
         </div>
         <div className='actions'>
           {defaultText}
-          <a onClick={this.props.deletePayoutMethod}>Remove</a>
+          <a onClick={this.props.deletePayoutMethod}>{i18n.t('common:Remove')}</a>
         </div>
         <div className='type'>
           <i className="fa fa-university"></i>

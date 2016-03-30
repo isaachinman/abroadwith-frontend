@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var i18n = require('../util/i18n');
+
 module.exports = React.createClass({
   render: function() {
     return (
@@ -9,10 +11,10 @@ module.exports = React.createClass({
           {this.props.email}
         </div>
         <div className='secondary grey-text'>
-          Connected
+          {i18n.t('common:Connected')}
         </div>
         <div className='actions'>
-          <a onClick={this.props.deletePaymentMethod}>Remove</a>
+          <a onClick={this.props.deletePaymentMethod}>{i18n.t('common:Remove')}</a>
         </div>
         <div className='type'>
           <i className="fa fa-cc-paypal"></i>
