@@ -1,9 +1,9 @@
-{% extends "layout.html" %} {% block title %} Edit your profile {% endblock %} {% block content %}
+{% extends "layout.html" %} {% block title %} {{translations.users.edit_header}} {% endblock %} {% block content %}
 <div id='user-edit-profile'></div>
 <div class='user-profile-info'>
   <div class='container row left-align'>
 
-    <a id='view-public-profile' class='btn btn-secondary btn-flat right'>View public profile</a>
+    <a id='view-public-profile' class='btn btn-secondary btn-flat right'>{{translations.users.edit_public_profile_button}}</a>
 
     <div class='user-image user-image--editable'>
       <div class='upload-new-photo'>
@@ -16,7 +16,6 @@
     <div class='info info--disabled'>
       <div class='col s12'>
         <h1 id='first-name'>{{user.firstName}}</h1>
-
         <span class='rating'>
           <span class='count'>
           </span>
@@ -28,11 +27,8 @@
             <i class="fa fa-star-o"></i>
           </span>
         </span>
-
       </div>
-
       <div class='col s10 quick-facts'>
-
         <p class='home-details'>
           <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>
         </p>
@@ -57,22 +53,18 @@
         <p class='home-details'>
           <span class='icon'><i class="fa fa-home grey-text text-lighten-1"></span></i>
         </p>
-
       </div>
-
     </div>
-
 
     <div class='row no-margin-bottom'>
       <div class='col s12'>
         <div class='tabs-container'>
           <ul class="tabs user-profile-tabs">
-            <li class="tab col s3"><a href="#about" class='active'>About</a></li>
+            <li class="tab col s3"><a href="#about" class='active'>{{translations.users.edit_about_tabname}}</a></li>
             <li class="tab col s3 disabled">
-              <a href="#reviews">
-                <span class='hide-on-small-and-down'>References & </span>reviews</a>
+              <a href="#reviews">{{translations.users.edit_reference_tabname}}</a>
             </li>
-            <li class="tab col s3 disabled"><a href="#stay">Stay</a></li>
+            <li class="tab col s3 disabled"><a href="#stay">{{translations.users.edit_stay_tabname}}</a></li>
           </ul>
         </div>
       </div>
@@ -83,8 +75,6 @@
 </div>
 
 <div id='about' class='container'>
-
-  {{debug}}
 
   <div class='row left-align no-margin-bottom'>
     <div class='col s12 m12 l12'>
@@ -118,7 +108,7 @@
             <div class='row'>
               <div class='col s12'>
                 <i class="fa fa-user fa-2x grey-text text-lighten-1"></i>
-                <span class='title'>About me</span>
+                <span class='title'>{{translations.users.edit_aboutme_title}}</span>
               </div>
             </div>
             <div class='row content'>
@@ -134,7 +124,7 @@
             <div class='row'>
               <div class='col s12'>
                 <i class="fa fa-file-text-o fa-2x grey-text text-lighten-1"></i>
-                <span class='title'>Details</span>
+                <span class='title'>{{translations.users.edit_details_title}}</span>
               </div>
             </div>
             <div class='row content'>
@@ -142,74 +132,74 @@
 
                 <div class='section'>
                   <div class="input-field">
-                    <input id='education' type="text" class="validate" placeholder="Eg. Bachelor's Degree">
-                    <label class="active left">Education</label>
+                    <input id='education' type="text" class="validate" placeholder="{{translations.users.edit_details_education_placeholder}}">
+                    <label class="active left">{{translations.users.edit_details_education_label}}</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <input id='grew-up' type="text" class="validate" placeholder='Eg. Caracas, Venezuela'>
-                    <label class="active left">Grew up</label>
+                    <input id='grew-up' type="text" class="validate" placeholder='{{translations.users.edit_details_grewup_placeholder}}'>
+                    <label class="active left">{{translations.users.edit_details_grewup_label}}</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <input id='fav-book' type="text" class="validate" placeholder='Eg. Ulysses'>
-                    <label class="active left">Favourite book</label>
+                    <input id='fav-book' type="text" class="validate" placeholder='{{translations.users.edit_details_favouritebook_placeholder}}'>
+                    <label class="active left">{{translations.users.edit_details_favouritebook_label}}</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <input id='fav-film' type="text" class="validate" placeholder='Eg. Metropolis'>
-                    <label class="active left">Favourite film</label>
+                    <input id='fav-film' type="text" class="validate" placeholder='{{translations.users.edit_details_favouritefilm_placeholder}}'>
+                    <label class="active left">{{translations.users.edit_details_favouritefilm_label}}</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <input id='amazing-feat' type="text" class="validate" placeholder='Eg. Skydiving'>
-                    <label class="active left">Amazing feat</label>
+                    <input id='amazing-feat' type="text" class="validate" placeholder='{{translations.users.edit_details_amazingfeat_placeholder}}'>
+                    <label class="active left">{{translations.users.edit_details_amazingfeat_label}}</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <input id='can-share' type="text" class="validate" placeholder='Eg. Cooking, hiking'>
-                    <label class="active left">Can share</label>
+                    <input id='can-share' type="text" class="validate" placeholder='{{translations.users.edit_details_share_placeholder}}'>
+                    <label class="active left">{{translations.users.edit_details_share_label}}</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
                     <select id='interests' class='material' multiple>
-                      <option disabled selected>Choose some</option>
+                      <option disabled selected>{{translations.users.edit_details_interests_placeholder}}</option>
                       {% for interest, name in translations.interests %}
                       <option value={{interest}}>{{name}}</option>
                       {% endfor %}
                     </select>
-                    <label class='left'>Interests</label>
+                    <label class='left'>{{translations.users.edit_details_interests_label}}</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <select id='countries-visited' multiple placeholder='Eg. Spain'>
+                    <select id='countries-visited' multiple placeholder='{{translations.users.edit_details_visited_placeholder}}'>
                       {% for code, country in translations.countries %}
                       <option value={{code}}>
                         {{country}}
                       </option>
                       {% endfor %}
                     </select>
-                    <label class="active left">Visited</label>
+                    <label class="active left">{{translations.users.edit_details_visited_label}}</label>
                   </div>
                 </div>
 
                 <div class='section'>
                   <div class="input-field">
-                    <select id='countries-lived' multiple data-placeholder='Eg. Spain' data-allow-clear='true'>
+                    <select id='countries-lived' multiple data-placeholder='{{translations.users.edit_details_lived_placeholder}}' data-allow-clear='true'>
                       {% for code, country in translations.countries %}
                       <option value={{code}}>
                         {{country}}
@@ -217,7 +207,7 @@
                       </option>
                       {% endfor %}
                     </select>
-                    <label class="active left">Lived in</label>
+                    <label class="active left">{{translations.users.edit_details_lived_label}}</label>
                   </div>
                 </div>
 
@@ -231,7 +221,7 @@
   </div>
 
   <div id='user-edit-save' class='save-changes'>
-    <a class='btn btn-primary'>Save changes</a>
+    <a class='btn btn-primary'>{{translations.users.edit_save}}</a>
   </div>
 
 </div>
