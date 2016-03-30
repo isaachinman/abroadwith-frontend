@@ -30,33 +30,36 @@ module.exports = React.createClass({
 
       console.log(response);
 
-      var refreshState = this.props.refreshState;
+      var thisprops = this.props;
       var file = $('#new_room_photo')[0].files;
-
-      if (file.length > 0) {
-
+      if(file.length > 0){
         var formData = new FormData();
-
-
-
-        for(var i = 0; i < file.length; i++){
-          formData.append('photos', file[i]);
+        for(var f = 0; f < file.length; f++){
+          formData.append('photos', file[f]);
         }
-
-        var url = '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo';
-        var success = function(response) {
-          $('#add-room-form .collapsible-header').trigger('click');
-          $('#add-room-form input, select, textarea').val(null);
-          refreshState();
-          $('#preloader').hide();
-        }
-        POST(url, formData, success)
-
-      } else {
-        $('#add-room-form .collapsible-header').trigger('click');
-        $('#add-room-form input, select, textarea').val(null);
-        this.props.refreshState();
-        $('#preloader').hide();
+        $.ajax({
+          url : '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo',
+          type : 'POST',
+          data : formData,
+          cache : false,
+          contentType : false,
+          processData : false,
+          beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
+          success : function(data, textStatus, jqXHR) {
+                thisprops.refreshState();
+                $('#add-room-form .collapsible-header').trigger('click');
+                $('#add-room-form input, select, textarea').val(null);
+                $('#preloader').hide();
+          },
+          error: function(jqXHR) {
+            var message = jqXHR.responseText;
+            alert('Image upload failed: '+ message);
+            thisprops.refreshState();
+            $('#add-room-form .collapsible-header').trigger('click');
+            $('#add-room-form input, select, textarea').val(null);
+            $('#preloader').hide();
+          }
+        });
       }
 
     }.bind(this);
