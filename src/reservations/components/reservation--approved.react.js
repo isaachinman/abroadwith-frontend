@@ -30,7 +30,7 @@ module.exports = React.createClass({
 
     var invoices = [];
 
-    var receiptUrl = "/users/"+JWT.rid+"/bookings/"+reservation.id+"/receipt?booking_id="+reservation.id;
+    var receiptUrl = "/users/"+JWT.rid+"/reservations/"+reservation.id+"/confirmation?booking_id="+reservation.id;
 
     if (reservation.invoiceIds.length > 0) {
       for (var i=0; i<reservation.invoiceIds.length; i++) {

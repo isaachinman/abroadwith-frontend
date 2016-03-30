@@ -19,6 +19,7 @@ var installTrips = require('./trips/TripsInstaller');
 var installVerification = require('./verification/VerificationInstaller');
 var installInvoice = require('./invoice/InvoiceInstaller');
 var installReceipt = require('./receipt/ReceiptInstaller');
+var installImmersionConfirmation = require('./immersion-confirmation/ImmersionConfirmationInstaller');
 var installReview = require('./review/ReviewInstaller');
 
 /** Middlewares **/
@@ -93,6 +94,8 @@ installVerification(app);
 installInvoice(app);
 
 installReceipt(app);
+
+installImmersionConfirmation(app);
 
 installReview(app);
 
