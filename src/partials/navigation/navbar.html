@@ -11,39 +11,39 @@
       <a href="javascript:void(0)" data-activates="mobile" class="button-collapse"><i class="fa fa-bars" style='margin-left:1rem'></i></a>
 
       <ul class="right hide-on-med-and-down">
-        <li class='logged-out'><a href="/help">Help</a></li>
-        <li class='logged-out'><a data-target="choose-languages-modal" class='modal-trigger'>Become a host</a></li>
-        <li class='logged-out'><a data-target="choose-languages-modal" class='modal-trigger'>Sign up</a></li>
-        <li class='logged-out'><a data-target="login-modal" class='modal-trigger'>Log in</a></li>
-        <li class='logged-in'><a class='become-a-host'>Become a host</a></li>
-        <li class='logged-in'><a href='/manage-home' class='your-home' style='display:none'>Your home</a></li>
+        <li class='logged-out'><a href="/help">{{translations.common.navbar_help}}</a></li>
+        <li class='logged-out'><a data-target="choose-languages-modal" class='modal-trigger'>{{translations.common.navbar_become_host}}</a></li>
+        <li class='logged-out'><a data-target="choose-languages-modal" class='modal-trigger'>{{translations.common.navbar_sign_up}}</a></li>
+        <li class='logged-out'><a data-target="login-modal" class='modal-trigger'>{{translations.common.navbar_login}}</a></li>
+        <li class='logged-in'><a class='become-a-host'>{{translations.common.navbar_become_host}}</a></li>
+        <li class='logged-in'><a href='/manage-home' class='your-home' style='display:none'>{{translations.common.navbar_your_home}}</a></li>
         <li class='logged-in relative messages'><a href="/inbox"><i class="fa fa-envelope"></i><span id='unread-messages' class="unread-messages"></span></a></li>
         <li class='logged-in center-align'><a class="dropdown-button" href="#!" data-activates="nav-dropdown"><span id='navbar-username'></span><i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
 
       <ul class="side-nav" id="mobile">
-        <li class='logged-out'><a href="/help">Help</a></li>
-        <li class='logged-out'><a data-target="choose-languages-modal" class='modal-trigger'>Become a host</a></li>
-        <li class='logged-out'><a data-target="choose-languages-modal" class='modal-trigger'>Sign up</a></li>
-        <li class='logged-out'><a data-target="login-modal" class='modal-trigger'>Log in</a></li>
-        <li class='logged-in'><a class='become-a-host'>Become a host</a></li>
-        <li class='your-home logged-in' style='display:none'><a href='/manage-home'>Your home</a></li>
-        <li class='logged-in'><a href='/users-edit'>Your profile</a></li>
-        <li class='logged-in'><a href="/admin">Settings</a></li>
-        <li class='logged-in'><a href="/search">Search</a></li>
-        <li class='logged-in'><a class='logout-btn'>Log out</a></li>
+        <li class='logged-out'><a href="/help">{{translations.common.navbar_help}}</a></li>
+        <li class='logged-out'><a data-target="choose-languages-modal" class='modal-trigger'>{{translations.common.navbar_become_host}}</a></li>
+        <li class='logged-out'><a data-target="choose-languages-modal" class='modal-trigger'>{{translations.common.navbar_sign_up}}</a></li>
+        <li class='logged-out'><a data-target="login-modal" class='modal-trigger'>{{translations.common.login}}</a></li>
+        <li class='logged-in'><a class='become-a-host'>{{translations.common.navbar_become_host}}</a></li>
+        <li class='your-home logged-in' style='display:none'><a href='/manage-home'>{{translations.common.navbar_your_home}}</a></li>
+        <li class='logged-in'><a href='/users-edit'>{{translations.common.navbar_profile}}</a></li>
+        <li class='logged-in'><a href="/admin">{{translations.common.navbar_settings}}</a></li>
+        <li class='logged-in'><a href="/search">{{translations.common.navbar_search}}</a></li>
+        <li class='logged-in'><a class='logout-btn'>{{translations.common.navbar_logout}}</a></li>
       </ul>
 
     </div>
   </nav>
   <ul id="nav-dropdown" class="dropdown-content">
-    <li><a href="/trips">Your trips</a></li>
-    <li class='your-home' style='display:none'><a href="/reservations">Reservations</a></li>
-    <li><a href='/users-edit'>Your profile</a></li>
-    <li><a href="/admin">Settings</a></li>
-    <li><a href="/search">Search</a></li>
+    <li><a href="/trips">{{translations.common.navbar_your_trips}}</a></li>
+    <li class='your-home' style='display:none'><a href="/reservations">{{translations.common.navbar_reservations}}</a></li>
+    <li><a href='/users-edit'>{{translations.common.navbar_profile}}</a></li>
+    <li><a href="/admin">{{translations.common.navbar_settings}}</a></li>
+    <li><a href="/search">{{translations.common.navbar_search}}</a></li>
     <li class="divider"></li>
-    <li><a class='logout-btn'>Log out</a></li>
+    <li><a class='logout-btn'>{{translations.common.navbar_logout}}</a></li>
   </ul>
 </div>
 

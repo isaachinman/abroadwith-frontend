@@ -1,7 +1,7 @@
 var express = require('express');
 var http = require('http');
 var nunjucks = require('nunjucks');
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 /** Page Installers **/
 var installSearch = require('./search/SearchInstaller');
 var installMain = require('./main/MainInstaller');
@@ -19,7 +19,6 @@ var installTrips = require('./trips/TripsInstaller');
 var installVerification = require('./verification/VerificationInstaller');
 var installInvoice = require('./invoice/InvoiceInstaller');
 var installReceipt = require('./receipt/ReceiptInstaller');
-var installImmersionConfirmation = require('./immersion-confirmation/ImmersionConfirmationInstaller');
 var installReview = require('./review/ReviewInstaller');
 
 /** Middlewares **/
@@ -95,11 +94,10 @@ installInvoice(app);
 
 installReceipt(app);
 
-installImmersionConfirmation(app);
-
 installReview(app);
 
 app.use(function(err, req, res, next) {
+  console.log(err.stack);
   winston.error("[ERROR]",err);
   res.redirect("/");
 });
