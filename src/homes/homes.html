@@ -103,7 +103,7 @@
               <strong>{{translations.common.Speaks}}:</strong>
             </p>
             {% for language in home.host.languagesKnown %}
-              <div class='chip chip--speaks'>
+              <div class='chip chip--speaks' data-lang={{language.language}}>
                 {{ translations.languages[language.language] }}
               </div>
             {% endfor %}
