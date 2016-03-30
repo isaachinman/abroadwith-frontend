@@ -18,6 +18,8 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/invoices/'+invoiceId;
     var success = function(response) {
 
+      console.log(response)
+
       var currency = currencies[response.currency]
       $('#bookingCode').html(response.bookingCode);
       $('#serviceRenderedAt').html(response.serviceRenderedAt);

@@ -48,7 +48,7 @@ module.exports = React.createClass({
       } else {
         // User is guest
         $('h1').html(i18n.t('receipts_invoices:customer_receipt'));
-        $('#serviceAndVatFees').html(currency+(response.totalCharges-response.baseCharges));
+        $('#serviceAndVatFees').html((currency+(response.totalCharges-response.baseCharges)).toFixed(2));
         $('#total-charge').html(currency+((response.totalCharges).toFixed(2)));
       }
 
