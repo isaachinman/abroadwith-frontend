@@ -46,13 +46,13 @@ module.exports = React.createClass({
   },
   componentDidUpdate: function() {
 
-    $('#language-known-chips div').not('.react').remove();
-    $('#language-learning-chips div').not('.react').remove();
+    $('#language-known-chips div').not('.react').not('.initial').remove();
+    $('#language-learning-chips div').not('.react').not('.initial').remove();
 
     var languagesLearning = [];
     var languagesKnown = [];
 
-    if (this.props.languagesKnown) {
+    if (this.props.languagesKnown.length > 0) {
 
       var languagesKnown = this.props.languagesKnown;
 
@@ -77,7 +77,7 @@ module.exports = React.createClass({
 
     }
 
-    if (this.props.languagesLearning) {
+    if (this.props.languagesLearning.length > 0) {
 
       var languagesLearning = this.props.languagesLearning;
 

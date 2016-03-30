@@ -4,6 +4,8 @@ var toast = require('toast');
 var domains = require('domains');
 var JWT = require('JWT');
 
+var refreshToken = require('refresh-token')
+
 module.exports = React.createClass({
   saveBasics: function() {
 

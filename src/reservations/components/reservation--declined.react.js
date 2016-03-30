@@ -20,7 +20,7 @@ module.exports = React.createClass({
     var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : '';
     var guestPhoto = reservation.hostPhoto ? domains.IMG + reservation.hostPhoto : '';
 
-    var homeLink = domains.FRONTEND + '/homes/' + reservation.homeId;
+    var homeLink = '/homes/' + reservation.homeId;
 
     return (
 

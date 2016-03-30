@@ -5,7 +5,6 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div className='payment-method'>
-        {defaultHTML}
         <div className='number'>
           <span className='grey-text'>XXXXXXXXXXXX</span>{this.props.lastFour}
         </div>

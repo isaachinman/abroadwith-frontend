@@ -29,9 +29,9 @@
 <div class='home-user-image'>
   <a href='/users/{{ home.host.userId }}'>
   {% if home.host.photo %}
-    <img src='{{constants.domains.IMG}}{{ home.host.photo }}'>
+      <img src='{{constants.domains.IMG}}{{ home.host.photo }}'>
     {% else %}
-    <i class="fa fa-user-secret"></i>
+      <img src='{{ constants.domains.IMG }}/users/default.jpg'>
   {% endif %}
   </a>
 </div>
@@ -192,11 +192,11 @@
 
 <div class='home-section-divider'></div>
 
-<div class='container left-align section'>
+<div id='book-now' class='container left-align section'>
 
   <label>{{translations.common.Booking}}</label>
 
-  <div id='booking-row' class='row no-margin'>
+  <div class='row no-margin'>
 
     <div class='col s12 m3 l3'>
       <div class='card home-card'>
@@ -217,13 +217,13 @@
         <div class='row'>
           <div class='col s12 m12 l6'>
             <div class='input-field '>
-              <input id='arrival' type="text" class='datepicker arrival' value='' placeholder='{{translations.common.Arrival}}' />
+              <input id='arrival' type="text" class='datepicker arrival' placeholder='{{translations.common.Arrival}}' {% if query.arrival %} value={{query.arrival}} {% endif %} />
               <label htmlFor='arrival' class='active left'>{{translations.common.Arrival}}</label>
             </div>
           </div>
           <div class='col s12 m12 l6'>
             <div class='input-field '>
-              <input id='departure' type="text" class="datepicker departure" value='' placeholder='{{translations.common.Departure}}' />
+              <input id='departure' type="text" class="datepicker departure" placeholder='{{translations.common.Departure}}' {% if query.departure %} value={{query.departure}} {% endif %} />
               <label htmlFor='departure' class='active left'>{{translations.common.Departure}}</label>
             </div>
           </div>
@@ -309,6 +309,7 @@
         </div>
 
         <div class='row bottom-align-row'>
+
           <div class='col s8'>
             <label>{{translations.common.Room_description}}</label><br>
 
@@ -319,9 +320,11 @@
               {% endif %}
 
           </div>
+
           <div class='col s4 right-align bottom'>
-            <a class='btn btn-primary btn-book' href="/homes/94/booking?arrival=2016-04-01&departure=2016-04-08&room_id=207">{{translations.common.Book_now}}</a>
+            <a class='btn btn-primary btn-book tooltipped go-to-booking' data-position='bottom' data-delay='50' data-tooltip='{{translations.homes.pick_dates_tooltip}}' data-hid={{home.id}} data-rid={{room.id}}>{{translations.common.Book_now}}</a>
           </div>
+
         </div>
 
       </div>

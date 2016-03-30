@@ -1,6 +1,9 @@
 .profile-slider {
   min-height: 300px;
   max-height: 400px;
+  @media #{$small-and-down} {
+    max-height: 300px;
+  }
   position: relative;
   background: lighten($ziggurat, 10%);
   .wallop, .Wallop-list, .Wallop-item, img {
@@ -58,6 +61,10 @@
   float: left;
   width: 240px;
   height: 240px;
+  img {
+    max-width: 240px;
+    max-height: 240px
+  }
   border-radius: 50%;
   margin: -160px 0 0 10px;
   @media #{$small-and-down} {

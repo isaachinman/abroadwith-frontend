@@ -14,7 +14,7 @@ module.exports = React.createClass({
     var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : '';
     var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto : '';
 
-    var homeLink = domains.FRONTEND + '/homes/' + trip.homeId;
+    var homeLink = '/homes/' + trip.homeId;
 
     return (
 

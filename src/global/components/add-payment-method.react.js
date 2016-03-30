@@ -19,6 +19,8 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/clientToken';
     var success = function(response) {
 
+      console.log(response)
+
       var clientToken = response;
 
       if (window.braintreeRan !== true) {
@@ -43,7 +45,7 @@ module.exports = React.createClass({
               },
               expirationDate: {
                 selector: "#expiration-date",
-                placeholder: 'Expiry'
+                placeholder: 'MM/YYYY'
               },
               styles: {
                 "input": {
@@ -65,6 +67,10 @@ module.exports = React.createClass({
                 callback();
                 $('#add-payment-method').remove();
               });
+            },
+            onError: function(error) {
+              $('#preloader').hide();
+              alert(error.message)
             },
             onReady: function(integration) {
 
@@ -89,6 +95,7 @@ module.exports = React.createClass({
   },
   componentWillUnmount: function() {
     typeof braintreeIntegration !== 'undefined' ? braintreeIntegration.teardown() : null;
+    window.braintreeRan = false;
   },
   render: function() {
 

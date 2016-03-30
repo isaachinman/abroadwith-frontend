@@ -23,9 +23,8 @@ if ($('a.btn-book').length) {
       } else {
 
         // User cannot book
-        $('a.btn-book').click(function(e) {
-          e.preventDefault();
-        });
+        $('a.btn-book').off();
+        $('a.btn-book').after('<div class="small"><a href="/admin#verifications">Click here to verify your account</a></div>')
 
         if (JWT.cbk === 1) {
 

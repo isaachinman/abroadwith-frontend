@@ -118,7 +118,7 @@ module.exports = React.createClass({
 
         // If home is inactive, swap classes and text of publishedBar
         publishedBar.addClass('manage-home-info-text--published');
-        publishedBar.html(i18n.t('homes:published_codes.'+response.homeActivationResponse.code) + ' (' + '<a id="unpublish-home">Click here to unpublish</a>' + ')');
+        publishedBar.html('<span class="hide-on-med-and-down">' + i18n.t('homes:published_codes.'+response.homeActivationResponse.code) + '</span>' + ' (' + '<a id="unpublish-home">Click here to unpublish</a>' + ')' + '<a class="btn btn-secondary hide-on-small-and-down">View profile</a>');
 
         // If home is active, create an unpublish function
         $('a#unpublish-home').click(function() {
