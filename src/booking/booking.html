@@ -261,11 +261,8 @@
         <div class='row'>
           <div class='col s12 m12 l6 input-field'>
             <select id='meal_plan' class='material' data-value={{query.meal_plan}}>
-              {% for optionCode, optionName in translations.search.meal_choice %}
-                {% if optionCode == 'BREAKFAST_ONLY' %}
-                  <option value={{optionCode}}>{{optionName}} ({{translations.booking.included}})</option>
-                {% endif %}
-              {% endfor %}
+
+              <option value='BREAKFAST_ONLY' data-price={{translations.booking.included}}>{{translations.homes.menus_offered.BREAKFAST_ONLY}} ({{translations.booking.included}})</option>
 
               {% for extra in home.pricing.extras %}
                 {% if extra.service == 'HALF_BOARD' %}
