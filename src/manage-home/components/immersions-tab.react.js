@@ -222,7 +222,7 @@ module.exports = React.createClass({
         interestedLanguageChips.push("<div class='chip initial'>"+i18n.t('manage_home:choose_at_least_one_chip')+"<i class='material-icons'>close</i></div>");
       } else {
         $.each(this.props.immersions.tandem.languagesInterested, function() {
-          interestedLanguageChips.push("<div class='chip' data-lang="+this.lang+">"+ i18n.t('languages:'+this.lang) +"<i class='material-icons'>close</i></div>");
+          interestedLanguageChips.push("<div class='chip language-chip' data-lang="+this.lang+">"+ i18n.t('languages:'+this.lang) +"<i class='material-icons'>close</i></div>");
         })
       }
       $('#tandem-language-interested-chips').html(interestedLanguageChips);
