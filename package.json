@@ -93,7 +93,7 @@
     "start": "node src/server.js",
     "fullstart": "npm run build && npm run start",
     "browsersync": "browser-sync start --reload-delay 1000 --proxy 'http://localhost:3000' --files 'build/css/*.css, build/app.js, src/*/*.html, src/*/*/*.html'",
-    "production": "npm run build && uglifyjs build/app.js -o build/app.js --compress --mangle"
+    "production": "npm run build && uglifyjs build/app.js -o build/app.js --compress --mangle && gzip -9 build/app.js && mv build/app.js.gz build/app.js"
   },
   "main": "server.js",
   "repository": {
