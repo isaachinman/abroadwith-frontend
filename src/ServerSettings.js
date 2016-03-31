@@ -21,6 +21,7 @@ try{
   console.log("Loaded the following configuration:",configuration);
 }
 catch(e){
+  console.log(e);
   console.log("Couldn't load production properties, using development settings.")
 }
 

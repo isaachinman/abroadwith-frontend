@@ -29,7 +29,6 @@ module.exports = function (req, res, next) {
         req.logged_user.name = payload.name;
         req.logged_user.email = payload.email;
         req.logged_user.id = payload.rid;
-        console.log(req.logged_user);
         next();
         return;
       }
