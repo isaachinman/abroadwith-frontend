@@ -14,7 +14,7 @@
         </div>
         <div class='col s10 m1 l1 input-field'>
           <select id='currency' class='material'>
-            <option disabled selected>{{translations.manage_home.pricing_currency_placeholder}}</option>
+            <option disabled selected>-</option>
             {% for currency, symbol in constants.currencies %}
               <option value={{currency}}>{{currency}}</option>
             {% endfor %}
@@ -66,73 +66,73 @@
 
           <ul class="collection with-header extra-charges-collection">
 
-            <li class="collection-header col s12 m6 l4 border-right">
+            <li class="collection-header col s12 m6 l6 border-right">
               <div class='row'>
                 <div class='col s3 input-field center-align grey-text text-lighten-1'>
                   <i class="fa fa-user-plus fa-2x"></i>
                 </div>
                 <div class='col s9 input-field'>
-                  <input id='EXTRA_GUEST' type="text" class="validate no-margin" placeholder='€20' />
+                  <input id='EXTRA_GUEST' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
                   <label class='active'>{{translations.homes.extras.EXTRA_GUEST}}</label>
                 </div>
               </div>
             </li>
 
-            <li class="collection-header col s12 m6 l4 border-right">
+            <li class="collection-header col s12 m6 l6 border-right">
               <div class='row'>
                 <div class='col s3 input-field center-align grey-text text-lighten-1'>
                   <i class="fa fa-cutlery fa-2x"></i>
                 </div>
                 <div class='col s9 input-field'>
-                  <input id='FULL_BOARD' type="text" class="validate no-margin" placeholder='€20' />
+                  <input id='FULL_BOARD' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
                   <label class='active'>{{translations.homes.menus_offered.FULL_BOARD}}</label>
                 </div>
               </div>
             </li>
 
-            <li class="collection-header col s12 m6 l4 border-right">
+            <li class="collection-header col s12 m6 l6 border-right">
               <div class='row'>
                 <div class='col s3 input-field center-align grey-text text-lighten-1'>
                   <i class="fa fa-adjust fa-2x"></i>
                 </div>
                 <div class='col s9 input-field'>
-                  <input id='HALF_BOARD' type="text" class="validate no-margin" placeholder='€20' />
+                  <input id='HALF_BOARD' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
                   <label class='active'>{{translations.homes.menus_offered.HALF_BOARD}}</label>
                 </div>
               </div>
             </li>
 
-            <li class="collection-header col s12 m6 l4 border-right">
+            <li class="collection-header col s12 m6 l6 border-right">
               <div class='row'>
                 <div class='col s3 input-field center-align grey-text text-lighten-1'>
                   <i class="fa fa-shopping-basket fa-2x"></i>
                 </div>
                 <div class='col s9 input-field'>
-                  <input id='LAUNDRY' type="text" class="validate no-margin" placeholder='€20' />
+                  <input id='LAUNDRY' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
                   <label class='active'>{{translations.homes.extras.LAUNDRY}}</label>
                 </div>
               </div>
             </li>
 
-            <li class="collection-header col s12 m6 l4 border-right">
+            <li class="collection-header col s12 m6 l6 border-right">
               <div class='row'>
                 <div class='col s3 input-field center-align grey-text text-lighten-1'>
                   <i class="fa fa-trash-o fa-2x"></i>
                 </div>
                 <div class='col s9 input-field'>
-                  <input id='CLEANING' type="text" class="validate no-margin" placeholder='€20' />
+                  <input id='CLEANING' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
                   <label class='active'>{{translations.homes.extras.CLEANING}}</label>
                 </div>
               </div>
             </li>
 
-            <li class="collection-header col s12 m6 l4 border-right">
+            <li class="collection-header col s12 m6 l6 border-right">
               <div class='row'>
                 <div class='col s3 input-field center-align grey-text text-lighten-1'>
                   <i class="fa fa-plane fa-2x"></i>
                 </div>
                 <div class='col s9 input-field'>
-                  <input id='AIRPORT_PICKUP' type="text" class="validate no-margin" placeholder='€20' />
+                  <input id='AIRPORT_PICKUP' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
                   <label class='active'>{{translations.homes.extras.AIRPORT_PICKUP}}</label>
                 </div>
               </div>

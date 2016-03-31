@@ -24,7 +24,7 @@ if ($('a.btn-book').length) {
 
         // User cannot book
         $('a.btn-book').off();
-        $('a.btn-book').after('<div class="small"><a href="/admin#verifications">Click here to verify your account</a></div>')
+        $('a.btn-book').not(':first').after('<div class="small"><a href="/admin#verifications">Click here to verify your account</a></div>')
 
         if (JWT.cbk === 1) {
 

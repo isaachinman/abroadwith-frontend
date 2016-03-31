@@ -37,7 +37,7 @@ module.exports = React.createClass({
       var homePhotos = [];
       this.props.homePhotos.forEach(function(src) {
         var src = domains.IMG + src;
-        var photo = <div className="Wallop-item"><img src={src}/></div>
+        var photo = <div className="Wallop-item"><img alt={this.props.host} src={src}/></div>
         homePhotos.push(photo);
       })
     }

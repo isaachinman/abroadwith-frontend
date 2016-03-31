@@ -12,7 +12,7 @@
 
       <!-- languages to learn -->
       <div class='col s12 m3 l4 input-field'>
-        <select id="learning-language" type="text" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
+        <select id="learning-language" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
           <option></option>
           {% for langCode, language in translations.languages %}
             <option data-lang={{ langCode }}>{{ language }}</option>
@@ -21,7 +21,7 @@
         <label class='active'>{{translations.common.learning_language_label}}</label>
       </div>
       <div class='col s8 m2 l3 input-field'>
-        <select id="learning-level" type="text" class="material validate no-margin">
+        <select id="learning-level" class="material validate no-margin">
           {% for levelCode, level in translations.common.learningLevels %}
             <option data-level={{ levelCode }}>{{ level }}</option>
           {% endfor %}
@@ -48,7 +48,7 @@
         {{ translations.common.languages_known }}
       </div>
       <div class='col s12 m3 l4 input-field'>
-        <select id="known-language" type="text" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
+        <select id="known-language" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
           <option></option>
           {% for langCode, language in translations.languages %}
             <option data-lang={{langCode}}>{{ language }}</option>
@@ -57,7 +57,7 @@
         <label class='active'>{{translations.common.known_language_label}}</label>
       </div>
       <div class='col s8 m2 l3 input-field'>
-        <select id="known-level" type="text" class="material validate no-margin">
+        <select id="known-level" class="material validate no-margin">
           {% for levelCode, level in translations.common.knownLevels %}
             <option data-level={{ levelCode }}>{{ level }}</option>
           {% endfor %}

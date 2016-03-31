@@ -2,7 +2,7 @@
 
 {% block title %}{{ translations.common.signup_title }}{% endblock %}
 
-{% block meta_description %}{{ translations.common.signup_meta_description }}{% endblock %} 
+{% block meta_description %}{{ translations.common.signup_meta_description }}{% endblock %}
 
 {% block content %}
 
@@ -25,7 +25,7 @@
     </div>
     <!-- languages to learn -->
     <div class='col s12 m4 offset-m1 l4 offset-l1 input-field'>
-      <select id="learning-language" type="text" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
+      <select id="learning-language" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
         <option></option>
         {% for langCode, language in translations.languages %}
         <option data-lang={{ langCode }}>{{ language }}</option>
@@ -34,7 +34,7 @@
       <label class='active'>{{translations.common.learning_language_label}}</label>
     </div>
     <div class='col s8 m3 l3 input-field'>
-      <select id="learning-level" type="text" class="material validate no-margin">
+      <select id="learning-level" class="material validate no-margin">
         {% for levelCode, level in translations.common.learningLevels %}
         <option data-level={{ levelCode }}>{{ level }}</option>
         {% endfor %}
@@ -60,7 +60,7 @@
       </div>
     </div>
     <div class='col s12 m4 offset-m1 l4 offset-l1 input-field'>
-      <select id="known-language" type="text" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
+      <select id="known-language" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
         <option></option>
         {% for langCode, language in translations.languages %}
         <option data-lang={{langCode}}>{{ language }}</option>
@@ -69,7 +69,7 @@
       <label class='active'>{{translations.common.known_language_label}}</label>
     </div>
     <div class='col s8 m3 l3 input-field'>
-      <select id="known-level" type="text" class="material validate no-margin">
+      <select id="known-level" class="material validate no-margin">
         {% for levelCode, level in translations.common.knownLevels %}
         <option data-level={{ levelCode }}>{{ level }}</option>
         {% endfor %}
