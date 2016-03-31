@@ -8,7 +8,7 @@ var winston = require('winston');
 var http = require('http');
 
 var solr = {
-  host: 'ec2-52-58-71-36.eu-central-1.compute.amazonaws.com',
+  host: 'localhost',
   port: 8983,
   path: '/solr/Search/select'
 };
