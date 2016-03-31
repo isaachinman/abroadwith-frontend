@@ -6,5 +6,5 @@ locales
 login.* #Except for login.js
 rates.json
 production.json
-application.settings.json
+app.settings.json
 logs
