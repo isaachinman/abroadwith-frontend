@@ -170,7 +170,7 @@ module.exports = React.createClass({
             {i18n.t('inbox:this_is_a_conversation')} {this.props.them}
           </div>
           <div className='subtitle'>
-            {this.props.them} {i18n.t('inbox:intro_msg_stay')} {this.props.yourName} {i18n.t('common:words.from')} <strong>{this.props.startDate}</strong> {i18n.t('common:words.to')} <strong>{this.props.endDate}</strong>
+            <strong>{this.props.startDate}</strong> {i18n.t('common:words.to')} <strong>{this.props.endDate}</strong>
           </div>
         </div>
 
