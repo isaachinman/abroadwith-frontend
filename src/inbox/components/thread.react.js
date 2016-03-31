@@ -40,6 +40,8 @@ module.exports = React.createClass({
 
     e.preventDefault();
 
+    $('#preloader').show();
+
     var id = this.props.id;
     var input = $('#' + this.props.id + '-send');
     var newMessage = input.val();
@@ -54,7 +56,8 @@ module.exports = React.createClass({
 
       var url = domains.API + '/users/' + JWT.rid + '/messages/' + this.props.id;
       var success = function() {
-        this.refreshMessages()
+        this.refreshMessages();
+        $('#preloader').hide();
       }.bind(this)
       POST(url, message, success);
 
