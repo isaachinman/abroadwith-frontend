@@ -23,29 +23,29 @@
       left: 5vw;
     }
     bottom: 0;
-    .tag {
-      text-indent: 10px;
-      div:first-child {
-        border-top-right-radius: 3px;
-        @media #{$small-and-down} {
-          border-top-left-radius: 3px;
-        }
+  }
+  .tag {
+    text-indent: 10px;
+    div:first-child {
+      border-top-right-radius: 3px;
+      @media #{$small-and-down} {
+        border-top-left-radius: 3px;
       }
-      .stay, .tandem, .teacher {
-        position: relative;
-        display: block;
-        padding: 0 .25rem;
-        min-width: 60px;
-      }
-      .stay {
-        background: $stay;
-      }
-      .tandem {
-        background: $tandem;
-      }
-      .teacher {
-        background: $teacher;
-      }
+    }
+    .stay, .tandem, .teacher {
+      position: relative;
+      display: block;
+      padding: 0 .25rem;
+      min-width: 60px;
+    }
+    .stay {
+      background: $stay;
+    }
+    .tandem {
+      background: $tandem;
+    }
+    .teacher {
+      background: $teacher;
     }
   }
   a.btn-primary {

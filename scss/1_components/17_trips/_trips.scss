@@ -44,7 +44,6 @@ ul.trips {
     font-size: 1.35rem;
     padding: 0 2rem 0 12rem;
     &.center-align {
-      text-align: center;
       padding: 0 1rem;
     }
     @media #{$small-and-down} {
@@ -69,10 +68,10 @@ ul.trips {
 }
 .reservation-btn {
   @extend .btn-flat;
-  width: 200px;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
   margin-bottom: 10px;
   @media #{$large-and-up} {
     width: 100%;
