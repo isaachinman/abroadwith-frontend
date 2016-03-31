@@ -47,6 +47,7 @@
     ]
   },
   "browser": {
+    "application-settings": "./src/ApplicationSettings.js",
     "jquery": "./node_modules/jquery/dist/jquery.min.js",
     "materialize": "./src/materialize.js",
     "react": "react-lite",

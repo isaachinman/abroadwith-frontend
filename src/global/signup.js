@@ -2,6 +2,7 @@ var login = require('./login');
 var processLanguageChips = require('process-language-chips');
 
 var domains = require('domains');
+var application = require('application-settings');
 
 // Language-learn select
 $('select#learning-language').length ? $('select#learning-language').select2() : null;
@@ -55,7 +56,7 @@ if ($('form#email-signup-form').length) {
   //  Initialise and setup Facebook js sdk
   window.fbAsyncInit = function() {
     FB.init({
-      appId: '144997212531478',
+      appId: application.facebookAppId,
       xfbml: true,
       version: 'v2.5'
     });
