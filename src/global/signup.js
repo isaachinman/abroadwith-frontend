@@ -94,7 +94,7 @@ if ($('form#email-signup-form').length) {
           newUser["firstName"] = response.first_name;
           newUser["lastName"] = response.last_name;
           newUser["email"] = response.email;
-          newUser["birthDate"] = (response.birthday).substring(6, 10) + '-' + (response.birthday).substring(0, 2) + '-' + (response.birthday).substring(3, 5);
+          newUser["birthDate"] = response.birthday === 'undefined' ? (response.birthday).substring(6, 10) + '-' + (response.birthday).substring(0, 2) + '-' + (response.birthday).substring(3, 5) : eighteenYearsAgo;
           console.log(newUser);
 
           loginObj.email = response.email;
@@ -132,7 +132,7 @@ if ($('form#email-signup-form').length) {
   window.googleSignupCounter = 0;
   setTimeout(function() {
     googleSignupCounter === 0 ? googleSignupCounter = 1 : null;
-  }, 1500)
+  }, 3000)
   window.googleSignup = function(googleUser) {
 
     if (++googleSignupCounter < 2) {
