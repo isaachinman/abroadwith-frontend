@@ -3,8 +3,6 @@ var ReactDOM = require('react-dom');
 var Cookies = require('js-cookie');
 
 var UiCurrency = React.createClass({
-  componentDidUpdate: function() {
-  },
   componentDidMount: function() {
 
     if (Cookies.get('ui-currency') === 'undefined') {
@@ -14,14 +12,19 @@ var UiCurrency = React.createClass({
       $('select#ui-currency').material_select();
     }
 
+    if (Cookies.get('ui-language') !== 'undefined') {
+      console.log('ran')
+      $('select#ui-language option[value='+Cookies.get('ui-language')+']').attr('selected', 'selected');
+    }
+
     $('select#ui-currency').change(function() {
       Cookies.set('ui-currency', $(this).val());
-      console.log(Cookies.get('ui-currency'))
+      console.log(Cookies.get('ui-currency'));
     })
 
     $('select#ui-language').change(function() {
-      console.log(window.location.href.replace(/^[^.]*/, $(this).val()))
-      window.location = (window.location.href.replace(/^[^.]*/, $(this).val()))
+      Cookies.set('ui-language', $(this).val());
+      location.reload();
     })
 
   },

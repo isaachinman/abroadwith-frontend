@@ -49,21 +49,23 @@ $(document).ready(function() {
   }
 
 
-  i18n.loadNamespaces(['search'],function(){
     // Select2 language to learn
     if ($('select#language').length) {
-      $("select#language").select2({
-        placeholder: i18n.t('search:language_to_learn')
+      i18n.loadNamespaces(['search'],function(){
+        $("select#language").select2({
+          placeholder: i18n.t('search:language_to_learn')
+        });
       });
     }
 
     // Select2 language to teach
     if ($('select#language-teach').length) {
-      $("select#language-teach").select2({
-        placeholder: i18n.t('search:language_to_teach')
+      i18n.loadNamespaces(['search'],function(){
+        $("select#language-teach").select2({
+          placeholder: i18n.t('search:language_to_teach')
+        });
       });
     }
-  });
 
 
   // Modal
