@@ -1,5 +1,10 @@
 var configuration = {
   strict: false,
+  solr: {
+    host: 'ec2-52-58-71-36.eu-central-1.compute.amazonaws.com',
+    port: 8983,
+    path: '/solr/Search/select'
+  },
   public_key: "-----BEGIN PUBLIC KEY-----\n"+
   "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwiFPc0o+YUiBbrXkF7SA"+
   "d7zshZJf2sCvnEy+CTrn5xcJDnbV8x94bxbWari9B3O2cZmcXyNAVBvfsiDXzheJ"+

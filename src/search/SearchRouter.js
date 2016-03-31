@@ -7,11 +7,9 @@ var winston = require('winston');
 
 var http = require('http');
 
-var solr = {
-  host: 'localhost',
-  port: 8983,
-  path: '/solr/Search/select'
-};
+var settings = require('../ServerSettings')
+
+var solr = require('../ServerSettings').solr;
 
 router.get('/', function (req, res) {
   if(!req.context) res.status(404).send('No search context.');
