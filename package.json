@@ -11,6 +11,7 @@
     "braintree": "^1.36.0",
     "browserify": "^12.0.1",
     "browserify-shim": "^3.8.12",
+    "clean-css": "^3.4.10",
     "cookie-parser": "^1.4.1",
     "disc": "^1.3.2",
     "express": "^4.13.3",
@@ -94,7 +95,7 @@
     "start": "node src/server.js",
     "fullstart": "npm run build && npm run start",
     "browsersync": "browser-sync start --reload-delay 1000 --proxy 'http://localhost:3000' --files 'build/css/*.css, build/app.js, src/*/*.html, src/*/*/*.html'",
-    "production": "npm run build && uglifyjs build/app.js -o build/app.js --compress --mangle"
+    "production": "npm run build && uglifyjs build/app.js -o build/app.js --compress --mangle && cleancss build/css/app.css -o build/css/app.css"
   },
   "main": "server.js",
   "repository": {
