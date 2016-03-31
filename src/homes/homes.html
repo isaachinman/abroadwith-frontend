@@ -1,4 +1,10 @@
-{% extends "layout.html" %} {% block title %} {{ translations.homes.title | replace('{{host}}', home.host.firstName) }} {% endblock %} {% block content %}
+{% extends "layout.html" %}
+
+{% block title %}{{ translations.homes.title | replace('{{host}}', home.host.firstName) }}{% endblock %}
+
+{% block meta_description %}{{ translations.homes.meta_description }}{% endblock %}
+
+{% block content %}
 
 <div class='profile-slider'>
   {% if home.photos.length > 0 %}
@@ -221,7 +227,7 @@
           </div>
           <div class='col s12 m12 l6'>
             <div class='input-field '>
-              
+
               <input id='departure' type="text" class="datepicker departure" placeholder='{{translations.common.Departure}}' {% if query.departure %} value={{query.departure}} {% endif %} />
               <label htmlFor='departure' class='active left'>{{translations.common.Departure}}</label>
             </div>

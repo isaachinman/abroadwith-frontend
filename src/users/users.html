@@ -1,4 +1,10 @@
-{% extends "layout.html" %} {% block title %} {{user.firstName}}'s {{ translations.users.title }} {% endblock %} {% block content %}
+{% extends "layout.html" %}
+
+{% block title %}{{user.firstName}}'s {{ translations.users.title }}{% endblock %}
+
+{% block meta_description %}{{translations.users.meta_description}}{% endblock %}
+
+{% block content %}
 
 <div class='user-profile-info'>
   <div class='container row left-align'>

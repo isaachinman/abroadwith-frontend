@@ -1,4 +1,10 @@
-{% extends "layout.html" %} {% block title %} {{ translations.popular_languages.title }} {% endblock %} {% block content %}
+{% extends "layout.html" %}
+
+{% block title %}{{ translations.popular_languages.title }}{% endblock %}
+
+{% block meta_description %}{{ translations.popular_languages.meta_description }}{% endblock %}
+
+{% block content %}
 
 <div class='row hero hero--fixed-height hero--popular-languages card'>
   <div class='col s12 title'>

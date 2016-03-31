@@ -1,4 +1,10 @@
-{% extends "layout.html" %} {% block title %} {{ translations.about.title }} {% endblock %} {% block content %}
+{% extends "layout.html" %}
+
+{% block title %}{{ translations.about.title }}{% endblock %}
+
+{% block meta_description %}{{ translations.about.meta_description }}{% endblock %}
+
+{% block content %}
 
 <div class='row hero hero--fixed-height hero--about card'>
   <div class='col s12 title'>
