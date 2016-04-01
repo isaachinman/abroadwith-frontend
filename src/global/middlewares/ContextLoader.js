@@ -17,8 +17,13 @@ module.exports = function (req, res, next) {
     res.cookie('ui-language',prefix);
   }
   else{
-    //TODO read header and/or cookie
-    req.language = "en";
+    if(req.cookies && req.cookies['ui-language']){
+      req.language = req.cookies['ui-language'];
+    }
+    else{
+      req.language = "en";
+    }
+
   }
   if(!req.context) req.context = {};
   req.context.translations = translations[req.language];
