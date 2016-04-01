@@ -13,7 +13,6 @@ var UiCurrency = React.createClass({
     }
 
     if (Cookies.get('ui-language') !== 'undefined') {
-      console.log('ran')
       $('select#ui-language option[value='+Cookies.get('ui-language')+']').attr('selected', 'selected');
     }
 
