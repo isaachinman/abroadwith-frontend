@@ -221,9 +221,9 @@
                   </p>
                 {% endif %}
                 {% if user.interests.length > 0 %}
-                  <p class='home-details'>
+                  <p class='home-details home-details--multi-line'>
                     <span class='icon'><i class="fa fa-star grey-text text-lighten-1"></i></span>
-                    <strong>{{translations.common.Interests}}:</strong> {% for interest in user.interests %}{{translations.users.interests[interest]}}{% if not loop.last %},&nbsp;{% endif %}{% endfor %}
+                    <strong>{{translations.common.Interests}}:</strong> {% for interest in user.interests %}{{translations.interests[interest]}}{% if not loop.last %},&nbsp;{% endif %}{% endfor %}
                   </p>
                 {% endif %}
                 {% if user.hasVisited %}
