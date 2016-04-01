@@ -19,10 +19,6 @@ module.exports = React.createClass({
       ]
     }
 
-    for (var i=0; i<homeObj.photos.length; i++) {
-      homeObj.photos[i] = this.props.src ? delete homeObj[i] : null;
-    }
-
     $.ajax({
       type: "DELETE",
       url: domains.API + '/users/' + JWT.rid + '/homes/' + JWT.hid + '/photos',
@@ -31,9 +27,8 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
-        this.props.refreshState(function() {
-          toast(i18n.t('manage_home:photo_deleted_toast'), 4000)
-        });
+        this.props.refreshState();
+        toast(i18n.t('manage_home:photo_deleted_toast'), 4000)
 
       }.bind(this),
       error: function() {
