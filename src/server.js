@@ -24,6 +24,7 @@ var installReview = require('./review/ReviewInstaller');
 /** Middlewares **/
 var contextLoader = require('./global/middlewares/ContextLoader');
 var authentication = require('./global/middlewares/Authentication');
+var ServerSettings = require('./ServerSettings');
 
 var app = express();
 var cookieParser = require('cookie-parser');
@@ -95,6 +96,11 @@ installInvoice(app);
 installReceipt(app);
 
 installReview(app);
+
+app.post('/logout',function(req,res){
+  res.cookie('access_token',"null", { secure:true, httpOnly: true, expires:new Date(0), domain:ServerSettings.cookieDomain });
+  res.sendStatus(204);
+});
 
 app.use(function(err, req, res, next) {
   console.log(err.stack);
