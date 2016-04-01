@@ -1,17 +1,19 @@
 {% extends "layout.html" %} {% block title %} {{ translations.manage_home.title }} {% endblock %} {% block content %}
 
 <div class="col s12 no-padding-sides">
-  <div class='tabs-container'>
-    <div class='tabs-overlay'></div>
-    <ul class="tabs">
-      <li class="tab"><a class='active' href="#basics" data-next='immersions'>{{ translations.manage_home.basics_tabname }}</a></li>
-      <li class="tab"><a href="#immersions" data-next='location'>{{ translations.manage_home.immersions_tabname }}</a></li>
-      <li id='location-tab' class="tab"><a href="#location" data-next='description'>{{ translations.manage_home.location_tabname }}</a></li>
-      <li class="tab"><a href="#description" data-next='rooms'>{{ translations.manage_home.description_tabname }}</a></li>
-      <li class="tab"><a href="#rooms" data-next='photos'>{{ translations.manage_home.rooms_tabname }}</a></li>
-      <li class="tab"><a href="#photos" data-next='pricing'>{{ translations.manage_home.photos_tabname }}</a></li>
-      <li class="tab"><a href="#pricing">{{ translations.manage_home.pricing_tabname }}</a></li>
-    </ul>
+
+  <div class='button-group-wrapper'>
+    <div class='button-group'>
+      <ul>
+        <li class='active' data-target='basics'>{{ translations.manage_home.basics_tabname }}</li>
+        <li data-target='immersions'>{{ translations.manage_home.immersions_tabname }}</li>
+        <li data-target='location' id='location-tab'>{{ translations.manage_home.location_tabname }}</li>
+        <li data-target='description'>{{ translations.manage_home.description_tabname }}</li>
+        <li data-target='rooms'>{{ translations.manage_home.rooms_tabname }}</li>
+        <li data-target='photos'>{{ translations.manage_home.photos_tabname }}</li>
+        <li data-target='pricing'>{{ translations.manage_home.pricing_tabname }}</li>
+      </ul>
+    </div>
   </div>
 </div>
 

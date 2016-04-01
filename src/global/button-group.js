@@ -4,6 +4,8 @@ $(function() {
     // If there is an active tab, show it
     if ($('.button-group li.active').length > 0) {
       $('#'+$('.button-group li.active:first-child').attr('data-target')).show();
+    } else {
+      $('#'+$('.button-group li:first-child').attr('data-target')).show();
     }
 
     // Click event, allow for slight dragging

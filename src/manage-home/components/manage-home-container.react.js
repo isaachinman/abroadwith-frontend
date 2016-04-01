@@ -47,15 +47,6 @@ module.exports = React.createClass({
       $(this).parentsUntil('.col').remove()
     })
 
-    // Next button
-    $('a.next-btn').click(function() {
-      var activeTab = $('li.tab a.active');
-      if (activeTab.attr('data-next')) {
-        var next = activeTab.data('next');
-        $('ul.tabs').tabs('select_tab', next);
-      }
-    })
-
     var refresh = this.refreshState;
 
     $("#home_upload_photos_button").click(function()
