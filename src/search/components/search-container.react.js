@@ -122,10 +122,6 @@ module.exports = React.createClass({
 
     window.handleChange = this.handleChange;
 
-    window.addEventListener('popstate', function(e) {
-      location.reload();
-    });
-
     $('select#language').change(function() {
       if ($(this).val() !== 'undefined' && $(this).val() !== '') {
 
