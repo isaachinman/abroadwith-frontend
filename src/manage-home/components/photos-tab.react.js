@@ -6,7 +6,7 @@ module.exports = React.createClass({
   componentDidUpdate: function() {
     if (this.props.photos) {
 
-      var updateHome = this.props.updateHome;
+      var refreshState = this.props.refreshState;
       var photos = this.props.photos;
 
       var PhotoContainer = React.createClass({
@@ -17,7 +17,7 @@ module.exports = React.createClass({
               <PhotoModule
                 src={url}
                 key={url}
-                updateHome={updateHome}
+                refreshState={refreshState}
               />
             )
           })

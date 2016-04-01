@@ -200,6 +200,7 @@ module.exports = React.createClass({
 
         <PhotosTab
           updateHome={this.updateHome}
+          refreshState={this.refreshState}
           photos={this.state.photos}
         />
 

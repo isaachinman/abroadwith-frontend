@@ -31,7 +31,7 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function(response) {
 
-        this.props.updateHome(function() {
+        this.props.refreshState(function() {
           toast(i18n.t('manage_home:photo_deleted_toast'), 4000)
         });
 
