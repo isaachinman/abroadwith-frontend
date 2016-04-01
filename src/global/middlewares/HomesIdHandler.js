@@ -26,6 +26,10 @@ module.exports = function (req, res, next, value) {
           var parsed = JSON.parse(body);
           req.context.home = parsed;
           req.context.home.id = value; //TODO make sure it is in the return object.
+          if(req.context.home.isActive == false){
+            next('Home is not active.');
+            return;
+          }
           for(var i = 0; i < req.context.home.rooms.length; i++){
             req.context.home.rooms[i].price = currency(req.context.home.rooms[i].price,req.context.home.pricing.currency,req.context.currency);
           }
