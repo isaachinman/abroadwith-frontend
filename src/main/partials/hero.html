@@ -10,7 +10,7 @@
     <div class='col s12 m10 offset-m1 l10 offset-l1'>
       <div class='row input-row'>
         <div class="col language border-radius-left">
-          <select id="language" type="text" class="validate border-radius-left">
+          <select id="language" class="validate border-radius-left">
             <option></option>
             {% for langCode, language in constants.user_languages %}
               <option data-lang={{ langCode }}>{{ translations.languages[langCode] }} ({{ language.native_name }})</option>

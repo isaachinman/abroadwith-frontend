@@ -43,7 +43,7 @@
           <div class='chip chip-grey'>{{translations.common.Language}}</div>
         </div>
         <div class='col s12 m9 l3'>
-          <select id="language" type="text" class="validate border-radius-left">
+          <select id="language" class="validate border-radius-left">
             <option></option>
             {% for code, lang in translations.languages %}
               {% if query.language == code %}
