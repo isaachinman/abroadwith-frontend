@@ -42,7 +42,7 @@ if ($('form#email-signup-form').length) {
       container: 'body',
       clear: '',
       today: '',
-      selectYears: 15,
+      selectYears: 35,
       format: 'yyyy-mm-dd',
       onSet: function(e) {
         if (e.select) {
