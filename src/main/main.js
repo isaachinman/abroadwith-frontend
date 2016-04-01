@@ -48,25 +48,23 @@ $(document).ready(function() {
     });
   }
 
-
-    // Select2 language to learn
-    if ($('select#language').length) {
-      i18n.loadNamespaces(['search'],function(){
-        $("select#language").select2({
-          placeholder: i18n.t('search:language_to_learn')
-        });
+  // Select2 language to learn
+  if ($('select#language').length) {
+    i18n.loadNamespaces(['search'],function(){
+      $("select#language").select2({
+        placeholder: i18n.t('search:language_to_learn')
       });
-    }
+    });
+  }
 
-    // Select2 language to teach
-    if ($('select#language-teach').length) {
-      i18n.loadNamespaces(['search'],function(){
-        $("select#language-teach").select2({
-          placeholder: i18n.t('search:language_to_teach')
-        });
+  // Select2 language to teach
+  if ($('select#language-teach').length) {
+    i18n.loadNamespaces(['search'],function(){
+      $("select#language-teach").select2({
+        placeholder: i18n.t('search:language_to_teach')
       });
-    }
-
+    });
+  }
 
   // Modal
   if ($('.modal-trigger').length) {
