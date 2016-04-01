@@ -1,12 +1,30 @@
 $(function() {
   if ($('.button-group').length) {
 
-    // If there is an active tab, show it
-    if ($('.button-group li.active').length > 0) {
-      $('#'+$('.button-group li.active:first-child').attr('data-target')).show();
-    } else {
-      $('#'+$('.button-group li:first-child').attr('data-target')).show();
+    // This is the actual tab function
+    function tabChange(_this) {
+      $(_this).siblings().removeClass('active');
+      $(_this).addClass('active');
+      if ($(_this).attr('data-target')) {
+        $('.tab').hide();
+        $(($(_this).attr('data-target')+'-tab')).show();
+      }
     }
+
+    // Get all tab links
+    var links = $('.button-group li');
+
+    // If there is a hash tab, it is preferentially active
+    if (links.filter('[data-target="'+location.hash+'"]').length > 0) {
+      console.log('matches')
+      tabChange((links.filter('[data-target="'+location.hash+'"]')));
+    } else if (links.find('active').length > 0) {
+      tabChange(links.find('.active').first())
+    } else {
+      tabChange(links.first())
+    }
+
+
 
     // Click event, allow for slight dragging
     var coords = { startX: 0, endX: 0, startY: 0, endY: 0 };
@@ -21,12 +39,7 @@ $(function() {
       })
       .mouseup(function() {
         if (coords.startX - coords.endX  < 5 && coords.startX - coords.endX > - 5 && coords.startY - coords.endY < 5 && coords.startY - coords.endY > - 5) {
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-          if ($(this).attr('data-target')) {
-            $('.tab').hide();
-            $('#'+($(this).attr('data-target'))).show();
-          }
+          tabChange(this);
         }
         $(window).unbind("mousemove");
       });

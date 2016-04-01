@@ -47,6 +47,11 @@ module.exports = React.createClass({
       $(this).parentsUntil('.col').remove()
     })
 
+    // Next tab button
+    $('a.next-btn').click(function() {
+      $('.button-group li.active').next().trigger('mouseup');
+    })
+
     var refresh = this.refreshState;
 
     $("#home_upload_photos_button").click(function()
