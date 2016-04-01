@@ -10,6 +10,8 @@ module.exports = React.createClass({
 
     var trip = this.props.trip;
 
+    var receiptUrl = "/users/"+JWT.rid+"/bookings/"+trip.id+"/receipt?booking_id="+trip.id;
+
     var whoCancelled = trip.status === 'CANCELLED_BY_HOST' ? i18n.t('trips:by_them') : i18n.t('trips:by_you');
 
     var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : '';
@@ -39,8 +41,11 @@ module.exports = React.createClass({
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>
-            <div className='col s12 m12 l2 margin-top-20 left-align trip-user-actions'>
+            <div className='col s12 m12 l2 margin-top-20 center-align trip-user-actions'>
               <a className='btn disabled reservation-btn'>{i18n.t('trips:status_codes.CANCELLED')}</a>
+                <div className='margin-top-10'>
+                  <a href={receiptUrl}>{i18n.t('trips:view_receipt')}</a>
+                </div>
             </div>
             <div className='col s12 m12 l10 margin-top-20'>
               <table className='border responsive-table trips-table'>
