@@ -27,8 +27,6 @@ module.exports = React.createClass({
 
         for (var i=0; i<reservations.length; i++) {
 
-          console.log(reservations[i])
-
           // Render trip component depending on status
           if (reservations[i].status === 'PENDING') {
             pendingReservations.push(
