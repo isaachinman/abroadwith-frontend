@@ -38,9 +38,17 @@
     "HALF_BOARD":"fa-cutlery",
     "ONLY_BREAKFAST":"fa-cutlery",
     "AIRPORT_PICKUP":"fa-plane",
-    "LAUNDRY":"fa-black-tie"
+    "LAUNDRY":"fa-black-tie",
+    "EXTRA_GUEST":"fa-user-plus"
   },
   "extras":{
-    "DRYER":"fa-fire"
+    "DRYER":"fa-fire",
+    "ELEVATOR_IN_BUILDING":"fa-building-o",
+    "FREE_PARKING_NEARBY":"fa-car",
+    "GYM":"fa-hand-rock-o",
+    "HOT_TUB":"fa-tint",
+    "INDOOR_FIREPLACE":"fa-fire",
+    "POOL":"fa-tint",
+    "WASHER":"fa-square-o"
   }
 }

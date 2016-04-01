@@ -5,7 +5,6 @@
 {% block meta_description %}{{ translations.homes.meta_description }}{% endblock %}
 
 {% block content %}
-
 <div class='profile-slider'>
   {% if home.photos.length > 0 %}
   <div class="wallop">
@@ -20,10 +19,12 @@
   {% endif %}
   <div class='immersion-types'>
     <div class='tag'>
-      {% for immersion,_ in home.immersions %}
-      <div class='{{ immersion }}'>
-        {{ immersion }}
-      </div>
+      {% for immersion_type,immersion in home.immersions %}
+        {% if immersion.isActive %}
+          <div class='{{ immersion_type }}'>
+            {{ immersion_type }}
+          </div>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
@@ -269,7 +270,7 @@
               <span class='icon'><i class="fa fa-users grey-text text-lighten-1"></span></i>{{translations.common.Shared}}: {{translations.rooms.shared[room.shared]}}
             </p>
             <p class='home-details'>
-              <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>{{translations.common.Bed_type}}: {{translations.rooms.bed_types[room.bed]}}
+              <span class='icon'><i class="fa fa-bed grey-text text-lighten-1"></span></i>{{translations.rooms.bed_types[room.bed]}}
             </p>
           </div>
           <div class='col s6 m6 l2'>
@@ -287,19 +288,19 @@
               <strong>{{translations.common.Price}}:</strong>
             </p>
 
-            {% if home.immersions.stay %}
+            {% if home.immersions.stay.isActive %}
             <p class='home-details capitalise'>
               {{translations.common.Stay}}: {{constants.currencies[home.pricing.currency]}}{{ room.price }}/{{translations.common.week}}
             </p>
             {% endif %}
 
-            {% if home.immersions.tandem %}
+            {% if home.immersions.tandem.isActive %}
             <p class='home-details capitalise'>
               {{ translations.common.Tandem }}: {{constants.currencies[home.pricing.currency]}}{{ room.price * (100 - home.immersions.tandem.languagesInterested[0].discount)/100 }}/{{translations.common.week}}
             </p>
             {% endif %}
 
-            {% if home.immersions.teacher %}
+            {% if home.immersions.teacher.isActive %}
             <p class='home-details capitalise'>
               {{ translations.common.Teacher }}: {{constants.currencies[home.pricing.currency]}}{{ room.price + (home.immersions.teacher.hourly * home.immersions.teacher.packages[0]) }}/{{translations.common.week}}
             </p>

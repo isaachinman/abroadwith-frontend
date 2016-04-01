@@ -1,6 +1,7 @@
 .profile-slider {
   min-height: 300px;
   max-height: 400px;
+  overflow: hidden;
   @media #{$small-and-down} {
     max-height: 300px;
   }
