@@ -1,7 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var PhotoModule = require('./photo-module.react')
-var domains = require('domains');
 
 module.exports = React.createClass({
   componentDidUpdate: function() {
@@ -16,7 +15,7 @@ module.exports = React.createClass({
           photos.forEach(function(url) {
             allPhotos.push(
               <PhotoModule
-                src={domains.IMG + url}
+                src={url}
                 key={url}
                 updateHome={updateHome}
               />

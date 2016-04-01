@@ -19,6 +19,10 @@ module.exports = React.createClass({
       ]
     }
 
+    for (var i=0; i<homeObj.photos.length; i++) {
+      homeObj.photos[i] = this.props.src ? delete homeObj[i] : null;
+    }
+
     $.ajax({
       type: "DELETE",
       url: domains.API + '/users/' + JWT.rid + '/homes/' + JWT.hid + '/photos',
@@ -45,12 +49,15 @@ module.exports = React.createClass({
 
   },
   render: function() {
+
+    var photoSrc = domains.IMG + this.props.src;
+
     return (
 
       <div className="col s12 m6 l4">
         <div className="card home-photo">
           <div className="card-image">
-            <img src={this.props.src}></img>
+            <img src={photoSrc}></img>
           </div>
           <a className='delete' onClick={this.deletePhoto}><i className="fa fa-times fa-2x"></i></a>
         </div>
