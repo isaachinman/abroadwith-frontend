@@ -12,7 +12,7 @@ module.exports = React.createClass({
     var whoDeclined = trip.status === 'DECLINED_BY_GUEST' ? i18n.t('trips:by_you') : i18n.t('trips:by_host');
 
     var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : '';
-    var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto : '';
+    var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto : domains.IMG+'/users/default.jpg';
 
     var homeLink = '/homes/' + trip.homeId;
 

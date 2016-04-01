@@ -26,7 +26,7 @@ module.exports = React.createClass({
     var reservation = this.props.reservation;
 
     var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : '';
-    var guestPhoto = reservation.hostPhoto ? domains.IMG + reservation.hostPhoto : '';
+    var guestPhoto = reservation.guestPhoto ? domains.IMG + reservation.guestPhoto : domains.IMG+'/users/default.jpg';
 
     var invoices = [];
 
@@ -64,6 +64,8 @@ module.exports = React.createClass({
       );
     }
 
+    var guestProfUrl = 'users/' + reservation.guestId;
+
     return (
 
       <li>
@@ -78,7 +80,7 @@ module.exports = React.createClass({
                 <a className='small grey-text'>{i18n.t('trips:cancellation_policy')}</a>
               </div>
               <div className='margin-top-10 center-align'>
-                <a><img src={guestPhoto} alt="" className="circle responsive-img reservation-profile-icon" /></a>
+                <a href={guestProfUrl}><img src={guestPhoto} alt="" className="circle responsive-img reservation-profile-icon" /></a>
               </div>
               <div>
                 <a href={receiptUrl}>{i18n.t('trips:immersion_confirmation')}</a>
