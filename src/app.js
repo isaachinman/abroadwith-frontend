@@ -9,6 +9,9 @@ var select2 = require('select2-browserify');
 // Main materialize script
 require('materialize');
 
+// Custom components
+require('./global/button-group');
+
 // Globals
 require('./global/currency-dropdown');
 require('./global/signup');
