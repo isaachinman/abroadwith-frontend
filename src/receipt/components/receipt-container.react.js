@@ -56,10 +56,10 @@ module.exports = React.createClass({
       var paymentsSettled = [];
       if (response.transactions.length > 0) {
         for (var i=0; i<response.transactions.length; i++) {
-          paymentsSettled.push('<td>'+currency+response.transactions[i].amount+'</td><td>'+i18n.t('receipts_invoices:payment_statuses.'+response.transactions[i].status)+' ('+response.transactions[i].date[0]+'-'+(('0'+response.transactions[i].date[1]).slice(-2))+'-'+response.transactions[i].date[2]+')</td>')
+          paymentsSettled.push('<tr><td>'+currency+response.transactions[i].amount+'</td><td>'+i18n.t('receipts_invoices:payment_statuses.'+response.transactions[i].status)+' ('+response.transactions[i].date[0]+'-'+(('0'+response.transactions[i].date[1]).slice(-2))+'-'+response.transactions[i].date[2]+')</td></tr>')
         }
       } else {
-        paymentsSettled.push('<td>'+i18n.t('trips:not_applicable')+'</td><td></td>')
+        paymentsSettled.push('<tr><td>'+i18n.t('trips:not_applicable')+'</td><td></td></tr>')
       }
       $('#payments-settled').html(paymentsSettled);
 
