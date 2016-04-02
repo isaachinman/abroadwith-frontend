@@ -37,19 +37,19 @@ if ($('form#email-signup-form').length) {
     eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18);
     eighteenYearsAgo = eighteenYearsAgo.yyyymmdd();
 
-    $('.datepicker-birthday').pickadate({
-      max: eighteenYearsAgo,
-      container: 'body',
-      clear: '',
-      today: '',
-      selectYears: 35,
-      format: 'yyyy-mm-dd',
-      onSet: function(e) {
-        if (e.select) {
-          this.close();
-        }
-      }
-    });
+    // $('.datepicker-birthday').pickadate({
+    //   max: eighteenYearsAgo,
+    //   container: 'body',
+    //   clear: '',
+    //   today: '',
+    //   selectYears: 35,
+    //   format: 'yyyy-mm-dd',
+    //   onSet: function(e) {
+    //     if (e.select) {
+    //       this.close();
+    //     }
+    //   }
+    // });
 
   }
 

@@ -1,6 +1,8 @@
 var Wallop = require('wallop');
 var newMessageThread = require('new-message-thread');
 
+var pikaday = require('pikaday');
+
 var i18n = require('../global/util/i18n');
 
 // Initialisations
@@ -89,81 +91,124 @@ $(document).ready(function() {
   }
 
   // Departure datepicker
-  if ($('input.departure').length) {
-    var departurePicker = $('input.departure').pickadate('picker');
-    var today = new Date();
-    var weekToday = new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000);
-    $('input.departure').pickadate({
+  // if ($('input.departure').length) {
+  //   var departurePicker = $('input.departure').pickadate('picker');
+  //   var today = new Date();
+  //   var weekToday = new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000);
+  //   $('input.departure').pickadate({
+  //
+  //     container: 'body',
+  //     clear: '',
+  //     format: 'yyyy-mm-dd',
+  //     min:weekToday,
+  //     // If departure date exists, set as default
+  //     onStart: function() {
+  //       // if (pageContext.departure) {
+  //       //   $('#departure').val(pageContext.departure);
+  //       // }
+  //     },
+  //     onSet: function(e) {
+  //       if (e.select) {
+  //         this.close();
+  //       }
+  //     }
+  //   });
+  // }
 
-      container: 'body',
-      clear: '',
-      format: 'yyyy-mm-dd',
-      min:weekToday,
-      // If departure date exists, set as default
-      onStart: function() {
-        // if (pageContext.departure) {
-        //   $('#departure').val(pageContext.departure);
-        // }
-      },
-      onSet: function(e) {
-        if (e.select) {
-          this.close();
-        }
+  var Pikaday = require('pikaday');
+
+  if ($('input.arrival').length && $('input.departure').length) {
+
+    var startDate;
+    var endDate;
+
+    var updateStartDate = function() {
+      for (var i=0; i<arrivalPickers.length; i++) {
+        arrivalPickers[i].setStartRange(startDate);
       }
-    });
+      for (var i=0; i<departurePickers.length; i++) {
+        departurePickers[i].setStartRange(startDate);
+        departurePickers[i].setMinDate(startDate);
+      }
+    }
+    var updateEndDate = function() {
+      for (var i=0; i<arrivalPickers.length; i++) {
+        arrivalPickers[i].setEndRange(startDate);
+        arrivalPickers[i].setMaxDate(endDate);
+      }
+      for (var i=0; i<departurePickers.length; i++) {
+        departurePickers[i].setEndRange(endDate);
+      }
+    }
+
+    var arrivalPickers = [];
+    var departurePickers = [];
+
+    $('input.arrival').each(function() {
+      var picker = new Pikaday({
+        field: this ,
+        format: 'YYYY-MM-DD',
+        onSelect: function(date) {
+          startDate = this.getDate()
+          updateStartDate();
+        }
+      });
+      arrivalPickers.push(picker);
+    })
+
+    $('input.departure').each(function() {
+      var picker = new Pikaday({
+        field: this ,
+        format: 'YYYY-MM-DD',
+        onSelect: function(date) {
+          endDate = this.getDate()
+          updateEndDate();
+        }
+      });
+      departurePickers.push(picker);
+    })
+
+
   }
 
   // Arrival datepicker
-  if ($('input.arrival').length && $('input.departure').length) {
+  // if ($('input.arrival').length && $('input.departure').length) {
+  //
+  //   // Set up min and max dates
+  //   var today = new Date();
+  //   var tomorrow = new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000);
+  //   var yearToday = new Date(today.getTime() + 365 * 24 * 60 * 60 * 1000);
+  //
+  //   // Initialise datepicker
+  //   $('input.arrival').pickadate({
+  //
+  //     container: 'body',
+  //     clear: '',
+  //     format: 'yyyy-mm-dd',
+  //     min:tomorrow,
+  //     max:yearToday,
+  //
+  //     // If arrival date exists, set as default
+  //     onStart: function() {
+  //       // if (pageContext.arrival) {
+  //       //   $('#arrival').val(pageContext.arrival);
+  //       // }
+  //     },
+  //
+  //     // onSet, make departure datepicker have a min value of arrival + 1
+  //     onSet: function(e) {
+  //       if (e.select) {
+  //         var dateString = ($('#arrival').val()).split('-').join('/');
+  //         dateObj = new Date(dateString);
+  //         var arrivalPlusOne = new Date(dateObj.getTime() + 1 * 24 * 60 * 60 * 1000);
+  //         $('input#departure').pickadate('picker').set('clear');
+  //         $('input#departure').pickadate('picker').set('min', arrivalPlusOne);
+  //         $(this).close();
+  //       }
+  //     }.bind(this)
+  //
+  //   });
+  // }
 
-    // Set up min and max dates
-    var today = new Date();
-    var tomorrow = new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000);
-    var yearToday = new Date(today.getTime() + 365 * 24 * 60 * 60 * 1000);
-
-    // Initialise datepicker
-    $('input.arrival').pickadate({
-
-      container: 'body',
-      clear: '',
-      format: 'yyyy-mm-dd',
-      min:tomorrow,
-      max:yearToday,
-
-      // If arrival date exists, set as default
-      onStart: function() {
-        // if (pageContext.arrival) {
-        //   $('#arrival').val(pageContext.arrival);
-        // }
-      },
-
-      // onSet, make departure datepicker have a min value of arrival + 1
-      onSet: function(e) {
-        if (e.select) {
-          var dateString = ($('#arrival').val()).split('-').join('/');
-          dateObj = new Date(dateString);
-          var arrivalPlusOne = new Date(dateObj.getTime() + 1 * 24 * 60 * 60 * 1000);
-          $('input#departure').pickadate('picker').set('clear');
-          $('input#departure').pickadate('picker').set('min', arrivalPlusOne);
-          $(this).close();
-        }
-      }.bind(this)
-
-    });
-  }
-
-  // Fix stupid focus issue with datepickers
-  $.each($('.datepicker') , function(index , item) {
-    $(item).on('click' , function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        $(this).pickadate('picker').open();
-    });
-  });
-
-  // Focus for select2
-  if ($('.select2-drop')) {
-
-  }
 
 });
