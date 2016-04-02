@@ -28,6 +28,7 @@
     "node-gyp": "^3.3.0",
     "node-sass": "^3.4.2",
     "nunjucks": "^2.2.0",
+    "pikaday": "^1.4.0",
     "rating": "^0.1.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
