@@ -32,10 +32,10 @@ if ($('form#email-signup-form').length) {
   if ($('.datepicker-birthday').length) {
 
     // Get date for 18 years ago
-    require('../../src/utils/date-object-to-yyyymmdd');
+    var formatDate = require('format-date')
     var eighteenYearsAgo = new Date();
     eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18);
-    eighteenYearsAgo = eighteenYearsAgo.yyyymmdd();
+    eighteenYearsAgo = formatDate(eighteenYearsAgo);
 
     // $('.datepicker-birthday').pickadate({
     //   max: eighteenYearsAgo,

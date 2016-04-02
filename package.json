@@ -72,7 +72,8 @@
     "GET": "./src/global/ajax/GET",
     "POST": "./src/global/ajax/POST",
     "DELETE": "./src/global/ajax/DELETE",
-    "new-message-thread": "./src/global/new-message-thread"
+    "new-message-thread": "./src/global/new-message-thread",
+    "format-date": "./src/utils/date-object-to-yyyymmdd"
   },
   "browserify-shim": {
     "jquery": "$",
