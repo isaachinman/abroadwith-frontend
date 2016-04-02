@@ -121,6 +121,8 @@ $(document).ready(function() {
 
     var startDate;
     var endDate;
+    var today = new Date();
+    var tomorrow = new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000);
 
     var updateStartDate = function() {
       for (var i=0; i<arrivalPickers.length; i++) {
@@ -146,11 +148,13 @@ $(document).ready(function() {
 
     $('input.arrival').each(function() {
       var picker = new Pikaday({
+        minDate: today,
         field: this ,
         format: 'YYYY-MM-DD',
         onSelect: function(date) {
           startDate = this.getDate()
           updateStartDate();
+          departurePickers[0].show();
         }
       });
       arrivalPickers.push(picker);
@@ -158,6 +162,7 @@ $(document).ready(function() {
 
     $('input.departure').each(function() {
       var picker = new Pikaday({
+        minDate: tomorrow,
         field: this ,
         format: 'YYYY-MM-DD',
         onSelect: function(date) {
