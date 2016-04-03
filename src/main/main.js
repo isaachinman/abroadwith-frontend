@@ -102,6 +102,23 @@ $(document).ready(function() {
 
   var formatDate = require('format-date');
 
+  if ($('input.birthday').length) {
+
+    // Users must be at least 18, so generate minimum date
+    var eighteenYearsAgo = new Date();
+    eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18);
+
+    // Init birthday datepickers
+    $('input.birthday').each(function() {
+      var picker = new Pikaday({
+        format: 'YYYY-MM-DD',
+        maxDate: eighteenYearsAgo,
+        field: this,
+        yearRange: [1950, eighteenYearsAgo.getFullYear()]
+      });
+    })
+  }
+
   if ($('input.arrival').length && $('input.departure').length) {
 
     // Initial variables used throughout
@@ -155,9 +172,9 @@ $(document).ready(function() {
 
     // Init arrival pickers
     $('input.arrival').each(function() {
+
       var _trigger = this;
       var picker = new Pikaday({
-        format: 'YYYY-MM-DD',
         minDate: today,
         field: this,
         defaultDate: $(this).attr('data-date'),
@@ -203,13 +220,13 @@ $(document).ready(function() {
     })
 
     // If arrival picker has a value on pageload, update pickers
-    if ($('.arrival').val() !== '') {
+    if ($('.arrival').first().val() !== '') {
       startDate = new Date($('.arrival').val());
       updateStartDate();
     }
 
     // If departure picker has a value on pageload, update pickers
-    if ($('.departure').val() !== '') {
+    if ($('.departure').first().val() !== '') {
       endDate = new Date($('.departure').val());
       updateEndDate();
     }

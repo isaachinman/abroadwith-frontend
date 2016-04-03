@@ -28,31 +28,6 @@ if ($('form#email-signup-form').length) {
   // Create signup object
   newUser = {};
 
-  // Birthday datepicker
-  if ($('.datepicker-birthday').length) {
-
-    // Get date for 18 years ago
-    var formatDate = require('format-date')
-    var eighteenYearsAgo = new Date();
-    eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18);
-    eighteenYearsAgo = formatDate(eighteenYearsAgo);
-
-    // $('.datepicker-birthday').pickadate({
-    //   max: eighteenYearsAgo,
-    //   container: 'body',
-    //   clear: '',
-    //   today: '',
-    //   selectYears: 35,
-    //   format: 'yyyy-mm-dd',
-    //   onSet: function(e) {
-    //     if (e.select) {
-    //       this.close();
-    //     }
-    //   }
-    // });
-
-  }
-
   //  Initialise and setup Facebook js sdk
   window.fbAsyncInit = function() {
     FB.init({

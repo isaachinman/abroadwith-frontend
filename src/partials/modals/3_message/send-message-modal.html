@@ -9,10 +9,10 @@
 
     <div class='row'>
       <div class='col s12 m6 l6'>
-        <input id='message-arrival' type="text" placeholder='{{translations.common.Arrival}}' class='datepicker arrival'>
+        <input id='message-arrival' type="text" placeholder='{{translations.common.Arrival}}' class='arrival' {% if query.arrival %} value={{query.arrival}} {% endif %}>
       </div>
       <div class='col s12 m6 l6'>
-        <input id='message-departure' type="text" placeholder='{{translations.common.Departure}}' class='datepicker departure'>
+        <input id='message-departure' type="text" placeholder='{{translations.common.Departure}}' class='departure' {% if query.departure %} value={{query.departure}} {% endif %}>
       </div>
     </div>
 
