@@ -26,7 +26,6 @@ module.exports = React.createClass({
       var query = this.props.query;
 
       this.props.results.forEach(function(obj) {
-        console.log(obj)
         var result = <IndividualResult
           query={query}
           key={obj.roomId}

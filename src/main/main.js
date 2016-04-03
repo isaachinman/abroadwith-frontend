@@ -113,6 +113,7 @@ $(document).ready(function() {
       var picker = new Pikaday({
         format: 'YYYY-MM-DD',
         maxDate: eighteenYearsAgo,
+        defaultDate: eighteenYearsAgo,
         field: this,
         yearRange: [1950, eighteenYearsAgo.getFullYear()]
       });
