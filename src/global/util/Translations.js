@@ -22,7 +22,7 @@ var loadLanguage = function(language){
 var loadAllLanguages = function(){
   translations = {};
   loadLanguage('es');
-  loadLanguage('pt');
+  loadLanguage('de');
   loadLanguage('en');
 }
 
