@@ -56,16 +56,25 @@ module.exports = React.createClass({
       var paymentsSettled = [];
       if (response.transactions.length > 0) {
 
-        // STILL NEED TO SORT TRANSACTIONS BY DATE HERE
+        // Sort transactions by date
+        response.transactions.sort(function(a,b) {
+          return new Date(a.date) - new Date(b.date)
+        })
 
         for (var i=0; i<response.transactions.length; i++) {
 
+          var date = new Date(response.transactions[i].date);
+
           if (response.transactions[i].parentId) {
+
             // Transaction is a refund
-            paymentsSettled.push('<tr><td>- '+currency+response.transactions[i].amount+'</td><td>'+i18n.t('receipts_invoices:payment_statuses.'+response.transactions[i].status)+' ('+response.transactions[i].date[0]+'-'+(('0'+response.transactions[i].date[1]).slice(-2))+'-'+(('0'+response.transactions[i].date[2]).slice(-2))+')</td></tr>')
+            paymentsSettled.push('<tr><td>- '+currency+response.transactions[i].amount+'</td><td>'+i18n.t('receipts_invoices:payment_statuses.'+response.transactions[i].status)+' ('+date.getFullYear()+'-'+(('0'+(date.getMonth()+1)).slice(-2))+'-'+(('0'+(date.getDate())).slice(-2))+')</td></tr>')
+
           } else {
+
             // Transaction is not a refund
-            paymentsSettled.push('<tr><td>'+currency+response.transactions[i].amount+'</td><td>'+i18n.t('receipts_invoices:payment_statuses.'+response.transactions[i].status)+' ('+response.transactions[i].date[0]+'-'+(('0'+response.transactions[i].date[1]).slice(-2))+'-'+(('0'+response.transactions[i].date[2]).slice(-2))+')</td></tr>')
+            paymentsSettled.push('<tr><td>'+currency+response.transactions[i].amount+'</td><td>'+i18n.t('receipts_invoices:payment_statuses.'+response.transactions[i].status)+' ('+date.getFullYear()+'-'+(('0'+(date.getMonth()+1)).slice(-2))+'-'+(('0'+(date.getDate())).slice(-2))+')</td></tr>')
+
           }
         }
       } else {
