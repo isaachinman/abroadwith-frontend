@@ -55,12 +55,23 @@ module.exports = React.createClass({
 
       var paymentsSettled = [];
       if (response.transactions.length > 0) {
+
+        // STILL NEED TO SORT TRANSACTIONS BY DATE HERE
+
         for (var i=0; i<response.transactions.length; i++) {
-          paymentsSettled.push('<tr><td>'+currency+response.transactions[i].amount+'</td><td>'+i18n.t('receipts_invoices:payment_statuses.'+response.transactions[i].status)+' ('+response.transactions[i].date[0]+'-'+(('0'+response.transactions[i].date[1]).slice(-2))+'-'+response.transactions[i].date[2]+')</td></tr>')
+
+          if (response.transactions[i].parentId) {
+            // Transaction is a refund
+            paymentsSettled.push('<tr><td>- '+currency+response.transactions[i].amount+'</td><td>'+i18n.t('receipts_invoices:payment_statuses.'+response.transactions[i].status)+' ('+response.transactions[i].date[0]+'-'+(('0'+response.transactions[i].date[1]).slice(-2))+'-'+(('0'+response.transactions[i].date[2]).slice(-2))+')</td></tr>')
+          } else {
+            // Transaction is not a refund
+            paymentsSettled.push('<tr><td>'+currency+response.transactions[i].amount+'</td><td>'+i18n.t('receipts_invoices:payment_statuses.'+response.transactions[i].status)+' ('+response.transactions[i].date[0]+'-'+(('0'+response.transactions[i].date[1]).slice(-2))+'-'+(('0'+response.transactions[i].date[2]).slice(-2))+')</td></tr>')
+          }
         }
       } else {
         paymentsSettled.push('<tr><td>'+i18n.t('trips:not_applicable')+'</td><td></td></tr>')
       }
+
       $('#payments-settled').html(paymentsSettled);
 
       $('#immersion-type').html(i18n.t('immersions:'+response.immersionType));
