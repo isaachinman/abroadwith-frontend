@@ -47,13 +47,9 @@ module.exports = React.createClass({
       $(this).parentsUntil('.col').remove()
     })
 
-    // Next button
+    // Next tab button
     $('a.next-btn').click(function() {
-      var activeTab = $('li.tab a.active');
-      if (activeTab.attr('data-next')) {
-        var next = activeTab.data('next');
-        $('ul.tabs').tabs('select_tab', next);
-      }
+      $('.button-group li.active').next().trigger('mouseup');
     })
 
     var refresh = this.refreshState;

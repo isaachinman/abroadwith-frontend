@@ -124,7 +124,7 @@ module.exports = React.createClass({
 
       });
     }
-    $('#location-tab').click(initHiddenMap)
+    $('#location-tab-trigger').click(initHiddenMap)
     function initHiddenMap(e) {
       document.getElementById('location-tab').removeEventListener('click', initHiddenMap)
       initAutocomplete();
