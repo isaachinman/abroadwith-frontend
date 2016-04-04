@@ -20,6 +20,7 @@ var installer = function(app) {
   app.use('/reset-password',genericRouter('static/reset-password.html'));
   app.use('/reset-password-set',genericRouter('static/reset-password-set.html'));
   app.use('/about',genericRouter('static/about.html'));
+  app.use('/help',genericRouter('static/help.html'));
   app.use('/popular-languages',genericRouter('static/popular-languages.html'));
   app.use('/booking-success',genericRouter('static/booking-success.html'));
   app.use('/why-abroadwith',genericRouter('static/why-abroadwith.html'));

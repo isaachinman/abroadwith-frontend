@@ -6,12 +6,6 @@ var i18n = require('../global/util/i18n');
 // Initialisations
 $(document).ready(function() {
 
-  if ($('.help-button').length) {
-    $('.help-button').click(function() {
-      $('#help-modal').openModal()
-    })
-  }
-
   if ($('a.create-new-message-thread').length) {
     $('a.create-new-message-thread').click(function() {
       newMessageThread();
