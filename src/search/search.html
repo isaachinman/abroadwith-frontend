@@ -11,16 +11,16 @@
 
     <div class='container'>
 
-      <div class='row section' onChange={this.handleChange}>
+      <div class='row section'>
         <div class='input-field col s12 m3 l2 grey-text'>
           <div class='chip chip-grey'>{{translations.common.Dates}}</div>
         </div>
         <div class='input-field col s12 m3 l3'>
-          <input id='arrival' type="text" class='datepicker arrival' value='{{query.arrival}}' />
+          <input id='arrival' type="text" class='arrival' value='{{query.arrival}}' />
           <label for='arrival' class='active'>{{translations.common.Arrival}}</label>
         </div>
         <div class='input-field col s12 m3 l3'>
-          <input id='departure' type="text" class="datepicker departure" value='{{query.departure}}' />
+          <input id='departure' type="text" class="departure" value='{{query.departure}}' />
           <label for='departure' class='active'>{{translations.common.Departure}}</label>
         </div>
         <div class='input-field col s12 m3 l4'>

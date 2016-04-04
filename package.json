@@ -28,6 +28,7 @@
     "node-gyp": "^3.3.0",
     "node-sass": "^3.4.2",
     "nunjucks": "^2.2.0",
+    "pikaday": "^1.4.0",
     "rating": "^0.1.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
@@ -71,7 +72,8 @@
     "GET": "./src/global/ajax/GET",
     "POST": "./src/global/ajax/POST",
     "DELETE": "./src/global/ajax/DELETE",
-    "new-message-thread": "./src/global/new-message-thread"
+    "new-message-thread": "./src/global/new-message-thread",
+    "format-date": "./src/utils/date-object-to-yyyymmdd"
   },
   "browserify-shim": {
     "jquery": "$",
@@ -87,10 +89,10 @@
     "export": "cp -R locales/* build/locales",
     "sass": "node-sass --output-style compressed -o build/css/ scss/",
     "sass-watch": "node-sass --output-style compressed -w -o build/css/ scss/",
-    "bundle": "browserify -t [ babelify --presets [ react ] ]  src/app.js > build/app.js",
-    "bundle-min": "browserify -t [ babelify --presets [ react ] ] -g [ uglifyify ] src/app.js > build/app.js",
+    "bundle": "browserify -t [ babelify --presets [ react ] ]  src/app.js > build/app.js -i moment",
+    "bundle-min": "browserify -t [ babelify --presets [ react ] ] -g [ uglifyify ] src/app.js > build/app.js -i moment",
     "uncss": "uncss http://localhost:3000 > build/css/app.css",
-    "discify": "browserify -t [ babelify --presets [ react ] ] -g [ uglifyify ] src/app.js > build/app.js --full-paths && discify build/app.js > build/disc.html --open",
+    "discify": "browserify -t [ babelify --presets [ react ] ] -g [ uglifyify ] src/app.js > build/app.js -i moment --full-paths && discify build/app.js > build/disc.html --open",
     "build": "npm run clean && npm run directories && npm run export && npm run sass && npm run bundle",
     "start": "node src/server.js",
     "fullstart": "npm run build && npm run start",

@@ -14,6 +14,7 @@ require('./global/button-group');
 
 // Globals
 require('./global/currency-dropdown');
+require('./global/datepickers');
 require('./global/signup');
 require('./global/login-init');
 require('./global/login-redirect');

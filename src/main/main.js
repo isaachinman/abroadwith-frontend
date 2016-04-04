@@ -1,6 +1,8 @@
 var Wallop = require('wallop');
 var newMessageThread = require('new-message-thread');
 
+var pikaday = require('pikaday');
+
 var i18n = require('../global/util/i18n');
 
 // Initialisations
@@ -50,7 +52,7 @@ $(document).ready(function() {
 
   // Select2 language to learn
   if ($('select#language').length) {
-    i18n.loadNamespaces(['search'],function(){
+    i18n.loadNamespaces(['search'], function() {
       $("select#language").select2({
         placeholder: i18n.t('search:language_to_learn')
       });
@@ -59,7 +61,7 @@ $(document).ready(function() {
 
   // Select2 language to teach
   if ($('select#language-teach').length) {
-    i18n.loadNamespaces(['search'],function(){
+    i18n.loadNamespaces(['search'], function() {
       $("select#language-teach").select2({
         placeholder: i18n.t('search:language_to_teach')
       });
@@ -74,7 +76,15 @@ $(document).ready(function() {
   // Select
   if ($('select.material').length) {
     $('select.material').material_select();
-    $("select.material[required]").css({display: "block", height: '1px', padding: 0, width: '1px', opacity: 0, border: 0, position: 'absolute'});
+    $("select.material[required]").css({
+      display: "block",
+      height: '1px',
+      padding: 0,
+      width: '1px',
+      opacity: 0,
+      border: 0,
+      position: 'absolute'
+    });
   }
 
   // Sidenav
@@ -82,82 +92,25 @@ $(document).ready(function() {
     $(".button-collapse").sideNav();
   }
 
-  // Departure datepicker
-  if ($('input.departure').length) {
-    var departurePicker = $('input.departure').pickadate('picker');
-    var today = new Date();
-    var weekToday = new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000);
-    $('input.departure').pickadate({
+  var Pikaday = require('pikaday');
 
-      container: 'body',
-      clear: '',
-      format: 'yyyy-mm-dd',
-      min:weekToday,
-      // If departure date exists, set as default
-      onStart: function() {
-        // if (pageContext.departure) {
-        //   $('#departure').val(pageContext.departure);
-        // }
-      },
-      onSet: function(e) {
-        if (e.select) {
-          this.close();
-        }
-      }
-    });
+  var formatDate = require('format-date');
+
+  if ($('input.birthday').length) {
+
+    // Users must be at least 18, so generate minimum date
+    var eighteenYearsAgo = new Date();
+    eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18);
+
+    // Init birthday datepickers
+    $('input.birthday').each(function() {
+      var picker = new Pikaday({
+        format: 'YYYY-MM-DD',
+        maxDate: eighteenYearsAgo,
+        defaultDate: eighteenYearsAgo,
+        field: this,
+        yearRange: [1950, eighteenYearsAgo.getFullYear()]
+      });
+    })
   }
-
-  // Arrival datepicker
-  if ($('input.arrival').length && $('input.departure').length) {
-
-    // Set up min and max dates
-    var today = new Date();
-    var tomorrow = new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000);
-    var yearToday = new Date(today.getTime() + 365 * 24 * 60 * 60 * 1000);
-
-    // Initialise datepicker
-    $('input.arrival').pickadate({
-
-      container: 'body',
-      clear: '',
-      format: 'yyyy-mm-dd',
-      min:tomorrow,
-      max:yearToday,
-
-      // If arrival date exists, set as default
-      onStart: function() {
-        // if (pageContext.arrival) {
-        //   $('#arrival').val(pageContext.arrival);
-        // }
-      },
-
-      // onSet, make departure datepicker have a min value of arrival + 1
-      onSet: function(e) {
-        if (e.select) {
-          var dateString = ($('#arrival').val()).split('-').join('/');
-          dateObj = new Date(dateString);
-          var arrivalPlusOne = new Date(dateObj.getTime() + 1 * 24 * 60 * 60 * 1000);
-          $('input#departure').pickadate('picker').set('clear');
-          $('input#departure').pickadate('picker').set('min', arrivalPlusOne);
-          $(this).close();
-        }
-      }.bind(this)
-
-    });
-  }
-
-  // Fix stupid focus issue with datepickers
-  $.each($('.datepicker') , function(index , item) {
-    $(item).on('click' , function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        $(this).pickadate('picker').open();
-    });
-  });
-
-  // Focus for select2
-  if ($('.select2-drop')) {
-
-  }
-
 });

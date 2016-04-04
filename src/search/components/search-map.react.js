@@ -8,7 +8,7 @@ module.exports = React.createClass({
     var MarkerWithLabel = require('markerwithlabel');
 
     // Add a marker for each result
-    if (this.props && typeof MarkerWithLabel !== 'undefined') {
+    if (this.props) {
       if (this.props.results && typeof markers !== 'undefined') {
 
         var currency = this.props.currency;

@@ -73,9 +73,7 @@ module.exports = React.createClass({
     var maxLat = NE !== undefined ? url = url + '&maxLat=' + (NE.lat()) : null;
     var maxLng = NE !== undefined ? url = url + '&maxLng=' + (NE.lng()) : null;
 
-    history.pushState(null, null, url)
-
-    console.log(url)
+    console.log('ran')
 
     $.post('/search'+url, function(data) {
       var response = JSON.parse(data);
@@ -109,7 +107,7 @@ module.exports = React.createClass({
       }
 
       this.setState(newState, function(){
-        console.log(this.state)
+        history.pushState(null, null, url)
       });
 
     }.bind(this))
@@ -136,9 +134,8 @@ module.exports = React.createClass({
       }
     })
 
+    // This is an array of nodes which will trigger handleChange
     var activeNodes = [
-      $('#arrival'),
-      $('#departure'),
       $('#guests'),
       $('#language'),
       $('#immersions'),
@@ -152,9 +149,15 @@ module.exports = React.createClass({
       $('#ui-currency')
     ];
 
+    // Give all basic inputs a change function
     for (var i=0; i<activeNodes.length; i++) {
       activeNodes[i].change(handleChange);
     }
+
+    // Use a blur function for dates to prevent double triggering
+    $('#arrival, #departure').blur(function() {
+      handleChange();
+    })
 
   },
   render: function() {
