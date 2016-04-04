@@ -1,4 +1,3 @@
-var jwt_decode = require('jwt-decode');
 var domains = require('domains');
 
 module.exports = function(url, success, error) {
