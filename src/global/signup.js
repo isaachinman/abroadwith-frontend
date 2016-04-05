@@ -92,7 +92,7 @@ if ($('form#email-signup-form').length) {
               login(loginObj)
               setTimeout(function() {
                 $('#confirmation-email-sent').openModal();
-              }, 500);
+              }, 1000);
 
             },
             error: function(response) {
