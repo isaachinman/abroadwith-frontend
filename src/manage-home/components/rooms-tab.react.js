@@ -49,7 +49,7 @@ module.exports = React.createClass({
           beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
           success : function(data, textStatus, jqXHR) {
                 thisprops.refreshState();
-                $('#add-room-form .collapsible-header').trigger('click');
+                $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
                 $('#add-room-form input, select, textarea').val(null);
                 $('#preloader').hide();
           },
