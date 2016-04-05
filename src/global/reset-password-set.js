@@ -36,7 +36,7 @@ if ($('a.reset-password').length) {
           data: JSON.stringify(passwordResetObj),
           success: function() {
 
-            window.location = '/login'
+            window.location = '/'
 
           },
           error: function() {
