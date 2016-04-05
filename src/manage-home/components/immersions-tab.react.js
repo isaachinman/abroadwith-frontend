@@ -227,9 +227,8 @@ module.exports = React.createClass({
 
         teacherLanguagesOffered.val(this.props.props.immersions.teacher.languagesOffered);
 
-        this.props.props.immersions.teacher.hourly !== null ? $('#teacher-rate').val(currencies[this.props.props.currency] + this.props.props.immersions.teacher.hourly) : null;
+        this.props.props.immersions.teacher.hourly !== null ? $('#teacher-rate').val(currencies[this.props.props.pricing.currency] + this.props.props.immersions.teacher.hourly) : null;
         $('#packages').val(this.props.props.immersions.teacher.packages);
-        $('#material-costs').val(this.props.props.immersions.teacher.materials + this.props.props.currency);
 
         $('input#teacher-switch').attr('checked', this.props.props.immersions.teacher.isActive);
 
