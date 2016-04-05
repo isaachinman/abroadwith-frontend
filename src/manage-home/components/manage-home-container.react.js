@@ -21,22 +21,18 @@ module.exports = React.createClass({
 
     $('#preloader').show();
 
-    delete homeObj.GENERAL;
-    var updateHome = this.updateHome;
+    delete newHomeObj.GENERAL;
 
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
 
       console.log('response:' +response)
-
       $('#preloader').hide();
-
       this.refreshState();
-
       callback();
 
     }.bind(this)
-    POST(url, homeObj, success);
+    POST(url, newHomeObj, success);
 
   },
   componentDidMount: function() {
