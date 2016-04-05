@@ -244,3 +244,9 @@ table {
 .logged-out, .logged-in {
   display: none;
 }
+.big-email-icon {
+  @extend .blue-text;
+  border-radius: 50%;
+  border: 5px solid lighten($havelock-blue, 20%);
+  padding: 20px;
+}

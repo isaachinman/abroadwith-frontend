@@ -49,8 +49,6 @@ module.exports = React.createClass({
       var weeklyHours = parseInt($('select#teacher-hours').val());
     }
 
-    $('select#booking-immersions').val() === 'teacher' ? $('select#teacher-hours').val() : null
-
     var bookingObj = {
       // Conditionally set up state per category
       stayId:                     parseInt($('select#booking-immersions option:selected').attr('data-value')),
@@ -74,6 +72,7 @@ module.exports = React.createClass({
 
   },
   validateBooking: function(bookingObj) {
+
     if (
       bookingObj.stayId !== 'undefined' && bookingObj.stayId !== null &&
       bookingObj.arrivalDate !== 'undefined' && bookingObj.arrivalDate !== null &&
@@ -120,7 +119,6 @@ module.exports = React.createClass({
       } else {
         window.location = '/booking-success';
       }
-
 
     }
     POST(url, bookingObj, success);

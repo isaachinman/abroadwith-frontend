@@ -1,5 +1,4 @@
 var React = require('react');
-
 var currencies = require('currencies');
 
 module.exports = React.createClass({

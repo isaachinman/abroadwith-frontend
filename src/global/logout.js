@@ -8,6 +8,7 @@ module.exports = function() {
     type: "POST",
     url: '/logout',
     contentType: "application/json",
+    xhrFields: { withCredentials: true },
     success: function(response) {
       location.reload();
     }

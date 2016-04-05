@@ -1,7 +1,6 @@
 var domains = require('domains');
 
 var loginRedirect = require('login-redirect');
-var loggedIn = require('logged-in')
 
 module.exports = function(loginObj) {
 
