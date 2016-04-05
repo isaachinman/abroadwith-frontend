@@ -4,6 +4,8 @@ var processLanguageChips = require('process-language-chips');
 var domains = require('domains');
 var application = require('application-settings');
 
+var formatDate = require('format-date')
+
 // Language-learn select
 $('select#learning-language').length ? $('select#learning-language').select2() : null;
 
@@ -31,6 +33,7 @@ if ($('form#email-signup-form').length) {
   // Users must be at least 18, so generate minimum date
   var eighteenYearsAgo = new Date();
   eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18);
+  eighteenYearsAgo = formatDate(eighteenYearsAgo);
 
   //  Initialise and setup Facebook js sdk
   window.fbAsyncInit = function() {
