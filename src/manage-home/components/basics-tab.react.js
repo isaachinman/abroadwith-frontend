@@ -9,16 +9,20 @@ var refreshToken = require('refresh-token')
 module.exports = React.createClass({
   saveBasics: function() {
 
-    // Create new basics object
-    homeObj.basics.homeType = $('#home-type').val();
-    homeObj.basics.SAFETY = $('#safety').val();
-    homeObj.basics.AMENITIES = $('#amenities').val();
-    homeObj.basics.FOOD_OPTION = $('#food-option').val();
-    homeObj.basics.EXTRAS = $('#extras').val();
-    homeObj.basics.family = $('#family').prop('checked');
-    homeObj.basics.PREFERENCES = $('#preferences').val();
+    var newHomeObj = this.props.props;
 
-    this.props.updateHome(function() {
+    console.log(newHomeObj)
+
+    // Create new basics object
+    newHomeObj.basics.homeType = $('#home-type').val();
+    newHomeObj.basics.SAFETY = $('#safety').val();
+    newHomeObj.basics.AMENITIES = $('#amenities').val();
+    newHomeObj.basics.FOOD_OPTION = $('#food-option').val();
+    newHomeObj.basics.EXTRAS = $('#extras').val();
+    newHomeObj.basics.family = $('#family').prop('checked');
+    newHomeObj.basics.PREFERENCES = $('#preferences').val();
+
+    this.props.updateHome(newHomeObj, function() {
       toast('Basics updated');
     });
 
@@ -50,16 +54,16 @@ module.exports = React.createClass({
   },
   componentDidUpdate: function() {
 
-    if (this.props.basics) {
+    if (this.props.props.basics) {
 
       // Set input values
-      $('#home-type').val(this.props.basics.homeType);
-      $('#safety').val(this.props.basics.SAFETY)
-      $('#amenities').val(this.props.basics.AMENITIES)
-      $('#food-option').val(this.props.basics.FOOD_OPTION)
-      $('#extras').val(this.props.basics.EXTRAS)
-      $('#family').prop('checked', this.props.basics.family);
-      $('#preferences').val(this.props.basics.PREFERENCES)
+      $('#home-type').val(this.props.props.basics.homeType);
+      $('#safety').val(this.props.props.basics.SAFETY)
+      $('#amenities').val(this.props.props.basics.AMENITIES)
+      $('#food-option').val(this.props.props.basics.FOOD_OPTION)
+      $('#extras').val(this.props.props.basics.EXTRAS)
+      $('#family').prop('checked', this.props.props.basics.family);
+      $('#preferences').val(this.props.props.basics.PREFERENCES)
 
     }
 

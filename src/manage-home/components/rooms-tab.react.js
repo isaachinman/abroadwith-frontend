@@ -74,6 +74,7 @@ module.exports = React.createClass({
   saveRooms: function() {
 
     // Create new rooms object
+    var newHomeObj = this.props.props;
     var newRoomsObj = [];
 
     $('.existing-room').each(function() {
@@ -95,13 +96,12 @@ module.exports = React.createClass({
     })
 
     // Modify home object, using new rooms object
-    if (typeof homeObj !== 'undefined') {
-      homeObj.rooms = newRoomsObj;
-      this.props.updateHome(function() {
-        toast(i18n.t('manage_home:room_updated_toast'));
-      });
-      console.log(newRoomsObj);
-    }
+    newHomeObj.rooms = newRoomsObj;
+    this.props.updateHome(newHomeObj, function() {
+      toast(i18n.t('manage_home:room_updated_toast'));
+    });
+    console.log(newRoomsObj);
+
 
   },
   componentDidMount: function() {
@@ -110,11 +110,11 @@ module.exports = React.createClass({
   },
   componentDidUpdate: function() {
 
-    var refreshState = this.props.refreshState;
+    var refreshState = this.props.props.refreshState;
 
-    if (this.props.rooms.length > 0) {
+    if (this.props.props.rooms.length > 0) {
 
-      var rooms = (this.props.rooms).sort(function(a,b){return -(a.id-b.id)});
+      var rooms = (this.props.props.rooms).sort(function(a,b){return -(a.id-b.id)});
 
       var RoomsContainer = React.createClass({
         render: function() {

@@ -4,25 +4,17 @@ var toast = require('toast');
 module.exports = React.createClass({
   saveDescription: function() {
 
+    var newHomeObj = this.props.props;
+
     // Create new description object
-    var newDescriptionObj = {};
-    newDescriptionObj.summary = $('#summary').val();
-    newDescriptionObj.rules = $('#rules').val();
-    newDescriptionObj.neighbourhood = $('#neighbourhood').val();
-    newDescriptionObj.video = 'https://' + ($('#video').val()).replace(/.*?:\/\//g, "");
+    newHomeObj.description.summary = $('#summary').val();
+    newHomeObj.description.rules = $('#rules').val();
+    newHomeObj.description.neighbourhood = $('#neighbourhood').val();
+    newHomeObj.description.video = 'https://' + ($('#video').val()).replace(/.*?:\/\//g, "");
 
-    // Modify home object, using new description object
-    if (typeof homeObj !== 'undefined') {
-
-      this.props.updateHome(function() {
-        toast('Description updated');
-      });
-
-      homeObj.description = newDescriptionObj;
-      this.props.updateHome();
-
-      console.log(newDescriptionObj)
-    }
+    this.props.updateHome(newHomeObj, function() {
+      toast('Description updated');
+    });
 
   },
   componentDidMount: function() {
@@ -30,11 +22,11 @@ module.exports = React.createClass({
   },
   componentDidUpdate: function() {
 
-    if (this.props.description) {
-      $('#summary').val(this.props.description.summary);
-      $('#rules').val(this.props.description.rules);
-      $('#neighbourhood').val(this.props.description.neighbourhood);
-      $('#video').val(this.props.description.video);
+    if (this.props.props.description) {
+      $('#summary').val(this.props.props.description.summary);
+      $('#rules').val(this.props.props.description.rules);
+      $('#neighbourhood').val(this.props.props.description.neighbourhood);
+      $('#video').val(this.props.props.description.video);
     }
 
   },
