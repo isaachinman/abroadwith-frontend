@@ -17,7 +17,7 @@ var POST = require('POST');
 var i18n = require('../../global/util/i18n');
 
 module.exports = React.createClass({
-  updateHome: function(callback){
+  updateHome: function(newHomeObj, callback){
 
     $('#preloader').show();
 
