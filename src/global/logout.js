@@ -1,16 +1,16 @@
-var POST = require('POST');
-
 module.exports = function() {
 
   // If a JWT is in localStorage, delete it
   localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null;
 
-  var url = '/logout';
-
-  var success = function() {
-    location.reload();
-  }
-
-  POST(url, {}, success)
+  // This POST needs to be custom, as the headers are different to all others
+  $.ajax({
+    type: "POST",
+    url: '/logout',
+    contentType: "application/json",
+    success: function(response) {
+      location.reload();
+    }
+  })
 
 }
