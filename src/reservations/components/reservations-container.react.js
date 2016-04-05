@@ -11,8 +11,8 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/reservations';
     var success = function(response) {
-      console.log(response)
-      this.setState({reservations:response})
+      this.setState({reservations:response});
+      $('.collapsible-header.active').click();
     }.bind(this);
     GET(url, success)
 

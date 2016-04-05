@@ -13,8 +13,8 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/bookings';
     var success = function(response) {
-      console.log(response)
-      this.setState({trips:response})
+      this.setState({trips:response});
+      $('.collapsible-header.active').click();
     }.bind(this);
     GET(url, success)
 
