@@ -16,7 +16,7 @@ module.exports = function() {
 
   // If any modal is open, close it
   if ($('.modal')) {
-    $('.modal').closeModal();
+    $('.modal').not('#confirmation-email-sent').closeModal();
     $('.lean-overlay').remove()
   }
 

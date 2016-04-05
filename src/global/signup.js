@@ -83,6 +83,9 @@ if ($('form#email-signup-form').length) {
             success: function(response) {
 
               login(loginObj)
+              setTimeout(function() {
+                $('#confirmation-email-sent').openModal();
+              }, 500);
 
             },
             error: function(response) {
@@ -139,6 +142,9 @@ if ($('form#email-signup-form').length) {
         console.log(response);
 
         login(loginObj)
+        setTimeout(function() {
+          $('#confirmation-email-sent').openModal();
+        }, 500);
 
       },
       error: function(response) {
@@ -304,6 +310,9 @@ if ($('form#email-signup-form').length) {
 
           console.log(response);
           login(loginObj);
+          setTimeout(function() {
+            $('#confirmation-email-sent').openModal();
+          }, 500);
 
         },
         error: function(response) {
