@@ -105,11 +105,13 @@ $(document).ready(function() {
     // Init birthday datepickers
     $('input.birthday').each(function() {
       var picker = new Pikaday({
-        format: 'YYYY-MM-DD',
         maxDate: eighteenYearsAgo,
         defaultDate: eighteenYearsAgo,
         field: this,
-        yearRange: [1950, eighteenYearsAgo.getFullYear()]
+        yearRange: [1950, eighteenYearsAgo.getFullYear()],
+        onSelect: function() {
+          $('input.birthday').val(formatDate(this.getDate()))
+        }
       });
     })
   }
