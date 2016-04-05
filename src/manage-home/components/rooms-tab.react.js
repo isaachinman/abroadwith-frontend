@@ -110,7 +110,7 @@ module.exports = React.createClass({
   },
   componentDidUpdate: function() {
 
-    var refreshState = this.props.props.refreshState;
+    var refreshState = this.props.refreshState;
 
     if (this.props.props.rooms.length > 0) {
 
