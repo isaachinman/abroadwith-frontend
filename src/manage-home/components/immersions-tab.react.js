@@ -55,7 +55,7 @@ module.exports = React.createClass({
       newHomeObj.immersions.teacher = {
         isActive: true,
         packages: $('#packages').val(),
-        hourly: parseInt($('#teacher-rate').val()),
+        hourly: parseInt(($('#teacher-rate').val()).replace(/[^0-9\.]+/g,"")),
         languagesOffered: $('#teacher-languages-offered').val()
       };
 
