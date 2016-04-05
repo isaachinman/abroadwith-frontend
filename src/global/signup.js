@@ -28,6 +28,10 @@ if ($('form#email-signup-form').length) {
   // Create signup object
   newUser = {};
 
+  // Users must be at least 18, so generate minimum date
+  var eighteenYearsAgo = new Date();
+  eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18);
+
   //  Initialise and setup Facebook js sdk
   window.fbAsyncInit = function() {
     FB.init({
