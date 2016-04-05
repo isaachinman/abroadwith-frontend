@@ -245,8 +245,10 @@ table {
   display: none;
 }
 .big-email-icon {
+  @extend .z-depth-1;
   @extend .blue-text;
   border-radius: 50%;
   border: 5px solid darken($sulu, 25%);
+  background: white;
   padding: 30px;
 }
