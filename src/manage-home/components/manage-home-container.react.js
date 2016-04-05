@@ -19,8 +19,11 @@ var i18n = require('../../global/util/i18n');
 module.exports = React.createClass({
   updateHome: function(newHomeObj, callback){
 
+    console.log(newHomeObj)
+
     $('#preloader').show();
 
+    delete newHomeObj.published;
     delete newHomeObj.GENERAL;
 
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
@@ -124,8 +127,6 @@ module.exports = React.createClass({
 
       }
 
-      window.homeObj = response;
-
       var newState = {
 
         // Conditionally set up state per category
@@ -137,7 +138,6 @@ module.exports = React.createClass({
         rooms:                           response.rooms ? response.rooms : null,
         photos:                          response.photos ? response.photos : null,
         pricing:                         response.pricing ? response.pricing : null,
-        currency:                        response.pricing ? response.pricing.currency : null,
         stayAvailableLanguages:          response.stayAvailableLanguages ? response.stayAvailableLanguages : null,
         tandemAvailableLanguages:        response.tandemAvailableLanguages ? response.tandemAvailableLanguages : null,
         tandemAvailableLearnLanguages:   response.tandemAvailableLearnLanguages ? response.tandemAvailableLearnLanguages : null,
@@ -160,47 +160,40 @@ module.exports = React.createClass({
       <div>
 
         <BasicsTab
+          props={this.state}
           updateHome={this.updateHome}
-          basics={this.state.basics}
         />
 
         <ImmersionsTab
+          props={this.state}
           updateHome={this.updateHome}
-          immersions={this.state.immersions}
-          stayAvailableLanguages={this.state.stayAvailableLanguages}
-          tandemAvailableLanguages={this.state.tandemAvailableLanguages}
-          tandemAvailableLearnLanguages={this.state.tandemAvailableLearnLanguages}
-          teacherAvailableLanguages={this.state.teacherAvailableLanguages}
-          currency={this.state.currency}
         />
 
         <LocationTab
+          props={this.state}
           updateHome={this.updateHome}
-          location={this.state.location}
         />
 
         <DescriptionTab
+          props={this.state}
           updateHome={this.updateHome}
-          description={this.state.description}
         />
 
         <RoomsTab
+          props={this.state}
           updateHome={this.updateHome}
           refreshState={this.refreshState}
-          rooms={this.state.rooms}
         />
 
         <PhotosTab
+          props={this.state}
           updateHome={this.updateHome}
           refreshState={this.refreshState}
-          photos={this.state.photos}
         />
 
         <PricingTab
+          props={this.state}
           updateHome={this.updateHome}
-          rooms={this.state.rooms}
-          immersions={this.state.immersions}
-          pricing={this.state.pricing}
         />
 
       </div>

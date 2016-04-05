@@ -11,10 +11,12 @@ module.exports = React.createClass({
   savePricing: function() {
 
     // If user has rooms
-    if (this.props.rooms.length > 0) {
+    if (this.props.props.rooms.length > 0) {
+
+      var newHomeObj = this.props.props;
 
       // Create new rooms object
-      newRoomObj = this.props.rooms;
+      newRoomObj = this.props.props.rooms;
 
       function changePrice( id, price ) {
          for (var i in newRoomObj) {
@@ -33,14 +35,12 @@ module.exports = React.createClass({
       })
 
       // Modify home object, using new rooms object
-      if (typeof homeObj !== 'undefined') {
-        homeObj.rooms = newRoomObj;
-      }
+      newHomeObj.rooms = newRoomObj;
 
     }
 
     // Create new pricing object
-    if (this.props.pricing) {
+    if (this.props.props.pricing) {
 
       var newPricingObj = {};
       newPricingObj.discounts = [];
@@ -79,24 +79,21 @@ module.exports = React.createClass({
       createServiceObject('extras', 'AIRPORT_PICKUP');
 
       // Set new tandem discounts
-      if ($('#tandem-discount').val() !== '' && $('#tandem-discount').val() !== 'undefined' && $('#tandem-discount').val() !== null && homeObj.immersions.tandem !== null && homeObj.immersions.tandem.languagesInterested !== null && homeObj.immersions.tandem.languagesInterested.length > 0) {
+      if ($('#tandem-discount').val() !== '' && $('#tandem-discount').val() !== 'undefined' && $('#tandem-discount').val() !== null && newHomeObj.immersions.tandem !== null && newHomeObj.immersions.tandem.languagesInterested !== null && newHomeObj.immersions.tandem.languagesInterested.length > 0) {
         var newTandemDiscount = parseInt($('#tandem-discount').val());
-        for (var i=0; i<homeObj.immersions.tandem.languagesInterested.length; i++) {
-          homeObj.immersions.tandem.languagesInterested[i].discount = newTandemDiscount;
+        for (var i=0; i<newHomeObj.immersions.tandem.languagesInterested.length; i++) {
+          newHomeObj.immersions.tandem.languagesInterested[i].discount = newTandemDiscount;
         }
       }
 
       // Modify home object, using new pricing object
-      if (typeof homeObj !== 'undefined') {
-        console.log(JSON.stringify(newPricingObj))
+      newHomeObj.pricing = newPricingObj;
 
-        homeObj.pricing = newPricingObj;
+      this.props.updateHome(newHomeObj, function() {
+        toast('Pricing updated');
+      });
 
-        this.props.updateHome(function() {
-          toast('Pricing updated');
-        });
 
-      }
     }
   },
   componentDidMount: function() {
@@ -111,23 +108,23 @@ module.exports = React.createClass({
   componentDidUpdate: function() {
 
     // Set price vars
-    if (this.props.pricing && this.props.pricing.currency) {
+    if (this.props.props.pricing && this.props.props.pricing.currency) {
 
-      $('select#currency').val(this.props.pricing.currency);
+      $('select#currency').val(this.props.props.pricing.currency);
 
-      for (var i=0; i<this.props.pricing.discounts.length; i++) {
-        $('#'+this.props.pricing.discounts[i].name).val(this.props.pricing.discounts[i].amount + '%')
+      for (var i=0; i<this.props.props.pricing.discounts.length; i++) {
+        $('#'+this.props.props.pricing.discounts[i].name).val(this.props.props.pricing.discounts[i].amount + '%')
       }
 
-      for (var i=0; i<this.props.pricing.extras.length; i++) {
-        console.log(this.props.pricing.extras[i].service)
-        $('#'+this.props.pricing.extras[i].service).val(currencies[this.props.pricing.currency]+ this.props.pricing.extras[i].cost);
+      for (var i=0; i<this.props.props.pricing.extras.length; i++) {
+        console.log(this.props.props.pricing.extras[i].service)
+        $('#'+this.props.props.pricing.extras[i].service).val(currencies[this.props.props.pricing.currency]+ this.props.props.pricing.extras[i].cost);
       }
 
     }
 
-    if (this.props.immersions) {
-      if (this.props.immersions.tandem === null) {
+    if (this.props.props.immersions) {
+      if (this.props.props.immersions.tandem === null) {
         $('.tandem-discount-field').hide();
       } else  {
         $('.tandem-discount-field').show();
@@ -136,11 +133,11 @@ module.exports = React.createClass({
 
     // Create room modules if rooms exist
     var rooms = [];
-    if (this.props.rooms.length > 0 && this.props.pricing) {
+    if (this.props.props.rooms.length > 0 && this.props.props.pricing) {
 
-      var currency = this.props.pricing.currency;
+      var currency = this.props.props.pricing.currency;
 
-      var rooms = (this.props.rooms).sort(function(a,b){return -(a.id-b.id)});
+      var rooms = (this.props.props.rooms).sort(function(a,b){return -(a.id-b.id)});
 
       console.log(rooms)
 

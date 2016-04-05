@@ -137,11 +137,12 @@ module.exports = React.createClass({
   saveLocation: function() {
 
     // Modify home object, using new location object
-    if (typeof homeObj !== 'undefined' && typeof newLocationObj !== 'undefined') {
+    if (typeof newLocationObj !== 'undefined') {
 
-      homeObj.location = newLocationObj;
+      var newHomeObj = this.props.props;
+      newHomeObj.location = newLocationObj;
 
-      this.props.updateHome(function() {
+      this.props.updateHome(newHomeObj, function() {
         toast('Address updated');
       });
 
@@ -150,11 +151,11 @@ module.exports = React.createClass({
   },
   componentDidUpdate: function() {
 
-    if (this.props.location) {
+    if (this.props.props.location) {
 
-      var fullAddress = this.props.location.street + ', ' + (this.props.location.complement !== null ? this.props.location.complement + ', ' : '') + this.props.location.city + ' ' + this.props.location.zipCode + ', ' + this.props.location.country;
-      mapLat = this.props.location.lat;
-      mapLng = this.props.location.lng;
+      var fullAddress = this.props.props.location.street + ', ' + (this.props.props.location.complement !== null ? this.props.props.location.complement + ', ' : '') + this.props.props.location.city + ' ' + this.props.props.location.zipCode + ', ' + this.props.props.location.country;
+      mapLat = this.props.props.location.lat;
+      mapLng = this.props.props.location.lng;
       mapZoom = 16;
 
       $('#home-address').val(fullAddress);

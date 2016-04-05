@@ -11,6 +11,8 @@ var DELETE = require('DELETE');
 module.exports = React.createClass({
   deletePhoto: function() {
 
+    $('#preloader').show();
+
     var deletePhotoObj = {
       images: [
         {
@@ -28,6 +30,7 @@ module.exports = React.createClass({
       success: function(response) {
 
         this.props.refreshState();
+        $('#preloader').hide();
         toast(i18n.t('manage_home:photo_deleted_toast'), 4000)
 
       }.bind(this),
@@ -43,6 +46,9 @@ module.exports = React.createClass({
 
 
   },
+  componentDidMount: function() {
+    $('.tooltipped').tooltip();
+  },
   render: function() {
 
     var photoSrc = domains.IMG + this.props.src;
@@ -54,7 +60,7 @@ module.exports = React.createClass({
           <div className="card-image">
             <img src={photoSrc}></img>
           </div>
-          <a className='delete' onClick={this.deletePhoto}><i className="fa fa-times fa-2x"></i></a>
+          <a className='delete tooltipped' data-position="bottom" data-delay="50" data-tooltip={i18n.t('manage_home:delete_photo_tooltip')} onClick={this.deletePhoto}><i className="fa fa-times fa-2x"></i></a>
         </div>
       </div>
 

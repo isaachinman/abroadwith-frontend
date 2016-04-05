@@ -4,10 +4,10 @@ var PhotoModule = require('./photo-module.react')
 
 module.exports = React.createClass({
   componentDidUpdate: function() {
-    if (this.props.photos) {
+    if (this.props.props.photos) {
 
       var refreshState = this.props.refreshState;
-      var photos = this.props.photos;
+      var photos = this.props.props.photos;
 
       var PhotoContainer = React.createClass({
         render: function() {
