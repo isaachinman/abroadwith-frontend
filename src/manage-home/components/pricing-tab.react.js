@@ -171,6 +171,8 @@ module.exports = React.createClass({
 
     }
 
+    $('.tooltipped').tooltip();
+
   },
   render: function() {
 

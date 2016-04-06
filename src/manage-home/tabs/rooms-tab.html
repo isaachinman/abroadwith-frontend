@@ -44,7 +44,7 @@
             <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
               <i class="fa fa-user-plus fa-2x"></i>
             </div>
-            <div class='col s10 m4 l4 input-field'>
+            <div class='col s10 m4 l4 input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.rooms_vacancies_tooltip}}">
               <select id='room-vacancies' class='material'>
                 <option value="" disabled>{{translations.rooms.vacancies_placeholder}}</option>
                 <option value="1">1</option>
@@ -76,7 +76,7 @@
             <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
               <i class="fa fa-users fa-2x"></i>
             </div>
-            <div class='col s5 m4 l4 left-align'>
+            <div class='col s5 m4 l4 left-align tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.rooms_shared_tooltip}}">
               <label>{{translations.rooms.shared_label}}</label>
               <div class="switch">
                 <label>

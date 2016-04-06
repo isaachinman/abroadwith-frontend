@@ -10,7 +10,7 @@ module.exports = React.createClass({
 
     return (
 
-      <li className="collection-item avatar room" data-id={this.props.id}>
+      <li className="collection-item avatar room tooltipped" data-id={this.props.id} data-position="bottom" data-delay="500" data-tooltip={i18n.t('rooms:price_tooltip')}>
         <img src={img} alt="" className="circle"></img>
         <span className="title">{this.props.roomName}</span>
         <p className='light'>

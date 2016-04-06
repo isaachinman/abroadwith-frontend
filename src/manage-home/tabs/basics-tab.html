@@ -29,7 +29,7 @@
           <select id='safety' class='material' multiple>
             <option value="" disabled>{{translations.homes.home_safety_placeholder}}</option>
             {% for home_safety,_ in constants.homes.homeSettings.SAFETY %}
-              <option value="{{ home_safety }}">{{ translations.homes.home_safety[home_safety] }}</option>
+              <option value="{{ home_safety }}" class='tooltipped'</option>
             {% endfor %}
           </select>
           <label>{{ translations.homes.home_safety_label }}</label>
