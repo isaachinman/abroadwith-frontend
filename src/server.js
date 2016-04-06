@@ -103,7 +103,7 @@ installImmersionConfirmation(app);
 
 app.post('/logout',function(req,res){
   res.cookie('access_token',"null", { secure:true, httpOnly: true, expires:new Date(0), domain:ServerSettings.cookieDomain });
-  res.sendStatus(204);
+  res.sendStatus(200);
 });
 
 app.use(function(err, req, res, next) {
