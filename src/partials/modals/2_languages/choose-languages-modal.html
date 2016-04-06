@@ -10,6 +10,23 @@
         {{ translations.common.languages_learning }}
       </div>
 
+      <div class='col s12'>
+        New languages unit
+        <div class='language-module'>
+          <select id="learning-language" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
+            <option></option>
+            {% for langCode, language in translations.languages %}
+              <option data-lang={{ langCode }}>{{ language }}</option>
+            {% endfor %}
+          </select>
+          <select id="learning-level" class="material validate no-margin">
+            {% for levelCode, level in translations.common.learningLevels %}
+              <option data-level={{ levelCode }}>{{ level }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
       <!-- languages to learn -->
       <div class='col s12 m3 l4 input-field'>
         <select id="learning-language" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
