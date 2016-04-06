@@ -3,6 +3,7 @@ var formatDate = require('format-date');
 
 if ($('input.arrival').length && $('input.departure').length) {
 
+
   // Initial variables used throughout
   var startDate;
   var endDate;
