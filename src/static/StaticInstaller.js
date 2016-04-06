@@ -21,10 +21,10 @@ var installer = function(app) {
   app.use('/reset-password-set',genericRouter('static/reset-password-set.html'));
   app.use('/about',genericRouter('static/about.html'));
   app.use('/help',genericRouter('static/help.html'));
-  app.use('/popular-languages',genericRouter('static/popular-languages.html'));
+  app.use('/popular-languages-destinations',genericRouter('static/popular-languages.html'));
   app.use('/booking-success',genericRouter('static/booking-success.html'));
-  app.use('/why-abroadwith',genericRouter('static/why-abroadwith.html'));
-  app.use('/host',genericRouter('static/host.html'));
+  app.use('/abroadwith-for-students',genericRouter('static/why-abroadwith.html'));
+  app.use('/host-international-students',genericRouter('static/host.html'));
   app.use('/email-verified-success',genericRouter('verification/email-verified-success.html')); //TODO remove
   app.use('/email-verified-failure',genericRouter('verification/email-verified-failure.html')); //TODO remove
 };
