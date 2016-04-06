@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.abroadwith.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://en.abroadwith.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://es.abroadwith.com/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://de.abroadwith.com/" />
+  </url>
+  <url>
+    <loc>https://www.abroadwith.com/search</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://en.abroadwith.com/search" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://es.abroadwith.com/search" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://de.abroadwith.com/search" />
+  </url>
+  <url>
+    <loc>https://www.abroadwith.com/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://en.abroadwith.com/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://es.abroadwith.com/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://de.abroadwith.com/terms" />
+  </url>
+  <url>
+    <loc>https://www.abroadwith.com/login</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://en.abroadwith.com/login" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://es.abroadwith.com/login" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://de.abroadwith.com/login" />
+  </url>
+  <url>
+    <loc>https://www.abroadwith.com/signup</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://en.abroadwith.com/signup" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://es.abroadwith.com/signup" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://de.abroadwith.com/signup" />
+  </url>
+  <url>
+    <loc>https://www.abroadwith.com/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://en.abroadwith.com/about" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://es.abroadwith.com/about" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://de.abroadwith.com/about" />
+  </url>
+  <url>
+    <loc>https://www.abroadwith.com/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://en.abroadwith.com/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://es.abroadwith.com/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://de.abroadwith.com/privacy" />
+  </url>
+  <url>
+    <loc>https://www.abroadwith.com/help</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://en.abroadwith.com/help" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://es.abroadwith.com/help" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://de.abroadwith.com/help" />
+  </url>
+  <url>
+    <loc>https://www.abroadwith.com/popular-languages-destinations</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://en.abroadwith.com/popular-languages-destinations" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://es.abroadwith.com/popular-languages-destinations" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://de.abroadwith.com/popular-languages-destinations" />
+  </url>
+  <url>
+    <loc>https://www.abroadwith.com/abroadwith-for-students</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://en.abroadwith.com/abroadwith-for-students" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://es.abroadwith.com/abroadwith-for-students" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://de.abroadwith.com/abroadwith-for-students" />
+  </url>
+  <url>
+    <loc>https://www.abroadwith.com/host-international-students</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://en.abroadwith.com/host-international-students" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://es.abroadwith.com/host-international-students" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://de.abroadwith.com/host-international-students" />
+  </url>
+</urlset>
