@@ -1,12 +1,16 @@
 {% extends "layout.html" %}
 
-{% block title %}{{ translations.login.title }}{% endblock %} 
+{% block title %}{{ translations.login.title }}{% endblock %}
 
 {% block content %}
 
 <script>
   var loginModal = document.getElementById('login-modal');
   loginModal.innerHTML = '';
+  var loginButton = document.querySelectorAll('[data-target="login-modal"]')
+  for (var i=0; i<loginButton.length; i++) {
+    loginButton[i].style.display = 'none';
+  }
 </script>
 
 <div class='row margin-top-50'>
