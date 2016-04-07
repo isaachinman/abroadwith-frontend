@@ -139,6 +139,7 @@
               </div>
               <div class='col s5'>
                 <select id='special-prefs' class='material' multiple>
+                  <option disabled>{{translations.search.lifestyle_label}}</option>
                   {% for optionCode, optionName in translations.search.lifestyle %}
                     <option value={{optionCode}}>{{optionName}}</option>
                   {% endfor %}

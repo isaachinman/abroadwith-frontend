@@ -9,6 +9,16 @@
   .divider {
     margin: 2rem 0;
   }
+  .modal-close {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 2rem;
+    color: lighten($americano, 25%);
+    &:hover {
+      color: lighten($americano, 10%);
+    }
+  }
 }
 .language-section {
   background: white;
@@ -64,8 +74,4 @@ a.btn-signup {
   &--google {
     background: white;
   }
-}
-#choose-languages-modal {
-  width: 80vw;
-  max-height: 85vh;
 }

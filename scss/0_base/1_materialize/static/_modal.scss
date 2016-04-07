@@ -19,6 +19,12 @@
    width: 80%;
   }
 
+  @media #{$small-and-down} {
+    top: 50px !important;
+    width: 100vw;
+    max-height: 100vh;
+  }
+
   h1,h2,h3,h4 {
     margin-top: 0;
   }
@@ -56,26 +62,6 @@
     display: none;
 
     will-change: opacity;
-}
-
-// Modal with fixed action footer
-.modal.modal-fixed-footer {
-  padding: 0;
-  height: 70%;
-
-  .modal-content {
-    position: absolute;
-    height: calc(100% - 56px);
-    max-height: 100%;
-    width: 100%;
-    overflow-y: auto;
-  }
-
-  .modal-footer {
-    border-top: 1px solid rgba(0,0,0,.1);
-    position: absolute;
-    bottom: 0;
-  }
 }
 
 // Modal Bottom Sheet Style
