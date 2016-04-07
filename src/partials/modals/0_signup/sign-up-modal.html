@@ -1,10 +1,11 @@
 <div id="sign-up-modal" class="modal center-align">
+  <a class='modal-close'><i class="fa fa-times"></i></a>
   <div class="modal-content">
     <h4>{{ translations.common.signup_modal_title }}</h4>
 
     <ul id='email-signup-collapsible' class="collapsible no-shadow" data-collapsible="accordion">
       <li>
-        <div class="collapsible-header"><a id='email-signup-trigger' class='btn btn-secondary btn-signup'>Sign up with email</a></div>
+        <div class="collapsible-header"><a id='email-signup-trigger' class='btn btn-secondary btn-signup'>{{translations.common.sign_up_email}}</a></div>
         <div class="collapsible-body">
 
           {% include './email-sign-up.html' %}
@@ -21,7 +22,7 @@
 
     <div class='row'>
       <div class='col s10 offset-s1'>
-        <a class='btn btn-signup btn-signup--facebook' id='fb-signup'>Sign up with Facebook</a>
+        <a class='btn btn-signup btn-signup--facebook' id='fb-signup'>{{translations.common.sign_up_facebook}}</a>
       </div>
     </div>
 
@@ -39,7 +40,7 @@
         }
         </style>
         <a id='google-signup' class='btn btn-signup btn-signup--google relative'>
-          Sign up with Google
+          {{translations.common.sign_up_google}}
           <div class='g-signin2' data-onsuccess="googleSignup"></div>
         </a>
       </div>

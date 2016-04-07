@@ -93,14 +93,18 @@ strong {
   font-weight: 600;
 }
 ul.bullets {
+  display: table;
   -webkit-margin-before: 0;
   -webkit-margin-after: 0;
   margin-top: -.75rem;
+  padding-left: 2rem;
   li {
-    list-style-type: circle;
-    list-style-position: inside;
-    text-indent: 2rem;
-
+    list-style-type: disc;
+    list-style-position: outside;
+  }
+  li:before {
+    display: table-cell; /* aha! */
+    text-align: right;
   }
 }
 .tag {

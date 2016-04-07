@@ -8,6 +8,10 @@
 
     <div class='manage-home-section'>
 
+      <div class='row grey-text text-darken-1'>
+          {{translations.manage_home.photos_explanation}}
+      </div>
+
       <div class='row section'>
         <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
           <i class="fa fa-camera-retro fa-2x"></i>
@@ -16,7 +20,7 @@
           <form action="#">
             <div class="file-field input-field">
               <div class="btn">
-                <span><small>{{translations.manage_home.photos_button}}</small></span>
+                <span>{{translations.manage_home.photos_button}}</span>
                 <input id="home_upload_photos" type="file" multiple/>
               </div>
               <div class="file-path-wrapper">
