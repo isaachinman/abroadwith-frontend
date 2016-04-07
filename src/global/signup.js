@@ -1,5 +1,4 @@
 var login = require('./login');
-var processLanguageChips = require('process-language-chips');
 
 var domains = require('domains');
 var application = require('application-settings');
@@ -17,12 +16,6 @@ if(window.location.href.indexOf("signup") > -1) {
   $('#choose-languages-modal').length ? $('#choose-languages-modal').remove() : null;
   $('#sign-up-modal').length ? $('#sign-up-modal').remove() : null;
 }
-
-// If add learning language button exists, give it a click event
-$('a#add-learning-language').length ? $('a#add-learning-language').click(function() { processLanguageChips('learning'); }) : null;
-
-// If add known language button exists, give it a click event
-$('a#add-known-language').length ? $('a#add-known-language').click(function() { processLanguageChips('known'); }) : null;
 
 // Form submit
 if ($('form#email-signup-form').length) {
@@ -181,34 +174,45 @@ if ($('form#email-signup-form').length) {
   // Language submit
   function applyLanguages() {
 
-    if ($('#language-known-chips').find('.language-known-chip').length > 0) {
+    if ($('.language-container--known').find('.language-module').length > 0) {
 
       // Mandatory known languages
       newUser["userKnownLanguages"] = [];
 
       // Get native languages
-      $('.language-known-chip').each(function() {
+      $('.language-container--known .language-module').each(function() {
 
-        newUser.userKnownLanguages.push({
-          "language": $(this).attr('data-lang'),
-          "level": $(this).attr('data-level')
-        });
+        var language = $(this).find('select.language').attr('data-lang');
+        var level = $(this).find('select.language-level').val();
+
+        if (language != undefined && level != undefined) {
+          newUser.userKnownLanguages.push({
+            "language": $(this).find('select.language').attr('data-lang'),
+            "level": $(this).find('select.language-level').val()
+          });
+        }
 
       })
 
       // Get learning languages
-      if ($('#language-learning-chips').find('.language-learning-chip').length) {
+      newUser["userLearningLanguages"] = [];
+      $('.language-container--learning .language-module').each(function() {
 
-        newUser["userLearningLanguages"] = [];
-        $('.language-learning-chip').each(function() {
+        var language = $(this).find('select.language').attr('data-lang');
+        var level = $(this).find('select.language-level').val();
 
+        if (language != undefined && level != undefined) {
           newUser.userLearningLanguages.push({
-            "language": $(this).attr('data-lang'),
-            "level": $(this).attr('data-level')
+            "language": $(this).find('select.language').attr('data-lang'),
+            "level": $(this).find('select.language-level').val()
           });
+        }
 
-        })
+      })
 
+      if (newUser.userKnownLanguages.length < 1) {
+        $('#languages-not-valid').removeClass('hide');
+        return;
       }
 
       if ($('#choose-languages-modal').length) {

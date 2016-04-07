@@ -10,34 +10,13 @@
 
       <div class='row'>
 
-        <div class='col s12 left-align grey-text'>
+        <div class='col s12 grey-text'>
           <h5>{{ translations.common.languages_learning }}</h5>
         </div>
-        <!-- languages to learn -->
-        <div class='col s5 m3 l3 input-field'>
-          <select id="learning-language" class="validate no-margin" data-placeholder='Language'>
-            <option></option>
-            {% for langCode, language in translations.languages %}
-            <option data-lang={{ langCode }}>{{ language }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <div class='col s5 m2 l2 input-field'>
-          <select id="learning-level" class="material validate no-margin">
-            {% for levelCode, level in translations.common.learningLevels %}
-            <option data-level={{ levelCode }}>{{ level }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <div class='col s2 m1 l1 input-field left-align'>
-          <a id='add-learning-language' class='btn-floating btn-secondary center-align'>+</a>
-        </div>
-        <div id='language-learning-chips' class='col s12 m6 l6 input-field left-align chip-container'>
-          <div class='chip initial'>
-            {{ translations.common.choose_as_many_as_you_want }}
-            <i class="material-icons">close</i>
-          </div>
-        </div>
+
+        <div id='language-module-init'></div>
+
+        <div class='language-container language-container--learning'></div>
 
       </div>
 
@@ -48,33 +27,11 @@
     <div class='manage-home-section'>
       <div class='row'>
 
-        <div class='col s12 left-align grey-text'>
+        <div class='col s12 grey-text'>
           <h5>{{ translations.common.languages_known }}</h5>
         </div>
-        <div class='col s5 m3 l3 input-field'>
-          <select id="known-language" class="validate no-margin" data-placeholder='{{translations.admin.language_placeholder}}'>
-            <option></option>
-            {% for langCode, language in translations.languages %}
-              <option data-lang={{langCode}}>{{ language }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <div class='col s5 m2 l2 input-field'>
-          <select id="known-level" class="material validate no-margin">
-            {% for levelCode, level in translations.common.knownLevels %}
-              <option data-level={{ levelCode }}>{{ level }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <div class='col s2 m1 l1 input-field left-align'>
-          <a id='add-known-language' class='btn-floating btn-secondary center-align'>+</a>
-        </div>
-        <div id='language-known-chips' class='col s12 m6 l6 input-field left-align chip-container'>
-          <div class='chip initial'>
-            {{ translations.common.choose_one }}
-            <i class="material-icons">close</i>
-          </div>
-        </div>
+
+        <div class='language-container language-container--known'></div>
 
       </div>
 

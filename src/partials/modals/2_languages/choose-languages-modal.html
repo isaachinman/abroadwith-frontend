@@ -11,35 +11,9 @@
         {{ translations.common.languages_learning }}
       </div>
 
-      <!-- languages to learn -->
-      <div class='col s12 m3 l4 input-field'>
-        <select id="learning-language" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
-          <option></option>
-          {% for langCode, language in translations.languages %}
-            <option data-lang={{ langCode }}>{{ language }}</option>
-          {% endfor %}
-        </select>
-        <label class='active'>{{translations.common.learning_language_label}}</label>
-      </div>
-      <div class='col s8 m2 l3 input-field'>
-        <select id="learning-level" class="material validate no-margin">
-          {% for levelCode, level in translations.common.learningLevels %}
-            <option data-level={{ levelCode }}>{{ level }}</option>
-          {% endfor %}
-        </select>
-        <label>{{translations.common.level}}</label>
-      </div>
+      <div id='language-module-init'></div>
 
-      <div class='col s3 m1 l1 input-field left-align'>
-        <a id='add-learning-language' class='btn-floating btn-secondary center-align'>+</a>
-      </div>
-
-      <div id='language-learning-chips' class='col s12 m6 l4 left-align input-field'>
-        <div class='chip initial'>
-          {{ translations.common.choose_as_many_as_you_want }}
-          <i class="material-icons">close</i>
-        </div>
-      </div>
+      <div class='language-container language-container--learning'></div>
 
     </div>
 
@@ -48,34 +22,8 @@
       <div class='col s12 grey-text text-darken-1 margin-bottom-20 large'>
         {{ translations.common.languages_known }}
       </div>
-      <div class='col s12 m3 l4 input-field'>
-        <select id="known-language" class="validate no-margin" data-placeholder='{{translations.common.choose_language}}'>
-          <option></option>
-          {% for langCode, language in translations.languages %}
-            <option data-lang={{langCode}}>{{ language }}</option>
-          {% endfor %}
-        </select>
-        <label class='active'>{{translations.common.known_language_label}}</label>
-      </div>
-      <div class='col s8 m2 l3 input-field'>
-        <select id="known-level" class="material validate no-margin">
-          {% for levelCode, level in translations.common.knownLevels %}
-            <option data-level={{ levelCode }}>{{ level }}</option>
-          {% endfor %}
-        </select>
-        <label>{{translations.common.level}}</label>
-      </div>
 
-      <div class='col s3 m1 l1 input-field left-align'>
-        <a id='add-known-language' class='btn-floating btn-secondary center-align'>+</a>
-      </div>
-
-      <div id='language-known-chips' class='col s12 m6 l4 left-align input-field'>
-        <div class='chip initial'>
-          {{ translations.common.choose_one }}
-          <i class="material-icons">close</i>
-        </div>
-      </div>
+      <div class='language-container language-container--known'></div>
 
     </div>
 
