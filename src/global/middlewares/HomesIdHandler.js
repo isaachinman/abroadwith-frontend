@@ -26,6 +26,9 @@ module.exports = function (req, res, next, value) {
           var parsed = JSON.parse(body);
           req.context.home = parsed;
           req.context.home.id = value; //TODO make sure it is in the return object.
+          var joined = new Date(Date.parse(req.context.home.host.joinedDate));
+          req.context.home.host.joinedMonth = joined.getMonth()+1;
+          req.context.home.host.joinedYear = joined.getFullYear();
           if(req.context.home.isActive == false){
             next('Home is not active.');
             return;
