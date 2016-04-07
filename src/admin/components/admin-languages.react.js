@@ -15,21 +15,25 @@ module.exports = React.createClass({
     var newLanguagesLearning = [];
     var newLanguagesKnown = [];
 
-    $('.language-learning-chip').each(function() {
-      newLanguagesLearning.push(
-        {
-          "language":$(this).attr('data-lang'),
-          "level":$(this).attr('data-level')
-        }
-      )
+    // Get learning languages
+    $('.language-container--learning .language-module').each(function() {
+
+      newUser["userLearningLanguages"] = [];
+      newLanguagesLearning.push({
+        "language": $(this).find('select.language').attr('data-lang'),
+        "level": $(this).find('select.language-level').val()
+      });
+
     })
-    $('.language-known-chip').each(function() {
-      newLanguagesKnown.push(
-        {
-          "language":$(this).attr('data-lang'),
-          "level":$(this).attr('data-level')
-        }
-      )
+
+    // Get known languages
+    $('.language-container--known .language-module').each(function() {
+
+      newLanguagesKnown.push({
+        "language": $(this).find('select.language').attr('data-lang'),
+        "level": $(this).find('select.language-level').val()
+      });
+
     })
 
     adminObj.userLearningLanguages = newLanguagesLearning;
@@ -92,6 +96,8 @@ module.exports = React.createClass({
         />, this
       );
     })
+
+    languageChange();
 
   },
   render: function() {

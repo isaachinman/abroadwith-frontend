@@ -9,11 +9,13 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
-    if (typeof this.props.language !== undefined) {
+    if (typeof this.props.language !== 'undefined') {
       $('#'+this.props.id+' select.language').val(this.props.language)
     }
 
-    if (typeof this.props.level !== undefined) {
+    console.log(this.props.level)
+
+    if (typeof this.props.level !== 'undefined') {
       $('#'+this.props.id+' .material').val(this.props.level)
     }
 
@@ -40,12 +42,12 @@ module.exports = React.createClass({
     var levelOptionTags = [];
     if (this.props.type === 'learning') {
       // Compile learning levels
-      levelOptionTags.push(<option value='BEGINNER'>{i18n.t('common:learningLevels.BEGINNER')}</option>)
+      levelOptionTags.push(<option selected value='BEGINNER'>{i18n.t('common:learningLevels.BEGINNER')}</option>)
       levelOptionTags.push(<option value='INTERMEDIATE'>{i18n.t('common:learningLevels.INTERMEDIATE')}</option>)
       levelOptionTags.push(<option value='ADVANCED'>{i18n.t('common:learningLevels.ADVANCED')}</option>)
     } else {
       // Compile known levels
-      levelOptionTags.push(<option value='NATIVE'>{i18n.t('common:knownLevels.NATIVE')}</option>)
+      levelOptionTags.push(<option selected value='NATIVE'>{i18n.t('common:knownLevels.NATIVE')}</option>)
       levelOptionTags.push(<option value='PROFICIENT'>{i18n.t('common:knownLevels.PROFICIENT')}</option>)
     }
 
@@ -53,7 +55,7 @@ module.exports = React.createClass({
 
       <div className='col s12 m8 offset-m2 l8 offset-l2'>
         <div id={this.props.id} className='language-module'>
-          <select className='select2 language' data-placeholder={i18n.t('common:choose_language')}>
+          <select className='select2 language' data-placeholder={i18n.t('common:choose_language')} data-lang={this.props.language}>
             <option></option>
             {languageOptionTags}
           </select>
