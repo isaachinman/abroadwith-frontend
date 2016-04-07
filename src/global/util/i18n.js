@@ -4,7 +4,6 @@ var i18nextXHR = require('i18next-xhr-backend');
 var Cookies = require('js-cookie');
 
 if (!Cookies.get('ui-language')) {
-  console.log("UI language undefined. Setting to English");
   Cookies.set('ui-language', 'en');
 }
 
