@@ -13,7 +13,6 @@ i18next.use(i18nextXHR).init({
     loadPath: '/locales/{{lng}}/{{ns}}.json'
   },
   lng: Cookies.get('ui-language'),
-  fallbackLng: 'en',
   ns:[]
 });
 
