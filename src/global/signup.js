@@ -182,23 +182,38 @@ if ($('form#email-signup-form').length) {
       // Get native languages
       $('.language-container--known .language-module').each(function() {
 
-        newUser.userKnownLanguages.push({
-          "language": $(this).find('select.language').attr('data-lang'),
-          "level": $(this).find('select.language-level').val()
-        });
+        var language = $(this).find('select.language').attr('data-lang');
+        var level = $(this).find('select.language-level').val();
+
+        if (language != undefined && level != undefined) {
+          newUser.userKnownLanguages.push({
+            "language": $(this).find('select.language').attr('data-lang'),
+            "level": $(this).find('select.language-level').val()
+          });
+        }
 
       })
 
       // Get learning languages
+      newUser["userLearningLanguages"] = [];
       $('.language-container--learning .language-module').each(function() {
 
-        newUser["userLearningLanguages"] = [];
-        newUser.userLearningLanguages.push({
-          "language": $(this).find('select.language').attr('data-lang'),
-          "level": $(this).find('select.language-level').val()
-        });
+        var language = $(this).find('select.language').attr('data-lang');
+        var level = $(this).find('select.language-level').val();
+
+        if (language != undefined && level != undefined) {
+          newUser.userLearningLanguages.push({
+            "language": $(this).find('select.language').attr('data-lang'),
+            "level": $(this).find('select.language-level').val()
+          });
+        }
 
       })
+
+      if (newUser.userKnownLanguages.length < 1) {
+        $('#languages-not-valid').removeClass('hide');
+        return;
+      }
 
       if ($('#choose-languages-modal').length) {
         $('#choose-languages-modal').closeModal();

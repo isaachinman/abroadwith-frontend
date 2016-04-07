@@ -15,26 +15,40 @@ module.exports = React.createClass({
     var newLanguagesLearning = [];
     var newLanguagesKnown = [];
 
+    // Get native languages
+    $('.language-container--known .language-module').each(function() {
+
+      var language = $(this).find('select.language').attr('data-lang');
+      var level = $(this).find('select.language-level').val();
+
+      if (language != undefined && level != undefined) {
+        newLanguagesKnown.push({
+          "language": $(this).find('select.language').attr('data-lang'),
+          "level": $(this).find('select.language-level').val()
+        });
+      }
+
+    })
+
     // Get learning languages
     $('.language-container--learning .language-module').each(function() {
 
-      newUser["userLearningLanguages"] = [];
-      newLanguagesLearning.push({
-        "language": $(this).find('select.language').attr('data-lang'),
-        "level": $(this).find('select.language-level').val()
-      });
+      var language = $(this).find('select.language').attr('data-lang');
+      var level = $(this).find('select.language-level').val();
+
+      if (language != undefined && level != undefined) {
+        newLanguagesLearning.push({
+          "language": $(this).find('select.language').attr('data-lang'),
+          "level": $(this).find('select.language-level').val()
+        });
+      }
 
     })
 
-    // Get known languages
-    $('.language-container--known .language-module').each(function() {
-
-      newLanguagesKnown.push({
-        "language": $(this).find('select.language').attr('data-lang'),
-        "level": $(this).find('select.language-level').val()
-      });
-
-    })
+    if (newLanguagesKnown.length < 1) {
+      $('#languages-not-valid').removeClass('hide');
+      return;
+    }
 
     adminObj.userLearningLanguages = newLanguagesLearning;
     adminObj.userKnownLanguages = newLanguagesKnown;
