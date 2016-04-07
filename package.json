@@ -58,6 +58,7 @@
     "domains": "./src/global/constants/domains.json",
     "i18n": "./src/global/util/i18n",
     "languages": "./src/global/constants/UserLanguages.json",
+    "languages-module": "./src/global/components/LanguageModule/languages-module.react",
     "login": "./src/global/login",
     "login-redirect": "./src/global/login-redirect",
     "logged-in": "./src/global/logged-in",

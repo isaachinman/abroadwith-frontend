@@ -1,7 +1,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var i18n = require('../../global/util/i18n');
-var processLanguageChips = require('process-language-chips');
+
+var LanguagesModule = require('languages-module');
+
+var languages = require('languages')
 
 var toast = require('toast');
 
@@ -38,68 +41,57 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
-
-    $('#add-learning-language').click(processLanguageChips('learning'));
-    $('#add-known-language').click(processLanguageChips('known'));
     $('a#save-languages').click(this.saveLanguages);
+  },
+  languageChange: function() {
+
+    var usedLanguages = [];
+
+    $('select.language').each(function() {
+      $(this).attr('data-lang') !== undefined ? usedLanguages.push($(this).attr('data-lang')) : null;
+    })
+
+    $('select.language option').attr('disabled', false)
+
+    for (var i=0; i<usedLanguages.length; i++) {
+      $('select.language option[value='+usedLanguages[i]+']').attr('disabled', 'disabled');
+    }
+
 
   },
   componentDidUpdate: function() {
 
-    $('#language-known-chips div').not('.react').not('.initial').remove();
-    $('#language-learning-chips div').not('.react').not('.initial').remove();
+    var totalAvailableLanguagesTags = [];
+    $.each(languages, function(key) {
+      totalAvailableLanguagesTags.push(key)
+    })
 
-    var languagesLearning = [];
-    var languagesKnown = [];
+    var knownLanguages = this.props.languagesKnown;
+    var learningLanguages = this.props.languagesLearning;
 
-    if (this.props.languagesKnown.length > 0) {
+    var languageChange = this.languageChange;
 
-      var languagesKnown = this.props.languagesKnown;
-
-      var LanguagesKnownContainer = React.createClass({
-        render: function() {
-          var languagesKnownHTML = []
-          languagesKnown.forEach(function(lang) {
-
-            languagesKnownHTML.push(
-              <div className="language-known-chip chip" data-lang={lang.language} data-level={lang.level}>{i18n.t('languages:'+lang.language)} ({(i18n.t('users:language_levels.'+lang.level))})<i className="material-icons">close</i></div>
-            )
-          })
-          return (
-            <div className='react'>{languagesKnownHTML}</div>
-          )
-        }
-      })
-
+    $('.language-container--learning').each(function() {
       ReactDOM.render(
-        <LanguagesKnownContainer />, document.querySelector('#language-known-chips')
-      )
+        <LanguagesModule
+          type='learning'
+          currentAvailableLanguageTags={totalAvailableLanguagesTags}
+          languageChange={languageChange}
+          existingLanguages={learningLanguages}
+        />, this
+      );
+    })
 
-    }
-
-    if (this.props.languagesLearning.length > 0) {
-
-      var languagesLearning = this.props.languagesLearning;
-
-      var LanguagesLearningContainer = React.createClass({
-        render: function() {
-          var languagesLearningHTML = []
-          languagesLearning.forEach(function(lang) {
-            languagesLearningHTML.push(
-              <div className="language-learning-chip chip" data-lang={lang.language} data-level={lang.level}>{i18n.t('languages:'+lang.language)} ({(i18n.t('users:language_levels.'+lang.level))})<i className="material-icons">close</i></div>
-            )
-          })
-          return (
-            <div className='react'>{languagesLearningHTML}</div>
-          )
-        }
-      })
-
+    $('.language-container--known').each(function() {
       ReactDOM.render(
-        <LanguagesLearningContainer
-        />, document.querySelector('#language-learning-chips')
-      )
-    }
+        <LanguagesModule
+          type='known'
+          currentAvailableLanguageTags={totalAvailableLanguagesTags}
+          languageChange={languageChange}
+          existingLanguages={knownLanguages}
+        />, this
+      );
+    })
 
   },
   render: function() {

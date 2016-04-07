@@ -3,6 +3,8 @@ var ReactDOM = require('react-dom');
 
 var LanguagesModule = require('./languages-module.react');
 
+var JWT = require('JWT');
+
 module.exports = React.createClass({
   getInitialState: function() {
     return {
@@ -14,19 +16,20 @@ module.exports = React.createClass({
     var usedLanguages = [];
 
     $('select.language').each(function() {
-      this.value !== '' ? usedLanguages.push(this.value) : null;
+      $(this).attr('data-lang') !== undefined ? usedLanguages.push($(this).attr('data-lang')) : null;
     })
 
-    var newAvailableTags = $(this.props.totalAvailableLanguagesTags).not(usedLanguages).get();
+    console.log(usedLanguages)
 
-    this.setState({
-      currentAvailableLanguageTags: newAvailableTags
-    })
+    $('select.language option').attr('disabled', false)
+
+    for (var i=0; i<usedLanguages.length; i++) {
+      $('select.language option[value='+usedLanguages[i]+']').attr('disabled', 'disabled');
+    }
+
 
   },
   render: function() {
-
-    console.log(this.props.totalAvailableLanguagesTags)
 
     var currentAvailableLanguageTags = this.state.currentAvailableLanguageTags;
     var languageChange = this.languageChange;

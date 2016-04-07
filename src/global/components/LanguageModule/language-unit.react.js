@@ -8,11 +8,24 @@ module.exports = React.createClass({
     this.props.removeLanguage(id)
   },
   componentDidMount: function() {
+
+    if (typeof this.props.language !== undefined) {
+      $('#'+this.props.id+' select.language').val(this.props.language)
+    }
+
+    if (typeof this.props.level !== undefined) {
+      $('#'+this.props.id+' .material').val(this.props.level)
+    }
+
     $('#'+this.props.id+' .select2').select2();
+
     $('#'+this.props.id+' .select2').change(function() {
-      this.props.languageChange()
+      $('#'+this.props.id+' select.language').attr('data-lang',($('#'+this.props.id+' select.language').val()));
+      this.props.languageChange();
     }.bind(this));
+
     $('#'+this.props.id+' .material').material_select();
+
   },
   render: function() {
 
@@ -44,7 +57,7 @@ module.exports = React.createClass({
             <option></option>
             {languageOptionTags}
           </select>
-          <select id="learning-level" className="material">
+          <select className="material language-level">
             {levelOptionTags}
           </select>
           <a className='delete' onClick={this.removeLanguage}><i className="fa fa-times-circle"></i></a>

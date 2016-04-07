@@ -8,6 +8,10 @@
   }
 }
 
+.select2-disabled {
+  display: none !important;
+}
+
 .language-module {
   @extend .z-depth-1;
   position: relative;
