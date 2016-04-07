@@ -56,6 +56,8 @@
     "react-dom": "react-lite",
     "react-nouislider": "./node_modules/react-nouislider/dist/react-nouislider.common",
     "domains": "./src/global/constants/domains.json",
+    "i18n": "./src/global/util/i18n",
+    "languages": "./src/global/constants/UserLanguages.json",
     "login": "./src/global/login",
     "login-redirect": "./src/global/login-redirect",
     "logged-in": "./src/global/logged-in",
