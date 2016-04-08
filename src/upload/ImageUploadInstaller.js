@@ -46,13 +46,13 @@ var uploadImage = function(image_file,image_key,options,callback){
   }
 
   lwip.open(image_file.buffer,type,function(err, image){
+    var inverted = false;
     if(!height){
       height = image.height()*(width/image.width());
       crop_height = options ? options.crop ? options.crop.height : height : height;
     }
     var processed = image.batch();
     if(exifData){
-      console.log("Doing this "+exifData.tags.Orientation);
       switch( exifData.tags.Orientation ) {
         case 2:
         processed = image.batch().flip('x'); // top-right - flip horizontal
@@ -64,18 +64,30 @@ var uploadImage = function(image_file,image_key,options,callback){
         processed = image.batch().flip('y'); // bottom-left - flip vertically
         break;
         case 5:
+        inverted = true;
         processed = image.batch().rotate(90).flip('x'); // left-top - rotate 90 and flip horizontal
         break;
         case 6:
+        inverted = true;
         processed = image.batch().rotate(90); // right-top - rotate 90
         break;
         case 7:
+        inverted = true;
         processed = image.batch().rotate(270).flip('x'); // right-bottom - rotate 270 and flip horizontal
         break;
         case 8:
+        inverted = true;
         processed = image.batch().rotate(270); // left-bottom - rotate 270
         break;
       }
+    }
+    if(inverted){
+      var newone = height;
+      height = width;
+      width = newone;
+      var newone = crop_height;
+      crop_height = crop_width;
+      crop_width = newone;
     }
     processed.resize(width,height)
       .crop(crop_width,crop_height)
