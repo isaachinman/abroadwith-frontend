@@ -1,11 +1,11 @@
 var React = require('react');
-require('../../utils/date-object-to-yyyymmdd');
+var formatDate = require('format-date');
 
 module.exports = React.createClass({
   render: function() {
 
     var dateObj = new Date(this.props.timestamp);
-    var dateString = dateObj.yyyymmdd();
+    var dateString = formatDate(dateObj);
 
     return (
 
