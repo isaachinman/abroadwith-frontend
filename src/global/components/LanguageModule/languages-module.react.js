@@ -34,9 +34,9 @@ module.exports = React.createClass({
     }
     newLanguages.push(newLanguage);
 
-    this.setState({
-      languages: newLanguages
-    })
+    this.setState({ languages: newLanguages }, function() {
+      this.props.languageChange();
+    }.bind(this))
   },
   removeLanguage: function(itemToRemove) {
 
