@@ -15,11 +15,11 @@
             <i class="fa fa-user fa-2x"></i>
           </div>
           <div class='col s10 m2 l2 input-field'>
-            <input id='firstName' name='firstName' placeholder="{{translations.users.first_name_placeholder}}" type="text" class="validate" required>
+            <input id='firstName' name='firstName' length='50' maxlength='50' placeholder="{{translations.users.first_name_placeholder}}" type="text" class="validate" required>
             <label class='active'>{{translations.users.first_name_label}}</label>
           </div>
           <div class='col s10 offset-s2 m2 l2 input-field'>
-            <input id='lastName' name='lastName' placeholder="{{translations.users.last_name_placeholder}}" type="text" class="validate" required>
+            <input id='lastName' name='lastName' length='50' maxlength='50' placeholder="{{translations.users.last_name_placeholder}}" type="text" class="validate" required>
             <label class='active'>{{translations.users.last_name_label}}</label>
           </div>
 
@@ -27,7 +27,7 @@
             <i class="fa fa-map-marker fa-2x"></i>
           </div>
           <div class='col s10 m3 l3 input-field'>
-            <input placeholder="{{translations.users.home_address_placeholder}}" id="user-address" type="text" class="validate" required>
+            <input placeholder="{{translations.users.home_address_placeholder}}" length='45' maxlength='45' id="user-address" type="text" class="validate" required>
             <label class='active'>{{translations.users.home_address_label}}</label>
           </div>
 
@@ -35,7 +35,7 @@
             <i class="fa fa-calendar-o fa-2x"></i>
           </div>
           <div class='col s10 m2 l2 input-field'>
-            <input id='birthDate' placeholder='{{translations.users.birth_date_placeholder}}' class='birthday' value='1990-01-01' required>
+            <input id='birthDate' placeholder='{{translations.users.birth_date_placeholder}}' class='birthday' required>
             <label class='active'>{{translations.users.birth_date_label}}</label>
           </div>
         </div>
@@ -56,7 +56,7 @@
             <i class="fa fa-mobile fa-2x"></i>
           </div>
           <div class='col s10 m3 l3 input-field'>
-            <input id='phoneNumber' name='phone' placeholder="{{translations.users.phone_number_placeholder}}" type="tel" class="validate intl-tel-input">
+            <input id='phoneNumber' name='phone' length='45' maxlength='45' placeholder="{{translations.users.phone_number_placeholder}}" type="tel" class="validate intl-tel-input">
             <label class='active'>{{translations.users.phone_number_label}}</label>
           </div>
 
@@ -89,19 +89,19 @@
             <i class="fa fa-exclamation-triangle fa-2x"></i>
           </div>
           <div class='col s10 m3 l3 input-field'>
-            <input id='emergency-name' placeholder="{{translations.users.emergency_contact_name_placeholder}}" type="text" class="validate">
+            <input id='emergency-name' length='100' maxlength='100' placeholder="{{translations.users.emergency_contact_name_placeholder}}" type="text" class="validate">
             <label class='active'>{{translations.users.emergency_contact_name_label}}</label>
           </div>
           <div class='col s10 offset-s2 m2 l2 input-field'>
-            <input id='emergency-phone' placeholder="{{translations.users.emergency_contact_phone_number_placeholder}}" type="text" class="validate">
+            <input id='emergency-phone' length='50' maxlength='50' placeholder="{{translations.users.emergency_contact_phone_number_placeholder}}" type="text" class="validate">
             <label class='active'>{{translations.users.emergency_contact_phone_number_label}}</label>
           </div>
           <div class='col s10 offset-s2 m3 l3 input-field'>
-            <input id='emergency-email' placeholder="{{translations.users.emergency_contact_email_placeholder}}" type="text" class="validate">
+            <input id='emergency-email' length='50' maxlength='50' placeholder="{{translations.users.emergency_contact_email_placeholder}}" type="text" class="validate">
             <label class='active'>{{translations.users.emergency_contact_email_label}}</label>
           </div>
           <div class='col s10 offset-s2 m3 l3 input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.admin.emergency_contact_relationship_tooltip}}">
-            <input id='emergency-relationship' placeholder="{{translations.users.emergency_contact_relationship_placeholder}}" type="text" class="validate">
+            <input id='emergency-relationship' length='100' maxlength='100' placeholder="{{translations.users.emergency_contact_relationship_placeholder}}" type="text" class="validate">
             <label class='active'>{{translations.users.emergency_contact_relationship_label}}</label>
           </div>
         </div>

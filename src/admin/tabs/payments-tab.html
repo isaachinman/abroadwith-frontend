@@ -55,31 +55,31 @@
 
                     <div class='row'>
                       <div class='col s12 m6 l6 input-field'>
-                        <input id='bank-first-name' type="text" class="validate" required>
+                        <input id='bank-first-name' length='45' maxlength='45' type="text" class="validate" required>
                         <label class='inert'>{{translations.admin.payments_first_name}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
-                        <input id='bank-last-name' type="text" class="validate" required>
+                        <input id='bank-last-name' length='45' maxlength='45' type="text" class="validate" required>
                         <label class='inert'>{{translations.admin.payments_last_name}}</label>
                       </div>
                       <div class='col s12 input-field'>
-                        <input id='bank-address-one' type="text" class="validate" required>
+                        <input id='bank-address-one' length='45' maxlength='45' type="text" class="validate" required>
                         <label class='inert'>{{translations.admin.payments_billing_address}}</label>
                       </div>
                       <div class='col s12 input-field'>
-                        <input id='bank-address-two' type="text" class="validate">
+                        <input id='bank-address-two' length='45' maxlength='45' type="text" class="validate">
                         <label class='inert'>{{translations.admin.payments_billing_address2}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
-                        <input id='bank-city' type="text" class="validate" required>
+                        <input id='bank-city' length='45' maxlength='45' type="text" class="validate" required>
                         <label class='inert'>{{translations.admin.payments_city}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field' required>
-                        <input id='bank-state' type="text" class="validate">
+                        <input id='bank-state' length='45' maxlength='45' type="text" class="validate">
                         <label class='inert'>{{translations.admin.payments_state}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field' required>
-                        <input id='bank-postcode' type="text" class="validate">
+                        <input id='bank-postcode' length='45' maxlength='45' type="text" class="validate">
                         <label class='inert'>{{translations.admin.payments_zipcode}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
@@ -92,29 +92,29 @@
                       </div>
                       <div class='iban-ui'>
                         <div class='col s12 input-field'>
-                          <input id="iban" type="text" class="validate" required>
+                          <input id="iban" type="text" maxlength='45' class="validate" required>
                           <label class='inert' for="iban">{{translations.admin.payments_bank_iban}}</label>
                         </div>
                         <div class='col s12 input-field'>
-                          <input id="iban-again" type="text" class="validate" required>
+                          <input id="iban-again" type="text" maxlength='45' class="validate" required>
                           <label class='inert' for="iban-abain">{{translations.admin.payments_bank_iban2}}</label>
                         </div>
                         <div class='col s12 input-field'>
-                          <input id="swift-bic" type="text" class="validate" required>
+                          <input id="swift-bic" type="text" maxlength='45' class="validate" required>
                           <label class='inert' for="swift-bic">{{translations.admin.payments_bank_swift}}</label>
                         </div>
                       </div>
                       <div class='routing-ui' style='display:none'>
                         <div class='col s12 input-field'>
-                          <input id="routing-account-number" type="text" class="validate">
+                          <input id="routing-account-number" maxlength='45' type="text" class="validate">
                           <label class='inert' for="routing-account-number">  {{translations.admin.payments_bank_account}}</label>
                         </div>
                         <div class='col s12 input-field'>
-                          <input id="routing-account-number-again" type="text" class="validate">
+                          <input id="routing-account-number-again" maxlength='45' type="text" class="validate">
                           <label class='inert' for="routing-account-number-again">  {{translations.admin.payments_bank_account2}}</label>
                         </div>
                         <div class='col s12 input-field'>
-                          <input id="routing-number" type="text" class="validate">
+                          <input id="routing-number" type="text" length='9' maxlength='9' class="validate">
                           <label class='inert' for="routing-number">  {{translations.admin.payments_bank_routing}}</label>
                         </div>
                       </div>
@@ -142,39 +142,39 @@
 
                     <div class='row'>
                       <div class='col s12 m6 l6 input-field'>
-                        <input id='paypal-first-name' type="text" class="validate" required>
+                        <input id='paypal-first-name' length='45' maxlength='45' type="text" class="validate" required>
                         <label class='inert'>  {{translations.admin.payments_first_name}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
-                        <input id='paypal-last-name' type="text" class="validate" required>
+                        <input id='paypal-last-name' length='45' maxlength='45' type="text" class="validate" required>
                         <label class='inert'>  {{translations.admin.payments_last_name}}</label>
                       </div>
                       <div class='col s12 input-field'>
-                        <input id="paypal-email" type="email" class="validate">
+                        <input id="paypal-email" type="email" length='45' maxlength='45' class="validate">
                         <label class='inert' for="paypal-email">  {{translations.admin.payments_paypal_email}}</label>
                       </div>
                       <div class='col s12 input-field'>
-                        <input id="paypal-email-again" type="email" class="validate">
+                        <input id="paypal-email-again" length='45' maxlength='45' type="email" class="validate">
                         <label class='inert'>  {{translations.admin.payments_paypal_email2}}</label>
                       </div>
                       <div class='col s12 input-field'>
-                        <input id='paypal-address-one' type="text" class="validate">
+                        <input id='paypal-address-one' length='45' maxlength='45' type="text" class="validate">
                         <label class='inert'>  {{translations.admin.payments_billing_address}}</label>
                       </div>
                       <div class='col s12 input-field'>
-                        <input id='paypal-address-two' type="text" class="validate">
+                        <input id='paypal-address-two' length='45' maxlength='45' type="text" class="validate">
                         <label class='inert'>  {{translations.admin.payments_billing_address2}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
-                        <input id='paypal-city' type="text" class="validate">
+                        <input id='paypal-city' length='45' maxlength='45' type="text" class="validate">
                         <label class='inert'>  {{translations.admin.payments_city}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
-                        <input id='paypal-state' type="text" class="validate">
+                        <input id='paypal-state' length='45' maxlength='45' type="text" class="validate">
                         <label class='inert'>  {{translations.admin.payments_state}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
-                        <input id='paypal-postcode' type="text" class="validate">
+                        <input id='paypal-postcode' length='45' maxlength='45' type="text" class="validate">
                         <label class='inert'>  {{translations.admin.payments_zipcode}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>

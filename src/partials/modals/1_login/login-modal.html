@@ -17,12 +17,12 @@
                 <form class='email-login'>
 
                   <div class='input-field col s12 m10 offset-m1 l10 offset-l1'>
-                    <input name='email' type="email" class="login-email validate no-margin">
+                    <input name='email' type="email" length='50' maxlength='50' class="login-email validate no-margin">
                     <label for="email">{{translations.common.Email}}</label>
                   </div>
 
                   <div class="input-field col s12 m10 offset-m1 l10 offset-l1">
-                    <input name='password' type="password" class="login-password validate no-margin">
+                    <input name='password' type="password" length='30' maxlength='30' class="login-password validate no-margin">
                     <a class='right small light' href='/reset-password'>{{translations.common.forgot_password}}</a>
                     <label for="password">{{translations.common.Password}}</label>
                     <input type='submit' class='hide'>

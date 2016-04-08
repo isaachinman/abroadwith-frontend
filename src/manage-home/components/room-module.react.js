@@ -164,7 +164,7 @@ module.exports = React.createClass({
               <i className="fa fa-file-text-o fa-2x"></i>
             </div>
             <div className="col s10 m11 l11 input-field">
-              <textarea className="materialize-textarea room-description" length='127' maxlength='127' placeholder={i18n.t('rooms:description_placeholder')} defaultValue={this.props.description}></textarea>
+              <textarea className="materialize-textarea room-description" length='255' maxlength='255' placeholder={i18n.t('rooms:description_placeholder')} defaultValue={this.props.description}></textarea>
               <label htmlFor="room-description" className='active'>{i18n.t('manage_home:Description')}</label>
             </div>
           </div>
