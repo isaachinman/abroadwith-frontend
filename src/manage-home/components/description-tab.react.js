@@ -10,7 +10,7 @@ module.exports = React.createClass({
     newHomeObj.description.summary = $('#summary').val();
     newHomeObj.description.rules = $('#rules').val();
     newHomeObj.description.neighbourhood = $('#neighbourhood').val();
-    newHomeObj.description.video = 'https://' + ($('#video').val()).replace(/.*?:\/\//g, "");
+    newHomeObj.description.video = $('#video').val() !== '' ? 'https://' + ($('#video').val()).replace(/.*?:\/\//g, "") : null;
 
     this.props.updateHome(newHomeObj, function() {
       toast('Description updated');
