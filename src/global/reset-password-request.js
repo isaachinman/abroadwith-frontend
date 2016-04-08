@@ -25,7 +25,7 @@ if ($('a.reset-password-request').length) {
       error: function() {
 
         $('.reset-password-request-successful').show();
-        $('form.reset-password').hide();
+        $('form.reset-password-request').hide();
         $('#preloader').hide();
 
       }
