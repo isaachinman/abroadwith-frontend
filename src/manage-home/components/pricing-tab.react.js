@@ -10,10 +10,10 @@ var currencies = require('currencies');
 module.exports = React.createClass({
   savePricing: function() {
 
+    var newHomeObj = this.props.props;
+
     // If user has rooms
     if (this.props.props.rooms.length > 0) {
-
-      var newHomeObj = this.props.props;
 
       // Create new rooms object
       newRoomObj = this.props.props.rooms;
