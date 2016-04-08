@@ -6,34 +6,27 @@
       <h4>{{translations.admin.languages_title}}</h4>
     </div>
 
-    <div class='manage-home-section'>
+    <div class='row language-section'>
 
-      <div class='row'>
-
-        <div class='col s12 grey-text'>
-          <h5>{{ translations.common.languages_learning }}</h5>
-        </div>
-
-        <div id='language-module-init'></div>
-
-        <div class='language-container language-container--learning'></div>
-
+      <div class='languages-label'>
+        {{ translations.common.languages_learning }}
       </div>
+
+      <div id='language-module-init'></div>
+
+      <div class='language-container language-container--learning'></div>
 
     </div>
 
     <div class='row'></div>
 
-    <div class='manage-home-section'>
-      <div class='row'>
+    <div class='row language-section'>
 
-        <div class='col s12 grey-text'>
-          <h5>{{ translations.common.languages_known }}</h5>
-        </div>
-
-        <div class='language-container language-container--known'></div>
-
+      <div class='languages-label'>
+        {{ translations.common.languages_known }}
       </div>
+
+      <div class='language-container language-container--known'></div>
 
       <div id='languages-not-valid' class='col s10 offset-s1 hide'>
         {{translations.common.languages_choose_at_least_one}}
