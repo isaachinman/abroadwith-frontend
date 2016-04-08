@@ -329,7 +329,7 @@ if ($('form#email-signup-form').length) {
         error: function(response) {
 
           $('#preloader').hide();
-          alert('Signup failed');
+          $('#sign-up-modal .modal-failure').show();
 
         }
       });

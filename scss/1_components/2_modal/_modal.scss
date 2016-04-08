@@ -14,9 +14,9 @@
     top: 0;
     right: 10px;
     font-size: 2rem;
-    color: lighten($americano, 25%);
+    color: lighten($americano, 10%);
     &:hover {
-      color: lighten($americano, 10%);
+      color: lighten($americano, 0%);
     }
   }
 }
@@ -61,7 +61,7 @@
     margin-bottom: 40px;
   }
 }
-#login-modal .login-failed {
+.modal-failure {
   display: none;
   background: lighten($sunset-orange, 10%);
   padding: 10px;

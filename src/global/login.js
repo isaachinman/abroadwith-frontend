@@ -24,7 +24,7 @@ module.exports = function(loginObj) {
     error: function() {
 
       $('#preloader').hide();
-      $('.login-failed').show();
+      $('#login-modal .modal-failure').show();
 
     }
   })
