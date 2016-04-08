@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var i18n = require('i18n');
+
 var JWT = require('JWT');
 
 var LanguageUnit = require('./language-unit.react');
@@ -79,25 +81,6 @@ module.exports = React.createClass({
     var type = this.props.type
     var languages =[];
 
-    // if (typeof this.props.existingLanguages !== 'undefined' && this.props.existingLanguages.length > 0) {
-    //   for (var i=0; i<this.props.existingLanguages.length; i++) {
-    //     var language = this.props.existingLanguages[i].language;
-    //     var level = this.props.existingLanguages[i].level;
-    //     var id = type + i;
-    //     languages.push(
-    //       <LanguageUnit
-    //         id={id}
-    //         type={type}
-    //         currentAvailableLanguageTags={this.props.currentAvailableLanguageTags}
-    //         languageChange={this.props.languageChange}
-    //         removeLanguage={this.removeLanguage}
-    //         language={language}
-    //         level={level}
-    //       />
-    //     )
-    //   }
-    // }
-
     $.each(this.state.languages, function(_, language) {
       if (language.id !== null) {
         languages.push(
@@ -123,7 +106,7 @@ module.exports = React.createClass({
         {languages}
 
         <div className='col s12 margin-top-10'>
-          <a className='add-language' onClick={this.addLanguage}>Add another language</a>
+          <a className='add-language' onClick={this.addLanguage}>{i18n.t('common:add_another_language')}</a>
         </div>
 
       </div>
