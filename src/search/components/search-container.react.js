@@ -12,7 +12,7 @@ var Map =             require('./search-map.react');
 var i18n = require('../../global/util/i18n');
 
 module.exports = React.createClass({
-  handleChange: function() {
+  handleChange: function(predeterminedQuery) {
 
     // Get map data
     if (typeof bigMap !== 'undefined') {
@@ -22,47 +22,56 @@ module.exports = React.createClass({
       bounds !== undefined ? NE = (bounds.getSouthWest()) : null;
     }
 
-    var simpleValues = [
-      $('#arrival'),
-      $('#departure'),
-      $('#guests'),
-      $('#language'),
-      $('#immersions'),
-      $('#special-prefs'),
-      $('#meal_plan'),
-      $('#meal_pref'),
-      $('#diet_restrictions'),
-      $('#amenities'),
-      $('#house-type'),
-    ]
+    console.log(predeterminedQuery)
+    if (predeterminedQuery !== undefined && typeof predeterminedQuery === 'string') {
+      console.log('predetermined')
+      var url = predeterminedQuery
+    } else {
+      console.log('not predetermined')
 
-    var url = '?';
+      var simpleValues = [
+        $('#arrival'),
+        $('#departure'),
+        $('#guests'),
+        $('#language'),
+        $('#immersions'),
+        $('#special-prefs'),
+        $('#meal_plan'),
+        $('#meal_pref'),
+        $('#diet_restrictions'),
+        $('#amenities'),
+        $('#house-type'),
+      ]
 
-    var counter = 0;
+      var url = '?';
 
-    // Push values into search string
-    for (var i=0; i<simpleValues.length; i++) {
-      var val = simpleValues[i].val();
-      if (val !== undefined && val !== null && val !== '') {
-        counter++;
-        if (counter===1) {
-          var param = simpleValues[i].attr('id') + '=' + val;
-        } else {
-          var param = '&' + simpleValues[i].attr('id') + '=' + val;
+      var counter = 0;
+
+      // Push values into search string
+      for (var i=0; i<simpleValues.length; i++) {
+        var val = simpleValues[i].val();
+        if (val !== undefined && val !== null && val !== '') {
+          counter++;
+          if (counter===1) {
+            var param = simpleValues[i].attr('id') + '=' + val;
+          } else {
+            var param = '&' + simpleValues[i].attr('id') + '=' + val;
+          }
+          url = url + param;
         }
-        url = url + param;
       }
-    }
 
-    // Get price data
-    if ($('.noUi-handle-lower').length && $('.noUi-handle-upper').length) {
-      var minPrice = parseInt(($('.noUi-handle-lower').find('.noUi-tooltip').html()));
-      var maxPrice = parseInt($('.noUi-handle-upper').find('.noUi-tooltip').html());
-      url = url + '&minPrice=' + minPrice + '&maxPrice=' + maxPrice;
-    }
+      // Get price data
+      if ($('.noUi-handle-lower').length && $('.noUi-handle-upper').length) {
+        var minPrice = parseInt(($('.noUi-handle-lower').find('.noUi-tooltip').html()));
+        var maxPrice = parseInt($('.noUi-handle-upper').find('.noUi-tooltip').html());
+        url = url + '&minPrice=' + minPrice + '&maxPrice=' + maxPrice;
+      }
 
-    // Get course
-    var course = 'course=' + $('#language-switch').is(':checked') ? url = url + '&course=' + ($('#language-school').val()) : null;
+      // Get course
+      var course = 'course=' + $('#language-switch').is(':checked') ? url = url + '&course=' + ($('#language-school').val()) : null;
+
+    }
 
     // Get currency
     var currency = 'currency=' + $('#ui-currency').val() !== '' && $('#ui-currency').val() !== null && $('#ui-currency').val() !== 'undefined' ? url = url + '&currency=' + $('#ui-currency').val() : null;
@@ -76,6 +85,7 @@ module.exports = React.createClass({
     console.log('ran')
 
     $.post('/search'+url, function(data) {
+      console.log(data)
       var response = JSON.parse(data);
 
       var newState = {

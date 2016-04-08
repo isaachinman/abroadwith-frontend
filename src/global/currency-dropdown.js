@@ -5,7 +5,7 @@ var Cookies = require('js-cookie');
 var UiCurrency = React.createClass({
   componentDidMount: function() {
 
-    if (Cookies.get('ui-currency') === 'undefined') {
+    if (Cookies.get('ui-currency') == undefined) {
       Cookies.set('ui-currency', 'EUR');
     } else {
       $('select#ui-currency').val(Cookies.get('ui-currency'));

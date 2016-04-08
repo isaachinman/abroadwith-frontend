@@ -153,8 +153,15 @@ module.exports = React.createClass({
 
       } else {
 
+        var predeterminedQuery = window.location.search;
+
         // This is the main initial GET for search page
-        handleChange();
+        if (predeterminedQuery !== '') {
+          handleChange(predeterminedQuery)
+        } else {
+          handleChange();
+        }
+
       }
 
     })
