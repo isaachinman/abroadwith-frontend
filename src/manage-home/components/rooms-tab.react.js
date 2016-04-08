@@ -15,7 +15,7 @@ module.exports = React.createClass({
     var newRoom = {
       name: $('#room-name').val(),
       description: $('#room-description').val(),
-      vacancies: $('#room-vacancies').val(),
+      vacancies: parseInt($('#room-vacancies').val()),
       shared: $('#room-shared').prop('checked'),
       bed: $('#room-bed').val(),
       facilities: $('#room-facilities').val()
