@@ -19,7 +19,9 @@ module.exports = React.createClass({
       $('#'+this.props.id+' .material').val(this.props.level)
     }
 
-    $('#'+this.props.id+' .select2').select2();
+    $('#'+this.props.id+' .select2').select2({
+      dropdownParent: $('#preloader')
+    });
 
     $('#'+this.props.id+' .select2').change(function() {
       $('#'+this.props.id+' select.language').attr('data-lang',($('#'+this.props.id+' select.language').val()));

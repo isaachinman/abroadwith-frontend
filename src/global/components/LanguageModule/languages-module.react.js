@@ -54,7 +54,6 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
-    $('select.language-module-select2').select2();
 
     if (typeof this.props.existingLanguages !== 'undefined' && this.props.existingLanguages.length > 0) {
 
@@ -71,7 +70,6 @@ module.exports = React.createClass({
         newLanguages.push(addLang)
       })
 
-      console.log(newLanguages)
       this.setState({ languages: newLanguages })
     }
 
