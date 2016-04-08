@@ -46,11 +46,11 @@
   }
   .select-wrapper {
     border-radius: 0 3px 3px 0;
-    background: lighten($sunset-orange, 27%);
-    box-shadow: inset 0 0 0 2px lighten($sunset-orange, 24%);
+    background: lighten($mint-green, 2%);
+    box-shadow: inset 0 0 0 2px darken($mint-green, 3%);
     &:hover {
-      background: lighten($sunset-orange, 25%);
-      box-shadow: inset 0 0 0 2px lighten($sunset-orange, 22%);
+      background: darken($mint-green, 1%);
+      box-shadow: inset 0 0 0 2px darken($mint-green, 7%);
     }
     .caret {
       display: none;
