@@ -71,10 +71,10 @@ module.exports = React.createClass({
       // Get course
       var course = 'course=' + $('#language-switch').is(':checked') ? url = url + '&course=' + ($('#language-school').val()) : null;
 
-    }
+      // Get currency
+      var currency = 'currency=' + $('#ui-currency').val() !== '' && $('#ui-currency').val() !== null && $('#ui-currency').val() !== 'undefined' ? url = url + '&currency=' + $('#ui-currency').val() : null;
 
-    // Get currency
-    var currency = 'currency=' + $('#ui-currency').val() !== '' && $('#ui-currency').val() !== null && $('#ui-currency').val() !== 'undefined' ? url = url + '&currency=' + $('#ui-currency').val() : null;
+    }
 
     // Get map bounds
     var minLat = SW !== undefined ? url = url + '&minLat=' + (SW.lat()) : null;
@@ -157,7 +157,7 @@ module.exports = React.createClass({
       $('#amenities'),
       $('#house-type'),
       $('#ui-currency')
-    ];
+    ]
 
     // Give all basic inputs a change function
     for (var i=0; i<activeNodes.length; i++) {

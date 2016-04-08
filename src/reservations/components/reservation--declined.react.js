@@ -15,7 +15,13 @@ module.exports = React.createClass({
 
     var reservation = this.props.reservation;
 
-    var whoDeclined = reservation.status === 'DECLINED_BY_HOST' ? i18n.t('trips:by_you') : i18n.t('trips:by_them');
+    if (trip.status === 'DECLINED_BY_GUEST') {
+      whoDeclined = i18n.t('trips:by_them');
+    } else if (trip.status === 'DECLINED_BY_HOST') {
+      whoDeclined = i18n.t('trips:by_you')
+    } else if (trip.status === 'DECLINED_AUTOMATICALLY') {
+      whoDeclined = i18n.t('trips:automatically');
+    }
 
     var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : '';
     var guestPhoto = reservation.hostPhoto ? domains.IMG + reservation.hostPhoto : '';

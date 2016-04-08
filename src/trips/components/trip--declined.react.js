@@ -8,8 +8,15 @@ module.exports = React.createClass({
   render: function() {
 
     var trip = this.props.trip;
+    var whoDeclined;
 
-    var whoDeclined = trip.status === 'DECLINED_BY_GUEST' ? i18n.t('trips:by_you') : i18n.t('trips:by_host');
+    if (trip.status === 'DECLINED_BY_GUEST') {
+      whoDeclined = i18n.t('trips:by_you');
+    } else if (trip.status === 'DECLINED_BY_HOST') {
+      whoDeclined = i18n.t('trips:by_host');
+    } else if (trip.status === 'DECLINED_AUTOMATICALLY') {
+      whoDeclined = i18n.t('trips:automatically');
+    }
 
     var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : '';
     var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto : domains.IMG+'/users/default.jpg';
