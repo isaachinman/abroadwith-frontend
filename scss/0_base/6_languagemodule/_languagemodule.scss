@@ -2,6 +2,10 @@
   a.add-language {
     font-size: .9rem;
     opacity: .8;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
     &:hover {
       opacity: 1;
     }
