@@ -39,10 +39,12 @@
 }
 
 #choose-languages-modal {
-  width: 80vw;
   max-width: 1000px;
-  top: 50px !important;
-  max-height: calc(100vh - 100px);
+  @media #{$medium-and-up} {
+    width: 80vw;
+    top: 50px !important;
+    max-height: calc(100vh - 100px);
+  }
 }
 #email-signup-collapsible {
   border: none;
