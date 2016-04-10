@@ -20,7 +20,7 @@ module.exports = React.createClass({
     }
 
     $('#'+this.props.id+' .select2').select2({
-      dropdownParent: $('#preloader')
+      dropdownParent: $('body')
     });
 
     $('#'+this.props.id+' .select2').change(function() {
