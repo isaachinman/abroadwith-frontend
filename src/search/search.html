@@ -70,10 +70,10 @@
       <div class='divider tandem-language hide'></div>
 
       <div class='row section tandem-language hide'>
-        <div class='col s12 m6 l7 grey-text'>
+        <div class='col s12 m6 l5 grey-text'>
           <div class='chip chip-grey'>{{translations.search.your_tandem_language}}</div>
         </div>
-        <div class='col s12 m6 l5'>
+        <div class='col s12 m6 l7'>
           <select id="language-teach" type="text" class="validate border-radius-left">
             <option></option>
             {% for code, lang in translations.languages %}
@@ -230,7 +230,7 @@
     {% include "partials/navigation/footer.html" %}
 
   </div>
-  <div class='col s12 m5 l4 no-padding fixed-100-vh'>
+  <div class='col s12 m5 l4 no-padding fixed-100-vh hide-on-small-and-down'>
 
     <nav class='overlay light row no-margin'>
       <div class="nav-wrapper">
