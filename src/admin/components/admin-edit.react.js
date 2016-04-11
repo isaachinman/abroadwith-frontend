@@ -115,6 +115,9 @@ module.exports = React.createClass({
 
     // Delete account button
     $('#delete-account').click(function() {
+
+      $('#preloader').show();
+
       var url = domains.API + '/users/' + JWT.rid;
       var success = function() {
         localStorage.removeItem('JWT');
