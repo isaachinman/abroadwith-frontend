@@ -82,10 +82,7 @@ if ($('form#email-signup-form').length) {
             processData: false,
             success: function(response) {
 
-              login(loginObj)
-              setTimeout(function() {
-                $('#confirmation-email-sent').openModal();
-              }, 2000);
+              login(loginObj, true)
 
             },
             error: function(response) {
@@ -141,10 +138,7 @@ if ($('form#email-signup-form').length) {
 
         console.log(response);
 
-        login(loginObj)
-        setTimeout(function() {
-          $('#confirmation-email-sent').openModal();
-        }, 500);
+        login(loginObj, true)
 
       },
       error: function(response) {
@@ -320,10 +314,7 @@ if ($('form#email-signup-form').length) {
         success: function(response) {
 
           console.log(response);
-          login(loginObj);
-          setTimeout(function() {
-            $('#confirmation-email-sent').openModal();
-          }, 500);
+          login(loginObj, true)
 
         },
         error: function(response) {

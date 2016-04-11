@@ -2,7 +2,7 @@ var domains = require('domains');
 
 var loginRedirect = require('login-redirect');
 
-module.exports = function(loginObj) {
+module.exports = function(loginObj, firstTime) {
 
   // If a JWT is in localStorage, delete it
   localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null;
@@ -19,6 +19,7 @@ module.exports = function(loginObj) {
 
       localStorage.setItem('JWT', response.token);
       loginRedirect();
+      firstTime === true ? $('#confirmation-email-sent').openModal() : null;
 
     },
     error: function() {
