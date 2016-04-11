@@ -1,4 +1,5 @@
-var JWT = require('JWT');
+var jwt_decode = require('jwt-decode');
+
 var POST = require('POST');
 
 var domains = require('domains');
@@ -7,6 +8,8 @@ var refreshToken = require('refresh-token');
 if ($('a.become-a-host').length) {
 
   $('a.become-a-host').click(function() {
+
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
     $('#preloader').show();
 
