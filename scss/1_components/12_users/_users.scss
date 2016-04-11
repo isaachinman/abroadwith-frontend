@@ -15,7 +15,14 @@
   z-index: 0;
   border: 5px solid white;
   &--editable {
+    position: relative;
+    width: 160px;
+    height: 160px;
     opacity: .85;
+    margin: 0 auto;
+    i {
+      font-size: 3rem;
+    }
     &:hover {
       opacity: 1;
     }
