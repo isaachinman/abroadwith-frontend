@@ -30,6 +30,8 @@ module.exports = React.createClass({
 
     $('a#delete-home').click(function() {
 
+      $('#preloader').show();
+
       $.ajax({
         url: domains.API + '/users/' + JWT.rid + '/homes/' + JWT.hid,
         type: 'DELETE',
@@ -42,6 +44,9 @@ module.exports = React.createClass({
             window.location = '/'
           });
 
+        },
+        error: function() {
+          $('#preloader').hide();
         }
       });
 
