@@ -7,7 +7,7 @@
 
         <select id='ui-language' class='material'>
           {% for domain, language in constants.ui_languages %}
-          <option value={{domain}}>{{translations.languages[language.iso]}}</option>
+          <option value={{domain}}>{{language.name}}</option>
           {% endfor %}
         </select>
 
