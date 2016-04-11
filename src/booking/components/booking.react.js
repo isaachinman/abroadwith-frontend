@@ -6,6 +6,8 @@ var GET = require('GET');
 var POST = require('POST');
 var DELETE = require('DELETE');
 
+var i18n = require('../../global/util/i18n');
+
 var AddPaymentMethod = require('../../global/components/add-payment-method.react');
 var Paypal = require('../../global/components/payment-method--paypal.react');
 var CreditCard = require('../../global/components/payment-method--credit-card.react');
@@ -37,7 +39,7 @@ module.exports = React.createClass({
 
     if ($('select#EXTRA_GUEST').val() !== null) {
       var guests = parseInt($('select#EXTRA_GUEST').val())+1;
-      $('#guests').html($('select#EXTRA_GUEST').val() > 1 ? (parseInt($('select#EXTRA_GUEST').val())+1) + ' guests' : (parseInt($('select#EXTRA_GUEST').val())+1) + ' guest');
+      $('#guests').html($('select#EXTRA_GUEST').val() > 1 ? (parseInt($('select#EXTRA_GUEST').val())+1) + ' ' + i18n.t('common:guests') : (parseInt($('select#EXTRA_GUEST').val())+1) + ' ' + i18n.t('common:guest'));
       $('#guests').attr('data-value', guests);
     }
 
@@ -151,7 +153,7 @@ module.exports = React.createClass({
           extrasDisplay += $(this).attr('data-value') + ' (' + currency + $(this).attr('data-price') + ')<br>';
         })
       } else {
-        var extrasDisplay = 'None';
+        var extrasDisplay = i18n.t('common:none');
       }
       $('.extras-display').html(extrasDisplay);
 

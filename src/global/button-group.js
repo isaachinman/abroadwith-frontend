@@ -23,7 +23,9 @@ $(function() {
       tabChange(links.first())
     }
 
-
+    $('.tab-trigger').click(function() {
+      tabChange(links.filter('[data-target="'+$(this).attr('href')+'"]'))
+    })
 
     // Click event, allow for slight dragging
     var coords = { startX: 0, endX: 0, startY: 0, endY: 0 };

@@ -109,7 +109,8 @@ ul.bullets {
 }
 .tag {
   color: white;
-  width: 80px;
+  min-width: 80px;
+  max-width: 200px;
   font-size: .8rem;
   font-weight: 600;
   line-height: 1.5rem;

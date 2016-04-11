@@ -36,14 +36,27 @@ module.exports = React.createClass({
     $('form#basics-form').submit(this.saveBasics);
 
     $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/intlTelInput.min.js', function() {
-      $('#phoneNumber').intlTelInput();
-      $('#phoneNumber').blur(function() {
-        if (this.value.charAt(0) !== '+') {
-          this.value = '+' + this.value;
-        }
-        $(this).intlTelInput();
-      })
-      $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js');
+
+      var countryData = $.fn.intlTelInput.getCountryData();
+      $.each(countryData, function(i, country) {
+        country.name = i18n.t('countries:'+(country.iso2).toUpperCase());
+      });
+
+      // Re-alphabetise translated country names
+      countryData.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} );
+
+      $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js', function() {
+
+        $('#phoneNumber').intlTelInput();
+
+        $('#phoneNumber').blur(function() {
+          if (this.value.charAt(0) !== '+') {
+            this.value = '+' + this.value;
+          }
+          $(this).intlTelInput();
+        });
+
+      });
     })
 
   },

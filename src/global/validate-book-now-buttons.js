@@ -1,4 +1,5 @@
 var JWT = require('JWT');
+var i18n = require('i18n');
 
 if ($('a.btn-book').length) {
 
@@ -24,7 +25,10 @@ if ($('a.btn-book').length) {
 
         // User cannot book
         $('a.btn-book').off();
-        $('a.btn-book').not(':first').after('<div class="small"><a href="/admin#verifications">Click here to verify your account</a></div>')
+        i18n.loadNamespaces(['common'],function(){
+          $('a.btn-book').not(':first').after('<div class="small"><a href="/admin#verifications">'+i18n.t('common:click_to_validate_account')+'</a></div>')
+        })
+
 
         if (JWT.cbk === 1) {
 

@@ -131,15 +131,15 @@
             <select id='booking-immersions' class='material' data-value={{query.immersions}}>
 
               {% if home.immersions.stay.id %}
-                <option value='stay' data-value={{home.immersions.stay.id}}>Stay</option>
+                <option value='stay' data-value={{home.immersions.stay.id}}>{{translations.common.Stay}}</option>
               {% endif %}
 
               {% if home.immersions.tandem.id %}
-                <option value='tandem' data-value={{home.immersions.tandem.id}}>Tandem</option>
+                <option value='tandem' data-value={{home.immersions.tandem.id}}>{{translations.common.Tandem}}</option>
               {% endif %}
 
               {% if home.immersions.teacher.id %}
-                <option value='teacher' data-value={{home.immersions.teacher.id}}>Teacher</option>
+                <option value='teacher' data-value={{home.immersions.teacher.id}}>{{translations.common.Teachers_stay}}</option>
               {% endif %}
 
             </select>

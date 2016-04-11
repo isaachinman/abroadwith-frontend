@@ -50,7 +50,8 @@ module.exports = React.createClass({
     // Compile immersion tags
     var immersionTags = [];
     this.props.immersions.forEach(function(immersion) {
-      var tag = <div className={immersion}>{immersion}</div>
+      console.log(immersion)
+      var tag = <div className={immersion}>{i18n.t('common:'+immersion)}</div>
       immersionTags.push(tag);
     })
 
