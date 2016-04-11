@@ -118,8 +118,6 @@ module.exports = React.createClass({
             map.setZoom(16);
           }
 
-          console.log(newLocationObj)
-
         });
 
       });

@@ -16,9 +16,7 @@ module.exports = React.createClass({
       description: null
     }
 
-    this.setState(newState, function() {
-      console.log(this.state)
-    });
+    this.setState(newState);
 
     // Send review button
     $('a#send-review').click(function() {
@@ -65,7 +63,6 @@ module.exports = React.createClass({
 
     var reviewObj = this.state;
     reviewObj.description = $('textarea#review').val();
-    console.log(reviewObj);
 
     var url = domains.API+'/users/'+JWT.rid+'/reviews';
     var success = function() {

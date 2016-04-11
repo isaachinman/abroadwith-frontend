@@ -27,8 +27,6 @@ module.exports = React.createClass({
       delete adminObj.verifications;
       delete adminObj.email;
 
-      console.log(adminObj)
-
       var url = domains.API + '/users/' + JWT.rid;
       var success = function() {
         $('#preloader').hide();
@@ -46,8 +44,6 @@ module.exports = React.createClass({
     var success = function(response) {
 
       window.adminObj = response;
-
-      console.log(response)
 
       // Notifications tab
       $('#email-reminders').prop('checked', response.notifications.email.reminders)

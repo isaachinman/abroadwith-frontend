@@ -16,7 +16,6 @@ $(function() {
 
     // If there is a hash tab, it is preferentially active
     if (links.filter('[data-target="'+location.hash+'"]').length > 0) {
-      console.log('matches')
       tabChange((links.filter('[data-target="'+location.hash+'"]')));
     } else if (links.find('active').length > 0) {
       tabChange(links.find('.active').first())

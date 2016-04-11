@@ -11,7 +11,6 @@ module.exports = React.createClass({
       setTimeout(function() {
         $('.course-added').show();
       }, 10)
-      console.log('show courses')
     } else if (languageSwitch.not(':checked') && languageSelect.prop('disabled', false)) {
       languageSelect.prop('disabled', true);
       $('.course-added').hide();
@@ -26,7 +25,7 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
-    
+
     this.languageToggle();
 
   },

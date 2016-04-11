@@ -54,7 +54,6 @@ module.exports = React.createClass({
   },
   render: function() {
 
-    console.log(this.props.img)
     var img = this.props.img !== null ? this.props.img : '';
 
     return (

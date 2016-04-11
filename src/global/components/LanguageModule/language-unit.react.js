@@ -13,8 +13,6 @@ module.exports = React.createClass({
       $('#'+this.props.id+' select.language').val(this.props.language)
     }
 
-    console.log(this.props.level)
-
     if (typeof this.props.level !== 'undefined') {
       $('#'+this.props.id+' .material').val(this.props.level)
     }

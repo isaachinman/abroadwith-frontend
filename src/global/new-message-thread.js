@@ -16,11 +16,8 @@ module.exports = function() {
     message: $('#message-content').val()
   }
 
-  console.log(threadObj)
-
   var url = domains.API + '/users/' + JWT.rid + '/messages';
   var success = function(response) {
-    console.log(response)
     $('#preloader').hide();
     $('#send-message-modal').closeModal();
     toast('Message sent', 4000);

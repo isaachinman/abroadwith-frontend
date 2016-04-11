@@ -56,9 +56,7 @@ if ($('form#email-signup-form').length) {
     FB.login(function(response) {
       if (response.status === 'connected') {
 
-        console.log(response.authResponse);
         newUser.facebookId = response.authResponse.userID;
-        console.log(response.authResponse.accessToken);
 
         var loginObj = {};
         loginObj.facebookToken = response.authResponse.accessToken;
@@ -70,7 +68,6 @@ if ($('form#email-signup-form').length) {
           newUser["lastName"] = response.last_name;
           newUser["email"] = response.email;
           newUser["birthDate"] = response.birthday === 'undefined' ? (response.birthday).substring(6, 10) + '-' + (response.birthday).substring(0, 2) + '-' + (response.birthday).substring(3, 5) : eighteenYearsAgo;
-          console.log(newUser);
 
           loginObj.email = response.email;
 
@@ -121,8 +118,6 @@ if ($('form#email-signup-form').length) {
     newUser["birthDate"] = eighteenYearsAgo;
     newUser["googleId"] = googleUser.getBasicProfile().getId();
 
-    console.log(newUser)
-
     var loginObj = {
       email: newUser["email"],
       googleToken: googleUser.getAuthResponse().id_token
@@ -135,8 +130,6 @@ if ($('form#email-signup-form').length) {
       contentType: "application/json",
       processData: false,
       success: function(response) {
-
-        console.log(response);
 
         login(loginObj, true)
 
@@ -280,7 +273,6 @@ if ($('form#email-signup-form').length) {
 
       // If form is valid, POST object
       if (formValid === true) {
-        console.log(newUser)
         validateUserAndSend()
       } else {
         formNotValid();
@@ -313,7 +305,6 @@ if ($('form#email-signup-form').length) {
         processData: false,
         success: function(response) {
 
-          console.log(response);
           login(loginObj, true)
 
         },

@@ -66,7 +66,6 @@ module.exports = React.createClass({
         render: function() {
           var paymentMethodHTML = []
           paymentMethods.forEach(function(payment) {
-            console.log(payment)
             if (payment.type === 'CARD') {
               paymentMethodHTML.push(
                 <div className='col s12 m6 l4'>
@@ -136,8 +135,6 @@ module.exports = React.createClass({
       $('.payouts').removeClass('hide');
 
       var payoutMethods = this.props.payoutMethods.sort(function(a,b){return b.isDefault-a.isDefault});
-
-      console.log(this.props.payoutMethods)
 
       var PayoutMethodContainer = React.createClass({
         render: function() {

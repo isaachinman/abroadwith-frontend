@@ -60,8 +60,6 @@ module.exports = React.createClass({
     var url = domains.API + '/users/' + JWT.rid + '/verification/phone';
     var success = function(response) {
 
-      console.log(response);
-
       this.props.updateAdmin(function() {
         $('#verification-phone .collapsible-body').remove();
         $('#preloader').hide();
@@ -83,7 +81,6 @@ module.exports = React.createClass({
   componentDidUpdate: function() {
     // Request SMS verification
     if (this.props.phoneNumber !== null && typeof this.props.phoneNumber !== 'undefined') {
-      console.log('ok for verification')
       $('a#request-verification-sms').removeClass('disabled');
       $('#please-add-a-phone').hide();
       $('a#verify-phone').click(function() {
@@ -93,7 +90,6 @@ module.exports = React.createClass({
         this.requestVerificationSMS()
       }.bind(this));
     } else {
-      console.log('no for verification')
       $('a#request-verification-sms').addClass('disabled');
       $('#please-add-a-phone').show();
     }

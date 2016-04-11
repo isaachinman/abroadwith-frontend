@@ -21,16 +21,12 @@ module.exports = React.createClass({
       facilities: $('#room-facilities').val()
     };
 
-    console.log(newRoom)
-
     $('#preloader').show();
 
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms';
     var success = function(response) {
 
       $('#add-room-form .collapsible-header').trigger('click');
-
-      console.log(response);
 
       var thisprops = this.props;
       var file = $('#new_room_photo')[0].files;
@@ -100,7 +96,6 @@ module.exports = React.createClass({
     this.props.updateHome(newHomeObj, function() {
       toast(i18n.t('manage_home:room_updated_toast'));
     });
-    console.log(newRoomsObj);
 
 
   },
@@ -169,8 +164,6 @@ module.exports = React.createClass({
 
     $('.upload-room-photo').each(function(index, value){
       value.onchange = function(){
-
-        console.log(value.attributes.roomid);
         $('a#save-rooms').addClass("disabled");
         var file = value.files;
         if(file){
@@ -195,7 +188,6 @@ module.exports = React.createClass({
               var result = JSON.parse(data);
               for(var img in result){
                 if(result[img].status == 'OK'){
-                  console.log(result[img].location);
                   $('#photo_room_'+value.attributes.roomid.nodeValue).val(result[img].location);
                 }
               }

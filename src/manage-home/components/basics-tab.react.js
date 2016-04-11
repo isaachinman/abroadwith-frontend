@@ -11,8 +11,6 @@ module.exports = React.createClass({
 
     var newHomeObj = this.props.props;
 
-    console.log(newHomeObj)
-
     // Create new basics object
     newHomeObj.basics.homeType = $('#home-type').val();
     newHomeObj.basics.SAFETY = $('#safety').val();
@@ -39,8 +37,6 @@ module.exports = React.createClass({
           xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))
         },
         success: function(result) {
-
-          console.log(result)
 
           refreshToken(function() {
             window.location = '/'

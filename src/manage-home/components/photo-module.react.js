@@ -42,8 +42,6 @@ module.exports = React.createClass({
       }
     })
 
-    console.log(deletePhotoObj)
-
 
   },
   componentDidMount: function() {

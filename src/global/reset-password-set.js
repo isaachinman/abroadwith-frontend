@@ -27,8 +27,6 @@ if ($('a.reset-password').length) {
           password: firstPassword
         }
 
-        console.log(passwordResetObj)
-
         $.ajax({
           type: "POST",
           url: domains.API + '/passwords/set',

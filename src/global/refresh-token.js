@@ -9,10 +9,6 @@ module.exports = function(callback) {
     token: localStorage.getItem('JWT')
   }
 
-  console.log(localStorage.getItem('JWT'))
-
-  console.log(refreshObj)
-
   // This POST needs to be custom, as the headers are different to all others
   $.ajax({
     type: "POST",

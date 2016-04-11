@@ -21,8 +21,6 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/clientToken';
     var success = function(response) {
 
-      console.log(response)
-
       var clientToken = response;
 
       if (window.braintreeRan !== true) {
@@ -30,8 +28,6 @@ module.exports = React.createClass({
         $.getScript('https://js.braintreegateway.com/v2/braintree.js', function() {
 
           window.braintreeRan = true;
-
-          console.log('braintree ran')
 
           // Setup braintree form
           braintree.setup(clientToken, 'custom', {

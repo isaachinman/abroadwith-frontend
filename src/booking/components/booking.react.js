@@ -66,8 +66,6 @@ module.exports = React.createClass({
       settingNames:               $('select#meal_pref').val() !== '' ? $('select#meal_pref').val() : []
     }
 
-    console.log(bookingObj)
-
     return bookingObj;
 
   },
@@ -142,12 +140,9 @@ module.exports = React.createClass({
 
     this.setState(bookingObj, function() {
 
-      console.log(JSON.stringify(this.state));
-
       var currency = this.state.currency;
       // Refresh read-only display nodes
       $('.immersion-display').html(i18n.t('immersions:'+$('#booking-immersions').val()));
-      console.log(i18n.t('immersions:stay'))
       $('.language-display').html(i18n.t('languages:'+this.state.languageHostWillTeach));
 
       if ($('input.booking-service:checked').length > 0) {

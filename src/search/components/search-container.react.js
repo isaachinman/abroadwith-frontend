@@ -22,12 +22,9 @@ module.exports = React.createClass({
       bounds !== undefined ? NE = (bounds.getSouthWest()) : null;
     }
 
-    console.log(predeterminedQuery)
     if (predeterminedQuery !== undefined && typeof predeterminedQuery === 'string') {
-      console.log('predetermined')
       var url = predeterminedQuery
     } else {
-      console.log('not predetermined')
 
       var simpleValues = [
         $('#arrival'),
@@ -82,10 +79,7 @@ module.exports = React.createClass({
     var maxLat = NE !== undefined ? url = url + '&maxLat=' + (NE.lat()) : null;
     var maxLng = NE !== undefined ? url = url + '&maxLng=' + (NE.lng()) : null;
 
-    console.log('ran')
-
     $.post('/search'+url, function(data) {
-      console.log(data)
       var response = JSON.parse(data);
 
       var newState = {

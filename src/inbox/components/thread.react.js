@@ -74,8 +74,6 @@ module.exports = React.createClass({
 
       var messageSetup = response;
 
-      console.log(messageSetup);
-
       this.renderMessages(messageSetup, messages);
 
       var newState = {
@@ -142,8 +140,6 @@ module.exports = React.createClass({
 
     var url = domains.API + '/users/' + JWT.rid + '/messages/' + this.props.id + '?size=10';
     var success = function(response) {
-
-      console.log(response)
 
       var messages = []
 

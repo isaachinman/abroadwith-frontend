@@ -6,11 +6,6 @@ var domains = require('domains');
 var i18n = require('../../global/util/i18n');
 
 module.exports = React.createClass({
-  componentDidMount: function() {
-
-    console.log(this.props.reservation)
-
-  },
   render: function() {
 
     var reservation = this.props.reservation;

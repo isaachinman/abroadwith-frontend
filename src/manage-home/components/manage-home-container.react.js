@@ -19,8 +19,6 @@ var i18n = require('../../global/util/i18n');
 module.exports = React.createClass({
   updateHome: function(newHomeObj, callback){
 
-    console.log(newHomeObj)
-
     $('#preloader').show();
 
     delete newHomeObj.published;
@@ -29,7 +27,6 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
 
-      console.log('response:' +response)
       $('#preloader').hide();
       this.refreshState();
       callback();
@@ -98,8 +95,6 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
-
-      console.log(response)
 
       // Update status bar
       var publishedBar = $('#published-status');

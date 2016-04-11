@@ -4,7 +4,6 @@ module.exports = function() {
 
   // Get JWT
   var JWT = localStorage.getItem('JWT') ? jwt_decode(localStorage.getItem('JWT')) : null;
-  console.log(JWT);
 
   // Print username into navbar
   $('span#navbar-username').html(JWT.name)

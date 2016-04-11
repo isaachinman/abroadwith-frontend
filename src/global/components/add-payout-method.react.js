@@ -56,8 +56,6 @@ module.exports = React.createClass({
 
     $('#preloader').show();
 
-    console.log(newBankPayoutObj)
-
     var url = domains.API + '/users/' + JWT.rid + '/payoutMethods';
     var success = function(response) {
       $('#preloader').hide();
@@ -96,8 +94,6 @@ module.exports = React.createClass({
     }
 
     $('#preloader').show();
-
-    console.log(newPaypalPayoutObj)
 
     var url = domains.API + '/users/' + JWT.rid + '/payoutMethods';
     var success = function(response) {

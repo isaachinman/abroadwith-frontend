@@ -19,8 +19,6 @@ module.exports = React.createClass({
       $(this).attr('data-lang') !== undefined ? usedLanguages.push($(this).attr('data-lang')) : null;
     })
 
-    console.log(usedLanguages)
-
     $('select.language option').attr('disabled', false)
 
     for (var i=0; i<usedLanguages.length; i++) {

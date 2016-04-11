@@ -9,8 +9,6 @@ module.exports = React.createClass({
     adminObj.notifications.email.promotion = $('#email-promotions').prop('checked');
     adminObj.notifications.sms.all         = $('#sms-notifications').prop('checked');
 
-    console.log(adminObj)
-
     this.props.updateAdmin(function(callback) {
       toast('Notifications updated')
     });

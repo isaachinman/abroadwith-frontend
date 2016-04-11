@@ -17,8 +17,6 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/bookings/'+bookingId+'/receipt';
     var success = function(response) {
 
-      console.log(response)
-
       var currency = currencies[response.currency]
       $('#bookingCode').html(response.bookingCode);
       $('#arrivalDate').html(response.arrivalDate);
@@ -33,8 +31,6 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/bookings/'+bookingId;
     var success = function(response) {
-
-      console.log(response)
 
       var currency = currencies[response.chargesCurrency]
 
