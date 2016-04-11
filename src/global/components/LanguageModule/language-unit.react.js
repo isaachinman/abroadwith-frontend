@@ -39,6 +39,13 @@ module.exports = React.createClass({
       )
     }
 
+    // Sort option tags alphabetically
+    languageOptionTags.sort(function(a, b) {
+      if (a.props.children < b.props.children) return -1;
+      if (a.props.children > b.props.children) return 1;
+      return 0;
+    })
+
     var levelOptionTags = [];
     if (this.props.type === 'learning') {
       // Compile learning levels
