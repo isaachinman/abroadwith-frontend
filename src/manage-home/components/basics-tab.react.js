@@ -1,4 +1,6 @@
 var React = require('react');
+
+var i18n = require('../../global/util/i18n');
 var toast = require('toast');
 
 var domains = require('domains');
@@ -21,7 +23,7 @@ module.exports = React.createClass({
     newHomeObj.basics.PREFERENCES = $('#preferences').val();
 
     this.props.updateHome(newHomeObj, function() {
-      toast('Basics updated');
+      toast(i18n.t('manage_home:basics_updated_toast'));
     });
 
   },

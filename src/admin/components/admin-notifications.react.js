@@ -1,5 +1,6 @@
 var React = require('react');
 
+var i18n = require('../../global/util/i18n');
 var toast = require('toast')
 
 module.exports = React.createClass({
@@ -10,7 +11,7 @@ module.exports = React.createClass({
     adminObj.notifications.sms.all         = $('#sms-notifications').prop('checked');
 
     this.props.updateAdmin(function(callback) {
-      toast('Notifications updated')
+      toast(i18n.t('admin:notifications_toast'));
     });
 
   },

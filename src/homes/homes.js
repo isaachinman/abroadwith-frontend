@@ -1,5 +1,7 @@
 var domains = require('domains');
 var JWT = require('JWT');
+
+var i18n = require('i18n');
 var toast = require('toast');
 
 if ($('#book-a-room').length) {
@@ -53,7 +55,9 @@ if ($('.go-to-booking').length) {
         error: function() {
 
           $('#preloader').hide();
-          toast('Room unavailable for selected dates')
+          i18n.loadNamespaces(['common'],function(){
+            toast(i18n.t('common:room_unavailable_toast'));
+          })
 
         }
       })

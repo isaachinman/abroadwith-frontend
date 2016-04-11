@@ -72,7 +72,7 @@ module.exports = React.createClass({
                   processData : false,
                   beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
                   success : function(data, textStatus, jqXHR) {
-                        toast('Images uploaded');
+                        toast(i18n.t('manage_home:images_uploaded_toast'));
                         refresh();
                         $('#preloader').hide();
                   },
@@ -116,7 +116,7 @@ module.exports = React.createClass({
           homeObj.immersions.tandem.isActive = false;
           homeObj.immersions.teacher.isActive = false;
           this.updateHome(function() {
-            toast('Home deactivated')
+            toast(i18n.t('manage_home:home_deactivated_toast'))
           });
         }.bind(this))
 

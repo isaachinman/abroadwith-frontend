@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom')
+
 var i18n = require('../../global/util/i18n');
 var LanguageDropdown = require('./language-dropdown.react');
 var toast = require('toast');
@@ -64,7 +65,7 @@ module.exports = React.createClass({
     }
 
     this.props.updateHome(newHomeObj, function() {
-      toast('Immersions updated');
+      toast(i18n.t('manage_home:immersions_updated_toast'));
     });
 
 

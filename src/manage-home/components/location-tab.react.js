@@ -1,5 +1,8 @@
 var React = require('react');
+
 var randomiseCoordinate = require('randomise-coordinate');
+
+var i18n = require('../../global/util/i18n');
 var toast = require('toast');
 
 module.exports = React.createClass({
@@ -141,7 +144,7 @@ module.exports = React.createClass({
       newHomeObj.location = newLocationObj;
 
       this.props.updateHome(newHomeObj, function() {
-        toast('Address updated');
+        toast(i18n.t('manage_home:address_updated_toast'));
       });
 
     }

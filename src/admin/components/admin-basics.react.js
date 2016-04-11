@@ -1,6 +1,8 @@
 var React = require('react');
 var toast = require('toast');
 
+var i18n = require('../../global/util/i18n');
+
 var refreshToken = require('refresh-token');
 
 module.exports = React.createClass({
@@ -22,7 +24,7 @@ module.exports = React.createClass({
       $('#preloader').show();
       refreshToken(function() {
         $('#preloader').hide();
-        toast('Basics updated');
+        toast(i18n.t('admin:basics_toast'));
       });
     });
 

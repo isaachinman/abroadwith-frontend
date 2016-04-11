@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var i18n = require('../../global/util/i18n');
 var toast = require('toast');
 
 var JWT = require('JWT');
@@ -18,7 +19,7 @@ module.exports = React.createClass({
     var success = function() {
 
       $('#preloader').hide();
-      toast('Verification email sent', 4000);
+      toast(i18n.t('admin:verification_email_toast'));
 
     };
     GET(url, success)
@@ -41,7 +42,7 @@ module.exports = React.createClass({
       $('.phone-verify').show();
 
       $('#preloader').hide();
-      toast('Verification SMS sent', 4000);
+      toast(i18n.t('admin:verification_sms_toast'));
 
     }.bind(this);
     GET(url, success)
@@ -63,7 +64,7 @@ module.exports = React.createClass({
       this.props.updateAdmin(function() {
         $('#verification-phone .collapsible-body').remove();
         $('#preloader').hide();
-        toast('Phone verified', 4000);
+        toast(i18n.t('admin:phone_verified_toast'));
       });
 
     }.bind(this)

@@ -54,7 +54,7 @@ module.exports = React.createClass({
     adminObj.userKnownLanguages = newLanguagesKnown;
 
     this.props.updateAdmin(function() {
-      toast('Languages updated');
+      toast(i18n.t('admin:languages_toast'));
     });
 
   },

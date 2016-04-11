@@ -1,8 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var RoomPriceModule = require('./room-price-module.react');
-var i18n = require('../../global/util/i18n');
 
+var i18n = require('../../global/util/i18n');
 var toast = require('toast');
 
 var currencies = require('currencies');
@@ -89,7 +89,7 @@ module.exports = React.createClass({
       newHomeObj.pricing = newPricingObj;
 
       this.props.updateHome(newHomeObj, function() {
-        toast('Pricing updated');
+        toast(i18n.t('manage_home:pricing_updated_toast'));
       });
 
 

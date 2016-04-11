@@ -6,6 +6,7 @@ var Languages = require('./admin-languages.react');
 var Verifications = require('./admin-verifications.react');
 
 var toast = require('toast');
+var i18n = require('../../global/util/i18n');
 
 var domains = require('domains');
 var JWT = require('JWT');
@@ -104,7 +105,7 @@ module.exports = React.createClass({
         data: JSON.stringify({email:JWT.email}),
         success: function() {
           $('#preloader').hide();
-          toast('Password reset email sent', 4000)
+          toast(i18n.t('admin:password_reset_toast'));
         },
         error: function() {
           $('#preloader').hide();

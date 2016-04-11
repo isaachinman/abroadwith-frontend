@@ -1,4 +1,6 @@
 var React = require('react');
+
+var i18n = require('../../global/util/i18n');
 var toast = require('toast');
 
 module.exports = React.createClass({
@@ -13,7 +15,7 @@ module.exports = React.createClass({
     newHomeObj.description.video = $('#video').val() !== '' ? 'https://' + ($('#video').val()).replace(/.*?:\/\//g, "") : null;
 
     this.props.updateHome(newHomeObj, function() {
-      toast('Description updated');
+      toast(i18n.t('manage_home:description_updated_toast'));
     });
 
   },
