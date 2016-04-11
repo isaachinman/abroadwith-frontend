@@ -85,24 +85,6 @@
 
     </div>
 
-    <div class='row no-margin-bottom'>
-      <div class='col s12'>
-        <div class='tabs-container'>
-          <ul class="tabs user-profile-tabs">
-            <li class="tab col s3"><a href="#about" class='active'>{{translations.common.About}}</a></li>
-
-            <li class="tab col s3"><a href="#reviews"><span class='hide-on-small-and-down'>{{translations.common.References}} & </span>{{translations.common.reviews}}</a></li>
-
-            {% if user.home.isActive == true %}
-              <li class="tab col s3"><a href="#stay">{{translations.common.Stay}}</a></li>
-            {% endif %}
-
-          </ul>
-        </div>
-
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -145,6 +127,44 @@
               </div>
             </div>
           </div>
+
+          <div class='card home-card'>
+            <div class='row'>
+              <div class='col s12'>
+                <i class="fa fa-quote-right fa-2x grey-text text-lighten-1"></i>
+                <span class='title'>{{translations.common.References}}</span>
+              </div>
+            </div>
+            <div class='row no-margin'>
+              <div class='col s12 content'>
+
+                {% if user.references %}
+                  {% for reference in user.references %}
+                    <div class='card home-card review'>
+                      <div class='row'>
+                        <div class='col s12 grey-text relationship'>
+                          {{reference.name}} ({{reference.relationship}})
+                        </div>
+                        <div class='col s12'>
+                          <p>
+                            {{reference.content}}
+                          </p>
+                        </div>
+                        <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
+                          {{reference.date}}
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  <p>
+                    {{user.firstName}} {{translations.common.doesnt_have_any_references_yet}}
+                  </p>
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class='col s12 m8 l5'>
@@ -164,6 +184,57 @@
                     {{translations.users.no_about_me}}
                   {% endif %}
                 </p>
+              </div>
+            </div>
+          </div>
+          <div class='card home-card'>
+            <div class='row bottom-align-row'>
+              <div class='col s7 m8 l8'>
+                <i class="fa fa-star-o fa-2x grey-text text-lighten-1"></i>
+                <span class='title'>{{translations.common.Reviews}}</span>
+              </div>
+              <div class='col s5 m4 l4 bottom right-align'>
+                {% if user.ratingCount %}
+                <span class='rating'>
+                  <span class='count'>
+                    ({{user.ratingCount}})
+                  </span>
+                  <span class='stars'>
+                    {{user.ratingHTML | safe}}
+                  </span>
+                </span>
+                {% endif %}
+              </div>
+            </div>
+            <div class='row no-margin'>
+              <div class='col s12 content'>
+
+                {% if user.reviews %}
+                  {% for review in user.reviews %}
+                    <div class='card home-card review'>
+                      <div class='row'>
+                        <div class='col s3 m2 l2 center-align'>
+                          <img class='circle host-picture' src='{{review.picture}}'>
+                          <br>
+                          {{review.name}}
+                        </div>
+                        <div class='col s9 m10 l10'>
+                          <p>
+                            {{review.content}}
+                          </p>
+                        </div>
+                        <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
+                          {{review.date}}
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                {% else %}
+                <p>
+                  {{user.firstName}} {{translations.common.doesnt_have_any_reviews_yet}}
+                </p>
+                {% endif %}
+
               </div>
             </div>
           </div>
@@ -249,113 +320,10 @@
 
 </div>
 
-<div class='divider margin-bottom-20'></div>
-
-<div id='reviews' class='container'>
-  <div class='row left-align'>
-    <div class='col s12 m12 l12'>
-      <div class='row'>
-
-        <div class='col s12 m5 l4'>
-          <div class='card home-card'>
-            <div class='row'>
-              <div class='col s12'>
-                <i class="fa fa-quote-right fa-2x grey-text text-lighten-1"></i>
-                <span class='title'>{{translations.common.References}}</span>
-              </div>
-            </div>
-            <div class='row no-margin'>
-              <div class='col s12 content'>
-
-                {% if user.references %}
-                  {% for reference in user.references %}
-                    <div class='card home-card review'>
-                      <div class='row'>
-                        <div class='col s12 grey-text relationship'>
-                          {{reference.name}} ({{reference.relationship}})
-                        </div>
-                        <div class='col s12'>
-                          <p>
-                            {{reference.content}}
-                          </p>
-                        </div>
-                        <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                          {{reference.date}}
-                        </div>
-                      </div>
-                    </div>
-                  {% endfor %}
-                {% else %}
-                  <p>
-                    {{user.firstName}} {{translations.common.doesnt_have_any_references_yet}}
-                  </p>
-                {% endif %}
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class='col s12 m7 l8'>
-          <div class='card home-card'>
-            <div class='row bottom-align-row'>
-              <div class='col s7 m8 l8'>
-                <i class="fa fa-star-o fa-2x grey-text text-lighten-1"></i>
-                <span class='title'>{{translations.common.Reviews}}</span>
-              </div>
-              <div class='col s5 m4 l4 bottom right-align'>
-                {% if user.ratingCount %}
-                <span class='rating'>
-                  <span class='count'>
-                    ({{user.ratingCount}})
-                  </span>
-                  <span class='stars'>
-                    {{user.ratingHTML | safe}}
-                  </span>
-                </span>
-                {% endif %}
-              </div>
-            </div>
-            <div class='row no-margin'>
-              <div class='col s12 content'>
-
-                {% if user.reviews %}
-                  {% for review in user.reviews %}
-                    <div class='card home-card review'>
-                      <div class='row'>
-                        <div class='col s3 m2 l2 center-align'>
-                          <img class='circle host-picture' src='{{review.picture}}'>
-                          <br>
-                          {{review.name}}
-                        </div>
-                        <div class='col s9 m10 l10'>
-                          <p>
-                            {{review.content}}
-                          </p>
-                        </div>
-                        <div class='col s12 right-align grey-text text-lighten-1 no-margin'>
-                          {{review.date}}
-                        </div>
-                      </div>
-                    </div>
-                  {% endfor %}
-                {% else %}
-                <p>
-                  {{user.firstName}} {{translations.common.doesnt_have_any_reviews_yet}}
-                </p>
-                {% endif %}
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
 {% if user.home.isActive == true %}
-  <div id='stay' class='container left-align'>
+  <div class='divider margin-bottom-20'></div>
+
+  <div class='container left-align'>
 
     <div class='row no-margin'>
 
