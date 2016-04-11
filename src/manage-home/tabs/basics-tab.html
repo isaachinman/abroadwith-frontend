@@ -119,7 +119,15 @@
 
 
     <div class='col s12 left-align'>
-      <a id='delete-home' class='red-text small'>{{translations.homes.delete_home}}</a>
+      <a href="#delete-home-modal" class='red-text small modal-trigger'>{{translations.homes.delete_home}}</a>
+
+      <div id="delete-home-modal" class="modal center-align">
+        <div class="modal-content">
+          <h4>{{translations.manage_home.delete_home_title}}</h4>
+          <p>{{translations.manage_home.delete_home_text}}</p>
+          <a id='delete-home' class='btn btn-secondary btn-flat btn-delete'>{{translations.manage_home.delete_home_confirm}}</a>
+        </div>
+      </div>
     </div>
 
 
