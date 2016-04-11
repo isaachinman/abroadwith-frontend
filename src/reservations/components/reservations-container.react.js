@@ -9,10 +9,13 @@ var JWT = require('JWT');
 module.exports = React.createClass({
   refreshState: function() {
 
+    $('#preloader').show();
+
     var url = domains.API+'/users/'+JWT.rid+'/reservations';
     var success = function(response) {
       this.setState({reservations:response});
       $('.collapsible-header.active').click();
+      $('#preloader').hide();
     }.bind(this);
     GET(url, success)
 
