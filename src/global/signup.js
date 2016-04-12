@@ -3,7 +3,7 @@ var login = require('./login');
 var domains = require('domains');
 var application = require('application-settings');
 
-var formatDate = require('format-date')
+var formatDate = require('api-date')
 
 // Language-learn select
 $('select#learning-language').length ? $('select#learning-language').select2() : null;

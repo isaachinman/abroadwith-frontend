@@ -1,7 +1,8 @@
 var Wallop = require('wallop');
 var newMessageThread = require('new-message-thread');
-var refreshToken = require('refresh-token')
+var refreshToken = require('refresh-token');
 
+var apiDate = require('api-date');
 var pikaday = require('pikaday');
 
 var i18n = require('../global/util/i18n');
@@ -26,8 +27,8 @@ $(document).ready(function() {
 
       var language = $('#language option:selected').val() !== '' ? '&language=' + $('#language option:selected').attr('data-lang') : '';
       var location = $('#location').val() !== '' ? '&location_string=' + ($('#location').val()).replace(/ /g,"_") : '';
-      var arrival = $('#arrival').val() !== '' ? '&arrival=' + $('#arrival').val() : '';
-      var departure = $('#departure').val() !== '' ? '&departure=' + $('#departure').val() : '';
+      var arrival = $('#arrival').val() !== '' ? '&arrival=' + apiDate($('#arrival').val()) : '';
+      var departure = $('#departure').val() !== '' ? '&departure=' + apiDate($('#departure').val()) : '';
       var guests = $('#guest-count').val() !== 'undefined' ? '?guests=' + $('#guest-count').val() : '';
 
       var url = '/search'+ guests + language + location + arrival + departure;
@@ -101,9 +102,11 @@ $(document).ready(function() {
 
   var Pikaday = require('pikaday');
 
-  var formatDate = require('format-date');
+  var uiDate = require('api-date');
 
   if ($('input.birthday').length) {
+
+
 
     // Users must be at least 18, so generate minimum date
     var eighteenYearsAgo = new Date();
@@ -117,7 +120,7 @@ $(document).ready(function() {
         field: this,
         yearRange: [1950, eighteenYearsAgo.getFullYear()],
         onSelect: function() {
-          $('input.birthday').val(formatDate(this.getDate()))
+          $('input.birthday').val(uiDate(this.getDate()))
         }
       });
     })

@@ -1,5 +1,5 @@
 var React = require('react');
-var formattedDate = require('format-date');
+var formattedDate = require('api-date');
 
 module.exports = React.createClass({
   render: function() {
