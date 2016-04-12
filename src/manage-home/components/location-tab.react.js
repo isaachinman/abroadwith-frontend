@@ -20,8 +20,8 @@ module.exports = React.createClass({
     window.initAutocomplete = function() {
       var map = new google.maps.Map(document.getElementById('home-map'), {
         center: {
-          lat: mapLat+.0025,
-          lng: mapLng-.0125
+          lat: mapLat,
+          lng: mapLng
         },
         zoom: mapZoom,
         scrollwheel: false,

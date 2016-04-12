@@ -1,10 +1,13 @@
 var React = require('react');
 var i18n = require('../../global/util/i18n');
 
+var domains = require('domains');
+
 module.exports = React.createClass({
   render: function() {
 
-    var img = this.props.img ? this.props.img : '';
+    var img = this.props.img ? domains.IMG + this.props.img : domains.IMG + '/homes/default_room.png';
+    console.log(img)
     var price = this.props.price !== null ? this.props.price + ' ' + this.props.currency : '';
     var bedType = this.props.bed;
 
