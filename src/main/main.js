@@ -1,5 +1,6 @@
 var Wallop = require('wallop');
 var newMessageThread = require('new-message-thread');
+var refreshToken = require('refresh-token')
 
 var pikaday = require('pikaday');
 
@@ -7,6 +8,10 @@ var i18n = require('../global/util/i18n');
 
 // Initialisations
 $(document).ready(function() {
+
+  if ($('#email-verified-successfully').length) {
+    refreshToken();
+  }
 
   if ($('a.create-new-message-thread').length) {
     $('a.create-new-message-thread').click(function() {
