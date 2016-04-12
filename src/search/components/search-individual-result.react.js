@@ -30,7 +30,7 @@ module.exports = React.createClass({
   render: function() {
 
     // Room photo src
-    var roomSrc = domains.IMG + this.props.roomPhoto;
+    var roomPhoto = this.props.roomPhoto !== undefined ? <img src={domains.IMG + this.props.roomPhoto}/> : null;
 
     // Home photos
     if (this.props.homePhotos) {
@@ -82,7 +82,9 @@ module.exports = React.createClass({
           <a className='overlay' href={homelink}></a>
           <div className="wallop">
             <div className="Wallop-list">
-              <div className="Wallop-item Wallop-item--current"><img src={roomSrc}/></div>
+              <div className="Wallop-item Wallop-item--current">
+                {roomPhoto}
+              </div>
               {homePhotos}
             </div>
             <a className="Wallop-buttonPrevious white-text">

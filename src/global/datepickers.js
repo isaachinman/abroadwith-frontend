@@ -1,4 +1,6 @@
 var Pikaday = require('pikaday');
+var UiDate = require('ui-date');
+
 var formatDate = require('format-date');
 
 if ($('input.arrival').length && $('input.departure').length) {
@@ -13,13 +15,11 @@ if ($('input.arrival').length && $('input.departure').length) {
   // Function to be called upon arrival picker selection
   var updateStartDate = function() {
 
-    var formattedDate = formatDate(startDate)
-
     // Iterate over all arrival pickers and set new date and new start range
     for (var i = 0; i < arrivalPickers.length; i++) {
       arrivalPickers[i].setStartRange(startDate);
       arrivalPickers[i].setDate(null);
-      $('input.arrival').val(formattedDate);
+      $('input.arrival').val(formatDate(startDate));
     }
 
     // Iterate over all departure pickers and set new start range and new min date
@@ -33,8 +33,6 @@ if ($('input.arrival').length && $('input.departure').length) {
   // Function to be called upon departure picker selection
   var updateEndDate = function() {
 
-    var formattedDate = formatDate(endDate)
-
     // Iterate over all arrival pickers and set new end range and new max date
     for (var i = 0; i < arrivalPickers.length; i++) {
       arrivalPickers[i].setEndRange(endDate);
@@ -45,7 +43,7 @@ if ($('input.arrival').length && $('input.departure').length) {
     for (var i = 0; i < departurePickers.length; i++) {
       departurePickers[i].setEndRange(endDate);
       departurePickers[i].setDate(null);
-      $('input.departure').val(formattedDate);
+      $('input.departure').val(formatDate(endDate));
     }
   }
 

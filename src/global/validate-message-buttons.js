@@ -1,18 +1,21 @@
 var i18n = require('i18n');
+var jwt_decode = require('jwt-decode');
 
-if ($('a.btn-msg').length) {
+module.exports = function() {
+  if ($('a.btn-msg').length) {
 
-  $(function() {
+    $(function() {
 
-    JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+      JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
-    if (JWT === null) {
+      if (JWT === null) {
 
-      // User is not logged in
-      $('a.btn-msg').attr('href', '#login-modal');
+        // User is not logged in
+        $('a.btn-msg').attr('href', '#login-modal');
 
-    }
+      }
 
-  })
+    })
 
+  }
 }

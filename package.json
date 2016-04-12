@@ -77,7 +77,10 @@
     "POST": "./src/global/ajax/POST",
     "DELETE": "./src/global/ajax/DELETE",
     "new-message-thread": "./src/global/new-message-thread",
-    "format-date": "./src/utils/format-date"
+    "format-date": "./src/utils/format-date",
+    "ui-date": "./src/utils/ui-date",
+    "validate-book-now-buttons": "./src/global/validate-book-now-buttons",
+    "validate-message-buttons": "./src/global/validate-message-buttons"
   },
   "browserify-shim": {
     "jquery": "$",

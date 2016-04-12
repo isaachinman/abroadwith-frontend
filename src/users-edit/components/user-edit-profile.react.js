@@ -55,7 +55,6 @@ module.exports = React.createClass({
       $('#amazing-feat').val(response.amazingFeat);
       $('#can-share').val(response.canShare);
       $('#interests').val(response.interests);
-      $('#interests').material_select();
       $('#countries-visited').val(JSON.parse(response.countriesVisited)).trigger('change');
       $('#countries-lived').val(JSON.parse(response.countriesLived)).trigger('change');
 

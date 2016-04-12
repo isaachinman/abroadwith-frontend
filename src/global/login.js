@@ -1,6 +1,8 @@
 var domains = require('domains');
 
 var loginRedirect = require('login-redirect');
+var validateBookNowButtons = require('validate-book-now-buttons');
+var validateMessageButtons = require('validate-message-buttons');
 
 module.exports = function(loginObj, firstTime) {
 
@@ -17,8 +19,15 @@ module.exports = function(loginObj, firstTime) {
     xhrFields: {withCredentials: true},
     success: function(response) {
 
+      // Set JWT
       localStorage.setItem('JWT', response.token);
+
+      // Do UI stuff
       loginRedirect();
+      validateBookNowButtons();
+      validateMessageButtons();
+
+      // If a user came from signup, show them the email confirmation modal
       firstTime === true ? $('#confirmation-email-sent').openModal() : null;
 
     },
