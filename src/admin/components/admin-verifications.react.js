@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var refreshToken = require('refresh-token');
+
 var i18n = require('../../global/util/i18n');
 var toast = require('toast');
 
@@ -63,6 +65,11 @@ module.exports = React.createClass({
 
       this.props.updateAdmin(function() {
         $('#verification-phone .collapsible-body').remove();
+
+        refreshToken(function() {
+          return;
+        });
+
         $('#preloader').hide();
         toast(i18n.t('admin:phone_verified_toast'));
       });
@@ -80,13 +87,16 @@ module.exports = React.createClass({
 
   },
   componentDidUpdate: function() {
+
     // Request SMS verification
     if (this.props.phoneNumber !== null && typeof this.props.phoneNumber !== 'undefined') {
       $('a#request-verification-sms').removeClass('disabled');
       $('#please-add-a-phone').hide();
+      $('a#verify-phone').off()
       $('a#verify-phone').click(function() {
         this.verifyPhone();
       }.bind(this))
+      $('a#request-verification-sms').off();
       $('a#request-verification-sms').click(function() {
         this.requestVerificationSMS()
       }.bind(this));
@@ -94,6 +104,7 @@ module.exports = React.createClass({
       $('a#request-verification-sms').addClass('disabled');
       $('#please-add-a-phone').show();
     }
+
   },
   componentWillUnmount: function() {
     $('#verifications a').each(function() {

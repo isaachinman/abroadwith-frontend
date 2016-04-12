@@ -116,7 +116,6 @@ module.exports = React.createClass({
               bounds.extend(place.geometry.location);
             }
 
-
             map.fitBounds(bounds);
             map.setZoom(16);
           }

@@ -10,7 +10,9 @@ var i18n = require('../global/util/i18n');
 $(document).ready(function() {
 
   if ($('#email-verified-successfully').length) {
-    refreshToken();
+    refreshToken(function() {
+      return;
+    });
   }
 
   if ($('a.create-new-message-thread').length) {

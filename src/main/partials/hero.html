@@ -3,7 +3,7 @@
     <h1>{{translations.common.main_hero_h1}}</h1>
     <h5>{{translations.common.main_hero_subtitle}}</h5>
   </div>
-  <div class='col s12'>
+  <div class='col s12 hide-on-small-and-down'>
     <a class='btn modal-trigger' data-target='how-does-it-work-modal'>{{translations.common.how_does_it_work}}</a>
   </div>
   <div class='col s12 input-strip'>
@@ -45,8 +45,11 @@
 </div>
 
 <div id="how-does-it-work-modal" class="modal bottom-sheet">
-  <div class="modal-content">
-    <h4>{{translations.common.how_does_it_work}}</h4>
+  <div class="modal-content no-padding">
+    <div class='row row--blue'>
+      <h4>{{translations.common.how_does_it_work}}</h4>
+    </div>
+
     <div class='row'>
 
       <div class='col s12 m4 l4'>

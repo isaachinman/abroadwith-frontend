@@ -153,11 +153,13 @@
   }
   &--fixed-height {
     .content {
+      overflow: scroll;
       height: 250px;
     }
   }
   &--fixed-height-tall {
     .content {
+      overflow: scroll;
       height: 350px;
     }
   }

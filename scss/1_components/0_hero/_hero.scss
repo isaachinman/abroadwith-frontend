@@ -12,6 +12,9 @@
   .input-strip {
     color: $americano;
     margin-top: 20vh;
+    @media #{$small-and-down} {
+      margin-top: 40px;
+    }
     padding: 25px 10px 5px 10px;
     background: rgba(50,50,50,.65);
     .language {

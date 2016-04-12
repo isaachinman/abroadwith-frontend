@@ -111,6 +111,13 @@ a.overlay {
 .relative {
   position: relative;
 }
+.btn {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  max-width: 100%;
+}
 .btn-primary {
   background: darken($sulu, 20%);
   color: white;

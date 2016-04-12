@@ -142,7 +142,7 @@ module.exports = React.createClass({
 
     this.setState(bookingObj, function() {
 
-      var currency = this.state.currency;
+      var currency = currencies[this.state.currency];
       // Refresh read-only display nodes
       $('.immersion-display').html(i18n.t('immersions:'+$('#booking-immersions').val()));
       $('.language-display').html(i18n.t('languages:'+this.state.languageHostWillTeach));
@@ -150,7 +150,7 @@ module.exports = React.createClass({
       if ($('input.booking-service:checked').length > 0) {
         var extrasDisplay = '';
         $('input.booking-service:checked').each(function() {
-          extrasDisplay += $(this).attr('data-value') + ' (' + currency + $(this).attr('data-price') + ')<br>';
+          extrasDisplay += i18n.t('homes:services.'+$(this).attr('data-value'))  + ' (' + currency + $(this).attr('data-price') + ')<br>';
         })
       } else {
         var extrasDisplay = i18n.t('common:none');
@@ -158,7 +158,7 @@ module.exports = React.createClass({
       $('.extras-display').html(extrasDisplay);
 
       if ($('#meal_plan option:selected').val() !== 'BREAKFAST_ONLY') {
-        $('.meal-display').html(i18n.t('homes:menus_offered.'+$('#meal_plan').val()) + ' (' + currencies[this.state.currency] + $('#meal_plan option:selected').attr('data-price') + ')');
+        $('.meal-display').html(i18n.t('homes:menus_offered.'+$('#meal_plan').val()) + ' (' + currency + $('#meal_plan option:selected').attr('data-price') + ')');
       } else {
         $('.meal-display').html(i18n.t('homes:menus_offered.'+$('#meal_plan').val()));
       }
@@ -173,6 +173,7 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/bookings/price';
     var data = {};
     var success = function(response) {
+
       $('.total-price').html(currencies[this.state.currency]+Math.ceil(response));
     }.bind(this);
     POST(url, bookingObj, success);

@@ -23,6 +23,14 @@
     font-size: 1.5rem;
     height: 4rem;
     line-height: 4rem;
+    &--has-subtitle {
+      padding: 9px 0 0 0;
+      line-height: 1.5rem;
+    }
+    .subtitle {
+      display: block;
+      font-size: .9rem;
+    }
   }
   .edit {
     height: 4rem;

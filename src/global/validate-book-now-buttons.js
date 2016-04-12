@@ -1,9 +1,11 @@
-var JWT = require('JWT');
 var i18n = require('i18n');
 
 if ($('a.btn-book').length) {
 
   $(function() {
+
+    JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+
     if (JWT === null) {
 
       // User is not logged in
@@ -26,25 +28,25 @@ if ($('a.btn-book').length) {
         // User cannot book
         $('a.btn-book').off();
         i18n.loadNamespaces(['common'],function(){
-          $('a.btn-book').not(':first').after('<div class="small"><a href="/admin#verifications">'+i18n.t('common:click_to_validate_account')+'</a></div>')
+          $('a.btn-book').after('<div class="small"><a href="/admin#verifications">'+i18n.t('common:click_to_validate_account')+'</a></div>')
         })
 
 
         if (JWT.cbk === 1) {
 
           // User is missing email verification
-          $('a.btn-book').attr('data-tooltip', 'Please verify your email to book');
+          $('a.btn-book').attr('data-tooltip', i18n.t('common:please_verify_email_to_book'));
 
 
         } else if (JWT.cbk === 2) {
 
           // User is missing phone verification
-          $('a.btn-book').attr('data-tooltip', 'Please verify your phone to book');
+          $('a.btn-book').attr('data-tooltip', i18n.t('common:please_verify_phone_to_book'));
 
         } else if (JWT.cbk === 3) {
 
           // User is missing both email and phone verification
-          $('a.btn-book').attr('data-tooltip', 'Please verify your phone and email to book');
+          $('a.btn-book').attr('data-tooltip', i18n.t('common:please_verify_email_and_phone_to_book'));
 
         }
       }

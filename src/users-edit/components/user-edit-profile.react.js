@@ -59,19 +59,20 @@ module.exports = React.createClass({
       $('#countries-visited').val(JSON.parse(response.countriesVisited)).trigger('change');
       $('#countries-lived').val(JSON.parse(response.countriesLived)).trigger('change');
 
+      // Select2
+      $("select#countries-visited").select2();
+      $("select#countries-lived").select2();
+      $('#interests').select2();
+
     };
     GET(url, success)
 
-    // Select2
-    $("select#countries-visited").select2();
-    $("select#countries-lived").select2({
-      allowClear: true
-    });
+
 
   },
   componentDidMount: function() {
 
-    $('a#view-public-profile').attr('href', '/users/' + JWT.rid)
+    $('a#view-public-profile').attr('href', '/users/' + JWT.rid);
     this.refreshState();
 
   },
