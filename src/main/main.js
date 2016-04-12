@@ -1,6 +1,11 @@
 var Wallop = require('wallop');
 var newMessageThread = require('new-message-thread');
-var refreshToken = require('refresh-token')
+var refreshToken = require('refresh-token');
+
+var validateBookNowButtons = require('validate-book-now-buttons');
+var validateMessageButtons = require('validate-message-buttons');
+validateBookNowButtons();
+validateMessageButtons();
 
 var pikaday = require('pikaday');
 
