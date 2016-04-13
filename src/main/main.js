@@ -2,6 +2,12 @@ var Wallop = require('wallop');
 var newMessageThread = require('new-message-thread');
 var refreshToken = require('refresh-token');
 
+
+var validateBookNowButtons = require('validate-book-now-buttons');
+var validateMessageButtons = require('validate-message-buttons');
+validateBookNowButtons();
+validateMessageButtons();
+
 var apiDate = require('api-date');
 var uiDate = require('ui-date');
 var pikaday = require('pikaday');
