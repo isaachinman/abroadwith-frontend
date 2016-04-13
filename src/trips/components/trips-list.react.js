@@ -13,8 +13,6 @@ module.exports = React.createClass({
 
     if (typeof this.props.trips !== 'undefined') {
 
-      console.log(this.props.trips)
-
       var trips = this.props.trips;
 
       if (trips.length > 0) {
