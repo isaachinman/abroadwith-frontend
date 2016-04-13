@@ -28,6 +28,8 @@ module.exports = React.createClass({
       delete adminObj.verifications;
       delete adminObj.email;
 
+      console.log(adminObj)
+
       var url = domains.API + '/users/' + JWT.rid;
       var success = function() {
         $('#preloader').hide();
@@ -43,6 +45,8 @@ module.exports = React.createClass({
 
     var url = domains.API + '/users/' + JWT.rid;
     var success = function(response) {
+
+      console.log(response);
 
       window.adminObj = response;
 
@@ -156,9 +160,11 @@ module.exports = React.createClass({
             newAddress[addressType] = val;
           }
         }
+        console.log(newAddress.locality);
+        console.log(newAddress.country);
         adminObj.address === null ? adminObj.address = {} : null;
-        newAddress.locality ? adminObj.address.city = newAddress.locality : null;
-        newAddress.country ? adminObj.address.country = newAddress.country : null;
+        newAddress.locality ? adminObj.address.city = newAddress.locality : adminObj.address.city = null;
+        newAddress.country ? adminObj.address.country = newAddress.country : adminObj.address.country = null;
       });
     });
   },
