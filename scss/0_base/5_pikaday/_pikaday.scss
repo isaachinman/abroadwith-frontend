@@ -180,8 +180,8 @@ input.arrival, input.departure, input.birthday {
 .is-outside-current-month .pika-button {
   pointer-events: none;
   cursor: default;
-  color: $grey-chateau;
-  opacity: 0.3;
+  color: black;
+  opacity: 0.5;
 }
 .pika-button:hover {
   color: #fff;

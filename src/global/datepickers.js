@@ -21,8 +21,9 @@ if ($('input.arrival').length && $('input.departure').length) {
 
     // Iterate over all departure pickers and set new start range and new min date
     for (var i = 0; i < departurePickers.length; i++) {
+      var minDate = new Date(startDate.getTime() + 1 * 24 * 60 * 60 * 1000)
       departurePickers[i].setStartRange(startDate);
-      departurePickers[i].setMinDate(startDate);
+      departurePickers[i].setMinDate(minDate);
     }
 
   }
