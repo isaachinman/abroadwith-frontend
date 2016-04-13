@@ -1,4 +1,5 @@
 var domains = require('domains');
+var login = require('login');
 
 if ($('a.reset-password').length) {
 
@@ -27,6 +28,11 @@ if ($('a.reset-password').length) {
           password: firstPassword
         }
 
+        var loginObj = {
+          email: $('form.reset-password input[type=email]').val(),
+          password: firstPassword
+        }
+
         $.ajax({
           type: "POST",
           url: domains.API + '/passwords/set',
@@ -34,7 +40,7 @@ if ($('a.reset-password').length) {
           data: JSON.stringify(passwordResetObj),
           success: function() {
 
-            window.location = '/'
+            login(loginObj);
 
           },
           error: function() {
