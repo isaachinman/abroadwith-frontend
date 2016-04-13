@@ -12,7 +12,7 @@ module.exports = React.createClass({
 
     var whoCancelled = reservation.status === 'CANCELLED_BY_HOST' ? i18n.t('trips:by_you') : i18n.t('trips:by_them');
 
-    var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : '';
+    var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : domains.IMG + '/homes/default_room.png';
 
     var invoices = [];
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null

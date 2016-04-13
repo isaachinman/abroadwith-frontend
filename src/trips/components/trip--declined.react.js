@@ -18,7 +18,7 @@ module.exports = React.createClass({
       whoDeclined = i18n.t('trips:automatically');
     }
 
-    var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : '';
+    var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : domains.IMG + '/homes/default_room.png';
     var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto : domains.IMG+'/users/default.jpg';
 
     var homeLink = '/homes/' + trip.homeId;

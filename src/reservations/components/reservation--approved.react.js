@@ -25,7 +25,7 @@ module.exports = React.createClass({
 
     var reservation = this.props.reservation;
 
-    var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : '';
+    var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : domains.IMG + '/homes/default_room.png';
     var guestPhoto = reservation.guestPhoto ? domains.IMG + reservation.guestPhoto : domains.IMG+'/users/default.jpg';
 
     var invoices = [];
