@@ -29,6 +29,9 @@ module.exports = React.createClass({
   handleClick: function() {},
   render: function() {
 
+    // Slider Id
+    var sliderId = 'slider' + this.props.markerId;
+
     // Room photo src
     var roomPhoto = this.props.roomPhoto !== undefined ? <img src={domains.IMG + this.props.roomPhoto}/> : null;
 
@@ -39,7 +42,7 @@ module.exports = React.createClass({
         var src = domains.IMG + src;
         var photo = <div className="Wallop-item"><img alt={this.props.host} src={src}/></div>
         homePhotos.push(photo);
-      })
+      }.bind(this))
     }
 
     // Host photo src

@@ -3,7 +3,7 @@ var IndividualResult = require('./search-individual-result.react');
 var Wallop = require('wallop');
 
 module.exports = React.createClass({
-  componentDidMount: function() {
+  componentDidUpdate: function() {
     if ($('.wallop').length) {
       $('.wallop').each(function() {
         if (!($(this).hasClass('init'))) {

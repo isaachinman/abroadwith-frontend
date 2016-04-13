@@ -80,7 +80,9 @@ module.exports = React.createClass({
     var maxLng = NE !== undefined ? url = url + '&maxLng=' + (NE.lng()) : null;
 
     $.post('/search'+url, function(data) {
+
       var response = JSON.parse(data);
+      console.log(response)
 
       var newState = {
         // Set new state vars
