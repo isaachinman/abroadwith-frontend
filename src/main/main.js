@@ -3,6 +3,7 @@ var newMessageThread = require('new-message-thread');
 var refreshToken = require('refresh-token');
 
 var apiDate = require('api-date');
+var uiDate = require('ui-date');
 var pikaday = require('pikaday');
 
 var i18n = require('../global/util/i18n');
@@ -102,11 +103,9 @@ $(document).ready(function() {
 
   var Pikaday = require('pikaday');
 
-  var uiDate = require('api-date');
+
 
   if ($('input.birthday').length) {
-
-
 
     // Users must be at least 18, so generate minimum date
     var eighteenYearsAgo = new Date();

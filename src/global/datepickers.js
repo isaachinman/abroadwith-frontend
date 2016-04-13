@@ -3,9 +3,6 @@ var uiDate = require('ui-date');
 
 if ($('input.arrival').length && $('input.departure').length) {
 
-  var apiDate = require('api-date');
-  console.log(apiDate('02-04-2016'))
-
   // Initial variables used throughout
   var startDate;
   var endDate;
