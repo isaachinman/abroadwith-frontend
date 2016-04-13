@@ -5,6 +5,10 @@
 #language-chips, #language-known-chips, #language-learning-chips {
   min-height: 50px;
 }
+#verifications-modal {
+  top: 0 !important;
+  bottom: 0 !important;
+}
 .modal {
   .divider {
     margin: 2rem 0;
