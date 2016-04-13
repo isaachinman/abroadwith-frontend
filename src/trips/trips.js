@@ -5,7 +5,7 @@ var TripsContainer = require('./components/trips-container.react');
 var i18n = require('../global/util/i18n');
 
 if ($('#trips-container').length) {
-  i18n.loadNamespaces(['trips', 'common', 'countries', 'immersions'],function(err,t){
+  i18n.loadNamespaces(['trips', 'common', 'countries', 'immersions', 'languages'],function(err,t){
     // Trips parent
     ReactDOM.render(
       <TripsContainer />, document.querySelector('#trips-container')
