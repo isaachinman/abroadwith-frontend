@@ -103,19 +103,41 @@ module.exports = React.createClass({
 
       console.log(response)
 
-      response.homeActivationResponse.code = "HOME_MISSING_DESCRIPTION";
+      response.homeActivationResponse.code = "HOME_MISSING_TYPE";
 
-      for (var step in homeStatusCodes) {
-        for (var code in homeStatusCodes[step]) {
-          if (homeStatusCodes[step][code] === response.homeActivationResponse.code) {
-            var activeStep = step;
+      if (response.homeActivationResponse.code === 'ACTIVATED') {
+
+        // Home is active
+
+        // All steps are clickable
+        $('.step').addClass('link');
+
+      } else {
+
+        // Home is not active
+
+        // Determine which step is active
+        for (var step in homeStatusCodes) {
+          for (var code in homeStatusCodes[step]) {
+            if (homeStatusCodes[step][code] === response.homeActivationResponse.code) {
+              var activeStep = step;
+            }
           }
         }
+
+        // Adjust steps to reflect active step
+        $('#'+activeStep).prevAll().addClass('completed');
+        $('#'+activeStep).addClass('active');
+        $('#'+activeStep).nextAll().addClass('disabled');
+
+        // Show current tab
+        $('#'+activeStep+'-tab').show();
+
       }
 
-      $('#'+activeStep).prevAll().addClass('completed');
-      $('#'+activeStep).addClass('active');
-      $('#'+activeStep).nextAll().addClass('disabled');
+
+
+
 
 
       console.log(activeStep)
