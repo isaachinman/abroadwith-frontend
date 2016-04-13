@@ -14,7 +14,7 @@
 </script>
 
 <div class='row margin-top-50'>
-  <div class='col s12 m8 offset-m2 l6 offset-l3'>
+  <div class='col s12 m8 offset-m2 l4 offset-l4'>
     <ul class="collapsible no-shadow" data-collapsible="accordion">
       <li>
         <div class="collapsible-header active email-header hide-on-small-and-down">Log in with email</div>
@@ -31,6 +31,7 @@
 
               <div class="input-field col s12 m10 offset-m1 l10 offset-l1">
                 <input name='password' type="password" maxlength='30' class="login-password validate no-margin">
+                <a class='right small light' href='/reset-password'>{{translations.common.forgot_password}}</a>
                 <label for="password">{{translations.common.Password}}</label>
                 <input type='submit' class='hide'>
               </div>
