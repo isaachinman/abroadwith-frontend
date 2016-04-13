@@ -7,6 +7,8 @@ var RoomsTab =            require('./rooms-tab.react');
 var PhotosTab =           require('./photos-tab.react');
 var PricingTab =          require('./pricing-tab.react');
 
+var homeStatusCodes =     require('home-status-codes');
+
 var toast = require('toast');
 
 var domains = require('domains');
@@ -98,6 +100,26 @@ module.exports = React.createClass({
 
       // Update status bar
       var publishedBar = $('#published-status');
+
+      console.log(response)
+
+      response.homeActivationResponse.code = "HOME_MISSING_DESCRIPTION";
+
+      for (var step in homeStatusCodes) {
+        for (var code in homeStatusCodes[step]) {
+          if (homeStatusCodes[step][code] === response.homeActivationResponse.code) {
+            var activeStep = step;
+          }
+        }
+      }
+
+      $('#'+activeStep).prevAll().addClass('completed');
+      $('#'+activeStep).addClass('active');
+      $('#'+activeStep).nextAll().addClass('disabled');
+
+
+      console.log(activeStep)
+
       if (response.homeActivationResponse.activated === false) {
 
         // If home is active, swap classes and text of publishedBar

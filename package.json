@@ -69,6 +69,7 @@
     "randomise-coordinate": "./src/global/randomise-coordinate",
     "send-payment-nonce": "./src/global/send-payment-nonce",
     "toast": "./src/global/toast",
+    "home-status-codes": "./src/global/constants/HomeStatusCodes.json",
     "currencies": "./src/global/constants/Currencies.json",
     "default-bank-currencies": "./src/global/constants/DefaultBankCurrencies",
     "default-paypal-currencies": "./src/global/constants/DefaultPaypalCurrencies",
