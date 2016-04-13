@@ -1,6 +1,8 @@
 var domains = require('domains');
 var JWT = require('JWT');
 
+var apiDate = require('api-date');
+
 var i18n = require('i18n');
 var toast = require('toast');
 
@@ -18,7 +20,7 @@ if ($('.go-to-booking').length) {
   // Click function for book buttons
   $('.go-to-booking').click(function() {
 
-    var bookingUrl = '/homes/' + $(this).attr('data-hid') + '/booking?arrival=' + $('#arrival').val() + '&departure=' + $('#departure').val() + '&room_id=' + $(this).attr('data-rid');
+    var bookingUrl = '/homes/' + $(this).attr('data-hid') + '/booking?arrival=' + apiDate($('#arrival').val()) + '&departure=' + apiDate($('#departure').val()) + '&room_id=' + $(this).attr('data-rid');
 
     if ($('#arrival').val() !== '' && $('#departure').val() !== '') {
 
@@ -28,8 +30,8 @@ if ($('.go-to-booking').length) {
       var bookingObj = {
         // Conditionally set up state per category
         stayId:                     parseInt($(this).attr('data-stay-id')),
-        arrivalDate:                $('#arrival').val(),
-        departureDate:              $('#departure').val(),
+        arrivalDate:                apiDate($('#arrival').val()),
+        departureDate:              apiDate($('#departure').val()),
         roomId:                     parseInt($(this).attr('data-rid')),
         guestCount:                 1,
         languageHostWillTeach:      $('.chip--speaks').first().attr('data-lang'),

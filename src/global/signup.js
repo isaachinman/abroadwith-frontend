@@ -3,7 +3,8 @@ var login = require('./login');
 var domains = require('domains');
 var application = require('application-settings');
 
-var formatDate = require('format-date')
+var apiDate = require('api-date');
+var uiDate = require('ui-date');
 
 // Language-learn select
 $('select#learning-language').length ? $('select#learning-language').select2() : null;
@@ -26,7 +27,7 @@ if ($('form#email-signup-form').length) {
   // Users must be at least 18, so generate minimum date
   var eighteenYearsAgo = new Date();
   eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18);
-  eighteenYearsAgo = formatDate(eighteenYearsAgo);
+  eighteenYearsAgo = apiDate(eighteenYearsAgo);
 
   //  Initialise and setup Facebook js sdk
   window.fbAsyncInit = function() {
@@ -251,7 +252,7 @@ if ($('form#email-signup-form').length) {
 
       // Get birthday
       if ($('input#birthday').val() != '') {
-        newUser['birthDate'] = $('input#birthday').val();
+        newUser['birthDate'] = apiDate($('input#birthday').val());
       } else {
         formNotValid();
       }

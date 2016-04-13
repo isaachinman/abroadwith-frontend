@@ -1,6 +1,9 @@
 var React = require('react');
 var toast = require('toast');
 
+var apiDate = require('api-date');
+var uiDate = require('ui-date');
+
 var i18n = require('../../global/util/i18n');
 
 var refreshToken = require('refresh-token');
@@ -11,7 +14,7 @@ module.exports = React.createClass({
     adminObj.firstName = $('#firstName').val();
     adminObj.lastName = $('#lastName').val();
     adminObj.gender = $('#gender').val();
-    adminObj.birthDate = $('#birthDate').val();
+    adminObj.birthDate = apiDate($('#birthDate').val());
     adminObj.location = $('#user-address').val();
     adminObj.phoneNumber = $('#phoneNumber').intlTelInput('isValidNumber') ? $('#phoneNumber').val() : null;
     adminObj.emergencyContact ? null : adminObj.emergencyContact = {};
@@ -66,7 +69,7 @@ module.exports = React.createClass({
     $('#firstName').val(this.props.firstName);
     $('#lastName').val(this.props.lastName);
     $('#gender').val(this.props.gender);
-    $('#birthDate').val(this.props.birthDate);
+    $('#birthDate').val(uiDate(this.props.birthDate));
     $('#user-address').val(this.props.location);
     $('#phoneNumber').val(this.props.phoneNumber);
     $('#user-email').html(this.props.email);

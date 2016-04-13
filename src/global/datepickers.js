@@ -1,10 +1,7 @@
 var Pikaday = require('pikaday');
-var UiDate = require('ui-date');
-
-var formatDate = require('format-date');
+var uiDate = require('ui-date');
 
 if ($('input.arrival').length && $('input.departure').length) {
-
 
   // Initial variables used throughout
   var startDate;
@@ -19,7 +16,7 @@ if ($('input.arrival').length && $('input.departure').length) {
     for (var i = 0; i < arrivalPickers.length; i++) {
       arrivalPickers[i].setStartRange(startDate);
       arrivalPickers[i].setDate(null);
-      $('input.arrival').val(formatDate(startDate));
+      $('input.arrival').val(uiDate(startDate));
     }
 
     // Iterate over all departure pickers and set new start range and new min date
@@ -43,7 +40,7 @@ if ($('input.arrival').length && $('input.departure').length) {
     for (var i = 0; i < departurePickers.length; i++) {
       departurePickers[i].setEndRange(endDate);
       departurePickers[i].setDate(null);
-      $('input.departure').val(formatDate(endDate));
+      $('input.departure').val(uiDate(endDate));
     }
   }
 

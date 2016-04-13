@@ -1,4 +1,5 @@
 var domains = require('domains');
+var apiDate = require('api-date');
 
 var toast = require('toast');
 
@@ -15,8 +16,8 @@ module.exports = function() {
 
     var threadObj = {
       homeId: $('h1').attr('data-home-id'),
-      arrival: $('#message-arrival').val(),
-      departure: $('#message-departure').val(),
+      arrival: apiDate($('#message-arrival').val()),
+      departure: apiDate($('#message-departure').val()),
       message: $('#message-content').val()
     }
 
