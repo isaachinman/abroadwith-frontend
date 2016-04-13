@@ -11,28 +11,21 @@ module.exports = React.createClass({
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
-    var verificationsNeeded = [];
+    var verificationNeeded = [];
 
     if (JWT.cbk === 1) {
-      verificationsNeeded.push(
+      verificationNeeded.push(
         <EmailVerifier />
       )
-    } else if (JWT.cbk === 2) {
-      verificationsNeeded.push(
-        <PhoneVerifier />
-      )
-    } else if (JWT.cbk === 3) {
-      verificationsNeeded.push(
-        <EmailVerifier />
-      )
-      verificationsNeeded.push(
+    } else if (JWT.cbk === 2 || JWT.cbk === 3) {
+      verificationNeeded.push(
         <PhoneVerifier />
       )
     }
 
     return (
       <div className='row'>
-        {verificationsNeeded}
+        {verificationNeeded}
       </div>
     );
   }

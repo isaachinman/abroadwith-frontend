@@ -1,9 +1,14 @@
-module.exports = function() {
+var jwt_decode = require('jwt-decode');
+var verificationsModuleInit = require('verifications-module-init');
 
-  var jwt_decode = require('jwt-decode');
+module.exports = function() {
 
   // Get JWT
   var JWT = localStorage.getItem('JWT') ? jwt_decode(localStorage.getItem('JWT')) : null;
+
+  if (JWT.cbk > 0) {
+    verificationsModuleInit();
+  }
 
   // Print username into navbar
   $('span#navbar-username').html(JWT.name)

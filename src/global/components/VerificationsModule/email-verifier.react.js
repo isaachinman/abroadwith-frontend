@@ -6,7 +6,11 @@ module.exports = React.createClass({
 
     return (
       <div className='col s12'>
-        Email verifier
+
+        Email verification
+
+        <a id='request-verification-email' class='btn btn-secondary btn-flat'>Resend confimation email</a>
+
       </div>
     );
   }
