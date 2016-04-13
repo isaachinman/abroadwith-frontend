@@ -7,7 +7,7 @@ var i18n = require('i18n');
 
 module.exports = function() {
   if ($('.verifications-module').length) {
-    i18n.loadNamespaces(['common'],function(){
+    i18n.loadNamespaces(['common', 'countries'],function(){
 
       $('.verifications-module').each(function() {
 

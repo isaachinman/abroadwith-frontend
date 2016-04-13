@@ -158,6 +158,10 @@ a.overlay {
     background: darken($sunset-orange, 5%);
   }
 }
+.green {
+  background: darken($sulu, 30%);
+  color: white;
+}
 .red-text {
   color: $sunset-orange;
 }
