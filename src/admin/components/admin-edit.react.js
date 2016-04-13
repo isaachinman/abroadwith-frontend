@@ -160,8 +160,6 @@ module.exports = React.createClass({
             newAddress[addressType] = val;
           }
         }
-        console.log(newAddress.locality);
-        console.log(newAddress.country);
         adminObj.address === null ? adminObj.address = {} : null;
         newAddress.locality ? adminObj.address.city = newAddress.locality : adminObj.address.city = null;
         newAddress.country ? adminObj.address.country = newAddress.country : adminObj.address.country = null;
