@@ -10,6 +10,51 @@ var POST = require('POST');
 var toast = require('toast');
 
 module.exports = React.createClass({
+  addRoomToList: function(newRoom) {
+
+    var refreshState = this.props.refreshState;
+
+    var newRooms = this.props.props.rooms;
+    newRooms.push(newRoom)
+
+    var RoomsContainer = React.createClass({
+      render: function() {
+        var allRooms = []
+        var inputstyle = {cursor: 'pointer',position: 'absolute',opacity: 0,top: 0,left: 0,width: '100%',height: '100%'};
+        newRooms.forEach(function(obj) {
+          allRooms.push(
+            <RoomModule
+              id={obj.id}
+              key={obj.id}
+              roomName={obj.name}
+              bed={obj.bed}
+              vacancies={obj.vacancies}
+              facilities={obj.facilities}
+              shared={obj.shared}
+              img={obj.img}
+              description={obj.description}
+              price={obj.price}
+              inputstyle={inputstyle}
+              refreshState={refreshState}
+            />
+          )
+        })
+        return (
+          <ul className="collapsible rooms-collapsible existing-rooms" data-collapsible="accordion">
+            {allRooms}
+          </ul>
+        )
+      }.bind(this)
+    })
+
+    ReactDOM.render(
+      <RoomsContainer
+      />, document.querySelector('#existing-rooms')
+    )
+
+    $('ul.existing-rooms').collapsible();
+
+  },
   addRoom: function() {
 
     var newRoom = {
@@ -25,6 +70,8 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms';
     var success = function(response) {
+
+      newRoom.id = response.roomId;
 
       $('#add-room-form .collapsible-header').trigger('click');
 
@@ -44,7 +91,7 @@ module.exports = React.createClass({
           processData : false,
           beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
           success : function(data, textStatus, jqXHR) {
-                thisprops.refreshState();
+                // thisprops.refreshState();
                 $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
                 $('#add-room-form input, select, textarea').val(null);
                 $('#preloader').hide();
@@ -52,14 +99,15 @@ module.exports = React.createClass({
           error: function(jqXHR) {
             var message = jqXHR.responseText;
             alert('Image upload failed: '+ message);
-            thisprops.refreshState();
+            // thisprops.refreshState();
             $('#add-room-form .collapsible-header').trigger('click');
             $('#add-room-form input, select, textarea').val(null);
             $('#preloader').hide();
           }
         });
       } else {
-        thisprops.refreshState();
+        // thisprops.refreshState();
+        this.addRoomToList(newRoom);
         $('#preloader').hide();
       }
 
@@ -82,7 +130,7 @@ module.exports = React.createClass({
       room.id = $(this).attr('data-id');
       room.name = $(this).find('.room-name').val();
       room.bed = $(this).find('select.bed-type').val();
-      room.vacancies = $(this).find('select.vacancies').val();
+      room.vacancies = parseInt($(this).find('select.vacancies').val());
       room.facilities = $(this).find('select.facilities').val();
       room.shared = $(this).find('input.shared-switch').prop('checked');
       room.img = $(this).find("#photo_room_"+room.id).val();
@@ -106,59 +154,6 @@ module.exports = React.createClass({
   componentDidUpdate: function() {
 
     var refreshState = this.props.refreshState;
-
-    if (this.props.props.rooms.length > 0) {
-
-      var rooms = (this.props.props.rooms).sort(function(a,b){return -(a.id-b.id)});
-
-      var RoomsContainer = React.createClass({
-        render: function() {
-          var allRooms = []
-          var inputstyle = {cursor: 'pointer',position: 'absolute',opacity: 0,top: 0,left: 0,width: '100%',height: '100%'};
-          rooms.forEach(function(obj) {
-            allRooms.push(
-              <RoomModule
-                id={obj.id}
-                key={obj.id}
-                roomName={obj.name}
-                bed={obj.bed}
-                vacancies={obj.vacancies}
-                facilities={obj.facilities}
-                shared={obj.shared}
-                img={obj.img}
-                description={obj.description}
-                price={obj.price}
-                inputstyle={inputstyle}
-                refreshState={refreshState}
-              />
-            )
-          })
-          return (
-            <ul className="collapsible rooms-collapsible existing-rooms" data-collapsible="accordion">
-              {allRooms}
-            </ul>
-          )
-        }
-      })
-
-    } else {
-
-      var RoomsContainer = React.createClass({
-        render: function() {
-          return (
-            <ul className="collapsible rooms-collapsible" data-collapsible="accordion">
-              <li className='white'><div id='name' className="collapsible-header grey-text">{i18n.t('manage_home:rooms_list_placeholder')}</div><div className="edit grey-text text-lighten-1"></div></li>
-            </ul>
-          )
-        }
-      })
-
-    }
-
-    ReactDOM.render(
-      <RoomsContainer
-      />, document.querySelector('#existing-rooms')
-    )
 
     $('ul.existing-rooms').collapsible();
 
@@ -207,6 +202,63 @@ module.exports = React.createClass({
 
   },
   render: function() {
+
+    console.log(this.props.props.rooms)
+
+    var refreshState = this.props.refreshState;
+
+    if (this.props.props.rooms && this.props.props.rooms.length > 0) {
+
+      var rooms = (this.props.props.rooms).sort(function(a,b){return -(a.id-b.id)});
+
+      var RoomsContainer = React.createClass({
+        render: function() {
+          var allRooms = []
+          var inputstyle = {cursor: 'pointer',position: 'absolute',opacity: 0,top: 0,left: 0,width: '100%',height: '100%'};
+          rooms.forEach(function(obj) {
+            allRooms.push(
+              <RoomModule
+                id={obj.id}
+                key={obj.id}
+                roomName={obj.name}
+                bed={obj.bed}
+                vacancies={obj.vacancies}
+                facilities={obj.facilities}
+                shared={obj.shared}
+                img={obj.img}
+                description={obj.description}
+                price={obj.price}
+                inputstyle={inputstyle}
+                refreshState={refreshState}
+              />
+            )
+          })
+          return (
+            <ul className="collapsible rooms-collapsible existing-rooms" data-collapsible="accordion">
+              {allRooms}
+            </ul>
+          )
+        }.bind(this)
+      })
+
+    } else {
+
+      var RoomsContainer = React.createClass({
+        render: function() {
+          return (
+            <ul className="collapsible rooms-collapsible" data-collapsible="accordion">
+              <li className='white'><div id='name' className="collapsible-header grey-text">{i18n.t('manage_home:rooms_list_placeholder')}</div><div className="edit grey-text text-lighten-1"></div></li>
+            </ul>
+          )
+        }
+      })
+
+    }
+
+    ReactDOM.render(
+      <RoomsContainer
+      />, document.querySelector('#existing-rooms')
+    )
 
     return (
         <div></div>

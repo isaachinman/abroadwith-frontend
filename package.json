@@ -81,7 +81,8 @@
     "api-date": "./src/utils/api-date",
     "ui-date": "./src/utils/ui-date",
     "validate-book-now-buttons": "./src/global/validate-book-now-buttons",
-    "validate-message-buttons": "./src/global/validate-message-buttons"
+    "validate-message-buttons": "./src/global/validate-message-buttons",
+    "is-on-screen": "./src/utils/is-on-screen"
   },
   "browserify-shim": {
     "jquery": "$",

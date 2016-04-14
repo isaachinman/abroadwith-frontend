@@ -10,6 +10,7 @@ var PricingTab =          require('./pricing-tab.react');
 var homeStatusCodes =     require('home-status-codes');
 
 var toast = require('toast');
+var isOnScreen = require('is-on-screen');
 
 var domains = require('domains');
 var JWT = require('JWT');
@@ -38,6 +39,14 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
+
+    $('.step').click(function() {
+      $('.step.active').removeClass('active');
+      $(this).addClass('active');
+      var target = $(this).attr('id');
+      $('.tab').hide();
+      $('#'+target+'-tab').show();
+    })
 
     // Home photos
     var photos = $('.home-photo');
@@ -98,16 +107,25 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
 
-      // Update status bar
-      var publishedBar = $('#published-status');
-
       console.log(response)
 
-      response.homeActivationResponse.code = "HOME_MISSING_TYPE";
+      response.homeActivationResponse.code = 'NO_ROOMS';
 
       if (response.homeActivationResponse.code === 'ACTIVATED') {
 
         // Home is active
+        $('#success').addClass('active');
+
+        // Show success tab
+        $('.tab').hide();
+        $('#success-tab').show();
+
+        // If active step is not visible, scroll to it
+        if ($('#success').isOnScreen() === false) {
+          $('.ui.steps').animate({
+            scrollLeft: $('#success').position().left
+          })
+        }
 
         // All steps are clickable
         $('.step').addClass('link');
@@ -125,46 +143,28 @@ module.exports = React.createClass({
           }
         }
 
+        // Reset step classes
+        $('.ui.steps .step').attr('class', 'step');
+
         // Adjust steps to reflect active step
         $('#'+activeStep).prevAll().addClass('completed');
         $('#'+activeStep).addClass('active');
         $('#'+activeStep).nextAll().addClass('disabled');
 
+        // If active step is not visible, scroll to it
+        if ($('#'+activeStep).isOnScreen() === false) {
+          $('.ui.steps').animate({
+            scrollLeft: $('#'+activeStep).position().left
+          })
+        }
+
         // Show current tab
+        $('.tab').hide();
         $('#'+activeStep+'-tab').show();
 
       }
 
-
-
-
-
-
       console.log(activeStep)
-
-      if (response.homeActivationResponse.activated === false) {
-
-        // If home is active, swap classes and text of publishedBar
-        publishedBar.addClass('manage-home-info-text--unpublished');
-        publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + i18n.t('homes:published_codes.'+response.homeActivationResponse.code) + ')');
-
-      } else if (response.homeActivationResponse.activated === true) {
-
-        // If home is inactive, swap classes and text of publishedBar
-        publishedBar.addClass('manage-home-info-text--published');
-        publishedBar.html('<span class="hide-on-med-and-down">' + i18n.t('homes:published_codes.'+response.homeActivationResponse.code) + '</span>' + ' (' + '<a id="unpublish-home">'+i18n.t('manage_home:click_to_unpublish')+'</a>' + ')' + '<a href="/homes/' + JWT.hid + '" class="btn btn-flat btn-secondary hide-on-small-and-down">'+i18n.t('manage_home:view_your_home')+'</a>');
-
-        // If home is active, create an unpublish function
-        $('a#unpublish-home').click(function() {
-          homeObj.immersions.stay.isActive = false;
-          homeObj.immersions.tandem.isActive = false;
-          homeObj.immersions.teacher.isActive = false;
-          this.updateHome(function() {
-            toast(i18n.t('manage_home:home_deactivated_toast'))
-          });
-        }.bind(this))
-
-      }
 
       var newState = {
 

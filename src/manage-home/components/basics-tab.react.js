@@ -28,7 +28,11 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
-    $('a#save-basics').click(this.saveBasics);
+
+    $('form#home-basics-form').submit(function(e){
+      e.preventDefault();
+      this.saveBasics();
+    }.bind(this))
 
     $('a#delete-home').click(function() {
 

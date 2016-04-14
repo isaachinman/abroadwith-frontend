@@ -6,214 +6,243 @@
       <h4>{{ translations.manage_home.immersions_tabname }}</h4>
     </div>
 
-    <ul class="collapsible immersions-collapsible" data-collapsible="accordion">
-      <li>
-        <div class="collapsible-header">
-          {{ translations.immersions.Stay }}
+    <div class='row'>
+
+      <div class='col s12 m6 l4'>
+        <div class="card">
+          <div class="card-image">
+            <img alt='Stay immersion' src="https://img.abroadwith.com/app/immersions/stay.jpg">
+          </div>
+          <div class="card-content">
+            <i class="fa fa-caret-up fa-3x"></i>
+            <h5 class="no-margin">{{translations.common.Stay}}</h5>
+            <a href="#"></a>
+            <div class='row margin-top-20 left-align grey-text text-darken-1'>
+              <p>
+                {{translations.manage_home.stay_description}}
+              </p>
+            </div>
+            <div class='action-row row no-margin-bottom'>
+              <a class='btn btn-secondary btn-flat right activator'>Enable</a>
+            </div>
+          </div>
+          <div class="card-reveal stay">
+            <span class="card-title grey-text text-darken-4"><h4>{{translations.common.Stay}}</h4><i class='disable'>Disable</i></span>
+
+            <div class='divider margin-bottom-50'></div>
+
+            <div class='row'>
+
+              <div class='col s2 input-field center-align grey-text text-lighten-1'>
+                <i class="fa fa-clock-o fa-2x"></i>
+              </div>
+              <div class='col s10 input-field'>
+                <select id='stay-hours' class='material'>
+                  <option value="" disabled selected>{{ translations.immersions.hours_per_week_placeholder }}</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="14">15</option>
+                  <option value="14">16</option>
+                  <option value="14">17</option>
+                  <option value="14">18</option>
+                  <option value="14">19</option>
+                  <option value="14">20</option>
+                  <option value="14">21</option>
+                </select>
+                <label>{{ translations.immersions.hours_per_week_label }}</label>
+              </div>
+
+            </div>
+
+            <div class='row'>
+              <div class='col s2 input-field center-align grey-text text-lighten-1'>
+                <i class="fa fa-language fa-2x"></i>
+              </div>
+              <div class='col s10 input-field'>
+                <select id='stay-languages-offered' class='material' multiple></select>
+                <label>{{ translations.immersions.languages_offered_label }}</label>
+              </div>
+            </div>
+
+
+          </div>
         </div>
-        <div class="switch switch-absolute">
-          <label>
-            {{ translations.common.words.No }}
-            <input id='stay-switch' type="checkbox" class='immersion-switch' />
-            <span class="lever"></span>
-            {{ translations.common.words.Yes }}
-          </label>
-        </div>
-        <div class="collapsible-body white">
+      </div>
 
-          <div class='row section'>
+      <div class='col s12 m6 l4'>
+        <div class="card">
+          <div class="card-image">
+            <img alt='Tandem immersion' src="https://img.abroadwith.com/app/immersions/tandem.jpg">
+          </div>
+          <div class="card-content">
+            <i class="fa fa-caret-up fa-3x"></i>
+            <h5 class="no-margin">{{translations.common.Tandem}}</h5>
+            <a href="#"></a>
+            <div class='row margin-top-20 grey-text text-darken-1 left-align'>
+              <p>
+                {{translations.manage_home.tandem_description}}
+              </p>
+            </div>
+            <div class='action-row row no-margin-bottom'>
+              <a class='btn btn-secondary btn-flat right activator'>Enable</a>
+            </div>
+          </div>
+          <div class="card-reveal tandem">
+            <span class="card-title grey-text text-darken-4"><h4>{{translations.common.Tandem}}</h4><i class='disable'>Disable</i></span>
 
-            <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-              <i class="fa fa-clock-o fa-2x"></i>
-            </div>
-            <div class='col s10 m4 l4 input-field tooltipped' data-position="top" data-delay="500" data-tooltip="{{translations.manage_home.stay_hours_tooltip}}">
-              <select id='stay-hours' class='material'>
-                <option value="" disabled selected>{{ translations.immersions.hours_per_week_placeholder }}</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="14">15</option>
-                <option value="14">16</option>
-                <option value="14">17</option>
-                <option value="14">18</option>
-                <option value="14">19</option>
-                <option value="14">20</option>
-                <option value="14">21</option>
-              </select>
-              <label>{{ translations.immersions.hours_per_week_label }}</label>
+            <div class='divider margin-bottom-50'></div>
+
+            <div class='row'>
+              <div class='col s2 input-field center-align grey-text text-lighten-1'>
+                <i class="fa fa-clock-o fa-2x"></i>
+              </div>
+              <div class='col s10 input-field'>
+                <select id='tandem-hours' class='material'>
+                  <option value="" disabled selected>{{ translations.immersions.hours_per_week_label }}</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="14">15</option>
+                  <option value="14">16</option>
+                  <option value="14">17</option>
+                  <option value="14">18</option>
+                  <option value="14">19</option>
+                  <option value="14">20</option>
+                  <option value="14">21</option>
+                </select>
+                <label>{{ translations.immersions.hours_per_week_label }}</label>
+              </div>
+
             </div>
 
-            <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-              <i class="fa fa-language fa-2x"></i>
+            <div class='row'>
+              <div class='col s2 input-field center-align grey-text text-lighten-1'>
+                <i class="fa fa-language fa-2x"></i>
+              </div>
+              <div class='col s10 input-field'>
+                <select id='tandem-languages-offered' class='material' multiple>
+                  <option value="" disabled>{{ translations.immersions.languages_offered_placeholder }}</option>
+                </select>
+                <label>{{ translations.immersions.languages_offered_label }}</label>
+              </div>
             </div>
-            <div class='col s10 m6 l6 input-field'>
-              <select id='stay-languages-offered' class='material' multiple></select>
-              <label>{{ translations.immersions.languages_offered_label }}</label>
+
+            <div class='row'>
+
+              <div class='col s2 input-field center-align grey-text text-lighten-1'>
+                <i class="fa fa-eye fa-2x"></i>
+              </div>
+              <div class='col s10 input-field'>
+                <select id="tandem-language-sought" class="validate no-margin material" multiple>
+                  <option>{{ translations.immersions.languages_interested_placeholder }}</option>
+                </select>
+                <label>{{ translations.immersions.languages_interested_label }}</label>
+              </div>
+
             </div>
 
           </div>
-
         </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          {{ translations.immersions.Tandem }}
-        </div>
-        <div class="switch switch-absolute">
-          <label>
-            {{ translations.common.words.No }}
-            <input id='tandem-switch' type="checkbox" class='immersion-switch' />
-            <span class="lever"></span>
-            {{ translations.common.words.Yes }}
-          </label>
-        </div>
-        <div class="collapsible-body white">
+      </div>
 
-          <div class='row section'>
-            <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-              <i class="fa fa-clock-o fa-2x"></i>
-            </div>
-            <div class='col s10 m4 l4 input-field tooltipped' data-position="top" data-delay="500" data-tooltip="{{translations.manage_home.tandem_hours_tooltip}}">
-              <select id='tandem-hours' class='material'>
-                <option value="" disabled selected>{{ translations.immersions.hours_per_week_label }}</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="14">15</option>
-                <option value="14">16</option>
-                <option value="14">17</option>
-                <option value="14">18</option>
-                <option value="14">19</option>
-                <option value="14">20</option>
-                <option value="14">21</option>
-              </select>
-              <label>{{ translations.immersions.hours_per_week_label }}</label>
-            </div>
-
-            <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-              <i class="fa fa-language fa-2x"></i>
-            </div>
-            <div class='col s10 m6 l6 input-field'>
-              <select id='tandem-languages-offered' class='material' multiple>
-                <option value="" disabled>{{ translations.immersions.languages_offered_placeholder }}</option>
-              </select>
-              <label>{{ translations.immersions.languages_offered_label }}</label>
-            </div>
-
+      <div class='col s12 m6 l4'>
+        <div class="card">
+          <div class="card-image">
+            <img alt='Teacher immersion' src="https://img.abroadwith.com/app/immersions/teacher.jpg">
           </div>
-
-          <div class='divider'></div>
-
-          <div class='row section'>
-
-            <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-              <i class="fa fa-eye fa-2x"></i>
+          <div class="card-content">
+            <i class="fa fa-caret-up fa-3x"></i>
+            <h5 class="no-margin">{{translations.common.Teachers_stay}}</h5>
+            <a href="#"></a>
+            <div class='row margin-top-20 left-align grey-text text-darken-1'>
+              <p>
+                {{translations.manage_home.teacher_description}}
+              </p>
             </div>
-            <div class='col s10 m4 l4 input-field'>
-              <select id="tandem-language-sought" class="validate no-margin">
-                <option>{{ translations.immersions.languages_interested_placeholder }}</option>
-              </select>
-              <label class='active'>{{ translations.immersions.languages_interested_label }}</label>
+            <div class='action-row row no-margin-bottom'>
+              <a class='btn btn-secondary btn-flat right activator'>Enable</a>
             </div>
-
-            <div class='col s2 m1 l1 input-field'>
-              <a id='add-tandem-language' class='btn-floating btn-secondary'>+</a>
-            </div>
-            <div class='col s2 m6 l6 input-field left-align'>
-
-              <div id='tandem-language-interested-chips'></div>
-
-            </div>
-
           </div>
+          <div class="card-reveal teacher">
+            <span class="card-title grey-text text-darken-4"><h4>{{translations.common.Teachers_stay}}</h4><i class='disable'>Disable</i></span>
 
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          {{ translations.immersions.Teachers_stay }}
-        </div>
-        <div class="switch switch-absolute">
-          <label>
-            {{ translations.common.words.No }}
-            <input id='teacher-switch' type="checkbox" class='immersion-switch' />
-            <span class="lever"></span>
-            {{ translations.common.words.Yes }}
-          </label>
-        </div>
-        <div class="collapsible-body white">
+            <div class='divider margin-bottom-50'></div>
 
-          <div class='row section'>
+            <div class='row'>
 
-            <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-              <i class="fa fa-clock-o fa-2x"></i>
-            </div>
-            <div class='col s10 m4 l4 input-field tooltipped' data-position="top" data-delay="500" data-tooltip="{{translations.manage_home.teacher_packages_tooltip}}">
-              <select id='packages' class='material' multiple>
-                <option value="" disabled>{{ translations.immersions.packages_offered_placeholder }}</option>
-                <option value="5">5 {{ translations.immersions.hours_per_week_short }}</option>
-                <option value="10">10 {{ translations.immersions.hours_per_week_short }}</option>
-                <option value="15">15 {{ translations.immersions.hours_per_week_short }}</option>
-              </select>
-              <label>{{ translations.immersions.packages_offered_label }}</label>
+              <div class='col s2 input-field center-align grey-text text-lighten-1'>
+                <i class="fa fa-clock-o fa-2x"></i>
+              </div>
+              <div class='col s10 input-field'>
+                <select id='packages' class='material' multiple>
+                  <option value="" disabled>{{ translations.immersions.packages_offered_placeholder }}</option>
+                  <option value="5">5 {{ translations.immersions.hours_per_week_short }}</option>
+                  <option value="10">10 {{ translations.immersions.hours_per_week_short }}</option>
+                  <option value="15">15 {{ translations.immersions.hours_per_week_short }}</option>
+                </select>
+                <label>{{ translations.immersions.packages_offered_label }}</label>
+              </div>
+
             </div>
 
-            <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-              <i class="fa fa-money fa-2x"></i>
-            </div>
-            <div class='col s10 m2 l2 input-field'>
-              <input id='teacher-rate' type="text" class="validate no-margin" placeholder='€15' />
-              <label class='active'>{{ translations.immersions.hourly_rate_label }}</label>
-            </div>
-
-            <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-              <i class="fa fa-language fa-2x"></i>
-            </div>
-            <div class='col s10 m3 l3 input-field'>
-              <select id='teacher-languages-offered' class='material' multiple>
-                <option value="" disabled>{{ translations.immersions.languages_offered_placeholder }}</option>
-              </select>
-              <label>{{ translations.immersions.languages_offered_label }}</label>
+            <div class='row'>
+              <div class='col s2 input-field center-align grey-text text-lighten-1'>
+                <i class="fa fa-money fa-2x"></i>
+              </div>
+              <div class='col s10 input-field'>
+                <input id='teacher-rate' type="text" class="validate no-margin" placeholder='€15' />
+                <label class='active'>{{ translations.immersions.hourly_rate_label }}</label>
+              </div>
             </div>
 
-          </div>
-
-          <div class='divider hide'></div>
-
-          <div class='row section hide'>
-
-
-            <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-              <i class="fa fa-graduation-cap fa-2x"></i>
+            <div class='row'>
+              <div class='col s2 input-field center-align grey-text text-lighten-1'>
+                <i class="fa fa-language fa-2x"></i>
+              </div>
+              <div class='col s10 input-field'>
+                <select id='teacher-languages-offered' class='material' multiple>
+                  <option value="" disabled>{{ translations.immersions.languages_offered_placeholder }}</option>
+                </select>
+                <label>{{ translations.immersions.languages_offered_label }}</label>
+              </div>
             </div>
-            <div class='col s10 m11 l11'>
-              <form action="#">
-                <div class="file-field input-field">
-                  <div class="btn btn-secondary tooltipped" data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.teacher_cerification_tooltip}}">
-                    <span><small>{{ translations.manage_home.certification_upload_button }}</small></span>
-                    <input type="file" />
+
+            <div class='row hide'>
+
+              <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+                <i class="fa fa-graduation-cap fa-2x"></i>
+              </div>
+              <div class='col s10 m11 l11'>
+                <form action="#">
+                  <div class="file-field input-field">
+                    <div class="btn btn-secondary">
+                      <span><small>{{ translations.manage_home.certification_upload_button }}</small></span>
+                      <input type="file" />
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text" />
+                    </div>
                   </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" />
-                  </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
-          </div>
 
+          </div>
         </div>
-      </li>
-    </ul>
+      </div>
+
+    </div>
 
     <div class='row grey-text no-margin-bottom'>
       <div class='col s12'>
@@ -226,9 +255,6 @@
   <div class='row'>
     <div class='col s6 offset-s3'>
       <a id='save-immersions' class='btn btn-primary save-btn'>{{ translations.manage_home.save_button }}</a>
-    </div>
-    <div class='col s3 right-align'>
-      <a class='next-btn'><i class="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>
     </div>
   </div>
 
