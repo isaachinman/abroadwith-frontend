@@ -72,7 +72,7 @@ module.exports = React.createClass({
     }
 
     return (
-      <div className='row'>
+      <div className='row full'>
         {verificationNeeded}
       </div>
     );

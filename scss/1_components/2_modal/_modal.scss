@@ -8,6 +8,24 @@
 #verifications-modal {
   top: 0 !important;
   bottom: 0 !important;
+  .modal-content {
+    height: 100%;
+  }
+  .title {
+    height: 120px;
+  }
+  .full {
+    height: 100%;
+  }
+  .verifications-module {
+    height: calc(100% - 190px);
+  }
+  .verification-section {
+    @extend .border;
+    background: white;
+    height: 100%;
+    overflow: scroll;
+  }
 }
 .modal {
   .divider {

@@ -28,15 +28,23 @@ module.exports = React.createClass({
   render: function() {
 
     return (
-      <div className='col s12'>
+      <div className='col s12 verification-section'>
 
-        Your email is: {this.props.email}
+        <div className='row margin-top-20'>
+          <h4 className='grey-text'>Email verification</h4>
+        </div>
 
-        <br />
+        <div className='row section'>
+          <div className='col s12 m4 offset-m4 l4 offset-l4 input-field center-align'>
+            <a id='request-verification-email' class='btn btn-secondary btn-flat' onClick={this.requestVerificationEmail}>Resend confimation email</a>
+          </div>
+        </div>
 
-        Email verification
-
-        <a id='request-verification-email' class='btn btn-secondary btn-flat' onClick={this.requestVerificationEmail}>Resend confimation email</a>
+        <div className='row'>
+          <div className='col s12 grey-text'>
+            <div className='large'>Your email is {this.props.email}</div>
+          </div>
+        </div>
 
       </div>
     );
