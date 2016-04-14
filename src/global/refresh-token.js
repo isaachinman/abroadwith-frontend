@@ -23,9 +23,6 @@ module.exports = function(callback) {
       // Set new token
       localStorage.setItem('JWT', response.token);
 
-      // Refresh state for login
-      loggedIn();
-
       // Execute callback
       callback();
 

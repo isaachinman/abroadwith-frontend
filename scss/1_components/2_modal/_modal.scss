@@ -5,6 +5,28 @@
 #language-chips, #language-known-chips, #language-learning-chips {
   min-height: 50px;
 }
+#verifications-modal {
+  top: 0 !important;
+  bottom: 0 !important;
+  .modal-content {
+    height: 100%;
+  }
+  .title {
+    height: 120px;
+  }
+  .full {
+    height: 100%;
+  }
+  .verifications-module {
+    height: calc(100% - 190px);
+  }
+  .verification-section {
+    @extend .border;
+    background: white;
+    height: 100%;
+    overflow: scroll;
+  }
+}
 .modal {
   .divider {
     margin: 2rem 0;
@@ -103,5 +125,16 @@ a.btn-signup {
       padding: 15px 0 5px 0;
       color: white;
     }
+  }
+}
+.modal .status-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  .status {
+    font-size: 1.2rem;
+    letter-spacing: .5px;
+    padding: 10px;
   }
 }

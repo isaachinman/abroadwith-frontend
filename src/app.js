@@ -24,7 +24,10 @@ require('./global/reset-password-request');
 require('./global/reset-password-set');
 require('./global/validate-book-now-buttons');
 require('./global/validate-message-buttons');
-require('./global/components/LanguageModule/language-module')
+
+// Modules
+require('./global/components/LanguageModule/language-module');
+require('./global/components/VerificationsModule/verifications-module');
 
 // Home page
 require('./main/main');

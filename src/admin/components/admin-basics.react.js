@@ -1,11 +1,6 @@
 var React = require('react');
 var toast = require('toast');
 
-var apiDate = require('api-date');
-var uiDate = require('ui-date');
-
-var i18n = require('../../global/util/i18n');
-
 var refreshToken = require('refresh-token');
 
 module.exports = React.createClass({
@@ -14,7 +9,7 @@ module.exports = React.createClass({
     adminObj.firstName = $('#firstName').val();
     adminObj.lastName = $('#lastName').val();
     adminObj.gender = $('#gender').val();
-    adminObj.birthDate = apiDate($('#birthDate').val());
+    adminObj.birthDate = $('#birthDate').val();
     adminObj.location = $('#user-address').val();
     adminObj.phoneNumber = $('#phoneNumber').intlTelInput('isValidNumber') ? $('#phoneNumber').val() : null;
     adminObj.emergencyContact ? null : adminObj.emergencyContact = {};
@@ -27,7 +22,7 @@ module.exports = React.createClass({
       $('#preloader').show();
       refreshToken(function() {
         $('#preloader').hide();
-        toast(i18n.t('admin:basics_toast'));
+        toast('Basics updated');
       });
     });
 
@@ -39,27 +34,14 @@ module.exports = React.createClass({
     $('form#basics-form').submit(this.saveBasics);
 
     $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/intlTelInput.min.js', function() {
-
-      var countryData = $.fn.intlTelInput.getCountryData();
-      $.each(countryData, function(i, country) {
-        country.name = i18n.t('countries:'+(country.iso2).toUpperCase());
-      });
-
-      // Re-alphabetise translated country names
-      countryData.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} );
-
-      $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js', function() {
-
-        $('#phoneNumber').intlTelInput();
-
-        $('#phoneNumber').blur(function() {
-          if (this.value.charAt(0) !== '+') {
-            this.value = '+' + this.value;
-          }
-          $(this).intlTelInput();
-        });
-
-      });
+      $('#phoneNumber').intlTelInput();
+      $('#phoneNumber').blur(function() {
+        if (this.value.charAt(0) !== '+') {
+          this.value = '+' + this.value;
+        }
+        $(this).intlTelInput();
+      })
+      $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js');
     })
 
   },
@@ -69,7 +51,7 @@ module.exports = React.createClass({
     $('#firstName').val(this.props.firstName);
     $('#lastName').val(this.props.lastName);
     $('#gender').val(this.props.gender);
-    $('#birthDate').val(uiDate(this.props.birthDate));
+    $('#birthDate').val(this.props.birthDate);
     $('#user-address').val(this.props.location);
     $('#phoneNumber').val(this.props.phoneNumber);
     $('#user-email').html(this.props.email);

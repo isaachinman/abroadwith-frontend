@@ -11,16 +11,25 @@ if ($('a.become-a-host').length) {
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
-    $('#preloader').show();
+    if (JWT.cbk !== 0) {
 
-    var url = domains.API+'/users/'+JWT.rid+'/homes';
-    var data = {};
-    var success = function() {
-      refreshToken(function() {
-        window.location = '/manage-home'
-      })
+      // User needs verifications, open verifications modal
+      $('#verifications-modal').openModal();
+
+    } else {
+
+      $('#preloader').show();
+
+      var url = domains.API+'/users/'+JWT.rid+'/homes';
+      var data = {};
+      var success = function() {
+        refreshToken(function() {
+          window.location = '/manage-home'
+        })
+      }
+      POST(url, data, success);
+
     }
-    POST(url, data, success);
 
   })
 

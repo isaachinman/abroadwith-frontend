@@ -6,7 +6,7 @@ module.exports = function() {
 
     $(function() {
 
-      JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+      var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
       if (JWT === null) {
 
