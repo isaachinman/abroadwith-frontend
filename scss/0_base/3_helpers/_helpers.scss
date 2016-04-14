@@ -259,6 +259,8 @@ table {
   @extend .z-depth-1;
   @extend .blue-text;
   border-radius: 50%;
+  width: 145px;
+  height: 145px;
   border: 5px solid darken($sulu, 25%);
   background: white;
   padding: 30px;

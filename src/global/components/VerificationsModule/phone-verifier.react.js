@@ -110,9 +110,15 @@ module.exports = React.createClass({
           <h4 className='grey-text'>Phone verification</h4>
         </div>
 
+        <div className='row'>
+          <div className='col s12'>
+            <i className="fa fa-mobile fa-5x big-email-icon"></i>
+          </div>
+        </div>
+
         <div className='set-phone-number row'>
           <form onSubmit={this.props.changePhoneNumber}>
-            <div className='col s12 m10 offset-m1 l8 offset-l2 input-field'>
+            <div className='col s12 m10 offset-m1 l6 offset-l3 input-field'>
               <input id='phone-number-verifications-modal' name='phone' maxlength='45' placeholder="What's your phone number?" defaultValue={phoneNumber} type="tel" className="validate intl-tel-input" required='required' />
             </div>
             <div className='col s12 m10 offset-m1 l6 offset-l3 input-field'>

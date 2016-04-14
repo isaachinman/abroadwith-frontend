@@ -34,6 +34,12 @@ module.exports = React.createClass({
           <h4 className='grey-text'>Email verification</h4>
         </div>
 
+        <div className='row'>
+          <div className='col s12'>
+            <i className="fa fa-envelope-o fa-5x big-email-icon"></i>
+          </div>
+        </div>
+
         <div className='row section'>
           <div className='col s12'>
             <a id='request-verification-email' class='btn btn-secondary btn-flat' onClick={this.requestVerificationEmail}>Resend confimation email</a>

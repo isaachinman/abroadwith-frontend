@@ -40,13 +40,17 @@ module.exports = React.createClass({
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
-    var url = domains.API + '/users/' + JWT.rid;
-    userObj.phoneNumber = $('#phone-number-verifications-modal').val();
-    var success = function(response) {
-      console.log(response);
-      this.refreshState();
-    }.bind(this)
-    POST(url, userObj, success)
+    if ($('#phone-number-verifications-modal').intlTelInput('isValidNumber')) {
+
+      var url = domains.API + '/users/' + JWT.rid;
+      userObj.phoneNumber = $('#phone-number-verifications-modal').val();
+      var success = function(response) {
+        console.log(response);
+        this.refreshState();
+      }.bind(this)
+      POST(url, userObj, success)
+
+    }
 
   },
   render: function() {
