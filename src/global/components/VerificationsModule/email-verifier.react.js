@@ -35,7 +35,7 @@ module.exports = React.createClass({
         </div>
 
         <div className='row section'>
-          <div className='col s12 m4 offset-m4 l4 offset-l4 input-field center-align'>
+          <div className='col s12'>
             <a id='request-verification-email' class='btn btn-secondary btn-flat' onClick={this.requestVerificationEmail}>Resend confimation email</a>
           </div>
         </div>
