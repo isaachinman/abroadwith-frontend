@@ -257,6 +257,7 @@ table, th, td {
 table {
   width:100%;
   display: table;
+  -moz-user-select: text !important;
 
   &.bordered > thead > tr,
   &.bordered > tbody > tr {
