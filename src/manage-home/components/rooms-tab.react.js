@@ -93,22 +93,21 @@ module.exports = React.createClass({
           processData : false,
           beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
           success : function(data, textStatus, jqXHR) {
-                // thisprops.refreshState();
-                $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
-                $('#add-room-form input, select, textarea').val(null);
-                $('#preloader').hide();
+            this.addRoomToList(newRoom);
+            $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
+            $('#add-room-form input, select, textarea').val(null);
+            $('#preloader').hide();
           },
           error: function(jqXHR) {
             var message = jqXHR.responseText;
             alert('Image upload failed: '+ message);
-            // thisprops.refreshState();
+            this.addRoomToList(newRoom);
             $('#add-room-form .collapsible-header').trigger('click');
             $('#add-room-form input, select, textarea').val(null);
             $('#preloader').hide();
           }
         });
       } else {
-        // thisprops.refreshState();
         this.addRoomToList(newRoom);
         $('#preloader').hide();
       }
