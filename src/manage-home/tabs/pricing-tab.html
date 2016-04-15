@@ -1,157 +1,160 @@
 <div id="pricing-tab" class="col s12 m10 offset-m1 l10 offset-l1 tab">
 
-  <div class='manage-home-block'>
+  <form id='home-pricing-form'>
+
+    <div class='manage-home-block'>
+
+      <div class='row'>
+        <h4>{{translations.manage_home.pricing_title}}</h4>
+      </div>
+
+      <div class='manage-home-section'>
+
+        <div class='row section'>
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-credit-card fa-2x"></i>
+          </div>
+          <div class='col s10 m1 l1 input-field'>
+            <select id='currency' class='material' required>
+              <option disabled selected>-</option>
+              {% for currency, symbol in constants.currencies %}
+              <option value={{currency}}>{{currency}}</option>
+              {% endfor %}
+            </select>
+            <label>{{translations.manage_home.pricing_currency_label}}</label>
+          </div>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-calendar-o fa-2x"></i>
+          </div>
+          <div class='col s2 m2 l2 left-align input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.pricing_time_tooltip}}">
+            <input id='oneMonthDiscount' type="text" class="validate no-margin" placeholder='5%' />
+            <label class='active'>{{translations.manage_home.pricing_discount1}}</label>
+          </div>
+          <div class='col s2 m2 l2 left-align input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.pricing_time_tooltip}}">
+            <input id='threeMonthDiscount' type="text" class="validate no-margin" placeholder='7%' />
+            <label class='active'>{{translations.manage_home.pricing_discount3}}</label>
+          </div>
+          <div class='col s2 m2 l2 left-align input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.pricing_time_tooltip}}">
+            <input id='sixMonthDiscount' type="text" class="validate no-margin" placeholder='14%' />
+            <label class='active'>{{translations.manage_home.pricing_discount6}}</label>
+          </div>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1 tandem-discount-field'>
+            <i class="fa fa-circle-o-notch fa-2x"></i>
+          </div>
+          
+        </div>
+
+        <div class='divider'></div>
+
+        <div class='row section no-margin'>
+
+          <div class='col s12 m12 l4 left-align'>
+
+            <label>{{translations.manage_home.pricing_room_rates}}</label>
+
+            <ul id='rooms-pricing' class="collection">
+              <li id='no-rooms-pricing' class="collection-item">
+                <span class="title">{{translations.manage_home.message_no_rooms}}</span>
+                <br></br><a class='light'>{{translations.manage_home.message_to_create_rooms}}</a></li>
+            </ul>
+
+          </div>
+
+          <div class='col s12 m12 l8 left-align'>
+            <label>{{translations.manage_home.pricing_extra_charges}}</label>
+
+            <ul class="collection with-header extra-charges-collection">
+
+              <li class="collection-header col s12 m6 l6 border-right">
+                <div class='row'>
+                  <div class='col s3 input-field center-align grey-text text-lighten-1'>
+                    <i class="fa fa-user-plus fa-2x"></i>
+                  </div>
+                  <div class='col s9 input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.pricing_extra_guest_tooltip}}">
+                    <input id='EXTRA_GUEST' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
+                    <label class='active'>{{translations.homes.extras.EXTRA_GUEST}}</label>
+                  </div>
+                </div>
+              </li>
+
+              <li class="collection-header col s12 m6 l6 border-right">
+                <div class='row'>
+                  <div class='col s3 input-field center-align grey-text text-lighten-1'>
+                    <i class="fa fa-cutlery fa-2x"></i>
+                  </div>
+                  <div class='col s9 input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.pricing_full_board_tooltip}}">
+                    <input id='FULL_BOARD' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
+                    <label class='active'>{{translations.homes.menus_offered.FULL_BOARD}}</label>
+                  </div>
+                </div>
+              </li>
+
+              <li class="collection-header col s12 m6 l6 border-right">
+                <div class='row'>
+                  <div class='col s3 input-field center-align grey-text text-lighten-1'>
+                    <i class="fa fa-adjust fa-2x"></i>
+                  </div>
+                  <div class='col s9 input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.pricing_half_board_tooltip}}">
+                    <input id='HALF_BOARD' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
+                    <label class='active'>{{translations.homes.menus_offered.HALF_BOARD}}</label>
+                  </div>
+                </div>
+              </li>
+
+              <li class="collection-header col s12 m6 l6 border-right">
+                <div class='row'>
+                  <div class='col s3 input-field center-align grey-text text-lighten-1'>
+                    <i class="fa fa-shopping-basket fa-2x"></i>
+                  </div>
+                  <div class='col s9 input-field'>
+                    <input id='LAUNDRY' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
+                    <label class='active'>{{translations.homes.extras.LAUNDRY}}</label>
+                  </div>
+                </div>
+              </li>
+
+              <li class="collection-header col s12 m6 l6 border-right">
+                <div class='row'>
+                  <div class='col s3 input-field center-align grey-text text-lighten-1'>
+                    <i class="fa fa-trash-o fa-2x"></i>
+                  </div>
+                  <div class='col s9 input-field'>
+                    <input id='CLEANING' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
+                    <label class='active'>{{translations.homes.extras.CLEANING}}</label>
+                  </div>
+                </div>
+              </li>
+
+              <li class="collection-header col s12 m6 l6 border-right">
+                <div class='row'>
+                  <div class='col s3 input-field center-align grey-text text-lighten-1'>
+                    <i class="fa fa-plane fa-2x"></i>
+                  </div>
+                  <div class='col s9 input-field'>
+                    <input id='AIRPORT_PICKUP' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
+                    <label class='active'>{{translations.homes.extras.AIRPORT_PICKUP}}</label>
+                  </div>
+                </div>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
 
     <div class='row'>
-      <h4>{{translations.manage_home.pricing_title}}</h4>
-    </div>
-
-    <div class='manage-home-section'>
-
-      <div class='row section'>
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-credit-card fa-2x"></i>
-        </div>
-        <div class='col s10 m1 l1 input-field'>
-          <select id='currency' class='material'>
-            <option disabled selected>-</option>
-            {% for currency, symbol in constants.currencies %}
-              <option value={{currency}}>{{currency}}</option>
-            {% endfor %}
-          </select>
-          <label>{{translations.manage_home.pricing_currency_label}}</label>
-        </div>
-
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-calendar-o fa-2x"></i>
-        </div>
-        <div class='col s2 m2 l2 left-align input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.pricing_time_tooltip}}">
-          <input id='oneMonthDiscount' type="text" class="validate no-margin" placeholder='5%' />
-          <label class='active'>{{translations.manage_home.pricing_discount1}}</label>
-        </div>
-        <div class='col s2 m2 l2 left-align input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.pricing_time_tooltip}}">
-          <input id='threeMonthDiscount' type="text" class="validate no-margin" placeholder='7%' />
-          <label class='active'>{{translations.manage_home.pricing_discount3}}</label>
-        </div>
-        <div class='col s2 m2 l2 left-align input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.pricing_time_tooltip}}">
-          <input id='sixMonthDiscount' type="text" class="validate no-margin" placeholder='14%' />
-          <label class='active'>{{translations.manage_home.pricing_discount6}}</label>
-        </div>
-
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1 tandem-discount-field'>
-          <i class="fa fa-circle-o-notch fa-2x"></i>
-        </div>
-        <div class='col s2 m2 l2 left-align input-field tandem-discount-field'>
-          <input id='tandem-discount' type="text" class="validate no-margin" placeholder='20%' />
-          <label class='active'>{{translations.manage_home.pricing_discount_tandem}}</label>
-        </div>
+      <div class='col s6 offset-s3'>
+        <button id='save-pricing' class='btn btn-primary save-btn'>{{translations.manage_home.save_button}}</button>
       </div>
-
-      <div class='divider'></div>
-
-      <div class='row section no-margin'>
-
-        <div class='col s12 m12 l4 left-align'>
-
-          <label>{{translations.manage_home.pricing_room_rates}}</label>
-
-          <ul id='rooms-pricing' class="collection">
-            <li id='no-rooms-pricing' class="collection-item"><span class="title">{{translations.manage_home.message_no_rooms}}</span><br></br><a class='light'>{{translations.manage_home.message_to_create_rooms}}</a></li>
-          </ul>
-
-        </div>
-
-        <div class='col s12 m12 l8 left-align'>
-          <label>{{translations.manage_home.pricing_extra_charges}}</label>
-
-          <ul class="collection with-header extra-charges-collection">
-
-            <li class="collection-header col s12 m6 l6 border-right">
-              <div class='row'>
-                <div class='col s3 input-field center-align grey-text text-lighten-1'>
-                  <i class="fa fa-user-plus fa-2x"></i>
-                </div>
-                <div class='col s9 input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.pricing_extra_guest_tooltip}}">
-                  <input id='EXTRA_GUEST' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
-                  <label class='active'>{{translations.homes.extras.EXTRA_GUEST}}</label>
-                </div>
-              </div>
-            </li>
-
-            <li class="collection-header col s12 m6 l6 border-right">
-              <div class='row'>
-                <div class='col s3 input-field center-align grey-text text-lighten-1'>
-                  <i class="fa fa-cutlery fa-2x"></i>
-                </div>
-                <div class='col s9 input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.pricing_full_board_tooltip}}">
-                  <input id='FULL_BOARD' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
-                  <label class='active'>{{translations.homes.menus_offered.FULL_BOARD}}</label>
-                </div>
-              </div>
-            </li>
-
-            <li class="collection-header col s12 m6 l6 border-right">
-              <div class='row'>
-                <div class='col s3 input-field center-align grey-text text-lighten-1'>
-                  <i class="fa fa-adjust fa-2x"></i>
-                </div>
-                <div class='col s9 input-field tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.pricing_half_board_tooltip}}">
-                  <input id='HALF_BOARD' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
-                  <label class='active'>{{translations.homes.menus_offered.HALF_BOARD}}</label>
-                </div>
-              </div>
-            </li>
-
-            <li class="collection-header col s12 m6 l6 border-right">
-              <div class='row'>
-                <div class='col s3 input-field center-align grey-text text-lighten-1'>
-                  <i class="fa fa-shopping-basket fa-2x"></i>
-                </div>
-                <div class='col s9 input-field'>
-                  <input id='LAUNDRY' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
-                  <label class='active'>{{translations.homes.extras.LAUNDRY}}</label>
-                </div>
-              </div>
-            </li>
-
-            <li class="collection-header col s12 m6 l6 border-right">
-              <div class='row'>
-                <div class='col s3 input-field center-align grey-text text-lighten-1'>
-                  <i class="fa fa-trash-o fa-2x"></i>
-                </div>
-                <div class='col s9 input-field'>
-                  <input id='CLEANING' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
-                  <label class='active'>{{translations.homes.extras.CLEANING}}</label>
-                </div>
-              </div>
-            </li>
-
-            <li class="collection-header col s12 m6 l6 border-right">
-              <div class='row'>
-                <div class='col s3 input-field center-align grey-text text-lighten-1'>
-                  <i class="fa fa-plane fa-2x"></i>
-                </div>
-                <div class='col s9 input-field'>
-                  <input id='AIRPORT_PICKUP' type="text" class="validate no-margin" placeholder='€20 ({{translations.manage_home.per_week}})' />
-                  <label class='active'>{{translations.homes.extras.AIRPORT_PICKUP}}</label>
-                </div>
-              </div>
-            </li>
-
-          </ul>
-
-        </div>
-
-      </div>
-
     </div>
 
-  </div>
-
-  <div class='row'>
-    <div class='col s6 offset-s3'>
-      <a id='save-pricing' class='btn btn-primary save-btn'>{{translations.manage_home.save_button}}</a>
-    </div>
-  </div>
+  </form>
 
 </div>

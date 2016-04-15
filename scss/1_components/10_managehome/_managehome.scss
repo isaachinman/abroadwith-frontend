@@ -25,7 +25,9 @@
   }
   .card-reveal {
     overflow: visible;
+    padding-top: .5rem;
     .card-title {
+      margin-top: 0;
       cursor: text;
     }
   }

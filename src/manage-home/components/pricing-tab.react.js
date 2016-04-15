@@ -102,7 +102,11 @@ module.exports = React.createClass({
       })
     }
 
-    $('#save-pricing').click(this.savePricing);
+    $('form#home-pricing-form').submit(function(e) {
+      e.preventDefault();
+      this.savePricing();
+    }.bind(this))
+
   },
   componentDidUpdate: function() {
 
@@ -124,8 +128,10 @@ module.exports = React.createClass({
     if (this.props.props.immersions) {
       if (this.props.props.immersions.tandem === null) {
         $('.tandem-discount-field').hide();
+        $('#tandem-discount').attr('required', false);
       } else  {
         $('.tandem-discount-field').show();
+        $('#tandem-discount').attr('required', 'required');
       }
     }
 

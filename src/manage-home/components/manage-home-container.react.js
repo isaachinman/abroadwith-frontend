@@ -113,6 +113,9 @@ module.exports = React.createClass({
 
       if (response.homeActivationResponse.code === 'ACTIVATED') {
 
+        // Reset step classes
+        $('.ui.steps .step').attr('class', 'step');
+
         // Home is active
         $('#success').addClass('active');
 

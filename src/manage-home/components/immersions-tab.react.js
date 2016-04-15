@@ -1,5 +1,7 @@
 var React = require('react');
-var ReactDOM = require('react-dom')
+var ReactDOM = require('react-dom');
+
+require('wnumb');
 
 var i18n = require('../../global/util/i18n');
 var LanguageDropdown = require('./language-dropdown.react');
@@ -58,16 +60,13 @@ module.exports = React.createClass({
       }
     })
 
-    newHomeObj.immersions.tandem = null;
-    newHomeObj.immersions.teacher = null;
-
     // Apply discount to each tandem language
     if (newHomeObj.immersions.tandem !== null && newHomeObj.immersions.tandem.isActive === true) {
 
       newHomeObj.immersions.tandem.languagesInterested = [];
 
       var tandemLanguages = $('#tandem-language-sought').val();
-      var discount = $('#tandem-discount').val() !== '' ? parseInt($('#tandem-discount').val()) : null;
+      var discount = parseInt(tandemDiscount.noUiSlider.get());
 
       for (var i=0; i<tandemLanguages.length; i++) {
         newHomeObj.immersions.tandem.languagesInterested.push(
@@ -95,6 +94,8 @@ module.exports = React.createClass({
   },
   componentDidUpdate: function() {
 
+    tandemDiscount.noUiSlider.set(this.props.props.immersions.tandem && this.props.props.immersions.tandem.languagesInterested.length > 0 ? this.props.props.immersions.tandem.languagesInterested[0].discount : 20)
+
     $.each(this.props.props.immersions, function(index, obj) {
       if (obj && obj.isActive === true) {
         $('.card-reveal.'+index).parent().css('overflow', 'hidden');
@@ -110,6 +111,28 @@ module.exports = React.createClass({
     $('.chip').off();
   },
   componentDidMount: function() {
+
+    $.getScript('https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.2.1/nouislider.min.js', function() {
+
+      // Set to window for later usage
+      window.tandemDiscount = document.getElementById('tandem-discount');
+
+      // Init nouislider
+      noUiSlider.create(tandemDiscount, {
+      	start: [20],
+      	range: {
+      		'min': 0,
+      		'max': 95
+      	},
+        step: 5,
+        tooltips: true,
+        format: wNumb({
+          decimals:0,
+          postfix: '%'
+        })
+      });
+
+    })
 
     // Save immersions button
     $('form#home-immersions-form').submit(function(e) {
@@ -152,9 +175,6 @@ module.exports = React.createClass({
 
     if (this.props.props.immersions) {
 
-      if (this.props.props.immersions.tandem && typeof this.props.props.immersions.tandem.languagesInterested[0] !== 'undefined') {
-        $('#tandem-discount').val(this.props.props.immersions.tandem.languagesInterested[0].discount + '%')
-      }
       // Populate stay offered dropdown
       var stayLanguagesOffered = $('#stay-languages-offered');
       stayLanguagesOffered.html('<option value="" disabled>'+i18n.t('immersions:languages_offered_placeholder')+'</option>');
