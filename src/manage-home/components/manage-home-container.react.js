@@ -109,7 +109,7 @@ module.exports = React.createClass({
 
       console.log(response)
 
-      response.homeActivationResponse.code = 'NO_ROOMS';
+      // response.homeActivationResponse.code = 'AT_LEAST_ONE_STAY_REQUIRED';
 
       if (response.homeActivationResponse.code === 'ACTIVATED') {
 
@@ -148,7 +148,9 @@ module.exports = React.createClass({
 
         // Adjust steps to reflect active step
         $('#'+activeStep).prevAll().addClass('completed');
+        $('#'+activeStep).prevAll().addClass('link');
         $('#'+activeStep).addClass('active');
+        $('#'+activeStep).addClass('link');
         $('#'+activeStep).nextAll().addClass('disabled');
 
         // If active step is not visible, scroll to it

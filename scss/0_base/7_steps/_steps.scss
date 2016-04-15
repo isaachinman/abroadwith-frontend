@@ -332,7 +332,7 @@
 .ui.steps .link.step:active,
 .ui.steps a.step:active::after,
 .ui.steps a.step:active {
-  background: #f3f4f5;
+  background: lighten($ziggurat, 13%);
   color: rgba(0, 0, 0, 0.9);
 }
 
@@ -380,7 +380,7 @@
 .ui.steps a.active.step:hover::after,
 .ui.steps a.active.step:hover {
   cursor: pointer;
-  background: #dcddde;
+  background: lighten($ziggurat, 13%);
   color: rgba(0, 0, 0, 0.87);
 }
 

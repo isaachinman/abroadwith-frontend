@@ -1,6 +1,6 @@
 .manage-home-block {
   margin: 30px 0 1rem 0;
-  min-height: calc(100vh - 295px);
+  min-height: calc(100vh - 290px);
   .card {
     overflow: visible;
     i.disable {
@@ -9,8 +9,8 @@
       font-style: normal;
       font-weight: 400;
       position: absolute;
-      bottom: 5px;
-      right: 5px;
+      bottom: 10px;
+      right: 10px;
       color: $sunset-orange;
       opacity: .8;
       &:hover {

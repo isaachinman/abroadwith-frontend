@@ -53,6 +53,8 @@ module.exports = React.createClass({
     )
 
     $('ul.existing-rooms').collapsible();
+    $('#room-name').val('');
+    $('#room-description').val('');
 
   },
   addRoom: function() {
