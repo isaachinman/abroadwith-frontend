@@ -102,6 +102,8 @@ module.exports = React.createClass({
   },
   refreshState: function() {
 
+    $('#preloader').show();
+
     $('input').off();
 
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
@@ -200,6 +202,8 @@ module.exports = React.createClass({
       }
 
       this.setState(newState);
+
+      $('#preloader').hide();
 
       // Refresh selects
       $('select.material').material_select();
