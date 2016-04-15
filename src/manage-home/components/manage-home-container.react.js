@@ -124,7 +124,7 @@ module.exports = React.createClass({
         $('#success-tab').show();
 
         // Save buttons should say next
-        $('.save-btn').html('Save')
+        $('.save-btn').html('Save');
 
         // If active step is not visible, scroll to it
         if ($('#success').isOnScreen() === false) {
@@ -138,7 +138,7 @@ module.exports = React.createClass({
 
         // Set up the success page
         $('#home-published-image').attr('src',domains.IMG+response.photos[0]);
-        $('#home-published-view').attr('href',domains.FRONTEND+'/homes/'+JWT.hid);
+        $('#home-published-view').attr('href','/homes/'+JWT.hid);
 
       } else {
 
