@@ -392,7 +392,7 @@
   text-indent: 15px;
 }
 
-.step.completed {
+.step.completed:not(.active) {
   text-indent: -9999px;
   padding: 1rem !important;
   .content {
