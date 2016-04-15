@@ -133,6 +133,10 @@ module.exports = React.createClass({
         // All steps are clickable
         $('.step').addClass('link');
 
+        // Set up the success page
+        $('#home-published-image').attr('src',domains.IMG+response.photos[0]);
+        $('#home-published-view').attr('href',domains.FRONTEND+'/homes/'+JWT.hid);
+
       } else {
 
         // Home is not active
