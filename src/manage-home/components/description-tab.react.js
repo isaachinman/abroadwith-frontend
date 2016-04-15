@@ -20,7 +20,10 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
-    $('#save-description').click(this.saveDescription);
+    $('form#home-description-form').submit(function(e) {
+      e.preventDefault();
+      this.saveDescription();
+    }.bind(this))
   },
   componentDidUpdate: function() {
 

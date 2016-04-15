@@ -7,7 +7,10 @@ var RoomsTab =            require('./rooms-tab.react');
 var PhotosTab =           require('./photos-tab.react');
 var PricingTab =          require('./pricing-tab.react');
 
+var homeStatusCodes =     require('home-status-codes');
+
 var toast = require('toast');
+var isOnScreen = require('is-on-screen');
 
 var domains = require('domains');
 var JWT = require('JWT');
@@ -36,6 +39,14 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
+
+    $('.step').click(function() {
+      $('.step.active').removeClass('active');
+      $(this).addClass('active');
+      var target = $(this).attr('id');
+      $('.tab').hide();
+      $('#'+target+'-tab').show();
+    })
 
     // Home photos
     var photos = $('.home-photo');
@@ -96,31 +107,66 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
 
-      // Update status bar
-      var publishedBar = $('#published-status');
-      if (response.homeActivationResponse.activated === false) {
+      console.log(response)
 
-        // If home is active, swap classes and text of publishedBar
-        publishedBar.addClass('manage-home-info-text--unpublished');
-        publishedBar.html(i18n.t('manage_home:message_bottom_unpublished') + ' (' + i18n.t('homes:published_codes.'+response.homeActivationResponse.code) + ')');
+      // response.homeActivationResponse.code = 'AT_LEAST_ONE_STAY_REQUIRED';
 
-      } else if (response.homeActivationResponse.activated === true) {
+      if (response.homeActivationResponse.code === 'ACTIVATED') {
 
-        // If home is inactive, swap classes and text of publishedBar
-        publishedBar.addClass('manage-home-info-text--published');
-        publishedBar.html('<span class="hide-on-med-and-down">' + i18n.t('homes:published_codes.'+response.homeActivationResponse.code) + '</span>' + ' (' + '<a id="unpublish-home">'+i18n.t('manage_home:click_to_unpublish')+'</a>' + ')' + '<a href="/homes/' + JWT.hid + '" class="btn btn-flat btn-secondary hide-on-small-and-down">'+i18n.t('manage_home:view_your_home')+'</a>');
+        // Home is active
+        $('#success').addClass('active');
 
-        // If home is active, create an unpublish function
-        $('a#unpublish-home').click(function() {
-          homeObj.immersions.stay.isActive = false;
-          homeObj.immersions.tandem.isActive = false;
-          homeObj.immersions.teacher.isActive = false;
-          this.updateHome(function() {
-            toast(i18n.t('manage_home:home_deactivated_toast'))
-          });
-        }.bind(this))
+        // Show success tab
+        $('.tab').hide();
+        $('#success-tab').show();
+
+        // If active step is not visible, scroll to it
+        if ($('#success').isOnScreen() === false) {
+          $('.ui.steps').animate({
+            scrollLeft: $('#success').position().left
+          })
+        }
+
+        // All steps are clickable
+        $('.step').addClass('link');
+
+      } else {
+
+        // Home is not active
+
+        // Determine which step is active
+        for (var step in homeStatusCodes) {
+          for (var code in homeStatusCodes[step]) {
+            if (homeStatusCodes[step][code] === response.homeActivationResponse.code) {
+              var activeStep = step;
+            }
+          }
+        }
+
+        // Reset step classes
+        $('.ui.steps .step').attr('class', 'step');
+
+        // Adjust steps to reflect active step
+        $('#'+activeStep).prevAll().addClass('completed');
+        $('#'+activeStep).prevAll().addClass('link');
+        $('#'+activeStep).addClass('active');
+        $('#'+activeStep).addClass('link');
+        $('#'+activeStep).nextAll().addClass('disabled');
+
+        // If active step is not visible, scroll to it
+        if ($('#'+activeStep).isOnScreen() === false) {
+          $('.ui.steps').animate({
+            scrollLeft: $('#'+activeStep).position().left
+          })
+        }
+
+        // Show current tab
+        $('.tab').hide();
+        $('#'+activeStep+'-tab').show();
 
       }
+
+      console.log(activeStep)
 
       var newState = {
 

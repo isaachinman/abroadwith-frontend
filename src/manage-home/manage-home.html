@@ -2,19 +2,59 @@
 
 <div class="col s12 no-padding-sides">
 
-  <div class='button-group-wrapper'>
-    <div class='button-group'>
-      <ul>
-        <li data-target='#basics'>{{ translations.manage_home.basics_tabname }}</li>
-        <li data-target='#immersions'>{{ translations.manage_home.immersions_tabname }}</li>
-        <li data-target='#location' id='location-tab-trigger'>{{ translations.manage_home.location_tabname }}</li>
-        <li data-target='#description'>{{ translations.manage_home.description_tabname }}</li>
-        <li data-target='#rooms'>{{ translations.manage_home.rooms_tabname }}</li>
-        <li data-target='#photos'>{{ translations.manage_home.photos_tabname }}</li>
-        <li data-target='#pricing'>{{ translations.manage_home.pricing_tabname }}</li>
-      </ul>
+  <div class='button-group-wrapper button-group-wrapper--manage-home'>
+    <div class="ui ordered steps">
+      <div class="step" id='location'>
+        <div class="content">
+          <div class="title">Location</div>
+          <div class="description">Let us know where you live</div>
+        </div>
+      </div>
+      <div class="step" id='basics'>
+        <div class="content">
+          <div class="title">Basics</div>
+          <div class="description">Tell us about your house</div>
+        </div>
+      </div>
+      <div class="step" id='description'>
+        <div class="content">
+          <div class="title">Description</div>
+          <div class="description">What makes your home unique?</div>
+        </div>
+      </div>
+      <div class="step" id='immersions'>
+        <div class="content">
+          <div class="title">Immersions</div>
+          <div class="description">How do you want to host?</div>
+        </div>
+      </div>
+      <div class="step" id='rooms'>
+        <div class="content">
+          <div class="title">Rooms</div>
+          <div class="description">Your rooms to rent</div>
+        </div>
+      </div>
+      <div class="step" id='photos'>
+        <div class="content">
+          <div class="title">Photos</div>
+          <div class="description">Additional photos of your home</div>
+        </div>
+      </div>
+      <div class="step" id='pricing'>
+        <div class="content">
+          <div class="title">Pricing</div>
+          <div class="description">Set your prices</div>
+        </div>
+      </div>
+      <div class="step" id='success'>
+        <div class="content">
+          <div class="title">Success</div>
+          <div class="description">Your home is live</div>
+        </div>
+      </div>
     </div>
   </div>
+
 </div>
 
 <div class='row manage-home'>
@@ -25,11 +65,9 @@
   {% include './tabs/rooms-tab.html' %}
   {% include './tabs/photos-tab.html' %}
   {% include './tabs/pricing-tab.html' %}
+  {% include './tabs/success-tab.html' %}
 </div>
 
-
-
-<div id='published-status' class='manage-home-info-text'></div>
 
 <div id='manage-home-container'></div>
 

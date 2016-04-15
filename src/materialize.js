@@ -2308,6 +2308,9 @@ $(document).ready(function(){
       }
 
       $('.card-reveal').closest('.card').css('overflow', 'hidden');
+			setTimeout(function() {
+				$('.card-reveal').closest('.card').css('overflow', 'visible');
+			}, 300)
 
     });
 

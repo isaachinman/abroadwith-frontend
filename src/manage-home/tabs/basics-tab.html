@@ -1,145 +1,146 @@
 <div id="basics-tab" class="col s12 m10 offset-m1 l10 offset-l1 tab">
 
-  <div class='manage-home-block'>
+  <form id='home-basics-form'>
 
-    <div class='row'>
-      <h4>{{ translations.manage_home.basics_title }}</h4>
-    </div>
+    <div class='manage-home-block'>
 
-    <div class='manage-home-section'>
+      <div class='row'>
+        <h4>{{ translations.manage_home.basics_title }}</h4>
+      </div>
 
-      <div class='row section'>
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-home fa-2x"></i>
-        </div>
-        <div class='col s10 m2 l2 input-field'>
-          <select id='home-type' class='material'>
-            <option value="" disabled>{{translations.homes.home_types_placeholder}}</option>
-            {% for home_type,_ in constants.homes.homeType %}
+      <div class='manage-home-section'>
+
+        <div class='row section'>
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-home fa-2x"></i>
+          </div>
+          <div class='col s10 m2 l2 input-field'>
+            <select id='home-type' class='material' required>
+              <option value="" disabled>{{translations.homes.home_types_placeholder}}</option>
+              {% for home_type,_ in constants.homes.homeType %}
               <option value="{{ home_type }}">{{ translations.homes.home_types[home_type] }}</option>
-            {% endfor %}
-          </select>
-          <label>{{ translations.homes.home_types_label }}</label>
-        </div>
+              {% endfor %}
+            </select>
+            <label>{{ translations.homes.home_types_label }}</label>
+          </div>
 
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-life-ring fa-2x"></i>
-        </div>
-        <div class='col s10 m3 l3 input-field'>
-          <select id='safety' class='material' multiple>
-            <option value="" disabled>{{translations.homes.home_safety_placeholder}}</option>
-            {% for home_safety,_ in constants.homes.homeSettings.SAFETY %}
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-life-ring fa-2x"></i>
+          </div>
+          <div class='col s10 m3 l3 input-field'>
+            <select id='safety' class='material' multiple>
+              <option value="" disabled>{{translations.homes.home_safety_placeholder}}</option>
+              {% for home_safety,_ in constants.homes.homeSettings.SAFETY %}
               <option value="{{ home_safety }}">{{ translations.homes.home_safety[home_safety] }}</option>
-            {% endfor %}
-          </select>
-          <label>{{ translations.homes.home_safety_label }}</label>
-        </div>
+              {% endfor %}
+            </select>
+            <label>{{ translations.homes.home_safety_label }}</label>
+          </div>
 
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-wifi fa-2x"></i>
-        </div>
-        <div class='col s10 m4 l4 input-field'>
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-wifi fa-2x"></i>
+          </div>
+          <div class='col s10 m4 l4 input-field'>
 
-          <select id='amenities' class='material' multiple>
-            <option value="" disabled>{{translations.homes.amenities_placeholder}}</option>
-            {% for amenity,_ in constants.homes.homeSettings.AMENITIES %}
+            <select id='amenities' class='material' multiple>
+              <option value="" disabled>{{translations.homes.amenities_placeholder}}</option>
+              {% for amenity,_ in constants.homes.homeSettings.AMENITIES %}
               <option value="{{ amenity }}">{{ translations.homes.amenities[amenity] }}</option>
-            {% endfor %}
-          </select>
-          <label>{{ translations.homes.amenities_label }}</label>
-        </div>
-      </div>
-
-      <div class='divider'></div>
-
-      <div class='row section'>
-
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-asterisk fa-2x"></i>
-        </div>
-        <div class='col s10 m4 l4 input-field'>
-          <select id='food-option' class='material' multiple>
-            <option value="" disabled>{{translations.homes.diets_offered_placeholder}}</option>
-            {% for diet,_ in constants.homes.homeServices.FOOD_OPTION %}
-              <option value="{{ diet }}">{{ translations.homes.diets_offered[diet] }}</option>
-            {% endfor %}
-          </select>
-          <label>{{ translations.homes.diets_offered_label }}</label>
-        </div>
-
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-fire fa-2x"></i>
-        </div>
-        <div class='col s10 m6 l6 input-field'>
-          <select id='extras' class='material' multiple>
-            <option value="" disabled>{{translations.homes.extras_placeholder}}</option>
-            {% for extra,_ in constants.homes.homeSettings.EXTRAS %}
-              <option value="{{ extra }}">{{ translations.homes.extras[extra] }}</option>
-            {% endfor %}
-          </select>
-          <label>{{ translations.homes.extras_label }}</label>
-        </div>
-      </div>
-
-      <div class='divider'></div>
-
-      <div class='row section'>
-
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-users fa-2x"></i>
-        </div>
-        <div class='col s10 m4 l4 left-align'>
-          <label>{{ translations.homes.family_label }}</label>
-          <div class="switch">
-            <label>
-              {{ translations.common.words.No }}
-              <input id='family' type="checkbox"/>
-              <span class="lever"></span>
-              {{ translations.common.words.Yes }}
-            </label>
+              {% endfor %}
+            </select>
+            <label>{{ translations.homes.amenities_label }}</label>
           </div>
         </div>
 
-        <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
-          <i class="fa fa-user fa-2x"></i>
+        <div class='divider'></div>
+
+        <div class='row section'>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-asterisk fa-2x"></i>
+          </div>
+          <div class='col s10 m4 l4 input-field'>
+            <select id='food-option' class='material' multiple>
+              <option value="" disabled>{{translations.homes.diets_offered_placeholder}}</option>
+              {% for diet,_ in constants.homes.homeServices.FOOD_OPTION %}
+              <option value="{{ diet }}">{{ translations.homes.diets_offered[diet] }}</option>
+              {% endfor %}
+            </select>
+            <label>{{ translations.homes.diets_offered_label }}</label>
+          </div>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-fire fa-2x"></i>
+          </div>
+          <div class='col s10 m6 l6 input-field'>
+            <select id='extras' class='material' multiple>
+              <option value="" disabled>{{translations.homes.extras_placeholder}}</option>
+              {% for extra,_ in constants.homes.homeSettings.EXTRAS %}
+              <option value="{{ extra }}">{{ translations.homes.extras[extra] }}</option>
+              {% endfor %}
+            </select>
+            <label>{{ translations.homes.extras_label }}</label>
+          </div>
         </div>
-        <div class='col s10 m6 l6 input-field'>
-          <select id='preferences' class='material' multiple>
-            <option value="" disabled>{{translations.homes.preferences_placeholder}}</option>
-            {% for preference,_ in constants.homes.homeSettings.PREFERENCES %}
+
+        <div class='divider'></div>
+
+        <div class='row section'>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-users fa-2x"></i>
+          </div>
+          <div class='col s10 m4 l4 left-align'>
+            <label>{{ translations.homes.family_label }}</label>
+            <div class="switch">
+              <label>
+                {{ translations.common.words.No }}
+                <input id='family' type="checkbox" />
+                <span class="lever"></span>
+                {{ translations.common.words.Yes }}
+              </label>
+            </div>
+          </div>
+
+          <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
+            <i class="fa fa-user fa-2x"></i>
+          </div>
+          <div class='col s10 m6 l6 input-field'>
+            <select id='preferences' class='material' multiple>
+              <option value="" disabled>{{translations.homes.preferences_placeholder}}</option>
+              {% for preference,_ in constants.homes.homeSettings.PREFERENCES %}
               <option value="{{ preference }}">{{ translations.homes.preferences[preference] }}</option>
-            {% endfor %}
-          </select>
-          <label>{{ translations.homes.preferences_label }}</label>
+              {% endfor %}
+            </select>
+            <label>{{ translations.homes.preferences_label }}</label>
+          </div>
+
         </div>
 
       </div>
 
+
+      <div class='col s12 left-align'>
+        <a href="#delete-home-modal" class='red-text small modal-trigger'>{{translations.homes.delete_home}}</a>
+
+        <div id="delete-home-modal" class="modal center-align">
+          <div class="modal-content">
+            <h4>{{translations.manage_home.delete_home_title}}</h4>
+            <p>{{translations.manage_home.delete_home_text}}</p>
+            <a id='delete-home' class='btn btn-secondary btn-flat btn-delete'>{{translations.manage_home.delete_home_confirm}}</a>
+          </div>
+        </div>
+      </div>
+
+
     </div>
 
-
-    <div class='col s12 left-align'>
-      <a href="#delete-home-modal" class='red-text small modal-trigger'>{{translations.homes.delete_home}}</a>
-
-      <div id="delete-home-modal" class="modal center-align">
-        <div class="modal-content">
-          <h4>{{translations.manage_home.delete_home_title}}</h4>
-          <p>{{translations.manage_home.delete_home_text}}</p>
-          <a id='delete-home' class='btn btn-secondary btn-flat btn-delete'>{{translations.manage_home.delete_home_confirm}}</a>
-        </div>
+    <div class='row'>
+      <div class='col s6 offset-s3'>
+        <button id='save-basics' class='btn btn-primary save-btn'>{{ translations.manage_home.save_button }}</button>
       </div>
     </div>
 
-
-  </div>
-
-  <div class='row'>
-    <div class='col s6 offset-s3'>
-      <a id='save-basics' class='btn btn-primary save-btn'>{{ translations.manage_home.save_button }}</a>
-    </div>
-    <div class='col s3 right-align'>
-      <a class='next-btn'><i class="fa fa-chevron-right grey-text text-lighten-1 next-btn"></i></a>
-    </div>
-  </div>
+  </form>
 
 </div>
