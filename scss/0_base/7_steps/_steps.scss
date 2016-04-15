@@ -389,32 +389,6 @@
 .ui.steps .step.completed > .icon:before,
 .ui.ordered.steps .step.completed:before {
   color: darken($sulu, 27%);
-  text-indent: 15px;
-}
-
-.step.completed:not(.active) {
-  text-indent: -9999px;
-  padding: 1rem !important;
-  .content {
-    display: none !important;
-  }
-  &:before {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-  }
-  &:hover {
-    .content {
-      display: block !important;
-    }
-    transition:padding .25s ease-in-out;
-    padding: 1.14285714em 2em !important;
-    text-indent: 0;
-    .title {
-      font-size: 1rem !important;
-      margin-top: 0;
-    }
-  }
 }
 
 /* Disabled */
