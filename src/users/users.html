@@ -37,9 +37,11 @@
 
       <div class='col s10 quick-facts'>
 
-        <p class='home-details'>
-          <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{user.age}}{% if user.gender %}, {{translations.users.genders[user.gender]}}{% endif %}
-        </p>
+        {% if user.age %}
+          <p class='home-details'>
+            <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{user.age}}{% if user.gender %}, {{translations.users.genders[user.gender]}}{% endif %}
+          </p>
+        {% endif %}
         <p class='home-details'>
           <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>{{translations.common.Joined}} {{translations.months.short["m"+user.joinedMonth]}} {{user.joinedYear}}
         </p>
