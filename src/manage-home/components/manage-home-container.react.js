@@ -120,11 +120,12 @@ module.exports = React.createClass({
 
         // Home is active
         $('#success').addClass('active');
+        $('#success').prevAll().addClass('completed');
 
         // Show success tab
         $('.tab').hide();
         $('#success-tab').show();
-
+        
         // Save buttons should say next
         $('.save-btn').html('Save');
 
