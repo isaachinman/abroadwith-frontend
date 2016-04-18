@@ -66,7 +66,25 @@ module.exports = React.createClass({
     var success = function(response) {
 
       $('#verifications-modal .status-bar .confirmation-sms-sent').hide();
-      refreshToken(this.props.refreshState);
+      var refreshState = this.props.refreshState;
+      refreshToken(function() {
+        var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+        if (JWT.cbk > 0) {
+          refreshState();
+        } else {
+          $('#verifications-modal').closeModal();
+          $('#preloader').show();
+
+          var url = domains.API+'/users/'+JWT.rid+'/homes';
+          var data = {};
+          var success = function() {
+            refreshToken(function() {
+              window.location = '/manage-home'
+            })
+          }
+          POST(url, data, success);
+        }
+      });
       $('#preloader').hide();
 
 
@@ -129,7 +147,7 @@ module.exports = React.createClass({
 
         <div className='make-sms-request'>
 
-          <div className='row section phone-request'>
+          <div className='row phone-request no-margin-bottom'>
             <div className='col s12 input-field center-align'>
               <a id='request-verification-sms' className='btn btn-secondary btn-flat' onClick={this.requestVerificationSMS}>Request verification SMS</a>
               <div id='please-add-a-phone' style='display:none' className='section no-margin-bottom'>
@@ -137,7 +155,7 @@ module.exports = React.createClass({
             </div>
           </div>
 
-          <div className='row section phone-verify' style={hidden}>
+          <div className='row phone-verify no-margin-bottom' style={hidden}>
 
             <div className='col s12 m4 offset-m4 l4 offset-l4 input-field center-align'>
               <input id='sms-verification-code-modal' type="text" className="validate" placeholder="Verification code" />

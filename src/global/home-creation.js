@@ -28,7 +28,6 @@ if ($('a.become-a-host').length) {
         })
       }
       POST(url, data, success);
-
     }
 
   })

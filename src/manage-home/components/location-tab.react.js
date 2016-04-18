@@ -132,7 +132,6 @@ module.exports = React.createClass({
 
     $('a#save-location').click(this.saveLocation);
 
-    $.getScript( "https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places&callback=initAutocomplete", function() {});
   },
   saveLocation: function() {
 
@@ -165,6 +164,10 @@ module.exports = React.createClass({
       mapLng = 180;
       mapZoom = 2;
     }
+
+    $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places", function() {
+      initAutocomplete();
+    });
 
   },
   render: function() {
