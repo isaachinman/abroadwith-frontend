@@ -10,11 +10,11 @@ module.exports = React.createClass({
 
     var reservation = this.props.reservation;
 
-    if (trip.status === 'DECLINED_BY_GUEST') {
+    if (reservation.status === 'DECLINED_BY_GUEST') {
       whoDeclined = i18n.t('trips:by_them');
-    } else if (trip.status === 'DECLINED_BY_HOST') {
+    } else if (reservation.status === 'DECLINED_BY_HOST') {
       whoDeclined = i18n.t('trips:by_you')
-    } else if (trip.status === 'DECLINED_AUTOMATICALLY') {
+    } else if (reservation.status === 'DECLINED_AUTOMATICALLY') {
       whoDeclined = i18n.t('trips:automatically');
     }
 
