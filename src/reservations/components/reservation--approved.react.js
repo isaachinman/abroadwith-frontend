@@ -48,6 +48,8 @@ module.exports = React.createClass({
 
     var guestWillTeach = reservation.languageGuestWillTeach !== null ? i18n.t('languages:'+reservation.languageGuestWillTeach) : i18n.t('trips:not_applicable');
 
+    var hostWillTeach = i18n.t('languages:'+reservation.languageHostWillTeach);
+
     var services = []
 
     if (reservation.homeServices.indexOf('HALF_BOARD') === -1 && reservation.homeServices.indexOf('FULL_BOARD') === -1) {
@@ -128,7 +130,7 @@ module.exports = React.createClass({
                   <tr>
                     <td className='status'>&nbsp;</td>
                     <td>{i18n.t('immersions:'+reservation.immersionType)}</td>
-                    <td>{i18n.t('languages:')+reservation.languageHostWillTeach}</td>
+                    <td>{hostWillTeach}</td>
                     <td>{guestWillTeach}</td>
                     <td>{reservation.weeklyHours}</td>
                     <td>{services}</td>
