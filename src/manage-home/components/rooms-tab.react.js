@@ -99,7 +99,6 @@ module.exports = React.createClass({
           success : function(data, textStatus, jqXHR) {
             addRoomToList(newRoom);
             $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
-            $('#add-room-form input, select, textarea').val(null);
             $('#preloader').hide();
           },
           error: function(jqXHR) {
@@ -107,7 +106,6 @@ module.exports = React.createClass({
             alert('Image upload failed: '+ message);
             addRoomToList(newRoom);
             $('#add-room-form .collapsible-header').trigger('click');
-            $('#add-room-form input, select, textarea').val(null);
             $('#preloader').hide();
           }
         });
