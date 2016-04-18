@@ -123,17 +123,33 @@ module.exports = React.createClass({
   saveRooms: function() {
 
     // Create new rooms object
-    var newHomeObj = this.props.props;
-    var oldRooms = this.props.props.rooms;
-    var newRoomsObj = oldRooms.concat(this.state.rooms);
+   var newHomeObj = this.props.props;
+   var newRoomsObj = [];
 
-    // Modify home object with new room array
-    newHomeObj.rooms = newRoomsObj;
+   $('.existing-room').each(function() {
 
-    // Send it off
-    this.props.updateHome(newHomeObj, function() {
-      toast(i18n.t('manage_home:room_updated_toast'));
-    });
+     // Set up new object for each room
+     var room = {};
+
+     // Find params
+     room.id = $(this).attr('data-id');
+     room.name = $(this).find('.room-name').val();
+     room.bed = $(this).find('select.bed-type').val();
+     room.vacancies = $(this).find('select.vacancies').val();
+     room.facilities = $(this).find('select.facilities').val();
+     room.shared = $(this).find('input.shared-switch').prop('checked');
+     room.img = $(this).find("#photo_room_"+room.id).val();
+     room.description = $(this).find('.room-description').val();
+
+     newRoomsObj.push(room);
+   })
+
+   // Modify home object, using new rooms object
+   newHomeObj.rooms = newRoomsObj;
+   this.props.updateHome(newHomeObj, function() {
+     toast(i18n.t('manage_home:room_updated_toast'));
+   });
+   console.log(newRoomsObj);
 
 
   },
