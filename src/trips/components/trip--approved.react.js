@@ -23,6 +23,8 @@ module.exports = React.createClass({
 
     var trip = this.props.trip;
 
+    console.log(trip)
+
     var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : domains.IMG + '/homes/default_room.png';
     var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto : domains.IMG+'/users/default.jpg';
 
@@ -66,7 +68,7 @@ module.exports = React.createClass({
 
       <li>
         <div className="collapsible-header">
-          <span className='approved-reservation'>({i18n.t('trips:status_codes.APPROVED')})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:trip_with', {immersion:i18n.t('immersions:'+trip.immersionType), guest: trip.guestName, country:(i18n.t('countries:'+trip.homeAddress.country))})}
+          <span className='approved-reservation'>({i18n.t('trips:status_codes.APPROVED')})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:trip_with', {immersion:i18n.t('immersions:'+trip.immersionType), host: trip.hostName, country:(i18n.t('countries:'+trip.homeAddress.country))})}
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>

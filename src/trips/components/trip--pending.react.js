@@ -29,9 +29,6 @@ module.exports = React.createClass({
 
     var created = new Date(trip.created)
 
-    console.log(created)
-    console.log('ok')
-
     var guestWillTeach = trip.languageGuestWillTeach !== null ? i18n.t('languages:'+trip.languageGuestWillTeach) : i18n.t('trips:not_applicable');
 
     var services = []
