@@ -33,7 +33,7 @@ module.exports = React.createClass({
 
     // Compile teacher object
     newHomeObj.immersions.teacher = {
-      isActive: $('.card-reveal.tandem').is(':visible'),
+      isActive: $('.card-reveal.teacher').is(':visible'),
       packages: $('#packages').val() !== null ? $('#packages').val() : null,
       hourly: $('#teacher-rate').val() !== null ? parseInt(($('#teacher-rate').val()).replace(/[^0-9\.]+/g,"")) : null,
       languagesOffered: $('#teacher-languages-offered').val() !== null ? $('#teacher-languages-offered').val() : []
@@ -61,7 +61,7 @@ module.exports = React.createClass({
     })
 
     // Apply discount to each tandem language
-    if (newHomeObj.immersions.tandem !== null && newHomeObj.immersions.tandem.isActive === true) {
+    if (newHomeObj.immersions.tandem !== null) {
 
       newHomeObj.immersions.tandem.languagesInterested = [];
 
@@ -81,6 +81,7 @@ module.exports = React.createClass({
     if (newHomeObj.immersions.stay !== null && newHomeObj.immersions.tandem !== null && newHomeObj.immersions.teacher !== null && newHomeObj.immersions.stay.isActive === false && newHomeObj.immersions.tandem.isActive === false && newHomeObj.immersions.teacher.isActive === false) {
 
       // No immersions are active
+      console.log('no immersions active')
       return
 
     } else {
