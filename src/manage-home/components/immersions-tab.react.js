@@ -99,6 +99,17 @@ module.exports = React.createClass({
     $.each(this.props.props.immersions, function(index, obj) {
       if (obj && obj.isActive === true) {
         $('.card-reveal.'+index).parent().css('overflow', 'hidden');
+        $('.card-reveal.'+index).find('select').attr('required','required');
+        $('.card-reveal.'+index).find('#teacher-rate').length > 0 ? $('#teacher-rate').attr('required','required') : null;
+        $('.card-reveal.'+index).find('select').css({
+          display: "block",
+          height: '1px',
+          padding: 0,
+          width: '1px',
+          opacity: 0,
+          border: 0,
+          position: 'absolute'
+        });
         $('.card-reveal.'+index).css({ display: 'block'}).velocity("stop", false).velocity({translateY: '-100%'}, {duration: 300, queue: false, easing: 'easeInOutQuad'});
         $('#save-immersions').removeClass('disabled')
       }
@@ -154,7 +165,7 @@ module.exports = React.createClass({
         position: 'absolute'
       });
 
-      $('#save-immersions').removeClass('disabled')
+      $('#save-immersions').removeClass('disabled');
 
     })
 
