@@ -17,6 +17,8 @@ module.exports = React.createClass({
     var newRooms = this.props.props.rooms;
     newRooms.push(newRoom)
 
+    this.setState({rooms:newRooms});
+
     var RoomsContainer = React.createClass({
       render: function() {
         var allRooms = []
@@ -70,8 +72,6 @@ module.exports = React.createClass({
       facilities: $('#room-facilities').val()
     };
 
-    console.log(newRoom)
-
     $('#preloader').show();
 
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms';
@@ -124,28 +124,13 @@ module.exports = React.createClass({
 
     // Create new rooms object
     var newHomeObj = this.props.props;
-    var newRoomsObj = [];
+    var oldRooms = this.props.props.rooms;
+    var newRoomsObj = oldRooms.concat(this.state.rooms);
 
-    $('.existing-room').each(function() {
-
-      // Set up new object for each room
-      var room = {};
-
-      // Find params
-      room.id = $(this).attr('data-id');
-      room.name = $(this).find('.room-name').val();
-      room.bed = $(this).find('select.bed-type').val();
-      room.vacancies = parseInt($(this).find('select.vacancies').val());
-      room.facilities = $(this).find('select.facilities').val();
-      room.shared = $(this).find('input.shared-switch').prop('checked');
-      room.img = $(this).find("#photo_room_"+room.id).val();
-      room.description = $(this).find('.room-description').val();
-
-      newRoomsObj.push(room);
-    })
-
-    // Modify home object, using new rooms object
+    // Modify home object with new room array
     newHomeObj.rooms = newRoomsObj;
+
+    // Send it off
     this.props.updateHome(newHomeObj, function() {
       toast(i18n.t('manage_home:room_updated_toast'));
     });

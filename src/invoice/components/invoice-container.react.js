@@ -51,11 +51,6 @@ module.exports = React.createClass({
 
       }
 
-
-
-
-
-
     };
     GET(url, success)
 
