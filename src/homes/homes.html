@@ -44,11 +44,10 @@
 <div class='home-title row z-depth-1'>
   <div class='row no-margin'>
     <h1 data-home-id='{{home.id}}'>
-      {{home.host.firstName}}'s
       {% if home.basics.family %}
-        {{translations.common.family_home}}
-        {% else %}
-        {{translations.common.home}}
+        {{translations.homes.non_family_home_title | replace('[host]',home.host.firstName)}}
+      {% else %}
+        {{translations.homes.family_home_title| replace('[host]',home.host.firstName)}}
       {% endif %}
     </h1>
   </div>
