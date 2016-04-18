@@ -70,6 +70,8 @@ module.exports = React.createClass({
       facilities: $('#room-facilities').val()
     };
 
+    console.log(newRoom)
+
     $('#preloader').show();
 
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms';
