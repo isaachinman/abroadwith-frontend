@@ -32,9 +32,6 @@ module.exports = React.createClass({
     // Slider Id
     var sliderId = 'slider' + this.props.markerId;
 
-    // Room photo src
-    var roomPhoto = this.props.roomPhoto !== undefined ? <img src={domains.IMG + this.props.roomPhoto}/> : null;
-
     // Home photos
     if (this.props.homePhotos) {
       var homePhotos = [];
@@ -45,6 +42,27 @@ module.exports = React.createClass({
       }.bind(this))
     }
 
+    // Compile room and home photos
+    var photos = [];
+    if (this.props.roomPhoto !== undefined) {
+      photos.push(
+        <div className="Wallop-list">
+          <div className="Wallop-item Wallop-item--current">
+            <img src={domains.IMG + this.props.roomPhoto}/>
+          </div>
+          {homePhotos}
+        </div>
+      )
+    } else {
+      photos.push(
+        <div className="Wallop-list">
+          {homePhotos}
+        </div>
+      )
+    }
+
+
+
     // Host photo src
     var hostImg = {
       backgroundImage: 'url(' + domains.IMG + this.props.hostPhoto + ')'
@@ -53,7 +71,6 @@ module.exports = React.createClass({
     // Compile immersion tags
     var immersionTags = [];
     this.props.immersions.forEach(function(immersion) {
-      console.log(immersion)
       var tag = <div className={immersion}>{i18n.t('common:'+immersion)}</div>
       immersionTags.push(tag);
     })
@@ -84,12 +101,7 @@ module.exports = React.createClass({
         <div className='search-result' id={domId} onMouseOver={this.mapHover.bind(this, this.props.markerId)} onMouseOut={this.mapOut.bind(this, this.props.markerId)}>
           <a className='overlay' href={homelink}></a>
           <div className="wallop">
-            <div className="Wallop-list">
-              <div className="Wallop-item Wallop-item--current">
-                {roomPhoto}
-              </div>
-              {homePhotos}
-            </div>
+            {photos}
             <a className="Wallop-buttonPrevious white-text">
               <i className="fa fa-chevron-circle-left fa-2x"></i>
             </a>

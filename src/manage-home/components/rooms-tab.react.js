@@ -193,8 +193,6 @@ module.exports = React.createClass({
   },
   render: function() {
 
-    console.log(this.props.props.rooms)
-
     var refreshState = this.props.refreshState;
 
     if (this.props.props.rooms && this.props.props.rooms.length > 0) {
