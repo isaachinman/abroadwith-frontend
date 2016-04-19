@@ -164,8 +164,14 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
-    $('a#add-room').click(this.addRoom);
+
+    $('form#home-add-room-form').submit(function(e) {
+      e.preventDefault()
+      this.addRoom()
+    }.bind(this))
+
     $('a#save-rooms').click(this.saveRooms);
+    
   },
   componentDidUpdate: function() {
 
