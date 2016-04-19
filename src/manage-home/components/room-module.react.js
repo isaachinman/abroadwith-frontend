@@ -51,10 +51,14 @@ module.exports = React.createClass({
     $('li[data-id="'+this.props.id+'"]').find('select.bed-type option[value="'+this.props.bed+'"]').attr('selected','selected');
     $('li[data-id="'+this.props.id+'"]').find('select.facilities').val(this.props.facilities);
     $('li[data-id="'+this.props.id+'"]').find('select.material').material_select();
+    $('li[data-id="'+this.props.id+'"]').find('select.vacancies option[value="'+this.props.vacancies+'"]').attr('selected','selected');
+    console.log($('li[data-id="'+this.props.id+'"]').find('select.vacancies option[value="'+this.props.vacancies+'"]'))
   },
   render: function() {
 
     var img = this.props.img !== null ? this.props.img : '';
+
+    console.log(this.props.vacancies)
 
     return (
 
@@ -94,7 +98,7 @@ module.exports = React.createClass({
               <i className="fa fa-user-plus fa-2x"></i>
             </div>
             <div className='col s10 m4 l4 input-field'>
-              <select className='material vacancies' defaultValue={this.props.vacancies}>
+              <select className='material vacancies' value={this.props.vacancies}>
                 <option value="" disabled>{i18n.t('rooms:vacancies_placeholder')}</option>
                 <option value="1">1</option>
                 <option value="2">2</option>

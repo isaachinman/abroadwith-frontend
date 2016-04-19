@@ -139,6 +139,8 @@ module.exports = React.createClass({
      room.img = $(this).find("#photo_room_"+room.id).val();
      room.description = $(this).find('.room-description').val();
 
+     console.log(room)
+
      newRoomsObj.push(room);
    })
 

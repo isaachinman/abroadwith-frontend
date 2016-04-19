@@ -18,6 +18,9 @@ module.exports = React.createClass({
     mapZoom = 2;
 
     window.initAutocomplete = function() {
+
+      this.setState({ mapDidInit: true });
+
       var map = new google.maps.Map(document.getElementById('home-map'), {
         center: {
           lat: mapLat,
@@ -123,10 +126,10 @@ module.exports = React.createClass({
         });
 
       });
-    }
-    $('#location-tab-trigger').click(initHiddenMap)
+    }.bind(this)
+    $('#location').click(initHiddenMap)
     function initHiddenMap(e) {
-      document.getElementById('location-tab').removeEventListener('click', initHiddenMap)
+      document.getElementById('location').removeEventListener('click', initHiddenMap)
       initAutocomplete();
     }
 
@@ -165,9 +168,11 @@ module.exports = React.createClass({
       mapZoom = 2;
     }
 
-    $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places", function() {
-      initAutocomplete();
-    });
+    if (this.state.mapDidInit !== true) {
+      $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places", function() {
+        initAutocomplete();
+      });
+    }
 
   },
   render: function() {
