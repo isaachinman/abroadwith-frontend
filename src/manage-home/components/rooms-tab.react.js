@@ -101,7 +101,7 @@ module.exports = React.createClass({
             console.log(response)
             if (response.status == 'OK') {
 
-              $.each(response, function(obj) {
+              $.each(response, function(index, obj) {
                 newRoom.img = obj.location;
               })
 
