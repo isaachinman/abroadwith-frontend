@@ -1,5 +1,3 @@
-'use strict';
-
 // Disable all console logging for production
 // console.log = function() {}
 
