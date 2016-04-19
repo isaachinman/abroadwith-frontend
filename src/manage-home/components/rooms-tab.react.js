@@ -99,15 +99,17 @@ module.exports = React.createClass({
           success : function(data, textStatus, jqXHR) {
             var response = JSON.parse(data);
             console.log(response)
-            if (response.status == 'OK') {
 
-              $.each(response, function(index, obj) {
-                console.log(index)
-                console.log(obj)
+            $.each(response, function(index, obj) {
+              if (obj.status == 'OK') {
                 newRoom.img = obj.location;
-              })
+              }
+              console.log(index)
+              console.log(obj)
 
-            }
+            })
+
+
             addRoomToList(newRoom);
             $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
             $('#preloader').hide();
