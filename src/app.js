@@ -1,5 +1,5 @@
 // Disable all console logging for production
-console.log = function() {}
+// console.log = function() {}
 
 require('jquery')
 var select2 = require('select2-browserify')
