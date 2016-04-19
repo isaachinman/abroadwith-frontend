@@ -112,6 +112,9 @@ module.exports = React.createClass({
           position: 'absolute'
         });
         $('.card-reveal.'+index).css({ display: 'block'}).velocity("stop", false).velocity({translateY: '-100%'}, {duration: 300, queue: false, easing: 'easeInOutQuad'});
+        setTimeout(function() {
+          $('.card-reveal.'+index).parent().css({ overflow: 'visible'})
+        }, 300)
         $('#save-immersions').removeClass('disabled')
       }
     })
