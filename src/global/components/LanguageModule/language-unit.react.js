@@ -64,6 +64,7 @@ module.exports = React.createClass({
 
       <div className='col s12 m10 offset-m1 l8 offset-l2'>
         <div id={this.props.id} className='language-module'>
+          <i class="fa fa-exclamation-circle required red-text hide" aria-hidden="true"></i>
           <select className='select2 language' data-placeholder={i18n.t('common:choose_language')} data-lang={this.props.language}>
             <option></option>
             {languageOptionTags}

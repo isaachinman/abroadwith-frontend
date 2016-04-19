@@ -199,7 +199,7 @@ if ($('form#email-signup-form').length) {
       })
 
       if (newUser.userKnownLanguages.length < 1) {
-        $('#languages-not-valid').removeClass('hide');
+        $('.language-container--known i.required').removeClass('hide');
         return;
       }
 
