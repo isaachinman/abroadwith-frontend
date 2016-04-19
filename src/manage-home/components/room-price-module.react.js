@@ -1,14 +1,15 @@
-const React = require('react');
-const i18n = require('i18n');
+const React = require('react')
+const i18n = require('i18n')
 
-const domains = require('domains');
+const domains = require('domains')
+const currencies = require('currencies')
 
 module.exports = React.createClass({
   render: function() {
 
     var img = this.props.img ? domains.IMG + this.props.img : domains.IMG + '/homes/default_room.png';
     console.log(img)
-    var price = this.props.price !== null ? this.props.price + ' ' + this.props.currency : '';
+    var price = this.props.price !== null ? currencies[this.props.currency] + this.props.price : '';
     var bedType = this.props.bed;
 
     return (
