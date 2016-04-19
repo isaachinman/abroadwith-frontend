@@ -98,6 +98,7 @@ module.exports = React.createClass({
           beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
           success : function(data, textStatus, jqXHR) {
             var response = JSON.parse(data);
+            console.log(response)
             if (response.status == 'OK') {
               newRoom.img = response.location;
             }
