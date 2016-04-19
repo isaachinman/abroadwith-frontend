@@ -50,8 +50,8 @@ module.exports = React.createClass({
   componentDidMount: function() {
     $('li[data-id="'+this.props.id+'"]').find('select.bed-type option[value="'+this.props.bed+'"]').attr('selected','selected');
     $('li[data-id="'+this.props.id+'"]').find('select.facilities').val(this.props.facilities);
-    $('li[data-id="'+this.props.id+'"]').find('select.material').material_select();
     $('li[data-id="'+this.props.id+'"]').find('select.vacancies option[value="'+this.props.vacancies+'"]').attr('selected','selected');
+    $('li[data-id="'+this.props.id+'"]').find('select.material').material_select();
   },
   render: function() {
 
