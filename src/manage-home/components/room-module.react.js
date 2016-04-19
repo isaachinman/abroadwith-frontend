@@ -52,17 +52,14 @@ module.exports = React.createClass({
     $('li[data-id="'+this.props.id+'"]').find('select.facilities').val(this.props.facilities);
     $('li[data-id="'+this.props.id+'"]').find('select.material').material_select();
     $('li[data-id="'+this.props.id+'"]').find('select.vacancies option[value="'+this.props.vacancies+'"]').attr('selected','selected');
-    console.log($('li[data-id="'+this.props.id+'"]').find('select.vacancies option[value="'+this.props.vacancies+'"]'))
   },
   render: function() {
 
     var img = this.props.img !== null ? this.props.img : '';
 
-    console.log(this.props.vacancies)
-
     return (
 
-      <li className='white existing-room' data-id={this.props.id}>
+      <li className='white existing-room' data-id={this.props.id} data-price={this.props.price}>
         <div id={this.props.id} className="collapsible-header">
           {this.props.roomName}
         </div>

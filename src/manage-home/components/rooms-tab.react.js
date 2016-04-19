@@ -127,21 +127,21 @@ module.exports = React.createClass({
    $('.existing-room').each(function() {
 
      // Set up new object for each room
-     var room = {};
-
-     // Find params
-     room.id = $(this).attr('data-id');
-     room.name = $(this).find('.room-name').val();
-     room.bed = $(this).find('select.bed-type').val();
-     room.vacancies = $(this).find('select.vacancies').val();
-     room.facilities = $(this).find('select.facilities').val();
-     room.shared = $(this).find('input.shared-switch').prop('checked');
-     room.img = $(this).find("#photo_room_"+room.id).val();
-     room.description = $(this).find('.room-description').val();
-
-     console.log(room)
+     var id = parseInt($(this).attr('data-id'));
+     var room = {
+       id: id,
+       name: $(this).find('.room-name').val(),
+       bed: $(this).find('select.bed-type').val(),
+       vacancies: parseInt($(this).find('select.vacancies').val()),
+       facilities: $(this).find('select.facilities').val(),
+       shared: $(this).find('input.shared-switch').prop('checked'),
+       img: $(this).find("#photo_room_"+id).val() !== '' ? $(this).find("#photo_room_"+id).val() : null,
+       description: $(this).find('.room-description').val(),
+       price: $(this).attr('data-price')
+     };
 
      newRoomsObj.push(room);
+
    })
 
    // Modify home object, using new rooms object
