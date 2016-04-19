@@ -12,6 +12,8 @@ const toast = require('toast');
 module.exports = React.createClass({
   addRoomToList: function(newRoom) {
 
+    document.getElementById('home-add-room-form').reset();
+
     var refreshState = this.props.refreshState;
 
     var newRooms = this.props.props.rooms;
@@ -169,7 +171,6 @@ module.exports = React.createClass({
     $('form#home-add-room-form').submit(function(e) {
       e.preventDefault()
       this.addRoom()
-      // document.getElementById('home-add-room-form').reset();
     }.bind(this))
 
     $('a#save-rooms').click(this.saveRooms);
