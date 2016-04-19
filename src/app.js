@@ -68,3 +68,6 @@ require('./immersion-confirmation/immersion-confirmation')
 
 // Review
 require('./review/review')
+
+// Users
+require('./users/users')

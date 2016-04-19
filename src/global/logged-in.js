@@ -28,6 +28,9 @@ module.exports = function() {
   $('.logged-out').hide();
   $('.logged-in').fadeIn();
 
+  // Input links to profile page
+  $('a.go-to-your-profile').attr('href','/users/'+JWT.rid)
+
   // If user has a home, modify UI
   if (JWT.hid) {
     $('.become-a-host').hide();

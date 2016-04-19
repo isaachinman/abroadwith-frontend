@@ -49,16 +49,31 @@
 }
 .user-profile-info {
   @extend .z-depth-1;
-  padding: 20px 0 0 0;
-  @media #{$small-and-down} {
-    padding: 0;
+  padding: 20px 0;
+  margin-bottom: 20px;
+  position: relative;
+  background: lighten($grey-chateau, 30%);
+  a.edit-your-profile {
+    @media #{$large-and-up} {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    @media #{$medium-and-down} {
+      float: right;
+      margin-bottom: 20px;
+    }
+    @media #{$small-and-down} {
+      float: none;
+      margin: 20px auto;
+    }
   }
-  background: lighten($mint-green, 4%);
   h1 {
     color: darken($americano, 5%);
     overflow: hidden;
     display: inline-block;
     font-size: 2.5rem;
+    line-height: 3rem;
     margin: 15px 0 0 0;
   }
   .info {

@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class='user-profile-info'>
-  <div class='container row left-align'>
+  <div class='container row left-align center-on-small'>
 
     <div class='user-image'>
       {% if user.photo %}
@@ -86,6 +86,8 @@
       {% endif %}
 
     </div>
+
+    <a class='edit-your-profile btn btn-primary btn-flat' data-user-id={{user.id}} href='/users-edit' style='display:none'>Edit your profile</a>
 
   </div>
 </div>
