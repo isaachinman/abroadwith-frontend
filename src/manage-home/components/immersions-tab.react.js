@@ -61,7 +61,7 @@ module.exports = React.createClass({
     })
 
     // Apply discount to each tandem language
-    if (newHomeObj.immersions.tandem !== null) {
+    if (newHomeObj.immersions.tandem !== null && $('#tandem-language-sought').val() !== null) {
 
       newHomeObj.immersions.tandem.languagesInterested = [];
 
