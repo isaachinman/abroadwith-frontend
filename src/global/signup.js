@@ -1,10 +1,10 @@
-var login = require('./login');
+const login = require('./login');
 
-var domains = require('domains');
-var application = require('application-settings');
+const domains = require('domains');
+const application = require('application-settings');
 
-var apiDate = require('api-date');
-var uiDate = require('ui-date');
+const apiDate = require('api-date');
+const uiDate = require('ui-date');
 
 // Language-learn select
 $('select#learning-language').length ? $('select#learning-language').select2() : null;

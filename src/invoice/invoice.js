@@ -1,8 +1,7 @@
-// Deps
-var React = require('react');
-var ReactDOM = require('react-dom');
-var InvoiceContainer = require('./components/invoice-container.react');
-var i18n = require('../global/util/i18n');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const InvoiceContainer = require('./components/invoice-container.react');
+const i18n = require('i18n');
 
 if ($('#invoice-container').length) {
   i18n.loadNamespaces(['countries', 'receipts_invoices'],function(){

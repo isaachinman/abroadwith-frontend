@@ -1,6 +1,6 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var i18n = require('i18n');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const i18n = require('i18n');
 
 module.exports = React.createClass({
   removeLanguage: function() {

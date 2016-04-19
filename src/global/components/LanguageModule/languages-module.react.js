@@ -1,11 +1,11 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var i18n = require('i18n');
+const i18n = require('i18n');
 
-var JWT = require('JWT');
+const JWT = require('JWT');
 
-var LanguageUnit = require('./language-unit.react');
+const LanguageUnit = require('./language-unit.react');
 
 var languageCount = 0;
 

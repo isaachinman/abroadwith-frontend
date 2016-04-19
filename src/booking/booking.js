@@ -1,8 +1,7 @@
-// Deps
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Booking = require('./components/booking.react');
-var i18n = require('../global/util/i18n');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Booking = require('./components/booking.react');
+const i18n = require('../global/util/i18n');
 
 if ($('#booking-container').length) {
   i18n.loadNamespaces(['homes', 'immersions', 'languages', 'countries', 'common'],function(){

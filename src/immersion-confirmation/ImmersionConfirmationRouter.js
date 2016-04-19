@@ -1,5 +1,5 @@
-var express = require('express');
-var nunjucks = require('nunjucks');
+const express = require('express');
+const nunjucks = require('nunjucks');
 
 var router = express.Router();
 

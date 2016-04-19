@@ -1,8 +1,7 @@
-// Deps
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TripsContainer = require('./components/trips-container.react');
-var i18n = require('../global/util/i18n');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const TripsContainer = require('./components/trips-container.react');
+const i18n = require('i18n');
 
 if ($('#trips-container').length) {
   i18n.loadNamespaces(['trips', 'common', 'countries', 'immersions', 'languages'],function(err,t){

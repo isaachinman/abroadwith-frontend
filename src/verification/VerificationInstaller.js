@@ -1,4 +1,4 @@
-var router = require('./VerificationRouter');
+const router = require('./VerificationRouter');
 
 var installer = function(app) {
   app.use('/verify/email',router);

@@ -1,6 +1,6 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var PhotoModule = require('./photo-module.react')
+const React = require('react');
+const ReactDOM = require('react-dom');
+const PhotoModule = require('./photo-module.react')
 
 module.exports = React.createClass({
   componentDidUpdate: function() {

@@ -1,6 +1,6 @@
-var domains = require('domains');
-var GET = require('GET');
-var jwt_decode = require('jwt-decode');
+const domains = require('domains');
+const GET = require('GET');
+const jwt_decode = require('jwt-decode');
 
 var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 

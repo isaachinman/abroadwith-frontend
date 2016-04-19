@@ -1,10 +1,10 @@
-var React = require('react');
+const React = require('react');
 
-var i18n = require('../util/i18n');
+const i18n = require('i18n');
 
-var domains = require('domains');
-var JWT = require('JWT');
-var POST = require('POST');
+const domains = require('domains');
+const JWT = require('JWT');
+const POST = require('POST');
 
 module.exports = React.createClass({
   render: function() {

@@ -1,9 +1,9 @@
-var React = require('react');
-var i18n = require('../../global/util/i18n');
-var room = require('../../global/constants/Room');
+const React = require('react');
+const i18n = require('i18n');
+const room = require('../../global/constants/Room');
 
-var domains = require('domains');
-var JWT = require('JWT');
+const domains = require('domains');
+const JWT = require('JWT');
 
 var compileBedTypes = function(){
   var options = [];

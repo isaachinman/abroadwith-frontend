@@ -1,12 +1,12 @@
-var React = require('react');
-var Thread = require('./thread.react');
-var NoMessages = require('./no-messages.react');
+const React = require('react');
+const Thread = require('./thread.react');
+const NoMessages = require('./no-messages.react');
 
-var i18n = require('../../global/util/i18n');
+const i18n = require('i18n');
 
-var domains = require('domains');
-var JWT = require('JWT');
-var GET = require('GET');
+const domains = require('domains');
+const JWT = require('JWT');
+const GET = require('GET');
 
 module.exports = React.createClass({
   componentDidMount: function() {

@@ -1,11 +1,11 @@
-var React = require('react');
-var TripsList = require('./trips-list.react')
+const React = require('react');
+const TripsList = require('./trips-list.react')
 
-var JWT = require('JWT');
-var GET = require('GET');
+const JWT = require('JWT');
+const GET = require('GET');
 
-var jwt_decode = require('jwt-decode');
-var domains = require('domains');
+const jwt_decode = require('jwt-decode');
+const domains = require('domains');
 
 // Component export
 module.exports = React.createClass({

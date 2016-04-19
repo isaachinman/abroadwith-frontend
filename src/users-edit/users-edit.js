@@ -1,11 +1,10 @@
-// Deps
-var React = require('react');
-var ReactDOM = require('react-dom');
-var UserEditProfile = require('./components/user-edit-profile.react');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const UserEditProfile = require('./components/user-edit-profile.react');
 
-var domains = require('domains');
+const domains = require('domains');
 
-var toast = require('toast');
+const toast = require('toast');
 
 if ($('#user-edit-profile').length) {
   // Search parent

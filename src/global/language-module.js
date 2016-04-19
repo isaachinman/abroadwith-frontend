@@ -1,9 +1,9 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var i18n = require('.../../util/i18n');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const i18n = require('.../../util/i18n');
 
-var LanguagesContainer = require('./languages-container.react')
-var LanguagesModule = require('./languages-module.react');
+const LanguagesContainer = require('./languages-container.react')
+const LanguagesModule = require('./languages-module.react');
 
 
 if ($('.language-container--learning').length || $('.language-container--known').length) {

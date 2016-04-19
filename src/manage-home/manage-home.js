@@ -1,8 +1,7 @@
-// Deps
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ManageHomeContainer = require('./components/manage-home-container.react');
-var i18n = require('../global/util/i18n');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const ManageHomeContainer = require('./components/manage-home-container.react');
+const i18n = require('i18n');
 
 
 if ($('#manage-home-container').length) {

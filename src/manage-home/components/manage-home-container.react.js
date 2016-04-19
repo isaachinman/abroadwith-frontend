@@ -1,23 +1,23 @@
-var React =               require('react');
-var BasicsTab =           require('./basics-tab.react');
-var ImmersionsTab =       require('./immersions-tab.react');
-var LocationTab =         require('./location-tab.react');
-var DescriptionTab =      require('./description-tab.react');
-var RoomsTab =            require('./rooms-tab.react');
-var PhotosTab =           require('./photos-tab.react');
-var PricingTab =          require('./pricing-tab.react');
+const React =               require('react');
+const BasicsTab =           require('./basics-tab.react');
+const ImmersionsTab =       require('./immersions-tab.react');
+const LocationTab =         require('./location-tab.react');
+const DescriptionTab =      require('./description-tab.react');
+const RoomsTab =            require('./rooms-tab.react');
+const PhotosTab =           require('./photos-tab.react');
+const PricingTab =          require('./pricing-tab.react');
 
-var homeStatusCodes =     require('home-status-codes');
+const homeStatusCodes =     require('home-status-codes');
 
-var toast = require('toast');
-var isOnScreen = require('is-on-screen');
+const toast = require('toast');
+const isOnScreen = require('is-on-screen');
 
-var domains = require('domains');
-var JWT = require('JWT');
-var GET = require('GET');
-var POST = require('POST');
+const domains = require('domains');
+const JWT = require('JWT');
+const GET = require('GET');
+const POST = require('POST');
 
-var i18n = require('../../global/util/i18n');
+const i18n = require('i18n');
 
 module.exports = React.createClass({
   updateHome: function(newHomeObj, callback){
@@ -125,7 +125,7 @@ module.exports = React.createClass({
         // Show success tab
         $('.tab').hide();
         $('#success-tab').show();
-        
+
         // Save buttons should say next
         $('.save-btn').html('Save');
 

@@ -1,6 +1,6 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Cookies = require('js-cookie');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Cookies = require('js-cookie');
 
 var UiCurrency = React.createClass({
   componentDidMount: function() {

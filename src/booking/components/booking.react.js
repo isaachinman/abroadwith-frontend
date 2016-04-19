@@ -1,25 +1,22 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var JWT = require('JWT');
-var GET = require('GET');
-var POST = require('POST');
-var DELETE = require('DELETE');
+const JWT = require('JWT');
+const GET = require('GET');
+const POST = require('POST');
+const DELETE = require('DELETE');
 
-var i18n = require('../../global/util/i18n');
+const i18n = require('../../global/util/i18n');
 
-var AddPaymentMethod = require('../../global/components/add-payment-method.react');
-var Paypal = require('../../global/components/payment-method--paypal.react');
-var CreditCard = require('../../global/components/payment-method--credit-card.react');
+const AddPaymentMethod = require('../../global/components/add-payment-method.react');
+const Paypal = require('../../global/components/payment-method--paypal.react');
+const CreditCard = require('../../global/components/payment-method--credit-card.react');
 
-var domains = require('domains');
+const domains = require('domains');
+const currencies = require('currencies');
 
 require('../scrollspy');
 $('.scrollspy').scrollSpy();
-
-var currencies = require('currencies');
-
-var i18n = require('../../global/util/i18n');
 
 module.exports = React.createClass({
   createBookingObject: function() {

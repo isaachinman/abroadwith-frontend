@@ -1,13 +1,13 @@
-var React = require('react');
-var ReceivedMessage = require('./received-message.react');
-var SentMessage = require('./sent-message.react');
+const React = require('react');
+const ReceivedMessage = require('./received-message.react');
+const SentMessage = require('./sent-message.react');
 
-var domains = require('domains');
-var JWT = require('JWT');
-var GET = require('GET');
-var POST = require('POST');
+const domains = require('domains');
+const JWT = require('JWT');
+const GET = require('GET');
+const POST = require('POST');
 
-var i18n = require('../../global/util/i18n');
+const i18n = require('i18n');
 
 module.exports = React.createClass({
   renderMessages: function(inputObj, containerObj) {

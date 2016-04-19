@@ -1,14 +1,14 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var JWT = require('JWT');
-var GET = require('GET');
+const JWT = require('JWT');
+const GET = require('GET');
 
-var domains = require('domains');
+const domains = require('domains');
 
-var sendPaymentNonce = require('send-payment-nonce');
+const sendPaymentNonce = require('send-payment-nonce');
 
-var i18n = require('../util/i18n');
+const i18n = require('i18n');
 
 module.exports = React.createClass({
   showPreloader: function() {

@@ -1,4 +1,4 @@
-var domains = require('domains');
+const domains = require('domains');
 
 if ($('a.reset-password-request').length) {
 

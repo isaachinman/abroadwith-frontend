@@ -1,16 +1,16 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var refreshToken = require('refresh-token');
+const refreshToken = require('refresh-token');
 
-var i18n = require('../../global/util/i18n');
-var toast = require('toast');
+const i18n = require('../../global/util/i18n');
+const toast = require('toast');
 
-var JWT = require('JWT');
-var GET = require('GET');
-var POST = require('POST');
+const JWT = require('JWT');
+const GET = require('GET');
+const POST = require('POST');
 
-var domains = require('domains');
+const domains = require('domains');
 
 module.exports = React.createClass({
   requestVerificationEmail: function() {

@@ -1,8 +1,8 @@
-var domains = require('domains');
+const domains = require('domains');
 
-var loginRedirect = require('login-redirect');
-var validateBookNowButtons = require('validate-book-now-buttons');
-var validateMessageButtons = require('validate-message-buttons');
+const loginRedirect = require('login-redirect');
+const validateBookNowButtons = require('validate-book-now-buttons');
+const validateMessageButtons = require('validate-message-buttons');
 
 module.exports = function(loginObj, firstTime) {
 

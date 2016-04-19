@@ -1,10 +1,10 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var domains = require('domains');
+const domains = require('domains');
 
-var jwt_decode = require('jwt-decode');
-var GET = require('GET');
+const jwt_decode = require('jwt-decode');
+const GET = require('GET');
 
 module.exports = React.createClass({
   requestVerificationEmail: function() {

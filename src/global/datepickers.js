@@ -1,5 +1,5 @@
-var Pikaday = require('pikaday');
-var uiDate = require('ui-date');
+const Pikaday = require('pikaday');
+const uiDate = require('ui-date');
 
 if ($('input.arrival').length && $('input.departure').length) {
 

@@ -1,10 +1,10 @@
 // Deps
-var React = require('react');
-var ReactDOM = require('react-dom');
-var AdminEdit = require('./components/admin-edit.react');
-var i18n = require('../global/util/i18n');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const AdminEdit = require('./components/admin-edit.react');
+const i18n = require('../global/util/i18n');
 
-var toast = require('toast');
+const toast = require('toast');
 
 if ($('#admin-edit').length) {
   i18n.loadNamespaces(['admin','users','languages', 'common','countries'],function(){

@@ -1,7 +1,7 @@
-var domains = require('domains');
+const domains = require('domains');
 
-var loggedIn = require('logged-in');
-var jwt_decode = require('jwt-decode')
+const loggedIn = require('logged-in');
+const jwt_decode = require('jwt-decode')
 
 module.exports = function(callback) {
 

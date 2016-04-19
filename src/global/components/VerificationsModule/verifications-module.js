@@ -1,9 +1,9 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var VerificationsContainer = require('./verifications-container.react')
+const VerificationsContainer = require('./verifications-container.react')
 
-var i18n = require('i18n');
+const i18n = require('i18n');
 
 module.exports = function() {
   if ($('.verifications-module').length) {

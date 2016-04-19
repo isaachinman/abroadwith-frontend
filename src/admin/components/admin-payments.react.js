@@ -1,16 +1,16 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var CreditCard = require('../../global/components/payment-method--credit-card.react');
-var Paypal = require('../../global/components/payment-method--paypal.react');
-var AddPaymentMethod = require('../../global/components/add-payment-method.react');
-var Bank = require('../../global/components/payout-method--bank.react');
-var PaypalPayout = require('../../global/components/payout-method--paypal.react');
-var AddPayoutMethod = require('../../global/components/add-payout-method.react');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const CreditCard = require('../../global/components/payment-method--credit-card.react');
+const Paypal = require('../../global/components/payment-method--paypal.react');
+const AddPaymentMethod = require('../../global/components/add-payment-method.react');
+const Bank = require('../../global/components/payout-method--bank.react');
+const PaypalPayout = require('../../global/components/payout-method--paypal.react');
+const AddPayoutMethod = require('../../global/components/add-payout-method.react');
 
-var domains = require('domains');
-var JWT = require('JWT');
-var POST = require('POST');
-var DELETE = require('DELETE');
+const domains = require('domains');
+const JWT = require('JWT');
+const POST = require('POST');
+const DELETE = require('DELETE');
 
 module.exports = React.createClass({
   deletePaymentMethod: function(id) {

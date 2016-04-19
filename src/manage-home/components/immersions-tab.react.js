@@ -1,13 +1,13 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
 require('wnumb');
 
-var i18n = require('../../global/util/i18n');
-var LanguageDropdown = require('./language-dropdown.react');
-var toast = require('toast');
+const i18n = require('i18n');
+const LanguageDropdown = require('./language-dropdown.react');
+const toast = require('toast');
 
-var currencies = require('currencies');
+const currencies = require('currencies');
 
 
 module.exports = React.createClass({

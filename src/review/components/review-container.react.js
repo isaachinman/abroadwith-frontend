@@ -1,9 +1,9 @@
-var React = require('react');
-var Rating = require('rating');
+const React = require('react');
+const Rating = require('rating');
 
-var domains = require('domains');
-var JWT = require('JWT');
-var POST = require('POST');
+const domains = require('domains');
+const JWT = require('JWT');
+const POST = require('POST');
 
 // Component export
 module.exports = React.createClass({

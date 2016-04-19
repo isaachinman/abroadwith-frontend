@@ -1,5 +1,5 @@
-var i18n = require('i18n');
-var jwt_decode = require('jwt-decode');
+const i18n = require('i18n');
+const jwt_decode = require('jwt-decode');
 
 module.exports = function() {
   if ($('a.btn-msg').length) {

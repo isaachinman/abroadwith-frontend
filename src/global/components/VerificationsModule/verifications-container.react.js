@@ -1,14 +1,14 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var domains = require('domains');
-var jwt_decode = require('jwt-decode');
+const domains = require('domains');
+const jwt_decode = require('jwt-decode');
 
-var GET = require('GET');
-var POST = require('POST');
+const GET = require('GET');
+const POST = require('POST');
 
-var EmailVerifier = require('./email-verifier.react');
-var PhoneVerifier = require('./phone-verifier.react');
+const EmailVerifier = require('./email-verifier.react');
+const PhoneVerifier = require('./phone-verifier.react');
 
 module.exports = React.createClass({
   getInitialState: function() {

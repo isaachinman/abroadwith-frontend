@@ -1,7 +1,7 @@
-var React = require('react');
-var toast = require('toast');
+const React = require('react');
+const toast = require('toast');
 
-var refreshToken = require('refresh-token');
+const refreshToken = require('refresh-token');
 
 module.exports = React.createClass({
   saveBasics: function() {

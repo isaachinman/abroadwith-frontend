@@ -1,12 +1,12 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var i18n = require('../../global/util/i18n');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const i18n = require('i18n');
 
-var toast = require('toast');
+const toast = require('toast');
 
-var domains = require('domains');
-var JWT = require('JWT');
-var DELETE = require('DELETE');
+const domains = require('domains');
+const JWT = require('JWT');
+const DELETE = require('DELETE');
 
 module.exports = React.createClass({
   deletePhoto: function() {

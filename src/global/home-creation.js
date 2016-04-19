@@ -1,9 +1,9 @@
-var jwt_decode = require('jwt-decode');
+const jwt_decode = require('jwt-decode');
 
-var POST = require('POST');
+const POST = require('POST');
 
-var domains = require('domains');
-var refreshToken = require('refresh-token');
+const domains = require('domains');
+const refreshToken = require('refresh-token');
 
 if ($('a.become-a-host').length) {
 

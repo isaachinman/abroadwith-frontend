@@ -1,12 +1,12 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var i18n = require('../../global/util/i18n');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const i18n = require('../../global/util/i18n');
 
-var LanguagesModule = require('languages-module');
+const LanguagesModule = require('languages-module');
 
-var languages = require('languages')
+const languages = require('languages')
 
-var toast = require('toast');
+const toast = require('toast');
 
 module.exports = React.createClass({
   saveLanguages: function() {

@@ -1,17 +1,17 @@
-var Wallop = require('wallop');
-var newMessageThread = require('new-message-thread');
-var refreshToken = require('refresh-token');
+const Wallop = require('wallop');
+const newMessageThread = require('new-message-thread');
+const refreshToken = require('refresh-token');
 
-var validateBookNowButtons = require('validate-book-now-buttons');
-var validateMessageButtons = require('validate-message-buttons');
+const validateBookNowButtons = require('validate-book-now-buttons');
+const validateMessageButtons = require('validate-message-buttons');
 validateBookNowButtons();
 validateMessageButtons();
 
-var apiDate = require('api-date');
-var uiDate = require('ui-date');
-var pikaday = require('pikaday');
+const apiDate = require('api-date');
+const uiDate = require('ui-date');
+const pikaday = require('pikaday');
 
-var i18n = require('../global/util/i18n');
+const i18n = require('i18n');
 
 // Initialisations
 $(document).ready(function() {

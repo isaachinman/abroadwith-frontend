@@ -1,9 +1,9 @@
-var React = require('react');
-var ReservationPending = require('./reservation--pending.react');
-var ReservationApproved = require('./reservation--approved.react');
-var ReservationDeclined = require('./reservation--declined.react');
-var ReservationCancelled = require('./reservation--cancelled.react');
-var NoReservations = require('./no-reservations.react');
+const React = require('react');
+const ReservationPending = require('./reservation--pending.react');
+const ReservationApproved = require('./reservation--approved.react');
+const ReservationDeclined = require('./reservation--declined.react');
+const ReservationCancelled = require('./reservation--cancelled.react');
+const NoReservations = require('./no-reservations.react');
 
 module.exports = React.createClass({
   componentDidMount: function() {

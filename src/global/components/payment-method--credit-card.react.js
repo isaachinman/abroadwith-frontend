@@ -1,7 +1,7 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var i18n = require('../util/i18n');
+const i18n = require('../util/i18n');
 
 module.exports = React.createClass({
   render: function() {

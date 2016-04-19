@@ -1,15 +1,15 @@
-var React = require('react');
+const React = require('react');
 
-var domains = require('domains');
-var JWT = require('JWT');
-var POST = require('POST');
+const domains = require('domains');
+const JWT = require('JWT');
+const POST = require('POST');
 
-var toast = require('toast');
+const toast = require('toast');
 
-var defaultBankCurrencies = require('default-bank-currencies');
-var defaultPaypalCurrencies = require('default-paypal-currencies');
+const defaultBankCurrencies = require('default-bank-currencies');
+const defaultPaypalCurrencies = require('default-paypal-currencies');
 
-var i18n = require('../util/i18n');
+const i18n = require('i18n');
 
 module.exports = React.createClass({
   addBankPayout: function() {

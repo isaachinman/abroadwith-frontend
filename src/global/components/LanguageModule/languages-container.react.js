@@ -1,9 +1,9 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var LanguagesModule = require('./languages-module.react');
+const LanguagesModule = require('./languages-module.react');
 
-var JWT = require('JWT');
+const JWT = require('JWT');
 
 module.exports = React.createClass({
   getInitialState: function() {

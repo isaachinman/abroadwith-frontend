@@ -1,9 +1,9 @@
-var React = require('react');
-var TripPending = require('./trip--pending.react');
-var TripApproved = require('./trip--approved.react');
-var TripDeclined = require('./trip--declined.react');
-var TripCancelled = require('./trip--cancelled.react');
-var NoTrips = require('./no-trips.react')
+const React = require('react');
+const TripPending = require('./trip--pending.react');
+const TripApproved = require('./trip--approved.react');
+const TripDeclined = require('./trip--declined.react');
+const TripCancelled = require('./trip--cancelled.react');
+const NoTrips = require('./no-trips.react')
 
 module.exports = React.createClass({
   componentDidMount: function() {

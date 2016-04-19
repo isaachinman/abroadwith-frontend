@@ -1,8 +1,8 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var i18n = require('../global/util/i18n');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const i18n = require('i18n');
 
-var Inbox = require('./components/inbox.react');
+const Inbox = require('./components/inbox.react');
 
 if ($('#inbox-container').length) {
   i18n.loadNamespaces(['inbox','common'],function(){

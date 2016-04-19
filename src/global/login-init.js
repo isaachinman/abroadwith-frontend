@@ -1,10 +1,10 @@
-var domains = require('domains');
-var POST = require('POST');
+const domains = require('domains');
+const POST = require('POST');
 
-var login = require('login');
-var loginRedirect = require('login-redirect');
+const login = require('login');
+const loginRedirect = require('login-redirect');
 
-var loggedIn = require('logged-in');
+const loggedIn = require('logged-in');
 
 if (localStorage.getItem('JWT') !== null) {
   loggedIn();

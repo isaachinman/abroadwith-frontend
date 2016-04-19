@@ -1,6 +1,5 @@
-var React = require('react');
-var i18n = require('../../global/util/i18n');
-var room = require('../../global/constants/Room');
+const React = require('react');
+const i18n = require('i18n');
 
 
 module.exports = React.createClass({

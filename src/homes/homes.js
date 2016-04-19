@@ -1,10 +1,10 @@
-var domains = require('domains');
-var JWT = require('JWT');
+const domains = require('domains');
+const JWT = require('JWT');
 
-var apiDate = require('api-date');
+const apiDate = require('api-date');
 
-var i18n = require('i18n');
-var toast = require('toast');
+const i18n = require('i18n');
+const toast = require('toast');
 
 if ($('#book-a-room').length) {
   $('#book-a-room').click(function() {

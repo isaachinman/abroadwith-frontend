@@ -1,9 +1,9 @@
-var React = require('react');
+const React = require('react');
 
-var domains = require('domains');
-var JWT = require('JWT');
-var GET = require('GET');
-var POST = require('POST');
+const domains = require('domains');
+const JWT = require('JWT');
+const GET = require('GET');
+const POST = require('POST');
 
 module.exports = React.createClass({
   userEditSave: function() {

@@ -1,15 +1,15 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var refreshToken = require('refresh-token');
+const refreshToken = require('refresh-token');
 
-var jwt_decode = require('jwt-decode');
+const jwt_decode = require('jwt-decode');
 
-var domains = require('domains');
-var GET = require('GET');
-var POST = require('POST');
+const domains = require('domains');
+const GET = require('GET');
+const POST = require('POST');
 
-var i18n = require('i18n');
+const i18n = require('i18n');
 
 var hidden = {
   display: 'none'

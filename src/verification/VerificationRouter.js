@@ -1,8 +1,8 @@
-var express = require('express');
-var nunjucks = require('nunjucks');
-var http = require('http');
-var https = require('https');
-var domains = require('../global/constants/domains');
+const express = require('express');
+const nunjucks = require('nunjucks');
+const http = require('http');
+const https = require('https');
+const domains = require('../global/constants/domains');
 
 var router = express.Router();
 

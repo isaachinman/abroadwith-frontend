@@ -1,18 +1,18 @@
-var React = require('react');
-var Basics = require('./admin-basics.react');
-var Notifications = require('./admin-notifications.react');
-var Payments = require('./admin-payments.react');
-var Languages = require('./admin-languages.react');
-var Verifications = require('./admin-verifications.react');
+const React = require('react');
+const Basics = require('./admin-basics.react');
+const Notifications = require('./admin-notifications.react');
+const Payments = require('./admin-payments.react');
+const Languages = require('./admin-languages.react');
+const Verifications = require('./admin-verifications.react');
 
-var toast = require('toast');
-var i18n = require('../../global/util/i18n');
+const toast = require('toast');
+const i18n = require('../../global/util/i18n');
 
-var domains = require('domains');
-var JWT = require('JWT');
-var GET = require('GET');
-var POST = require('POST');
-var DELETE = require('DELETE');
+const domains = require('domains');
+const JWT = require('JWT');
+const GET = require('GET');
+const POST = require('POST');
+const DELETE = require('DELETE');
 
 module.exports = React.createClass({
   updateAdmin: function(firstCallback) {

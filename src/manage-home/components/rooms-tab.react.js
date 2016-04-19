@@ -1,13 +1,13 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var RoomModule = require('./room-module.react');
-var i18n = require('../../global/util/i18n');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const RoomModule = require('./room-module.react');
+const i18n = require('i18n');
 
-var domains = require('domains');
-var JWT = require('JWT');
-var POST = require('POST');
+const domains = require('domains');
+const JWT = require('JWT');
+const POST = require('POST');
 
-var toast = require('toast');
+const toast = require('toast');
 
 module.exports = React.createClass({
   addRoomToList: function(newRoom) {

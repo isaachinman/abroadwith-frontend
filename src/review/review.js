@@ -1,7 +1,6 @@
-// Deps
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ReviewContainer = require('./components/review-container.react')
+const React = require('react');
+const ReactDOM = require('react-dom');
+const ReviewContainer = require('./components/review-container.react')
 
 
 if ($('#review-container').length) {

@@ -1,12 +1,12 @@
-var React = require('react');
+const React = require('react');
 
-var domains = require('domains');
-var JWT = require('JWT');
-var GET = require('GET');
+const domains = require('domains');
+const JWT = require('JWT');
+const GET = require('GET');
 
-var i18n = require('../../global/util/i18n');
+const i18n = require('i18n');
 
-var currencies = require('currencies');
+const currencies = require('currencies');
 
 // Component export
 module.exports = React.createClass({

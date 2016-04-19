@@ -1,5 +1,5 @@
-var jwt_decode = require('jwt-decode');
-var verificationsModuleInit = require('verifications-module-init');
+const jwt_decode = require('jwt-decode');
+const verificationsModuleInit = require('verifications-module-init');
 
 module.exports = function() {
 

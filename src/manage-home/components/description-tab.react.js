@@ -1,7 +1,7 @@
-var React = require('react');
+const React = require('react');
 
-var i18n = require('../../global/util/i18n');
-var toast = require('toast');
+const i18n = require('i18n');
+const toast = require('toast');
 
 module.exports = React.createClass({
   saveDescription: function() {
