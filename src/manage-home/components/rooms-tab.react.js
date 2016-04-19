@@ -100,7 +100,11 @@ module.exports = React.createClass({
             var response = JSON.parse(data);
             console.log(response)
             if (response.status == 'OK') {
-              newRoom.img = response.location;
+
+              $.each(response, function(obj) {
+                newRoom.img = obj.location;
+              })
+
             }
             addRoomToList(newRoom);
             $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
