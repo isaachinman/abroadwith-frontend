@@ -236,7 +236,7 @@ module.exports = React.createClass({
 
         teacherLanguagesOffered.val(this.props.props.immersions.teacher.languagesOffered);
 
-        this.props.props.immersions.teacher.hourly !== null ? $('#teacher-rate').val(currencies[this.props.props.pricing.currency] + this.props.props.immersions.teacher.hourly) : null;
+        this.props.props.immersions.teacher.hourly !== null ? $('#teacher-rate').val(this.props.props.immersions.teacher.hourly) : null;
         $('#packages').val(this.props.props.immersions.teacher.packages);
 
       }
