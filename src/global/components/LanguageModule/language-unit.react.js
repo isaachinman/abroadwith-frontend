@@ -49,13 +49,13 @@ module.exports = React.createClass({
     var levelOptionTags = [];
     if (this.props.type === 'learning') {
       // Compile learning levels
-      levelOptionTags.push(<option selected>{i18n.t('common:choose_a_level')}</option>)
+      levelOptionTags.push(<option selected disabled>{i18n.t('common:choose_a_level')}</option>)
       levelOptionTags.push(<option value='BEGINNER'>{i18n.t('common:learningLevels.BEGINNER')}</option>)
       levelOptionTags.push(<option value='INTERMEDIATE'>{i18n.t('common:learningLevels.INTERMEDIATE')}</option>)
       levelOptionTags.push(<option value='ADVANCED'>{i18n.t('common:learningLevels.ADVANCED')}</option>)
     } else {
       // Compile known levels
-      levelOptionTags.push(<option selected>{i18n.t('common:choose_a_level')}</option>)
+      levelOptionTags.push(<option selected disabled>{i18n.t('common:choose_a_level')}</option>)
       levelOptionTags.push(<option value='NATIVE'>{i18n.t('common:knownLevels.NATIVE')}</option>)
       levelOptionTags.push(<option value='PROFICIENT'>{i18n.t('common:knownLevels.PROFICIENT')}</option>)
     }
