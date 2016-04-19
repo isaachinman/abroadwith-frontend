@@ -61,6 +61,7 @@ module.exports = React.createClass({
 
       google.maps.event.addListenerOnce(map, 'idle', function() {
          google.maps.event.trigger(map, 'resize');
+         map.setCenter(new google.maps.LatLng(mapLat, mapLng))
       });
 
       // Listen for the event fired when the user selects a prediction and retrieve
@@ -171,6 +172,7 @@ module.exports = React.createClass({
     if (this.state.mapDidInit !== true) {
       $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places", function() {
         initAutocomplete();
+
       });
     }
 
