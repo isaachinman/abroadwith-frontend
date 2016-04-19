@@ -97,9 +97,10 @@ module.exports = React.createClass({
           processData : false,
           beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
           success : function(data, textStatus, jqXHR) {
-            console.log(data)
-            console.log(textStatus)
-            console.log(jqXHR)
+            var response = JSON.parse(data);
+            if (response.status === 'OK') {
+              newRoom.img = response.location;
+            }
             addRoomToList(newRoom);
             $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
             $('#preloader').hide();
