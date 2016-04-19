@@ -120,6 +120,7 @@ module.exports = React.createClass({
           }
         });
       } else {
+        console.log('no images detected')
         addRoomToList(newRoom);
         $('#preloader').hide();
       }
