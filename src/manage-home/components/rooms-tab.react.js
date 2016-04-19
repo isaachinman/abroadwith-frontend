@@ -168,10 +168,11 @@ module.exports = React.createClass({
     $('form#home-add-room-form').submit(function(e) {
       e.preventDefault()
       this.addRoom()
+      document.getElementById('home-add-room-form').reset();
     }.bind(this))
 
     $('a#save-rooms').click(this.saveRooms);
-    
+
   },
   componentDidUpdate: function() {
 
