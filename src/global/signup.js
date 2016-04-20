@@ -24,11 +24,6 @@ if ($('form#email-signup-form').length) {
   // Create signup object
   newUser = {};
 
-  // Users must be at least 18, so generate minimum date
-  var eighteenYearsAgo = new Date();
-  eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18);
-  eighteenYearsAgo = apiDate(eighteenYearsAgo);
-
   //  Initialise and setup Facebook js sdk
   window.fbAsyncInit = function() {
     FB.init({
@@ -68,7 +63,7 @@ if ($('form#email-signup-form').length) {
           newUser["firstName"] = response.first_name;
           newUser["lastName"] = response.last_name;
           newUser["email"] = response.email;
-          newUser["birthDate"] = response.birthday === 'undefined' ? (response.birthday).substring(6, 10) + '-' + (response.birthday).substring(0, 2) + '-' + (response.birthday).substring(3, 5) : eighteenYearsAgo;
+          newUser["birthDate"] = response.birthday === 'undefined' ? (response.birthday).substring(6, 10) + '-' + (response.birthday).substring(0, 2) + '-' + (response.birthday).substring(3, 5) : null;
 
           loginObj.email = response.email;
 
@@ -116,7 +111,7 @@ if ($('form#email-signup-form').length) {
     newUser["firstName"] = profile.getGivenName();
     newUser["lastName"] = profile.getFamilyName();
     newUser["email"] = profile.getEmail();
-    newUser["birthDate"] = eighteenYearsAgo;
+    newUser["birthDate"] = null;
     newUser["googleId"] = googleUser.getBasicProfile().getId();
 
     var loginObj = {
