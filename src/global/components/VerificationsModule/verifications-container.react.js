@@ -32,7 +32,7 @@ module.exports = React.createClass({
         email: JWT.email
       })
 
-      if (typeof callback !== undefined) {
+      if (typeof callback !== undefined && $.isFunction(callback)) {
         callback();
       }
 
