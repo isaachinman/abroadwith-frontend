@@ -10,7 +10,7 @@ validateMessageButtons();
 const apiDate = require('api-date');
 const uiDate = require('ui-date');
 const pikaday = require('pikaday');
-const select2 = require('select2-browserify')
+const select2 = require('select2-browserify');
 
 const i18n = require('i18n');
 

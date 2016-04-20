@@ -32,7 +32,9 @@ module.exports = React.createClass({
         email: JWT.email
       })
 
-      callback ? callback() : null
+      if (typeof callback !== undefined) {
+        callback();
+      }
 
     }.bind(this)
     GET(url, success);
@@ -51,7 +53,9 @@ module.exports = React.createClass({
       userObj.phoneNumber = $('#phone-number-verifications-modal').val();
       var success = function(response) {
         console.log(response);
-        this.refreshState( () => $('#preloader').hide() )
+        this.refreshState(function() {
+          $('#preloader').hide();
+        })
       }.bind(this)
       POST(url, userObj, success)
 
