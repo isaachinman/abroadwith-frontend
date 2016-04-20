@@ -3,6 +3,8 @@ const ReactDOM = require('react-dom');
 
 require('wnumb');
 
+const noUiSlider = require('no-ui-slider')
+
 const i18n = require('i18n');
 const LanguageDropdown = require('./language-dropdown.react');
 const toast = require('toast');
@@ -81,7 +83,6 @@ module.exports = React.createClass({
     if (newHomeObj.immersions.stay !== null && newHomeObj.immersions.tandem !== null && newHomeObj.immersions.teacher !== null && newHomeObj.immersions.stay.isActive === false && newHomeObj.immersions.tandem.isActive === false && newHomeObj.immersions.teacher.isActive === false) {
 
       // No immersions are active
-      console.log('no immersions active')
       return
 
     } else {
@@ -127,27 +128,23 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
-    $.getScript('https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.2.1/nouislider.min.js', function() {
+    // Set to window for later usage
+    window.tandemDiscount = document.getElementById('tandem-discount')
 
-      // Set to window for later usage
-      window.tandemDiscount = document.getElementById('tandem-discount');
-
-      // Init nouislider
-      noUiSlider.create(tandemDiscount, {
-      	start: [20],
-      	range: {
-      		'min': 0,
-      		'max': 95
-      	},
-        step: 5,
-        tooltips: true,
-        format: wNumb({
-          decimals:0,
-          postfix: '%'
-        })
-      });
-
-    })
+    // Init nouislider
+    noUiSlider.create(tandemDiscount, {
+    	start: [20],
+    	range: {
+    		'min': 0,
+    		'max': 95
+    	},
+      step: 5,
+      tooltips: true,
+      format: wNumb({
+        decimals:0,
+        postfix: '%'
+      })
+    });
 
     // Save immersions button
     $('form#home-immersions-form').submit(function(e) {
