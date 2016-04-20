@@ -23,6 +23,8 @@ module.exports = React.createClass({
 
     var homeLink = '/homes/' + trip.homeId;
 
+    let homeAddress = trip.homeAddress ? trip.homeAddress.city + ', ' + i18n.t('countries:'+trip.homeAddress.country) : i18n.t('trips:not_applicable')
+
     return (
 
       <li>
@@ -54,7 +56,7 @@ module.exports = React.createClass({
                   <tr>
                     <td className='status'>{i18n.t('trips:status_codes.DECLINED')} {whoDeclined}</td>
                     <td>{trip.roomName}</td>
-                    <td>{trip.homeAddress.city}, {i18n.t('countries:'+trip.homeAddress.country)}</td>
+                    <td>{homeAddress}</td>
                     <td>{trip.arrivalDate}</td>
                     <td>{trip.departureDate}</td>
                     <td>{trip.guestCount}</td>

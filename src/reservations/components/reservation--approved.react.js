@@ -68,6 +68,8 @@ module.exports = React.createClass({
 
     var guestProfUrl = 'users/' + reservation.guestId;
 
+    let homeAddress = reservation.homeAddress ? reservation.homeAddress.street + <br /> + reservation.homeAddress.city + ', ' + i18n.t('countries:'+reservation.homeAddress.country) : i18n.t('trips:not_applicable')
+
     return (
 
       <li>
@@ -106,7 +108,7 @@ module.exports = React.createClass({
                   <tr>
                     <td className='status'>{i18n.t('trips:status_codes.APPROVED')}</td>
                     <td>{reservation.roomName}</td>
-                    <td>{reservation.homeAddress.street}<br />{reservation.homeAddress.city}, {i18n.t('countries:'+reservation.homeAddress.country)}</td>
+                    <td>{homeAddress}</td>
                     <td>{reservation.arrivalDate}</td>
                     <td>{reservation.departureDate}</td>
                     <td>{reservation.guestCount}</td>
