@@ -1,8 +1,8 @@
 // Disable all console logging for production
-// console.log = function() {}
+console.log = function() {}
 
+// jQuery
 require('jquery')
-var select2 = require('select2-browserify')
 
 // Main materialize script
 require('materialize')
@@ -18,6 +18,7 @@ require('./global/login-init')
 require('./global/login-redirect')
 require('./global/logout-init')
 require('./global/home-creation')
+require('./global/go-to-manage-home')
 require('./global/reset-password-request')
 require('./global/reset-password-set')
 require('./global/validate-book-now-buttons')

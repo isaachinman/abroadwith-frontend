@@ -16,7 +16,7 @@ module.exports = React.createClass({
     this.refreshState();
 
   },
-  refreshState: function() {
+  refreshState: function(callback) {
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
     var url = domains.API + '/users/' + JWT.rid;
     var success = function(response) {
@@ -31,10 +31,15 @@ module.exports = React.createClass({
         phoneNumber: response.phoneNumber,
         email: JWT.email
       })
+
+      callback ? callback() : null
+
     }.bind(this)
     GET(url, success);
   },
   changePhoneNumber: function(e) {
+
+    $('#preloader').show()
 
     e.preventDefault();
 
@@ -46,11 +51,14 @@ module.exports = React.createClass({
       userObj.phoneNumber = $('#phone-number-verifications-modal').val();
       var success = function(response) {
         console.log(response);
-        this.refreshState();
+        this.refreshState( () => $('#preloader').hide() )
       }.bind(this)
       POST(url, userObj, success)
 
     }
+
+
+
 
   },
   render: function() {

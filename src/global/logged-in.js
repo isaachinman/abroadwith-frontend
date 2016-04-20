@@ -31,6 +31,11 @@ module.exports = function() {
   // Input links to profile page
   $('a.go-to-your-profile').attr('href','/users/'+JWT.rid)
 
+  // If user has a home, modify UI
+  if (JWT.hid) {
+    $('.become-a-host').hide();
+    $('.your-home').show();
+  }
 
   // Get unread message count
   require('./get-unread-message-count');
