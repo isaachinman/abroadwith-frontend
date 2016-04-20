@@ -68,7 +68,8 @@ module.exports = React.createClass({
 
     var guestProfUrl = 'users/' + reservation.guestId;
 
-    var homeAddress = reservation.homeAddress ? reservation.homeAddress.street + <br /> + reservation.homeAddress.city + ', ' + i18n.t('countries:'+reservation.homeAddress.country) : i18n.t('trips:not_applicable')
+    console.log(reservation.homeAddress.street)
+    var homeAddress = reservation.homeAddress ? reservation.homeAddress.street + ', ' + reservation.homeAddress.city + ', ' + i18n.t('countries:'+reservation.homeAddress.country) : i18n.t('trips:not_applicable')
 
     return (
 
