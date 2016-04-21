@@ -61,11 +61,9 @@ module.exports = React.createClass({
       )
     }
 
-
-
     // Host photo src
     var hostImg = {
-      backgroundImage: 'url(' + domains.IMG + this.props.hostPhoto + ')'
+      backgroundImage: this.props.hostPhoto !== undefined ? 'url(' + domains.IMG + this.props.hostPhoto + ')' : 'url(' + domains.IMG + '/users/default.jpg' + ')'
     }
 
     // Compile immersion tags
