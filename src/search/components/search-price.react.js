@@ -37,6 +37,7 @@ module.exports = React.createClass({
       		'min': 0,
       		'max': 500
       	},
+        margin: 10,
         step: 10,
         tooltips: true,
         format: wNumb({
