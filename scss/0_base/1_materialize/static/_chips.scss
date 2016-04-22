@@ -1,5 +1,7 @@
 .chip {
+  @extend .truncate;
   display: inline-block;
+  max-width: 100%;
   height: 32px;
   font-size: 13px;
   font-weight: 500;
