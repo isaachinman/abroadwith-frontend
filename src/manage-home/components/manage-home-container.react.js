@@ -54,7 +54,7 @@ module.exports = React.createClass({
       })
     })
 
-    $('.next-btn').click( () => {
+    $('.next-btn').click(function() {
       $('.ui.steps').animate({
         scrollLeft: $('.ui.steps').scrollLeft() + 250
       })
