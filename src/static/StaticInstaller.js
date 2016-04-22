@@ -25,6 +25,7 @@ var installer = function(app) {
   app.use('/booking-success',genericRouter('static/booking-success.html'));
   app.use('/abroadwith-for-students',genericRouter('static/why-abroadwith.html'));
   app.use('/host-international-students',genericRouter('static/host.html'));
+  app.use('/contact-us',genericRouter('static/contact.html'));
   app.use('/email-verified-success',genericRouter('verification/email-verified-success.html')); //TODO remove
   app.use('/email-verified-failure',genericRouter('verification/email-verified-failure.html')); //TODO remove
 };
