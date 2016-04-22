@@ -2,8 +2,8 @@ const logout = require('logout')
 const jwt_decode = require('jwt-decode')
 
 
-let expiry = localStorage.getItem('JWT') !== null ? new Date((jwt_decode(localStorage.getItem('JWT'))).exp * 1000) : null;
-let today = new Date()
+var expiry = localStorage.getItem('JWT') !== null ? new Date((jwt_decode(localStorage.getItem('JWT'))).exp * 1000) : null;
+var today = new Date()
 
 if (today >= expiry) {
   logout()
