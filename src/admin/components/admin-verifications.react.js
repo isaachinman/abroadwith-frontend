@@ -91,7 +91,7 @@ module.exports = React.createClass({
     // Request SMS verification
     if (this.props.phoneNumber !== null && typeof this.props.phoneNumber !== 'undefined') {
       $('a#request-verification-sms').removeClass('disabled');
-      $('#please-add-a-phone').hide();
+      $('.please-add-a-phone').hide();
       $('a#verify-phone').off()
       $('a#verify-phone').click(function() {
         this.verifyPhone();
@@ -102,7 +102,7 @@ module.exports = React.createClass({
       }.bind(this));
     } else {
       $('a#request-verification-sms').addClass('disabled');
-      $('#please-add-a-phone').show();
+      $('.please-add-a-phone').show();
     }
 
   },
