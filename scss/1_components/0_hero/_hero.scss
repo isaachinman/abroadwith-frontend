@@ -13,9 +13,13 @@
     margin: 80px 0 50px 0;
   }
   .input-strip {
+    .max-width {
+      max-width: 1100px;
+      margin: 0 auto;
+      float: none;
+    }
     color: $americano;
-    max-width: 1400px;
-    margin: 20vh auto 0 auto;
+    margin-top: 20vh;
     @media #{$small-and-down} {
       margin-top: 40px;
     }
