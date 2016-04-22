@@ -13,6 +13,7 @@ module.exports = React.createClass({
   addRoomToList: function(newRoom) {
 
     document.getElementById('home-add-room-form').reset();
+    $('#add-room-form select.material').material_select()
 
     var refreshState = this.props.refreshState;
 
