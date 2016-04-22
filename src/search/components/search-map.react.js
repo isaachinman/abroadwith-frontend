@@ -113,8 +113,6 @@ module.exports = React.createClass({
 
       searchBox.addListener('places_changed', function() {
 
-        console.log('place change')
-
         var places = searchBox.getPlaces();
 
         if (places.length == 0) {
