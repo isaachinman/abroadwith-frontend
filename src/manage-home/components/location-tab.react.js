@@ -99,7 +99,7 @@ module.exports = React.createClass({
           }
 
           if (newLocationObj.street == undefined || newLocationObj.zipCode == undefined || newLocationObj.city == undefined || newLocationObj.country == undefined || newLocationObj.lat == undefined || newLocationObj.lng == undefined) {
-            alert('Invalid address')
+            toast(i18n.t('manage_home:invalid_address'))
           } else {
             $('a#save-location').hasClass('disabled') ? $('a#save-location').removeClass('disabled') : null;
             typeof circle !== 'undefined' ? circle.setMap(null) : null;
