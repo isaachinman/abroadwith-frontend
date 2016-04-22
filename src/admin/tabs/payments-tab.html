@@ -65,7 +65,7 @@
                         <label class='inert'>{{translations.admin.payments_last_name}}</label>
                       </div>
                       <div class='col s12 input-field'>
-                        <input id='bank-address-one' length='45' maxlength='45' type="text" class="validate" required>
+                        <input name='address' id='bank-address-one' length='45' maxlength='45' type="text" class="validate" required autocomplete='on'>
                         <label class='inert'>{{translations.admin.payments_billing_address}}</label>
                       </div>
                       <div class='col s12 input-field'>
@@ -73,15 +73,15 @@
                         <label class='inert'>{{translations.admin.payments_billing_address2}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
-                        <input id='bank-city' length='45' maxlength='45' type="text" class="validate" required>
+                        <input name='city' id='bank-city' length='45' maxlength='45' type="text" class="validate" required>
                         <label class='inert'>{{translations.admin.payments_city}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field' required>
-                        <input id='bank-state' length='45' maxlength='45' type="text" class="validate">
+                        <input name='state' id='bank-state' length='45' maxlength='45' type="text" class="validate">
                         <label class='inert'>{{translations.admin.payments_state}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field' required>
-                        <input id='bank-postcode' length='45' maxlength='45' type="text" class="validate">
+                        <input name='zip' id='bank-postcode' length='45' maxlength='45' type="text" class="validate">
                         <label class='inert'>{{translations.admin.payments_zipcode}}</label>
                       </div>
                       <div class='col s12 m6 l6 input-field'>
@@ -160,7 +160,7 @@
                         <label class='inert'>  {{translations.admin.payments_paypal_email2}}</label>
                       </div>
                       <div class='col s12 input-field'>
-                        <input id='paypal-address-one' length='45' maxlength='45' type="text" class="validate">
+                        <input name='address' id='paypal-address-one' length='45' maxlength='45' type="text" class="validate">
                         <label class='inert'>  {{translations.admin.payments_billing_address}}</label>
                       </div>
                       <div class='col s12 input-field'>
