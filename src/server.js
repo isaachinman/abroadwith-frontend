@@ -1,7 +1,7 @@
 var express = require('express');
 var http = require('http');
 var nunjucks = require('nunjucks');
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 /** Page Installers **/
 var installSearch = require('./search/SearchInstaller');
 var installMain = require('./main/MainInstaller');

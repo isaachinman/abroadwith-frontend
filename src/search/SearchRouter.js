@@ -71,10 +71,6 @@ router.post('/', function (req, res) {
     search_response.params.immersions = all;
     query.push('immersions:('+all.join(" ")+')');
   }
-  else {
-    search_response.params.immersions = ["stay", "teacher", "tandem"]
-    query.push('immersions:('+search_response.params.immersions.join(" ")+')');
-  }
 
   if(req.query.arrival){
     search_response.params.arrival = req.query.arrival;
