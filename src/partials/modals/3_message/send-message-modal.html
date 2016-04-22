@@ -2,32 +2,51 @@
   <a class='modal-close'><i class="fa fa-times"></i></a>
   <div class="modal-content center-align">
 
-    <div class='row'>
-      <div class='col s12'>
-        <h4>{{translations.inbox.message_modal_title}}</h4>
-      </div>
-    </div>
+    <form class='create-new-message-thread'>
 
-    <div class='row'>
-      <div class='col s12 m6 l6'>
-        <input id='message-arrival' autocomplete='off' type="text" placeholder='{{translations.common.Arrival}}' class='arrival' {% if query.arrival %} value={{query.arrival}} {% endif %}>
+      <div class='row'>
+        <div class='col s12'>
+          <h4>{{translations.inbox.message_modal_title}}</h4>
+        </div>
       </div>
-      <div class='col s12 m6 l6'>
-        <input id='message-departure' autocomplete='off' type="text" placeholder='{{translations.common.Departure}}' class='departure' {% if query.departure %} value={{query.departure}} {% endif %}>
-      </div>
-    </div>
 
-    <div class='row'>
-      <div class='col s12 manage-home-section'>
-        <textarea id="message-content" class="materialize-textarea" placeholder='{{translations.inbox.message_modal_placeholder}}' length='2000' maxlength="2000"></textarea>
+      <div class='row section white border'>
+        <div class='col s1 large input-field left-align'>
+          <div class='chip chip--grey'>
+            <strong>1.</strong>
+          </div>
+        </div>
+        <div class='col s11 m3 l5 large input-field left-align grey-text text-darken-1'>
+          {{translations.inbox.when_are_you_travelling}}
+        </div>
+        <div class='col s6 m4 l3 input-field'>
+          <input id='message-arrival' autocomplete='off' type="text" placeholder='{{translations.common.Arrival}}' class='arrival' required {% if query.arrival %} value={{query.arrival}} {% endif %}>
+          <label class='hide-on-small-and-down'>{{translations.common.Arrival}}</label>
+        </div>
+        <div class='col s6 m4 l3 input-field'>
+          <input id='message-departure' autocomplete='off' type="text" placeholder='{{translations.common.Departure}}' class='departure' required {% if query.departure %} value={{query.departure}} {% endif %}>
+          <label class='hide-on-small-and-down'>{{translations.common.Departure}}</label>
+        </div>
       </div>
-    </div>
 
-    <div class='row no-margin-bottom'>
-      <div class='col s12 margin-top-50'>
-        <a class='btn btn-primary btn-flat create-new-message-thread'>{{translations.inbox.message_modal_btn}}</a>
+      <div class='row section white border'>
+        <div class='col s1 large input-field left-align blue-text'>
+          <div class='chip chip--grey'>
+            <strong>2.</strong>
+          </div>
+        </div>
+        <div class='col s11'>
+          <textarea id="message-content" class="materialize-textarea" placeholder='{{translations.inbox.message_modal_placeholder}}' required length='2000' maxlength="2000" autocomplete='off'></textarea>
+        </div>
       </div>
-    </div>
+
+      <div class='row no-margin-bottom'>
+        <div class='col s12 margin-top-50'>
+          <button class='btn btn-primary btn-flat'>{{translations.inbox.message_modal_btn}}</button>
+        </div>
+      </div>
+
+    </form>
 
   </div>
 </div>

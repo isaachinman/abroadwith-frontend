@@ -23,9 +23,10 @@ $(document).ready(function() {
     });
   }
 
-  if ($('a.create-new-message-thread').length) {
-    $('a.create-new-message-thread').click(function() {
-      newMessageThread();
+  if ($('form.create-new-message-thread').length) {
+    $('form.create-new-message-thread').submit(function(e) {
+      e.preventDefault()
+      newMessageThread()
     })
   }
 
