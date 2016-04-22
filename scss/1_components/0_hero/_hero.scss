@@ -141,6 +141,13 @@
     background: url(https://img.abroadwith.com/app/hero/hero_why_abroadwith.jpg);
   }
   &--popular-languages {
-    background-color: lighten($americano, 12%);
+    background:
+    /* top, transparent black, faked with gradient */
+    linear-gradient(
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.3)
+    ),
+    /* bottom, image */
+    url(https://img.abroadwith.com/app/hero/hero_popular_languages.jpg);
   }
 }
