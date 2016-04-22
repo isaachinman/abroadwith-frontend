@@ -4,6 +4,9 @@ var currencies = require('currencies');
 module.exports = React.createClass({
   componentDidUpdate: function() {
 
+    bigMap.addListener('zoom_changed', handleChange);
+    bigMap.addListener('dragend', handleChange);
+
     var MarkerWithLabel = require('markerwithlabel');
 
     // Add a marker for each result
@@ -106,12 +109,11 @@ module.exports = React.createClass({
         searchBox.setBounds(bigMap.getBounds());
       });
 
-      bigMap.addListener('zoom_changed', handleChange);
-      bigMap.addListener('dragend', handleChange);
-
       window.markers = [];
 
       searchBox.addListener('places_changed', function() {
+
+        console.log('place change')
 
         var places = searchBox.getPlaces();
 
@@ -148,6 +150,9 @@ module.exports = React.createClass({
 
         // Send request and trigger place change with response
         service.textSearch(request, function(places) {
+          console.log(places[0].geometry.location.lat())
+          console.log(places[0].geometry.location.lng())
+          bigMap.setCenter(places[0].geometry.location)
           searchBox.set('places', places || [])
         });
 
