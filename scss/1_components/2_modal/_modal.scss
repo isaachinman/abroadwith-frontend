@@ -26,6 +26,9 @@
     height: 100%;
     overflow: scroll;
   }
+  .set-phone-number, .make-sms-request {
+    display: none;
+  }
 }
 .modal {
   .divider {
