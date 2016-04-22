@@ -123,7 +123,6 @@ a.btn-signup {
 #how-does-it-work-modal {
   .row {
     &--blue {
-      @extend .z-depth-1;
       background: lighten($havelock-blue, 5%);
       padding: 15px 0 5px 0;
       color: white;
