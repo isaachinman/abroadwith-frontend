@@ -49,7 +49,13 @@
     </ul>
   </div>
   <div class='col s12 margin-top-50'>
-    <a href='/signup' class='btn btn-secondary btn-flat'>{{translations.host.become_a_host}}</a>
+    <div class='logged-in'>
+      <a class='btn btn-secondary btn-flat become-a-host'>{{translations.common.navbar_become_host}}</a>
+      <a class='btn btn-secondary btn-flat your-home' style='display:none'>{{translations.common.navbar_your_home}}</a>
+    </div>
+    <div class='logged-out'>
+      <a data-target="choose-languages-modal" class='modal-trigger btn btn-secondary btn-flat'>{{translations.common.navbar_become_host}}</a>
+    </div>
   </div>
 </div>
 
