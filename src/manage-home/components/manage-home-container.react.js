@@ -48,6 +48,18 @@ module.exports = React.createClass({
       $('#'+target+'-tab').show();
     })
 
+    $('.prev-btn').click(function() {
+      $('.ui.steps').animate({
+        scrollLeft: $('.ui.steps').scrollLeft() - 250
+      })
+    })
+
+    $('.next-btn').click( () => {
+      $('.ui.steps').animate({
+        scrollLeft: $('.ui.steps').scrollLeft() + 250
+      })
+    })
+
     // Home photos
     var photos = $('.home-photo');
     photos.find('.delete').click(function() {

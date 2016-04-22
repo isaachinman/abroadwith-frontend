@@ -192,6 +192,24 @@ i.next-btn {
   min-height: 36px;
 }
 .button-group-wrapper--manage-home {
+  position: relative;
   height: 100px;
-
+  padding-left: 30px;
+  padding-right: 30px;
+  .prev-btn, .next-btn {
+    position: absolute;
+    top: 25px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: darken($ziggurat, 5%);
+    &:hover {
+      color: darken($ziggurat, 15%);
+    }
+  }
+  .prev-btn {
+    left: 8px;
+  }
+  .next-btn {
+    right: 8px;
+  }
 }
