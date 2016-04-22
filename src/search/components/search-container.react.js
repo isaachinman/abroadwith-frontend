@@ -90,7 +90,7 @@ module.exports = React.createClass({
         maxPrice:         response.resultDetails.maxPrice,
         currency:         response.params.currency,
         numberOfResults:  response.resultDetails.numberOfResults,
-        immersions:       response.params.immersions,
+        immersions:       response.params.immersions !== undefined ? response.params.immersions : [],
         arrival:          response.params.arrival,
         departure:        response.params.departure,
         minLat:           response.params.location ? response.params.location.minLat : null,
