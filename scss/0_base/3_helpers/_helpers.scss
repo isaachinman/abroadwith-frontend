@@ -265,3 +265,15 @@ table {
   background: white;
   padding: 30px;
 }
+.card.huge {
+  height: 540px;
+  .card-reveal {
+    padding: 10px 25px;
+  }
+}
+.card .bottom {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  width: 100%;
+}

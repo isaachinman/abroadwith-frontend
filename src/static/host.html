@@ -14,121 +14,148 @@
 </div>
 
 <div class='row padding-top-50 padding-bottom-50 no-margin secondary-bg'>
-  <h5>{{translations.host.why_become}}</h5>
-  <div class='col s12 m10 offset-m1 l10 offset-l1 left-align large light'>
-    <p>
-      {{translations.host.why_become_paragraph1}}
-    </p>
-    <p>
-      {{translations.host.why_become_paragraph2}}
-    </p>
-  </div>
-  <div class='col s12 m10 offset-m1 l10 offset-l1 left-align large margin-top-20 light'>
-    <ul class='bullets'>
-      <li>
-        {{translations.host.why_become_bullet1 | safe}}
-      </li>
-      <li>
-        {{translations.host.why_become_bullet4 | safe}}
-      </li>
-      <li>
-        {{translations.host.why_become_bullet6 | safe}}
-      </li>
-      <li>
-        {{translations.host.why_become_bullet5 | safe}}
-      </li>
-      <li>
-        {{translations.host.why_become_bullet7 | safe}}
-      </li>
-      <li>
-        {{translations.host.why_become_bullet3 | safe}}
-      </li>
-      <li>
-        {{translations.host.why_become_bullet2 | safe}}
-      </li>
-    </ul>
-  </div>
-  <div class='col s12 margin-top-50'>
-    <div class='logged-in'>
-      <a class='btn btn-secondary btn-flat become-a-host'>{{translations.common.navbar_become_host}}</a>
-      <a class='btn btn-secondary btn-flat your-home' style='display:none'>{{translations.common.navbar_your_home}}</a>
+  <div class='container'>
+    <h5>{{translations.host.why_become}}</h5>
+    <div class='col s12 left-align large light'>
+      <p>
+        {{translations.host.why_become_paragraph1}}
+      </p>
+      <p>
+        {{translations.host.why_become_paragraph2}}
+      </p>
     </div>
-    <div class='logged-out'>
-      <a data-target="choose-languages-modal" class='modal-trigger btn btn-secondary btn-flat'>{{translations.common.navbar_become_host}}</a>
+    <div class='col s12 m10 offset-m1 l10 offset-l1 left-align large margin-top-20 light'>
+      <ul class='bullets'>
+        <li>
+          {{translations.host.why_become_bullet1 | safe}}
+        </li>
+        <li>
+          {{translations.host.why_become_bullet4 | safe}}
+        </li>
+        <li>
+          {{translations.host.why_become_bullet6 | safe}}
+        </li>
+        <li>
+          {{translations.host.why_become_bullet5 | safe}}
+        </li>
+        <li>
+          {{translations.host.why_become_bullet7 | safe}}
+        </li>
+        <li>
+          {{translations.host.why_become_bullet3 | safe}}
+        </li>
+        <li>
+          {{translations.host.why_become_bullet2 | safe}}
+        </li>
+      </ul>
+    </div>
+    <div class='col s12 margin-top-50'>
+      <div class='logged-in'>
+        <a class='btn btn-primary btn-flat become-a-host'>{{translations.common.navbar_become_host}}</a>
+        <a class='btn btn-primary btn-flat your-home' style='display:none'>{{translations.common.navbar_your_home}}</a>
+      </div>
+      <div class='logged-out'>
+        <a data-target="choose-languages-modal" class='modal-trigger btn btn-primary btn-flat'>{{translations.common.navbar_become_host}}</a>
+      </div>
     </div>
   </div>
+
 </div>
 
 
 <div class='divider'></div>
 
-<div class='row margin-top-50 margin-bottom-50'>
+<div class='row margin-top-50 margin-bottom-50 container'>
   <h3>{{translations.host.immersions}}</h3>
 
 
-  <div class='col s12 m10 offset-m1 l10 offset-l1 left-align large margin-top-20 grey-text text-darken-1'>
+  <div class='col s12 left-align large margin-top-20 grey-text text-darken-1'>
     <p>
       {{translations.host.immersions_paragraph}}
     </p>
   </div>
 
-  <div class='col s12 m10 offset-m1 l10 offset-l1 margin-top-20 margin-bottom-10'>
+  <div class='col s12 m10 offset-m1 l10 offset-l1 margin-top-20 margin-bottom-20'>
     <div class='divider'></div>
   </div>
 
-  <div class='col s12 m3 offset-m1 l3 offset-l1 left-align hide-on-med-and-down margin-top-20'>
-    <div class="card">
+  <div class='col s12 m6 l4'>
+    <div class="card huge">
+      <a class='bottom activator'>{{translations.host.more_info}}</a>
       <div class="card-image">
-        <img alt='{{translations.host.stay_img_alt}}' class="activator" src="https://img.abroadwith.com/app/immersions/stay.jpg">
+        <img class="activator" alt='{{translations.main.stay_img_alt}}' src="https://img.abroadwith.com/app/immersions/stay.jpg">
       </div>
-    </div>
-  </div>
-  <div class='col s12 m10 offset-m1 l7 left-align large light'>
-    <p>
-      <strong>{{translations.common.Stay}}:</strong> {{translations.host.stay_paragraph}}
-    </p>
-  </div>
-
-  <div class='col s12 m10 offset-m1 l10 offset-l1 margin-top-20 margin-bottom-10'>
-    <div class='divider'></div>
-  </div>
-
-  <div class='col s12 m10 offset-m1 l7 offset-l1 left-align large light'>
-    <p>
-      <strong>{{translations.common.Tandem}}:</strong> {{translations.host.tandem_paragraph1}}
-    </p>
-    <p>
-      {{translations.host.tandem_paragraph2}}
-    </p>
-  </div>
-  <div class='col s12 m3 l3 left-align hide-on-med-and-down margin-top-20'>
-    <div class="card">
-      <div class="card-image">
-        <img alt='{{translations.host.tandem_img_alt}}' class="activator" src="https://img.abroadwith.com/app/immersions/tandem.jpg">
+      <div class="card-content">
+        <i class="fa fa-caret-up fa-3x"></i>
+        <h5 class="no-margin">{{translations.common.Stay}}</h5>
+        <div class='margin-top-20 margin-bottom-20'>
+          <p class='grey-text text-darken-1'>{{ translations.common.stay_description }}</p>
+        </div>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4"><h5>{{translations.common.Stay}}</h5><i class="material-icons right">close</i></span>
+        <div class='margin-top-20 left-align'>
+          <p>
+            {{translations.host.stay_paragraph}}
+          </p>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class='col s12 m10 offset-m1 l10 offset-l1 margin-top-20 margin-bottom-10'>
-    <div class='divider'></div>
-  </div>
-
-  <div class='col s12 m3 offset-m1 l3 offset-l1 left-align hide-on-med-and-down margin-top-20'>
-    <div class="card">
+  <div class='col s12 m6 l4'>
+    <div class="card huge">
+      <a class='bottom activator'>{{translations.host.more_info}}</a>
       <div class="card-image">
-        <img alt='{{translations.host.teacher_img_alt}}' class="activator" src="https://img.abroadwith.com/app/immersions/teacher.jpg">
+        <img class="activator" alt='{{translations.main.tandem_img_alt}}' src="https://img.abroadwith.com/app/immersions/tandem.jpg">
+      </div>
+      <div class="card-content">
+        <i class="fa fa-caret-up fa-3x"></i>
+        <h5 class="no-margin">{{translations.common.Tandem}}</h5>
+        <div class='margin-top-20 margin-bottom-20'>
+          <p class='grey-text text-darken-1'>{{ translations.common.tandem_description }}</p>
+        </div>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4"><h5>{{translations.common.Tandem}}</h5><i class="material-icons right">close</i></span>
+        <div class='margin-top-20 left-align'>
+          <p>
+            {{translations.host.tandem_paragraph1}}
+          </p>
+          <p>
+            {{translations.host.tandem_paragraph2}}
+          </p>
+        </div>
       </div>
     </div>
   </div>
-  <div class='col s12 m10 offset-m1 l7 left-align large light'>
-    <p>
-      <strong>{{translations.common.Teachers_stay}}:</strong> {{translations.host.teacher_paragraph1}}
-    </p>
-    <p>
-      {{translations.host.teacher_paragraph2}}
-    </p>
-  </div>
 
+  <div class='col s12 m6 l4'>
+    <div class="card huge">
+      <a class='bottom activator'>{{translations.host.more_info}}</a>
+      <div class="card-image">
+        <img class="activator" alt='{{translations.main.teacher_img_alt}}' src="https://img.abroadwith.com/app/immersions/teacher.jpg">
+      </div>
+      <div class="card-content">
+        <i class="fa fa-caret-up fa-3x"></i>
+        <h5 class="no-margin">{{translations.common.Teachers_stay}}</h5>
+        <div class='margin-top-20 margin-bottom-20'>
+          <p class='grey-text text-darken-1'>{{ translations.common.teacher_description }}</p>
+        </div>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4"><h5>{{translations.common.Teachers_stay}}</h5><i class="material-icons right">close</i></span>
+        <div class='margin-top-20 left-align'>
+          <p>
+            {{translations.host.teacher_paragraph1}}
+          </p>
+          <p>
+            {{translations.host.teacher_paragraph2}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
