@@ -3,7 +3,7 @@ const ReactDOM = require('react-dom')
 const PhotoModule = require('./photo-module.react')
 
 const JWT = require('JWT')
-const domains = require('JWT')
+const domains = require('domains')
 
 const i18n = require('i18n')
 
@@ -19,7 +19,7 @@ module.exports = React.createClass({
 
     var drop = "#home-image-upload"
 
-    $('#home-image-upload').dropzone({
+    window.homePhotoDrop = new Dropzone('#home-image-upload', {
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
       autoProcessQueue: true,
       method: 'post',
@@ -49,6 +49,19 @@ module.exports = React.createClass({
 
       var refreshState = this.props.refreshState;
       var photos = this.props.props.photos;
+
+      console.log(domains)
+
+      for (var i=0; i<photos.length; i++) {
+        var newPhoto = {
+          name: photos[i],
+          size: 0
+        }
+        homePhotoDrop.options.addedfile.call(homePhotoDrop, newPhoto)
+        homePhotoDrop.options.thumbnail.call(homePhotoDrop, newPhoto, domains.IMG + photos[i])
+      }
+
+      console.log(photos)
 
       var PhotoContainer = React.createClass({
         render: function() {
