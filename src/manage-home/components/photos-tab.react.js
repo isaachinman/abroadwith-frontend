@@ -10,12 +10,19 @@ const Dropzone = require('dropzone')
 module.exports = React.createClass({
   componentDidMount: function() {
 
-    var drop = $("#home-image-upload")
+    var drop = "#home-image-upload"
 
-    Dropzone.options.drop = {
+    Dropzone.autoDiscover = false;
+
+    $('#home-image-upload').dropzone({
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
-      headers: {'abroadauth': 'Bearer ' + JWT}
-    };
+      headers: {'abroadauth': 'Bearer ' + JWT},
+      addRemoveLinks: true,
+      dictRemoveFile: 'Delete',
+      removedfile: function(file) {
+        console.log(file)
+      }
+    })
 
   },
   componentDidUpdate: function() {
