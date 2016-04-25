@@ -87,30 +87,6 @@ module.exports = React.createClass({
         homePhotoDrop.options.complete.call(homePhotoDrop, newPhoto)
       }
 
-      console.log(photos)
-
-      var PhotoContainer = React.createClass({
-        render: function() {
-          var allPhotos = []
-          photos.forEach(function(url) {
-            allPhotos.push(
-              <PhotoModule
-                src={url}
-                key={url}
-                refreshState={refreshState}
-              />
-            )
-          })
-          return (
-            <div>{allPhotos}</div>
-          )
-        }
-      })
-
-      ReactDOM.render(
-        <PhotoContainer
-        />, document.querySelector('#photos-container')
-      );
     }
   },
   render: function() {
