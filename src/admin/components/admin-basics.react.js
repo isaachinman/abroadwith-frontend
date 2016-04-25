@@ -39,7 +39,7 @@ module.exports = React.createClass({
     $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/intlTelInput.min.js', function() {
       $('#phoneNumber').intlTelInput();
       $('#phoneNumber').blur(function() {
-        if (this.value.charAt(0) !== '+') {
+        if (this.value !== '' && this.value.charAt(0) !== '+') {
           this.value = '+' + this.value;
         }
         $(this).intlTelInput();
