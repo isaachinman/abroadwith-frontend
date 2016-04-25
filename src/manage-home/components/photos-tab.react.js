@@ -5,6 +5,8 @@ const PhotoModule = require('./photo-module.react')
 const JWT = require('JWT')
 const domains = require('JWT')
 
+const toast = require('toast')
+
 const Dropzone = require('dropzone')
 Dropzone.autoDiscover = false;
 
@@ -19,6 +21,29 @@ module.exports = React.createClass({
       addRemoveLinks: true,
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png',
+      init: function() {
+        this.on("addedfile", function(file) {
+          $.ajax({
+            url : '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
+            type : 'POST',
+            data : file,
+            cache : false,
+            contentType : false,
+            processData : false,
+            beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + JWT)},
+            success : function(data, textStatus, jqXHR) {
+                  toast(i18n.t('manage_home:images_uploaded_toast'));
+                  refresh();
+                  $('#preloader').hide();
+            },
+            error: function(jqXHR) {
+              var message = jqXHR.responseText;
+              toast('Failed: '+ message);
+              $('#preloader').hide();
+            }
+          });
+        });
+      },
       dictRemoveFile: 'Delete',
       removedfile: function(file) {
         console.log(file)
