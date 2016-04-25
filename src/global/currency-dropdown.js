@@ -13,14 +13,14 @@ var UiCurrency = React.createClass({
     }
 
     if (Cookies.get('ui-language') !== 'undefined') {
-      $('select#ui-language option[value='+Cookies.get('ui-language')+']').attr('selected', 'selected');
+      $('select.ui-language option[value='+Cookies.get('ui-language')+']').attr('selected', 'selected');
     }
 
     $('select#ui-currency').change(function() {
       Cookies.set('ui-currency', $(this).val());
     })
 
-    $('select#ui-language').change(function() {
+    $('select.ui-language').change(function() {
       Cookies.set('ui-language', $(this).val());
       location.reload();
     })

@@ -5,7 +5,7 @@
 
         <div id='ui-currency-and-language-container'></div>
 
-        <select id='ui-language' class='material'>
+        <select class='material ui-language'>
           {% for domain, language in constants.ui_languages %}
           <option value={{domain}}>{{language.name}}</option>
           {% endfor %}
@@ -36,6 +36,7 @@
           <li><a class="grey-text text-lighten-3" href="/abroadwith-for-students">{{translations.common.footer_why_abroadwith}}</a></li>
           <li><a class="grey-text text-lighten-3" href="/host-international-students">{{translations.common.footer_responsible_homestay}}</a></li>
           <li><a class="grey-text text-lighten-3" href="/popular-languages-destinations">{{translations.common.footer_popular}}</a></li>
+          <li><a class="grey-text text-lighten-3" href="/help">{{translations.common.navbar_help}}</a></li>
         </ul>
       </div>
 

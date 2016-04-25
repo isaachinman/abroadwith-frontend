@@ -42,3 +42,31 @@ main {
   flex: 1 0 auto;
   min-height: calc(100vh - 340px);
 }
+
+
+nav {
+  top: 0;
+  .select-wrapper {
+    height: 50px;
+    &:hover {
+      span.caret {
+        opacity: 1;
+      }
+    }
+    span.caret {
+      transition: opacity .2s ease-in-out;
+      top: 0;
+      height: 45px;
+      top: 2.5px;
+      right: 10px;
+      color: white;
+      opacity: .65;
+    }
+    input.select-dropdown {
+      margin: 0 0 0 15px;
+      border-bottom: none;
+      height: 50px;
+      max-width: 80px;
+    }
+  }
+}
