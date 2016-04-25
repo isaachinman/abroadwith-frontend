@@ -5,6 +5,8 @@ const PhotoModule = require('./photo-module.react')
 const JWT = require('JWT')
 const domains = require('JWT')
 
+const toast = require('toast')
+
 const Dropzone = require('dropzone')
 Dropzone.autoDiscover = false;
 
@@ -21,6 +23,7 @@ module.exports = React.createClass({
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
         this.on("addedfile", function(file) {
+          console.log(file)
           $.ajax({
             url : '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
             type : 'POST',
