@@ -25,8 +25,9 @@ module.exports = React.createClass({
       addRemoveLinks: true,
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png',
+      autoProcessQueue: false,
       init: function() {
-        this.on("sending", function(file) {
+        this.on("addedfile", function(file) {
           console.log(file)
           $.ajax({
             url : '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
