@@ -12,9 +12,11 @@
     loginButton[i].style.display = 'none';
   }
 </script>
-
-<div class='row margin-top-50'>
-  <div class='col s12 m8 offset-m2 l4 offset-l4'>
+<div id='login-modal' class='row margin-top-50'>
+  <div class='modal-failure margin-bottom-20'>
+    {{translations.common.login_failed}}
+  </div>
+  <div class='col s12'>
     <ul class="collapsible no-shadow" data-collapsible="accordion">
       <li>
         <div class="collapsible-header active email-header hide-on-small-and-down">Log in with email</div>
