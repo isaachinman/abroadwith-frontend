@@ -23,7 +23,7 @@ module.exports = React.createClass({
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
       autoProcessQueue: true,
       method: 'post',
-      headers: {'abroadauth': 'Bearer ' + JWT},
+      headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       addRemoveLinks: true,
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png',
