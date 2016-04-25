@@ -63,10 +63,11 @@ nav {
       opacity: .65;
     }
     input.select-dropdown {
-      margin: 0 0 0 15px;
+      @extend .truncate;
+      margin: 0 20px 0 15px;
       border-bottom: none;
       height: 50px;
-      max-width: 80px;
+      max-width: 60px;
     }
   }
 }
