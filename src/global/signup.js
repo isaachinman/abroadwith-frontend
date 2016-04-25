@@ -13,7 +13,7 @@ $('select#learning-language').length ? $('select#learning-language').select2() :
 $('select#known-language').length ? $('select#known-language').select2() : null;
 
 // If on signup page, remove language and signup modals
-if(window.location.href.indexOf("signup") > -1) {
+if (window.location.href.indexOf("signup") > -1) {
   $('#choose-languages-modal').length ? $('#choose-languages-modal').remove() : null;
   $('#sign-up-modal').length ? $('#sign-up-modal').remove() : null;
 }
@@ -228,52 +228,46 @@ if ($('form#email-signup-form').length) {
   // Email signup process
   emailSignup.click(function() {
 
-    if ($('form#email-signup-form input').length && $('input#birthday').val() != undefined) {
+    // Get inputs
+    var signupForm = $('form#email-signup-form input.validate');
 
-      // Get inputs
-      var signupForm = $('form#email-signup-form input.validate');
-
-      // Loop through text inputs and add values to object
-      for (var i = 0, ii = signupForm.length; i < ii; i++) {
-        var input = signupForm[i];
-        if (input.value !== '') {
-          newUser[input.name] = input.value;
-          formValid = true;
-        } else {
-          formNotValid();
-          break;
-        }
-      }
-
-      // Get birthday
-      if ($('input#birthday').val() != '') {
-        newUser['birthDate'] = apiDate($('input#birthday').val());
+    // Loop through text inputs and add values to object
+    for (var i = 0, ii = signupForm.length; i < ii; i++) {
+      var input = signupForm[i];
+      if (input.value !== '') {
+        newUser[input.name] = input.value;
+        formValid = true;
       } else {
         formNotValid();
+        break;
       }
+    }
 
-      // Validate password
-      var password = newUser.password ? newUser.password : '';
-      var nameStrings = newUser.firstName && newUser.lastName ? newUser.firstName.split(' ').concat(newUser.lastName.split(' ')) : [];
+    // Get birthday
+    if ($('input#birthday').val() != '') {
+      newUser['birthDate'] = apiDate($('input#birthday').val());
+    } else {
+      formNotValid();
+    }
 
-      for (var i = 0, len = nameStrings.length; i < len; i++) {
-        if (typeof password !== 'undefined' && password.indexOf(nameStrings[i]) !== -1) {
-          passwordNotValid()
-          break;
-        }
-      }
+    // Validate password
+    var password = newUser.password ? newUser.password : '';
+    var nameStrings = newUser.firstName && newUser.lastName ? newUser.firstName.split(' ').concat(newUser.lastName.split(' ')) : [];
 
-      if (password.length < 8 || !(password.match(/[a-z]/)) || !(password.match(/[A-Z]/) || /\d/.test(password))) {
+    for (var i = 0, len = nameStrings.length; i < len; i++) {
+      if (typeof password !== 'undefined' && password.indexOf(nameStrings[i]) !== -1) {
         passwordNotValid()
+        break;
       }
+    }
 
-      // If form is valid, POST object
-      if (formValid === true) {
-        validateUserAndSend()
-      } else {
-        formNotValid();
-      }
+    if (password.length < 8 || !(password.match(/[a-z]/)) || !(password.match(/[A-Z]/) || /\d/.test(password))) {
+      passwordNotValid()
+    }
 
+    // If form is valid, POST object
+    if (formValid === true) {
+      validateUserAndSend()
     } else {
       formNotValid();
     }
