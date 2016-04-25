@@ -15,6 +15,8 @@ Dropzone.autoDiscover = false;
 module.exports = React.createClass({
   componentDidMount: function() {
 
+    var refreshState = this.props.refreshState;
+
     var drop = "#home-image-upload"
 
     $('#home-image-upload').dropzone({
@@ -24,7 +26,7 @@ module.exports = React.createClass({
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
-        this.on("addedfile", function(file) {
+        this.on("sending", function(file) {
           console.log(file)
           $.ajax({
             url : '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
@@ -36,7 +38,7 @@ module.exports = React.createClass({
             beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
             success : function(data, textStatus, jqXHR) {
                   toast(i18n.t('manage_home:images_uploaded_toast'));
-                  refresh();
+                  refreshState();
                   $('#preloader').hide();
             },
             error: function(jqXHR) {
