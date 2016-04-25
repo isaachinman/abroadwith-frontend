@@ -26,20 +26,45 @@ module.exports = React.createClass({
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       addRemoveLinks: true,
       maxFilesize: 10,
+      dictRemoveFile: i18n.t('manage_home:delete'),
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
-        this.on('processingfile', function(file) {
-          file.name = 'justin-bieber.jpg';
-        });
-        this.on('sending', function( one, two, three ){
-          two.withCredentials = true
-          console.log( one );
-          console.log( two );
-          console.log( three );
-        });
         this.on("addedfile", function(file) {
           console.log(file)
         });
+        this.on('removedfile', function(file) {
+
+          $('#preloader').show();
+
+          var deletePhotoObj = {
+            images: [
+              {
+                pathName: file.name
+              }
+            ]
+          }
+
+          $.ajax({
+            type: "DELETE",
+            url: domains.API + '/users/' + JWT.rid + '/homes/' + JWT.hid + '/photos',
+            contentType: "application/json",
+            data: JSON.stringify(deletePhotoObj),
+            beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+            success: function(response) {
+
+              $('#preloader').hide();
+              toast(i18n.t('manage_home:photo_deleted_toast'), 4000)
+
+            }.bind(this),
+            error: function() {
+
+              $('#preloader').hide();
+              alert('Something failed');
+
+            }
+          })
+
+        })
       }
     })
 
@@ -50,7 +75,7 @@ module.exports = React.createClass({
       var refreshState = this.props.refreshState;
       var photos = this.props.props.photos;
 
-      console.log(domains)
+      console.log(photos)
 
       for (var i=0; i<photos.length; i++) {
         var newPhoto = {
@@ -59,6 +84,7 @@ module.exports = React.createClass({
         }
         homePhotoDrop.options.addedfile.call(homePhotoDrop, newPhoto)
         homePhotoDrop.options.thumbnail.call(homePhotoDrop, newPhoto, domains.IMG + photos[i])
+        homePhotoDrop.options.complete.call(homePhotoDrop, newPhoto)
       }
 
       console.log(photos)

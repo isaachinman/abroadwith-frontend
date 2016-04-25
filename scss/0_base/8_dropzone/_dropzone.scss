@@ -227,9 +227,6 @@
 .dropzone.dz-clickable .dz-message * {
   cursor: pointer;
 }
-.dropzone.dz-started .dz-message {
-  display: none;
-}
 .dropzone.dz-drag-hover {
   border-style: solid;
 }
@@ -239,8 +236,8 @@
 .dropzone .dz-message {
   text-align: center;
   font-size: 1.35rem;
-  color: $americano;
-  margin: 2em 0;
+  color: lighten($americano, 10%);
+  margin: 1rem 0 2rem 0;
 }
 .dropzone .dz-preview {
   position: relative;
@@ -387,6 +384,7 @@
   transition: all 0.2s linear;
 }
 .dropzone .dz-preview.dz-complete .dz-progress {
+  display: none;
   opacity: 0;
   -webkit-transition: opacity 0.4s ease-in;
   -moz-transition: opacity 0.4s ease-in;
