@@ -25,31 +25,6 @@ module.exports = React.createClass({
       addRemoveLinks: true,
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png',
-      autoProcessQueue: false,
-      init: function() {
-        this.on("addedfile", function(file) {
-          console.log(file)
-          $.ajax({
-            url : '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
-            type : 'POST',
-            data : file,
-            cache : false,
-            contentType : false,
-            processData : false,
-            beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
-            success : function(data, textStatus, jqXHR) {
-                  toast(i18n.t('manage_home:images_uploaded_toast'));
-                  refreshState();
-                  $('#preloader').hide();
-            },
-            error: function(jqXHR) {
-              var message = jqXHR.responseText;
-              toast('Failed: '+ message);
-              $('#preloader').hide();
-            }
-          });
-        });
-      },
       dictRemoveFile: 'Delete',
       removedfile: function(file) {
         console.log(file)
