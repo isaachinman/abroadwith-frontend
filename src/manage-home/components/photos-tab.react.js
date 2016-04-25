@@ -5,8 +5,6 @@ const PhotoModule = require('./photo-module.react')
 const JWT = require('JWT')
 const domains = require('JWT')
 
-const toast = require('toast')
-
 const Dropzone = require('dropzone')
 Dropzone.autoDiscover = false;
 
@@ -30,7 +28,7 @@ module.exports = React.createClass({
             cache : false,
             contentType : false,
             processData : false,
-            beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + JWT)},
+            beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
             success : function(data, textStatus, jqXHR) {
                   toast(i18n.t('manage_home:images_uploaded_toast'));
                   refresh();
