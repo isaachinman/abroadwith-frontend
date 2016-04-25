@@ -10,10 +10,12 @@ const Dropzone = require('dropzone')
 module.exports = React.createClass({
   componentDidMount: function() {
 
-    new Dropzone("#home-image-upload", {
+    var drop = $("#home-image-upload")
+
+    Dropzone.options.drop = {
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
       headers: {'abroadauth': 'Bearer ' + JWT}
-    });
+    };
 
   },
   componentDidUpdate: function() {
