@@ -5,6 +5,8 @@ const PhotoModule = require('./photo-module.react')
 const JWT = require('JWT')
 const domains = require('JWT')
 
+const i18n = require('i18n')
+
 const toast = require('toast')
 
 const Dropzone = require('dropzone')
