@@ -6,18 +6,19 @@ const JWT = require('JWT')
 const domains = require('JWT')
 
 const Dropzone = require('dropzone')
+Dropzone.autoDiscover = false;
 
 module.exports = React.createClass({
   componentDidMount: function() {
 
     var drop = "#home-image-upload"
 
-    Dropzone.autoDiscover = false;
-
     $('#home-image-upload').dropzone({
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
       headers: {'abroadauth': 'Bearer ' + JWT},
       addRemoveLinks: true,
+      maxFilesize: 10,
+      acceptedFiles: 'image/jpeg,image/png',
       dictRemoveFile: 'Delete',
       removedfile: function(file) {
         console.log(file)
