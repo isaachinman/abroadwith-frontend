@@ -1,8 +1,21 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+const React = require('react')
+const ReactDOM = require('react-dom')
 const PhotoModule = require('./photo-module.react')
 
+const JWT = require('JWT')
+const domains = require('JWT')
+
+const Dropzone = require('dropzone')
+
 module.exports = React.createClass({
+  componentDidMount: function() {
+
+    new Dropzone("#home-image-upload", {
+      url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
+      headers: {'abroadauth': 'Bearer ' + JWT}
+    });
+
+  },
   componentDidUpdate: function() {
     if (this.props.props.photos) {
 
