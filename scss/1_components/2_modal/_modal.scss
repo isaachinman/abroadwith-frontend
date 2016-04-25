@@ -88,6 +88,9 @@
     margin-bottom: 40px;
   }
 }
+#login-modal {
+  max-width: 650px;
+}
 .modal-failure {
   display: none;
   background: lighten($sunset-orange, 10%);
