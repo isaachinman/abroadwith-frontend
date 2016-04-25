@@ -13,6 +13,7 @@ const JWT = require('JWT');
 const GET = require('GET');
 const POST = require('POST');
 const DELETE = require('DELETE');
+const logout = require('logout')
 
 module.exports = React.createClass({
   updateAdmin: function(firstCallback) {
@@ -125,8 +126,7 @@ module.exports = React.createClass({
 
       var url = domains.API + '/users/' + JWT.rid;
       var success = function() {
-        localStorage.removeItem('JWT');
-        document.location.href = "/";
+        logout()
       }
       DELETE(url, success);
     })
