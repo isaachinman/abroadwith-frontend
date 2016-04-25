@@ -156,7 +156,8 @@ module.exports = React.createClass({
 
     // Give all basic inputs a change function
     for (var i=0; i<activeNodes.length; i++) {
-      activeNodes[i].change(handleChange);
+      activeNodes[i].off()
+      activeNodes[i].change(handleChange)
     }
 
     // Use a blur function for dates to prevent double triggering

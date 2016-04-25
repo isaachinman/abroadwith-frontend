@@ -4,9 +4,6 @@ var currencies = require('currencies');
 module.exports = React.createClass({
   componentDidUpdate: function() {
 
-    bigMap.addListener('zoom_changed', handleChange);
-    bigMap.addListener('dragend', handleChange);
-
     var MarkerWithLabel = require('markerwithlabel');
 
     // Add a marker for each result
@@ -164,6 +161,9 @@ module.exports = React.createClass({
         } else {
           handleChange();
         }
+
+        bigMap.addListener('zoom_changed', handleChange);
+        bigMap.addListener('dragend', handleChange);
 
       }
 
