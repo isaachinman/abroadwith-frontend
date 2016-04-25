@@ -402,7 +402,7 @@ var installer = function(app) {
   app.use('/upload/users/:photoUserId/photo',upload.array('photos', 10));
   app.use('/upload/users/:photoUserId/photo',routerUser);
 
-  app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',upload.array('photos', 10));
+  app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',upload.array('file', 10));
   app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',routerHome);
 
   app.use('/upload/users/:photoUserId/homes/:photoHomeId/rooms/:photoRoomId/photo',upload.array('photos', 10));

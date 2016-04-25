@@ -21,13 +21,25 @@ module.exports = React.createClass({
 
     $('#home-image-upload').dropzone({
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
+      autoProcessQueue: true,
+      method: 'post',
       headers: {'abroadauth': 'Bearer ' + JWT},
       addRemoveLinks: true,
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png',
-      dictRemoveFile: 'Delete',
-      removedfile: function(file) {
-        console.log(file)
+      init: function() {
+        this.on('processingfile', function(file) {
+          file.name = 'justin-bieber.jpg';
+        });
+        this.on('sending', function( one, two, three ){
+          two.withCredentials = true
+          console.log( one );
+          console.log( two );
+          console.log( three );
+        });
+        this.on("addedfile", function(file) {
+          console.log(file)
+        });
       }
     })
 
