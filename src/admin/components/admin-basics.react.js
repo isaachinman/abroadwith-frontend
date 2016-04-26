@@ -1,6 +1,8 @@
 const React = require('react');
 const toast = require('toast');
 
+const i18n = require('i18n')
+
 const apiDate = require('api-date')
 const uiDate = require('ui-date')
 
@@ -25,7 +27,7 @@ module.exports = React.createClass({
       $('#preloader').show();
       refreshToken(function() {
         $('#preloader').hide();
-        toast('Basics updated');
+        toast(i18n.t('admin:basics_toast'));
       });
     });
 

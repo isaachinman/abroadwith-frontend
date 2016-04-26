@@ -151,7 +151,7 @@ module.exports = React.createClass({
         $('#success-tab').show();
 
         // Save buttons should say next
-        $('.save-btn').html('Save');
+        $('.save-btn').html(i18n.t('manage_home:save_button'));
 
         // If active step is not visible, scroll to it
         if ($('#success').isOnScreen() === false) {
@@ -181,7 +181,7 @@ module.exports = React.createClass({
         }
 
         // Save buttons should say next
-        $('.save-btn').html('Next')
+        $('.save-btn').html(i18n.t('manage_home:next_button'))
 
         // Reset step classes
         $('.ui.steps .step').attr('class', 'step');
