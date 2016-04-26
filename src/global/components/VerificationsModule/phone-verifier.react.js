@@ -93,18 +93,19 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
+
     $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/intlTelInput.min.js', function() {
-      $('#phone-number-verifications-modal').intlTelInput();
+      $('#phone-number-verifications-modal').intlTelInput({
+        nationalMode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
+      });
+
       $('#phone-number-verifications-modal').blur(function() {
-
-        if (this.value !== '' && this.value.charAt(0) !== '+') {
-          this.value = '+' + this.value;
-        }
+        $(this).val($(this).intlTelInput("getNumber"))
         $(this).intlTelInput();
-
       })
-      $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js');
     })
+
   },
   componentDidUpdate: function() {
 
