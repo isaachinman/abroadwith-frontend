@@ -61,7 +61,7 @@
           </p>
         {% endif %}
         <p class='home-details'>
-          <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>{{translations.common.Joined}} {{translations.months.short["m"+user.joinedMonth]}} {{user.joinedYear}}
+          <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>{{translations.common.Joined}} {{translations.common.months[user.joinedMonth]}} {{user.joinedYear}}
         </p>
         {% if user.homeCountry %}
           <p class='home-details'>

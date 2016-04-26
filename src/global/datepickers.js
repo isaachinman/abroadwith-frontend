@@ -86,7 +86,7 @@ if ($('input.arrival').length && $('input.departure').length) {
     var translatedDates = {
       previousMonth: i18n.t('common:previousMonth'),
       nextMonth: i18n.t('common:nextMonth'),
-      months: [i18n.t('common:months.jan'), i18n.t('common:months.feb'), i18n.t('common:months.mar'), i18n.t('common:months.apr'), i18n.t('common:months.may'), i18n.t('common:months.june'), i18n.t('common:months.july'), i18n.t('common:months.aug'), i18n.t('common:months.sep'), i18n.t('common:months.oct'), i18n.t('common:months.nov') ,i18n.t('common:months.dec')],
+      months: [i18n.t('common:months.0'), i18n.t('common:months.1'), i18n.t('common:months.2'), i18n.t('common:months.3'), i18n.t('common:months.4'), i18n.t('common:months.5'), i18n.t('common:months.6'), i18n.t('common:months.7'), i18n.t('common:months.8'), i18n.t('common:months.9'), i18n.t('common:months.10') ,i18n.t('common:months.11')],
       weekdays: [i18n.t('common:weekdays.sun'), i18n.t('common:weekdays.mon'), i18n.t('common:weekdays.tue'), i18n.t('common:weekdays.wed'), i18n.t('common:weekdays.thu'), i18n.t('common:weekdays.fri'), i18n.t('common:weekdays.sat')],
       weekdaysShort: [i18n.t('common:weekdaysShort.sun'), i18n.t('common:weekdaysShort.mon'), i18n.t('common:weekdaysShort.tue'), i18n.t('common:weekdaysShort.wed'), i18n.t('common:weekdaysShort.thu'), i18n.t('common:weekdaysShort.fri'), i18n.t('common:weekdaysShort.sat')]
     }
