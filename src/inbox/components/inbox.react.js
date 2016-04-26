@@ -11,7 +11,9 @@ const GET = require('GET');
 module.exports = React.createClass({
   componentDidMount: function() {
 
-    $('#preloader').show();
+    $('#preloader').show()
+
+    $('#unread-messages').remove()
 
     var url = domains.API + '/users/' + JWT.rid + '/messages';
     var success = function(response) {

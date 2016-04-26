@@ -9,7 +9,7 @@ console.log(JWT)
 var url = domains.API + '/users/' + JWT.rid + '/messages/count';
 var success = function(response) {
 
-  if (response.count > 0) {
+  if (response.count > 0 && $('#unread-messages').length) {
     $('#unread-messages').html(response.count);
   }
 
