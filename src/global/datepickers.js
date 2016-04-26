@@ -26,7 +26,6 @@ if ($('input.arrival').length && $('input.departure').length) {
         departurePickers[i].setStartRange(startDate);
         departurePickers[i].setEndRange(null);
         departurePickers[i].setDate(null);
-        departurePickers[i].show()
       }
       for (var i = 0; i < arrivalPickers.length; i++) {
         arrivalPickers[i].setEndRange(null);
@@ -60,7 +59,6 @@ if ($('input.arrival').length && $('input.departure').length) {
         departurePickers[i].setStartRange(startDate);
         departurePickers[i].setEndRange(null);
         departurePickers[i].setDate(null);
-        departurePickers[i].show()
       }
       for (var i = 0; i < arrivalPickers.length; i++) {
         arrivalPickers[i].setEndRange(null);
