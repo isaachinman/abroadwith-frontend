@@ -1,6 +1,10 @@
 const React = require('react');
 
+const i18n = require('i18n')
+
 const domains = require('domains');
+const toast = require('toast')
+
 const JWT = require('JWT');
 const GET = require('GET');
 const POST = require('POST');
@@ -32,6 +36,7 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid;
     var success = function() {
       this.refreshState();
+      toast(i18n.t('users:updated_toast'))
       $('#preloader').hide();
     }.bind(this)
     POST(url, userObj, success);
