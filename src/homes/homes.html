@@ -5,6 +5,7 @@
 {% block meta_description %}{{ translations.homes.meta_description }}{% endblock %}
 
 {% block content %}
+
 <div class='profile-slider'>
   {% if home.photos.length > 0 %}
   <div class="wallop">
@@ -113,8 +114,6 @@
             {% endfor %}
           </div>
 
-          {{debug}}
-
           {% if home.immersions.teacher.isActive %}
           <div class='col s12 m6 l12'>
             <p class='no-margin-bottom'>
@@ -123,7 +122,7 @@
             {% for language in home.immersions.teacher.languagesOffered %}
             <div class='chip chip--teaches'>
               {{ translations.languages[language] }}
-              {% if language.certified %}
+              {% if language.isVerified %}
                 <a href="#!" class="secondary-content tooltipped" data-position="bottom" data-delay="50" data-tooltip="{{translations.common.Certified}}"><i class="fa fa-certificate certified-language"></i></a>
               {% endif %}
             </div>
