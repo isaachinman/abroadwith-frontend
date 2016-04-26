@@ -11,6 +11,7 @@ i18next.use(i18nextXHR).init({
   backend:{
     loadPath: '/locales/{{lng}}/{{ns}}.json'
   },
+  objectNotation: true,
   lng: Cookies.get('ui-language'),
   fallbackLng: Cookies.get('ui-language'),
   load: 'currentOnly',

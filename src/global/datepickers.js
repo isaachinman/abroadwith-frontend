@@ -1,5 +1,7 @@
-const Pikaday = require('pikaday');
-const uiDate = require('ui-date');
+const Pikaday = require('pikaday')
+const uiDate = require('ui-date')
+
+const i18n = require('i18n')
 
 if ($('input.arrival').length && $('input.departure').length) {
 
@@ -39,7 +41,7 @@ if ($('input.arrival').length && $('input.departure').length) {
         departurePickers[i].setStartRange(startDate);
         departurePickers[i].setMinDate(minDate);
       }
-      
+
     }
 
   }
@@ -79,53 +81,67 @@ if ($('input.arrival').length && $('input.departure').length) {
   var arrivalPickers = [];
   var departurePickers = [];
 
-  // Init arrival pickers
-  $('input.arrival').each(function() {
+  i18n.loadNamespaces(['common'],function(){
 
-    var _trigger = this;
-    var picker = new Pikaday({
-      minDate: today,
-      field: this,
-      defaultDate: $(this).attr('data-date'),
-      onSelect: function() {
+    var translatedDates = {
+      previousMonth: i18n.t('common:previousMonth'),
+      nextMonth: i18n.t('common:nextMonth'),
+      months: [i18n.t('common:months.jan'), i18n.t('common:months.feb'), i18n.t('common:months.mar'), i18n.t('common:months.apr'), i18n.t('common:months.may'), i18n.t('common:months.june'), i18n.t('common:months.july'), i18n.t('common:months.aug'), i18n.t('common:months.sep'), i18n.t('common:months.oct'), i18n.t('common:months.nov') ,i18n.t('common:months.dec')],
+      weekdays: [i18n.t('common:weekdays.sun'), i18n.t('common:weekdays.mon'), i18n.t('common:weekdays.tue'), i18n.t('common:weekdays.wed'), i18n.t('common:weekdays.thu'), i18n.t('common:weekdays.fri'), i18n.t('common:weekdays.sat')],
+      weekdaysShort: [i18n.t('common:weekdaysShort.sun'), i18n.t('common:weekdaysShort.mon'), i18n.t('common:weekdaysShort.tue'), i18n.t('common:weekdaysShort.wed'), i18n.t('common:weekdaysShort.thu'), i18n.t('common:weekdaysShort.fri'), i18n.t('common:weekdaysShort.sat')]
+    }
 
-        // Capture whether selection is the first time
-        var firstSelection = startDate == undefined ? true : false;
+    // Init arrival pickers
+    $('input.arrival').each(function() {
 
-        // Set new start date and update pickers
-        startDate = this.getDate();
-        updateStartDate();
+      var _trigger = this;
+      var picker = new Pikaday({
+        minDate: today,
+        field: this,
+        defaultDate: $(this).attr('data-date'),
+        i18n: translatedDates,
+        onSelect: function() {
 
-        // Only open departure picker if it's the first selection
-        if (firstSelection) {
-          for (var i = 0; i < arrivalPickers.length; i++) {
+          // Capture whether selection is the first time
+          var firstSelection = startDate == undefined ? true : false;
 
-            // Find departure picker that matches this arrival picker
-            arrivalPickers[i]._o.trigger == _trigger ? departurePickers[i].show() : null;
+          // Set new start date and update pickers
+          startDate = this.getDate();
+          updateStartDate();
 
+          // Only open departure picker if it's the first selection
+          if (firstSelection) {
+            for (var i = 0; i < arrivalPickers.length; i++) {
+
+              // Find departure picker that matches this arrival picker
+              arrivalPickers[i]._o.trigger == _trigger ? departurePickers[i].show() : null;
+
+            }
           }
+
         }
+      });
+      arrivalPickers.push(picker);
+    })
 
-      }
-    });
-    arrivalPickers.push(picker);
-  })
+    // Init departure pickers
+    $('input.departure').each(function() {
+      var picker = new Pikaday({
+        minDate: tomorrow,
+        field: this,
+        i18n: translatedDates,
+        defaultDate: $(this).attr('data-date'),
+        onSelect: function() {
 
-  // Init departure pickers
-  $('input.departure').each(function() {
-    var picker = new Pikaday({
-      minDate: tomorrow,
-      field: this,
-      defaultDate: $(this).attr('data-date'),
-      onSelect: function() {
+          // Set new end date and update pickers
+          endDate = this.getDate()
+          updateEndDate();
 
-        // Set new end date and update pickers
-        endDate = this.getDate()
-        updateEndDate();
+        }
+      });
+      departurePickers.push(picker);
+    })
 
-      }
-    });
-    departurePickers.push(picker);
   })
 
   // If arrival picker has a value on pageload, update pickers
