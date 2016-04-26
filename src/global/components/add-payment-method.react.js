@@ -68,7 +68,6 @@ module.exports = React.createClass({
             },
             onError: function(error) {
               $('#preloader').hide();
-              alert(error.message);
             },
             onReady: function(integration) {
 
