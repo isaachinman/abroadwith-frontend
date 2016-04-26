@@ -118,7 +118,10 @@ module.exports = React.createClass({
       }
 
     }
-    POST(url, bookingObj, success);
+    var error = function() {
+      $('#booking-failure').openModal()
+    }
+    POST(url, bookingObj, success, error);
 
   },
   deletePaymentMethod: function(id) {
