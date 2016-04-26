@@ -1,7 +1,10 @@
 <div id="sign-up-modal" class="modal center-align">
   <a class='modal-close'><i class="fa fa-times"></i></a>
-  <div class='modal-failure'>
+  <div class='modal-failure signup-failure'>
     {{translations.common.signup_failed}}
+  </div>
+  <div class='modal-failure signup-conflict' onclick="$('#sign-up-modal').closeModal();$('#login-modal').openModal()">
+    {{translations.common.signup_conflict}}
   </div>
   <div class="modal-content">
     <h4>{{ translations.common.signup_modal_title }}</h4>

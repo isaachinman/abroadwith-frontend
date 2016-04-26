@@ -301,7 +301,14 @@ if ($('form#email-signup-form').length) {
         error: function(response) {
 
           $('#preloader').hide();
-          $('#sign-up-modal .modal-failure').show();
+
+          if (response.status === 409) {
+            $('#sign-up-modal .signup-conflict').show()
+          } else {
+            $('#sign-up-modal .signup-failure').show()
+          }
+
+
 
         }
       });
