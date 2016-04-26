@@ -181,8 +181,8 @@ module.exports = React.createClass({
 
         <div className='send-message'>
           <form onSubmit={this.sendMessage}>
-            <textarea id={sendBtn} type='text' className='materialize-textarea' maxLength='2000' placeholder={i18n.t('inbox:input_placeholder')} />
             <a onClick={this.sendMessage} className='btn btn-primary right'>{i18n.t('common:words.Send')}</a>
+            <textarea id={sendBtn} type='text' className='materialize-textarea' maxLength='2000' placeholder={i18n.t('inbox:input_placeholder')} />
           </form>
         </div>
 
