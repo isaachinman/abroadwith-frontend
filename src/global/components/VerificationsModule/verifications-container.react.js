@@ -16,7 +16,11 @@ module.exports = React.createClass({
     this.refreshState();
 
   },
+  componentDidMount: function() {
+    $('#verifications-preloader').show()
+  },
   refreshState: function(callback) {
+
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
     var url = domains.API + '/users/' + JWT.rid;
     var success = function(response) {
@@ -35,6 +39,8 @@ module.exports = React.createClass({
       if (typeof callback !== undefined && $.isFunction(callback)) {
         callback();
       }
+
+      $('#verifications-preloader').hide()
 
     }.bind(this)
     GET(url, success);
@@ -60,9 +66,6 @@ module.exports = React.createClass({
       POST(url, userObj, success)
 
     }
-
-
-
 
   },
   render: function() {
@@ -90,6 +93,19 @@ module.exports = React.createClass({
     return (
       <div className='row full'>
         {verificationNeeded}
+        <div id='verifications-preloader' className='preloader-container' style='display:none'>
+          <div className="preloader-wrapper big active">
+            <div className="spinner-layer spinner-blue-only">
+              <div className="circle-clipper left">
+                <div className="circle"></div>
+              </div><div className="gap-patch">
+                <div className="circle"></div>
+              </div><div className="circle-clipper right">
+                <div className="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

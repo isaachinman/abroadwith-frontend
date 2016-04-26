@@ -109,7 +109,19 @@ module.exports = React.createClass({
         });
     });
 
-    this.refreshState();
+    if (JWT.cbk === 0) {
+      this.refreshState();
+    } else {
+      $('#preloader').hide()
+      setTimeout(function() {
+        $('#verifications-modal').find('a.modal-close').remove()
+        $('#verifications-modal').openModal({
+          dismissible: false
+        })
+      }, 1000)
+    }
+
+
 
   },
   refreshState: function() {
