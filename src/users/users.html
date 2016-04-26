@@ -37,6 +37,24 @@
 
       <div class='col s10 quick-facts'>
 
+        {% if user.emailVerified %}
+          <p class='home-details'>
+            <span class='icon'><i class="fa fa-check-circle-o green-text" aria-hidden="true"></i></span></i>{{translations.users.email_verified}}
+          </p>
+        {% endif %}
+
+        {% if user.phoneVerified %}
+          <p class='home-details'>
+            <span class='icon'><i class="fa fa-check-circle-o green-text" aria-hidden="true"></i></span></i>{{translations.users.phone_verified}}
+          </p>
+        {% endif %}
+
+        {% if user.idVerified %}
+          <p class='home-details'>
+            <span class='icon'><i class="fa fa-check-circle-o green-text" aria-hidden="true"></i></span></i>{{translations.users.id_verified}}
+          </p>
+        {% endif %}
+
         {% if user.age %}
           <p class='home-details'>
             <span class='icon'><i class="fa fa-venus-mars grey-text text-lighten-1"></span></i>{{user.age}}{% if user.gender %}, {{translations.users.genders[user.gender]}}{% endif %}
