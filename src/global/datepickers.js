@@ -19,13 +19,27 @@ if ($('input.arrival').length && $('input.departure').length) {
       $('input.arrival').val(uiDate(startDate));
     }
 
-    // Iterate over all departure pickers and set new start range and new min date
-    var minDate = new Date(startDate.getTime() + 1 * 24 * 60 * 60 * 1000)
-    var month = minDate.getMonth();
-    for (var i = 0; i < departurePickers.length; i++) {
-      departurePickers[i].gotoMonth(month);
-      departurePickers[i].setStartRange(startDate);
-      departurePickers[i].setMinDate(minDate);
+    if (startDate > endDate) {
+      for (var i = 0; i < departurePickers.length; i++) {
+        departurePickers[i].setStartRange(startDate);
+        departurePickers[i].setEndRange(null);
+        departurePickers[i].setDate(null);
+        departurePickers[i].show()
+      }
+      for (var i = 0; i < arrivalPickers.length; i++) {
+        arrivalPickers[i].setEndRange(null);
+      }
+    } else {
+
+      // Iterate over all departure pickers and set new start range and new min date
+      var minDate = new Date(startDate.getTime() + 1 * 24 * 60 * 60 * 1000)
+      var month = minDate.getMonth();
+      for (var i = 0; i < departurePickers.length; i++) {
+        departurePickers[i].gotoMonth(month);
+        departurePickers[i].setStartRange(startDate);
+        departurePickers[i].setMinDate(minDate);
+      }
+      
     }
 
   }
@@ -36,14 +50,28 @@ if ($('input.arrival').length && $('input.departure').length) {
     // Iterate over all arrival pickers and set new end range and new max date
     for (var i = 0; i < arrivalPickers.length; i++) {
       arrivalPickers[i].setEndRange(endDate);
-      arrivalPickers[i].setMaxDate(endDate);
+
     }
 
-    // Iterate over all departure pickers and set new end range and new date
-    for (var i = 0; i < departurePickers.length; i++) {
-      departurePickers[i].setEndRange(endDate);
-      departurePickers[i].setDate(null);
-      $('input.departure').val(uiDate(endDate));
+    if (startDate > endDate) {
+      for (var i = 0; i < departurePickers.length; i++) {
+        departurePickers[i].setStartRange(startDate);
+        departurePickers[i].setEndRange(null);
+        departurePickers[i].setDate(null);
+        departurePickers[i].show()
+      }
+      for (var i = 0; i < arrivalPickers.length; i++) {
+        arrivalPickers[i].setEndRange(null);
+      }
+    } else {
+
+      // Iterate over all departure pickers and set new end range and new date
+      for (var i = 0; i < departurePickers.length; i++) {
+        departurePickers[i].setEndRange(endDate);
+        departurePickers[i].setDate(null);
+        $('input.departure').val(uiDate(endDate));
+      }
+
     }
   }
 
