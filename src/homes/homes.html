@@ -169,7 +169,7 @@
               <span class='icon'><i class="fa fa-calendar-o grey-text text-lighten-1"></span></i>{{home.host.age}}{% if home.user.gender %}, {{home.user.gender}}{% endif %}
             </p>
             <p class='home-details'>
-              <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>{{translations.common.Member_since}} {{ translations.common.months[home.host.joinedMonth] }}, {{home.host.joinedYear}}
+              <span class='icon'><i class="fa fa-clock-o grey-text text-lighten-1"></span></i>{{translations.common.Member_since}} {{ translations.common.months["m"+home.host.joinedMonth] }}, {{home.host.joinedYear}}
             </p>
             <p class='home-details'>
               <span class='icon'><i class="fa fa-map-marker grey-text text-lighten-1"></span></i>{{home.location.city}}, {{translations.countries[home.location.country]}}
