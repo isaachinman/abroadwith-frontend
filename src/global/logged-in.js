@@ -3,6 +3,11 @@ const verificationsModuleInit = require('verifications-module-init');
 
 module.exports = function() {
 
+  // Don't allow logged in users to access the login page
+  if (window.location.href.indexOf("login") > -1) {
+    window.location = '/'
+  }
+
   // Get JWT
   var JWT = localStorage.getItem('JWT') ? jwt_decode(localStorage.getItem('JWT')) : null;
 
