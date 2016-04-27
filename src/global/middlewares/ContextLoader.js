@@ -29,10 +29,10 @@ module.exports = function (req, res, next) {
     currencies: currencies,
     icons: icons,
     domains: domains,
-    default_bank_currencies: default_bank_currencies,
-    baseUrl: req.baseUrl,
-    originalUrl: req.originalUrl
+    default_bank_currencies: default_bank_currencies
   }
+  req.context.baseUrl = req.baseUrl;
+  req.context.originalUrl = req.originalUrl;
   req.context.query = req.query;
 
   if(req.cookies && req.cookies['ui-currency']){
