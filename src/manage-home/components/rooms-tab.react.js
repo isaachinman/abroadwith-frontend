@@ -89,21 +89,27 @@ module.exports = React.createClass({
 
       newRoomPhoto.options.url = '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo'
 
-      newRoomPhoto.options.success = function(file, serverResponse) {
-        console.log(file)
-        console.log(serverResponse)
-        response = []
+      Dropzone.options.newRoomPhoto = {
+        init: function() {
+          this.on("success", function(file, serverResponse) { 
 
-        $.each(response, function(index, obj) {
-          if (obj.status == 'OK') {
-            newRoom.img = obj.location;
-          }
+            console.log(file)
+            console.log(serverResponse)
+            response = []
 
-        })
+            $.each(response, function(index, obj) {
+              if (obj.status == 'OK') {
+                newRoom.img = obj.location;
+              }
 
-        addRoomToList(newRoom);
-        $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
-        $('#preloader').hide();
+            })
+
+            addRoomToList(newRoom);
+            $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
+            $('#preloader').hide();
+
+          })
+        }
       }
 
 
