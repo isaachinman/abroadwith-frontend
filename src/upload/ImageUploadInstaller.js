@@ -399,7 +399,7 @@ var installer = function(app) {
   app.use(headerTokenHandler);
 
   //TODO this app.use('/upload/*',upload.array('photos', 10));
-  app.use('/upload/users/:photoUserId/photo',upload.array('photos', 10));
+  app.use('/upload/users/:photoUserId/photo',upload.array('file', 10));
   app.use('/upload/users/:photoUserId/photo',routerUser);
 
   app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',upload.array('file', 10));
