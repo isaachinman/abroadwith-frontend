@@ -3,6 +3,9 @@ const ReactDOM = require('react-dom');
 const RoomModule = require('./room-module.react');
 const i18n = require('i18n');
 
+const Dropzone = require('dropzone')
+Dropzone.autoDiscover = false
+
 const domains = require('domains');
 const JWT = require('JWT');
 const POST = require('POST');
@@ -84,49 +87,60 @@ module.exports = React.createClass({
 
       $('#add-room-form .collapsible-header').trigger('click');
 
-      var thisprops = this.props;
-      var file = $('#new_room_photo')[0].files;
-      if(file.length > 0){
-        var formData = new FormData();
-        for(var f = 0; f < file.length; f++){
-          formData.append('photos', file[f]);
-        }
-        $.ajax({
-          url : '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo',
-          type : 'POST',
-          data : formData,
-          cache : false,
-          contentType : false,
-          processData : false,
-          beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
-          success : function(data, textStatus, jqXHR) {
 
-            var response = JSON.parse(data);
 
-            $.each(response, function(index, obj) {
-              if (obj.status == 'OK') {
-                newRoom.img = obj.location;
-              }
+      newRoomPhoto.options.url = '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo'
 
-            })
 
-            addRoomToList(newRoom);
-            $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
-            $('#preloader').hide();
-          },
-          error: function(jqXHR) {
-            var message = jqXHR.responseText;
-            alert('Image upload failed: '+ message);
-            addRoomToList(newRoom);
-            $('#add-room-form .collapsible-header').trigger('click');
-            $('#preloader').hide();
-          }
-        });
-      } else {
-        console.log('no images detected')
-        addRoomToList(newRoom);
-        $('#preloader').hide();
-      }
+      setTimeout(function() {
+        newRoomPhoto.processQueue()
+      }, 500)
+
+
+      //
+      // var thisprops = this.props;
+      // var file = $('#new_room_photo')[0].files;
+      // if(file.length > 0){
+      //   var formData = new FormData();
+      //   for(var f = 0; f < file.length; f++){
+      //     formData.append('photos', file[f]);
+      //   }
+      //   $.ajax({
+      //     url : '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo',
+      //     type : 'POST',
+      //     data : formData,
+      //     cache : false,
+      //     contentType : false,
+      //     processData : false,
+      //     beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
+      //     success : function(data, textStatus, jqXHR) {
+      //
+      //       var response = JSON.parse(data);
+      //
+      //       $.each(response, function(index, obj) {
+      //         if (obj.status == 'OK') {
+      //           newRoom.img = obj.location;
+      //         }
+      //
+      //       })
+      //
+      //       addRoomToList(newRoom);
+      //       $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
+      //       $('#preloader').hide();
+      //     },
+      //     error: function(jqXHR) {
+      //       var message = jqXHR.responseText;
+      //       alert('Image upload failed: '+ message);
+      //       addRoomToList(newRoom);
+      //       $('#add-room-form .collapsible-header').trigger('click');
+      //       $('#preloader').hide();
+      //     }
+      //   });
+      // } else {
+      //   console.log('no images detected')
+      //   addRoomToList(newRoom);
+      //   $('#preloader').hide();
+      // }
 
     };
     POST(url, newRoom, success);
@@ -175,6 +189,33 @@ module.exports = React.createClass({
     }.bind(this))
 
     $('a#save-rooms').click(this.saveRooms);
+
+    window.newRoomPhoto = new Dropzone('#new-room-photo', {
+      url: '/',
+      autoProcessQueue: false,
+      method: 'post',
+      headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
+      maxFilesize: 10,
+      acceptedFiles: 'image/jpeg,image/png'
+    })
+
+    newRoomPhoto.on("success", function(file, serverResponse) {
+
+      console.log(file)
+      console.log(serverResponse)
+      var response = JSON.parse(file)
+
+      $.each(response, function(index, obj) {
+        if (obj.status == 'OK') {
+          newRoom.img = obj.location;
+        }
+
+      })
+
+      addRoomToList(newRoom);
+      $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
+      $('#preloader').hide();
+    });
 
   },
   componentDidUpdate: function() {

@@ -405,7 +405,7 @@ var installer = function(app) {
   app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',upload.array('file', 10));
   app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',routerHome);
 
-  app.use('/upload/users/:photoUserId/homes/:photoHomeId/rooms/:photoRoomId/photo',upload.array('photos', 10));
+  app.use('/upload/users/:photoUserId/homes/:photoHomeId/rooms/:photoRoomId/photo',upload.array('file', 10));
   app.use('/upload/users/:photoUserId/homes/:photoHomeId/rooms/:photoRoomId/photo',routerRoom);
 
   app.use('/upload/users/:idUserId/id',upload.array('photos', 10));

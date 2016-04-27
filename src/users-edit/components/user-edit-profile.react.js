@@ -82,7 +82,7 @@ module.exports = React.createClass({
     $('a#view-public-profile').attr('href', '/users/' + JWT.rid);
     this.refreshState();
 
-    window.homePhotoDrop = new Dropzone('#user-photo-upload', {
+    new Dropzone('#user-photo-upload', {
       url: '/upload/users/'+JWT.rid+'/photo',
       autoProcessQueue: true,
       method: 'post',

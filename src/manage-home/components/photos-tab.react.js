@@ -10,7 +10,7 @@ const i18n = require('i18n')
 const toast = require('toast')
 
 const Dropzone = require('dropzone')
-Dropzone.autoDiscover = false;
+Dropzone.autoDiscover = false
 
 module.exports = React.createClass({
   componentDidMount: function() {
@@ -29,9 +29,6 @@ module.exports = React.createClass({
       dictRemoveFile: i18n.t('manage_home:delete'),
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
-        this.on("addedfile", function(file) {
-          console.log(file)
-        });
         this.on('removedfile', function(file) {
 
           $('#preloader').show();
