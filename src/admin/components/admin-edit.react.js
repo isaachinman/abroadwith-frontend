@@ -5,6 +5,10 @@ const Payments = require('./admin-payments.react');
 const Languages = require('./admin-languages.react');
 const Verifications = require('./admin-verifications.react');
 
+var GoogleMapsLoader = require('google-maps')
+GoogleMapsLoader.KEY = 'AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ'
+GoogleMapsLoader.LIBRARIES = ['places']
+
 const toast = require('toast');
 const i18n = require('../../global/util/i18n');
 
@@ -132,7 +136,7 @@ module.exports = React.createClass({
     })
 
     // All google maps stuff here
-    $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places", function() {
+    GoogleMapsLoader.load(function(google) {
 
       var placeSearch,
         autocomplete;
