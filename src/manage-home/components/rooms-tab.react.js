@@ -96,8 +96,8 @@ module.exports = React.createClass({
         var response = JSON.parse(serverResponse)
         console.log(response)
 
-        if (response.status == 'OK') {
-          newRoom.img = response.location;
+        if (response[0].status == 'OK') {
+          newRoom.img = response[0].location;
         }
 
         addRoomToList(newRoom);
