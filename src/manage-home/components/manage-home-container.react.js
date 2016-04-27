@@ -73,42 +73,6 @@ module.exports = React.createClass({
 
     var refresh = this.refreshState;
 
-    $("#home_upload_photos_button").click(function()
-    {
-        $('#home_upload_photos').each(function(index, value)
-        {
-            var file = value.files;
-            if(file)
-            {
-                var formData = new FormData();
-                var token = JSON.parse(atob(localStorage.getItem('JWT').split('.')[1]));
-                for(var f = 0; f < file.length; f++){
-                  formData.append('photos', file[f]);
-                }
-                $('#preloader').show();
-                $.ajax({
-                  url : '/upload/users/'+token.rid+'/homes/'+token.hid+'/photos',
-                  type : 'POST',
-                  data : formData,
-                  cache : false,
-                  contentType : false,
-                  processData : false,
-                  beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
-                  success : function(data, textStatus, jqXHR) {
-                        toast(i18n.t('manage_home:images_uploaded_toast'));
-                        refresh();
-                        $('#preloader').hide();
-                  },
-                  error: function(jqXHR) {
-                    var message = jqXHR.responseText;
-                    toast('Failed: '+ message);
-                    $('#preloader').hide();
-                  }
-                });
-            }
-        });
-    });
-
     if (JWT.cbk === 0) {
       this.refreshState();
     } else {
