@@ -1,5 +1,10 @@
-var React = require('react');
-var currencies = require('currencies');
+var React = require('react')
+
+var GoogleMapsLoader = require('google-maps')
+GoogleMapsLoader.KEY = 'AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ'
+GoogleMapsLoader.LIBRARIES = ['places','geometry']
+
+var currencies = require('currencies')
 
 module.exports = React.createClass({
   componentDidUpdate: function() {
@@ -45,7 +50,7 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
-    $.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&signed_in=true&libraries=places,geometry&types=(cities)', function() {
+    GoogleMapsLoader.load(function(google) {
 
       window.defaultIcon = {
         url: 'data:image/svg+xml;utf-8,' + encodeURIComponent($('#default-icon').html())
