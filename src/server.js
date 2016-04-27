@@ -32,6 +32,9 @@ var app = express();
 var cookieParser = require('cookie-parser');
 nunjucks.configure('src',{watch:true});
 
+var server = http.createServer(app)
+server.listen(3000);
+
 app.use(express.static('build'));
 app.use(cookieParser());
 
@@ -107,6 +110,32 @@ app.post('/logout',function(req,res){
   res.sendStatus(200);
 });
 
+app.post('/shutdown',function (req, res, next) {
+    function gracefulShutdown() {
+      //res.removeListener('close', afterRequest);
+      res.removeListener('finish', gracefulShutdown);
+      console.log("Received kill signal, shutting down gracefully.");
+      server.close(function() {
+        console.log("Closed out remaining connections.");
+        process.exit()
+      });
+
+      setTimeout(function() {
+           console.error("Could not close connections in time, forcefully shutting down.");
+           process.exit()
+      }, 10*1000);
+    }
+    
+    if(req.headers.authorization === "Basic NmQwODgwMjM6ODRjZjA1ZGFmNTZhNGZmNWFlZmRkYzhlMWQwMDE3YTA="){
+      res.on('finish', gracefulShutdown);
+      res.sendStatus(200);
+    }
+    else{
+      res.sendStatus(403)
+    }
+});
+
+
 app.use(function(err, req, res, next) {
   console.log(err.stack);
   winston.error("[ERROR]",err);
@@ -117,5 +146,3 @@ app.use(function(req, res, next) {
   winston.error("[ERROR]","Page not found.");
   res.redirect("/");
 });
-
-http.createServer(app).listen(3000);
