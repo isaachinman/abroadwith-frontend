@@ -1,9 +1,13 @@
-const React = require('react');
+const React = require('react')
 
-const randomiseCoordinate = require('randomise-coordinate');
+var GoogleMapsLoader = require('google-maps')
+GoogleMapsLoader.KEY = 'AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ'
+GoogleMapsLoader.LIBRARIES = ['places']
 
-const i18n = require('i18n');
-const toast = require('toast');
+const randomiseCoordinate = require('randomise-coordinate')
+
+const i18n = require('i18n')
+const toast = require('toast')
 
 module.exports = React.createClass({
   componentDidMount: function() {
@@ -17,7 +21,7 @@ module.exports = React.createClass({
     mapLng = 180;
     mapZoom = 2;
 
-    window.initAutocomplete = function() {
+    window.initAutocomplete = function(google) {
 
       this.setState({ mapDidInit: true });
 
@@ -36,7 +40,16 @@ module.exports = React.createClass({
         rotateControl: false
       });
 
-      var markers = [];
+      var firstLocationTabClick = function() {
+        google.maps.event.trigger(map, 'resize')
+        map.setZoom(map.getZoom())
+        map.setCenter(new google.maps.LatLng(mapLat, mapLng))
+        $('#location').unbind('click', firstLocationTabClick)
+      }
+
+      $('#location').bind('click', firstLocationTabClick)
+
+      var markers = []
 
       if (mapLat !== 60 && mapLng !== 180) {
 
@@ -128,11 +141,6 @@ module.exports = React.createClass({
 
       });
     }.bind(this)
-    $('#location').click(initHiddenMap)
-    function initHiddenMap(e) {
-      document.getElementById('location').removeEventListener('click', initHiddenMap)
-      initAutocomplete();
-    }
 
     $('a#save-location').click(this.saveLocation);
 
@@ -170,10 +178,13 @@ module.exports = React.createClass({
     }
 
     if (this.state.mapDidInit !== true) {
-      $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places", function() {
-        initAutocomplete();
 
-      });
+      GoogleMapsLoader.load(function(google) {
+
+        initAutocomplete(google);
+
+      })
+
     }
 
   },

@@ -17,6 +17,7 @@
     "dropzone": "^4.3.0",
     "exif-parser": "^0.1.9",
     "express": "^4.13.3",
+    "google-maps": "^3.2.1",
     "i18next": "^2.0.20",
     "i18next-xhr-backend": "^0.3.0",
     "jquery": "^2.2.0",
