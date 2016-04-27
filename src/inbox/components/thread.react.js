@@ -160,13 +160,22 @@ module.exports = React.createClass({
   render: function() {
 
     var sendBtn = this.props.id + '-send';
+    var guest;
+
+    if (JWT.rid == this.props.guest) {
+      guest = i18n.t('inbox:You')
+      host = this.props.them
+    } else {
+      guest = this.props.them
+      host = i18n.t('inbox:you')
+    }
 
     return (
       <div id={this.props.id} className='message-body'>
 
         <div className='intro-msg'>
           <div className='title'>
-            {i18n.t('inbox:this_is_a_conversation')} {this.props.them}
+            {i18n.t('inbox:thread_title', {guest: guest, host: host})}
           </div>
           <div className='subtitle'>
             <strong>{this.props.startDate}</strong> {i18n.t('common:words.to')} <strong>{this.props.endDate}</strong>

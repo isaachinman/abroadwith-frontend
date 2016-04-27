@@ -40,6 +40,7 @@ module.exports = React.createClass({
           threadHTML.push(
             <Thread
               id={thread.id}
+              guest={thread.guestId}
               yourName={yourName}
               yourId={yourId}
               yourPhoto={yourPhoto}
