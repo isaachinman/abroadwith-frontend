@@ -17,8 +17,6 @@ module.exports = React.createClass({
 
     var refreshState = this.props.refreshState;
 
-    var drop = "#home-image-upload"
-
     window.homePhotoDrop = new Dropzone('#home-image-upload', {
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
       autoProcessQueue: true,
@@ -67,7 +65,10 @@ module.exports = React.createClass({
 
   },
   componentDidUpdate: function() {
+
     if (this.props.props.photos) {
+
+      $('#home-image-upload').find('.dz-preview').remove()
 
       var refreshState = this.props.refreshState;
       var photos = this.props.props.photos;
@@ -85,6 +86,7 @@ module.exports = React.createClass({
       }
 
     }
+
   },
   render: function() {
 

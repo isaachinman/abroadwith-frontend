@@ -83,80 +83,38 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms';
     var success = function(response) {
 
+      $('#add-room-form .collapsible-header').trigger('click');
       newRoom.id = response.roomId;
 
-      $('#add-room-form .collapsible-header').trigger('click');
+      if (newRoomPhoto.files.length > 0) {
 
-      newRoomPhoto.options.url = '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo'
+        // There's a room photo to upload
+        newRoomPhoto.options.url = '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo'
 
-      newRoomPhoto._callbacks.success[0] = function(file, serverResponse) {
-        console.log(file)
-        console.log(serverResponse)
+        newRoomPhoto._callbacks.success[0] = function(file, serverResponse) {
 
-        var response = JSON.parse(serverResponse)
-        console.log(response)
+          var response = JSON.parse(serverResponse)
 
-        $.each(response, function(index, obj) {
-          if (obj.status == 'OK') {
-            newRoom.img = obj.location;
-          }
-        })
+          $.each(response, function(index, obj) {
+            if (obj.status == 'OK') {
+              newRoom.img = obj.location;
+            }
+          })
 
-        addRoomToList(newRoom);
-        $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
-        $('#preloader').hide();
-      }
+          addRoomToList(newRoom);
+          $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
+          $('#preloader').hide();
+        }
 
-
-      setTimeout(function() {
         newRoomPhoto.processQueue()
-      }, 500)
 
+      } else {
 
-      //
-      // var thisprops = this.props;
-      // var file = $('#new_room_photo')[0].files;
-      // if(file.length > 0){
-      //   var formData = new FormData();
-      //   for(var f = 0; f < file.length; f++){
-      //     formData.append('photos', file[f]);
-      //   }
-      //   $.ajax({
-      //     url : '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo',
-      //     type : 'POST',
-      //     data : formData,
-      //     cache : false,
-      //     contentType : false,
-      //     processData : false,
-      //     beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
-      //     success : function(data, textStatus, jqXHR) {
-      //
-      //       var response = JSON.parse(data);
-      //
-      //       $.each(response, function(index, obj) {
-      //         if (obj.status == 'OK') {
-      //           newRoom.img = obj.location;
-      //         }
-      //
-      //       })
-      //
-      //       addRoomToList(newRoom);
-      //       $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
-      //       $('#preloader').hide();
-      //     },
-      //     error: function(jqXHR) {
-      //       var message = jqXHR.responseText;
-      //       alert('Image upload failed: '+ message);
-      //       addRoomToList(newRoom);
-      //       $('#add-room-form .collapsible-header').trigger('click');
-      //       $('#preloader').hide();
-      //     }
-      //   });
-      // } else {
-      //   console.log('no images detected')
-      //   addRoomToList(newRoom);
-      //   $('#preloader').hide();
-      // }
+        // There's no room image
+        addRoomToList(newRoom);
+        $('#preloader').hide();
+
+      }
 
     };
     POST(url, newRoom, success);
