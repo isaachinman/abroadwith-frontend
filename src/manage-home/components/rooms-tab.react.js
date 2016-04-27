@@ -87,8 +87,6 @@ module.exports = React.createClass({
 
       $('#add-room-form .collapsible-header').trigger('click');
 
-      console.log(newRoomPhoto)
-
       newRoomPhoto.options.url = '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo'
 
       newRoomPhoto.options.success = function(file, serverResponse) {
@@ -194,7 +192,6 @@ module.exports = React.createClass({
    this.props.updateHome(newHomeObj, function() {
      toast(i18n.t('manage_home:room_updated_toast'));
    });
-   console.log(newRoomsObj);
 
 
   },
