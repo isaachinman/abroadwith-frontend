@@ -11,19 +11,13 @@ var default_bank_currencies = require('../constants/DefaultBankCurrencies');
 module.exports = function (req, res, next) {
   var prefix = req.hostname.substring(0,2);
   var value = ui_languages[prefix];
-
   if(value) {
     req.language = prefix;
     res.cookie('ui-language',prefix);
   }
   else{
-    if(req.cookies && req.cookies['ui-language']){
-      req.language = req.cookies['ui-language'];
-    }
-    else{
-      req.language = "en";
-    }
-
+    req.language = "en";
+    res.cookie('ui-language',"en");
   }
   if(!req.context) req.context = {};
   req.context.translations = translations[req.language];
@@ -35,7 +29,9 @@ module.exports = function (req, res, next) {
     currencies: currencies,
     icons: icons,
     domains: domains,
-    default_bank_currencies: default_bank_currencies
+    default_bank_currencies: default_bank_currencies,
+    baseUrl: req.baseUrl,
+    originalUrl: req.originalUrl
   }
   req.context.query = req.query;
 
