@@ -89,7 +89,7 @@ module.exports = React.createClass({
 
       newRoomPhoto.options.url = '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo'
 
-      newRoomPhoto.callbacks.success[0] = function(file, serverResponse) {
+      newRoomPhoto._callbacks.success[0] = function(file, serverResponse) {
         console.log(file)
         console.log(serverResponse)
         response = []
