@@ -29,7 +29,7 @@
               <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
                 <i class="fa fa-bed fa-2x"></i>
               </div>
-              <div class='col s12 m6 l6 input-field'>
+              <div class='col s10 m6 l6 input-field'>
                 <select id='room-bed' class='material' required>
                   <option value="" selected disabled>{{translations.rooms.bed_types_placeholder}}</option>
                   {% for bed, name in translations.rooms.bed_types %}
@@ -78,7 +78,7 @@
               <div class='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
                 <i class="fa fa-users fa-2x"></i>
               </div>
-              <div class='col s5 m4 l4 left-align tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.rooms_shared_tooltip}}">
+              <div class='col s10 m4 l4 left-align tooltipped' data-position="bottom" data-delay="500" data-tooltip="{{translations.manage_home.rooms_shared_tooltip}}">
                 <label>{{translations.rooms.shared_label}}</label>
                 <div class="switch">
                   <label>

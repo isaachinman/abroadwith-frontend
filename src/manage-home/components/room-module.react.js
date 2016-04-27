@@ -79,7 +79,7 @@ module.exports = React.createClass({
             <div className='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
               <i className="fa fa-bed fa-2x"></i>
             </div>
-            <div className='col s12 m6 l6 input-field'>
+            <div className='col s10 m6 l6 input-field'>
               <select className='material bed-type' value={this.props.bed}>
                 <option value="" disabled>{i18n.t('rooms:bed_types_placeholder')}</option>
                 {compileBedTypes()}
@@ -124,7 +124,7 @@ module.exports = React.createClass({
             <div className='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
               <i className="fa fa-users fa-2x"></i>
             </div>
-            <div className='col s5 m4 l4 left-align'>
+            <div className='col s10 m4 l4 left-align'>
               <label>{i18n.t('rooms:shared_label')}</label>
               <div className="switch">
                 <label>
