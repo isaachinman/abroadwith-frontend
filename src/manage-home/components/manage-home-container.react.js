@@ -85,8 +85,6 @@ module.exports = React.createClass({
       }, 1000)
     }
 
-
-
   },
   refreshState: function() {
 
@@ -96,10 +94,6 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
-
-      console.log(response)
-
-      // response.homeActivationResponse.code = 'AT_LEAST_ONE_STAY_REQUIRED';
 
       if (response.homeActivationResponse.code === 'ACTIVATED') {
 
@@ -169,8 +163,6 @@ module.exports = React.createClass({
         $('#'+activeStep+'-tab').show();
 
       }
-
-      console.log(activeStep)
 
       var newState = {
 

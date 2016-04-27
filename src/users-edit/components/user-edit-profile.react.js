@@ -2,6 +2,9 @@ const React = require('react');
 
 const i18n = require('i18n')
 
+const Dropzone = require('dropzone')
+Dropzone.autoDiscover = false;
+
 const domains = require('domains');
 const toast = require('toast')
 
@@ -78,6 +81,62 @@ module.exports = React.createClass({
 
     $('a#view-public-profile').attr('href', '/users/' + JWT.rid);
     this.refreshState();
+
+    window.homePhotoDrop = new Dropzone('#user-photo-upload', {
+      url: '/upload/users/'+JWT.rid+'/photo',
+      autoProcessQueue: true,
+      method: 'post',
+      headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
+      addRemoveLinks: true,
+      maxFilesize: 10,
+      dictRemoveFile: i18n.t('manage_home:delete'),
+      acceptedFiles: 'image/jpeg,image/png',
+      init: function() {
+        this.on("addedfile", function(file) {
+          console.log(file)
+        });
+        this.on('removedfile', function(file) {
+
+          $('#preloader').show();
+
+          var deletePhotoObj = {
+            images: [
+              {
+                pathName: file.name
+              }
+            ]
+          }
+
+          $.ajax({
+            type: "DELETE",
+            url: domains.API + '/users/' + JWT.rid + '/homes/' + JWT.hid + '/photos',
+            contentType: "application/json",
+            data: JSON.stringify(deletePhotoObj),
+            beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+            success: function(data, textStatus, jqXHR) {
+
+              var message = jqXHR.responseText;
+              var result = JSON.parse(data);
+              for(var img in result){
+                if(result[img].status == 'OK'){
+                  $('#user-photo').attr('src', domains.IMG + result[img].location);
+                  window.userObj.photo = result[img].location;
+                }
+              }
+              $('#preloader').hide();
+
+            }.bind(this),
+            error: function() {
+
+              $('#preloader').hide();
+              alert('Something failed');
+
+            }
+          })
+
+        })
+      }
+    })
 
   },
   render: function() {
