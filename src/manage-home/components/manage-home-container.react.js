@@ -85,6 +85,37 @@ module.exports = React.createClass({
       }, 1000)
     }
 
+    $('a#delete-home').click(function() {
+
+      $('#preloader').show();
+
+      $.ajax({
+        url: domains.API + '/users/' + JWT.rid + '/homes/' + JWT.hid,
+        type: 'DELETE',
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))
+        },
+        success: function(result) {
+
+          refreshToken(function() {
+            window.location = '/'
+          });
+
+        },
+        error: function(response) {
+
+          if (response.status === 409) {
+
+            $('#delete-home-modal').closeModal()
+            $('#home-deletion-failure').openModal()
+          }
+
+          $('#preloader').hide();
+        }
+      });
+
+    })
+
   },
   refreshState: function() {
 

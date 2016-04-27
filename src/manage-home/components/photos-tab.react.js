@@ -17,6 +17,10 @@ module.exports = React.createClass({
 
     var refreshState = this.props.refreshState;
 
+    $('#save-photos').click(function() {
+      refreshState();
+    })
+
     window.homePhotoDrop = new Dropzone('#home-image-upload', {
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
       autoProcessQueue: true,
