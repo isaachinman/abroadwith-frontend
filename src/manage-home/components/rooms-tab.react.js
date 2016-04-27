@@ -87,9 +87,26 @@ module.exports = React.createClass({
 
       $('#add-room-form .collapsible-header').trigger('click');
 
-
+      console.log(newRoomPhoto)
 
       newRoomPhoto.options.url = '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo'
+
+      newRoomPhoto.options.success = function(file, serverResponse) {
+        console.log(file)
+        console.log(serverResponse)
+        response = []
+
+        $.each(response, function(index, obj) {
+          if (obj.status == 'OK') {
+            newRoom.img = obj.location;
+          }
+
+        })
+
+        addRoomToList(newRoom);
+        $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
+        $('#preloader').hide();
+      }
 
 
       setTimeout(function() {
@@ -198,24 +215,6 @@ module.exports = React.createClass({
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png'
     })
-
-    newRoomPhoto.on("success", function(file, serverResponse) {
-
-      console.log(file)
-      console.log(serverResponse)
-      var response = JSON.parse(file)
-
-      $.each(response, function(index, obj) {
-        if (obj.status == 'OK') {
-          newRoom.img = obj.location;
-        }
-
-      })
-
-      addRoomToList(newRoom);
-      $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
-      $('#preloader').hide();
-    });
 
   },
   componentDidUpdate: function() {
