@@ -92,15 +92,13 @@ module.exports = React.createClass({
       newRoomPhoto._callbacks.success[0] = function(file, serverResponse) {
         console.log(file)
         console.log(serverResponse)
-        response = []
 
         var response = JSON.parse(serverResponse)
+        console.log(response)
 
         if (response.status == 'OK') {
           newRoom.img = response.location;
         }
-
-
 
         addRoomToList(newRoom);
         $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
