@@ -143,7 +143,7 @@ module.exports = React.createClass({
               <input id='phone-number-verifications-modal' name='phone' maxlength='45' placeholder={i18n.t('common:whats_your_phone')} defaultValue={phoneNumber} type="tel" className="validate intl-tel-input" required='required' />
             </div>
             <div className='col s12 m10 offset-m1 l6 offset-l3 input-field'>
-              <button className='btn btn-primary btn-flat margin-top-50'>{i18n.t('common:set_phone_number')}</button>
+              <button className='btn btn-primary btn-flat margin-top-20'>{i18n.t('common:set_phone_number')}</button>
             </div>
           </form>
         </div>
