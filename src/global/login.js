@@ -28,7 +28,13 @@ module.exports = function(loginObj, firstTime) {
       validateMessageButtons();
 
       // If a user came from signup, show them the email confirmation modal
-      firstTime === true ? $('#confirmation-email-sent').openModal() : null;
+      if (firstTime === true) {
+        $('#confirmation-email-sent').openModal({
+          complete: function() {
+            $('#verifications-modal').openModal()
+          }
+        })
+      }
 
     },
     error: function() {
