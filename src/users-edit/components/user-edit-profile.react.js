@@ -89,6 +89,8 @@ module.exports = React.createClass({
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
         this.on("success", function(file, serverResponse) {
+          response = JSON.parse(serverResponse)
+          userObj.photo = response.location
           console.log(serverResponse)
         });
       }
