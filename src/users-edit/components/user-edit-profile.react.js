@@ -89,14 +89,12 @@ module.exports = React.createClass({
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
         this.on("success", function(file, serverResponse) {
-          
+
           response = JSON.parse(serverResponse)
 
           $.each(response, function(index, obj) {
-            var photo = obj.location
+            userObj.photo = obj.location
           })
-
-          userObj.photo = photo
 
         });
       }
