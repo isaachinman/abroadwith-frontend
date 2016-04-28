@@ -31,9 +31,10 @@ module.exports = function(loginObj, firstTime) {
       validateBookNowButtons();
       validateMessageButtons();
 
-      // If a user came from signup, show them the email confirmation modal and geocode their country
+      // If a user came from signup, perform signup specific actions
       if (firstTime === true) {
 
+        // Geocode
         var JWT = jwt_decode(localStorage.getItem('JWT'))
         $.getJSON('http://ipinfo.io', function(data){
           var url = domains.API + '/users/' + JWT.rid
@@ -51,6 +52,7 @@ module.exports = function(loginObj, firstTime) {
           GET(url, success)
         })
 
+        // Open email confirmation and verification modals
         $('#confirmation-email-sent').openModal({
           complete: function() {
             $('#verifications-modal').openModal()
