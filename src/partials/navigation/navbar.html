@@ -24,7 +24,7 @@
 
       <ul class="right hide-on-med-and-down">
         <li class='logged-out'>
-          <select class='material ui-language'>
+          <select class='material ui-language' data-path={{originalUrl}}>
             {% for domain, language in constants.ui_languages %}
             <option value={{domain}}>{{language.name}}</option>
             {% endfor %}
@@ -40,6 +40,8 @@
       </ul>
 
       <ul class="side-nav" id="mobile">
+        <li class='logged-in'><a href="/trips">{{translations.common.navbar_your_trips}}</a></li>
+        <li class='logged-in your-home' style='display:none'><a href="/reservations">{{translations.common.navbar_reservations}}</a></li>
         <li class='logged-out'><a href='/help'>{{translations.common.navbar_help}}</a></li>
         <li class='logged-out'><a data-target="choose-languages-modal" class='modal-trigger'>{{translations.common.navbar_become_host}}</a></li>
         <li class='logged-out'><a data-target="choose-languages-modal" class='modal-trigger'>{{translations.common.navbar_sign_up}}</a></li>
@@ -54,15 +56,6 @@
 
     </div>
   </nav>
-  <ul id="language-dropdown" class="dropdown-content">
-    <li><a href="/trips">{{translations.common.navbar_your_trips}}</a></li>
-    <li class='your-home' style='display:none'><a href="/reservations">{{translations.common.navbar_reservations}}</a></li>
-    <li><a class='go-to-your-profile'>{{translations.common.navbar_profile}}</a></li>
-    <li><a href="/admin">{{translations.common.navbar_settings}}</a></li>
-    <li><a href="/search">{{translations.common.navbar_search}}</a></li>
-    <li class="divider"></li>
-    <li><a class='logout-btn'>{{translations.common.navbar_logout}}</a></li>
-  </ul>
   <ul id="nav-dropdown" class="dropdown-content">
     <li><a href="/trips">{{translations.common.navbar_your_trips}}</a></li>
     <li class='your-home' style='display:none'><a href="/reservations">{{translations.common.navbar_reservations}}</a></li>
