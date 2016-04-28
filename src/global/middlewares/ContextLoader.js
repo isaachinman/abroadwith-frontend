@@ -32,6 +32,10 @@ module.exports = function (req, res, next) {
           res.cookie('ui-language',"en");
         }
       }
+      else{
+        req.language = "en";
+        res.cookie('ui-language',"en");
+      }
     }
     else{
       req.language = "en";
