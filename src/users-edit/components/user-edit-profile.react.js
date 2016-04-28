@@ -90,11 +90,12 @@ module.exports = React.createClass({
       init: function() {
         this.on("success", function(file, serverResponse) {
           response = JSON.parse(serverResponse)
+          console.log(response)
+          $.each(response, function(index, obj) {
+            console.log(index)
+            console.log(obj)
+          })
 
-          for (key in response) {
-            var photo = key.location
-            console.log(photo)
-          }
           userObj.photo = photo
 
         });
