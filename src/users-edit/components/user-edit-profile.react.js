@@ -86,7 +86,12 @@ module.exports = React.createClass({
       method: 'post',
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       maxFilesize: 10,
-      acceptedFiles: 'image/jpeg,image/png'
+      acceptedFiles: 'image/jpeg,image/png',
+      init: function() {
+        this.on("success", function(file, serverResponse) {
+          console.log(serverResponse)
+        });
+      }
     })
 
   },
