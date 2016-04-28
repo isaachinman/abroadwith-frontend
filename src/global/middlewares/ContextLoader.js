@@ -18,13 +18,17 @@ module.exports = function (req, res, next) {
   }
   else{
     if(req.headers['accept-language']){
-      if(ServerSettings.strict && prefix != 'ww' && prefix != 'te'){
+      if(ServerSettings.strict){
         prefix = req.headers['accept-language'].substring(0,2);
         value = ui_languages[prefix];
-        if(value){
+        if(value && prefix != 'en'){
           res.writeHead(303, {'Location': "https://"+prefix+ServerSettings.redirect_domain+req.originalUrl});
           res.end()
           return;
+        }
+        else{
+          req.language = "en";
+          res.cookie('ui-language',"en");
         }
       }
     }
