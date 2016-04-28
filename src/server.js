@@ -1,7 +1,7 @@
 var express = require('express');
 var http = require('http');
 var nunjucks = require('nunjucks');
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
+
 /** Page Installers **/
 var installSearch = require('./search/SearchInstaller');
 var installMain = require('./main/MainInstaller');
@@ -125,7 +125,7 @@ app.post('/shutdown',function (req, res, next) {
            process.exit()
       }, 10*1000);
     }
-    
+
     if(req.headers.authorization === "Basic NmQwODgwMjM6ODRjZjA1ZGFmNTZhNGZmNWFlZmRkYzhlMWQwMDE3YTA="){
       res.on('finish', gracefulShutdown);
       res.sendStatus(200);
