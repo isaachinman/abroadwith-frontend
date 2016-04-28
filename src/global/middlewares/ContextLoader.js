@@ -18,7 +18,7 @@ module.exports = function (req, res, next) {
   }
   else{
     if(req.headers['accept-language']){
-      if(ServerSettings.strict){
+      if(ServerSettings.strict && prefix != 'ww' && prefix != 'te'){
         prefix = req.headers['accept-language'].substring(0,2);
         value = ui_languages[prefix];
         if(value){
