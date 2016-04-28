@@ -7,6 +7,7 @@ var currencies = require('../constants/Currencies');
 var icons = require('../constants/Icons');
 var domains = require('../constants/domains');
 var default_bank_currencies = require('../constants/DefaultBankCurrencies');
+var ServerSettings = require('../../ServerSettings');
 
 module.exports = function (req, res, next) {
   var prefix = req.hostname.substring(0,2);
@@ -16,8 +17,22 @@ module.exports = function (req, res, next) {
     res.cookie('ui-language',prefix);
   }
   else{
-    req.language = "en";
-    res.cookie('ui-language',"en");
+    if(req.headers['accept-language']){
+      if(ServerSettings.strict){
+        prefix = req.headers['accept-language'].substring(0,2);
+        value = ui_languages[prefix];
+        if(value){
+          res.writeHead(303, {'Location': "https://"+prefix+ServerSettings.redirect_domain+req.originalUrl});
+          res.end()
+          return;
+        }
+      }
+    }
+    else{
+      req.language = "en";
+      res.cookie('ui-language',"en");
+    }
+
   }
   if(!req.context) req.context = {};
   req.context.translations = translations[req.language];

@@ -1,5 +1,6 @@
 var configuration = {
   strict: false,
+  redirect_domain: ".test.abroadwith.com",
   solr: {
     host: 'ec2-52-58-71-36.eu-central-1.compute.amazonaws.com',
     port: 8983,
