@@ -90,7 +90,7 @@ module.exports = React.createClass({
       init: function() {
         this.on("success", function(file, serverResponse) {
           response = JSON.parse(serverResponse)
-          userObj.photo = response.location
+          userObj.photo = response.keys(obj[0]).location
           console.log(serverResponse)
         });
       }
