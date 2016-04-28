@@ -75,6 +75,7 @@ if ($('form#email-signup-form').length) {
             processData: false,
             success: function(response) {
 
+              goog_report_conversion !== undefined ? goog_report_conversion() : null;
               login(loginObj, true)
 
             },
@@ -127,6 +128,7 @@ if ($('form#email-signup-form').length) {
       processData: false,
       success: function(response) {
 
+        goog_report_conversion !== undefined ? goog_report_conversion() : null;
         login(loginObj, true)
 
       },
@@ -295,6 +297,7 @@ if ($('form#email-signup-form').length) {
         processData: false,
         success: function(response) {
 
+          goog_report_conversion !== undefined ? goog_report_conversion() : null;
           login(loginObj, true)
 
         },
