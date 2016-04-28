@@ -21,7 +21,8 @@ module.exports = function (req, res, next) {
       if(ServerSettings.strict){
         prefix = req.headers['accept-language'].substring(0,2);
         value = ui_languages[prefix];
-        if(value && prefix != 'en'){
+        if(value && prefix != 'en' && !req.cookies['ui-language']){
+          res.cookie('ui-language',prefix);
           res.writeHead(303, {'Location': "https://"+prefix+ServerSettings.redirect_domain+req.originalUrl});
           res.end()
           return;
