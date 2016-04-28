@@ -93,6 +93,7 @@ module.exports = React.createClass({
 
           for (key in response) {
             var photo = key.location
+            console.log(photo)
           }
           userObj.photo = photo
 
