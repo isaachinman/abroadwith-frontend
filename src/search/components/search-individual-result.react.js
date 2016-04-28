@@ -26,7 +26,6 @@ module.exports = React.createClass({
     }
 
   },
-  handleClick: function() {},
   render: function() {
 
     // Slider Id
@@ -44,7 +43,16 @@ module.exports = React.createClass({
 
     // Compile room and home photos
     var photos = [];
+    var host = this.props.host;
     if (this.props.roomPhoto !== undefined) {
+
+      var homePhotos = [];
+      this.props.homePhotos.forEach(function(src) {
+        var src = domains.IMG + src;
+        var photo = <div className="Wallop-item"><img alt={host} data-src={src}/></div>
+        homePhotos.push(photo);
+      })
+
       photos.push(
         <div className="Wallop-list">
           <div className="Wallop-item Wallop-item--current">
@@ -53,12 +61,28 @@ module.exports = React.createClass({
           {homePhotos}
         </div>
       )
+
     } else {
+
+      var homePhotos = [];
+      var counter = 0;
+      this.props.homePhotos.forEach(function(src) {
+        var src = domains.IMG + src;
+        counter++
+        if (counter === 1) {
+          var photo = <div className="Wallop-item"><img alt={host} src={src}/></div>
+        } else {
+          var photo = <div className="Wallop-item"><img alt={host} data-src={src}/></div>
+        }
+        homePhotos.push(photo);
+      })
+
       photos.push(
         <div className="Wallop-list">
           {homePhotos}
         </div>
       )
+
     }
 
     // Host photo src
