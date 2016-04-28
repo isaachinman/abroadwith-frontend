@@ -1,4 +1,8 @@
-const domains = require('domains');
+const domains = require('domains')
+const GET = require('GET')
+const POST = require('POST')
+
+const jwt_decode = require('jwt-decode')
 
 const loginRedirect = require('login-redirect');
 const validateBookNowButtons = require('validate-book-now-buttons');
@@ -27,13 +31,34 @@ module.exports = function(loginObj, firstTime) {
       validateBookNowButtons();
       validateMessageButtons();
 
-      // If a user came from signup, show them the email confirmation modal
+      // If a user came from signup, perform signup specific actions
       if (firstTime === true) {
+
+        // Geocode
+        var JWT = jwt_decode(localStorage.getItem('JWT'))
+        $.getJSON('http://ipinfo.io', function(data){
+          var url = domains.API + '/users/' + JWT.rid
+          var success = function(user) {
+
+            delete user.paymentMethods;
+            delete user.payoutMethods;
+            delete user.verifications;
+            delete user.email;
+
+            user.address = {}
+            user.address.country = data.country
+            POST(url, user, null)
+          }
+          GET(url, success)
+        })
+
+        // Open email confirmation and verification modals
         $('#confirmation-email-sent').openModal({
           complete: function() {
             $('#verifications-modal').openModal()
           }
         })
+
       }
 
     },

@@ -5,9 +5,13 @@
 
         <div id='ui-currency-and-language-container'></div>
 
-        <select class='material ui-language'>
+        <select class='material ui-language' data-path={{originalUrl}}>
           {% for domain, language in constants.ui_languages %}
-          <option value={{domain}}>{{language.name}}</option>
+            {% if domain == 'en' %}
+              <option value='www'>{{language.name}}</option>
+            {% else %}
+              <option value={{domain}}>{{language.name}}</option>
+            {% endif %}
           {% endfor %}
         </select>
 

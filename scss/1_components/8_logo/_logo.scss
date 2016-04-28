@@ -10,11 +10,14 @@ nav {
     margin-top: 10px;
     position: relative;
     margin-left: 0;
-    img.logo {
+    svg.logo {
       position: absolute;
-      left: 0;
+      left: -2px;
       max-width: 30px;
       max-height: 30px;
+      path {
+        fill: white;
+      }
     }
   }
 }

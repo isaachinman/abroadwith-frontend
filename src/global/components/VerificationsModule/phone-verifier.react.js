@@ -128,7 +128,7 @@ module.exports = React.createClass({
       <div className='col s12 verification-section'>
 
         <div className='row margin-top-20'>
-          <h4 className='grey-text'>Phone verification</h4>
+          <h4 className='grey-text'>{i18n.t('common:phone_verification_title')}</h4>
         </div>
 
         <div className='row'>
@@ -140,10 +140,10 @@ module.exports = React.createClass({
         <div className='set-phone-number row'>
           <form onSubmit={this.props.changePhoneNumber}>
             <div className='col s12 m10 offset-m1 l6 offset-l3 input-field'>
-              <input id='phone-number-verifications-modal' name='phone' maxlength='45' placeholder="What's your phone number?" defaultValue={phoneNumber} type="tel" className="validate intl-tel-input" required='required' />
+              <input id='phone-number-verifications-modal' name='phone' maxlength='45' placeholder={i18n.t('common:whats_your_phone')} defaultValue={phoneNumber} type="tel" className="validate intl-tel-input" required='required' />
             </div>
             <div className='col s12 m10 offset-m1 l6 offset-l3 input-field'>
-              <button className='btn btn-primary btn-flat margin-top-50'>Set phone number</button>
+              <button className='btn btn-primary btn-flat margin-top-20'>{i18n.t('common:set_phone_number')}</button>
             </div>
           </form>
         </div>
@@ -152,7 +152,7 @@ module.exports = React.createClass({
 
           <div className='row phone-request no-margin-bottom'>
             <div className='col s12 input-field center-align'>
-              <a id='request-verification-sms' className='btn btn-secondary btn-flat' onClick={this.requestVerificationSMS}>Request verification SMS</a>
+              <a id='request-verification-sms' className='btn btn-secondary btn-flat' onClick={this.requestVerificationSMS}>{i18n.t('common:request_verification_sms')}</a>
               <div id='please-add-a-phone' style='display:none' className='section no-margin-bottom'>
               </div>
             </div>
@@ -162,16 +162,16 @@ module.exports = React.createClass({
 
             <div className='col s12 m4 offset-m4 l4 offset-l4 input-field center-align'>
               <input id='sms-verification-code-modal' type="text" className="validate" placeholder="Verification code" />
-              <label className='active'>Verification code</label>
-              <a id='verify-phone' className='btn btn-primary margin-top-50' onClick={this.verifyPhone}>Verify</a>
+              <label className='active'>{i18n.t('common:verification_code')}</label>
+              <a id='verify-phone' className='btn btn-primary margin-top-50' onClick={this.verifyPhone}>{i18n.t('common:verify')}</a>
             </div>
 
           </div>
 
           <div className='row phone-go-back'>
             <div className='col s12 grey-text'>
-              <div className='large'>Your phone number is {this.props.phoneNumber}</div>
-              <div><a onClick={this.goBack}>Change number</a></div>
+              <div className='large'>{i18n.t('common:your_phone_number_is')} {this.props.phoneNumber}</div>
+              <div><a onClick={this.goBack}>{i18n.t('common:change_phone_number')}</a></div>
             </div>
           </div>
 

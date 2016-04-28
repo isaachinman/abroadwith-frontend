@@ -52,8 +52,6 @@ module.exports = React.createClass({
 
       window.userObj = response;
 
-      console.log(response.interests)
-
       response.photo !== null ? $('#user-photo').attr('src', domains.IMG + response.photo) : $('#user-photo').attr('src', domains.IMG + '/users/default.jpg');
       $('#about-me').val(response.aboutMe);
       $('#education').val(response.education);

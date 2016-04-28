@@ -120,12 +120,14 @@
               <strong>{{translations.homes.teaches}}:</strong>
             </p>
             {% for language in home.immersions.teacher.languagesOffered %}
-            <div class='chip chip--teaches'>
-              {{ translations.languages[language] }}
-              {% if language.isVerified %}
-                <a href="#!" class="secondary-content tooltipped" data-position="bottom" data-delay="50" data-tooltip="{{translations.common.Certified}}"><i class="fa fa-certificate certified-language"></i></a>
-              {% endif %}
-            </div>
+              <div class='chip chip--teaches'>
+                {{ translations.languages[language] }}
+                {% for certification in home.immersions.teacher.certifications %}
+                  {% if certification.isVerified and certification.language == language %}
+                    <a href="#!" class="secondary-content tooltipped" data-position="bottom" data-delay="50" data-tooltip="{{translations.common.Certified}}"><i class="fa fa-certificate certified-language"></i></a>
+                  {% endif  %}
+                {% endfor %}
+              </div>
             {% endfor %}
           </div>
           {% endif %}

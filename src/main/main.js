@@ -2,6 +2,8 @@ const Wallop = require('wallop');
 const newMessageThread = require('new-message-thread');
 const refreshToken = require('refresh-token');
 
+const jwt_decode = require('jwt-decode')
+
 const validateBookNowButtons = require('validate-book-now-buttons');
 const validateMessageButtons = require('validate-message-buttons');
 validateBookNowButtons();
@@ -19,7 +21,8 @@ $(document).ready(function() {
 
   if ($('#email-verified-successfully').length) {
     refreshToken(function() {
-      return;
+      var JWT = jwt_decode(localStorage.getItem('JWT'))
+      $('.profile-link').attr('href', ('/users/'+JWT.rid))
     });
   }
 
