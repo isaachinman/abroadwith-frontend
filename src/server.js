@@ -33,7 +33,7 @@ var cookieParser = require('cookie-parser');
 nunjucks.configure('src',{watch:true});
 
 var server = http.createServer(app)
-server.listen(3000);
+server.listen(ServerSettings.port);
 
 app.use(express.static('build'));
 app.use(cookieParser());
