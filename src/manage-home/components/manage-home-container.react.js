@@ -133,6 +133,7 @@ module.exports = React.createClass({
 
         // Home is active
         $('#success').addClass('active');
+        $('#success').addClass('completed');
         $('#success').prevAll().addClass('completed');
 
         // Show success tab
