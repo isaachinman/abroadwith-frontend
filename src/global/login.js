@@ -36,7 +36,7 @@ module.exports = function(loginObj, firstTime) {
 
         // Geocode
         var JWT = jwt_decode(localStorage.getItem('JWT'))
-        $.getJSON('http://ipinfo.io', function(data){
+        $.get('https://api.teletext.io/api/v1/geo-ip', function(response){
           var url = domains.API + '/users/' + JWT.rid
           var success = function(user) {
 
@@ -46,7 +46,7 @@ module.exports = function(loginObj, firstTime) {
             delete user.email;
 
             user.address = {}
-            user.address.country = data.country
+            user.address.country = response.alpha2
             POST(url, user, null)
           }
           GET(url, success)
