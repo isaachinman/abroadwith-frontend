@@ -111,27 +111,4 @@ $(document).ready(function() {
     $(".button-collapse").sideNav();
   }
 
-  var Pikaday = require('pikaday');
-
-
-
-  if ($('input.birthday').length) {
-
-    // Users must be at least 18, so generate minimum date
-    var eighteenYearsAgo = new Date();
-    eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18);
-
-    // Init birthday datepickers
-    $('input.birthday').each(function() {
-      var picker = new Pikaday({
-        maxDate: eighteenYearsAgo,
-        defaultDate: eighteenYearsAgo,
-        field: this,
-        yearRange: [1950, eighteenYearsAgo.getFullYear()],
-        onSelect: function() {
-          $('input.birthday').val(uiDate(this.getDate()))
-        }
-      });
-    })
-  }
 });
