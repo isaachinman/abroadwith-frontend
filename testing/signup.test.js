@@ -10,7 +10,7 @@ casper.test.begin('Signup test', 5, function(test) {
       waitTimeout: 10000
     }
 
-    casper.start('http://localhost:3000', function() {
+    casper.start('http://localhost:3030', function() {
       casper.evaluate(function() {
         localStorage.clear()
       })
@@ -18,7 +18,7 @@ casper.test.begin('Signup test', 5, function(test) {
     })
 
     casper.then(function() {
-      test.assertUrlMatch('http://localhost:3000')
+      test.assertUrlMatch('http://localhost:3030')
     })
 
     casper.waitForSelector('main', function() {
