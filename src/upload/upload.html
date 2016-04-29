@@ -7,7 +7,7 @@ $.ajax({
 type: "POST",
 url: 'https://admin.abroadwith.com/users/login',
 contentType: "application/json",
-data: JSON.stringify({email:"simple@email.com",password:"rightPASS"}),
+data: JSON.stringify({email:"matheus@abroadwith.com",password:"rightPASS"}),
 xhrFields: {
             withCredentials: true
         },
@@ -33,13 +33,13 @@ $(document).ready(function()
             			formData.append('photos', file[f]);
             		}
                 $.ajax({
-                  url : 'http://localhost:3000/upload/users/'+token.rid+'/photo',
+                  url : 'http://localhost:3000/upload/users/'+token.rid+'/certificate',
                   type : 'POST',
                   data : formData,
                   cache : false,
                   contentType : false,
                   processData : false,
-                  beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+                  beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
                   success : function(data, textStatus, jqXHR) {
                         var message = jqXHR.responseText;
                         $("#messages").append("<li>" + message + "</li>");
@@ -105,7 +105,7 @@ $(document).ready(function()
                   cache : false,
                   contentType : false,
                   processData : false,
-                  beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
+                  beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
                   success : function(data, textStatus, jqXHR) {
                         var message = jqXHR.responseText;
                         $("#messages").append("<li>" + message + "</li>");

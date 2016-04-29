@@ -4,112 +4,14 @@ var https = require('https');
 var http = require('http');
 var domains = require('../global/constants/domains');
 
-var routerPost = express.Router();
-var routerGet = express.Router();
-
-var lwip = require('lwip');
-var exif = require('exif-parser');
-
 var multer  = require('multer');
 var storage = multer.memoryStorage();
 var upload = multer({ storage: storage, limits:{fileSize:100000000} });
 
-var AWS = require('aws-sdk');
+var routerPost = express.Router();
+var routerGet = express.Router();
 
-var s3 = new AWS.S3({
-  region:'eu-central-1',
-  accessKeyId: 'AKIAJHQLS5YYTJABTUJQ',
-  secretAccessKey: '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'
-});
-
-var uploadImage = function(image_file,image_key,options,callback){
-  var type;
-
-  switch(image_file.mimetype){
-    case 'image/jpg':
-    case 'image/jpeg':
-    case 'image/pjpeg': type = 'jpg'; break;
-    case 'image/png': type = 'png'; break;
-    default:
-      console.log("Error! Not supported image type:",image_file);
-      if(callback) callback("Not supported image type.");
-      return;
-  }
-
-  var width = options ? options.width : 1400;
-  var height = options ? options.height : null;
-  var crop_width = options ? options.crop ? options.crop.width : width : width;
-  var crop_height = 0;
-  var exifData;
-  if(type == "jpg"){
-    exifData = exif.create(image_file.buffer).parse();
-  }
-
-  lwip.open(image_file.buffer,type,function(err, image){
-    var inverted = false;
-    if(!height){
-      height = image.height()*(width/image.width());
-      crop_height = options ? options.crop ? options.crop.height : height : height;
-    }
-    var processed = image.batch();
-    if(exifData){
-      switch( exifData.tags.Orientation ) {
-        case 2:
-        processed = image.batch().flip('x'); // top-right - flip horizontal
-        break;
-        case 3:
-        processed = image.batch().rotate(180); // bottom-right - rotate 180
-        break;
-        case 4:
-        processed = image.batch().flip('y'); // bottom-left - flip vertically
-        break;
-        case 5:
-        inverted = true;
-        processed = image.batch().rotate(90).flip('x'); // left-top - rotate 90 and flip horizontal
-        break;
-        case 6:
-        inverted = true;
-        processed = image.batch().rotate(90); // right-top - rotate 90
-        break;
-        case 7:
-        inverted = true;
-        processed = image.batch().rotate(270).flip('x'); // right-bottom - rotate 270 and flip horizontal
-        break;
-        case 8:
-        inverted = true;
-        processed = image.batch().rotate(270); // left-bottom - rotate 270
-        break;
-      }
-    }
-    if(inverted){
-      var newone = height;
-      height = width;
-      width = newone;
-      var newone = crop_height;
-      crop_height = crop_width;
-      crop_width = newone;
-    }
-    processed.resize(width,height)
-      .crop(crop_width,crop_height)
-      .toBuffer('jpg',{quality:90}, function(err,buffer){
-        if(err){
-          console.log(err);
-          if(callback) callback(err);
-        }
-        else{
-          var params = {ACL: 'public-read',
-                        Bucket: 'img.abroadwith.com',
-                        Key: image_key,
-                        Body: buffer,
-                        ContentType: image_file.mimetype};
-          s3.putObject(params, function(err, data) {
-              if(err) console.log(err);
-              if(callback) callback(err);
-           });
-        }
-      });
-  });
-}
+var uploadImage = require("./UploadImage");
 
 var newSquarePhoto = function(file, key, callback){
   uploadImage(file,key,{width:250,crop:{width:250,height:250}},callback);
@@ -384,6 +286,50 @@ routerId.post('/', function (req, res) {
   });
 });
 
+var routerCertificate = express.Router();
+routerCertificate.post('/', function (req, res) {
+  if(!req.decoded_token || req.decoded_token.id != req.idUserId){
+    res.status(401).send('Restricted function.');
+    return;
+  }
+  if(req.files.length > 1){
+    res.status(400).send('Multiple files are not accepted.');
+    return;
+  }
+  if(req.files.length < 1){
+    res.status(400).send('One file is required.');
+    return;
+  }
+  var imagePath = "/users/"+req.idUserId+"/certificates/"+(new Date().getTime())+".jpg";
+  newHeroPhoto(req.files[0],imagePath.substring(1),function(err){
+    var result = {};
+    if(err){
+      result = {
+        status:"ERROR",
+        message: err.toString()
+      }
+      res.end(JSON.stringify(result));
+    }
+    else{
+      postSingle(req,"/users/"+req.idUserId+"/verification/certification",imagePath,function(err){
+        if(!err){
+          result = {
+            status:"OK",
+            location: imagePath
+          }
+        }
+        else{
+          result = {
+            status:"ERROR",
+            message: err.toString()
+          }
+        }
+        res.end(JSON.stringify(result));
+      });
+    }
+  });
+});
+
 var userIdHandler = require('./PhotoUserIdHandler');
 var homeIdHandler = require('./PhotoHomeIdHandler');
 var roomIdHandler = require('./PhotoRoomIdHandler');
@@ -411,6 +357,8 @@ var installer = function(app) {
   app.use('/upload/users/:idUserId/id',upload.array('photos', 10));
   app.use('/upload/users/:idUserId/id',routerId);
 
+  app.use('/upload/users/:idUserId/certificate',upload.array('photos', 10));
+  app.use('/upload/users/:idUserId/certificate',routerCertificate);
 };
 
 module.exports = installer;
