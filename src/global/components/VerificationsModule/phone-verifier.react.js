@@ -3,6 +3,8 @@ const ReactDOM = require('react-dom');
 
 const refreshToken = require('refresh-token');
 
+const intlTelInput = require('intl-tel-input')
+
 const jwt_decode = require('jwt-decode');
 
 const domains = require('domains');
@@ -94,17 +96,16 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
-    $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/intlTelInput.min.js', function() {
-      $('#phone-number-verifications-modal').intlTelInput({
-        nationalMode: true,
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
-      });
+    $('#phone-number-verifications-modal').intlTelInput({
+      nationalMode: true,
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
+    });
 
-      $('#phone-number-verifications-modal').blur(function() {
-        $(this).val($(this).intlTelInput("getNumber"))
-        $(this).intlTelInput();
-      })
-    })
+    // $('#phone-number-verifications-modal').blur(function() {
+    //   $(this).val($(this).intlTelInput("getNumber"))
+    //   $(this).intlTelInput();
+    // })
+
 
   },
   componentDidUpdate: function() {

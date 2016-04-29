@@ -1,5 +1,7 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+const React = require('react')
+const ReactDOM = require('react-dom')
+
+const intlTelInput = require('intl-tel-input')
 
 const domains = require('domains');
 const jwt_decode = require('jwt-decode');
@@ -7,8 +9,8 @@ const jwt_decode = require('jwt-decode');
 const GET = require('GET');
 const POST = require('POST');
 
-const EmailVerifier = require('./email-verifier.react');
-const PhoneVerifier = require('./phone-verifier.react');
+const EmailVerifier = require('./email-verifier.react')
+const PhoneVerifier = require('./phone-verifier.react')
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -56,7 +58,7 @@ module.exports = React.createClass({
     if ($('#phone-number-verifications-modal').intlTelInput('isValidNumber')) {
 
       var url = domains.API + '/users/' + JWT.rid;
-      userObj.phoneNumber = $('#phone-number-verifications-modal').val();
+      userObj.phoneNumber = $('#phone-number-verifications-modal').intlTelInput('getNumber');
       var success = function(response) {
         console.log(response);
         this.refreshState(function() {

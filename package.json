@@ -61,6 +61,7 @@
     "react-nouislider": "./node_modules/react-nouislider/dist/react-nouislider.common",
     "domains": "./src/global/constants/domains.json",
     "i18n": "./src/global/util/i18n",
+    "intl-tel-input": "./src/intl-tel-input",
     "languages": "./src/global/constants/UserLanguages.json",
     "languages-module": "./src/global/components/LanguageModule/languages-module.react",
     "login": "./src/global/login",
