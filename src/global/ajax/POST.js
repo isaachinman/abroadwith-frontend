@@ -10,7 +10,7 @@ module.exports = function(url, data, success, error) {
     beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
     success: function(response) {
 
-      success(response);
+      success !== null ? success(response) : null;
 
     },
     error: function() {
