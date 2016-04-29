@@ -101,6 +101,10 @@ module.exports = React.createClass({
       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
     });
 
+    $('#phone-number-verifications-modal').change(function() {
+      $(this).attr('data-number', $(this).intlTelInput("getNumber"))
+    })
+
     // $('#phone-number-verifications-modal').blur(function() {
     //   $(this).val($(this).intlTelInput("getNumber"))
     //   $(this).intlTelInput();
@@ -153,7 +157,7 @@ module.exports = React.createClass({
 
           <div className='row phone-request no-margin-bottom'>
             <div className='col s12 input-field center-align'>
-              <a id='request-verification-sms' className='btn btn-secondary btn-flat' onClick={this.requestVerificationSMS}>{i18n.t('common:request_verification_sms')}</a>
+              <a className='btn btn-secondary btn-flat' onClick={this.requestVerificationSMS}>{i18n.t('common:request_verification_sms')}</a>
               <div id='please-add-a-phone' style='display:none' className='section no-margin-bottom'>
               </div>
             </div>
@@ -164,7 +168,7 @@ module.exports = React.createClass({
             <div className='col s12 m4 offset-m4 l4 offset-l4 input-field center-align'>
               <input id='sms-verification-code-modal' type="text" className="validate" placeholder="Verification code" />
               <label className='active'>{i18n.t('common:verification_code')}</label>
-              <a id='verify-phone' className='btn btn-primary margin-top-50' onClick={this.verifyPhone}>{i18n.t('common:verify')}</a>
+              <a className='btn btn-primary margin-top-50' onClick={this.verifyPhone}>{i18n.t('common:verify')}</a>
             </div>
 
           </div>

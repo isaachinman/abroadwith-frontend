@@ -3,6 +3,8 @@ const toast = require('toast');
 
 const i18n = require('i18n')
 
+const intlTelInput = require('intl-tel-input')
+
 const apiDate = require('api-date')
 const uiDate = require('ui-date')
 
@@ -38,17 +40,16 @@ module.exports = React.createClass({
 
     $('form#basics-form').submit(this.saveBasics);
 
-    $.getScript('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/intlTelInput.min.js', function() {
-      $('#phoneNumber').intlTelInput({
-        nationalMode: true,
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
-      });
+    $('#phoneNumber').intlTelInput({
+      nationalMode: true,
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
+    });
 
-      $('#phoneNumber').blur(function() {
-        $(this).val($(this).intlTelInput("getNumber"))
-        $(this).intlTelInput();
-      })
+    $('#phoneNumber').blur(function() {
+      $(this).val($(this).intlTelInput("getNumber"))
+      $(this).intlTelInput();
     })
+
 
   },
   componentDidUpdate: function() {

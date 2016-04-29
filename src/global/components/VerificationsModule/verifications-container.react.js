@@ -27,15 +27,15 @@ module.exports = React.createClass({
     var url = domains.API + '/users/' + JWT.rid;
     var success = function(response) {
 
-      window.userObj = response;
-      delete userObj.paymentMethods;
-      delete userObj.payoutMethods;
-      delete userObj.verifications;
-      delete userObj.email;
+      delete response.paymentMethods;
+      delete response.payoutMethods;
+      delete response.verifications;
+      delete response.email;
 
       this.setState({
         phoneNumber: response.phoneNumber,
-        email: JWT.email
+        email: JWT.email,
+        userVerificationObj: response
       })
 
       if (typeof callback !== undefined && $.isFunction(callback)) {
@@ -57,15 +57,19 @@ module.exports = React.createClass({
 
     if ($('#phone-number-verifications-modal').intlTelInput('isValidNumber')) {
 
+      var userVerificationObj = this.state.userVerificationObj
+
       var url = domains.API + '/users/' + JWT.rid;
-      userObj.phoneNumber = $('#phone-number-verifications-modal').intlTelInput('getNumber');
+      userVerificationObj.phoneNumber = $('#phone-number-verifications-modal').intlTelInput('getNumber');
+      console.log(userVerificationObj)
+
       var success = function(response) {
         console.log(response);
         this.refreshState(function() {
           $('#preloader').hide();
         })
       }.bind(this)
-      POST(url, userObj, success)
+      POST(url, userVerificationObj, success)
 
     } else {
       $('#preloader').hide()
