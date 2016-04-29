@@ -37,6 +37,9 @@ module.exports = function(loginObj, firstTime) {
       // If a user came from signup, perform signup specific actions
       if (firstTime === true) {
 
+        // Send user registration tracking event
+        ga('send', 'event', 'user_events', 'registration')
+
         $('#sign-up-modal').closeModal()
 
         // Geocode

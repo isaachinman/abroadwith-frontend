@@ -23,6 +23,10 @@ if ($('a.become-a-host').length) {
       var url = domains.API+'/users/'+JWT.rid+'/homes';
       var data = {};
       var success = function() {
+
+        // Send user registration tracking event
+        ga('send', 'event', 'host_events', 'home_created')
+
         refreshToken(function() {
           window.location = '/manage-home'
         })
