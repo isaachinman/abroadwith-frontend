@@ -67,6 +67,8 @@ module.exports = React.createClass({
       }.bind(this)
       POST(url, userObj, success)
 
+    } else {
+      $('#preloader').hide()
     }
 
   },
