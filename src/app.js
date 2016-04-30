@@ -1,5 +1,5 @@
 // Disable all console logging for production
-console.log = function() {}
+// console.log = function() {}
 
 // jQuery
 require('jquery')
