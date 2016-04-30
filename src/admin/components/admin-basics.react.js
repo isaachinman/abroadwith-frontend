@@ -3,6 +3,9 @@ const toast = require('toast');
 
 const i18n = require('i18n')
 
+const jwt_decode = require('jwt-decode')
+const verificationsModuleInit = require('verifications-module-init')
+
 const intlTelInput = require('intl-tel-input')
 
 const apiDate = require('api-date')
@@ -30,6 +33,13 @@ module.exports = React.createClass({
       refreshToken(function() {
         $('#preloader').hide();
         toast(i18n.t('admin:basics_toast'));
+        console.log('refreshToken')
+        var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+        console.log(JWT)
+        if (JWT.cbk > 0) {
+          console.log('init verifications')
+          verificationsModuleInit()
+        }
       });
     });
 

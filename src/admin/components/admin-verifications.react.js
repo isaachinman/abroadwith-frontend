@@ -2,6 +2,9 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 const refreshToken = require('refresh-token');
+const verificationsModuleInit = require('verifications-module-init')
+
+const jwt_decode = require('jwt-decode')
 
 const i18n = require('../../global/util/i18n');
 const toast = require('toast');
@@ -67,7 +70,13 @@ module.exports = React.createClass({
         $('#verification-phone .collapsible-body').remove();
 
         refreshToken(function() {
-          return;
+          console.log('refreshToken')
+          var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+          console.log(JWT)
+          if (JWT.cbk > 0) {
+            console.log('init verifications')
+            verificationsModuleInit()
+          }
         });
 
         $('#preloader').hide();
