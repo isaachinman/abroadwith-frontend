@@ -32,7 +32,7 @@ module.exports = React.createClass({
         response.forEach(function(thread) {
 
           messageHTML.push(
-            <li className='message-trigger' data-target={thread.id}><a>Conversation with {thread.with.firstName}</a></li>
+            <li className='message-trigger' data-target={thread.id}><a>{i18n.t('inbox:conversation_with')} {thread.with.firstName}</a></li>
           );
 
           var theirPhoto = thread.with.photo !== null ? domains.IMG + thread.with.photo : domains.IMG + '/users/default.jpg';
