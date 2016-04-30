@@ -77,8 +77,9 @@ module.exports = React.createClass({
 
       var success = function(response) {
         console.log(response);
+        $('#preloader').hide();
         this.refreshState(function() {
-          $('#preloader').hide();
+          return
         })
       }.bind(this)
       POST(url, userVerificationObj, success)
