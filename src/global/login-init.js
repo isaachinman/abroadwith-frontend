@@ -1,14 +1,22 @@
 const domains = require('domains');
 const POST = require('POST');
 
+const Cookies = require('js-cookie')
+
 const login = require('login');
 const loginRedirect = require('login-redirect');
 
 const loggedIn = require('logged-in');
 
 if (localStorage.getItem('JWT') !== null) {
-  loggedIn();
+  loggedIn()
+} else if (Cookies.get('access_token')) {
+  console.log(Cookies.get('access_token'))
+  localStorage.setItem('JWT', Cookies.get('access_token'))
+  loggedIn()
 } else {
+
+
   $('.logged-out').fadeIn();
 }
 
