@@ -22,6 +22,7 @@ module.exports = React.createClass({
   componentDidMount: function() {
     var refreshState = this.refreshState;
     $('a.your-home').click(function() {
+      console.log('refreshing')
       refreshState()
     })
   },

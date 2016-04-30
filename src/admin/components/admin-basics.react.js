@@ -18,7 +18,7 @@ module.exports = React.createClass({
     adminObj.gender = $('#gender').val();
     adminObj.birthDate = apiDate($('#birthDate').val());
     adminObj.location = $('#user-address').val();
-    adminObj.phoneNumber = $('#phoneNumber').intlTelInput('isValidNumber') ? $('#phoneNumber').val() : null;
+    adminObj.phoneNumber = $('#phoneNumber').intlTelInput('isValidNumber') ? $('#phoneNumber').intlTelInput('getNumber') : null;
     adminObj.emergencyContact ? null : adminObj.emergencyContact = {};
     adminObj.emergencyContact.name = $('#emergency-name').val();
     adminObj.emergencyContact.phone = $('#emergency-phone').val();
@@ -44,12 +44,6 @@ module.exports = React.createClass({
       nationalMode: true,
       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
     });
-
-    $('#phoneNumber').blur(function() {
-      $(this).val($(this).intlTelInput("getNumber"))
-      $(this).intlTelInput();
-    })
-
 
   },
   componentDidUpdate: function() {

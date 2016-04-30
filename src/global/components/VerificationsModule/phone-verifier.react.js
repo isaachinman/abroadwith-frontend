@@ -101,15 +101,6 @@ module.exports = React.createClass({
       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
     });
 
-    $('#phone-number-verifications-modal').change(function() {
-      $(this).attr('data-number', $(this).intlTelInput("getNumber"))
-    })
-
-    // $('#phone-number-verifications-modal').blur(function() {
-    //   $(this).val($(this).intlTelInput("getNumber"))
-    //   $(this).intlTelInput();
-    // })
-
 
   },
   componentDidUpdate: function() {
