@@ -4,7 +4,8 @@ const ReactDOM = require('react-dom')
 const intlTelInput = require('intl-tel-input')
 
 const domains = require('domains');
-const jwt_decode = require('jwt-decode');
+const jwt_decode = require('jwt-decode')
+const refreshToken = require('refresh-token')
 
 const GET = require('GET');
 const POST = require('POST');
@@ -19,33 +20,43 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
-    $('#verifications-preloader').show()
+    var refreshState = this.refreshState;
+    $('a.your-home').click(function() {
+      refreshState()
+    })
   },
   refreshState: function(callback) {
 
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
-    var url = domains.API + '/users/' + JWT.rid;
-    var success = function(response) {
+    $('#verifications-preloader').show()
 
-      delete response.paymentMethods;
-      delete response.payoutMethods;
-      delete response.verifications;
-      delete response.email;
+    refreshToken(function() {
 
-      this.setState({
-        phoneNumber: response.phoneNumber,
-        email: JWT.email,
-        userVerificationObj: response
-      })
+      var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+      var url = domains.API + '/users/' + JWT.rid;
+      var success = function(response) {
 
-      if (typeof callback !== undefined && $.isFunction(callback)) {
-        callback();
-      }
+        delete response.paymentMethods;
+        delete response.payoutMethods;
+        delete response.verifications;
+        delete response.email;
 
-      $('#verifications-preloader').hide()
+        this.setState({
+          phoneNumber: response.phoneNumber,
+          email: JWT.email,
+          userVerificationObj: response
+        })
 
-    }.bind(this)
-    GET(url, success);
+        if (typeof callback !== undefined && $.isFunction(callback)) {
+          callback();
+        }
+
+        $('#verifications-preloader').hide()
+
+      }.bind(this)
+      GET(url, success);
+
+    }.bind(this))
+
   },
   changePhoneNumber: function(e) {
 
