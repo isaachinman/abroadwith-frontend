@@ -180,47 +180,18 @@ module.exports = React.createClass({
     $('ul.existing-rooms').collapsible();
 
     $('.upload-room-photo').each(function(index, value){
-      value.onchange = function(){
-        $('a#save-rooms').addClass("disabled");
-        var file = value.files;
-        if(file){
-          var formData = new FormData();
-          var token = JSON.parse(atob(localStorage.getItem('JWT').split('.')[1]));
-          for(var f = 0; f < file.length; f++){
-            formData.append('photos', file[f]);
-          }
-
-          $('#preloader').show();
-
-          $.ajax({
-            url : '/upload/users/'+token.rid+'/homes/'+token.hid+'/rooms/'+value.attributes.roomid.nodeValue+'/photo',
-            type : 'POST',
-            data : formData,
-            cache : false,
-            contentType : false,
-            processData : false,
-            beforeSend: function(xhr){xhr.setRequestHeader('abroadauth', 'Bearer ' + localStorage.getItem('JWT'))},
-            success : function(data, textStatus, jqXHR) {
-              toast("Image uploaded");
-              var result = JSON.parse(data);
-              for(var img in result){
-                if(result[img].status == 'OK'){
-                  $('#photo_room_'+value.attributes.roomid.nodeValue).val(result[img].location);
-                }
-              }
-              $('a#save-rooms').removeClass("disabled");
-              $('#preloader').hide();
-            },
-            error: function(jqXHR) {
-              $('#preloader').hide();
-              var message = jqXHR.responseText;
-              alert('Image upload failed: '+ message);
-              $('a#save-rooms').removeClass("disabled");
-            }
-          });
-        }
-      }
+      new Dropzone(this, {
+        url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+$(this).attr('data-room-id')+'/photo',
+        autoProcessQueue: true,
+        method: 'post',
+        headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
+        maxFilesize: 10,
+        acceptedFiles: 'image/jpeg,image/png'
+      })
+      console.log('/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+$(this).attr('data-room-id')+'/photo')
     });
+
+
 
   },
   render: function() {
@@ -234,7 +205,6 @@ module.exports = React.createClass({
       var RoomsContainer = React.createClass({
         render: function() {
           var allRooms = []
-          var inputstyle = {cursor: 'pointer',position: 'absolute',opacity: 0,top: 0,left: 0,width: '100%',height: '100%'};
           rooms.forEach(function(obj) {
             allRooms.push(
               <RoomModule
@@ -248,7 +218,6 @@ module.exports = React.createClass({
                 img={obj.img}
                 description={obj.description}
                 price={obj.price}
-                inputstyle={inputstyle}
                 refreshState={refreshState}
               />
             )

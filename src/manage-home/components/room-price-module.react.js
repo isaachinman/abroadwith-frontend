@@ -8,7 +8,6 @@ module.exports = React.createClass({
   render: function() {
 
     var img = this.props.img ? domains.IMG + this.props.img : domains.IMG + '/homes/default_room.png';
-    console.log(img)
     var price = this.props.price !== null ? currencies[this.props.currency] + this.props.price : '';
     var bedType = this.props.bed;
 

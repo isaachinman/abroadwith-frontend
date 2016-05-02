@@ -139,21 +139,8 @@ module.exports = React.createClass({
             <div className='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
               <i className="fa fa-camera-retro fa-2x"></i>
             </div>
-            <div className='col s10 m6 l6 left-align'>
-              <form action="#">
-                <div className="file-field input-field">
-                  <div className="btn">
-                    <span>
-                      <small>Choose picture</small>
-                    </span>
-                    <input roomid={this.props.id} className='upload-room-photo' style={this.props.inputstyle} id={'upload_photo_room_'+this.props.id} name="file" type="file" />
-
-                  </div>
-                  <div className="file-path-wrapper">
-                    <input id={'photo_room_'+this.props.id} type="text" defaultValue={img}/>
-                  </div>
-                </div>
-              </form>
+            <div className='col s10 m6 l6 left-align input-field'>
+              <div data-room-id={this.props.id} className='upload-room-photo dropzone' id={'upload-photo-room-'+this.props.id}></div>
             </div>
           </div>
 
