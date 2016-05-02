@@ -165,6 +165,7 @@ module.exports = React.createClass({
 
     window.newRoomPhoto = new Dropzone('#new-room-photo', {
       url: '/',
+      maxFiles: 1,
       autoProcessQueue: false,
       method: 'post',
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
@@ -178,20 +179,6 @@ module.exports = React.createClass({
     var refreshState = this.props.refreshState;
 
     $('ul.existing-rooms').collapsible();
-
-    $('.upload-room-photo').each(function(index, value){
-      new Dropzone(this, {
-        url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+$(this).attr('data-room-id')+'/photo',
-        autoProcessQueue: true,
-        method: 'post',
-        headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
-        maxFilesize: 10,
-        acceptedFiles: 'image/jpeg,image/png'
-      })
-      console.log('/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+$(this).attr('data-room-id')+'/photo')
-    });
-
-
 
   },
   render: function() {

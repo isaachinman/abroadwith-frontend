@@ -2,6 +2,8 @@ const React = require('react');
 const i18n = require('i18n');
 const room = require('../../global/constants/Room');
 
+const Dropzone = require('dropzone')
+
 const domains = require('domains');
 const JWT = require('JWT');
 
@@ -48,10 +50,34 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
+
     $('li[data-id="'+this.props.id+'"]').find('select.bed-type option[value="'+this.props.bed+'"]').attr('selected','selected');
     $('li[data-id="'+this.props.id+'"]').find('select.facilities').val(this.props.facilities);
     $('li[data-id="'+this.props.id+'"]').find('select.vacancies option[value="'+this.props.vacancies+'"]').attr('selected','selected');
     $('li[data-id="'+this.props.id+'"]').find('select.material').material_select();
+
+    var id = this.props.id
+
+    var dropzone = new Dropzone('#upload-photo-room-'+id, {
+      url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+$('#upload-photo-room-'+id).attr('data-room-id')+'/photo',
+      autoProcessQueue: true,
+      maxFiles: 1,
+      method: 'post',
+      headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
+      maxFilesize: 10,
+      acceptedFiles: 'image/jpeg,image/png'
+    })
+
+    if (this.props.img) {
+      var newPhoto = {
+        name: this.props.img,
+        size: 0
+      }
+      dropzone.options.addedfile.call(dropzone, newPhoto)
+      dropzone.options.thumbnail.call(dropzone, newPhoto, domains.IMG + this.props.img)
+      dropzone.options.complete.call(dropzone, newPhoto)
+    }
+
   },
   render: function() {
 
@@ -139,7 +165,7 @@ module.exports = React.createClass({
             <div className='col s2 m1 l1 input-field center-align grey-text text-lighten-1'>
               <i className="fa fa-camera-retro fa-2x"></i>
             </div>
-            <div className='col s10 m6 l6 left-align input-field'>
+            <div className='col s10 m6 l6 input-field'>
               <div data-room-id={this.props.id} className='upload-room-photo dropzone' id={'upload-photo-room-'+this.props.id}></div>
             </div>
           </div>
