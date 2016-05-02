@@ -13,10 +13,10 @@ module.exports = function(url, success, error) {
       success(response);
 
     },
-    error: function() {
+    error: function(response) {
 
       $('#preloader').hide();
-      error !== 'undefined' ? error : toast('Something failed');
+      typeof error === 'function' ? error(response) : toast('Something failed');
 
     }
   })

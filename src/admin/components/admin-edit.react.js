@@ -132,7 +132,14 @@ module.exports = React.createClass({
       var success = function() {
         logout()
       }
-      DELETE(url, success);
+      var error = function(response) {
+        console.log(response)
+        if (response.status === 409) {
+          $('#delete-account-modal').closeModal()
+          $('#user-deletion-failure').openModal()
+        }
+      }
+      DELETE(url, success, error);
     })
 
     // All google maps stuff here
