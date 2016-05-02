@@ -64,6 +64,19 @@ module.exports = React.createClass({
 
     var homeAddress = trip.homeAddress ? trip.homeAddress.street + ', ' + trip.homeAddress.city + ', ' + i18n.t('countries:'+trip.homeAddress.country) : i18n.t('trips:not_applicable')
 
+    var userActionDisplay
+    var dayBeforeArrival = new Date(trip.arrivalDate)
+    dayBeforeArrival.setDate(dayBeforeArrival.getDate()-1)
+
+    if (dayBeforeArrival < new Date()) {
+      console.log('in the past')
+      userActionDisplay = {
+        display: 'none'
+      }
+    } else {
+      userActionDisplay = {}
+    }
+
     return (
 
       <li>
@@ -73,8 +86,8 @@ module.exports = React.createClass({
         <div className="collapsible-body white">
           <div className='row relative'>
             <div className='col s12 m12 l2 margin-top-20 center-align trip-user-actions'>
-              <a className='btn btn-delete btn-flat trip-btn reservation-btn' onClick={this.cancelTrip}>{i18n.t('trips:cancel')}</a>
-              <div>
+              <a className='btn btn-delete btn-flat trip-btn reservation-btn' style={userActionDisplay} onClick={this.cancelTrip}>{i18n.t('trips:cancel')}</a>
+              <div style={userActionDisplay}>
                 <a className='small grey-text'>{i18n.t('trips:cancellation_policy')}</a>
               </div>
               <div className='margin-top-10 center-align'>
