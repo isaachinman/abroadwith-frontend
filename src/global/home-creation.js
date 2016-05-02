@@ -16,7 +16,7 @@ if ($('a.become-a-host').length) {
       // User needs verifications, open verifications modal
       $('#verifications-modal').openModal();
 
-    } else {
+    } else if (JWT.hid) {
 
       $('#preloader').show();
 
