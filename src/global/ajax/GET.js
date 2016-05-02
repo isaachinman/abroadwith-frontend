@@ -1,5 +1,5 @@
-var domains = require('domains')
-var toast = require('toast')
+const domains = require('domains')
+const toast = require('toast')
 
 module.exports = function(url, success, error) {
 

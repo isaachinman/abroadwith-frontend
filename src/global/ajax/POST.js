@@ -1,4 +1,5 @@
-var domains = require('domains');
+const domains = require('domains');
+const toast = require('toast')
 
 module.exports = function(url, data, success, error) {
 
@@ -16,7 +17,7 @@ module.exports = function(url, data, success, error) {
     error: function() {
 
       $('#preloader').hide();
-      error !== undefined ? error() : alert('Something failed');
+      error !== undefined ? error() : toast('Something failed');
 
     }
   })
