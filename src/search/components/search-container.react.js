@@ -12,7 +12,7 @@ var Map =             require('./search-map.react');
 var i18n = require('../../global/util/i18n');
 
 module.exports = React.createClass({
-  handleChange: function(predeterminedQuery) {
+  handleChange: function(predeterminedQuery, activePage) {
 
     // Get map data
     if (typeof bigMap !== 'undefined') {
@@ -24,6 +24,20 @@ module.exports = React.createClass({
 
     if (predeterminedQuery !== undefined && typeof predeterminedQuery === 'string') {
       var url = predeterminedQuery
+
+      // Do pagination stuff
+      if (url.indexOf('pageSize')===-1) {
+        url = url + '&pageSize=20'
+      }
+
+      if (url.indexOf('pageOffset')===-1 ) {
+        if (activePage !== undefined) {
+          url = url + '&pageOffset=' + ((activePage*20))
+        } else {
+          url = url + '&pageOffset=0'
+        }
+      }
+
     } else {
 
       var simpleValues = [
@@ -71,6 +85,14 @@ module.exports = React.createClass({
       // Get currency
       var currency = 'currency=' + $('#ui-currency').val() !== '' && $('#ui-currency').val() !== null && $('#ui-currency').val() !== 'undefined' ? url = url + '&currency=' + $('#ui-currency').val() : null;
 
+      // Do pagination stuff
+      url = url + '&pageSize=20'
+      if (activePage !== undefined) {
+        url = url + '&pageOffset=' + (activePage*20)
+      } else {
+        url = url + '&pageOffset=0'
+      }
+
     }
 
     // Get map bounds
@@ -92,6 +114,8 @@ module.exports = React.createClass({
         maxPrice:         response.resultDetails.maxPrice,
         currency:         response.params.currency,
         numberOfResults:  response.resultDetails.numberOfResults,
+        pageSize:         response.params.pageSize,
+        pageOffset:       response.params.pageOffset,
         immersions:       response.params.immersions !== undefined ? response.params.immersions : [],
         arrival:          response.params.arrival,
         departure:        response.params.departure,

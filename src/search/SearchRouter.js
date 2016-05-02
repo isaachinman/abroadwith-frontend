@@ -168,21 +168,25 @@ router.post('/', function (req, res) {
   }
 
   if(req.query.pageOffset){
-    search_response.params.pageOffset = req.query.pageOffset;
+    search_response.params.pageOffset = parseInt(req.query.pageOffset);
   }
   else{
     search_response.params.pageOffset = 0;
+    req.query.pageOffset = 0
   }
 
   if(req.query.pageSize){
-    search_response.params.pageSize = req.query.pageSize;
+    search_response.params.pageSize = parseInt(req.query.pageSize);
   }
   else{
     search_response.params.pageSize = 25;
+    req.query.pageSize = 25
   }
 
   winston.info("[Search Query]",query.join(" AND "));
   options.path += '?q='+encodeURIComponent(query.join(" AND "))+'&start='+req.query.pageOffset+'&rows='+req.query.pageSize+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')';
+
+  console.log(options.path)
 
   http.get(options, function(resp){
     var body = '';
