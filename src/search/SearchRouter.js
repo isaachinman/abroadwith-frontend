@@ -182,7 +182,7 @@ router.post('/', function (req, res) {
   }
 
   winston.info("[Search Query]",query.join(" AND "));
-  options.path += '?q='+encodeURIComponent(query.join(" AND "))+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')';
+  options.path += '?q='+encodeURIComponent(query.join(" AND "))+'&start='+req.query.pageOffset+'&rows='+req.query.pageSize+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')';
 
   http.get(options, function(resp){
     var body = '';

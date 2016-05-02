@@ -83,6 +83,8 @@ module.exports = React.createClass({
 
       var response = JSON.parse(data);
 
+      console.log(response)
+
       var newState = {
         // Set new state vars
         query:            url,

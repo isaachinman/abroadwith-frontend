@@ -12,7 +12,6 @@ module.exports = React.createClass({
           var slider = new Wallop(wallopEl);
           slider.on('change', function(event) {
             var activeImage = $(event.detail.wallopEl).find('.Wallop-item--current').find('img')
-            console.log(activeImage.attr('src'))
             if (activeImage.attr('src') === undefined) {
 
               activeImage.attr('src', activeImage.attr('data-src'))
