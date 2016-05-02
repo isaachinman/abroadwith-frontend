@@ -3,7 +3,7 @@ var React = require('react');
 module.exports = React.createClass({
   componentDidUpdate: function() {
     $('ul#pagination').find('li.active').removeClass('active')
-    $('ul#pagination li:nth-child(' + ((this.props.pageOffset/20)+1) + ')').addClass('active');
+    $('ul#pagination li:nth-child(' + ((this.props.pageOffset/10)+1) + ')').addClass('active');
   },
   render: function() {
 

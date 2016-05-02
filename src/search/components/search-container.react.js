@@ -27,12 +27,12 @@ module.exports = React.createClass({
 
       // Do pagination stuff
       if (url.indexOf('pageSize')===-1) {
-        url = url + '&pageSize=20'
+        url = url + '&pageSize=10'
       }
 
       if (url.indexOf('pageOffset')===-1 ) {
         if (activePage !== undefined) {
-          url = url + '&pageOffset=' + ((activePage*20))
+          url = url + '&pageOffset=' + ((activePage*10))
         } else {
           url = url + '&pageOffset=0'
         }
@@ -86,9 +86,9 @@ module.exports = React.createClass({
       var currency = 'currency=' + $('#ui-currency').val() !== '' && $('#ui-currency').val() !== null && $('#ui-currency').val() !== 'undefined' ? url = url + '&currency=' + $('#ui-currency').val() : null;
 
       // Do pagination stuff
-      url = url + '&pageSize=20'
+      url = url + '&pageSize=10'
       if (activePage !== undefined) {
-        url = url + '&pageOffset=' + (activePage*20)
+        url = url + '&pageOffset=' + (activePage*10)
       } else {
         url = url + '&pageOffset=0'
       }

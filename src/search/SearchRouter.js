@@ -184,11 +184,10 @@ router.post('/', function (req, res) {
   }
 
   winston.info("[Search Query]",query.join(" AND "));
-  options.path += '?q='+encodeURIComponent(query.join(" AND "))+'&start='+req.query.pageOffset+'&rows='+req.query.pageSize+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')';
-
-  console.log(options.path)
+  options.path += '?q='+encodeURIComponent(query.join(" AND "))+'&isActive=true&start='+req.query.pageOffset+'&rows='+req.query.pageSize+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')';
 
   http.get(options, function(resp){
+
     var body = '';
     resp.on('data', function(chunk) {
       body += chunk;
@@ -214,13 +213,14 @@ router.post('/', function (req, res) {
 });
 
 var processResults = function(search_response){
+
   //TODO move this stuff to Solr
   var results = search_response.results;
   var stop = results.length;
   if(search_response.params.pageOffset + search_response.params.pageSize < stop){
     stop = search_response.params.pageOffset + search_response.params.pageSize;
   }
-  for(var i = search_response.params.pageOffset; i < stop; i++){
+  for(var i = 0; i < stop; i++){
     if(results[i].price > search_response.resultDetails.maxPrice){
       search_response.resultDetails.maxPrice = results[i].price;
     }
@@ -228,8 +228,10 @@ var processResults = function(search_response){
       search_response.resultDetails.minPrice = results[i].price;
     }
     var location = results[i].location.split(',');
+
     results[i].lat = location[0];
     results[i].lng = location[1];
+
     //TODO remove location member from the object
   }
 }
