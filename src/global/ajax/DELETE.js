@@ -15,8 +15,12 @@ module.exports = function(url, success, error) {
     },
     error: function(response) {
 
-      $('#preloader').hide();
-      typeof error === 'function' ? error(response) : toast('Something failed');
+      if (response.status === 401) {
+        window.location = '/login'
+      } else {
+        $('#preloader').hide();
+        typeof error === 'function' ? error(response) : toast('Something failed');
+      }
 
     }
   })

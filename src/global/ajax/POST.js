@@ -14,10 +14,14 @@ module.exports = function(url, data, success, error) {
       success !== null ? success(response) : null;
 
     },
-    error: function() {
+    error: function(response) {
 
-      $('#preloader').hide();
-      error !== undefined ? error() : toast('Something failed');
+      if (response.status === 401) {
+        window.location = '/login'
+      } else {
+        $('#preloader').hide();
+        typeof error === 'function' ? error(response) : toast('Something failed');
+      }
 
     }
   })
