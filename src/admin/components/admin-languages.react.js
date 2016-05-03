@@ -15,6 +15,8 @@ module.exports = React.createClass({
     var newLanguagesLearning = [];
     var newLanguagesKnown = [];
 
+    var valid = true;
+
     // Get native languages
     $('.language-container--known .language-module').each(function() {
 
@@ -22,12 +24,15 @@ module.exports = React.createClass({
       var level = $(this).find('select.language-level').val();
 
       if (language != undefined && level != undefined) {
+        $(this).hasClass('hide') ? null : $(this).find('i.required').addClass('hide')
         newLanguagesKnown.push({
           "language": $(this).find('select.language').attr('data-lang'),
           "level": $(this).find('select.language-level').val()
         });
+      } else {
+        $(this).find('i.required').removeClass('hide')
+        valid = false
       }
-
     })
 
     // Get learning languages
@@ -48,6 +53,8 @@ module.exports = React.createClass({
     if (newLanguagesKnown.length < 1) {
       $('#languages-not-valid').removeClass('hide');
       return;
+    } else if (valid === false) {
+      return
     }
 
     adminObj.userLearningLanguages = newLanguagesLearning;
