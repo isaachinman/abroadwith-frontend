@@ -6,6 +6,12 @@
   top: 50%;
   opacity: .5;
   z-index: 11;
+  i {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    @extend .z-depth-1;
+  }
   &:hover {
     opacity: 1;
   }
