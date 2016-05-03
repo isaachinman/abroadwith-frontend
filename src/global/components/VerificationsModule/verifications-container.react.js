@@ -104,6 +104,7 @@ module.exports = React.createClass({
     } else if (JWT.cbk === 2 || JWT.cbk === 3) {
       verificationNeeded.push(
         <PhoneVerifier
+          destinationUrl={this.props.destinationUrl}
           refreshState={this.refreshState}
           phoneNumber={this.state.phoneNumber}
           changePhoneNumber={this.changePhoneNumber}

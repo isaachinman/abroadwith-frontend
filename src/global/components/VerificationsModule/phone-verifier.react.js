@@ -34,8 +34,6 @@ module.exports = React.createClass({
       $('#verifications-modal .status-bar .status').hide();
       $('#verifications-modal .status-bar .confirmation-sms-sent').show();
 
-      console.log(response)
-
       var newState = {
         phoneSecret: response
       }
@@ -55,6 +53,7 @@ module.exports = React.createClass({
   verifyPhone: function() {
 
     var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+    var destinationUrl = this.props.destinationUrl
 
     $('#preloader').show();
 
@@ -69,6 +68,7 @@ module.exports = React.createClass({
 
       $('#verifications-modal .status-bar .confirmation-sms-sent').hide();
       var refreshState = this.props.refreshState;
+
       refreshToken(function() {
         var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
         if (JWT.cbk > 0) {
@@ -77,14 +77,26 @@ module.exports = React.createClass({
           $('#verifications-modal').closeModal();
           $('#preloader').show();
 
-          var url = domains.API+'/users/'+JWT.rid+'/homes';
-          var data = {};
-          var success = function() {
-            refreshToken(function() {
-              window.location = '/manage-home'
-            })
+          if (JWT.hid) {
+
+            // If user already has a home, just go to manage-home
+            window.location = destinationUrl
+
+          } else {
+
+            // If user doesn't have a home, create one for them
+            var url = domains.API+'/users/'+JWT.rid+'/homes';
+            var data = {};
+            var success = function() {
+              refreshToken(function() {
+                window.location = destinationUrl
+              })
+            }
+            POST(url, data, success)
+
           }
-          POST(url, data, success);
+
+
         }
       });
       $('#preloader').hide();
@@ -115,8 +127,6 @@ module.exports = React.createClass({
 
   },
   render: function() {
-
-    console.log(this.props.phoneNumber)
 
     var phoneNumber = this.props.phoneNumber !== null ? this.props.phoneNumber : '';
 

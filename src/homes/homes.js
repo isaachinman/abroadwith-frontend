@@ -17,60 +17,37 @@ if ($('#book-a-room').length) {
 // If on a home page with at least one bookable room
 if ($('.go-to-booking').length) {
 
-  // Click function for book buttons
-  $('.go-to-booking').click(function() {
+  function dateChange() {
 
-    var bookingUrl = '/homes/' + $(this).attr('data-hid') + '/booking?arrival=' + apiDate($('#arrival').val()) + '&departure=' + apiDate($('#departure').val()) + '&room_id=' + $(this).attr('data-rid');
+    // Allow some arbitrary period of time for datepickers to update
+    setTimeout(function() {
 
-    if ($('#arrival').val() !== '' && $('#departure').val() !== '') {
+      var arrival = $('#arrival').val() !== '' ? ($('#arrival').val()) : null;
+      var departure = $('#departure').val() !== '' ? ($('#departure').val()) : null;
 
-      $('#preloader').show();
-
-      // Protect booking page against 400s from already booking dates
-      var bookingObj = {
-        // Conditionally set up state per category
-        stayId:                     parseInt($(this).attr('data-stay-id')),
-        arrivalDate:                apiDate($('#arrival').val()),
-        departureDate:              apiDate($('#departure').val()),
-        roomId:                     parseInt($(this).attr('data-rid')),
-        guestCount:                 1,
-        languageHostWillTeach:      $('.chip--speaks').first().attr('data-lang'),
-        languageGuestWillTeach:     null,
-        currency:                   'EUR',
-        serviceNames:               [],
-        weeklyHours:                7,
-        partOfDay:                  null,
-        settingNames:               []
+      // If user has selected arrival and departure dates, remove instructional tooltip
+      if (arrival !== null && departure !== null) {
+        $('.go-to-booking').tooltip('remove');
       }
 
-      $.ajax({
-        type: "POST",
-        url: domains.API+'/users/'+JWT.rid+'/bookings/price',
-        contentType: "application/json",
-        data: JSON.stringify(bookingObj),
-        beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
-        success: function(response) {
+      // If browser supports history API, do some query stuff
+      if (history.pushState) {
+        var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?'
+        arrival !== null ? newUrl = newUrl + 'arrival=' + arrival + '&' : null;
+        departure !== null ? newUrl = newUrl + 'departure=' + departure + '&' : null;
+        window.history.pushState({path:newUrl}, '', newUrl)
+      }
 
-          window.location = bookingUrl;
+    },100)
 
-        },
-        error: function() {
-
-          $('#preloader').hide();
-          i18n.loadNamespaces(['common'],function(){
-            toast(i18n.t('common:room_unavailable_toast'));
-          })
-
-        }
-      })
-    }
-  })
+  }
 
   // On datepicker change, validate and remove tooltip if necessary
-  $('#arrival, #departure').change(function() {
-    if ($('#arrival').val() !== '' && $('#departure').val() !== '') {
-      $('.go-to-booking').tooltip('remove');
-    }
+  $('#arrival').change(function() {
+    dateChange()
+  })
+  $('#departure').change(function() {
+    dateChange()
   })
 
 }

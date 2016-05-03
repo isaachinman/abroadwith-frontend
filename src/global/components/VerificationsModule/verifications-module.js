@@ -5,7 +5,7 @@ const VerificationsContainer = require('./verifications-container.react')
 
 const i18n = require('i18n');
 
-module.exports = function() {
+module.exports = function(destinationUrl) {
   if ($('.verifications-module').length) {
     i18n.loadNamespaces(['common', 'countries'],function(){
 
@@ -13,6 +13,7 @@ module.exports = function() {
 
         ReactDOM.render(
           <VerificationsContainer
+            destinationUrl={destinationUrl}
           />, this
         );
 

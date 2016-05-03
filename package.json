@@ -60,6 +60,7 @@
     "react-dom": "react-lite",
     "react-nouislider": "./node_modules/react-nouislider/dist/react-nouislider.common",
     "domains": "./src/global/constants/domains.json",
+    "go-to-booking": "./src/global/go-to-booking",
     "i18n": "./src/global/util/i18n",
     "intl-tel-input": "./src/intl-tel-input",
     "languages": "./src/global/constants/UserLanguages.json",

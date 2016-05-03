@@ -12,7 +12,7 @@ module.exports = function() {
   var JWT = localStorage.getItem('JWT') ? jwt_decode(localStorage.getItem('JWT')) : null;
 
   if (JWT.cbk > 0) {
-    verificationsModuleInit();
+    verificationsModuleInit('/manage-home')
   }
 
   // Print username into navbar
