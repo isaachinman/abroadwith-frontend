@@ -34,6 +34,9 @@ $(document).ready(function() {
   }
 
   if ($('#hero-search').length) {
+
+    $(window).width() < 601 ? $('#location').attr('placeholder', i18n.t('common:where_mobile')) : null;
+
     $('#hero-search').click(function() {
 
       var language = $('#language option:selected').val() !== '' ? '&language=' + $('#language option:selected').attr('data-lang') : '';
@@ -72,8 +75,9 @@ $(document).ready(function() {
   // Select2 language to learn
   if ($('select#language').length) {
     i18n.loadNamespaces(['search'], function() {
+      var languagePlaceholder = $(window).width() < 601 ? i18n.t('search:language_to_learn_mobile') : i18n.t('search:language_to_learn');
       $("select#language").select2({
-        placeholder: i18n.t('search:language_to_learn')
+        placeholder: languagePlaceholder
       });
     });
   }
