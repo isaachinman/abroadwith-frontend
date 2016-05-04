@@ -86,6 +86,7 @@ module.exports = React.createClass({
 
     } else {
       $('#preloader').hide()
+      $('.invalid-phone-number').show()
     }
 
   },
