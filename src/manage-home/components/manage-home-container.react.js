@@ -9,6 +9,8 @@ const PricingTab =          require('./pricing-tab.react');
 
 const homeStatusCodes =     require('home-status-codes');
 
+const refreshToken = require('refresh-token')
+
 const toast = require('toast');
 const isOnScreen = require('is-on-screen');
 
