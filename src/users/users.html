@@ -98,14 +98,14 @@
 
       {% if user.host %}
         <div class='col s12 margin-top-20'>
-          <a class='modal-trigger' href='#send-message-modal'>Send message</a>
+          <a class='modal-trigger' href='#send-message-modal'>{{translations.common.send_message}}</a>
           {% include "../partials/modals/3_message/send-message-modal.html" %}
         </div>
       {% endif %}
 
     </div>
 
-    <a class='edit-your-profile btn btn-primary btn-flat' data-user-id={{user.id}} href='/users-edit' style='display:none'>Edit your profile</a>
+    <a class='edit-your-profile btn btn-primary btn-flat' data-user-id={{user.id}} href='/users-edit' style='display:none'>{{translations.users.edit_your_profile}}</a>
 
   </div>
 </div>

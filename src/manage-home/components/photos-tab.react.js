@@ -28,6 +28,7 @@ module.exports = React.createClass({
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       addRemoveLinks: true,
       maxFilesize: 10,
+      dictDefaultMessage: i18n.t('common:drop_files_here'),
       dictRemoveFile: i18n.t('manage_home:delete'),
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {

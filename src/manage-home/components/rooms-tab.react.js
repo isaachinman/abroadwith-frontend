@@ -168,6 +168,7 @@ module.exports = React.createClass({
       maxFiles: 1,
       autoProcessQueue: false,
       method: 'post',
+      dictDefaultMessage: i18n.t('common:drop_files_here'),
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png'
