@@ -115,4 +115,16 @@ $(document).ready(function() {
     $(".button-collapse").sideNav();
   }
 
+  if ($('.become-a-host--logged-out').length) {
+    $('.become-a-host--logged-out').click(function() {
+      $('#choose-languages-modal').find('h6').html(i18n.t('common:language_modal_title_hosts'))
+    })
+  }
+
+  if ($('.sign-up--logged-out').length) {
+    $('.sign-up--logged-out').click(function() {
+      $('#choose-languages-modal').find('h6').html(i18n.t('common:language_modal_title'))
+    })
+  }
+
 });
