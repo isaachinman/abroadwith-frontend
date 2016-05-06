@@ -6,11 +6,12 @@ casper.test.begin('Signup test', 5, function(test) {
 
     casper.options.viewportSize = {
       width: 1600,
-      height: 950,
-      waitTimeout: 10000
+      height: 950
     }
 
-    casper.start('http://localhost:3030', function() {
+    casper.options.waitTimeout = 20000
+
+    casper.start('http://localhost:3000', function() {
       casper.evaluate(function() {
         localStorage.clear()
       })
@@ -18,7 +19,7 @@ casper.test.begin('Signup test', 5, function(test) {
     })
 
     casper.then(function() {
-      test.assertUrlMatch('http://localhost:3030')
+      test.assertUrlMatch('http://localhost:3000')
     })
 
     casper.waitForSelector('main', function() {
@@ -73,6 +74,7 @@ casper.test.begin('Signup test', 5, function(test) {
     casper.then(function() {
       this.evaluate(function() {
         $('#email-signup').click()
+        casper.capture('testing/screenshots/signup.png')
       })
     })
 
@@ -80,14 +82,18 @@ casper.test.begin('Signup test', 5, function(test) {
 
     casper.then(function() {
       test.assertVisible('#confirmation-email-sent')
+    })
+
+    casper.run(function() {
       casper.capture('testing/screenshots/signup.png');
     })
 
-    casper.on("page.error", function(msg, trace) {
+    casper.on("error", function(msg, trace) {
       this.echo("Error: " + msg, "ERROR");
     });
 
     casper.run(function() {
+      casper.capture('testing/screenshots/signup-end.png')
       test.done()
     })
 
