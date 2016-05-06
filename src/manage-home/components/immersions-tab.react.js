@@ -148,6 +148,13 @@ module.exports = React.createClass({
     var certificateDropzone = new Dropzone('#new-certificate-image', {
       url: '/upload/users/'+JWT.rid+'/certificates',
       autoProcessQueue: false,
+      method: 'post',
+      headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
+      addRemoveLinks: true,
+      maxFilesize: 10,
+      dictDefaultMessage: i18n.t('common:drop_files_here'),
+      dictRemoveFile: i18n.t('manage_home:delete'),
+      acceptedFiles: 'image/jpeg,image/png',
       init: function() {
         this.on('success', function(x, serverResponse) {
           console.log(serverResponse)
