@@ -1,7 +1,7 @@
 const filesystem = require("fs")
 const util = require('util')
 
-require('simple-git')('locales').pull().then(function() {
+require('simple-git')('locales').pull('origin', 'master').then(function() {
 
   var results = []
 
