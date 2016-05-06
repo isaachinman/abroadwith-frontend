@@ -146,7 +146,6 @@ module.exports = React.createClass({
 
     // Init certificate dropzone
     var certificateDropzone = new Dropzone('#new-certificate-image', {
-      url: '/upload/users/'+JWT.rid+'/certificates',
       autoProcessQueue: false,
       method: 'post',
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
@@ -156,6 +155,9 @@ module.exports = React.createClass({
       dictRemoveFile: i18n.t('manage_home:delete'),
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
+        this.on("processing", function(file) {
+          this.options.url = '/upload/users/'+JWT.rid+'/certificates'
+        });
         this.on('success', function(x, serverResponse) {
           console.log(serverResponse)
         })
