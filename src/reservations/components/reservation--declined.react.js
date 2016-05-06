@@ -23,7 +23,7 @@ module.exports = React.createClass({
 
     var homeLink = '/homes/' + reservation.homeId;
 
-    var homeAddress = reservation.homeAddress ? reservation.homeAddress.street + ', ' + reservation.homeAddress.city + ', ' + i18n.t('countries:'+reservation.homeAddress.country) : i18n.t('trips:not_applicable')
+    var homeAddress = reservation.homeAddress !== null ? reservation.homeAddress.street + ', ' + reservation.homeAddress.city + ', ' + i18n.t('countries:'+reservation.homeAddress.country) : i18n.t('trips:not_applicable')
 
     return (
 

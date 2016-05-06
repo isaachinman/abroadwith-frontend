@@ -32,7 +32,7 @@ module.exports = React.createClass({
       )
     }
 
-    var homeAddress = trip.homeAddress ? trip.homeAddress.city + ', ' + i18n.t('countries:'+trip.homeAddress.country) : i18n.t('trips:not_applicable')
+    var homeAddress = trip.homeAddress !== null ? trip.homeAddress.city + ', ' + i18n.t('countries:'+trip.homeAddress.country) : i18n.t('trips:not_applicable')
 
     return (
 
