@@ -13,9 +13,17 @@ const Dropzone = require('dropzone')
 Dropzone.autoDiscover = false
 
 module.exports = React.createClass({
+  validatePhotoCount: function() {
+    if ($('#home-image-upload .dz-preview').length === 1) {
+      $('#home-image-upload .dz-remove').hide()
+    } else {
+      $('#home-image-upload .dz-remove').show()
+    }
+  },
   componentDidMount: function() {
 
-    var refreshState = this.props.refreshState;
+    var refreshState = this.props.refreshState
+    var validatePhotoCount = this.validatePhotoCount
 
     $('#save-photos').click(function() {
       refreshState();
@@ -32,6 +40,12 @@ module.exports = React.createClass({
       dictRemoveFile: i18n.t('manage_home:delete'),
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
+        this.on('success', function() {
+          validatePhotoCount()
+        })
+        this.on('error', function() {
+          validatePhotoCount()
+        })
         this.on('removedfile', function(file) {
 
           $('#preloader').show();
@@ -52,12 +66,15 @@ module.exports = React.createClass({
             beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
             success: function(response) {
 
+              validatePhotoCount()
               $('#preloader').hide();
               toast(i18n.t('manage_home:photo_deleted_toast'), 4000)
+
 
             }.bind(this),
             error: function() {
 
+              validatePhotoCount()
               $('#preloader').hide();
               alert('Something failed');
 
@@ -89,6 +106,8 @@ module.exports = React.createClass({
         homePhotoDrop.options.thumbnail.call(homePhotoDrop, newPhoto, domains.IMG + photos[i])
         homePhotoDrop.options.complete.call(homePhotoDrop, newPhoto)
       }
+
+      this.validatePhotoCount()
 
     }
 
