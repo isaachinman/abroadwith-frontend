@@ -4,7 +4,7 @@ const ReactDOM = require('react-dom');
 const JWT = require('JWT')
 const domains = require('domains')
 
-require('wnumb');
+require('wnumb')
 
 const noUiSlider = require('no-ui-slider')
 const select2 = require('select2-browserify')
@@ -12,9 +12,9 @@ const select2 = require('select2-browserify')
 var Dropzone = require('dropzone')
 Dropzone.autoDiscover = false
 
-const i18n = require('i18n');
-const LanguageDropdown = require('./language-dropdown.react');
-const toast = require('toast');
+const i18n = require('i18n')
+const LanguageDropdown = require('./language-dropdown.react')
+const toast = require('toast')
 
 const currencies = require('currencies');
 
@@ -149,8 +149,8 @@ module.exports = React.createClass({
       url: '/upload/users/'+JWT.rid+'/certificates',
       autoProcessQueue: false,
       init: function() {
-        this.on('success', function(response) {
-          console.log(response)
+        this.on('success', function(x, serverResponse) {
+          console.log(serverResponse)
         })
       }
     })
