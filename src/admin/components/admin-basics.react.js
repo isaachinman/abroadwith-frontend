@@ -75,6 +75,10 @@ module.exports = React.createClass({
 
     $('#phoneNumber').trigger('keyup');
 
+    if (this.props.verifications.phone) {
+      $('#phoneNumber').attr('disabled',true)
+    }
+
   },
   render: function() {
 

@@ -89,7 +89,8 @@ module.exports = React.createClass({
         emergencyRelationship: response.emergencyContact && response.emergencyContact.relationship ? response.emergencyContact.relationship : null,
         emailReminders: response.notifications.email.reminders,
         emailPromotions: response.notifications.email.promotions,
-        smsNotifications: response.notifications.sms.all
+        smsNotifications: response.notifications.sms.all,
+        verifications: response.verifications
       }
 
       this.setState(newState);
@@ -195,6 +196,7 @@ module.exports = React.createClass({
           emergencyEmail={this.state.emergencyEmail}
           emergencyRelationship={this.state.emergencyRelationship}
           updateAdmin={this.updateAdmin}
+          verifications={this.state.verifications}
         />
         <Notifications
           emailReminders={this.state.emailReminders}
