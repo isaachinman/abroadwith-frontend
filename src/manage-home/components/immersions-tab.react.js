@@ -165,6 +165,7 @@ module.exports = React.createClass({
       }
     })
 
+    // Not done yet
     $('form#create-new-certificate').submit(function(e) {
       e.preventDefault()
       certificateDropzone.processQueue()
