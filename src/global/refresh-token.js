@@ -29,7 +29,6 @@ module.exports = function(callback) {
     },
     error: function() {
 
-      alert('Something failed');
 
     }
   })

@@ -1,5 +1,6 @@
 const domains = require('domains');
 const login = require('login');
+const toast = require('toast')
 
 if ($('a.reset-password').length) {
 
@@ -46,7 +47,7 @@ if ($('a.reset-password').length) {
           error: function() {
 
             $('#preloader').hide();
-            alert('Something went wrong')
+            toast('Something went wrong')
 
           }
         })

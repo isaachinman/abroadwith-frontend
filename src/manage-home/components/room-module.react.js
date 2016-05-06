@@ -40,10 +40,13 @@ module.exports = React.createClass({
         $('#preloader').hide();
 
       }.bind(this),
-      error: function() {
+      error: function(response) {
+
+        if (response.status === 409) {
+          $('#room-deletion-failure').openModal()
+        }
 
         $('#preloader').hide();
-        alert('Something failed');
 
       }
     })
