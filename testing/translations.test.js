@@ -32,6 +32,52 @@ require('simple-git')('locales').pull().then(function() {
   var listOfAllFiles = getAllFilesFromFolder('locales')
   var listOfUntranslatedKeys = []
 
+  var listOfEnglishFiles = []
+  for (var i = 0; i < listOfAllFiles.length; i++) {
+    if (listOfAllFiles[i].indexOf('/en/') > -1) {
+      listOfEnglishFiles.push({
+        namespace: (listOfAllFiles[i].replace(/^.*[\\\/]/, '')).replace(/\.[^/.]+$/, ""),
+        object: filesystem.readFileSync(listOfAllFiles[i], 'utf8')
+      })
+    }
+  }
+
+  var listOfForeignFiles = []
+  for (var i = 0; i < listOfAllFiles.length; i++) {
+    if (listOfAllFiles[i].indexOf('/en/') === -1) {
+      listOfForeignFiles.push({
+        language: listOfAllFiles[i].substring(8, 10),
+        namespace: (listOfAllFiles[i].replace(/^.*[\\\/]/, '')).replace(/\.[^/.]+$/, ""),
+        object: filesystem.readFileSync(listOfAllFiles[i], 'utf8')
+      })
+    }
+  }
+
+  for (var i=0; i < listOfForeignFiles.length; i++) {
+
+    for (var y=0; y < listOfEnglishFiles.length; y++) {
+      if (listOfForeignFiles[i].namespace == listOfEnglishFiles[y].namespace) {
+        var englishFileToCompare = JSON.parse(listOfEnglishFiles[y].object)
+      }
+    }
+
+    var foreignFileToCompare = JSON.parse(listOfForeignFiles[i].object)
+
+    for (key in englishFileToCompare) {
+
+      if (foreignFileToCompare[key] == undefined) {
+        listOfUntranslatedKeys.push({
+          language: listOfForeignFiles[i].language,
+          namespace: listOfForeignFiles[i].namespace,
+          untranslated: key
+        })
+      }
+    }
+
+  }
+
+
+
   for (var i = 0; i < listOfAllFiles.length; i++) {
 
     var fileToTest = JSON.parse(filesystem.readFileSync(listOfAllFiles[i], 'utf8'))
@@ -87,7 +133,7 @@ require('simple-git')('locales').pull().then(function() {
     var listOfLanguages = ''
     var listPerLanguage = ''
     for (obj in notificationsObj) {
-      listOfLanguages += languages[obj].name
+      listOfLanguages += languages[obj].name + ' '
       listPerLanguage += '<br><br>'
       listPerLanguage += '<strong>'+languages[obj].name+':</strong>'
       listPerLanguage += '<ul>'
@@ -105,13 +151,15 @@ require('simple-git')('locales').pull().then(function() {
     body += listPerLanguage
   }
 
-  sendgrid.send({
-    to:       'isaac@isaachinman.com',
-    from:     'translation-notifications@abroadwith.com',
-    fromname: 'Translation Notifications',
-    subject:  'Translation completion report [' + status + ']' ,
-    html:     body
-  }, function(err, json) {
+  var email = new sendgrid.Email();
+  email.addTo('isaac@isaachinman.com')
+  email.addTo('businessabroadwith@googlegroups.com')
+  email.setFrom('translation-notifications@abroadwith.com')
+  email.setFromName('Translation Notifications')
+  email.setSubject('Translation completion report [' + status + ']')
+  email.setHtml(body)
+
+  sendgrid.send(email, function(err, json) {
     if (err) { return console.error(err); }
     console.log(json);
   });
