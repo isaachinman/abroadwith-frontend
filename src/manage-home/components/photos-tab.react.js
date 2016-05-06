@@ -9,7 +9,7 @@ const i18n = require('i18n')
 
 const toast = require('toast')
 
-const Dropzone = require('dropzone')
+var Dropzone = require('dropzone')
 Dropzone.autoDiscover = false
 
 module.exports = React.createClass({
