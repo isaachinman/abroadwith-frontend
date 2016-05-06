@@ -1,9 +1,16 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+const JWT = require('JWT')
+const domains = require('domains')
+
 require('wnumb');
 
 const noUiSlider = require('no-ui-slider')
+const select2 = require('select2-browserify')
+
+var Dropzone = require('dropzone')
+Dropzone.autoDiscover = false
 
 const i18n = require('i18n');
 const LanguageDropdown = require('./language-dropdown.react');
@@ -130,6 +137,36 @@ module.exports = React.createClass({
 
     // Set to window for later usage
     window.tandemDiscount = document.getElementById('tandem-discount')
+
+    // Init certificate language selection
+    $('#new-certificate-language').select2({
+      placeholder: 'Language of certification',
+      maxFiles: 1
+    })
+
+    // Init certificate dropzone
+    var certificateDropzone = new Dropzone('#new-certificate-image', {
+      url: '/upload/users/'+JWT.rid+'/certificates',
+      autoProcessQueue: false,
+      init: function() {
+        this.on('success', function(response) {
+          console.log(response)
+        })
+      }
+    })
+
+    $('form#create-new-certificate').submit(function(e) {
+      e.preventDefault()
+      certificateDropzone.processQueue()
+      var newCertificate = {
+        name: e.target[0].value,
+        language: $('#new-certificate-language').find('option:selected').attr('data-lang')
+      }
+      if (newCertificate.language == undefined || certificateDropzone.files.length < 1) {
+        $('#certificate-modal').find('.modal-failure').show()
+      }
+      console.log(newCertificate)
+    })
 
     // Init nouislider
     noUiSlider.create(tandemDiscount, {
