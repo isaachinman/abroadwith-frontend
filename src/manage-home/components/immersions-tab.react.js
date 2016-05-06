@@ -146,8 +146,8 @@ module.exports = React.createClass({
 
     // Init certificate dropzone
     var certificateDropzone = new Dropzone('#new-certificate-image', {
-      url: '/upload/users/'+JWT.rid+'/certificates',
-      autoProcessQueue: true,
+      url: '/users/'+JWT.rid+'/certificates',
+      autoProcessQueue: false,
       method: 'post',
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       addRemoveLinks: true,
