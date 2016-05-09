@@ -184,7 +184,7 @@ module.exports = React.createClass({
               }
             }
 
-            this.props.updateHome(homeObj, function() {
+            updateHome(homeObj, function() {
               $('#certificate-modal').closeModal()
               toast(i18n.t('manage_home:immersions_updated_toast'))
             })
