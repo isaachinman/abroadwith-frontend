@@ -113,7 +113,8 @@ module.exports = React.createClass({
           ga('send', 'event', 'booking_events', 'payment_completion')
 
           // Send user to booking success page
-          window.location = '/booking-success';
+          window.location = '/booking-success'
+          
         }
 
         POST(url, threadObj, success);
