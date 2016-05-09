@@ -161,7 +161,9 @@ module.exports = React.createClass({
       dictRemoveFile: i18n.t('manage_home:delete'),
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
-        this.on('success', function(x, serverResponse) {
+        this.on('success', function(x, response) {
+
+          var serverResponse = JSON.parse(response)
           console.log(serverResponse)
 
           if (serverResponse.status == 'OK') {
