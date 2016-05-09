@@ -324,6 +324,22 @@ module.exports = React.createClass({
         this.props.props.immersions.teacher.hourly !== null ? $('#teacher-rate').val(this.props.props.immersions.teacher.hourly) : null;
         $('#packages').val(this.props.props.immersions.teacher.packages);
 
+
+        var certifications = []
+        for (var i=0; i<this.props.props.immersions.teacher.certifications.length; i++) {
+          certifications.push(
+            <div className='chip'>{this.props.props.immersions.teacher.certifications[i].name} ({i18n.t('languages:'+this.props.props.immersions.teacher.certifications[i].language)})</div>
+          )
+        }
+
+        var ExistingCertifications = React.createClass({
+          render: function() { return ( <div>{certifications}</div> ) }
+        })
+        ReactDOM.render(
+          <ExistingCertifications />, document.querySelector('#existing-certifications')
+        )
+
+
       }
 
     }
