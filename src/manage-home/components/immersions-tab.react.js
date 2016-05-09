@@ -141,7 +141,7 @@ module.exports = React.createClass({
 
     // Init certificate language selection
     $('#new-certificate-language').select2({
-      placeholder: 'Language of certification',
+      placeholder: i18n.t('manage_home:certificate_language_placeholder'),
       maxFiles: 1
     })
 

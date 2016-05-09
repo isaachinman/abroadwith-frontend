@@ -237,7 +237,7 @@
                   <i class="fa fa-certificate fa-2x"></i>
                 </div>
                 <div class='col s10 input-field'>
-                  <div id='existing-certifications'></div><a class='modal-trigger' href='#certificate-modal'>Add a certificate</a>
+                  <div id='existing-certifications'></div><a class='modal-trigger' href='#certificate-modal'>{{translations.manage_home.add_a_certificate}}</a>
                 </div>
               </div>
 
@@ -266,12 +266,12 @@
   <div id="certificate-modal" class="modal center-align">
     <a class='modal-close'><i class="fa fa-times"></i></a>
     <div class='modal-failure'>
-      Please fill all fields
+      {{translations.manage_home.certificate_failure}}
     </div>
     <form id='create-new-certificate' class="modal-content">
       <div class='row'>
         <div class='col s12 margin-top-20'>
-          <h3>Add a certificate</h3>
+          <h3>{{translations.manage_home.certificate_modal_title}}</h3>
         </div>
       </div>
       <div class='row white section border'>
@@ -281,8 +281,8 @@
               <i class="fa fa-certificate fa-2x"></i>
             </div>
             <div class='col s10 m9 l9 input-field'>
-              <input id='new-certificate-name' type="text" class="validate no-margin" placeholder='Eg. My university degree' required />
-              <label class='active'>Certificate name</label>
+              <input id='new-certificate-name' type="text" class="validate no-margin" placeholder='{{translations.manage_home.certificate_name_placeholder}}' required />
+              <label class='active'>{{translations.manage_home.certificate_name_label}}</label>
             </div>
 
           </div>
@@ -297,7 +297,7 @@
                   <option data-lang={{ langCode }}>{{ translations.languages[langCode] }} ({{ language.native_name }})</option>
                 {% endfor %}
               </select>
-              <label class='active'>Certified language</label>
+              <label class='active'>{{translations.manage_home.certificate_language_label}}</label>
             </div>
           </div>
           <div class='row'>
@@ -309,7 +309,7 @@
             </div>
           </div>
           <div class='row margin-top-50'>
-            <button type='submit' class='btn btn-primary btn-flat'>Add certificate</button>
+            <button type='submit' class='btn btn-primary btn-flat'>{{translations.manage_home.add_certificate_button}}</button>
           </div>
         </div>
       </div>
