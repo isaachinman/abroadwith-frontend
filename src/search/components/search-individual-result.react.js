@@ -116,7 +116,7 @@ module.exports = React.createClass({
 
     var domId = "result-" + this.props.markerId
 
-    var homelink = '/homes/'+this.props.homeId+this.props.query;
+    var homelink = '/homestay/'+this.props.homeId+this.props.query;
     return (
 
       <div className='col s12 m12 l6'>

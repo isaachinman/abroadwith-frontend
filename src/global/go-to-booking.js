@@ -9,7 +9,7 @@ const toast = require('toast');
 module.exports = function(stayId, roomId, homeId) {
 
   // Assemble destination url
-  var bookingUrl = '/homes/' + homeId + '/booking?arrival=' + apiDate($('#arrival').val()) + '&departure=' + apiDate($('#departure').val()) + '&room_id=' + roomId;
+  var bookingUrl = '/homestay/' + homeId + '/booking?arrival=' + apiDate($('#arrival').val()) + '&departure=' + apiDate($('#departure').val()) + '&room_id=' + roomId;
 
   // Only proceed if dates are selected
   if ($('#arrival').val() !== '' && $('#departure').val() !== '') {

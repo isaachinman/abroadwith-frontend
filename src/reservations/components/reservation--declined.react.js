@@ -21,7 +21,7 @@ module.exports = React.createClass({
     var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : domains.IMG + '/homes/default_room.png';
     var guestPhoto = reservation.hostPhoto ? domains.IMG + reservation.hostPhoto : '';
 
-    var homeLink = '/homes/' + reservation.homeId;
+    var homeLink = '/homestay/' + reservation.homeId;
 
     var homeAddress = reservation.homeAddress !== null ? reservation.homeAddress.street + ', ' + reservation.homeAddress.city + ', ' + i18n.t('countries:'+reservation.homeAddress.country) : i18n.t('trips:not_applicable')
 

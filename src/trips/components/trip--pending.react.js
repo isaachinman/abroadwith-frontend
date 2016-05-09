@@ -25,7 +25,7 @@ module.exports = React.createClass({
 
     var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : domains.IMG + '/homes/default_room.png';
     var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto : domains.IMG+'/users/default.jpg';
-    var homeLink = '/homes/' + trip.homeId;
+    var homeLink = '/homestay/' + trip.homeId;
 
     var created = new Date(trip.created)
 

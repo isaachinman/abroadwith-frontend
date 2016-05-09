@@ -21,7 +21,7 @@ module.exports = React.createClass({
     var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : domains.IMG + '/homes/default_room.png';
     var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto : domains.IMG+'/users/default.jpg';
 
-    var homeLink = '/homes/' + trip.homeId;
+    var homeLink = '/homestay/' + trip.homeId;
 
     var homeAddress = trip.homeAddress !== null ? trip.homeAddress.city + ', ' + i18n.t('countries:'+trip.homeAddress.country) : i18n.t('trips:not_applicable')
 

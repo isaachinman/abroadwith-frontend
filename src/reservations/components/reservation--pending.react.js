@@ -44,7 +44,7 @@ module.exports = React.createClass({
     var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : domains.IMG + '/homes/default_room.png';
     var guestPhoto = reservation.guestPhoto ? domains.IMG + reservation.guestPhoto : domains.IMG+'/users/default.jpg';
 
-    var homeLink = '/homes/' + reservation.homeId;
+    var homeLink = '/homestay/' + reservation.homeId;
     var guestWillTeach = reservation.languageGuestWillTeach !== null ? i18n.t('languages:'+reservation.languageGuestWillTeach) : i18n.t('trips:not_applicable');
 
     var services = []
