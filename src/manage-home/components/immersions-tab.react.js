@@ -145,7 +145,7 @@ module.exports = React.createClass({
       maxFiles: 1
     })
 
-    var homeObj = this.props.props
+    var homeObj = {}
     var saveImmersions = this.saveImmersions
     var newCertificate = {}
 
@@ -189,6 +189,7 @@ module.exports = React.createClass({
         })
         this.on('error', function() {
           console.log(newCertificate)
+          console.log(homeObj)
         })
       }
     })
@@ -203,10 +204,11 @@ module.exports = React.createClass({
       if (newCertificate.language == undefined || certificateDropzone.files.length < 1) {
         $('#certificate-modal').find('.modal-failure').show()
       } else {
+        homeObj = this.props.props
         certificateDropzone.processQueue()
       }
 
-    })
+    }.bind(this))
 
     // Init nouislider
     noUiSlider.create(tandemDiscount, {
