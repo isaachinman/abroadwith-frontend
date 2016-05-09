@@ -146,7 +146,7 @@ module.exports = React.createClass({
     })
 
     var homeObj = {}
-    var updateHome = this.props.updateHome
+    var updateHome = null
     var newCertificate = {}
 
     // Init certificate dropzone
@@ -210,6 +210,7 @@ module.exports = React.createClass({
         $('#certificate-modal').find('.modal-failure').show()
       } else {
         homeObj = this.props.props
+        updateHome = this.props.updateHome
         certificateDropzone.processQueue()
       }
 
