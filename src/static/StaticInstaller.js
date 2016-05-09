@@ -13,21 +13,30 @@ var genericRouter = function(file){
 }
 
 var installer = function(app) {
-  app.use('/terms',genericRouter('static/terms.html'));
-  app.use('/privacy',genericRouter('static/privacy.html'));
-  app.use('/login',genericRouter('static/login.html'));
-  app.use('/signup',genericRouter('static/signup.html'));
-  app.use('/reset-password',genericRouter('static/reset-password.html'));
-  app.use('/reset-password-set',genericRouter('static/reset-password-set.html'));
-  app.use('/about',genericRouter('static/about.html'));
-  app.use('/help',genericRouter('static/help.html'));
-  app.use('/popular-languages-destinations',genericRouter('static/popular-languages.html'));
-  app.use('/booking-success',genericRouter('static/booking-success.html'));
-  app.use('/abroadwith-for-students',genericRouter('static/why-abroadwith.html'));
-  app.use('/host-international-students',genericRouter('static/host.html'));
-  app.use('/contact-us',genericRouter('static/contact.html'));
-  app.use('/email-verified-success',genericRouter('verification/email-verified-success.html')); //TODO remove
-  app.use('/email-verified-failure',genericRouter('verification/email-verified-failure.html')); //TODO remove
+
+  var staticPages = [
+    'terms',
+    'privacy',
+    'login',
+    'signup',
+    'reset-password',
+    'reset-password-set',
+    'about',
+    'help',
+    'popular-languages-destinations',
+    'booking-success',
+    'abroadwith-for-students',
+    'host-international-students',
+    'contact-us',
+    'email-verified-success',
+    'email-verified-failure'
+  ]
+
+  for (var i=0; i<staticPages.length; i++) {
+    app.use(('/'+staticPages[i]), genericRouter(('static/'+staticPages[i]+'.html')))
+  }
+
+
 };
 
 module.exports = installer;

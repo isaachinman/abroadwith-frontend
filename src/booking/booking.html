@@ -130,15 +130,15 @@
           <div class='col s6 m6 l4 input-field'>
             <select id='booking-immersions' class='material' data-value={{query.immersions}}>
 
-              {% if home.immersions.stay.id %}
+              {% if home.immersions.stay.isActive %}
                 <option value='stay' data-value={{home.immersions.stay.id}}>{{translations.common.Stay}}</option>
               {% endif %}
 
-              {% if home.immersions.tandem.id %}
+              {% if home.immersions.tandem.isActive %}
                 <option value='tandem' data-value={{home.immersions.tandem.id}}>{{translations.common.Tandem}}</option>
               {% endif %}
 
-              {% if home.immersions.teacher.id %}
+              {% if home.immersions.teacher.isActive %}
                 <option value='teacher' data-value={{home.immersions.teacher.id}}>{{translations.common.Teachers_stay}}</option>
               {% endif %}
 
@@ -146,7 +146,7 @@
             <label>{{translations.booking.immersion_type}}</label>
           </div>
 
-          {% if home.immersions.stay.id %}
+          {% if home.immersions.stay.isActive %}
             <div class='col s6 m6 l4 input-field stay-field immersion-field'>
               <select id='stay-learning' class='material' data-value='{{query.language}}' data-hours='{{home.immersions.stay.hours}}'>
                 {% for lang in home.immersions.stay.languagesOffered %}
@@ -157,7 +157,7 @@
             </div>
           {% endif %}
 
-          {% if home.immersions.tandem.id %}
+          {% if home.immersions.tandem.isActive %}
             <div class='col s6 m6 l4 input-field tandem-field immersion-field'>
               <select id='tandem-learning' class='material' data-value='{{query.language}}' data-hours='{{home.immersions.stay.hours}}'>
                 {% for lang in home.immersions.tandem.languagesOffered %}
@@ -176,7 +176,7 @@
             </div>
           {% endif %}
 
-          {% if home.immersions.teacher.id %}
+          {% if home.immersions.teacher.isActive %}
             <div class='col s6 m6 l4 input-field teacher-field immersion-field'>
               <select id='teacher-learning' class='material' data-value={{query.language}}>
                 {% for lang in home.immersions.teacher.languagesOffered %}
