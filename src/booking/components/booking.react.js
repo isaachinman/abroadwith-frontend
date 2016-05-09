@@ -108,6 +108,11 @@ module.exports = React.createClass({
         var url = domains.API + '/users/' + JWT.rid + '/messages';
 
         var success = function(response) {
+
+          // Send payment start booking event
+          ga('send', 'event', 'booking_events', 'payment_completion')
+
+          // Send user to booking success page
           window.location = '/booking-success';
         }
 
