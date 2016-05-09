@@ -146,7 +146,7 @@ module.exports = React.createClass({
     })
 
     var homeObj = {}
-    var saveImmersions = this.saveImmersions
+    var updateHome = this.props.updateHome
     var newCertificate = {}
 
     // Init certificate dropzone
@@ -184,7 +184,10 @@ module.exports = React.createClass({
               }
             }
 
-            saveImmersions()
+            this.props.updateHome(homeObj, function() {
+              $('#certificate-modal').closeModal()
+              toast(i18n.t('manage_home:immersions_updated_toast'))
+            })
 
           }
 
