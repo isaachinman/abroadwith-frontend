@@ -86,7 +86,7 @@ module.exports = React.createClass({
   render: function() {
 
     var img = this.props.img !== null ? this.props.img : '';
-    var canDelete = this.props.cannotDeleteFirst ? <a className='red-text' onClick={this.deleteRoom}>{i18n.t('manage_home:rooms_delete')}</a> : null
+    var canDelete = this.props.canDelete ? <a className='red-text' onClick={this.deleteRoom}>{i18n.t('manage_home:rooms_delete')}</a> : null
 
     return (
 

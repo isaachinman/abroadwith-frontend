@@ -28,14 +28,12 @@ module.exports = React.createClass({
     var RoomsContainer = React.createClass({
       render: function() {
         var allRooms = []
-        var cannotDeleteFirst = false
         var inputstyle = {cursor: 'pointer',position: 'absolute',opacity: 0,top: 0,left: 0,width: '100%',height: '100%'};
         newRooms.forEach(function(obj) {
           allRooms.push(
             <RoomModule
               id={obj.id}
               key={obj.id}
-              deletable={cannotDeleteFirst}
               roomName={obj.name}
               bed={obj.bed}
               vacancies={obj.vacancies}
@@ -46,9 +44,9 @@ module.exports = React.createClass({
               price={obj.price}
               inputstyle={inputstyle}
               refreshState={refreshState}
+              canDelete={true}
             />
           )
-          cannotDeleteFirst = true
         })
         return (
           <ul className="collapsible rooms-collapsible existing-rooms" data-collapsible="accordion">
@@ -191,7 +189,9 @@ module.exports = React.createClass({
 
     if (this.props.props.rooms && this.props.props.rooms.length > 0) {
 
-      var rooms = (this.props.props.rooms).sort(function(a,b){return -(a.id-b.id)});
+      var rooms = (this.props.props.rooms).sort(function(a,b){return -(a.id-b.id)})
+
+      var canDelete = this.props.props.rooms.length <= 1 ? false : true
 
       var RoomsContainer = React.createClass({
         render: function() {
@@ -210,6 +210,7 @@ module.exports = React.createClass({
                 description={obj.description}
                 price={obj.price}
                 refreshState={refreshState}
+                canDelete={canDelete}
               />
             )
           })
