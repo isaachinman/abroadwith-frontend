@@ -3,6 +3,7 @@ const ReactDOM = require('react-dom');
 
 const JWT = require('JWT')
 const domains = require('domains')
+const POST = require('POST')
 
 require('wnumb')
 
@@ -144,6 +145,10 @@ module.exports = React.createClass({
       maxFiles: 1
     })
 
+    var homeObj = this.props.props
+    var saveImmersions = this.saveImmersions
+    var newCertificate = {}
+
     // Init certificate dropzone
     var certificateDropzone = new Dropzone('#new-certificate-image', {
       url: '/upload/users/'+JWT.rid+'/certificate',
@@ -158,22 +163,47 @@ module.exports = React.createClass({
       init: function() {
         this.on('success', function(x, serverResponse) {
           console.log(serverResponse)
+
+          if (serverResponse.status == 'OK') {
+
+            newCertificate.img = serverResponse.location
+
+            if (homeObj.immersions.teacher !== null) {
+              homeObj.immersions.teacher.certifications.push(newCertificate)
+            } else {
+              homeObj.immersions.teacher = {
+                isActive: false,
+                languagesOffered: [],
+                certifications: [
+                  newCertificate
+                ]
+              }
+            }
+
+            saveImmersions()
+
+          }
+
+        })
+        this.on('error', function() {
+          console.log(newCertificate)
         })
       }
     })
 
-    // Not done yet
+
     $('form#create-new-certificate').submit(function(e) {
+
       e.preventDefault()
-      certificateDropzone.processQueue()
-      var newCertificate = {
-        name: e.target[0].value,
-        language: $('#new-certificate-language').find('option:selected').attr('data-lang')
-      }
+
+      newCertificate.name = e.target[0].value
+      newCertificate.language = $('#new-certificate-language').find('option:selected').attr('data-lang')
       if (newCertificate.language == undefined || certificateDropzone.files.length < 1) {
         $('#certificate-modal').find('.modal-failure').show()
+      } else {
+        certificateDropzone.processQueue()
       }
-      console.log(newCertificate)
+
     })
 
     // Init nouislider
