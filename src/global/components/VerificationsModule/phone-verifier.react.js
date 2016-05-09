@@ -6,6 +6,7 @@ const refreshToken = require('refresh-token');
 const intlTelInput = require('intl-tel-input')
 
 const jwt_decode = require('jwt-decode');
+const goToBooking = require('go-to-booking')
 
 const domains = require('domains');
 const GET = require('GET');
@@ -71,7 +72,10 @@ module.exports = React.createClass({
 
       refreshToken(function() {
         var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
-        if (JWT.cbk > 0) {
+
+        if (destinationUrl === 'booking') {
+          goToBooking(parseInt($('a.btn-book').attr('data-stay-id')), parseInt($('a.btn-book').attr('data-rid')), $('a.btn-book').attr('data-hid'))
+        } else if (JWT.cbk > 0) {
           refreshState();
         } else {
           $('#verifications-modal').closeModal();
@@ -79,7 +83,7 @@ module.exports = React.createClass({
 
           if (JWT.hid) {
 
-            // If user already has a home, just go to manage-home
+            // If user already has a home, just go to destination
             window.location = destinationUrl
 
           } else {

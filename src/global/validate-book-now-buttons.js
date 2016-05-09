@@ -36,7 +36,7 @@ module.exports = function() {
         } else {
 
           // User cannot book
-          verificationsModuleInit(window.location.href)
+          verificationsModuleInit('booking')
           $('a.btn-book').off();
           $('a.btn-book').click(function() {
             $('#verifications-modal').openModal()
