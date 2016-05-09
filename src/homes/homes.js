@@ -17,6 +17,9 @@ if ($('#book-a-room').length) {
 // If on a home page with at least one bookable room
 if ($('.go-to-booking').length) {
 
+  // Send home profile view tracking event
+  ga('send', 'event', 'user_events', 'home_profile_view')
+
   function dateChange() {
 
     // Allow some arbitrary period of time for datepickers to update
