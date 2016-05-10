@@ -84,11 +84,14 @@ var uploadImage = function(image_file,image_key,options,callback){
           if(callback) callback(err);
         }
         else{
-          var params = {ACL: 'public-read',
-                        Bucket: 'img.abroadwith.com',
-                        Key: image_key,
-                        Body: buffer,
-                        ContentType: image_file.mimetype};
+          var params = {
+            ACL: 'public-read',
+            Bucket: 'img.abroadwith.com',
+            Key: image_key,
+            Body: buffer,
+            ContentType: image_file.mimetypem
+            CacheControl: 'max-age=1209600'
+          }
           s3.putObject(params, function(err, data) {
               if(err) console.log(err);
               if(callback) callback(err);
