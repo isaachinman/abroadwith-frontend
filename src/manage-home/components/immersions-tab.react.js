@@ -157,11 +157,16 @@ module.exports = React.createClass({
       method: 'post',
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       addRemoveLinks: true,
+      maxFiles: 1,
       maxFilesize: 10,
       dictDefaultMessage: i18n.t('common:drop_files_here'),
       dictRemoveFile: i18n.t('manage_home:delete'),
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
+        this.on("maxfilesexceeded", function(file) {
+          this.removeAllFiles();
+          this.addFile(file);
+        });
         this.on('success', function(x, response) {
 
           var serverResponse = JSON.parse(response)
