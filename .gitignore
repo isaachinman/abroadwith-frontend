@@ -9,3 +9,4 @@ production.json
 app.settings.json
 logs
 testing/screenshots
+domains.json
