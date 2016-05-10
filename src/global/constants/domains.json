@@ -1,6 +1,6 @@
 {
-  "API": "https://admin.abroadwith.com",
-  "API_DOMAIN": "admin.abroadwith.com",
+  "API": "https://api.abroadwith.com",
+  "API_DOMAIN": "api.abroadwith.com",
   "API_PORT": 443,
   "API_HTTP": "https",
   "FRONTEND": "http://localhost:3000",
