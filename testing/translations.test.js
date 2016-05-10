@@ -153,6 +153,8 @@ require('simple-git')('locales').pull('origin', 'master').then(function() {
 
   var email = new sendgrid.Email();
   email.addTo('isaac@isaachinman.com')
+  email.addTo('bastian@abroadwith.com')
+  email.addTo('jose@abroadwith.com')
   email.addTo('businessabroadwith@googlegroups.com')
   email.setFrom('translation-notifications@abroadwith.com')
   email.setFromName('Translation Notifications')
