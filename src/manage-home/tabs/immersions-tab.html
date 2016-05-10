@@ -291,7 +291,7 @@
               <i class="fa fa-language fa-2x"></i>
             </div>
             <div class='col s10 m9 l9 input-field'>
-              <select id="new-certificate-language" class="validate border-radius-left">
+              <select id="new-certificate-language" class="validate border-radius-left" data-placeholder='{{translations.manage_home.certificate_language_placeholder}}'>
                 <option></option>
                 {% for langCode, language in constants.user_languages %}
                   <option data-lang={{ langCode }}>{{ translations.languages[langCode] }} ({{ language.native_name }})</option>

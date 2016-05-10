@@ -139,11 +139,12 @@ module.exports = React.createClass({
     // Set to window for later usage
     window.tandemDiscount = document.getElementById('tandem-discount')
 
-    // Init certificate language selection
-    $('#new-certificate-language').select2({
-      placeholder: i18n.t('manage_home:certificate_language_placeholder'),
-      maxFiles: 1
-    })
+    // Allow some arbitrary period of time for modal to init
+    setTimeout(function() {
+      $('#new-certificate-language').select2({
+        placeholder: i18n.t('manage_home:certificate_language_placeholder')
+      })
+    },100)
 
     var homeObj = {}
     var updateHome = null
