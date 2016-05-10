@@ -18,11 +18,11 @@ var configuration = {
   "-----END PUBLIC KEY-----"
 }
 
-try{
+try {
   configuration = require("../production.json");
   console.log("Loaded the following configuration:",configuration);
 }
-catch(e){
+catch(e) {
   console.log(e);
   console.log("Couldn't load production properties, using development settings.")
 }
