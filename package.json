@@ -57,7 +57,7 @@
   "browser": {
     "application-settings": "./app.settings.json",
     "jquery": "./node_modules/jquery/dist/jquery.min.js",
-    "materialize": "./src/materialize.js",
+    "materialize": "./src/global/materialize/materialize.min.js",
     "react": "react-lite",
     "react-dom": "react-lite",
     "react-nouislider": "./node_modules/react-nouislider/dist/react-nouislider.common",
