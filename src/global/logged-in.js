@@ -11,8 +11,12 @@ module.exports = function() {
   // Get JWT
   var JWT = localStorage.getItem('JWT') ? jwt_decode(localStorage.getItem('JWT')) : null;
 
+  // Perform certain actions if the user isn't fully verified
   if (JWT.cbk > 0) {
     verificationsModuleInit('/manage-home')
+  } else if (JWT.cbk === 0) {
+    // Perform other actions if the user is fully verified
+    $('li.get-verified').hide()
   }
 
   // Print username into navbar

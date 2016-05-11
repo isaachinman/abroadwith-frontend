@@ -63,11 +63,7 @@ module.exports = function(loginObj, firstTime) {
         // Open email confirmation and verification modals
         $('#confirmation-email-sent').openModal({
           complete: function() {
-            $('#verifications-modal').openModal({
-              complete: function() {
-                loginRedirect()
-              }
-            })
+            loginRedirect()
           }
         })
 

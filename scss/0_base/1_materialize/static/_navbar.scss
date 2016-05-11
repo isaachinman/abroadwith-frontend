@@ -141,6 +141,17 @@ nav {
     }
   }
 
+  li.get-verified {
+    background: darken($sulu, 26%);
+    a {
+      color: white;
+      letter-spacing: .25px;
+    }
+    &:hover {
+      background: darken($sulu, 30%);
+    }
+  }
+
 }
 
 // Fixed Navbar
