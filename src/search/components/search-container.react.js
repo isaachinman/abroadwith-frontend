@@ -103,9 +103,10 @@ module.exports = React.createClass({
 
     $.post('/search'+url, function(data) {
 
-      var response = JSON.parse(data);
+      // Send search event
+      ga('send', 'event', 'user_events', 'search_performed')
 
-      console.log(response)
+      var response = JSON.parse(data);
 
       var newState = {
         // Set new state vars
