@@ -87,9 +87,9 @@ module.exports = React.createClass({
 
       <div className='center-align'>
         <ul id='pagination' className="pagination">
-          <li style={hidePrevNextBtns} className={prevBtnClasses}><a><i className="material-icons">chevron_left</i></a></li>
+          <li style={hidePrevNextBtns} className={prevBtnClasses}><a><i className="fa fa-angle-left" aria-hidden="true"></i></a></li>
           {pages}
-          <li style={hidePrevNextBtns} className={nextBtnClasses}><a><i className="material-icons">chevron_right</i></a></li>
+          <li style={hidePrevNextBtns} className={nextBtnClasses}><a><i className="fa fa-angle-right" aria-hidden="true"></i></a></li>
         </ul>
       </div>
 

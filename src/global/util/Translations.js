@@ -1,3 +1,5 @@
+// This is the nunjucks translation setup file
+
 var languages = require('../constants/UILanguages.json');
 var fs = require('fs');
 
