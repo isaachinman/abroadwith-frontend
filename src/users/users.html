@@ -433,19 +433,19 @@
                 <strong>{{translations.common.Price}}:</strong>
               </p>
 
-              {% if user.home.immersions.stay %}
+              {% if user.home.immersions.stay.isActive %}
               <p class='home-details capitalise'>
                 {{translations.common.Stay}}: {{constants.currencies[user.home.pricing.currency]}}{{ room.price }}/{{translations.common.week}}
               </p>
               {% endif %}
 
-              {% if user.home.immersions.tandem %}
+              {% if user.home.immersions.tandem.isActive %}
               <p class='home-details capitalise'>
                 {{ translations.common.Tandem }}: {{constants.currencies[user.home.pricing.currency]}}{{ room.price * (100 - user.home.immersions.tandem.languagesInterested[0].discount)/100 }}/{{translations.common.week}}
               </p>
               {% endif %}
 
-              {% if user.home.immersions.teacher %}
+              {% if user.home.immersions.teacher.isActive %}
               <p class='home-details capitalise'>
                 {{ translations.common.Teacher }}: {{constants.currencies[user.home.pricing.currency]}}{{ room.price + (user.home.immersions.teacher.hourly * user.home.immersions.teacher.packages[0]) }}/{{translations.common.week}}
               </p>
