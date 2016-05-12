@@ -32,7 +32,7 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/reservations/'+this.props.reservation.id;
     var success = function() {
 
-      // Send payment start booking event
+      // Send booking rejection booking event
       ga('send', 'event', 'booking_events', 'booking_rejection_by_host')
 
       this.props.refreshState();

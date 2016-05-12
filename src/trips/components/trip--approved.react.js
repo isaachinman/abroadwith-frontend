@@ -13,6 +13,10 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/bookings/'+this.props.trip.id;
     var success = function() {
+
+      // Send booking rejection booking event
+      ga('send', 'event', 'booking_events', 'booking_cancelled_by_student')
+
       this.props.refreshState();
       $('#preloader').hide();
     }.bind(this)
