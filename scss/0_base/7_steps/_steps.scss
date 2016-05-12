@@ -85,7 +85,7 @@
   border-bottom: 1px solid #ddd;
   -webkit-transition: background-color 0.1s ease, opacity 0.1s ease, color 0.1s ease, box-shadow 0.1s ease;
   transition: background-color 0.1s ease, opacity 0.1s ease, color 0.1s ease, box-shadow 0.1s ease;
-  height: 80px;
+  height: 100px;
 }
 
 /* Arrow */
@@ -144,8 +144,9 @@
 
 .ui.steps .step .title {
   font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
+  margin: 5px 0;
 }
 
 .ui.steps .step > .title {
@@ -222,14 +223,15 @@
 
 .ui.ordered.steps .step:before {
   display: block;
+  width: 100%;
   position: static;
   text-align: center;
   content: counters(ordered, ".");
   -webkit-align-self: middle;
   -ms-flex-item-align: middle;
   align-self: middle;
-  margin-right: 1rem;
   font-size: 2.5rem;
+  line-height: 2.5rem;
   counter-increment: ordered;
   font-family: inherit;
   font-weight: bold;
@@ -349,12 +351,6 @@
 .ui.steps .step.active .title {
   color: $havelock-blue;
 }
-
-.ui.ordered.steps .step.active:before,
-.ui.steps .active.step .icon {
-  color: rgba(0, 0, 0, 0.85);
-}
-
 /* Active Arrow */
 
 .ui.steps .step:after {

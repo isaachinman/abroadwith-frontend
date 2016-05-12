@@ -50,18 +50,6 @@ module.exports = React.createClass({
       $('#'+target+'-tab').show();
     })
 
-    $('.prev-btn').click(function() {
-      $('.ui.steps').animate({
-        scrollLeft: $('.ui.steps').scrollLeft() - 250
-      })
-    })
-
-    $('.next-btn').click(function() {
-      $('.ui.steps').animate({
-        scrollLeft: $('.ui.steps').scrollLeft() + 250
-      })
-    })
-
     // Home photos
     var photos = $('.home-photo');
     photos.find('.delete').click(function() {
@@ -164,6 +152,8 @@ module.exports = React.createClass({
       } else {
 
         // Home is not active
+        $('.step').find('.icon').hide()
+        $('.ui.steps').addClass('.ordered')
 
         // Determine which step is active
         for (var step in homeStatusCodes) {
@@ -228,6 +218,9 @@ module.exports = React.createClass({
     }.bind(this);
     GET(url, success)
 
+  },
+  componentDidUpdate: function() {
+    $('.button-group-wrapper--manage-home').show()
   },
   render: function() {
     return (
