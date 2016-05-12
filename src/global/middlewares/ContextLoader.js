@@ -16,7 +16,7 @@ module.exports = function (req, res, next) {
     req.language = prefix;
     res.cookie('ui-language',prefix);
   }
-  else{
+  else {
     if(req.headers['accept-language']){
       if(ServerSettings.strict){
         prefix = req.headers['accept-language'].substring(0,2);

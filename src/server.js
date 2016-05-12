@@ -22,7 +22,6 @@ var installReceipt = require('./receipt/ReceiptInstaller');
 var installReview = require('./review/ReviewInstaller');
 var installImmersionConfirmation = require('./immersion-confirmation/ImmersionConfirmationInstaller');
 
-
 /** Middlewares **/
 var contextLoader = require('./global/middlewares/ContextLoader');
 var authentication = require('./global/middlewares/Authentication');
