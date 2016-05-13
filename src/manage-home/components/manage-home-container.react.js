@@ -153,7 +153,7 @@ module.exports = React.createClass({
 
         // Home is not active
         $('.step').find('.icon').hide()
-        $('.ui.steps').addClass('.ordered')
+        $('.ui.steps').addClass('ordered')
 
         // Determine which step is active
         for (var step in homeStatusCodes) {

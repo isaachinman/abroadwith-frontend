@@ -236,7 +236,7 @@ i.next-btn {
     border: 2px solid lighten($forest-green, 25%);
     background: lighten($forest-green, 35%);
     color: lighten($grey-chateau, 36%);
-    text-shadow: 2px 2px 1px darken($ziggurat, 40%);
+    text-shadow: 2px 2px 1px darken($ziggurat, 35%);
   }
   .step.active.completed .icon {
     border: 2px solid darken($havelock-blue, 15%);
@@ -246,6 +246,18 @@ i.next-btn {
   }
   .step {
     width: 12.5%;
+  }
+  @media #{$medium-and-down} {
+    height: 70px;
+    .icon {
+      width: 40px;
+      height: 40px;
+      font-size: 1.5rem;
+      line-height: 34px;
+    }
+  }
+  @media #{$small-and-down} {
+    height: 120px;
   }
 }
 #home-add-room-form {
