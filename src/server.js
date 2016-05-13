@@ -2,7 +2,7 @@ var express = require('express');
 var http = require('http');
 var nunjucks = require('nunjucks');
 
-/** Page Installers **/
+// Page Installers
 var installSearch = require('./search/SearchInstaller');
 var installMain = require('./main/MainInstaller');
 var installManageHome = require('./manage-home/ManageHomeInstaller');
