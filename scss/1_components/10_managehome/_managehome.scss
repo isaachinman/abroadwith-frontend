@@ -233,10 +233,10 @@ i.next-btn {
     text-shadow: 2px 2px 1px lighten($ziggurat, 5%);
   }
   .step.completed .icon {
-    border: 2px solid darken($ziggurat, 20%);
-    background: darken($ziggurat, 10%);
+    border: 2px solid darken($ziggurat, 15%);
+    background: darken($ziggurat, 5%);
     color: lighten($grey-chateau, 36%);
-    text-shadow: 2px 2px 1px darken($ziggurat, 32%);
+    text-shadow: 2px 2px 1px darken($ziggurat, 38%);
   }
   .step.active.completed .icon {
     border: 2px solid darken($havelock-blue, 15%);
