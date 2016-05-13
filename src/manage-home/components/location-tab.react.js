@@ -115,7 +115,7 @@ module.exports = React.createClass({
             "lng":randomiseCoordinate(place.geometry.location.lng())
           }
 
-          if (newLocationObj.street == undefined || newLocationObj.zipCode == undefined || newLocationObj.city == undefined || newLocationObj.country == undefined || newLocationObj.lat == undefined || newLocationObj.lng == undefined) {
+          if (googleResponseParsed.street_number == undefined || googleResponseParsed.route == undefined || newLocationObj.street == undefined || newLocationObj.zipCode == undefined || newLocationObj.city == undefined || newLocationObj.country == undefined || newLocationObj.lat == undefined || newLocationObj.lng == undefined) {
             toast(i18n.t('manage_home:invalid_address'))
           } else {
             $('a#save-location').hasClass('disabled') ? $('a#save-location').removeClass('disabled') : null;
