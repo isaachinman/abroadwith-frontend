@@ -104,8 +104,8 @@ installReview(app);
 installImmersionConfirmation(app);
 
 app.post('/logout',function(req,res){
-  res.cookie('access_token',"null", { secure:true, httpOnly: true, expires:new Date(), domain:ServerSettings.cookieDomain });
-  res.clearCookie('access_token', { path: '/' });
+  res.cookie('access_token',"null", { secure:true, httpOnly: true, expires:new Date(0), domain:ServerSettings.cookieDomain });
+  res.clearCookie('access_token', null, { secure:true, httpOnly: true, expires:new Date(0), domain:ServerSettings.cookieDomain });
   res.header("Access-Control-Allow-Credentials","true");
   res.sendStatus(200);
 });
