@@ -22,6 +22,7 @@ var installReceipt = require('./receipt/ReceiptInstaller');
 var installReview = require('./review/ReviewInstaller');
 var installImmersionConfirmation = require('./immersion-confirmation/ImmersionConfirmationInstaller');
 
+
 /** Middlewares **/
 var contextLoader = require('./global/middlewares/ContextLoader');
 var authentication = require('./global/middlewares/Authentication');
@@ -105,7 +106,6 @@ installImmersionConfirmation(app);
 
 app.post('/logout',function(req,res){
   res.cookie('access_token',"null", { secure:true, httpOnly: true, expires:new Date(0), domain:ServerSettings.cookieDomain });
-  res.clearCookie('access_token', null, { secure:true, httpOnly: true, expires:new Date(0), domain:ServerSettings.cookieDomain });
   res.header("Access-Control-Allow-Credentials","true");
   res.sendStatus(200);
 });
