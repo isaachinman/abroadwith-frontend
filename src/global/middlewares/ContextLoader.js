@@ -1,13 +1,13 @@
-var translations = require('../util/Translations');
-var ui_languages = require('../constants/UILanguages');
-var user_languages = require('../constants/UserLanguages');
-var user = require('../constants/User');
-var home = require('../constants/Home');
-var currencies = require('../constants/Currencies');
-var icons = require('../constants/Icons');
-var domains = require('../constants/domains');
-var default_bank_currencies = require('../constants/DefaultBankCurrencies');
-var ServerSettings = require('../../ServerSettings');
+const translations = require('../util/Translations')
+const ui_languages = require('../constants/UILanguages')
+const user_languages = require('../constants/UserLanguages')
+const user = require('../constants/User')
+const home = require('../constants/Home')
+const currencies = require('../constants/Currencies')
+const icons = require('../constants/Icons')
+const domains = require('../constants/domains')
+const default_bank_currencies = require('../constants/DefaultBankCurrencies')
+const ServerSettings = require('../../ServerSettings')
 
 module.exports = function (req, res, next) {
 
@@ -42,10 +42,15 @@ module.exports = function (req, res, next) {
     res.cookie('ui-language',"en")
   }
 
+  // If context doesn't exist, create an empty context object
   if (!req.context) {
     req.context = {}
   }
-  req.context.translations = translations[req.language];
+
+  // Context is dependent on ui language
+  req.context.translations = translations[req.language]
+
+  // Set the non-translated constants
   req.context.constants = {
     user_languages: user_languages,
     ui_languages: ui_languages,
@@ -56,15 +61,22 @@ module.exports = function (req, res, next) {
     domains: domains,
     default_bank_currencies: default_bank_currencies
   }
+
+  // Set some other useful properties
   req.context.baseUrl = req.baseUrl
   req.context.originalUrl = req.originalUrl
   req.context.query = req.query
 
-  if(req.cookies && req.cookies['ui-currency']){
+
+  if (req.cookies && req.cookies['ui-currency']) {
+
+    // If user has a currency set, use it in context
     req.context.currency = req.cookies['ui-currency']
-  }
-  else{
+
+  } else {
+
+    // Otherwise default to euros
     req.context.currency = 'EUR'
   }
-  next();
+  next()
 };
