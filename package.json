@@ -109,7 +109,6 @@
     "sass-watch": "node-sass --output-style compressed -w -o build/css/ scss/",
     "bundle": "browserify -t [ babelify --presets [ react ] ]  src/app.js > build/app.js -i moment",
     "bundle-min": "browserify -t [ babelify --presets [ react ] ] -g [ uglifyify ] src/app.js > build/app.js -i moment",
-    "uncss": "uncss http://localhost:3000 > build/css/app.css",
     "test": "casperjs test testing/signup.test.js",
     "test-translations": "node testing/translations.test.js",
     "discify": "browserify -t [ babelify --presets [ react ] ] -g [ uglifyify ] src/app.js > build/app.js -i moment --full-paths && discify build/app.js > build/disc.html --open",
