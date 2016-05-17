@@ -130,13 +130,16 @@ app.post('/shutdown',function (req, res, next) {
 
 })
 
-// app.use(function(err, req, res, next) {
-//   console.log(err.stack)
-//   winston.error("[ERROR]",err)
-//   res.redirect("/")
-// });
-//
-// app.use(function(req, res, next) {
-//   winston.error("[ERROR]","Page not found.");
-//   res.redirect("/");
-// });
+app.use(function(err, req, res, next) {
+  console.log(err.stack)
+  winston.error("[ERROR]",err)
+  if (res.statusCode === 503) {
+    return res.render('static/maintenance.html')
+  }
+});
+
+
+app.use(function(req, res, next) {
+  winston.error("[ERROR]","Page not found.");
+  res.redirect("/");
+});

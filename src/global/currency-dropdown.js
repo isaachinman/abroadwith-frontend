@@ -21,8 +21,12 @@ var UiCurrency = React.createClass({
     })
 
     $('select.ui-language').change(function() {
-      Cookies.set('ui-language', $(this).val())
-      location.reload()
+
+      var newLanguage = $(this).val()
+      if (newLanguage != Cookies.get('ui-language')) {
+        Cookies.set('ui-language', $(this).val())
+        location.reload()
+      }
     })
 
   },
