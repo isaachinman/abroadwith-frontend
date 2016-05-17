@@ -127,16 +127,16 @@ app.post('/shutdown',function (req, res, next) {
   } else {
     res.sendStatus(403)
   }
-  
+
 })
 
-app.use(function(err, req, res, next) {
-  console.log(err.stack)
-  winston.error("[ERROR]",err)
-  res.redirect("/")
-});
-
-app.use(function(req, res, next) {
-  winston.error("[ERROR]","Page not found.");
-  res.redirect("/");
-});
+// app.use(function(err, req, res, next) {
+//   console.log(err.stack)
+//   winston.error("[ERROR]",err)
+//   res.redirect("/")
+// });
+//
+// app.use(function(req, res, next) {
+//   winston.error("[ERROR]","Page not found.");
+//   res.redirect("/");
+// });
