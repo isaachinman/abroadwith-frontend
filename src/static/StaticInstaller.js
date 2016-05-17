@@ -33,7 +33,8 @@ var installer = function(app) {
   ]
 
   for (var i=0; i<staticPages.length; i++) {
-    app.use(('/'+staticPages[i]), genericRouter(('static/'+staticPages[i]+'.html')))
+    app.use(('/es/'+staticPages[i]), genericRouter(('static/'+staticPages[i]+'.html')))
+    app.use(('/de/'+staticPages[i]), genericRouter(('static/'+staticPages[i]+'.html')))
   }
 
 

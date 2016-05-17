@@ -11,35 +11,65 @@ const ServerSettings = require('../../ServerSettings')
 
 module.exports = function (req, res, next) {
 
-  // Get language subdomain
-  var prefix = req.hostname.substring(0,2)
-  var value = ui_languages[prefix]
+  if (req.cookies['ui-language'] && ui_languages[req.cookies['ui-language']]) {
 
-  if (value) {
+    // If a cookie already exists, respect its value
+    req.language = req.cookies['ui-language']
+    res.cookie('ui-language', req.cookies['ui-language'])
 
-    // If the user is already on a supported language subdomain, give them that language cookie
-    req.language = prefix
-    res.cookie('ui-language',prefix)
-
-  } else if (ServerSettings.strict && req.headers['accept-language']) {
+  } else if (req.headers['accept-language'] && ui_languages[req.headers['accept-language']]) {
 
     // Get accept-language value from browser request header
-    prefix = req.headers['accept-language'].substring(0,2)
-    value = ui_languages[prefix]
+    var browserLanguage = req.headers['accept-language'].substring(0,2)
+    req.language = browserLanguage
+    res.cookie('ui-language', browserLanguage)
 
-    // If the accept-language is not english, set it as needed
-    if(value && prefix != 'en' && !req.cookies['ui-language']){
-      res.cookie('ui-language',prefix);
-      res.writeHead(303, {'Location': "https://"+prefix+ServerSettings.redirect_domain+req.originalUrl})
+  } else {
+    req.language = 'en'
+    res.cookie('ui-language', 'en')
+  }
+
+  console.error(res)
+
+  // Now that cookie is set, do some redirect stuff
+  if (req.language == 'en') {
+
+    // If the language is English, redirect away from any foreign subdomains
+    var onForeignSite = false
+    for (key in ui_languages) {
+      if (req._parsedOriginalUrl.href.indexOf('/'+key+'/') > -1) {
+        onForeignSite = true
+        var languageToRemove = key
+      }
+    }
+
+    if (onForeignSite === true) {
+      var newPath = req._parsedOriginalUrl.href.replace('/'+languageToRemove+'/', '')
+      res.redirect('/'+newPath)
       res.end()
       return
-    } else {
-      req.language = "en"
-      res.cookie('ui-language',"en")
     }
+
   } else {
-    req.language = "en"
-    res.cookie('ui-language',"en")
+
+    var onRightSite = true
+
+    req._parsedOriginalUrl.href.indexOf('/'+req.language) === -1 ? onRightSite = false : null
+
+    for (key in ui_languages) {
+      if (key != req.language && req._parsedOriginalUrl.href.indexOf('/'+key) > -1) {
+        onRightSite = false
+        var languageToRemove = key
+      }
+    }
+
+    if (onRightSite === false) {
+      var newPath = req._parsedOriginalUrl.href.replace('/'+languageToRemove, '')
+      res.redirect('/'+req.language+newPath)
+      res.end()
+      return
+    }
+
   }
 
   // If context doesn't exist, create an empty context object

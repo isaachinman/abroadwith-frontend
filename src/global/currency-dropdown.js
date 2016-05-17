@@ -21,8 +21,8 @@ var UiCurrency = React.createClass({
     })
 
     $('select.ui-language').change(function() {
-      var url = 'https://' + $(this).val() + '.abroadwith.com' + $(this).attr('data-path')
-      window.location = url
+      Cookies.set('ui-language', $(this).val())
+      location.reload()
     })
 
   },
