@@ -29,46 +29,46 @@ module.exports = function (req, res, next) {
     res.cookie('ui-language', 'en')
   }
 
-  // // Now that cookie is set, do some redirect stuff
-  // if (req.language == 'en') {
-  //
-  //   // If the language is English, redirect away from any foreign subdomains
-  //   var onForeignSite = false
-  //   for (key in ui_languages) {
-  //     if (req._parsedOriginalUrl.href.indexOf('/'+key+'/') > -1) {
-  //       onForeignSite = true
-  //       var languageToRemove = key
-  //     }
-  //   }
-  //
-  //   if (onForeignSite === true) {
-  //     var newPath = req._parsedOriginalUrl.href.replace('/'+languageToRemove+'/', '')
-  //     res.redirect(ServerSettings.redirect_domain+newPath)
-  //     res.end()
-  //     return
-  //   }
-  //
-  // } else {
-  //
-  //   var onRightSite = true
-  //
-  //   req._parsedOriginalUrl.href.indexOf('/'+req.language) === -1 ? onRightSite = false : null
-  //
-  //   for (key in ui_languages) {
-  //     if (key != req.language && req._parsedOriginalUrl.href.indexOf('/'+key) > -1) {
-  //       onRightSite = false
-  //       var languageToRemove = key
-  //     }
-  //   }
-  //
-  //   if (onRightSite === false) {
-  //     var newPath = req._parsedOriginalUrl.href.replace('/'+languageToRemove, '')
-  //     res.redirect(ServerSettings.redirect_domain+'/'+req.language+newPath)
-  //     res.end()
-  //     return
-  //   }
-  //
-  // }
+  // Now that cookie is set, do some redirect stuff
+  if (req.language == 'en') {
+
+    // If the language is English, redirect away from any foreign subdomains
+    var onForeignSite = false
+    for (key in ui_languages) {
+      if (req._parsedOriginalUrl.href.indexOf('/'+key+'/') > -1) {
+        onForeignSite = true
+        var languageToRemove = key
+      }
+    }
+
+    if (onForeignSite === true) {
+      var newPath = req._parsedOriginalUrl.href.replace('/'+languageToRemove+'/', '')
+      res.redirect(ServerSettings.redirect_domain+newPath)
+      res.end()
+      return
+    }
+
+  } else {
+
+    var onRightSite = true
+
+    req._parsedOriginalUrl.href.indexOf('/'+req.language) === -1 ? onRightSite = false : null
+
+    for (key in ui_languages) {
+      if (key != req.language && req._parsedOriginalUrl.href.indexOf('/'+key) > -1) {
+        onRightSite = false
+        var languageToRemove = key
+      }
+    }
+
+    if (onRightSite === false) {
+      var newPath = req._parsedOriginalUrl.href.replace('/'+languageToRemove, '')
+      res.redirect(ServerSettings.redirect_domain+'/'+req.language+newPath)
+      res.end()
+      return
+    }
+
+  }
 
   // If context doesn't exist, create an empty context object
   if (!req.context) {
@@ -105,6 +105,7 @@ module.exports = function (req, res, next) {
 
     // Otherwise default to euros
     req.context.currency = 'EUR'
+
   }
   next()
 };
