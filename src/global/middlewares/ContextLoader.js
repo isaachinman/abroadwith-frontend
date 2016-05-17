@@ -51,7 +51,6 @@ module.exports = function (req, res, next) {
   } else {
 
     var onRightSite = true
-    console.error(req.originalUrl)
 
     if (req.originalUrl.indexOf('/'+req.language) === -1) {
       console.log('meets condition')

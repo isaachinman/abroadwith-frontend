@@ -41,7 +41,6 @@ module.exports = React.createClass({
       var isHidden = {}
 
       // If page is 5 or under, hide all above
-      console.log(activePage)
       if (activePage <= 5 && i > 5) {
         isHidden.display = 'none'
       } else if (activePage > 5) {
