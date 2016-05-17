@@ -45,7 +45,7 @@ module.exports = function (req, res, next) {
 
     if (onForeignSite === true) {
       var newPath = req._parsedOriginalUrl.href.replace('/'+languageToRemove+'/', '')
-      res.redirect('/'+newPath)
+      res.redirect(ServerSettings.redirect_domain+newPath)
       res.end()
       return
     }
@@ -65,7 +65,7 @@ module.exports = function (req, res, next) {
 
     if (onRightSite === false) {
       var newPath = req._parsedOriginalUrl.href.replace('/'+languageToRemove, '')
-      res.redirect('/'+req.language+newPath)
+      res.redirect(ServerSettings.redirect_domain+'/'+req.language+newPath)
       res.end()
       return
     }
