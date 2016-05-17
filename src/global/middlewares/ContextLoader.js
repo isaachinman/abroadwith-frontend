@@ -29,6 +29,8 @@ module.exports = function (req, res, next) {
     res.cookie('ui-language', 'en')
   }
 
+  console.error(res)
+
   // Now that cookie is set, do some redirect stuff
   if (req.language == 'en') {
 
@@ -43,7 +45,7 @@ module.exports = function (req, res, next) {
 
     if (onForeignSite === true) {
       var newPath = req._parsedOriginalUrl.href.replace('/'+languageToRemove+'/', '')
-      res.redirect(ServerSettings.redirect_domain+newPath)
+      res.redirect('/'+newPath)
       res.end()
       return
     }
@@ -63,7 +65,7 @@ module.exports = function (req, res, next) {
 
     if (onRightSite === false) {
       var newPath = req._parsedOriginalUrl.href.replace('/'+languageToRemove, '')
-      res.redirect(ServerSettings.redirect_domain+'/'+req.language+newPath)
+      res.redirect('/'+req.language+newPath)
       res.end()
       return
     }
@@ -105,7 +107,6 @@ module.exports = function (req, res, next) {
 
     // Otherwise default to euros
     req.context.currency = 'EUR'
-
   }
   next()
 };
