@@ -35,7 +35,7 @@ module.exports = function (req, res, next) {
     // If the language is English, redirect away from any foreign subdomains
     var onForeignSite = false
     for (key in ui_languages) {
-      if (req._parsedOriginalUrl.href.indexOf('/'+key+'/') > -1) {
+      if (req.originalUrl.indexOf('/'+key+'/') > -1) {
         onForeignSite = true
         var languageToRemove = key
       }
@@ -51,18 +51,22 @@ module.exports = function (req, res, next) {
   } else {
 
     var onRightSite = true
+    console.error(req.originalUrl)
 
-    req._parsedOriginalUrl.href.indexOf('/'+req.language) === -1 ? onRightSite = false : null
+    if (req.originalUrl.indexOf('/'+req.language) === -1) {
+      console.log('meets condition')
+      onRightSite = false
+    }
 
     for (key in ui_languages) {
-      if (key != req.language && req._parsedOriginalUrl.href.indexOf('/'+key) > -1) {
+      if (key != req.language && req.originalUrl.indexOf('/'+key) > -1) {
         onRightSite = false
         var languageToRemove = key
       }
     }
 
     if (onRightSite === false) {
-      var newPath = req._parsedOriginalUrl.href.replace('/'+languageToRemove, '')
+      var newPath = req.originalUrl.replace('/'+languageToRemove, '')
       res.redirect('/'+req.language+newPath)
       res.end()
       return

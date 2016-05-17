@@ -101,7 +101,7 @@ module.exports = React.createClass({
     var maxLat = NE !== undefined ? url = url + '&maxLat=' + (NE.lat()) : null;
     var maxLng = NE !== undefined ? url = url + '&maxLng=' + (NE.lng()) : null;
 
-    $.post('/search'+url, function(data) {
+    $.post(location.protocol+'//'+location.host+location.pathname+url, function(data) {
 
       // Send search event
       ga('send', 'event', 'user_events', 'search_performed')
