@@ -30,7 +30,7 @@ module.exports = React.createClass({
     var reservation = this.props.reservation;
 
     var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : domains.IMG + '/homes/default_room.png';
-    var guestPhoto = reservation.guestPhoto ? domains.IMG + reservation.guestPhoto : domains.IMG+'/users/default.jpg';
+    var guestPhoto = reservation.guestPhoto ? domains.IMG + reservation.guestPhoto : domains.IMG + '/users/default.jpg';
 
     var invoices = [];
 
@@ -87,11 +87,13 @@ module.exports = React.createClass({
       userActionDisplay = {}
     }
 
+    var tripWith = i18n.t('trips:reservation_with', {immersion:i18n.t('immersions:'+reservation.immersionType), guest: reservation.guestName !== null ? reservation.guestName : i18n.t('common:deleted_account') })
+
     return (
 
       <li>
         <div className="collapsible-header">
-          <span className='approved-reservation'>({i18n.t('trips:status_codes.APPROVED')})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:reservation_with', {immersion:i18n.t('immersions:'+reservation.immersionType), guest: reservation.guestName})}
+          <span className='approved-reservation'>({i18n.t('trips:status_codes.APPROVED')})</span><img src={roomPhoto} className='room-thumbnail' />{tripWith}
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>

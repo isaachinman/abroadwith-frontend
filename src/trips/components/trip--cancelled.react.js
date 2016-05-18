@@ -33,12 +33,13 @@ module.exports = React.createClass({
     }
 
     var homeAddress = trip.homeAddress !== null ? trip.homeAddress.city + ', ' + i18n.t('countries:'+trip.homeAddress.country) : i18n.t('trips:not_applicable')
+    var tripWith = i18n.t('trips:trip_with', {immersion:i18n.t('immersions:'+trip.immersionType), host: trip.hostName, country: trip.homeAddress !== null ? (i18n.t('countries:'+trip.homeAddress.country)) : i18n.t('common:deleted_home')})
 
     return (
 
       <li>
         <div className="collapsible-header">
-          <span className='cancelled-reservation'>({i18n.t('trips:status_codes.CANCELLED')} {whoCancelled})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:trip_with', {immersion:i18n.t('immersions:'+trip.immersionType), host: trip.hostName, country: trip.homeAddress !== null ? (i18n.t('countries:'+trip.homeAddress.country)) : null})}
+          <span className='cancelled-reservation'>({i18n.t('trips:status_codes.CANCELLED')} {whoCancelled})</span><img src={roomPhoto} className='room-thumbnail' />{tripWith}
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>

@@ -81,11 +81,13 @@ module.exports = React.createClass({
       userActionDisplay = {}
     }
 
+    var tripWith = i18n.t('trips:trip_with', {immersion:i18n.t('immersions:'+trip.immersionType), host: trip.hostName, country: trip.homeAddress !== null ? (i18n.t('countries:'+trip.homeAddress.country)) : i18n.t('common:deleted_home')})
+
     return (
 
       <li>
         <div className="collapsible-header">
-          <span className='approved-reservation'>({i18n.t('trips:status_codes.APPROVED')})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:trip_with', {immersion:i18n.t('immersions:'+trip.immersionType), host: trip.hostName, country: trip.homeAddress !== null ? (i18n.t('countries:'+trip.homeAddress.country)) : null})}
+          <span className='approved-reservation'>({i18n.t('trips:status_codes.APPROVED')})</span><img src={roomPhoto} className='room-thumbnail' />{tripWith}
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>
