@@ -78,7 +78,7 @@ module.exports = React.createClass({
         size: 0
       }
       dropzone.options.addedfile.call(dropzone, newPhoto)
-      dropzone.options.thumbnail.call(dropzone, newPhoto, domains.IMG + this.props.img)
+      dropzone.options.thumbnail.call(dropzone, newPhoto, domains.IMG + this.props.img + '?w=120&h=120&fit=crop&crop=entropy')
       dropzone.options.complete.call(dropzone, newPhoto)
     }
 

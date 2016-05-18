@@ -146,7 +146,7 @@ module.exports = React.createClass({
         $('.step').addClass('link');
 
         // Set up the success page
-        $('#home-published-image').attr('src',domains.IMG+response.photos[0]);
+        $('#home-published-image').attr('src',domains.IMG+response.photos[0]+'?w=800');
         $('#home-published-view').attr('href','/homestay/'+JWT.hid);
 
       } else {

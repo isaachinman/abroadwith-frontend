@@ -103,7 +103,7 @@ module.exports = React.createClass({
           size: 0
         }
         homePhotoDrop.options.addedfile.call(homePhotoDrop, newPhoto)
-        homePhotoDrop.options.thumbnail.call(homePhotoDrop, newPhoto, domains.IMG + photos[i])
+        homePhotoDrop.options.thumbnail.call(homePhotoDrop, newPhoto, domains.IMG + photos[i] + '?w=120&h=120&fit=crop&crop=entropy')
         homePhotoDrop.options.complete.call(homePhotoDrop, newPhoto)
       }
 
