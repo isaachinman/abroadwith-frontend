@@ -6,39 +6,39 @@ const i18n = require('i18n')
 if ($('input.arrival').length && $('input.departure').length) {
 
   // Initial variables used throughout
-  var startDate;
-  var endDate;
-  var today = new Date();
-  var tomorrow = new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000);
+  var startDate
+  var endDate
+  var today = new Date()
+  var tomorrow = new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000)
 
   // Function to be called upon arrival picker selection
   var updateStartDate = function() {
 
     // Iterate over all arrival pickers and set new date and new start range
     for (var i = 0; i < arrivalPickers.length; i++) {
-      arrivalPickers[i].setStartRange(startDate);
-      arrivalPickers[i].setDate(null);
-      $('input.arrival').val(uiDate(startDate));
+      arrivalPickers[i].setStartRange(startDate)
+      arrivalPickers[i].setDate(null)
+      $('input.arrival').val(uiDate(startDate))
     }
 
     if (startDate > endDate) {
       for (var i = 0; i < departurePickers.length; i++) {
-        departurePickers[i].setStartRange(startDate);
-        departurePickers[i].setEndRange(null);
-        departurePickers[i].setDate(null);
+        departurePickers[i].setStartRange(startDate)
+        departurePickers[i].setEndRange(null)
+        departurePickers[i].setDate(null)
       }
       for (var i = 0; i < arrivalPickers.length; i++) {
-        arrivalPickers[i].setEndRange(null);
+        arrivalPickers[i].setEndRange(null)
       }
     } else {
 
       // Iterate over all departure pickers and set new start range and new min date
       var minDate = new Date(startDate.getTime() + 1 * 24 * 60 * 60 * 1000)
-      var month = minDate.getMonth();
+      var month = minDate.getMonth()
       for (var i = 0; i < departurePickers.length; i++) {
-        departurePickers[i].gotoMonth(month);
-        departurePickers[i].setStartRange(startDate);
-        departurePickers[i].setMinDate(minDate);
+        departurePickers[i].gotoMonth(month)
+        departurePickers[i].setStartRange(startDate)
+        departurePickers[i].setMinDate(minDate)
       }
 
     }
@@ -50,34 +50,34 @@ if ($('input.arrival').length && $('input.departure').length) {
 
     // Iterate over all arrival pickers and set new end range and new max date
     for (var i = 0; i < arrivalPickers.length; i++) {
-      arrivalPickers[i].setEndRange(endDate);
+      arrivalPickers[i].setEndRange(endDate)
 
     }
 
     if (startDate > endDate) {
       for (var i = 0; i < departurePickers.length; i++) {
-        departurePickers[i].setStartRange(startDate);
-        departurePickers[i].setEndRange(null);
-        departurePickers[i].setDate(null);
+        departurePickers[i].setStartRange(startDate)
+        departurePickers[i].setEndRange(null)
+        departurePickers[i].setDate(null)
       }
       for (var i = 0; i < arrivalPickers.length; i++) {
-        arrivalPickers[i].setEndRange(null);
+        arrivalPickers[i].setEndRange(null)
       }
     } else {
 
       // Iterate over all departure pickers and set new end range and new date
       for (var i = 0; i < departurePickers.length; i++) {
-        departurePickers[i].setEndRange(endDate);
-        departurePickers[i].setDate(null);
-        $('input.departure').val(uiDate(endDate));
+        departurePickers[i].setEndRange(endDate)
+        departurePickers[i].setDate(null)
+        $('input.departure').val(uiDate(endDate))
       }
 
     }
   }
 
   // Arrays into which pickers will be pushed to later iterate over
-  var arrivalPickers = [];
-  var departurePickers = [];
+  var arrivalPickers = []
+  var departurePickers = []
 
   i18n.loadNamespaces(['common'],function(){
 
@@ -101,25 +101,25 @@ if ($('input.arrival').length && $('input.departure').length) {
         onSelect: function() {
 
           // Capture whether selection is the first time
-          var firstSelection = startDate == undefined ? true : false;
+          var firstSelection = startDate == undefined ? true : false
 
           // Set new start date and update pickers
-          startDate = this.getDate();
-          updateStartDate();
+          startDate = this.getDate()
+          updateStartDate()
 
           // Only open departure picker if it's the first selection
           if (firstSelection) {
             for (var i = 0; i < arrivalPickers.length; i++) {
 
               // Find departure picker that matches this arrival picker
-              arrivalPickers[i]._o.trigger == _trigger ? departurePickers[i].show() : null;
+              arrivalPickers[i]._o.trigger == _trigger ? departurePickers[i].show() : null
 
             }
           }
 
         }
       });
-      arrivalPickers.push(picker);
+      arrivalPickers.push(picker)
     })
 
     // Init departure pickers
@@ -133,11 +133,11 @@ if ($('input.arrival').length && $('input.departure').length) {
 
           // Set new end date and update pickers
           endDate = this.getDate()
-          updateEndDate();
+          updateEndDate()
 
         }
       });
-      departurePickers.push(picker);
+      departurePickers.push(picker)
     })
 
   })
@@ -150,8 +150,8 @@ if ($('input.arrival').length && $('input.departure').length) {
 
   // If departure picker has a value on pageload, update pickers
   if ($('.departure').first().val() !== '') {
-    endDate = new Date($('.departure').val());
-    updateEndDate();
+    endDate = new Date($('.departure').val())
+    updateEndDate()
   }
 
 }
@@ -169,8 +169,8 @@ if ($('input.birthday').length) {
     }
 
     // Users must be at least 18, so generate minimum date
-    var eighteenYearsAgo = new Date();
-    eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18);
+    var eighteenYearsAgo = new Date()
+    eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear()-18)
 
     // Init birthday datepickers
     $('input.birthday').each(function() {
@@ -179,7 +179,7 @@ if ($('input.birthday').length) {
         defaultDate: eighteenYearsAgo,
         field: this,
         i18n: translatedDates,
-        yearRange: [1950, eighteenYearsAgo.getFullYear()],
+        yearRange: [1900, eighteenYearsAgo.getFullYear()],
         onSelect: function() {
           $('input.birthday').val(uiDate(this.getDate()))
         }
