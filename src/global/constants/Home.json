@@ -28,7 +28,9 @@
       "HALAL":4,
       "KOSHER":5,
       "LACTOSE_INTOLERANCE":6,
-      "NUT_ALLERGIES":7
+      "NUT_ALLERGIES":7,
+      "FISH_AND_SHELLFISH_FREE":8,
+      "SOY_FREE":9
     }
   },
   "homeSettings":{
