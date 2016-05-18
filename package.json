@@ -84,6 +84,7 @@
     "GET": "./src/global/ajax/GET",
     "POST": "./src/global/ajax/POST",
     "DELETE": "./src/global/ajax/DELETE",
+    "progressive-load-images": "./src/global/progressive-load-images",
     "new-message-thread": "./src/global/new-message-thread",
     "api-date": "./src/utils/api-date",
     "ui-date": "./src/utils/ui-date",
