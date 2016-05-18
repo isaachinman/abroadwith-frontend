@@ -101,9 +101,12 @@ module.exports = React.createClass({
 
           $.each(googleResponse, function(k,v1) {jQuery.each(v1.types, function(k2, v2){googleResponseParsed[v2]=v1.short_name});})
 
+          console.log(googleResponseParsed)
+
           // Allow for strange edge cases
           googleResponseParsed.premise !== undefined && googleResponseParsed.street_number === undefined ? googleResponseParsed.street_number = googleResponseParsed.premise : null
           googleResponseParsed.postal_town !== undefined && googleResponseParsed.postal_code === undefined ? googleResponseParsed.postal_code = googleResponseParsed.postal_town : null
+          googleResponseParsed.locality === undefined && googleResponseParsed.sublocality !== undefined ?  googleResponseParsed.locality = googleResponseParsed.sublocality : null
 
           window.newLocationObj = {
             "street":googleResponseParsed.street_number+' '+googleResponseParsed.route,
