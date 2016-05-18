@@ -18,8 +18,8 @@ module.exports = React.createClass({
       whoDeclined = i18n.t('trips:automatically');
     }
 
-    var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : domains.IMG + '/homes/default_room.png';
-    var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto : domains.IMG+'/users/default.jpg';
+    var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto + '?w=150' : domains.IMG + '/homes/default_room.png?w=150';
+    var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto + '?w=80' : domains.IMG+'/users/default.jpg?w=80';
 
     var homeLink = '/homestay/' + trip.homeId;
 
@@ -30,7 +30,7 @@ module.exports = React.createClass({
 
       <li>
         <div className="collapsible-header">
-          <span className='declined-reservation'>({i18n.t('trips:status_codes.DECLINED')} {whoDeclined})</span><img src={roomPhoto} className='room-thumbnail' />{tripWith}
+          <span className='declined-reservation'>({i18n.t('trips:status_codes.DECLINED')} {whoDeclined})</span><img src={roomPhoto} className='room-thumbnail' />{}
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>

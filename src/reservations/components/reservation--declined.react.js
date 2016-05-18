@@ -18,8 +18,8 @@ module.exports = React.createClass({
       whoDeclined = i18n.t('trips:automatically');
     }
 
-    var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : domains.IMG + '/homes/default_room.png';
-    var guestPhoto = reservation.hostPhoto ? domains.IMG + reservation.hostPhoto : '';
+    var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto + '?w=150' : domains.IMG + '/homes/default_room.png?w=150';
+    var guestPhoto = reservation.hostPhoto ? domains.IMG + reservation.hostPhoto + '?w=80' : domains.IMG + '/users/default.jpg?w=80';
 
     var homeLink = '/homestay/' + reservation.homeId;
 
