@@ -55,6 +55,7 @@ module.exports = React.createClass({
 
         window.circle = new google.maps.Circle({
           map: map,
+          draggable: true,
           radius: 150,    // 10 miles in metres
           strokeColor: '#4A91E2',
           strokeOpacity: 0.8,
@@ -65,6 +66,11 @@ module.exports = React.createClass({
             lng: mapLng
           }
         });
+
+        circle.addListener('dragend', function() {
+          $('#save-location').removeClass('disabled')
+          window.newLocationObj = this.props.props.location
+        }.bind(this))
 
       }
 
@@ -111,18 +117,17 @@ module.exports = React.createClass({
             "zipCode":googleResponseParsed.postal_code,
             "city":googleResponseParsed.locality,
             "country":googleResponseParsed.country,
-            "neighbourhood":googleResponseParsed.sublocality_level_2,
-            "lat":randomiseCoordinate(place.geometry.location.lat()),
-            "lng":randomiseCoordinate(place.geometry.location.lng())
+            "neighbourhood":googleResponseParsed.sublocality_level_2
           }
 
-          if (googleResponseParsed.street_number == undefined || googleResponseParsed.route == undefined || newLocationObj.street == undefined || newLocationObj.zipCode == undefined || newLocationObj.city == undefined || newLocationObj.country == undefined || newLocationObj.lat == undefined || newLocationObj.lng == undefined) {
+          if (googleResponseParsed.street_number == undefined || googleResponseParsed.route == undefined || newLocationObj.street == undefined || newLocationObj.zipCode == undefined || newLocationObj.city == undefined || newLocationObj.country == undefined || place.geometry.location.lat() == undefined || place.geometry.location.lng() == undefined) {
             toast(i18n.t('manage_home:invalid_address'))
           } else {
             $('a#save-location').hasClass('disabled') ? $('a#save-location').removeClass('disabled') : null;
             typeof circle !== 'undefined' ? circle.setMap(null) : null;
             window.circle = new google.maps.Circle({
               map: map,
+              draggable: true,
               radius: 150,
               strokeColor: '#4A91E2',
               strokeOpacity: 0.8,
@@ -154,6 +159,9 @@ module.exports = React.createClass({
 
     // Modify home object, using new location object
     if (typeof newLocationObj !== 'undefined') {
+
+      newLocationObj.lat = randomiseCoordinate(circle.center.lat())
+      newLocationObj.lng = randomiseCoordinate(circle.center.lng())
 
       var newHomeObj = this.props.props;
       newHomeObj.location = newLocationObj;
