@@ -1,6 +1,9 @@
 .manage-home-block {
   margin: 30px 0 1rem 0;
   min-height: calc(100vh - 290px);
+  textarea {
+    min-height: 100px;
+  }
 }
 #home-immersions-form {
   .action-row {
