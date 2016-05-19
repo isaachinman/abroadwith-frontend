@@ -186,6 +186,8 @@ router.post('/', function (req, res) {
   winston.info("[Search Query]",query.join(" AND "));
   options.path += '?q='+encodeURIComponent(query.join(" AND "))+'&isActive=true&start='+req.query.pageOffset+'&rows='+req.query.pageSize+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')';
 
+  console.error(options)
+
   http.get(options, function(resp){
 
     var body = '';

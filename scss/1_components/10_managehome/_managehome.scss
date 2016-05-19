@@ -3,6 +3,11 @@
   min-height: calc(100vh - 290px);
 }
 #home-immersions-form {
+  .action-row {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+  }
   .card {
     .card-image {
       max-height: 200px;
@@ -32,6 +37,7 @@
   .card-content {
     overflow: visible;
     min-height: 250px;
+    padding-bottom: 70px;
   }
   .card-reveal {
     overflow: visible;
