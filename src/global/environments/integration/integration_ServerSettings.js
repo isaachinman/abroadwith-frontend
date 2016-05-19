@@ -1,6 +1,6 @@
 var configuration = {
   strict: false,
-  port:3000,
+  port: 3000,
   solr: {
     host: 'ec2-52-58-151-13.eu-central-1.compute.amazonaws.com',
     port: 8983,
@@ -17,13 +17,6 @@ var configuration = {
   "-----END PUBLIC KEY-----"
 }
 
-try {
-  configuration = require("../production.json");
-  console.log("Loaded the following configuration:",configuration);
-}
-catch(e) {
-  console.log(e);
-  console.log("Couldn't load production properties, using development settings.")
-}
+console.log("Running as development")
 
-module.exports = configuration;
+module.exports = configuration
