@@ -27,8 +27,9 @@ $(document).ready(function() {
         $('.profile-link').attr('href', ('/users/'+JWT.rid))
       })
     } else {
-      $('#email-verified-successfully').html('<a onclick="$(#"login-modal").openModal()">' + i18n.t('common:navbar_login') + '</a>')
-
+      i18n.loadNamespaces(['search'], function() {
+        $('#email-verified-successfully').html('<a onclick="$(#"login-modal").openModal()">' + i18n.t('common:navbar_login') + '</a>')
+      })
     }
 
   }
