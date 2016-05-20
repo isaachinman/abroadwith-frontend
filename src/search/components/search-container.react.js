@@ -103,9 +103,6 @@ module.exports = React.createClass({
 
     $.post(location.protocol+'//'+location.host+location.pathname+url, function(data) {
 
-      // Send search event
-      ga('send', 'event', 'user_events', 'search_performed')
-
       var response = JSON.parse(data);
 
       var newState = {
@@ -149,6 +146,9 @@ module.exports = React.createClass({
     $('select.material').material_select();
   },
   componentDidMount: function() {
+
+    // Send search event
+    ga('send', 'event', 'user_events', 'search_performed')
 
     window.handleChange = this.handleChange;
 
