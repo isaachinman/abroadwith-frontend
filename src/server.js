@@ -94,11 +94,13 @@ installReceipt(app);
 installReview(app);
 installImmersionConfirmation(app);
 
+
+
 // This is the logout endpoint
 app.post('/logout',function(req,res){
 
   // Remove the access_token cookie
-  res.clearCookie('access_token', { domain:ServerSettings.cookieDomain })
+  res.clearCookie('access_token', { domain:req.get('host') })
   res.header("Access-Control-Allow-Credentials","true")
   res.sendStatus(200)
 
