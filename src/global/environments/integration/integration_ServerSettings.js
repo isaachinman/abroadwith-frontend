@@ -1,4 +1,4 @@
-var configuration = {
+module.exports = {
   strict: false,
   port:3000,
   solr: {
@@ -16,14 +16,3 @@ var configuration = {
   "IwIDAQAB\n"+
   "-----END PUBLIC KEY-----"
 }
-
-try {
-  configuration = require("../production.json");
-  console.log("Loaded the following configuration:",configuration);
-}
-catch(e) {
-  console.log(e);
-  console.log("Couldn't load production properties, using development settings.")
-}
-
-module.exports = configuration;

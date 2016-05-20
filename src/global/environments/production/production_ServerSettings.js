@@ -1,4 +1,4 @@
-var configuration = {
+module.exports = {
   strict: true,
   port:3000,
   redirect_domain: ".abroadwith.com",
@@ -11,5 +11,3 @@ var configuration = {
 }
 
 console.log("Running as production")
-
-module.exports = configuration
