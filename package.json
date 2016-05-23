@@ -118,7 +118,7 @@
     "development": "node src/global/environments/integration/integration.init.js && npm run build && nodemon src/server.js",
     "integration": "node src/global/environments/integration/integration.init.js && npm run build",
     "production": "node src/global/environments/production/production.init.js && npm run build && npm run bundle-min",
-    "start": "nodemon src/server.js",
+    "start": "node src/server.js",
     "fullstart": "npm run build && npm run start",
     "browsersync": "browser-sync start --reload-delay 1000 --proxy 'http://localhost:3000' --files 'build/css/*.css, build/app.js, src/*/*.html, src/*/*/*.html'"
   },
