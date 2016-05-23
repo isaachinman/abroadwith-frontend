@@ -103,9 +103,11 @@ module.exports = React.createClass({
         places.forEach(function(place) {
 
           var googleResponse = place.address_components;
-          var googleResponseParsed={};
+          var googleResponseParsed = {}
 
           $.each(googleResponse, function(k,v1) {jQuery.each(v1.types, function(k2, v2){googleResponseParsed[v2]=v1.short_name});})
+
+          console.log(googleResponseParsed)
 
           // Allow for strange edge cases
           googleResponseParsed.premise !== undefined && googleResponseParsed.street_number === undefined ? googleResponseParsed.street_number = googleResponseParsed.premise : null
