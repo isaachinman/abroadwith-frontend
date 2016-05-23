@@ -6,6 +6,7 @@ module.exports = {
     port: 8983,
     path: '/solr/Search/select'
   },
+  facebookAppId:"144997212531478",
   public_key: "-----BEGIN PUBLIC KEY-----\n"+
   "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwiFPc0o+YUiBbrXkF7SA"+
   "d7zshZJf2sCvnEy+CTrn5xcJDnbV8x94bxbWari9B3O2cZmcXyNAVBvfsiDXzheJ"+

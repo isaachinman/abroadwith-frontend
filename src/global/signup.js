@@ -1,10 +1,10 @@
-const login = require('./login');
+const login = require('./login')
 
-const domains = require('domains');
-const application = require('application-settings');
+const domains = require('domains')
+const serverSettings = require('server-settings')
 
-const apiDate = require('api-date');
-const uiDate = require('ui-date');
+const apiDate = require('api-date')
+const uiDate = require('ui-date')
 
 // Language-learn select
 $('select#learning-language').length ? $('select#learning-language').select2() : null;
@@ -27,7 +27,7 @@ if ($('form#email-signup-form').length) {
   //  Initialise and setup Facebook js sdk
   window.fbAsyncInit = function() {
     FB.init({
-      appId: application.facebookAppId,
+      appId: serverSettings.facebookAppId,
       xfbml: true,
       version: 'v2.5'
     });
