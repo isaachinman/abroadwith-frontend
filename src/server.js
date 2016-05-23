@@ -138,10 +138,10 @@ app.use(function(err, req, res, next) {
   if (res.statusCode === 503) {
     return res.render('static/maintenance.html')
   }
-});
+})
 
-
+// Render 404 page if not found
 app.use(function(req, res, next) {
-  winston.error("[ERROR]","Page not found.");
-  res.redirect("/");
-});
+  winston.error("[ERROR]","Page not found.")
+  return res.status(404).send(nunjucks.render('static/not-found.html',req.context))
+})

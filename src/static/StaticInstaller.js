@@ -30,7 +30,8 @@ var installer = function(app) {
     'contact-us',
     'email-verified-success',
     'email-verified-failure',
-    'maintenance'
+    'maintenance',
+    'not-found'
   ]
 
   for (var i=0; i<staticPages.length; i++) {
