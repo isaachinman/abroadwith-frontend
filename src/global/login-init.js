@@ -8,7 +8,7 @@ const loginRedirect = require('login-redirect');
 
 const loggedIn = require('logged-in');
 
-console.log(Cookies.get('access_token'))
+console.log(Cookies.get('access_token')) 
 
 if (localStorage.getItem('JWT') !== null) {
   loggedIn()
