@@ -151,7 +151,7 @@ require('simple-git')('locales').pull('origin', 'master').then(function() {
     body += listPerLanguage
   }
 
-  var email = new sendgrid.Email();
+  var email = new sendgrid.Email()
   email.addTo('isaac@isaachinman.com')
   email.addTo('bastian@abroadwith.com')
   email.addTo('joseluis@abroadwith.com')

@@ -5,8 +5,8 @@ var AWS = require('aws-sdk');
 
 var s3 = new AWS.S3({
   region:'eu-central-1',
-  accessKeyId: 'AKIAJHQLS5YYTJABTUJQ',
-  secretAccessKey: '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'
+  accessKeyId: '***REMOVED***',
+  secretAccessKey: '***REMOVED***'
 })
 
 var uploadImage = function(image_file,image_key,options,callback){
