@@ -348,12 +348,6 @@ var installer = function(app) {
   app.use('/upload/users/:photoUserId/photo',upload.array('file', 10));
   app.use('/upload/users/:photoUserId/photo',routerUser);
 
-  app.use('/de/upload/users/:photoUserId/photo',upload.array('file', 10));
-  app.use('/de/upload/users/:photoUserId/photo',routerUser);
-
-  app.use('/es/upload/users/:photoUserId/photo',upload.array('file', 10));
-  app.use('/es/upload/users/:photoUserId/photo',routerUser);
-
   app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',upload.array('file', 10));
   app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',routerHome);
 
@@ -363,20 +357,9 @@ var installer = function(app) {
   app.use('/upload/users/:idUserId/id',upload.array('photos', 10));
   app.use('/upload/users/:idUserId/id',routerId);
 
-  app.use('/de/upload/users/:idUserId/id',upload.array('photos', 10));
-  app.use('/de/upload/users/:idUserId/id',routerId);
-
-  app.use('/es/upload/users/:idUserId/id',upload.array('photos', 10));
-  app.use('/es/upload/users/:idUserId/id',routerId);
-
   app.use('/upload/users/:idUserId/certificate',upload.array('file', 10));
   app.use('/upload/users/:idUserId/certificate',routerCertificate);
 
-  app.use('/de/upload/users/:idUserId/certificate',upload.array('file', 10));
-  app.use('/de/upload/users/:idUserId/certificate',routerCertificate);
-
-  app.use('/es/upload/users/:idUserId/certificate',upload.array('file', 10));
-  app.use('/es/upload/users/:idUserId/certificate',routerCertificate);
 };
 
 module.exports = installer;
