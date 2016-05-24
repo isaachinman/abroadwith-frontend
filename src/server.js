@@ -4,7 +4,7 @@ var nunjucks = require('nunjucks')
 var cookieParser = require('cookie-parser')
 
 // Middlewares
-// var contextLoader = require('./global/middlewares/ContextLoader')
+var contextLoader = require('./global/middlewares/ContextLoader')
 var authentication = require('./global/middlewares/Authentication')
 var ServerSettings = require('./ServerSettings')
 
@@ -43,7 +43,7 @@ app.use(express.static('build'))
 app.use(cookieParser())
 
 // Use contextLoader and authentication on all pages
-// app.use('/*', contextLoader)
+app.use('/*', contextLoader)
 app.use('/*', authentication)
 
 // Create a log file for each day of use
