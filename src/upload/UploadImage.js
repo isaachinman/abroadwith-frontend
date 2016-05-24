@@ -1,7 +1,8 @@
-var lwip = require('lwip');
-var exif = require('exif-parser');
+var lwip = require('lwip')
+var exif = require('exif-parser')
+const domains = require('../global/constants/domains.json')
 
-var AWS = require('aws-sdk');
+var AWS = require('aws-sdk')
 
 var s3 = new AWS.S3({
   region:'eu-central-1',
@@ -86,7 +87,7 @@ var uploadImage = function(image_file,image_key,options,callback){
         else{
           var params = {
             ACL: 'public-read',
-            Bucket: 'img.abroadwith.com',
+            Bucket: domains.S3_BUCKET,
             Key: image_key,
             Body: buffer,
             ContentType: image_file.mimetypem,
