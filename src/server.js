@@ -43,7 +43,7 @@ app.use(express.static('build'))
 app.use(cookieParser())
 
 // Use contextLoader and authentication on all pages
-app.use('/*', contextLoader)
+// app.use('/*', contextLoader)
 app.use('/*', authentication)
 
 // Create a log file for each day of use
