@@ -11,6 +11,8 @@ const ServerSettings = require('../../ServerSettings')
 
 module.exports = function (req, res, next) {
 
+  console.log(req.method)
+
   if (req.cookies['ui-language'] && ui_languages[req.cookies['ui-language']]) {
 
     // If a cookie already exists, respect its value
@@ -52,8 +54,7 @@ module.exports = function (req, res, next) {
 
     var onRightSite = true
 
-    if (req.originalUrl.indexOf('/'+req.language) === -1) {
-      console.log('meets condition')
+    if (req.originalUrl.indexOf('/'+req.language) === -1 && req.method === 'GET') {
       onRightSite = false
     }
 

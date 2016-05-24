@@ -221,20 +221,20 @@ var helper = function(req,res,file){
 }
 
 var routerHome = express.Router();
-// routerHome.post('/', function (req, res) {
-//   if(!req.decoded_token || req.decoded_token.id != req.photoUserId){
-//     res.status(401).send('Restricted function.');
-//     return;
-//   }
-//   var i = req.files.length;
-//   req.done = 0;
-//   req.successful = [];
-//   req.result = {};
-//   while(--i >= 0){
-//     req.files[i].imagePath = "/users/"+req.photoUserId+"/homes/"+req.photoHomeId+"/"+(new Date().getTime())+"_"+i+".jpg";
-//     helper(req,res,req.files[i]);
-//   }
-// });
+routerHome.post('/', function (req, res) {
+  if(!req.decoded_token || req.decoded_token.id != req.photoUserId){
+    res.status(401).send('Restricted function.');
+    return;
+  }
+  var i = req.files.length;
+  req.done = 0;
+  req.successful = [];
+  req.result = {};
+  while(--i >= 0){
+    req.files[i].imagePath = "/users/"+req.photoUserId+"/homes/"+req.photoHomeId+"/"+(new Date().getTime())+"_"+i+".jpg";
+    helper(req,res,req.files[i]);
+  }
+});
 
 
 var routerId = express.Router();
