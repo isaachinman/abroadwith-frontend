@@ -17,7 +17,7 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-  //TODO only respond if comming from our site, no external calls.
+  //TODO only respond if coming from our site, no external calls.
   var concat_params = [];
   for(var param in req.query){
     concat_params.push(param+"="+req.query[param]);
