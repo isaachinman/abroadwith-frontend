@@ -30,7 +30,7 @@ module.exports = React.createClass({
     })
 
     window.homePhotoDrop = new Dropzone('#home-image-upload', {
-      url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
+      url: 'de/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/photos',
       autoProcessQueue: true,
       method: 'post',
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
