@@ -5,6 +5,7 @@ GoogleMapsLoader.KEY = 'AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ'
 GoogleMapsLoader.LIBRARIES = ['places']
 
 const randomiseCoordinate = require('randomise-coordinate')
+const compileGoogleAddress = require('compile-google-address')
 
 const i18n = require('i18n')
 const toast = require('toast')
@@ -12,18 +13,18 @@ const toast = require('toast')
 module.exports = React.createClass({
   componentDidMount: function() {
 
-    window.mapLat;
-    window.mapLng;
-    window.mapZoom;
+    window.mapLat
+    window.mapLng
+    window.mapZoom
 
     // Default map settings
-    mapLat = 60;
-    mapLng = 180;
-    mapZoom = 2;
+    mapLat = 60
+    mapLng = 180
+    mapZoom = 2
 
     window.initAutocomplete = function(google) {
 
-      this.setState({ mapDidInit: true });
+      this.setState({ mapDidInit: true })
 
       var map = new google.maps.Map(document.getElementById('home-map'), {
         center: {
@@ -102,27 +103,9 @@ module.exports = React.createClass({
         var bounds = new google.maps.LatLngBounds();
         places.forEach(function(place) {
 
-          var googleResponse = place.address_components;
-          var googleResponseParsed = {}
+          window.newLocationObj = compileGoogleAddress(place)
 
-          $.each(googleResponse, function(k,v1) {jQuery.each(v1.types, function(k2, v2){googleResponseParsed[v2]=v1.short_name});})
-
-          console.log(googleResponseParsed)
-
-          // Allow for strange edge cases
-          googleResponseParsed.premise !== undefined && googleResponseParsed.street_number === undefined ? googleResponseParsed.street_number = googleResponseParsed.premise : null
-          googleResponseParsed.postal_town !== undefined && googleResponseParsed.postal_code === undefined ? googleResponseParsed.postal_code = googleResponseParsed.postal_town : null
-          googleResponseParsed.locality === undefined && googleResponseParsed.sublocality !== undefined ?  googleResponseParsed.locality = googleResponseParsed.sublocality : null
-
-          window.newLocationObj = {
-            "street":googleResponseParsed.street_number+' '+googleResponseParsed.route,
-            "zipCode":googleResponseParsed.postal_code,
-            "city":googleResponseParsed.locality,
-            "country":googleResponseParsed.country,
-            "neighbourhood":googleResponseParsed.sublocality_level_2
-          }
-
-          if (googleResponseParsed.street_number == undefined || googleResponseParsed.route == undefined || newLocationObj.street == undefined || newLocationObj.zipCode == undefined || newLocationObj.city == undefined || newLocationObj.country == undefined || place.geometry.location.lat() == undefined || place.geometry.location.lng() == undefined) {
+          if (newLocationObj === null) {
             toast(i18n.t('manage_home:invalid_address'))
           } else {
             $('a#save-location').hasClass('disabled') ? $('a#save-location').removeClass('disabled') : null;
@@ -158,6 +141,8 @@ module.exports = React.createClass({
 
   },
   saveLocation: function() {
+
+    console.log('firing')
 
     // Modify home object, using new location object
     if (typeof newLocationObj !== 'undefined') {

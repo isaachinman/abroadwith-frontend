@@ -62,6 +62,7 @@
     "react": "react-lite",
     "react-dom": "react-lite",
     "react-nouislider": "./node_modules/react-nouislider/dist/react-nouislider.common",
+    "compile-google-address": "./src/global/compile-google-address",
     "domains": "./src/global/constants/domains.json",
     "server-settings": "./src/ServerSettings",
     "go-to-booking": "./src/global/go-to-booking",
