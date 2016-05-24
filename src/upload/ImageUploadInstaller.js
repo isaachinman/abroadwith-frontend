@@ -343,8 +343,8 @@ var installer = function(app) {
   app.use('/upload/users/:photoUserId/photo',upload.array('file', 10));
   app.use('/upload/users/:photoUserId/photo',routerUser);
 
-  app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',upload.array('file', 10));
-  app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',routerHome);
+  // app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',upload.array('file', 10));
+  // app.use('/upload/users/:photoUserId/homes/:photoHomeId/photos',routerHome);
 
   app.use('/de/upload/users/:photoUserId/homes/:photoHomeId/photos',upload.array('file', 10));
   app.use('/de/upload/users/:photoUserId/homes/:photoHomeId/photos',routerHome);
