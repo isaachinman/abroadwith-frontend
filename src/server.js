@@ -4,7 +4,7 @@ var nunjucks = require('nunjucks')
 var cookieParser = require('cookie-parser')
 
 // Middlewares
-var contextLoader = require('./global/middlewares/ContextLoader')
+// var contextLoader = require('./global/middlewares/ContextLoader')
 var authentication = require('./global/middlewares/Authentication')
 var ServerSettings = require('./ServerSettings')
 
