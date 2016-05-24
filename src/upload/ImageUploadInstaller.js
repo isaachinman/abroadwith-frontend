@@ -359,6 +359,12 @@ var installer = function(app) {
 
   app.use('/upload/users/:idUserId/certificate',upload.array('file', 10));
   app.use('/upload/users/:idUserId/certificate',routerCertificate);
+
+  app.use('/de/upload/users/:idUserId/certificate',upload.array('file', 10));
+  app.use('/de/upload/users/:idUserId/certificate',routerCertificate);
+
+  app.use('/es/upload/users/:idUserId/certificate',upload.array('file', 10));
+  app.use('/es/upload/users/:idUserId/certificate',routerCertificate);
 };
 
 module.exports = installer;
