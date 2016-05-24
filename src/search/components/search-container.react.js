@@ -101,7 +101,7 @@ module.exports = React.createClass({
     var maxLat = NE !== undefined ? url = url + '&maxLat=' + (NE.lat()) : null;
     var maxLng = NE !== undefined ? url = url + '&maxLng=' + (NE.lng()) : null;
 
-    $.post(window.location.pathname+url, function(data) {
+    $.post('/search'+url, function(data) {
 
       var response = JSON.parse(data);
 
