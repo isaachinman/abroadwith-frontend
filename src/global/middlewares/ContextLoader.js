@@ -11,8 +11,6 @@ const ServerSettings = require('../../ServerSettings')
 
 module.exports = function (req, res, next) {
 
-  console.log(req.method)
-
   if (req.cookies['ui-language'] && ui_languages[req.cookies['ui-language']]) {
 
     // If a cookie already exists, respect its value
