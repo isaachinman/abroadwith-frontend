@@ -1,8 +1,8 @@
 module.exports = function compileGoogleAddress(place) {
 
   // Set up initial variables
-  let p = {}
-  let newAddressObj = {}
+  var p = {}
+  var newAddressObj = {}
 
   // Loop through the abstruse Google object and push place types into a new object
   $.each(place.address_components, function(k,v1) {$.each(v1.types, function(k2, v2){p[v2]=v1.short_name})})
@@ -17,7 +17,7 @@ module.exports = function compileGoogleAddress(place) {
   newAddressObj.lng =             place.geometry.location.lng() || null
 
   // Validate
-  let addressIsValid = true
+  var addressIsValid = true
   $.each(newAddressObj, function(component) { component === null ? newAddressObj = null : null })
 
   console.log(place)
