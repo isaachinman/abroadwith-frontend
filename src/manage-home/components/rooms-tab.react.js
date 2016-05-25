@@ -105,14 +105,17 @@ module.exports = React.createClass({
           console.log(response)
 
           $.each(response, function(index, obj) {
+            console.log(obj)
             if (obj.status == 'OK') {
               newRoom.img = obj.location;
             }
           })
 
-          addRoomToList(newRoom);
-          $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
-          $('#preloader').hide();
+          console.log(newRoom)
+
+          addRoomToList(newRoom)
+          $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null
+          $('#preloader').hide()
         }
 
         newRoomPhoto.processQueue()
