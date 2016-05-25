@@ -136,7 +136,7 @@ module.exports = React.createClass({
 
     // Create new rooms object
    var newHomeObj = this.props.props;
-   var newRoomsObj = this.state.rooms;
+   var newRoomsObj = this.state.rooms !== undefined ? this.state.rooms : this.props.props.rooms;
 
    console.log(this.state.rooms)
 
