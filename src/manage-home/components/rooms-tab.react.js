@@ -138,6 +138,8 @@ module.exports = React.createClass({
    var newHomeObj = this.props.props;
    var newRoomsObj = this.state.rooms;
 
+   console.log(this.state.rooms)
+
   //  $('.existing-room').each(function() {
    //
   //    // Set up new object for each room
