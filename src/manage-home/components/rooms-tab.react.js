@@ -81,20 +81,28 @@ module.exports = React.createClass({
 
     $('#preloader').show();
 
-    var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms';
+    var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms'
     var success = function(response) {
 
-      $('#add-room-form .collapsible-header').trigger('click');
-      newRoom.id = response.roomId;
+      console.log('room successfully created')
+
+      $('#add-room-form .collapsible-header').trigger('click')
+      newRoom.id = response.roomId
 
       if (newRoomPhoto.files.length > 0) {
+
+        console.log('room has a photo')
 
         // There's a room photo to upload
         newRoomPhoto.options.url = '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo'
 
         newRoomPhoto._callbacks.success[0] = function(file, serverResponse) {
 
+          console.log('photo upload success')
+
           var response = JSON.parse(serverResponse)
+
+          console.log(response)
 
           $.each(response, function(index, obj) {
             if (obj.status == 'OK') {
