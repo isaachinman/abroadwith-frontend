@@ -122,19 +122,25 @@ module.exports = React.createClass({
 
       console.log(response)
 
-      if (response.homeActivationResponse.code === 'ACTIVATED' && this.state.firstTime === true) {
+      if (response.homeActivationResponse.code === 'ACTIVATED') {
 
         // Reset step classes
-        $('.ui.steps .step').attr('class', 'step');
+        $('.ui.steps .step').attr('class', 'step')
 
         // Home is active
-        $('#success').addClass('active');
-        $('#success').addClass('completed');
-        $('#success').prevAll().addClass('completed');
+        $('#success').addClass('completed')
+        $('#success').prevAll().addClass('completed')
 
-        // Show success tab
-        $('.tab').hide();
-        $('#success-tab').show();
+        if (this.state.firstTime === true) {
+
+          // Show success tab
+          $('#success').addClass('active')
+          $('.tab').hide()
+          $('#success-tab').show()
+
+        } else {
+          $('#'+($('.tab:visible').attr('id')).replace('-tab', '')).addClass('active')
+        }
 
         // Save buttons should say next
         $('.save-btn').html(i18n.t('manage_home:save_button'));

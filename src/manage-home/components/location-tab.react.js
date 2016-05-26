@@ -164,7 +164,7 @@ module.exports = React.createClass({
 
     if (this.props.props.location) {
 
-      var fullAddress = this.props.props.location.street + ', ' + (this.props.props.location.complement !== null ? this.props.props.location.complement + ', ' : '') + this.props.props.location.city + ' ' + this.props.props.location.zipCode + ', ' + this.props.props.location.country;
+      var fullAddress = this.props.props.location.street + ', ' + (this.props.props.location.complement !== null ? this.props.props.location.complement + ', ' : '') + this.props.props.location.city + ' ' + (this.props.props.location.zipCode !== null ? this.props.props.location.zipCode : '') + ', ' + this.props.props.location.country;
       mapLat = this.props.props.location.lat;
       mapLng = this.props.props.location.lng;
       mapZoom = 16;
