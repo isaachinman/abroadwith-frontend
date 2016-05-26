@@ -3,6 +3,16 @@ const uiDate = require('ui-date')
 
 const i18n = require('i18n')
 
+function produceTranslatedDates() {
+  return {
+    previousMonth: i18n.t('common:previousMonth'),
+    nextMonth: i18n.t('common:nextMonth'),
+    months: [i18n.t('common:months.m1'), i18n.t('common:months.m2'), i18n.t('common:months.m3'), i18n.t('common:months.m4'), i18n.t('common:months.m5'), i18n.t('common:months.m6'), i18n.t('common:months.m7'), i18n.t('common:months.m8'), i18n.t('common:months.m9'), i18n.t('common:months.m10'), i18n.t('common:months.m11') ,i18n.t('common:months.m12')],
+    weekdays: [i18n.t('common:weekdays.sun'), i18n.t('common:weekdays.mon'), i18n.t('common:weekdays.tue'), i18n.t('common:weekdays.wed'), i18n.t('common:weekdays.thu'), i18n.t('common:weekdays.fri'), i18n.t('common:weekdays.sat')],
+    weekdaysShort: [i18n.t('common:weekdaysShort.sun'), i18n.t('common:weekdaysShort.mon'), i18n.t('common:weekdaysShort.tue'), i18n.t('common:weekdaysShort.wed'), i18n.t('common:weekdaysShort.thu'), i18n.t('common:weekdaysShort.fri'), i18n.t('common:weekdaysShort.sat')]
+  }
+}
+
 if ($('input.arrival').length && $('input.departure').length) {
 
   // Initial variables used throughout
@@ -16,7 +26,7 @@ if ($('input.arrival').length && $('input.departure').length) {
 
     // Iterate over all arrival pickers and set new date and new start range
     for (var i = 0; i < arrivalPickers.length; i++) {
-      arrivalPickers[i].setStartRange(startDate)
+      arrivalPickers[i].setStartRange(startDate).setDate(null)
       arrivalPickers[i].setDate(null)
       $('input.arrival').val(uiDate(startDate))
     }
@@ -81,13 +91,7 @@ if ($('input.arrival').length && $('input.departure').length) {
 
   i18n.loadNamespaces(['common'],function(){
 
-    var translatedDates = {
-      previousMonth: i18n.t('common:previousMonth'),
-      nextMonth: i18n.t('common:nextMonth'),
-      months: [i18n.t('common:months.m1'), i18n.t('common:months.m2'), i18n.t('common:months.m3'), i18n.t('common:months.m4'), i18n.t('common:months.m5'), i18n.t('common:months.m6'), i18n.t('common:months.m7'), i18n.t('common:months.m8'), i18n.t('common:months.m9'), i18n.t('common:months.m10'), i18n.t('common:months.m11') ,i18n.t('common:months.m12')],
-      weekdays: [i18n.t('common:weekdays.sun'), i18n.t('common:weekdays.mon'), i18n.t('common:weekdays.tue'), i18n.t('common:weekdays.wed'), i18n.t('common:weekdays.thu'), i18n.t('common:weekdays.fri'), i18n.t('common:weekdays.sat')],
-      weekdaysShort: [i18n.t('common:weekdaysShort.sun'), i18n.t('common:weekdaysShort.mon'), i18n.t('common:weekdaysShort.tue'), i18n.t('common:weekdaysShort.wed'), i18n.t('common:weekdaysShort.thu'), i18n.t('common:weekdaysShort.fri'), i18n.t('common:weekdaysShort.sat')]
-    }
+    var translatedDates = produceTranslatedDates()
 
     // Init arrival pickers
     $('input.arrival').each(function() {
@@ -160,13 +164,7 @@ if ($('input.birthday').length) {
 
   i18n.loadNamespaces(['common'],function(){
 
-    var translatedDates = {
-      previousMonth: i18n.t('common:previousMonth'),
-      nextMonth: i18n.t('common:nextMonth'),
-      months: [i18n.t('common:months.m1'), i18n.t('common:months.m2'), i18n.t('common:months.m3'), i18n.t('common:months.m4'), i18n.t('common:months.m5'), i18n.t('common:months.m6'), i18n.t('common:months.m7'), i18n.t('common:months.m8'), i18n.t('common:months.m9'), i18n.t('common:months.m10'), i18n.t('common:months.m11') ,i18n.t('common:months.m12')],
-      weekdays: [i18n.t('common:weekdays.sun'), i18n.t('common:weekdays.mon'), i18n.t('common:weekdays.tue'), i18n.t('common:weekdays.wed'), i18n.t('common:weekdays.thu'), i18n.t('common:weekdays.fri'), i18n.t('common:weekdays.sat')],
-      weekdaysShort: [i18n.t('common:weekdaysShort.sun'), i18n.t('common:weekdaysShort.mon'), i18n.t('common:weekdaysShort.tue'), i18n.t('common:weekdaysShort.wed'), i18n.t('common:weekdaysShort.thu'), i18n.t('common:weekdaysShort.fri'), i18n.t('common:weekdaysShort.sat')]
-    }
+    var translatedDates = produceTranslatedDates()
 
     // Users must be at least 18, so generate minimum date
     var eighteenYearsAgo = new Date()

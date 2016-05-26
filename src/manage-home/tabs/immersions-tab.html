@@ -299,7 +299,7 @@
               <select id="new-certificate-language" class="validate border-radius-left" data-placeholder='{{translations.manage_home.certificate_language_placeholder}}'>
                 <option></option>
                 {% for langCode, language in constants.user_languages %}
-                  <option data-lang={{ langCode }}>{{ translations.languages[langCode] }} ({{ language.native_name }})</option>
+                  <option data-lang={{ langCode }}>{{ translations.languages[langCode] }} ({{ language.n }})</option>
                 {% endfor %}
               </select>
               <label class='active'>{{translations.manage_home.certificate_language_label}}</label>
