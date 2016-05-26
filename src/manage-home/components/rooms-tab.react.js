@@ -183,6 +183,7 @@ module.exports = React.createClass({
     if (this.props.props.rooms && this.props.props.rooms.length > 0) {
 
       var rooms = (this.props.props.rooms).sort(function(a,b){return -(a.id-b.id)})
+      var saveRooms = this.saveRooms
 
       var canDelete = this.props.props.rooms.length <= 1 ? false : true
 
@@ -204,6 +205,8 @@ module.exports = React.createClass({
                 price={obj.price}
                 refreshState={refreshState}
                 canDelete={canDelete}
+                rooms={rooms}
+                saveRooms={saveRooms}
               />
             )
           })

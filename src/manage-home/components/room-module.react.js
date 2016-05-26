@@ -60,7 +60,7 @@ module.exports = React.createClass({
     $('li[data-id="'+this.props.id+'"]').find('select.material').material_select();
 
     var id = this.props.id
-    var rooms = this.props.props.rooms
+    var rooms = this.props.rooms
 
     var dropzone = new Dropzone('#upload-photo-room-'+id, {
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+$('#upload-photo-room-'+id).attr('data-room-id')+'/photo',
