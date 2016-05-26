@@ -76,7 +76,7 @@ module.exports = React.createClass({
       init: function() {
         this.on('success', function(x, serverResponse) {
           var parsedResponse = JSON.parse(serverResponse)
-          console.log(parsedResponse[0].location)
+          console.log(parsedResponse)
           console.log(rooms)
           $.each(rooms, function(index, room) {
             if (room.id === id) {
