@@ -206,6 +206,7 @@ module.exports = React.createClass({
                 canDelete={canDelete}
                 rooms={rooms}
                 saveRooms={saveRooms}
+                refreshState={refreshState}
               />
             )
           })
