@@ -74,6 +74,14 @@ module.exports = React.createClass({
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
+        this.on('removedfile', function(file) {
+          for (room in rooms) {
+            if (room.id === id) {
+              room.img = null;
+            }
+          }
+          saveRooms()
+        })
         this.on('success', function(x, serverResponse) {
           // var parsedResponse = JSON.parse(serverResponse)
           // console.log(parsedResponse)
