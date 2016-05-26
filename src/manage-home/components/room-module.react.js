@@ -71,7 +71,12 @@ module.exports = React.createClass({
       dictRemoveFile: i18n.t('manage_home:delete'),
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       maxFilesize: 10,
-      acceptedFiles: 'image/jpeg,image/png'
+      acceptedFiles: 'image/jpeg,image/png',
+      init: function() {
+        this.on('success', function(x, serverResponse) {
+          console.log(serverResponse)
+        })
+      }
     })
 
     if (this.props.img) {
