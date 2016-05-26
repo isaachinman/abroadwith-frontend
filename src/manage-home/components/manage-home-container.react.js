@@ -153,7 +153,7 @@ module.exports = React.createClass({
         $('#home-published-image').attr('src',domains.IMG+response.photos[0]+'?w=800');
         $('#home-published-view').attr('href','/homestay/'+JWT.hid);
 
-      } else {
+      } else if (response.homeActivationResponse.code !== 'ACTIVATED') {
 
         // Home is not active
         $('.step').find('.icon').hide()
