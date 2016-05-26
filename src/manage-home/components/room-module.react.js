@@ -73,7 +73,7 @@ module.exports = React.createClass({
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
-        this.on('success', function(x, serverResponse) {
+        dropzone.on('success', function(x, serverResponse) {
           var parsedResponse = JSON.parse(serverResponse)
           console.log(parsedResponse)
           console.log(this.props)
