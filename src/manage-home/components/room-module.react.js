@@ -77,9 +77,11 @@ module.exports = React.createClass({
         this.on('success', function(x, serverResponse) {
           var parsedResponse = JSON.parse(serverResponse)
           console.log(serverResponse)
+          console.log(rooms)
           $.each(rooms, function(index, room) {
             if (room.id === id) {
               room.img = serverResponse.location
+              console.log(rooms)
             }
           })
         })
