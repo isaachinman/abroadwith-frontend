@@ -31,6 +31,7 @@ module.exports = React.createClass({
 
     delete newHomeObj.published;
     delete newHomeObj.GENERAL;
+    delete newHomeObj.firstTime;
 
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
