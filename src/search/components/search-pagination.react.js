@@ -32,8 +32,13 @@ module.exports = React.createClass({
     var totalPages = Math.ceil(resultCount/pageSize)
     var activePage = Math.ceil(pageOffset/pageSize)+1
 
-    console.log(totalPages)
-    console.log(activePage)
+    // Catch potential errors
+    if (activePage > totalPages) {
+      activePage = totalPages
+    }
+    if (activePage < 1) {
+      activePage = 1
+    }
 
     var pages = [];
 
