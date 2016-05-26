@@ -77,6 +77,8 @@ module.exports = React.createClass({
       init: function() {
         this.on('removedfile', function(file) {
           for (r in rooms) {
+            console.log(r)
+            console.log(id)
             if (r.id === id) {
               r.img = null
             }
