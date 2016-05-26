@@ -61,6 +61,7 @@ module.exports = React.createClass({
 
     var id = this.props.id
     var rooms = this.props.rooms
+    var saveRooms = this.props.saveRooms
 
     var dropzone = new Dropzone('#upload-photo-room-'+id, {
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+$('#upload-photo-room-'+id).attr('data-room-id')+'/photo',
