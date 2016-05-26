@@ -142,12 +142,17 @@ ul {
     }
 
     i {
+      min-width: 30px;
       height: 30px;
       font-size: 1.85rem;
       vertical-align: middle;
     }
+
   }
 
+  i {
+    min-width: 30px;
+  }
 
   li.pages ul li {
     display: inline-block;

@@ -40,31 +40,38 @@ module.exports = React.createClass({
       activePage = 1
     }
 
+    console.log(activePage)
+    console.log(totalPages)
+
     var pages = [];
 
-    for (var i=1; i <= totalPages; i++) {
+    for (var i = 1; i <= totalPages; i++) {
 
       var id = 'page-'+i
-      var isHidden = {}
+      var classes = 'page-btn'
+
+      // If this is active page, add class
+      if (i === activePage) {
+        classes += ' active'
+      }
 
       // If page is 5 or under, hide all above
       if (activePage <= 3 && i > 3 && i !== totalPages || i === 5 && activePage <= 3) {
-        isHidden.display = 'none'
-      } else if (activePage > 3 && i !== totalPages && !(i >= totalPages - 4 && activePage > totalPages - 4)) {
+        classes += ' hide'
+      } else if (activePage > 3 && i !== totalPages && !(i >= totalPages - 3 && activePage > totalPages - 3) && i > 2) {
 
         // If page is above 5, split the view
         if (i > activePage + 2 || i < activePage - 1) {
-          isHidden.display = 'none'
+          classes += ' hide'
         }
-
       }
 
-      var newPage = <li id={id} data-page={i} style={isHidden} className='page-btn' onClick={handleChange.bind(this, undefined, (i-1))}><a>{i}</a></li>
+      var newPage = <li id={id} data-page={i} className={classes} onClick={handleChange.bind(this, undefined, (i-1))}><a>{i}</a></li>
       var ellipsis = <i className="fa fa-ellipsis-h" aria-hidden="true"></i>
 
       if (activePage <= 3 && i === 4) {
         newPage = ellipsis
-      } else if (activePage > 3 && i === activePage + 2 && i !== totalPages) {
+      } else if (activePage > 3 && (i === activePage + 2 && i !== totalPages || i === 2)) {
         newPage = ellipsis
       }
 
@@ -93,11 +100,6 @@ module.exports = React.createClass({
 
     prevBtnClasses = prevBtnClasses.join(' ')
     nextBtnClasses = nextBtnClasses.join(' ')
-
-    $('.page-btn').click(function() {
-      $('.page-btn').removeClass('active');
-      $(this).addClass('active');
-    })
 
     return (
 
