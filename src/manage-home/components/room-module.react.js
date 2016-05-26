@@ -78,12 +78,13 @@ module.exports = React.createClass({
           var parsedResponse = JSON.parse(serverResponse)
           console.log(parsedResponse)
           console.log(rooms)
-          $.each(rooms, function(index, room) {
-            if (room.id === id) {
-              room.img = parsedResponse[0].location
-              console.log(rooms)
+
+          $.each(serverResponse, function(index, obj) {
+            if (obj.status == 'OK') {
+              room.img = obj.location;
             }
           })
+          saveRooms()
         })
       }
     })
