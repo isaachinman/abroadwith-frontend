@@ -1,5 +1,6 @@
 module.exports = function(inputDate) {
 
+  if (typeof inputDate === null) return
 
   if (typeof inputDate.getMonth === 'function') {
 

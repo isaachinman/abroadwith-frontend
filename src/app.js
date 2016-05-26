@@ -18,6 +18,7 @@ else window.addEventListener('load', loadDeferredStyles);
 
 // jQuery
 require('jquery')
+require('../node_modules/sticky-kit/dist/sticky-kit.min.js')
 
 // Main materialize script
 require('materialize')
@@ -28,8 +29,8 @@ require('./global/button-group')
 // Globals
 require('./global/currency-dropdown')
 require('./global/datepickers')
-require('./global/signup')
 require('./global/login-init')
+require('./global/signup')
 require('./global/login-redirect')
 require('./global/logout-init')
 require('./global/home-creation')
