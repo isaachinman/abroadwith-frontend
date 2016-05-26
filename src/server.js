@@ -94,8 +94,6 @@ installReceipt(app);
 installReview(app);
 installImmersionConfirmation(app);
 
-
-
 // This is the logout endpoint
 app.post('/logout',function(req,res){
 

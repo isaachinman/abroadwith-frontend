@@ -1,6 +1,7 @@
-var https = require('https');
-var domains = require('../../global/constants/domains');
-var currency = require('../../global/util/CurrencyExchange');
+const https = require('https')
+const domains = require('../../global/constants/domains')
+const currency = require('../../global/util/CurrencyExchange')
+const nunjucks = require('nunjucks')
 
 module.exports = function (req, res, next, value) {
 
@@ -23,7 +24,7 @@ module.exports = function (req, res, next, value) {
 
     // If response is a 404, report as such
     if (response.statusCode == 404) {
-      res.status(404).send('Home not found.')
+      res.status(404).send(nunjucks.render('static/not-found.html',req.context))
       return
     }
 
