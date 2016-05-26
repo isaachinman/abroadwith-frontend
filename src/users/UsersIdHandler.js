@@ -31,8 +31,8 @@ module.exports = function (req, res, next, value) {
     return;
   }
 
-  https.get(domains.API + "/public/users/"+value,
-    function (response) {
+  https.get(domains.API + "/public/users/"+value, function (response) {
+
       var body = '';
       if(response.statusCode == 404){
         res.status(404).send('User not found.');
