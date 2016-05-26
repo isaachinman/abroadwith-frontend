@@ -74,9 +74,11 @@ module.exports = React.createClass({
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
         this.on('success', function(x, serverResponse) {
-          console.log(serverResponse)
+          var parsedResponse = JSON.parse(serverResponse)
+          console.log(parsedResponse)
+          console.log(this.props)
         })
-      }
+      }.bind(this)
     })
 
     if (this.props.img) {
