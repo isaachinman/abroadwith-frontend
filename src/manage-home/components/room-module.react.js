@@ -68,7 +68,7 @@ module.exports = React.createClass({
       addRemoveLinks: true,
       maxFiles: 1,
       method: 'post',
-      dictDefaultMessage: i18n.t('common:drop_files_here'),
+      dictDefaultMessage: i18n.t('manage_home:drop_room_photo'),
       dictRemoveFile: i18n.t('manage_home:delete'),
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       maxFilesize: 10,
@@ -76,11 +76,11 @@ module.exports = React.createClass({
       init: function() {
         this.on('success', function(x, serverResponse) {
           var parsedResponse = JSON.parse(serverResponse)
-          console.log(serverResponse)
+          console.log(parsedResponse[0].location)
           console.log(rooms)
           $.each(rooms, function(index, room) {
             if (room.id === id) {
-              room.img = serverResponse.location
+              room.img = parsedResponse[0].location
               console.log(rooms)
             }
           })
