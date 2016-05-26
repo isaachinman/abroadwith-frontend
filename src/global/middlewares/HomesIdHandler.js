@@ -23,7 +23,7 @@ module.exports = function (req, res, next, value) {
 
     // If response is a 404, report as such
     if (response.statusCode == 404) {
-      next('Home not found.')
+      res.status(404).send('Home not found.')
       return
     }
 
