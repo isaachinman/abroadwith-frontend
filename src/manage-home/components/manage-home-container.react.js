@@ -22,6 +22,9 @@ const POST = require('POST');
 const i18n = require('i18n');
 
 module.exports = React.createClass({
+  getInitialState: function() {
+    return { firstTime: true }
+  }
   updateHome: function(newHomeObj, callback){
 
     $('#preloader').show();
@@ -118,7 +121,7 @@ module.exports = React.createClass({
 
       console.log(response)
 
-      if (response.homeActivationResponse.code === 'ACTIVATED') {
+      if (response.homeActivationResponse.code === 'ACTIVATED' && this.state.firstTime === false) {
 
         // Reset step classes
         $('.ui.steps .step').attr('class', 'step');
@@ -205,7 +208,7 @@ module.exports = React.createClass({
         tandemAvailableLanguages:        response.tandemAvailableLanguages ? response.tandemAvailableLanguages : null,
         tandemAvailableLearnLanguages:   response.tandemAvailableLearnLanguages ? response.tandemAvailableLearnLanguages : null,
         teacherAvailableLanguages:       response.teacherAvailableLanguages ? response.teacherAvailableLanguages : null
-
+        firstTime:                       false
       }
 
       this.setState(newState);
@@ -214,6 +217,8 @@ module.exports = React.createClass({
 
       // Refresh selects
       $('select.material').material_select();
+
+
 
     }.bind(this);
     GET(url, success)
