@@ -140,7 +140,7 @@ module.exports = React.createClass({
         $('.save-btn').html(i18n.t('manage_home:save_button'));
 
         // If active step is not visible, scroll to it
-        if ($('#success').isOnScreen() === false && ()) {
+        if ($('#success').isOnScreen() === false) {
           $('.ui.steps').animate({
             scrollLeft: $('#success').position().left
           })
