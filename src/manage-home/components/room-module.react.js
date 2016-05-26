@@ -76,13 +76,13 @@ module.exports = React.createClass({
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
         this.on('removedfile', function(file) {
-          for (r in rooms) {
-            console.log(r)
-            console.log(id)
-            if (r.id === id) {
-              r.img = null
+
+          $.each(rooms, function(index, obj) {
+            console.log(obj)
+            if (obj.id == id) {
+              obj.img = null
             }
-          }
+          })
           saveRooms()
         })
         this.on('success', function(x, serverResponse) {
