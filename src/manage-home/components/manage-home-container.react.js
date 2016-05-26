@@ -122,7 +122,7 @@ module.exports = React.createClass({
 
       console.log(response)
 
-      if (response.homeActivationResponse.code === 'ACTIVATED' && this.state.firstTime === false) {
+      if (response.homeActivationResponse.code === 'ACTIVATED' && this.state.firstTime === true) {
 
         // Reset step classes
         $('.ui.steps .step').attr('class', 'step');
@@ -140,7 +140,7 @@ module.exports = React.createClass({
         $('.save-btn').html(i18n.t('manage_home:save_button'));
 
         // If active step is not visible, scroll to it
-        if ($('#success').isOnScreen() === false) {
+        if ($('#success').isOnScreen() === false && ()) {
           $('.ui.steps').animate({
             scrollLeft: $('#success').position().left
           })
