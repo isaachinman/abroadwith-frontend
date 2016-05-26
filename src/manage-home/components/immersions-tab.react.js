@@ -161,6 +161,7 @@ module.exports = React.createClass({
       maxFilesize: 10,
       dictDefaultMessage: i18n.t('common:drop_files_here'),
       dictRemoveFile: i18n.t('manage_home:delete'),
+      dictCancelUpload: i18n.t('common:cancel_upload'),
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
         this.on("maxfilesexceeded", function(file) {
