@@ -1,5 +1,6 @@
-var https = require('https');
-var domains= require('../global/constants/domains');
+const https = require('https')
+const domains = require('../global/constants/domains')
+const nunjucks = require('nunjucks')
 
 var transformToStars = function(user){
   var rating = (Math.round(user.rating * 2) / 2).toFixed(1);
@@ -35,11 +36,11 @@ module.exports = function (req, res, next, value) {
 
       var body = '';
       if(response.statusCode == 404){
-        res.status(404).send('User not found.');
-        return;
+        res.status(404).send(nunjucks.render('static/not-found.html',req.context))
+        return
       }
       if(response.statusCode != 200){
-        res.status(response.statusCode).send('Unexpected response.');
+        res.status(response.statusCode).send('Unexpected response.')
         return;
       }
       response.on('data', function(d) {
