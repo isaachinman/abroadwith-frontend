@@ -45,10 +45,10 @@ module.exports = React.createClass({
       // If page is 5 or under, hide all above
       if (activePage <= 3 && i > 3 && i !== totalPages || i === 5 && activePage <= 3) {
         isHidden.display = 'none'
-      } else if (activePage > 3) {
+      } else if (activePage > 3 && i !== totalPages) {
 
         // If page is above 5, split the view
-        if (i > activePage + 3 || i < activePage - 1) {
+        if (i > activePage + 2 || i < activePage - 1) {
           isHidden.display = 'none'
         }
 
@@ -59,7 +59,7 @@ module.exports = React.createClass({
 
       if (activePage <= 3 && i === 4) {
         newPage = ellipsis
-      } else if (activePage > 3 && i === activePage + 2) {
+      } else if (activePage > 3 && i === activePage + 2 && i !== totalPages) {
         newPage = ellipsis
       }
 
