@@ -85,6 +85,17 @@ module.exports = React.createClass({
           })
           saveRooms()
         })
+        this.on('success', function(x, serverResponse) {
+          var parsedResponse = JSON.parse(serverResponse)
+          console.log(parsedResponse)
+          console.log(rooms)
+          $.each(serverResponse, function(index, obj) {
+            if (obj.status == 'OK') {
+              room.img = obj.location;
+            }
+          })
+          saveRooms()
+        })
       }
     })
 
