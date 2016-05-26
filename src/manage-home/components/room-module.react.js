@@ -60,6 +60,7 @@ module.exports = React.createClass({
     $('li[data-id="'+this.props.id+'"]').find('select.material').material_select();
 
     var id = this.props.id
+    var rooms = this.props.props.rooms
 
     var dropzone = new Dropzone('#upload-photo-room-'+id, {
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+$('#upload-photo-room-'+id).attr('data-room-id')+'/photo',
@@ -73,12 +74,16 @@ module.exports = React.createClass({
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
-        dropzone.on('success', function(x, serverResponse) {
+        this.on('success', function(x, serverResponse) {
           var parsedResponse = JSON.parse(serverResponse)
-          console.log(parsedResponse)
-          console.log(this.props)
+          console.log(serverResponse)
+          $.each(rooms, function(index, room) {
+            if (room.id === id) {
+              room.img = serverResponse.location
+            }
+          })
         })
-      }.bind(this)
+      }
     })
 
     if (this.props.img) {
