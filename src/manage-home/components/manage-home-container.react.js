@@ -24,7 +24,7 @@ const i18n = require('i18n');
 module.exports = React.createClass({
   getInitialState: function() {
     return { firstTime: true }
-  }
+  },
   updateHome: function(newHomeObj, callback){
 
     $('#preloader').show();
