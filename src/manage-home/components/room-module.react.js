@@ -64,9 +64,11 @@ module.exports = React.createClass({
     var dropzone = new Dropzone('#upload-photo-room-'+id, {
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+$('#upload-photo-room-'+id).attr('data-room-id')+'/photo',
       autoProcessQueue: true,
+      addRemoveLinks: true,
       maxFiles: 1,
       method: 'post',
       dictDefaultMessage: i18n.t('common:drop_files_here'),
+      dictRemoveFile: i18n.t('manage_home:delete'),
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png'
