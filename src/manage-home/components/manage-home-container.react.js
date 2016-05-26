@@ -207,7 +207,7 @@ module.exports = React.createClass({
         stayAvailableLanguages:          response.stayAvailableLanguages ? response.stayAvailableLanguages : null,
         tandemAvailableLanguages:        response.tandemAvailableLanguages ? response.tandemAvailableLanguages : null,
         tandemAvailableLearnLanguages:   response.tandemAvailableLearnLanguages ? response.tandemAvailableLearnLanguages : null,
-        teacherAvailableLanguages:       response.teacherAvailableLanguages ? response.teacherAvailableLanguages : null
+        teacherAvailableLanguages:       response.teacherAvailableLanguages ? response.teacherAvailableLanguages : null,
         firstTime:                       false
       }
 
