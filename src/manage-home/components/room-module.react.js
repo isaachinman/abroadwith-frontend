@@ -62,6 +62,7 @@ module.exports = React.createClass({
     var id = this.props.id
     var rooms = this.props.rooms
     var saveRooms = this.props.saveRooms
+    var refreshState = this.props.refreshState
 
     var dropzone = new Dropzone('#upload-photo-room-'+id, {
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+$('#upload-photo-room-'+id).attr('data-room-id')+'/photo',
@@ -86,15 +87,7 @@ module.exports = React.createClass({
           saveRooms()
         })
         this.on('success', function(x, serverResponse) {
-          var parsedResponse = JSON.parse(serverResponse)
-          console.log(parsedResponse)
-          console.log(rooms)
-          $.each(serverResponse, function(index, obj) {
-            if (obj.status == 'OK') {
-              room.img = obj.location;
-            }
-          })
-          saveRooms()
+          refreshState()
         })
       }
     })
