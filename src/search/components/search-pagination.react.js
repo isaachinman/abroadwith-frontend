@@ -26,30 +26,42 @@ module.exports = React.createClass({
   },
   render: function() {
 
-    var resultCount = this.props.numberOfResults;
-    var pageSize = this.props.pageSize;
-    var pageOffset = this.props.pageOffset;
-    var totalPages = Math.ceil(resultCount/pageSize);
+    var resultCount = this.props.numberOfResults
+    var pageSize = this.props.pageSize
+    var pageOffset = this.props.pageOffset
+    var totalPages = Math.ceil(resultCount/pageSize)
+    var activePage = Math.ceil(pageOffset/pageSize)+1
 
-    var activePage = Math.ceil(pageOffset/pageSize)+1;
+    console.log(totalPages)
+    console.log(activePage)
 
     var pages = [];
 
-    for (var i=1; i<=totalPages; i++) {
+    for (var i=1; i <= totalPages; i++) {
 
       var id = 'page-'+i
       var isHidden = {}
 
       // If page is 5 or under, hide all above
-      if (activePage <= 5 && i > 5) {
+      if (activePage <= 3 && i > 3 && i !== totalPages || i === 5 && activePage <= 3) {
         isHidden.display = 'none'
-      } else if (activePage > 5) {
-        if (i > activePage + 2 || i < activePage - 2) {
+      } else if (activePage > 3) {
+
+        // If page is above 5, split the view
+        if (i > activePage + 3 || i < activePage - 1) {
           isHidden.display = 'none'
         }
+
       }
 
       var newPage = <li id={id} data-page={i} style={isHidden} className='page-btn' onClick={handleChange.bind(this, undefined, (i-1))}><a>{i}</a></li>
+      var ellipsis = <i className="fa fa-ellipsis-h" aria-hidden="true"></i>
+
+      if (activePage <= 3 && i === 4) {
+        newPage = ellipsis
+      } else if (activePage > 3 && i === activePage + 2) {
+        newPage = ellipsis
+      }
 
       pages.push(newPage);
     }
@@ -66,12 +78,12 @@ module.exports = React.createClass({
 
     // If active page is page 1, disable prev button
     if (activePage === 1) {
-      prevBtnClasses.push('disabled')
+      prevBtnClasses.push('hide')
     }
 
     // If active page is the last page, disable next button
     if (activePage === totalPages) {
-      nextBtnClasses.push('disabled')
+      nextBtnClasses.push('hide')
     }
 
     prevBtnClasses = prevBtnClasses.join(' ')
