@@ -223,36 +223,6 @@ i.next-btn {
       margin: auto;
     }
   }
-  .step .icon {
-    border: 2px solid lighten($americano, 30%);
-    background: lighten($americano, 40%);
-    color: darken($americano, 10%);
-    text-shadow: 2px 2px 1px darken($ziggurat, 15%);
-  }
-  .step.active .icon {
-    border: 2px solid lighten($americano, 30%);
-    background: lighten($americano, 40%);
-    color: darken($americano, 15%);
-    text-shadow: 2px 2px 1px darken($ziggurat, 15%);
-  }
-  .step.disabled .icon {
-    border: 2px solid lighten($americano, 40%);
-    background: lighten($americano, 50%);
-    color: lighten($americano, 30%);
-    text-shadow: 2px 2px 1px lighten($ziggurat, 5%);
-  }
-  .step.completed .icon {
-    border: 2px solid lighten($forest-green, 25%);
-    background: lighten($forest-green, 35%);
-    color: lighten($grey-chateau, 36%);
-    text-shadow: 2px 2px 1px darken($ziggurat, 35%);
-  }
-  .step.active.completed .icon {
-    border: 2px solid darken($havelock-blue, 15%);
-    background: darken($havelock-blue, 5%);
-    color: lighten($grey-chateau, 36%);
-    text-shadow: none;
-  }
   .step {
     width: 12.5%;
   }

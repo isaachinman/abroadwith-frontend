@@ -132,6 +132,31 @@
   line-height: 1;
   font-size: 2.15rem;
   margin: 0em 1.25rem 0em 0em;
+  border: 2px solid lighten($americano, 30%);
+  background: lighten($americano, 40%);
+  color: darken($americano, 15%);
+  text-shadow: 2px 2px 1px darken($ziggurat, 15%);
+}
+
+.ui.steps .step.disabed .icon {
+  border: 2px solid lighten($americano, 40%);
+  background: lighten($americano, 50%);
+  color: lighten($americano, 30%);
+  text-shadow: 2px 2px 1px lighten($ziggurat, 5%);
+}
+
+.ui.steps .step.completed .icon {
+  border: 2px solid lighten($forest-green, 25%);
+  background: lighten($forest-green, 35%);
+  color: lighten($grey-chateau, 36%);
+  text-shadow: 2px 2px 1px darken($ziggurat, 35%);
+}
+
+.ui.steps .step.active.completed .icon {
+  border: 2px solid darken($havelock-blue, 15%);
+  background: darken($havelock-blue, 5%);
+  color: lighten($grey-chateau, 36%);
+  text-shadow: none;
 }
 
 /*******************************
