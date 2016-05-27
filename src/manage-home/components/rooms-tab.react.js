@@ -84,33 +84,23 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms'
     var success = function(response) {
 
-      console.log('room successfully created')
-
       $('#add-room-form .collapsible-header').trigger('click')
       newRoom.id = response.roomId
 
       if (newRoomPhoto.files.length > 0) {
-
-        console.log('room has a photo')
 
         // There's a room photo to upload
         newRoomPhoto.options.url = '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+response.roomId+'/photo'
 
         newRoomPhoto._callbacks.success[0] = function(file, serverResponse) {
 
-          console.log('photo upload success')
-
           var response = JSON.parse(serverResponse)
-
-          console.log(response)
 
           $.each(response, function(index, obj) {
             if (obj.status == 'OK') {
               newRoom.img = obj.location;
             }
           })
-
-          console.log(newRoom)
 
           addRoomToList(newRoom)
           $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null
@@ -136,8 +126,6 @@ module.exports = React.createClass({
     // Create new rooms object
    var newHomeObj = this.props.props
    var newRoomsObj = this.state.rooms !== undefined ? this.state.rooms : this.props.props.rooms
-
-   console.log(this.state.rooms)
 
    // Modify home object, using new rooms object
    newHomeObj.rooms = newRoomsObj

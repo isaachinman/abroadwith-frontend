@@ -11,8 +11,6 @@ module.exports = function(stayId, roomId, homeId) {
   // Assemble destination url
   var bookingUrl = '/homestay/' + homeId + '/booking?arrival=' + apiDate($('#arrival').val()) + '&departure=' + apiDate($('#departure').val()) + '&room_id=' + roomId
 
-  console.log(bookingUrl)
-
   // Only proceed if dates are selected
   if ($('#arrival').val() !== '' && $('#departure').val() !== '') {
 

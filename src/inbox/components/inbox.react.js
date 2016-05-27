@@ -18,8 +18,6 @@ module.exports = React.createClass({
     var url = domains.API + '/users/' + JWT.rid + '/messages';
     var success = function(response) {
 
-      console.log(response)
-
       var yourName = JWT.name;
       var yourId = JWT.rid;
       var yourPhoto = JWT.img ? domains.IMG + JWT.img + '?w=60' : domains.IMG + '/users/default.jpg?w=60';

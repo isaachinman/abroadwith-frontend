@@ -33,11 +33,8 @@ module.exports = React.createClass({
       refreshToken(function() {
         $('#preloader').hide();
         toast(i18n.t('admin:basics_toast'));
-        console.log('refreshToken')
         var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
-        console.log(JWT)
         if (JWT.cbk > 0) {
-          console.log('init verifications')
           verificationsModuleInit()
         }
       });

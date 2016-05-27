@@ -163,17 +163,14 @@ module.exports = React.createClass({
         this.on('success', function(x, response) {
 
           var serverResponse = JSON.parse(response)
-          console.log(serverResponse)
 
           if (serverResponse.status == 'OK') {
 
             newCertificate.img = serverResponse.location
 
             if (homeObj.immersions.teacher !== null) {
-              console.log('condition one')
               homeObj.immersions.teacher.certifications.push(newCertificate)
             } else {
-              console.log('condition two')
               homeObj.immersions.teacher = {
                 isActive: false,
                 languagesOffered: [],
@@ -190,10 +187,6 @@ module.exports = React.createClass({
 
           }
 
-        })
-        this.on('error', function() {
-          console.log(newCertificate)
-          console.log(homeObj)
         })
       }
     })

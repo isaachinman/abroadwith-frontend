@@ -95,8 +95,6 @@ module.exports = React.createClass({
       var refreshState = this.props.refreshState;
       var photos = this.props.props.photos;
 
-      console.log(photos)
-
       for (var i=0; i<photos.length; i++) {
         var newPhoto = {
           name: photos[i],

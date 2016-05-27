@@ -73,7 +73,6 @@ module.exports = React.createClass({
     dayBeforeArrival.setDate(dayBeforeArrival.getDate()-1)
 
     if (dayBeforeArrival < new Date()) {
-      console.log('in the past')
       userActionDisplay = {
         display: 'none'
       }

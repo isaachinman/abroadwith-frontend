@@ -142,8 +142,6 @@ module.exports = React.createClass({
   },
   saveLocation: function() {
 
-    console.log('firing')
-
     // Modify home object, using new location object
     if (typeof newLocationObj !== 'undefined') {
 
