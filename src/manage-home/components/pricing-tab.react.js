@@ -51,7 +51,7 @@ module.exports = React.createClass({
         if ($('input#'+item).val() !== '') {
           var newPriceObj = {
             "name": item,
-            "amount": parseInt($('input#'+item).val())
+            "amount": parseInt($('input#'+item).val()) <= 100 ? parseInt($('input#'+item).val()) : 100
           }
           newPricingObj[category].push(newPriceObj);
         }

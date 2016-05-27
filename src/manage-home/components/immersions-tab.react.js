@@ -46,7 +46,7 @@ module.exports = React.createClass({
       packages: $('#packages').val() !== null ? $('#packages').val() : null,
       hourly: $('#teacher-rate').val() !== null ? parseInt(($('#teacher-rate').val()).replace(/[^0-9\.]+/g,"")) : null,
       languagesOffered: $('#teacher-languages-offered').val() !== null ? $('#teacher-languages-offered').val() : [],
-      certifications: this.props.props.immersions.teacher.certifications
+      certifications: this.props.props.immersions.teacher !== null ? this.props.props.immersions.teacher.certifications : {}
     }
 
     function validateImmersion(immersionType) {
