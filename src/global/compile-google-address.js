@@ -20,9 +20,6 @@ module.exports = function compileGoogleAddress(place) {
   var addressIsValid = true
   $.each(newAddressObj, function(component) { component === null ? newAddressObj = null : null })
 
-  console.log(place)
-  console.log(newAddressObj)
-
   // Return the address object
   return newAddressObj
 

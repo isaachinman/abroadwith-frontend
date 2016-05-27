@@ -1,22 +1,22 @@
-const domains = require('domains');
-const JWT = require('JWT');
+const domains = require('domains')
+const JWT = require('JWT')
 
-const apiDate = require('api-date');
+const apiDate = require('api-date')
 
-const i18n = require('i18n');
-const toast = require('toast');
+const i18n = require('i18n')
+const toast = require('toast')
 
 module.exports = function(stayId, roomId, homeId) {
 
   // Assemble destination url
-  var bookingUrl = '/homestay/' + homeId + '/booking?arrival=' + apiDate($('#arrival').val()) + '&departure=' + apiDate($('#departure').val()) + '&room_id=' + roomId;
+  var bookingUrl = '/homestay/' + homeId + '/booking?arrival=' + apiDate($('#arrival').val()) + '&departure=' + apiDate($('#departure').val()) + '&room_id=' + roomId
 
   console.log(bookingUrl)
 
   // Only proceed if dates are selected
   if ($('#arrival').val() !== '' && $('#departure').val() !== '') {
 
-    $('#preloader').show();
+    $('#preloader').show()
 
     // Protect booking page against 400s from already booking dates
     var bookingObj = {
@@ -45,14 +45,14 @@ module.exports = function(stayId, roomId, homeId) {
       success: function(response) {
 
         // Go to booking url
-        window.location = bookingUrl;
+        window.location = bookingUrl
 
       },
       error: function() {
 
         $('#preloader').hide();
         i18n.loadNamespaces(['common'],function(){
-          toast(i18n.t('common:room_unavailable_toast'));
+          toast(i18n.t('common:room_unavailable_toast'))
         })
 
       }

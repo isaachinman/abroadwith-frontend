@@ -11,17 +11,17 @@ module.exports = function() {
 
     $(function() {
 
-      var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+      var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null
 
       if (JWT === null) {
 
         // User is not logged in
         $('a.btn-book').unbind('click')
-        $('a.btn-book').addClass('modal-trigger');
-        $('a.btn-book').addClass('tooltipped');
-        $('a.btn-book').attr('data-position', 'bottom');
-        $('a.btn-book').attr('data-delay', '0');
-        $('a.btn-book').attr('href', '#login-modal');
+        $('a.btn-book').addClass('modal-trigger')
+        $('a.btn-book').addClass('tooltipped')
+        $('a.btn-book').attr('data-position', 'bottom')
+        $('a.btn-book').attr('data-delay', '0')
+        $('a.btn-book').attr('href', '#login-modal')
 
       } else {
 
@@ -37,15 +37,13 @@ module.exports = function() {
 
           // User cannot book
           verificationsModuleInit('booking')
-          $('a.btn-book').off();
+          $('a.btn-book').off()
           $('a.btn-book').click(function() {
             $('#verifications-modal').openModal()
           })
 
         }
-
       }
     })
-
   }
 }

@@ -1,14 +1,14 @@
-const domains = require('domains');
-const login = require('login');
+const domains = require('domains')
+const login = require('login')
 const toast = require('toast')
 
 if ($('a.reset-password').length) {
 
   $('form.reset-password').submit(function(e) {
 
-    $('.validation-messages h5').hide();
+    $('.validation-messages h5').hide()
 
-    e.preventDefault();
+    e.preventDefault()
 
     var firstPassword = $('input[name=first-password]').val()
     var secondPassword = $('input[name=second-password]').val()
@@ -17,11 +17,11 @@ if ($('a.reset-password').length) {
 
       if (firstPassword.length < 8 || !(firstPassword.match(/[a-z]/)) || !(firstPassword.match(/[A-Z]/) || /\d/.test(firstPassword))) {
 
-        $('.password-not-valid').show();
+        $('.password-not-valid').show()
 
       } else {
 
-        $('#preloader').show();
+        $('#preloader').show()
 
         var passwordResetObj = {
           id: $('h1').attr('data-secret'),
@@ -41,12 +41,12 @@ if ($('a.reset-password').length) {
           data: JSON.stringify(passwordResetObj),
           success: function() {
 
-            login(loginObj);
+            login(loginObj)
 
           },
           error: function() {
 
-            $('#preloader').hide();
+            $('#preloader').hide()
             toast('Something went wrong')
 
           }
@@ -55,18 +55,17 @@ if ($('a.reset-password').length) {
       }
 
     } else {
-      $('.passwords-dont-match').show();
+      $('.passwords-dont-match').show()
     }
 
-    return false;
+    return false
 
   })
 
   $('a.reset-password').click(function() {
 
-    $('iframe').remove();
-
-    $('form.reset-password').find('input[type=submit]').click();
+    $('iframe').remove()
+    $('form.reset-password').find('input[type=submit]').click()
 
   })
 

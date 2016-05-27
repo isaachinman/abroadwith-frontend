@@ -1,5 +1,5 @@
-const logOut = require('logout');
+const logOut = require('logout')
 
 $('.logout-btn').click(function() {
-  logOut();
+  logOut()
 })
