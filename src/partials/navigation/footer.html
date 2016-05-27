@@ -7,11 +7,7 @@
 
         <select class='material ui-language' data-path={{originalUrl}}>
           {% for domain, language in constants.ui_languages %}
-            {% if domain == 'en' %}
-              <option value='www'>{{language.name}}</option>
-            {% else %}
-              <option value={{domain}}>{{language.name}}</option>
-            {% endif %}
+            <option value={{domain}}>{{language.name}}</option>
           {% endfor %}
         </select>
 

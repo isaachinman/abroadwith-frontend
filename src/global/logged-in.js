@@ -1,5 +1,5 @@
-const jwt_decode = require('jwt-decode');
-const verificationsModuleInit = require('verifications-module-init');
+const jwt_decode = require('jwt-decode')
+const verificationsModuleInit = require('verifications-module-init')
 
 module.exports = function() {
 
@@ -9,7 +9,7 @@ module.exports = function() {
   }
 
   // Get JWT
-  var JWT = localStorage.getItem('JWT') ? jwt_decode(localStorage.getItem('JWT')) : null;
+  var JWT = localStorage.getItem('JWT') ? jwt_decode(localStorage.getItem('JWT')) : null
 
   // Perform certain actions if the user isn't fully verified
   if (JWT.cbk > 0) {
@@ -23,32 +23,35 @@ module.exports = function() {
   $('span#navbar-username').html(JWT.name)
 
   // Remove modals
-  $('#choose-languages-modal').remove();
-  $('#login-modal').remove();
-  $('#sign-up-modal').remove();
+  $('#choose-languages-modal, #login-modal, #sign-up-modal').remove()
 
   // If any modal is open, close it
-  if ($('.modal')) {
-    $('.modal').not('#confirmation-email-sent').closeModal();
+  if ($('.modal').length) {
+    $('.modal').not('#confirmation-email-sent').closeModal()
     $('.lean-overlay').remove()
   }
 
   // Swap UI
-  $('.logged-out').hide();
-  $('.logged-in').fadeIn();
+  $('.logged-out').hide()
+  $('.logged-in').fadeIn()
 
   // Input links to profile page
   $('a.go-to-your-profile').attr('href','/users/'+JWT.rid)
 
   // If user has a home, modify UI
   if (JWT.hid) {
-    $('.become-a-host').hide();
-    $('.your-home').show();
+    $('.become-a-host').hide()
+    $('.your-home').show()
+  }
+
+  // If user was a host at any point in time, show reservations UI
+  if (JWT.whost) {
+    $('.your-reservations').show()
   }
 
   // Get unread message count
-  require('./get-unread-message-count');
+  require('./get-unread-message-count')
 
-  $('#preloader').hide();
+  $('#preloader').hide()
 
 }

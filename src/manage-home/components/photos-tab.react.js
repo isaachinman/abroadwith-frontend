@@ -95,15 +95,13 @@ module.exports = React.createClass({
       var refreshState = this.props.refreshState;
       var photos = this.props.props.photos;
 
-      console.log(photos)
-
       for (var i=0; i<photos.length; i++) {
         var newPhoto = {
           name: photos[i],
           size: 0
         }
         homePhotoDrop.options.addedfile.call(homePhotoDrop, newPhoto)
-        homePhotoDrop.options.thumbnail.call(homePhotoDrop, newPhoto, domains.IMG + photos[i])
+        homePhotoDrop.options.thumbnail.call(homePhotoDrop, newPhoto, domains.IMG + photos[i] + '?w=120&h=120&fit=crop&crop=entropy')
         homePhotoDrop.options.complete.call(homePhotoDrop, newPhoto)
       }
 

@@ -13,6 +13,10 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/bookings/'+this.props.trip.id;
     var success = function() {
+
+      // Send booking rejection booking event
+      ga('send', 'event', 'booking_events', 'booking_rejection_by_student')
+
       this.props.refreshState();
       $('#preloader').hide();
     }.bind(this)
@@ -23,8 +27,8 @@ module.exports = React.createClass({
 
     var trip = this.props.trip;
 
-    var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto : domains.IMG + '/homes/default_room.png';
-    var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto : domains.IMG+'/users/default.jpg';
+    var roomPhoto = trip.roomPhoto !== null ? domains.IMG + trip.roomPhoto + '?w=150' : domains.IMG + '/homes/default_room.png?w=150';
+    var hostPhoto = trip.hostPhoto ? domains.IMG + trip.hostPhoto + '?w=80' : domains.IMG+'/users/default.jpg?w=80';
     var homeLink = '/homestay/' + trip.homeId;
 
     var created = new Date(trip.created)
@@ -48,12 +52,13 @@ module.exports = React.createClass({
     }
 
     var homeAddress = trip.homeAddress !== null ? trip.homeAddress.city + ', ' + i18n.t('countries:'+trip.homeAddress.country) : i18n.t('trips:not_applicable')
+    var tripWith = i18n.t('trips:trip_with', {immersion:i18n.t('immersions:'+trip.immersionType), host: trip.hostName, country: trip.homeAddress !== null ? (i18n.t('countries:'+trip.homeAddress.country)) : i18n.t('common:deleted_home')})
 
     return (
 
       <li>
         <div className="collapsible-header">
-          <span className='pending-reservation'>({i18n.t('trips:status_codes.PENDING')})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:trip_with', {immersion:i18n.t('immersions:'+trip.immersionType), host:trip.hostName, country:i18n.t('countries:'+trip.homeAddress.country)})}
+          <span className='pending-reservation'>({i18n.t('trips:status_codes.PENDING')})</span><img src={roomPhoto} className='room-thumbnail' />{tripWith}
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>

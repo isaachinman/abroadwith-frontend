@@ -1,0 +1,11 @@
+{
+  "API": "https://api.test-abroadwith.com",
+  "API_DOMAIN": "api.test-abroadwith.com",
+  "API_PORT": 443,
+  "API_HTTP": "https",
+  "FRONTEND": "http://localhost:3000",
+  "IMG": "https://img.test-abroadwith.com",
+  "LANGUAGE_DOMAIN": "https://{{lang}}.abroadwith.com",
+  "S3_BUCKET":"img.test-abroadwith.com",
+  "ANALYTICS":"<script>!function(e,t,a,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=t.createElement(a),s=t.getElementsByTagName(a)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,\"script\",\"https:\/\/www.google-analytics.com\/analytics.js\",\"ga\"),ga(\"create\",\"UA-74192229-2\",\"auto\"),ga(\"send\",\"pageview\")</script>"
+}

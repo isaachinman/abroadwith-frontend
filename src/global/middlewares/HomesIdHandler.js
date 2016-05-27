@@ -1,48 +1,80 @@
-var https = require('https');
-var domains = require('../../global/constants/domains');
-var currency = require('../../global/util/CurrencyExchange');
+const https = require('https')
+const domains = require('../../global/constants/domains')
+const currency = require('../../global/util/CurrencyExchange')
+const nunjucks = require('nunjucks')
 
 module.exports = function (req, res, next, value) {
-  if(!req.context) req.context = {};
-  if(isNaN(value) || parseInt(Number(value)) != value || isNaN(parseInt(value, 10))){
-    next('Not a proper home id.');
-    return;
+
+  // If there is no context, create an empty context object
+  if (!req.context) {
+    req.context = {}
   }
-  https.get(domains.API + "/public/homes/"+value,
-    function (response) {
-      var body = '';
-      if(response.statusCode == 404){
-        next('Home not found.');
-        return;
+
+  // Do some validation on homeId
+  if (isNaN(value) || parseInt(Number(value)) != value || isNaN(parseInt(value, 10))) {
+    next('Not a proper home id.')
+    return
+  }
+
+  // Perform a GET request for this home
+  https.get(domains.API + "/public/homes/" + value, function (response) {
+
+    // Set up an empty string to add to
+    var body = '';
+
+    // If response is a 404, report as such
+    if (response.statusCode == 404) {
+      res.status(404).send(nunjucks.render('static/not-found.html',req.context))
+      return
+    }
+
+    // If response isn't a success, stop here
+    if (response.statusCode != 200) {
+      next('Unexpected response.')
+      return
+    }
+
+    response.on('data', function(d) {
+      body += d
+    })
+
+    response.on('end', function() {
+
+      // Parse the response
+      req.context.home = JSON.parse(body)
+
+      // Double check that the home id was indeed the home returned
+      if (parseInt(value) !== req.context.home.id) {
+        return
       }
-      if(response.statusCode != 200){
-        next('Unexpected response.');
-        return;
+
+      // Check that home is indeed active
+      if(req.context.home.isActive == false){
+        next('Home is not active.')
+        return
       }
-      response.on('data', function(d) {
-          body += d;
-      });
-      response.on('end', function() {
-          var parsed = JSON.parse(body);
-          req.context.home = parsed;
-          req.context.home.id = value; //TODO make sure it is in the return object.
-          var joined = new Date(Date.parse(req.context.home.host.joinedDate));
-          req.context.home.host.joinedMonth = joined.getMonth()+1;
-          req.context.home.host.joinedYear = joined.getFullYear();
-          if(req.context.home.isActive == false){
-            next('Home is not active.');
-            return;
-          }
-          for(var i = 0; i < req.context.home.rooms.length; i++){
-            req.context.home.rooms[i].price = currency(req.context.home.rooms[i].price,req.context.home.pricing.currency,req.context.currency);
-          }
-          if(req.context.home.immersions && req.context.home.immersions.teacher && req.context.home.immersions.teacher.hourly){
-            req.context.home.immersions.teacher.hourly = currency(req.context.home.immersions.teacher.hourly,req.context.home.pricing.currency,req.context.currency);
-          }
-          req.context.debug = JSON.stringify(req.context.home);
-          next();
-      });
+
+      // Do some date parsing, and account for zero indexed months
+      var joined = new Date(Date.parse(req.context.home.host.joinedDate))
+      req.context.home.host.joinedMonth = (joined.getMonth() + 1)
+      req.context.home.host.joinedYear = joined.getFullYear()
+
+      // Loop through rooms and calculate prices based on current currency
+      for (var i=0; i<req.context.home.rooms.length; i++) {
+        req.context.home.rooms[i].price = currency(req.context.home.rooms[i].price,req.context.home.pricing.currency,req.context.currency)
+      }
+
+      // If host has a teacher immersion, calcuate that price too
+      if (req.context.home.immersions && req.context.home.immersions.teacher && req.context.home.immersions.teacher.hourly) {
+        req.context.home.immersions.teacher.hourly = currency(req.context.home.immersions.teacher.hourly,req.context.home.pricing.currency,req.context.currency)
+      }
+
+      // Stringify the context
+      req.context.debug = JSON.stringify(req.context.home)
+      next()
+
+    })
   }).on('error', function(e) {
-    next("Can't connect to API. Error: " + e);
-  });
+    next("Can't connect to API. Error: " + e)
+  })
 }

@@ -18,18 +18,19 @@ module.exports = React.createClass({
       whoDeclined = i18n.t('trips:automatically');
     }
 
-    var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : domains.IMG + '/homes/default_room.png';
-    var guestPhoto = reservation.hostPhoto ? domains.IMG + reservation.hostPhoto : '';
+    var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto + '?w=150' : domains.IMG + '/homes/default_room.png?w=150';
+    var guestPhoto = reservation.hostPhoto ? domains.IMG + reservation.hostPhoto + '?w=80' : domains.IMG + '/users/default.jpg?w=80';
 
     var homeLink = '/homestay/' + reservation.homeId;
 
     var homeAddress = reservation.homeAddress !== null ? reservation.homeAddress.street + ', ' + reservation.homeAddress.city + ', ' + i18n.t('countries:'+reservation.homeAddress.country) : i18n.t('trips:not_applicable')
+    var tripWith = i18n.t('trips:reservation_with', {immersion:i18n.t('immersions:'+reservation.immersionType), guest: reservation.guestName !== null ? reservation.guestName : i18n.t('common:deleted_account') })
 
     return (
 
       <li>
         <div className="collapsible-header">
-          <span className='declined-reservation'>({i18n.t('trips:status_codes.DECLINED')} {whoDeclined})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:reservation_with', {immersion:i18n.t('immersions:'+reservation.immersionType), guest: reservation.guestName})}
+          <span className='declined-reservation'>({i18n.t('trips:status_codes.DECLINED')} {whoDeclined})</span><img src={roomPhoto} className='room-thumbnail' />{tripWith}
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>

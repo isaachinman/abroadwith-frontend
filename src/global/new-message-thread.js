@@ -1,18 +1,18 @@
-const domains = require('domains');
-const apiDate = require('api-date');
+const domains = require('domains')
+const apiDate = require('api-date')
 
-const toast = require('toast');
+const toast = require('toast')
 
-const i18n = require('i18n');
+const i18n = require('i18n')
 
-const JWT = require('JWT');
-const POST = require('POST');
+const JWT = require('JWT')
+const POST = require('POST')
 
 module.exports = function() {
 
   i18n.loadNamespaces(['common'],function(){
 
-    $('#preloader').show();
+    $('#preloader').show()
 
     var threadObj = {
       homeId: $('h1').attr('data-home-id'),
@@ -21,13 +21,13 @@ module.exports = function() {
       message: $('#message-content').val()
     }
 
-    var url = domains.API + '/users/' + JWT.rid + '/messages';
+    var url = domains.API + '/users/' + JWT.rid + '/messages'
     var success = function(response) {
-      $('#preloader').hide();
-      $('#send-message-modal').closeModal();
-      toast(i18n.t('common:message_sent_toast'));
+      $('#preloader').hide()
+      $('#send-message-modal').closeModal()
+      toast(i18n.t('common:message_sent_toast'))
     }
-    POST(url, threadObj, success);
+    POST(url, threadObj, success)
 
   })
 

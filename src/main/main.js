@@ -20,10 +20,18 @@ const i18n = require('i18n');
 $(document).ready(function() {
 
   if ($('#email-verified-successfully').length) {
-    refreshToken(function() {
-      var JWT = jwt_decode(localStorage.getItem('JWT'))
-      $('.profile-link').attr('href', ('/users/'+JWT.rid))
-    });
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null
+
+    if (JWT !== null) {
+      refreshToken(function() {
+        $('.profile-link').attr('href', ('/users/'+JWT.rid))
+      })
+    } else {
+      i18n.loadNamespaces(['search'], function() {
+        $('#email-verified-successfully').html('<a onclick="$(' + "'" + '#login-modal' + "'" + ').openModal()">' + i18n.t('common:navbar_login') + '</a>')
+      })
+    }
+
   }
 
   if ($('form.create-new-message-thread').length) {

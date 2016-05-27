@@ -18,11 +18,9 @@ module.exports = React.createClass({
     var url = domains.API + '/users/' + JWT.rid + '/messages';
     var success = function(response) {
 
-      console.log(response)
-
       var yourName = JWT.name;
       var yourId = JWT.rid;
-      var yourPhoto = JWT.img ? domains.IMG + JWT.img : domains.IMG + '/users/default.jpg';
+      var yourPhoto = JWT.img ? domains.IMG + JWT.img + '?w=60' : domains.IMG + '/users/default.jpg?w=60';
 
       var messageHTML = [];
       var threadHTML = [];
@@ -35,7 +33,7 @@ module.exports = React.createClass({
             <li className='message-trigger' data-target={thread.id}><a>{i18n.t('inbox:conversation_with')} {thread.with.firstName}</a></li>
           );
 
-          var theirPhoto = thread.with.photo !== null ? domains.IMG + thread.with.photo : domains.IMG + '/users/default.jpg';
+          var theirPhoto = thread.with.photo !== null ? domains.IMG + thread.with.photo + '?w=60' : domains.IMG + '/users/default.jpg?w=60';
 
           threadHTML.push(
             <Thread

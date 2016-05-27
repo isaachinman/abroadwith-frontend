@@ -42,24 +42,14 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
 
+    window.firstTime = true
+
     $('.step').click(function() {
       $('.step.active').removeClass('active');
       $(this).addClass('active');
       var target = $(this).attr('id');
       $('.tab').hide();
       $('#'+target+'-tab').show();
-    })
-
-    $('.prev-btn').click(function() {
-      $('.ui.steps').animate({
-        scrollLeft: $('.ui.steps').scrollLeft() - 250
-      })
-    })
-
-    $('.next-btn').click(function() {
-      $('.ui.steps').animate({
-        scrollLeft: $('.ui.steps').scrollLeft() + 250
-      })
     })
 
     // Home photos
@@ -128,21 +118,27 @@ module.exports = React.createClass({
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
 
-      console.log(response)
-
       if (response.homeActivationResponse.code === 'ACTIVATED') {
 
         // Reset step classes
-        $('.ui.steps .step').attr('class', 'step');
+        $('.ui.steps .step').attr('class', 'step')
 
         // Home is active
-        $('#success').addClass('active');
-        $('#success').addClass('completed');
-        $('#success').prevAll().addClass('completed');
+        $('#success').addClass('completed')
+        $('#success').prevAll().addClass('completed')
 
-        // Show success tab
-        $('.tab').hide();
-        $('#success-tab').show();
+        if (firstTime === true) {
+
+          // Show success tab
+          $('#success').addClass('active')
+          $('.tab').hide()
+          $('#success-tab').show()
+
+          firstTime = false
+
+        } else {
+          $('#'+($('.tab:visible').attr('id')).replace('-tab', '')).addClass('active')
+        }
 
         // Save buttons should say next
         $('.save-btn').html(i18n.t('manage_home:save_button'));
@@ -158,12 +154,14 @@ module.exports = React.createClass({
         $('.step').addClass('link');
 
         // Set up the success page
-        $('#home-published-image').attr('src',domains.IMG+response.photos[0]);
+        $('#home-published-image').attr('src',domains.IMG+response.photos[0]+'?w=800');
         $('#home-published-view').attr('href','/homestay/'+JWT.hid);
 
-      } else {
+      } else if (response.homeActivationResponse.code !== 'ACTIVATED') {
 
         // Home is not active
+        $('.step').find('.icon').hide()
+        $('.ui.steps').addClass('ordered')
 
         // Determine which step is active
         for (var step in homeStatusCodes) {
@@ -215,7 +213,6 @@ module.exports = React.createClass({
         tandemAvailableLanguages:        response.tandemAvailableLanguages ? response.tandemAvailableLanguages : null,
         tandemAvailableLearnLanguages:   response.tandemAvailableLearnLanguages ? response.tandemAvailableLearnLanguages : null,
         teacherAvailableLanguages:       response.teacherAvailableLanguages ? response.teacherAvailableLanguages : null
-
       }
 
       this.setState(newState);
@@ -225,9 +222,14 @@ module.exports = React.createClass({
       // Refresh selects
       $('select.material').material_select();
 
+
+
     }.bind(this);
     GET(url, success)
 
+  },
+  componentDidUpdate: function() {
+    $('.button-group-wrapper--manage-home').show()
   },
   render: function() {
     return (

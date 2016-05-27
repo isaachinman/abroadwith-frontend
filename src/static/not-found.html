@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ translations.common.signup_title }}{% endblock %}
+
+{% block meta_description %}{{ translations.common.signup_meta_description }}{% endblock %}
+
+{% block content %}
+
+<h1>{{translations.not_found.title}}</h1>
+
+<i class="fa fa-chain-broken huge-icon margin-top-50 margin-bottom-50" aria-hidden="true"></i>
+
+<div class='row'>
+  <div class='col s12 m6 offset-m3 l6 offset-l3'>
+    <p class='large'>
+      {{translations.not_found.paragraph | replace('[contact_link_open]', "<a href='mailto:contact@abroadwith.com'>") | replace('[contact_link_close]', "</a>") | safe}}
+    </p>
+  </div>
+</div>
+
+{% endblock %}

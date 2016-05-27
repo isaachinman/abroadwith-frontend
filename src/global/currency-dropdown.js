@@ -1,28 +1,31 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const Cookies = require('js-cookie');
+const React = require('react')
+const ReactDOM = require('react-dom')
+const Cookies = require('js-cookie')
 
 var UiCurrency = React.createClass({
   componentDidMount: function() {
 
     if (Cookies.get('ui-currency') == undefined) {
-      Cookies.set('ui-currency', 'EUR');
+      Cookies.set('ui-currency', 'EUR')
     } else {
-      $('select#ui-currency').val(Cookies.get('ui-currency'));
-      $('select#ui-currency').material_select();
+      $('select#ui-currency').val(Cookies.get('ui-currency')).material_select()
     }
 
     if (Cookies.get('ui-language') !== 'undefined') {
-      $('select.ui-language option[value='+Cookies.get('ui-language')+']').attr('selected', 'selected');
+      $('select.ui-language option[value='+Cookies.get('ui-language')+']').attr('selected', 'selected')
     }
 
     $('select#ui-currency').change(function() {
-      Cookies.set('ui-currency', $(this).val());
+      Cookies.set('ui-currency', $(this).val())
     })
 
     $('select.ui-language').change(function() {
-      var url = 'https://' + $(this).val() + '.abroadwith.com' + $(this).attr('data-path')
-      window.location = url
+
+      var newLanguage = $(this).val()
+      if (newLanguage != Cookies.get('ui-language')) {
+        Cookies.set('ui-language', $(this).val())
+        location.reload()
+      }
     })
 
   },

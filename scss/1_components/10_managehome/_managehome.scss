@@ -1,9 +1,25 @@
 .manage-home-block {
   margin: 30px 0 1rem 0;
   min-height: calc(100vh - 290px);
+  textarea {
+    min-height: 100px;
+  }
 }
 #home-immersions-form {
+  .action-row {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+  }
   .card {
+    .card-image {
+      max-height: 200px;
+      overflow: hidden;
+      img {
+        top: 50%;
+        transform: translateY(-10%);
+      }
+    }
     overflow: visible;
     i.disable {
       cursor: pointer;
@@ -24,6 +40,7 @@
   .card-content {
     overflow: visible;
     min-height: 250px;
+    padding-bottom: 70px;
   }
   .card-reveal {
     overflow: visible;
@@ -189,25 +206,37 @@ i.next-btn {
   min-height: 36px;
 }
 .button-group-wrapper--manage-home {
+  display: none;
+  .ui.steps {
+    min-width: 100%;
+  }
   position: relative;
-  height: 100px;
-  padding-left: 30px;
-  padding-right: 30px;
-  .prev-btn, .next-btn {
-    position: absolute;
-    top: 25px;
+  height: 120px;
+  .icon {
     font-size: 2rem;
-    cursor: pointer;
-    color: darken($ziggurat, 5%);
-    &:hover {
-      color: darken($ziggurat, 15%);
+    line-height: 47px;
+    width: 55px;
+    height: 55px;
+    margin: 0 auto;
+    border-radius: 50%;
+    .i {
+      margin: auto;
     }
   }
-  .prev-btn {
-    left: 8px;
+  .step {
+    width: 12.5%;
   }
-  .next-btn {
-    right: 8px;
+  @media #{$medium-and-down} {
+    height: 70px;
+    .icon {
+      width: 40px;
+      height: 40px;
+      font-size: 1.5rem;
+      line-height: 34px;
+    }
+  }
+  @media #{$small-and-down} {
+    height: 120px;
   }
 }
 #home-add-room-form {
@@ -216,5 +245,24 @@ i.next-btn {
   }
   .dz-started .dz-message {
     display: none;
+  }
+}
+.get-help-container {
+  z-index: 99;
+  display: none;
+  background: lighten($sunset-orange, 12%);
+  &:hover {
+    background: lighten($sunset-orange, 8);
+  }
+  position: absolute;
+  left: 20px;
+  bottom: 0 !important;
+  border-radius: 3px 3px 0 0;
+  font-size: 1.15rem;
+  a {
+    padding: 10px 20px;
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 }

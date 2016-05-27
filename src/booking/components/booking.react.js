@@ -1,38 +1,38 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+const React = require('react')
+const ReactDOM = require('react-dom')
 
-const JWT = require('JWT');
-const GET = require('GET');
-const POST = require('POST');
-const DELETE = require('DELETE');
+const JWT = require('JWT')
+const GET = require('GET')
+const POST = require('POST')
+const DELETE = require('DELETE')
 
-const i18n = require('../../global/util/i18n');
+const i18n = require('i18n')
 
-const AddPaymentMethod = require('../../global/components/add-payment-method.react');
-const Paypal = require('../../global/components/payment-method--paypal.react');
-const CreditCard = require('../../global/components/payment-method--credit-card.react');
+const AddPaymentMethod = require('../../global/components/add-payment-method.react')
+const Paypal = require('../../global/components/payment-method--paypal.react')
+const CreditCard = require('../../global/components/payment-method--credit-card.react')
 
-const domains = require('domains');
-const currencies = require('currencies');
+const domains = require('domains')
+const currencies = require('currencies')
 
-require('../scrollspy');
-$('.scrollspy').scrollSpy();
+require('../scrollspy')
+$('.scrollspy').scrollSpy()
 
 module.exports = React.createClass({
   createBookingObject: function() {
 
     // Find teaching languages
-    var languageHostWillTeach = $('#'+$('#booking-immersions').val()+'-learning').val();
-    var languageGuestWillTeach = $('#booking-immersions').val() === 'tandem' ?  $('#tandem-teaching').val() : null;
+    var languageHostWillTeach = $('#'+$('#booking-immersions').val()+'-learning').val()
+    var languageGuestWillTeach = $('#booking-immersions').val() === 'tandem' ?  $('#tandem-teaching').val() : null
 
     // Generate services array
-    var serviceNames = [];
+    var serviceNames = []
     $('input.booking-service').each(function() {
       if ($(this).is(':checked')) {
-        serviceNames.push($(this).attr('data-value'));
+        serviceNames.push($(this).attr('data-value'))
       }
     })
-    $('#meal_plan').val() === 'HALF_BOARD' || $('#meal_plan').val() === 'FULL_BOARD' ? serviceNames.push($('#meal_plan').val()) : null;
+    $('#meal_plan').val() === 'HALF_BOARD' || $('#meal_plan').val() === 'FULL_BOARD' ? serviceNames.push($('#meal_plan').val()) : null
 
     if ($('select#EXTRA_GUEST').val() !== null) {
       var guests = parseInt($('select#EXTRA_GUEST').val())+1;
@@ -114,7 +114,7 @@ module.exports = React.createClass({
 
           // Send user to booking success page
           window.location = '/booking-success'
-          
+
         }
 
         POST(url, threadObj, success);
@@ -153,7 +153,6 @@ module.exports = React.createClass({
       $('.immersion-display').html(i18n.t('immersions:'+$('#booking-immersions').val()));
       $('.language-display').html(i18n.t('languages:'+this.state.languageHostWillTeach));
       $('#message-explanation').html(i18n.t('booking:message_explanation', {language:(i18n.t('languages:'+this.state.languageHostWillTeach))}))
-      console.log(i18n.t('booking:message_explanation', {language:this.state.languageHostWillTeach}))
 
       if ($('input.booking-service:checked').length > 0) {
         var extrasDisplay = '';

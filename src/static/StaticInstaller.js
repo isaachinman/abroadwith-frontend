@@ -29,11 +29,15 @@ var installer = function(app) {
     'host-international-students',
     'contact-us',
     'email-verified-success',
-    'email-verified-failure'
+    'email-verified-failure',
+    'maintenance',
+    'not-found'
   ]
 
   for (var i=0; i<staticPages.length; i++) {
     app.use(('/'+staticPages[i]), genericRouter(('static/'+staticPages[i]+'.html')))
+    app.use(('/es/'+staticPages[i]), genericRouter(('static/'+staticPages[i]+'.html')))
+    app.use(('/de/'+staticPages[i]), genericRouter(('static/'+staticPages[i]+'.html')))
   }
 
 

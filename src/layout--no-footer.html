@@ -7,21 +7,21 @@
   <meta name="description" content="{% block meta_description %} {% endblock %}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="icon" type="image/png" sizes="32x32" href="https://img.abroadwith.com/app/favicon/favicon.png">
-  <link xmlns="http://www.w3.org/1999/xhtml" rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" href="https://img.abroadwith.com/app/favicon/favicon.svg" />
-  <link rel="apple-touch-icon" sizes="57x57" href="https://img.abroadwith.com/app/favicon/favicon.svg">
-  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://img.abroadwith.com/app/favicon/favicon.svg">
-  <link rel="apple-touch-icon" sizes="72x72" href="https://img.abroadwith.com/app/favicon/favicon.svg">
-  <link rel="apple-touch-icon" sizes="114x114" href="https://img.abroadwith.com/app/favicon/favicon.svg">
-  <link rel="apple-touch-icon" sizes="120x120" href="https://img.abroadwith.com/app/favicon/favicon.svg">
-  <link rel="apple-touch-icon" sizes="144x144" href="https://img.abroadwith.com/app/favicon/favicon.svg">
-  <link rel="apple-touch-icon" sizes="152x152" href="https://img.abroadwith.com/app/favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://abroadwith.imgix.net/app/favicon/favicon.png">
+  <link xmlns="http://www.w3.org/1999/xhtml" rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" href="https://abroadwith.imgix.net/app/favicon/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="57x57" href="https://abroadwith.imgix.net/app/favicon/favicon.svg">
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://abroadwith.imgix.net/app/favicon/favicon.svg">
+  <link rel="apple-touch-icon" sizes="72x72" href="https://abroadwith.imgix.net/app/favicon/favicon.svg">
+  <link rel="apple-touch-icon" sizes="114x114" href="https://abroadwith.imgix.net/app/favicon/favicon.svg">
+  <link rel="apple-touch-icon" sizes="120x120" href="https://abroadwith.imgix.net/app/favicon/favicon.svg">
+  <link rel="apple-touch-icon" sizes="144x144" href="https://abroadwith.imgix.net/app/favicon/favicon.svg">
+  <link rel="apple-touch-icon" sizes="152x152" href="https://abroadwith.imgix.net/app/favicon/favicon.svg">
   <meta name="application-name" content="Abroadwith">
-  <meta name="msapplication-TileImage" content="https://img.abroadwith.com/app/favicon/favicon.svg">
+  <meta name="msapplication-TileImage" content="https://abroadwith.imgix.net/app/favicon/favicon.svg">
   <meta name="msapplication-TileColor" content="#ffffff">
 
-  <link rel='alternate' href='https://es.abroadwith.com{{baseUrl}}' hreflang="es">
-  <link rel='alternate' href='https://de.abroadwith.com{{baseUrl}}' hreflang="de">
+  <link rel='alternate' href='https://www.abroadwith.com/es{{baseUrl}}' hreflang="es">
+  <link rel='alternate' href='https://www.abroadwith.com/de{{baseUrl}}' hreflang="de">
   <link rel='alternate' href='https://www.abroadwith.com{{baseUrl}}' hreflang="en">
   <link rel='alternate' href='https://www.abroadwith.com{{baseUrl}}' hreflang="x-default">
 
@@ -44,15 +44,7 @@
 
   <script async defer src="/app.js"></script>
 
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-74192229-1', 'auto');
-    ga('send', 'pageview');
-  </script>
+  {{constants.domains.ANALYTICS | safe}}
 
 </body>
 </html>

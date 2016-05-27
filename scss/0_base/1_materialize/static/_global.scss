@@ -90,27 +90,6 @@ ul {
   background-color: color("grey", "lighten-2");
 }
 
-
-//  Blockquote
-
-blockquote {
-  margin: 20px 0;
-  padding-left: 1.5rem;
-  border-left: 5px solid $primary-color;
-}
-
-// Icon Styles
-
-
-
-// Images
-img.responsive-img,
-video.responsive-video {
-  max-width: 100%;
-  height: auto;
-}
-
-
 // Pagination
 
 .pagination {
@@ -121,7 +100,7 @@ video.responsive-video {
     -khtml-user-select: none;    /* Konqueror */
     -moz-user-select: none;      /* Firefox */
     -ms-user-select: none;       /* Internet Explorer/Edge */
-    user-select: none;  
+    user-select: none;
     cursor: pointer;
     display: inline-block;
     font-size: 1.2rem;
@@ -163,32 +142,21 @@ video.responsive-video {
     }
 
     i {
+      min-width: 30px;
       height: 30px;
       font-size: 1.85rem;
       vertical-align: middle;
     }
+
   }
 
+  i {
+    min-width: 30px;
+  }
 
   li.pages ul li {
     display: inline-block;
     float: none;
-  }
-}
-@media #{$medium-and-down} {
-  .pagination {
-    width: 100%;
-
-    li.prev,
-    li.next {
-      width: 10%;
-    }
-
-    li.pages {
-      width: 80%;
-      overflow: hidden;
-      white-space: nowrap;
-    }
   }
 }
 
@@ -264,7 +232,6 @@ video.responsive-video {
 
 // Footer
 footer.page-footer {
-  margin-top: 20px;
   padding-top: 20px;
   background-color: $footer-bg-color;
 
@@ -506,83 +473,6 @@ td, th{
   margin: 0;
   border: none;
 }
-
-// Progress Bar
-.progress {
-    position: relative;
-    height: 4px;
-    display: block;
-    width: 100%;
-    background-color: lighten($progress-bar-color, 40%);
-    border-radius: 2px;
-    margin: $element-top-margin 0 $element-bottom-margin 0;
-    overflow: hidden;
-  .determinate {
-    position: absolute;
-    background-color: inherit;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    @include transition(width .3s linear);
-  }
-  .indeterminate {
-    background-color: $progress-bar-color;
-    &:before {
-      content: '';
-      position: absolute;
-      background-color: inherit;
-      top: 0;
-      left:0;
-      bottom: 0;
-      will-change: left, right;
-      // Custom bezier
-      @include animation(indeterminate 2.1s cubic-bezier(0.650, 0.815, 0.735, 0.395) infinite);
-
-    }
-    &:after {
-      content: '';
-      position: absolute;
-      background-color: inherit;
-      top: 0;
-      left:0;
-      bottom: 0;
-      will-change: left, right;
-      // Custom bezier
-      @include animation(indeterminate-short 2.1s cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite);
-      @include animation-delay(1.15s);
-    }
-  }
-}
-@include keyframes(indeterminate) {
-    0% {
-            left: -35%;
-            right:100%;
-        }
-    60% {
-        left: 100%;
-        right: -90%;
-    }
-    100% {
-        left: 100%;
-        right: -90%;
-    }
-}
-
-@include keyframes(indeterminate-short) {
-    0% {
-        left: -200%;
-        right: 100%;
-    }
-    60% {
-        left: 107%;
-        right: -8%;
-    }
-    100% {
-      left: 107%;
-      right: -8%;
-    }
-}
-
 
 /*******************
   Utility Classes

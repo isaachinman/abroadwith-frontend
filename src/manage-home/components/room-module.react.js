@@ -60,16 +60,35 @@ module.exports = React.createClass({
     $('li[data-id="'+this.props.id+'"]').find('select.material').material_select();
 
     var id = this.props.id
+    var rooms = this.props.rooms
+    var saveRooms = this.props.saveRooms
+    var refreshState = this.props.refreshState
 
     var dropzone = new Dropzone('#upload-photo-room-'+id, {
       url: '/upload/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+$('#upload-photo-room-'+id).attr('data-room-id')+'/photo',
       autoProcessQueue: true,
+      addRemoveLinks: true,
       maxFiles: 1,
       method: 'post',
-      dictDefaultMessage: i18n.t('common:drop_files_here'),
+      dictDefaultMessage: i18n.t('manage_home:drop_room_photo'),
+      dictRemoveFile: i18n.t('manage_home:delete'),
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       maxFilesize: 10,
-      acceptedFiles: 'image/jpeg,image/png'
+      acceptedFiles: 'image/jpeg,image/png',
+      init: function() {
+        this.on('removedfile', function(file) {
+
+          $.each(rooms, function(index, obj) {
+            if (obj.id == id) {
+              obj.img = null
+            }
+          })
+          saveRooms()
+        })
+        this.on('success', function(x, serverResponse) {
+          refreshState()
+        })
+      }
     })
 
     if (this.props.img) {
@@ -78,7 +97,7 @@ module.exports = React.createClass({
         size: 0
       }
       dropzone.options.addedfile.call(dropzone, newPhoto)
-      dropzone.options.thumbnail.call(dropzone, newPhoto, domains.IMG + this.props.img)
+      dropzone.options.thumbnail.call(dropzone, newPhoto, domains.IMG + this.props.img + '?w=120&h=120&fit=crop&crop=entropy')
       dropzone.options.complete.call(dropzone, newPhoto)
     }
 

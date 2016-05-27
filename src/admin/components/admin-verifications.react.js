@@ -70,11 +70,8 @@ module.exports = React.createClass({
         $('#verification-phone .collapsible-body').remove();
 
         refreshToken(function() {
-          console.log('refreshToken')
-          var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
-          console.log(JWT)
+          var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null
           if (JWT.cbk > 0) {
-            console.log('init verifications')
             verificationsModuleInit()
           }
         });

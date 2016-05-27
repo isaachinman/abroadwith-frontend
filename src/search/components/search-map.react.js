@@ -150,8 +150,6 @@ module.exports = React.createClass({
 
         // Send request and trigger place change with response
         service.textSearch(request, function(places) {
-          console.log(places[0].geometry.location.lat())
-          console.log(places[0].geometry.location.lng())
           bigMap.setCenter(places[0].geometry.location)
           searchBox.set('places', places || [])
         });

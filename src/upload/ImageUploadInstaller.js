@@ -21,11 +21,6 @@ var newHeroPhoto = function(file, key, callback){
   uploadImage(file,key,{width:1400},callback);
 }
 
-routerGet.get('/', function (req, res) {
-  if(!req.context) res.status(404).send('No text context.');
-  res.send(nunjucks.render('upload/upload.html',req.context));
-});
-
 var postSingle = function(req,path,photo,callback){
   var post_data = JSON.stringify({pathName:photo});
 
@@ -359,6 +354,7 @@ var installer = function(app) {
 
   app.use('/upload/users/:idUserId/certificate',upload.array('file', 10));
   app.use('/upload/users/:idUserId/certificate',routerCertificate);
+
 };
 
 module.exports = installer;
