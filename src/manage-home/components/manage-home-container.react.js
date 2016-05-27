@@ -22,16 +22,12 @@ const POST = require('POST');
 const i18n = require('i18n');
 
 module.exports = React.createClass({
-  getInitialState: function() {
-    return { firstTime: true }
-  },
   updateHome: function(newHomeObj, callback){
 
     $('#preloader').show();
 
     delete newHomeObj.published;
     delete newHomeObj.GENERAL;
-    delete newHomeObj.firstTime;
 
     var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid;
     var success = function(response) {
@@ -45,6 +41,8 @@ module.exports = React.createClass({
 
   },
   componentDidMount: function() {
+
+    window.firstTime = true
 
     $('.step').click(function() {
       $('.step.active').removeClass('active');
@@ -131,12 +129,14 @@ module.exports = React.createClass({
         $('#success').addClass('completed')
         $('#success').prevAll().addClass('completed')
 
-        if (this.state.firstTime === true) {
+        if (firstTime === true) {
 
           // Show success tab
           $('#success').addClass('active')
           $('.tab').hide()
           $('#success-tab').show()
+
+          firstTime = false
 
         } else {
           $('#'+($('.tab:visible').attr('id')).replace('-tab', '')).addClass('active')
@@ -214,8 +214,7 @@ module.exports = React.createClass({
         stayAvailableLanguages:          response.stayAvailableLanguages ? response.stayAvailableLanguages : null,
         tandemAvailableLanguages:        response.tandemAvailableLanguages ? response.tandemAvailableLanguages : null,
         tandemAvailableLearnLanguages:   response.tandemAvailableLearnLanguages ? response.tandemAvailableLearnLanguages : null,
-        teacherAvailableLanguages:       response.teacherAvailableLanguages ? response.teacherAvailableLanguages : null,
-        firstTime:                       false
+        teacherAvailableLanguages:       response.teacherAvailableLanguages ? response.teacherAvailableLanguages : null
       }
 
       this.setState(newState);
