@@ -41,7 +41,7 @@ module.exports = function() {
   $('a.go-to-your-profile').attr('href','/users/'+JWT.rid)
 
   // If user has a home, modify UI
-  if (JWT.hid) {
+  if (JWT.whost) {
     $('.become-a-host').hide();
     $('.your-home').show();
   }
