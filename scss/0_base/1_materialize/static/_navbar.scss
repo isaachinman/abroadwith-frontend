@@ -142,13 +142,13 @@ nav {
   }
 
   li.get-verified {
-    background: darken($sulu, 26%);
+    background: darken($sulu, 23%);
     a {
       color: white;
       letter-spacing: .25px;
     }
     &:hover {
-      background: darken($sulu, 30%);
+      background: darken($sulu, 28%);
     }
   }
 

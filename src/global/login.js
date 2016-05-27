@@ -4,15 +4,15 @@ const POST = require('POST')
 
 const jwt_decode = require('jwt-decode')
 
-const loginRedirect = require('login-redirect');
+const loginRedirect = require('login-redirect')
 const verificationsModuleInit = require('verifications-module-init')
-const validateBookNowButtons = require('validate-book-now-buttons');
-const validateMessageButtons = require('validate-message-buttons');
+const validateBookNowButtons = require('validate-book-now-buttons')
+const validateMessageButtons = require('validate-message-buttons')
 
 module.exports = function(loginObj, firstTime) {
 
   // If a JWT is in localStorage, delete it
-  localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null;
+  localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null
 
   $('#preloader').show()
 
@@ -25,7 +25,7 @@ module.exports = function(loginObj, firstTime) {
     success: function(response) {
 
       // Set JWT
-      localStorage.setItem('JWT', response.token);
+      localStorage.setItem('JWT', response.token)
 
       // Do UI stuff
       verificationsModuleInit()
@@ -48,10 +48,10 @@ module.exports = function(loginObj, firstTime) {
           var url = domains.API + '/users/' + JWT.rid
           var success = function(user) {
 
-            delete user.paymentMethods;
-            delete user.payoutMethods;
-            delete user.verifications;
-            delete user.email;
+            delete user.paymentMethods
+            delete user.payoutMethods
+            delete user.verifications
+            delete user.email
 
             user.address = {}
             user.address.country = response.alpha2
@@ -74,10 +74,9 @@ module.exports = function(loginObj, firstTime) {
     },
     error: function() {
 
-      $('#preloader').hide();
-      $('#login-modal .modal-failure').show();
+      $('#preloader').hide()
+      $('#login-modal .modal-failure').show()
 
     }
   })
-
 }

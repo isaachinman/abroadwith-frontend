@@ -13,7 +13,7 @@
           <select id="language" class="validate border-radius-left">
             <option></option>
             {% for langCode, language in constants.user_languages %}
-              <option data-lang={{ langCode }}>{{ translations.languages[langCode] }} ({{ language.native_name }})</option>
+              <option data-lang={{ langCode }}>{{ translations.languages[langCode] }} ({{ language.n }})</option>
             {% endfor %}
           </select>
         </div>

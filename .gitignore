@@ -10,3 +10,4 @@ app.settings.json
 logs
 testing/screenshots
 domains.json
+ServerSettings.js

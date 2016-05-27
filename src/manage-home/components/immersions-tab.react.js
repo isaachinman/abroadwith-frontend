@@ -17,8 +17,7 @@ const i18n = require('i18n')
 const LanguageDropdown = require('./language-dropdown.react')
 const toast = require('toast')
 
-const currencies = require('currencies');
-
+const currencies = require('currencies')
 
 module.exports = React.createClass({
   saveImmersions: function() {
@@ -46,37 +45,30 @@ module.exports = React.createClass({
       isActive: $('.card-reveal.teacher').is(':visible'),
       packages: $('#packages').val() !== null ? $('#packages').val() : null,
       hourly: $('#teacher-rate').val() !== null ? parseInt(($('#teacher-rate').val()).replace(/[^0-9\.]+/g,"")) : null,
-      languagesOffered: $('#teacher-languages-offered').val() !== null ? $('#teacher-languages-offered').val() : []
-    };
+      languagesOffered: $('#teacher-languages-offered').val() !== null ? $('#teacher-languages-offered').val() : [],
+      certifications: this.props.props.immersions.teacher !== null ? this.props.props.immersions.teacher.certifications : {}
+    }
 
-    // Validate stay object
-    $.each(newHomeObj.immersions.stay, function(key, value) {
-      if (value === null) {
-        newHomeObj.immersions.stay.isActive = false;
-      }
-    })
+    function validateImmersion(immersionType) {
+      $.each(newHomeObj.immersions[immersionType], function(key, value) {
+        if (value === null) {
+          newHomeObj.immersions[immersionType].isActive = false
+        }
+      })
+    }
 
-    // Validate tandem object
-    $.each(newHomeObj.immersions.tandem, function(key, value) {
-      if (value === null) {
-        newHomeObj.immersions.tandem.isActive = false;
-      }
-    })
-
-    // Validate teacher object
-    $.each(newHomeObj.immersions.teacher, function(key, value) {
-      if (value === null) {
-        newHomeObj.immersions.teacher.isActive = false;
-      }
-    })
+    // Validate immersions
+    validateImmersion('stay')
+    validateImmersion('tandem')
+    validateImmersion('teacher')
 
     // Apply discount to each tandem language
     if (newHomeObj.immersions.tandem !== null && $('#tandem-language-sought').val() !== null) {
 
-      newHomeObj.immersions.tandem.languagesInterested = [];
+      newHomeObj.immersions.tandem.languagesInterested = []
 
-      var tandemLanguages = $('#tandem-language-sought').val();
-      var discount = parseInt(tandemDiscount.noUiSlider.get());
+      var tandemLanguages = $('#tandem-language-sought').val()
+      var discount = parseInt(tandemDiscount.noUiSlider.get())
 
       for (var i=0; i<tandemLanguages.length; i++) {
         newHomeObj.immersions.tandem.languagesInterested.push(
@@ -96,8 +88,8 @@ module.exports = React.createClass({
     } else {
 
       this.props.updateHome(newHomeObj, function() {
-        toast(i18n.t('manage_home:immersions_updated_toast'));
-      });
+        toast(i18n.t('manage_home:immersions_updated_toast'))
+      })
 
     }
 
@@ -161,6 +153,7 @@ module.exports = React.createClass({
       maxFilesize: 10,
       dictDefaultMessage: i18n.t('common:drop_files_here'),
       dictRemoveFile: i18n.t('manage_home:delete'),
+      dictCancelUpload: i18n.t('common:cancel_upload'),
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
         this.on("maxfilesexceeded", function(file) {
@@ -170,17 +163,14 @@ module.exports = React.createClass({
         this.on('success', function(x, response) {
 
           var serverResponse = JSON.parse(response)
-          console.log(serverResponse)
 
           if (serverResponse.status == 'OK') {
 
             newCertificate.img = serverResponse.location
 
             if (homeObj.immersions.teacher !== null) {
-              console.log('condition one')
               homeObj.immersions.teacher.certifications.push(newCertificate)
             } else {
-              console.log('condition two')
               homeObj.immersions.teacher = {
                 isActive: false,
                 languagesOffered: [],
@@ -197,10 +187,6 @@ module.exports = React.createClass({
 
           }
 
-        })
-        this.on('error', function() {
-          console.log(newCertificate)
-          console.log(homeObj)
         })
       }
     })

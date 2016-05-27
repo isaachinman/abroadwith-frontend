@@ -1,6 +1,6 @@
-const domains = require('domains');
+const domains = require('domains')
 
-const loggedIn = require('logged-in');
+const loggedIn = require('logged-in')
 const jwt_decode = require('jwt-decode')
 
 module.exports = function(callback) {
@@ -18,13 +18,13 @@ module.exports = function(callback) {
     success: function(response) {
 
       // Delete old token
-      localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null;
+      localStorage.getItem('JWT') !== null ? localStorage.removeItem('JWT') : null
 
       // Set new token
       localStorage.setItem('JWT', response.token);
 
       // Execute callback
-      callback();
+      callback()
 
     },
     error: function() {

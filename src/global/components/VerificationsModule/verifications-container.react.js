@@ -22,7 +22,6 @@ module.exports = React.createClass({
   componentDidMount: function() {
     var refreshState = this.refreshState;
     $('a.your-home').click(function() {
-      console.log('refreshing')
       refreshState()
     })
   },
@@ -72,12 +71,10 @@ module.exports = React.createClass({
       var userVerificationObj = this.state.userVerificationObj
 
       var url = domains.API + '/users/' + JWT.rid;
-      userVerificationObj.phoneNumber = $('#phone-number-verifications-modal').intlTelInput('getNumber');
-      console.log(userVerificationObj)
+      userVerificationObj.phoneNumber = $('#phone-number-verifications-modal').intlTelInput('getNumber')
 
       var success = function(response) {
-        console.log(response);
-        $('#preloader').hide();
+        $('#preloader').hide()
         this.refreshState(function() {
           return
         })
@@ -92,9 +89,9 @@ module.exports = React.createClass({
   },
   render: function() {
 
-    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
+    var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null
 
-    var verificationNeeded = [];
+    var verificationNeeded = []
 
     if (JWT.cbk === 1) {
       verificationNeeded.push(

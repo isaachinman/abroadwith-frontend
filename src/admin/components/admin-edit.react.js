@@ -33,8 +33,6 @@ module.exports = React.createClass({
       delete adminObj.verifications;
       delete adminObj.email;
 
-      console.log(adminObj)
-
       var url = domains.API + '/users/' + JWT.rid;
       var success = function() {
         $('#preloader').hide();
@@ -50,8 +48,6 @@ module.exports = React.createClass({
 
     var url = domains.API + '/users/' + JWT.rid;
     var success = function(response) {
-
-      console.log(response);
 
       window.adminObj = response;
 
@@ -134,7 +130,6 @@ module.exports = React.createClass({
         logout()
       }
       var error = function(response) {
-        console.log(response)
         if (response.status === 409) {
           $('#delete-account-modal').closeModal()
           $('#user-deletion-failure').openModal()

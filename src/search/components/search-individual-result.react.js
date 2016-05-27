@@ -35,7 +35,7 @@ module.exports = React.createClass({
     if (this.props.homePhotos) {
       var homePhotos = [];
       this.props.homePhotos.forEach(function(src) {
-        var src = domains.IMG + src;
+        var src = domains.IMG + src + '?h=300';
         var photo = <div className="Wallop-item"><img alt={this.props.host} src={src}/></div>
         homePhotos.push(photo);
       }.bind(this))
@@ -48,7 +48,7 @@ module.exports = React.createClass({
 
       var homePhotos = [];
       this.props.homePhotos.forEach(function(src) {
-        var src = domains.IMG + src;
+        var src = domains.IMG + src + '?h=300';
         var photo = <div className="Wallop-item"><img alt={host} data-src={src}/></div>
         homePhotos.push(photo);
       })
@@ -56,7 +56,7 @@ module.exports = React.createClass({
       photos.push(
         <div className="Wallop-list">
           <div className="Wallop-item Wallop-item--current">
-            <img src={domains.IMG + this.props.roomPhoto}/>
+            <img src={domains.IMG + this.props.roomPhoto + '?h=300'}/>
           </div>
           {homePhotos}
         </div>
@@ -67,7 +67,7 @@ module.exports = React.createClass({
       var homePhotos = [];
       var counter = 0;
       this.props.homePhotos.forEach(function(src) {
-        var src = domains.IMG + src;
+        var src = domains.IMG + src + '?h=300';
         counter++
         if (counter === 1) {
           var photo = <div className="Wallop-item"><img alt={host} src={src}/></div>
@@ -87,7 +87,7 @@ module.exports = React.createClass({
 
     // Host photo src
     var hostImg = {
-      backgroundImage: this.props.hostPhoto !== undefined ? 'url(' + domains.IMG + this.props.hostPhoto + ')' : 'url(' + domains.IMG + '/users/default.jpg' + ')'
+      backgroundImage: this.props.hostPhoto !== undefined ? 'url(' + domains.IMG + this.props.hostPhoto + '?w=120' + ')' : 'url(' + domains.IMG + '/users/default.jpg' + '?w=120' + ')'
     }
 
     // Compile immersion tags

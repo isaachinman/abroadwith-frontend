@@ -1,4 +1,4 @@
-<div id="immersions-tab" class="col s12 tab">
+<div id="immersions-tab" class="col s12 m10 offset-m1 l10 offset-l1 relative tab">
 
   <form id='home-immersions-form'>
 
@@ -6,7 +6,9 @@
 
       <div class='row'>
         <h4>{{ translations.manage_home.immersions_tabname }}</h4>
-        <span class='grey-text large'>{{translations.manage_home.choose_at_least_one_chip}}</span>
+        <p class='large grey-text center-align'>
+          {{ translations.manage_home.immersions_subtitle }} {{translations.manage_home.choose_at_least_one_chip}}
+        </p>
       </div>
 
       <div class='row'>
@@ -14,7 +16,7 @@
         <div class='col s12 m6 l4'>
           <div class="card">
             <div class="card-image">
-              <img alt='Stay immersion' src="https://img.abroadwith.com/app/immersions/stay.jpg">
+              <img alt='Stay immersion' src="https://abroadwith.imgix.net/app/immersions/stay.jpg?w=400">
             </div>
             <div class="card-content">
               <i class="fa fa-caret-up fa-3x"></i>
@@ -82,7 +84,7 @@
         <div class='col s12 m6 l4'>
           <div class="card">
             <div class="card-image">
-              <img alt='Tandem immersion' src="https://img.abroadwith.com/app/immersions/tandem.jpg">
+              <img alt='Tandem immersion' src="https://abroadwith.imgix.net/app/immersions/tandem.jpg?w=400">
             </div>
             <div class="card-content">
               <i class="fa fa-caret-up fa-3x"></i>
@@ -172,7 +174,7 @@
         <div class='col s12 m6 l4'>
           <div class="card">
             <div class="card-image">
-              <img alt='Teacher immersion' src="https://img.abroadwith.com/app/immersions/teacher.jpg">
+              <img alt='Teacher immersion' src="https://abroadwith.imgix.net/app/immersions/teacher.jpg?w=400">
             </div>
             <div class="card-content">
               <i class="fa fa-caret-up fa-3x"></i>
@@ -236,7 +238,7 @@
                 <div class='col s2 input-field center-align grey-text text-lighten-1'>
                   <i class="fa fa-certificate fa-2x"></i>
                 </div>
-                <div class='col s10 input-field'>
+                <div class='col s10 margin-top-10'>
                   <div id='existing-certifications'></div><a class='modal-trigger' href='#certificate-modal'>{{translations.manage_home.add_a_certificate}}</a>
                 </div>
               </div>
@@ -294,7 +296,7 @@
               <select id="new-certificate-language" class="validate border-radius-left" data-placeholder='{{translations.manage_home.certificate_language_placeholder}}'>
                 <option></option>
                 {% for langCode, language in constants.user_languages %}
-                  <option data-lang={{ langCode }}>{{ translations.languages[langCode] }} ({{ language.native_name }})</option>
+                  <option data-lang={{ langCode }}>{{ translations.languages[langCode] }} ({{ language.n }})</option>
                 {% endfor %}
               </select>
               <label class='active'>{{translations.manage_home.certificate_language_label}}</label>

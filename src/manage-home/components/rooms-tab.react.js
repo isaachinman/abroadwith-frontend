@@ -81,11 +81,11 @@ module.exports = React.createClass({
 
     $('#preloader').show();
 
-    var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms';
+    var url = domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms'
     var success = function(response) {
 
-      $('#add-room-form .collapsible-header').trigger('click');
-      newRoom.id = response.roomId;
+      $('#add-room-form .collapsible-header').trigger('click')
+      newRoom.id = response.roomId
 
       if (newRoomPhoto.files.length > 0) {
 
@@ -102,9 +102,9 @@ module.exports = React.createClass({
             }
           })
 
-          addRoomToList(newRoom);
-          $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null;
-          $('#preloader').hide();
+          addRoomToList(newRoom)
+          $('#add-room-form .collapsible-header').hasClass('active') ? $('#add-room-form .collapsible-header').trigger('click') : null
+          $('#preloader').hide()
         }
 
         newRoomPhoto.processQueue()
@@ -124,34 +124,14 @@ module.exports = React.createClass({
   saveRooms: function() {
 
     // Create new rooms object
-   var newHomeObj = this.props.props;
-   var newRoomsObj = [];
-
-   $('.existing-room').each(function() {
-
-     // Set up new object for each room
-     var id = parseInt($(this).attr('data-id'));
-     var room = {
-       id: id,
-       name: $(this).find('.room-name').val(),
-       bed: $(this).find('select.bed-type').val(),
-       vacancies: parseInt($(this).find('select.vacancies').val()),
-       facilities: $(this).find('select.facilities').val(),
-       shared: $(this).find('input.shared-switch').prop('checked'),
-       img: $(this).find("#photo_room_"+id).val() !== '' ? $(this).find("#photo_room_"+id).val() : null,
-       description: $(this).find('.room-description').val(),
-       price: $(this).attr('data-price')
-     };
-
-     newRoomsObj.push(room);
-
-   })
+   var newHomeObj = this.props.props
+   var newRoomsObj = this.state.rooms !== undefined ? this.state.rooms : this.props.props.rooms
 
    // Modify home object, using new rooms object
-   newHomeObj.rooms = newRoomsObj;
+   newHomeObj.rooms = newRoomsObj
    this.props.updateHome(newHomeObj, function() {
-     toast(i18n.t('manage_home:room_updated_toast'));
-   });
+     toast(i18n.t('manage_home:room_updated_toast'))
+   })
 
 
   },
@@ -169,7 +149,7 @@ module.exports = React.createClass({
       maxFiles: 1,
       autoProcessQueue: false,
       method: 'post',
-      dictDefaultMessage: i18n.t('common:drop_files_here'),
+      dictDefaultMessage: i18n.t('manage_home:drop_room_photo'),
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       maxFilesize: 10,
       acceptedFiles: 'image/jpeg,image/png'
@@ -190,6 +170,7 @@ module.exports = React.createClass({
     if (this.props.props.rooms && this.props.props.rooms.length > 0) {
 
       var rooms = (this.props.props.rooms).sort(function(a,b){return -(a.id-b.id)})
+      var saveRooms = this.saveRooms
 
       var canDelete = this.props.props.rooms.length <= 1 ? false : true
 
@@ -211,6 +192,9 @@ module.exports = React.createClass({
                 price={obj.price}
                 refreshState={refreshState}
                 canDelete={canDelete}
+                rooms={rooms}
+                saveRooms={saveRooms}
+                refreshState={refreshState}
               />
             )
           })

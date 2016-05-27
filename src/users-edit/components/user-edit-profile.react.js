@@ -34,8 +34,6 @@ module.exports = React.createClass({
     $('#countries-visited').val() !== 'undefined' ? userObj.countriesVisited = JSON.stringify($('#countries-visited').val()) : null;
     $('#countries-lived').val() !== 'undefined'   ? userObj.countriesLived = JSON.stringify($('#countries-lived').val()) : null;
 
-    console.log(userObj);
-
     var url = domains.API+'/users/'+JWT.rid;
     var success = function() {
       this.refreshState();

@@ -15,6 +15,10 @@ module.exports = React.createClass({
 
     var url = domains.API+'/users/'+JWT.rid+'/reservations/'+this.props.reservation.id;
     var success = function() {
+
+      // Send booking rejection booking event
+      ga('send', 'event', 'booking_events', 'booking_cancelled_by_host')
+
       this.props.refreshState();
       $('#preloader').hide();
     }.bind(this)
@@ -25,8 +29,8 @@ module.exports = React.createClass({
 
     var reservation = this.props.reservation;
 
-    var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto : domains.IMG + '/homes/default_room.png';
-    var guestPhoto = reservation.guestPhoto ? domains.IMG + reservation.guestPhoto : domains.IMG+'/users/default.jpg';
+    var roomPhoto = reservation.roomPhoto !== null ? domains.IMG + reservation.roomPhoto + '?w=150' : domains.IMG + '/homes/default_room.png?w=150';
+    var guestPhoto = reservation.guestPhoto ? domains.IMG + reservation.guestPhoto + '?w=80' : domains.IMG + '/users/default.jpg?w=80';
 
     var invoices = [];
 
@@ -75,7 +79,6 @@ module.exports = React.createClass({
     dayBeforeArrival.setDate(dayBeforeArrival.getDate()-1)
 
     if (dayBeforeArrival < new Date()) {
-      console.log('in the past')
       userActionDisplay = {
         display: 'none'
       }
@@ -83,11 +86,13 @@ module.exports = React.createClass({
       userActionDisplay = {}
     }
 
+    var tripWith = i18n.t('trips:reservation_with', {immersion:i18n.t('immersions:'+reservation.immersionType), guest: reservation.guestName !== null ? reservation.guestName : i18n.t('common:deleted_account') })
+
     return (
 
       <li>
         <div className="collapsible-header">
-          <span className='approved-reservation'>({i18n.t('trips:status_codes.APPROVED')})</span><img src={roomPhoto} className='room-thumbnail' />{i18n.t('trips:reservation_with', {immersion:i18n.t('immersions:'+reservation.immersionType), guest: reservation.guestName})}
+          <span className='approved-reservation'>({i18n.t('trips:status_codes.APPROVED')})</span><img src={roomPhoto} className='room-thumbnail' />{tripWith}
         </div>
         <div className="collapsible-body white">
           <div className='row relative'>

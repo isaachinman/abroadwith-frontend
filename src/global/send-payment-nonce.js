@@ -1,6 +1,6 @@
-const domains = require('domains');
-const JWT = require('JWT');
-const POST = require('POST');
+const domains = require('domains')
+const JWT = require('JWT')
+const POST = require('POST')
 
 
 module.exports = function(nonce, callback) {
@@ -10,8 +10,8 @@ module.exports = function(nonce, callback) {
   "isDefault": false
   }
 
-  var url = domains.API+'/users/'+JWT.rid+'/paymentMethods';
-  var success = callback;
-  POST(url, newPaymentMethod, success);
+  var url = domains.API+'/users/'+JWT.rid+'/paymentMethods'
+  var success = callback
+  POST(url, newPaymentMethod, success)
 
 }
