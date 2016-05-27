@@ -37,10 +37,6 @@ module.exports = React.createClass({
     if (activePage < 1) activePage = 1
     if (totalPages < 1) totalPages = 1
 
-
-    console.log(activePage)
-    console.log(totalPages)
-
     var pages = [];
 
     for (var i = 1; i <= totalPages; i++) {

@@ -153,7 +153,6 @@ module.exports = React.createClass({
       $('.immersion-display').html(i18n.t('immersions:'+$('#booking-immersions').val()));
       $('.language-display').html(i18n.t('languages:'+this.state.languageHostWillTeach));
       $('#message-explanation').html(i18n.t('booking:message_explanation', {language:(i18n.t('languages:'+this.state.languageHostWillTeach))}))
-      console.log(i18n.t('booking:message_explanation', {language:this.state.languageHostWillTeach}))
 
       if ($('input.booking-service:checked').length > 0) {
         var extrasDisplay = '';

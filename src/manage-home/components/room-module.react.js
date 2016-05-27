@@ -79,7 +79,6 @@ module.exports = React.createClass({
         this.on('removedfile', function(file) {
 
           $.each(rooms, function(index, obj) {
-            console.log(obj)
             if (obj.id == id) {
               obj.img = null
             }
