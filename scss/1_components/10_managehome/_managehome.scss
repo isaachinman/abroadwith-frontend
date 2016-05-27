@@ -277,3 +277,19 @@ i.next-btn {
     display: none;
   }
 }
+.get-help-container {
+  z-index: 99;
+  display: none;
+  background: lighten($sunset-orange, 5%);
+  position: absolute;
+  left: 20px;
+  bottom: 0 !important;
+  border-radius: 3px 3px 0 0;
+  font-size: 1.15rem;
+  a {
+    padding: 10px 20px;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
