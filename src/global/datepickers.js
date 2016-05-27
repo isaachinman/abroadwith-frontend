@@ -24,10 +24,6 @@ if ($('input.arrival').length && $('input.departure').length) {
   // Function to be called upon arrival picker selection
   var updateStartDate = function() {
 
-    console.log(arrivalPickers[0])
-    console.log(departurePickers)
-    console.log(uiDate(startDate))
-
     // Iterate over all arrival pickers and set new date and new start range
     for (var i = 0; i < arrivalPickers.length; i++) {
       arrivalPickers[i].setStartRange(startDate)
