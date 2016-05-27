@@ -18,7 +18,7 @@ if (window.location.href.indexOf("signup") > -1) {
 if ($('form#email-signup-form').length) {
 
   // Create signup object
-  newUser = {};
+  newUser = {}
 
   // Only initialise signup if the user isn't logged in
   if (JWT === null) {
@@ -43,7 +43,7 @@ if ($('form#email-signup-form').length) {
     }(document, 'script', 'facebook-jssdk'));
 
     $('#fb-signup').click(function() {
-      fbSignup();
+      fbSignup()
     })
 
     // Open log in/authorise dialog, fill fields if response is returned as connected
@@ -53,18 +53,18 @@ if ($('form#email-signup-form').length) {
 
           newUser.facebookId = response.authResponse.userID;
 
-          var loginObj = {};
-          loginObj.facebookToken = response.authResponse.accessToken;
+          var loginObj = {}
+          loginObj.facebookToken = response.authResponse.accessToken
 
           FB.api('/me', {
             fields: 'first_name,last_name,email,birthday,gender,age_range'
           }, function(response) {
-            newUser["firstName"] = response.first_name;
-            newUser["lastName"] = response.last_name;
-            newUser["email"] = response.email;
-            newUser["birthDate"] = response.birthday === 'undefined' ? (response.birthday).substring(6, 10) + '-' + (response.birthday).substring(0, 2) + '-' + (response.birthday).substring(3, 5) : null;
+            newUser["firstName"] = response.first_name
+            newUser["lastName"] = response.last_name
+            newUser["email"] = response.email
+            newUser["birthDate"] = response.birthday === 'undefined' ? (response.birthday).substring(6, 10) + '-' + (response.birthday).substring(0, 2) + '-' + (response.birthday).substring(3, 5) : null
 
-            loginObj.email = response.email;
+            loginObj.email = response.email
 
             $.ajax({
               type: "POST",
@@ -88,10 +88,6 @@ if ($('form#email-signup-form').length) {
             });
 
           })
-        } else if (response.status === 'not_authorized') {
-          // Not authorised
-        } else {
-          // Not logged into Facebook
         }
       }, {
         scope: 'public_profile,email,user_birthday'
@@ -101,22 +97,22 @@ if ($('form#email-signup-form').length) {
     // Main google script
     $.getScript('https://apis.google.com/js/platform.js')
 
-    window.googleSignupCounter = 0;
+    window.googleSignupCounter = 0
     setTimeout(function() {
-      googleSignupCounter === 0 ? googleSignupCounter = 1 : null;
+      googleSignupCounter === 0 ? googleSignupCounter = 1 : null
     }, 3000)
     window.googleSignup = function(googleUser) {
 
       if (++googleSignupCounter < 2) {
-        return;
+        return
       }
 
-      var profile = googleUser.getBasicProfile();
-      newUser["firstName"] = profile.getGivenName();
-      newUser["lastName"] = profile.getFamilyName();
-      newUser["email"] = profile.getEmail();
-      newUser["birthDate"] = null;
-      newUser["googleId"] = googleUser.getBasicProfile().getId();
+      var profile = googleUser.getBasicProfile()
+      newUser["firstName"] = profile.getGivenName()
+      newUser["lastName"] = profile.getFamilyName()
+      newUser["email"] = profile.getEmail()
+      newUser["birthDate"] = null
+      newUser["googleId"] = googleUser.getBasicProfile().getId()
 
       var loginObj = {
         email: newUser["email"],
@@ -146,21 +142,21 @@ if ($('form#email-signup-form').length) {
     }
 
     // Set permanent vars
-    var emailSignup = $('button#email-signup');
-    var notValid = $('#not-valid');
+    var emailSignup = $('button#email-signup')
+    var notValid = $('#not-valid')
     var passwordValidate = $('#password-not-valid')
-    var formValid;
+    var formValid = true
 
     // This function is called when a user hasn't fully filled in the form
     function formNotValid() {
-      notValid.hasClass('hide') ? notValid.removeClass('hide') : null;
-      formValid = false;
+      notValid.hasClass('hide') ? notValid.removeClass('hide') : null
+      formValid = false
     }
 
     // This function is called when a password isn't correct
     function passwordNotValid() {
       passwordValidate.hasClass('hide') ? passwordValidate.removeClass('hide') : null
-      formValid = false;
+      formValid = false
     }
 
     // Language submit
@@ -169,29 +165,29 @@ if ($('form#email-signup-form').length) {
       if ($('.language-container--known').find('.language-module').length > 0) {
 
         // Mandatory known languages
-        newUser["userKnownLanguages"] = [];
+        newUser["userKnownLanguages"] = []
 
         // Get native languages
         $('.language-container--known .language-module').each(function() {
 
-          var language = $(this).find('select.language').attr('data-lang');
-          var level = $(this).find('select.language-level').val();
+          var language = $(this).find('select.language').attr('data-lang')
+          var level = $(this).find('select.language-level').val()
 
           if (language != undefined && level != undefined) {
             newUser.userKnownLanguages.push({
               "language": $(this).find('select.language').attr('data-lang'),
               "level": $(this).find('select.language-level').val()
-            });
+            })
           }
 
         })
 
         // Get learning languages
-        newUser["userLearningLanguages"] = [];
+        newUser["userLearningLanguages"] = []
         $('.language-container--learning .language-module').each(function() {
 
-          var language = $(this).find('select.language').attr('data-lang');
-          var level = $(this).find('select.language-level').val();
+          var language = $(this).find('select.language').attr('data-lang')
+          var level = $(this).find('select.language-level').val()
 
           if (language != undefined && level != undefined) {
             newUser.userLearningLanguages.push({
@@ -203,34 +199,32 @@ if ($('form#email-signup-form').length) {
         })
 
         if (newUser.userKnownLanguages.length < 1) {
-          $('.language-container--known i.required').removeClass('hide');
-          return;
+          $('.language-container--known i.required').removeClass('hide')
+          return
         }
 
         if ($('#choose-languages-modal').length) {
-          $('#choose-languages-modal').closeModal();
-          $('#sign-up-modal').openModal();
+          $('#choose-languages-modal').closeModal()
+          $('#sign-up-modal').openModal()
         }
 
         if ($('#apply-languages-signup-page').length) {
-          $('#choose-languages').hide();
-          $('#sign-up').show();
+          $('#choose-languages').hide()
+          $('#sign-up').show()
         }
 
       } else {
-        if ($('#languages-not-valid').hasClass('hide')) {
-          $('#languages-not-valid').removeClass('hide');
-        }
+        $('#languages-not-valid').hasClass('hide') ? $('#languages-not-valid').removeClass('hide') : null
       }
     }
 
     $('#apply-languages').click(function() {
-      applyLanguages();
-    });
+      applyLanguages()
+    })
 
     if ($('#apply-languages-signup-page').length) {
       $('#apply-languages-signup-page').click(function() {
-        applyLanguages();
+        applyLanguages()
       })
     }
 
@@ -238,35 +232,35 @@ if ($('form#email-signup-form').length) {
     emailSignup.click(function() {
 
       // Get inputs
-      var signupForm = $('form#email-signup-form input.validate');
+      var signupForm = $('form#email-signup-form input.validate')
 
       // Loop through text inputs and add values to object
       for (var i = 0, ii = signupForm.length; i < ii; i++) {
         var input = signupForm[i];
         if (input.value !== '') {
-          newUser[input.name] = input.value;
+          newUser[input.name] = input.value
           formValid = true;
         } else {
-          formNotValid();
-          break;
+          formNotValid()
+          break
         }
       }
 
       // Get birthday
       if ($('input#birthday').val() != '') {
-        newUser['birthDate'] = apiDate($('input#birthday').val());
+        newUser['birthDate'] = apiDate($('input#birthday').val())
       } else {
-        formNotValid();
+        formNotValid()
       }
 
       // Validate password
-      var password = newUser.password ? newUser.password : '';
-      var nameStrings = newUser.firstName && newUser.lastName ? newUser.firstName.split(' ').concat(newUser.lastName.split(' ')) : [];
+      var password = newUser.password ? newUser.password : ''
+      var nameStrings = newUser.firstName && newUser.lastName ? newUser.firstName.split(' ').concat(newUser.lastName.split(' ')) : []
 
       for (var i = 0, len = nameStrings.length; i < len; i++) {
         if (typeof password !== 'undefined' && password.indexOf(nameStrings[i]) !== -1) {
           passwordNotValid()
-          break;
+          break
         }
       }
 
@@ -278,7 +272,7 @@ if ($('form#email-signup-form').length) {
       if (formValid === true) {
         validateUserAndSend()
       } else {
-        formNotValid();
+        formNotValid()
       }
 
     });
@@ -286,10 +280,10 @@ if ($('form#email-signup-form').length) {
     function validateUserAndSend() {
       if (newUser.hasOwnProperty('firstName') && newUser.hasOwnProperty('lastName') && newUser.hasOwnProperty('email') && newUser.hasOwnProperty('birthDate')) {
 
-        $('#preloader').show();
+        $('#preloader').show()
 
-        var email = newUser.email;
-        var password = newUser.password;
+        var email = newUser.email
+        var password = newUser.password
 
         var loginObj = {
           email: email,
@@ -309,7 +303,7 @@ if ($('form#email-signup-form').length) {
           },
           error: function(response) {
 
-            $('#preloader').hide();
+            $('#preloader').hide()
 
             if (response.status === 409) {
               $('#sign-up-modal .signup-conflict').show()
@@ -326,9 +320,9 @@ if ($('form#email-signup-form').length) {
 
 if ($('a#email-signup-trigger').length) {
   $('a#email-signup-trigger').click(function() {
-    $('#email-signup-collapsible .collapsible-header').hide();
+    $('#email-signup-collapsible .collapsible-header').hide()
   })
   $('#email-signup-collapsible .collapsible-header').click(function() {
-    $('#email-signup-collapsible .collapsible-header').hide();
+    $('#email-signup-collapsible .collapsible-header').hide()
   })
 }

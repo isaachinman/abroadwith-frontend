@@ -1,10 +1,10 @@
-const domains = require('domains');
+const domains = require('domains')
 
 if ($('a.reset-password-request').length) {
 
   $('form.reset-password-request').submit(function() {
 
-    $('#preloader').show();
+    $('#preloader').show()
 
     var passwordResetRequestObj = {
       email:$(this).find('input[type=email]').val()
@@ -17,16 +17,16 @@ if ($('a.reset-password-request').length) {
       data: JSON.stringify(passwordResetRequestObj),
       success: function() {
 
-        $('.reset-password-request-successful').show();
-        $('form.reset-password-request').hide();
-        $('#preloader').hide();
+        $('.reset-password-request-successful').show()
+        $('form.reset-password-request').hide()
+        $('#preloader').hide()
 
       },
       error: function() {
 
-        $('.reset-password-request-successful').show();
-        $('form.reset-password-request').hide();
-        $('#preloader').hide();
+        $('.reset-password-request-unsuccessful').show()
+        $('form.reset-password-request').hide()
+        $('#preloader').hide()
 
       }
     })
@@ -37,7 +37,7 @@ if ($('a.reset-password-request').length) {
 
   $('a.reset-password-request').click(function() {
 
-    $(this).parentsUntil('form').find('.submit').click();
+    $(this).parentsUntil('form').find('.submit').click()
 
   })
 
