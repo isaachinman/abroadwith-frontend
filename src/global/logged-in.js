@@ -39,9 +39,14 @@ module.exports = function() {
   $('a.go-to-your-profile').attr('href','/users/'+JWT.rid)
 
   // If user has a home, modify UI
-  if (JWT.whost) {
+  if (JWT.hid) {
     $('.become-a-host').hide()
     $('.your-home').show()
+  }
+
+  // If user was a host at any point in time, show reservations UI
+  if (JWT.whost) {
+    $('.your-reservations').show()
   }
 
   // Get unread message count
