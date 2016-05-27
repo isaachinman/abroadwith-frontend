@@ -18,7 +18,6 @@ else window.addEventListener('load', loadDeferredStyles);
 
 // jQuery
 require('jquery')
-require('../node_modules/sticky-kit/dist/sticky-kit.min.js')
 
 // Main materialize script
 require('materialize')
