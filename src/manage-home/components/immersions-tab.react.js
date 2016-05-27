@@ -45,7 +45,8 @@ module.exports = React.createClass({
       isActive: $('.card-reveal.teacher').is(':visible'),
       packages: $('#packages').val() !== null ? $('#packages').val() : null,
       hourly: $('#teacher-rate').val() !== null ? parseInt(($('#teacher-rate').val()).replace(/[^0-9\.]+/g,"")) : null,
-      languagesOffered: $('#teacher-languages-offered').val() !== null ? $('#teacher-languages-offered').val() : []
+      languagesOffered: $('#teacher-languages-offered').val() !== null ? $('#teacher-languages-offered').val() : [],
+      certifications: this.props.props.immersions.teacher.certifications
     }
 
     function validateImmersion(immersionType) {
