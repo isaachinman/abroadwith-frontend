@@ -126,6 +126,12 @@
   }
   &--homepage {
     background: url(https://abroadwith.imgix.net/app/hero/hero_homepage.jpg?w=1400);
+    @media #{$medium-and-down} {
+      background: url(https://abroadwith.imgix.net/app/hero/hero_homepage.jpg?w=1000);
+    }
+    @media #{$small-and-down} {
+      background: url(https://abroadwith.imgix.net/app/hero/hero_homepage.jpg?w=600);
+    }
     background-size: cover;
     background-attachment: scroll;
   }
@@ -137,12 +143,30 @@
   }
   &--about {
     background: url(https://abroadwith.imgix.net/app/hero/hero_about.jpg);
+    @media #{$medium-and-down} {
+      background: url(https://abroadwith.imgix.net/app/hero/hero_about.jpg?w=1000);
+    }
+    @media #{$small-and-down} {
+      background: url(https://abroadwith.imgix.net/app/hero/hero_about.jpg?w=600);
+    }
   }
   &--host {
     background: url(https://abroadwith.imgix.net/app/hero/hero_host.jpg);
+    @media #{$medium-and-down} {
+      background: url(https://abroadwith.imgix.net/app/hero/hero_host.jpg?w=1000);
+    }
+    @media #{$small-and-down} {
+      background: url(https://abroadwith.imgix.net/app/hero/hero_host.jpg?w=600);
+    }
   }
   &--why-abroadwith {
     background: url(https://abroadwith.imgix.net/app/hero/hero_why_abroadwith.jpg);
+    @media #{$medium-and-down} {
+      background: url(https://abroadwith.imgix.net/app/hero/hero_why_abroadwith.jpg?w=1000);
+    }
+    @media #{$small-and-down} {
+      background: url(https://abroadwith.imgix.net/app/hero/hero_why_abroadwith.jpg?w=600);
+    }
   }
   &--popular-languages {
     background:
