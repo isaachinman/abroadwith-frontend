@@ -292,19 +292,19 @@
 
             {% if home.immersions.stay.isActive %}
             <p class='home-details capitalise'>
-              {{translations.common.Stay}}: {{constants.currencies[home.pricing.currency]}}{{ room.price }}/{{translations.common.week}}
+              {{translations.common.Stay}}: {{constants.currencies[currency]}}{{ room.price }}/{{translations.common.week}}
             </p>
             {% endif %}
 
             {% if home.immersions.tandem.isActive %}
             <p class='home-details capitalise'>
-              {{ translations.common.Tandem }}: {{constants.currencies[home.pricing.currency]}}{{ room.price * (100 - home.immersions.tandem.languagesInterested[0].discount)/100 }}/{{translations.common.week}}
+              {{ translations.common.Tandem }}: {{constants.currencies[currency]}}{{ room.price * (100 - home.immersions.tandem.languagesInterested[0].discount)/100 }}/{{translations.common.week}}
             </p>
             {% endif %}
 
             {% if home.immersions.teacher.isActive %}
             <p class='home-details capitalise'>
-              {{ translations.common.Teacher }}: {{constants.currencies[home.pricing.currency]}}{{ room.price + (home.immersions.teacher.hourly * home.immersions.teacher.packages[0]) }}/{{translations.common.week}}
+              {{ translations.common.Teacher }}: {{constants.currencies[currency]}}{{ room.price + (home.immersions.teacher.hourly * home.immersions.teacher.packages[0]) }}/{{translations.common.week}}
             </p>
             {% endif %}
           </div>
