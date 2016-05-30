@@ -45,12 +45,12 @@ module.exports = React.createClass({
         $('#guests'),
         $('#language'),
         $('#immersions'),
-        $('#special-prefs'),
-        $('#meal_plan'),
-        $('#meal_pref'),
-        $('#diet_restrictions'),
+        $('#specialPrefs'),
+        $('#mealPlan'),
+        $('#mealPref'),
+        $('#dietRestrictions'),
         $('#amenities'),
-        $('#house-type'),
+        $('#houseType'),
       ]
 
       var url = '?';
@@ -175,12 +175,12 @@ module.exports = React.createClass({
       $('#language'),
       $('#immersions'),
       $('#language-switch'),
-      $('#special-prefs'),
-      $('#meal_plan'),
-      $('#meal_pref'),
-      $('#diet_restrictions'),
+      $('#specialPrefs'),
+      $('#mealPlan'),
+      $('#mealPref'),
+      $('#dietRestrictions'),
       $('#amenities'),
-      $('#house-type'),
+      $('#houseType'),
       $('#ui-currency')
     ]
 

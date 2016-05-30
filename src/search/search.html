@@ -139,7 +139,7 @@
                 <i class="fa fa-user fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
-                <select id='special-prefs' class='material' multiple>
+                <select id='specialPrefs' class='material' multiple>
                   <option disabled>{{translations.search.lifestyle_label}}</option>
                   {% for optionCode, optionName in translations.search.lifestyle %}
                     <option value={{optionCode}}>{{optionName}}</option>
@@ -151,8 +151,8 @@
                 <i class="fa fa-cutlery fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
-                <select id='meal_plan' class='material'>
-                  <option disabled selected>{{translations.search.BREAKFAST_ONLY}}</option>
+                <select id='mealPlan' class='material'>
+                  <option value='' selected>{{translations.search.BREAKFAST_ONLY}}</option>
                   {% for optionCode, optionName in translations.search.meal_choice %}
                     <option value={{optionCode}}>{{optionName}}</option>
                   {% endfor %}
@@ -168,12 +168,12 @@
                 <i class="fa fa-asterisk fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
-                <select id='meal_pref' class='material'>
+                <select id='mealPref' class='material'>
                   <option value="">{{translations.search.no_meal_preference}}</option>
-                  <option value="vegetarian">{{translations.common.Vegetarian}}</option>
-                  <option value="vegan">{{translations.common.Vegan}}</option>
-                  <option value="halal">{{translations.common.Halal}}</option>
-                  <option value="kosher">{{translations.common.Kosher}}</option>
+                  <option value="VEGETARIAN">{{translations.common.Vegetarian}}</option>
+                  <option value="VEGAN">{{translations.common.Vegan}}</option>
+                  <option value="HALAL">{{translations.common.Halal}}</option>
+                  <option value="KOSHER">{{translations.common.Kosher}}</option>
                 </select>
               </div>
 
@@ -181,12 +181,14 @@
                 <i class="fa fa-exclamation-circle fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
-                <select id='diet_restrictions' class='material' multiple>
-                  <option value="none" disabled>{{translations.search.no_dietary_restrictions}}</option>
-                  <option value="nutFree">{{translations.search.nut_free}}</option>
-                  <option value="lactoseFree">{{translations.search.lactose_free}}</option>
-                  <option value="glutenFree">{{translations.search.gluten_free}}</option>
-                  <option value="sugarFree">{{translations.search.sugar_free}}</option>
+                <select id='dietRestrictions' class='material' multiple>
+                  <option disabled>{{translations.search.no_dietary_restrictions}}</option>
+                  <option value="NUT_ALLERGIES">{{translations.search.nut_free}}</option>
+                  <option value="LACTOSE_INTOLERANCE">{{translations.search.lactose_free}}</option>
+                  <option value="GLUTEN_FREE">{{translations.search.gluten_free}}</option>
+                  <option value="DIABETIC">{{translations.search.sugar_free}}</option>
+                  <option value='FISH_AND_SHELLFISH_FREE'>{{translations.homes.diets_offered.FISH_AND_SHELLFISH_FREE}}</option>
+                  <option value='SOY_FREE'>{{translations.homes.diets_offered.SOY_FREE}}</option>
                 </select>
               </div>
             </div>
@@ -199,20 +201,20 @@
               </div>
               <div class='col s5'>
                 <select id='amenities' class='material' multiple>
-                  <option value="essentials" disabled>{{translations.search.essentials}}</option>
-                  <option value="ac">{{translations.homes.amenities.AIR_CONDITIONING}}</option>
-                  <option value="airport">{{translations.search.airport}}</option>
-                  <option value="tv">{{translations.homes.amenities.TV}}</option>
-                  <option value="cable">{{translations.homes.amenities.CABLE_TV}}</option>
-                  <option value="washer">{{translations.homes.extras.WASHER}}</option>
-                  <option value="pool">{{translations.homes.extras.POOL}}</option>
+                  <option disabled>{{translations.search.essentials}}</option>
+                  <option value="AIR_CONDITIONING">{{translations.homes.amenities.AIR_CONDITIONING}}</option>
+                  <option value="AIRPORT_PICKUP">{{translations.search.airport}}</option>
+                  <option value="TV">{{translations.homes.amenities.TV}}</option>
+                  <option value="CABLE_TV">{{translations.homes.amenities.CABLE_TV}}</option>
+                  <option value="WASHER">{{translations.homes.extras.WASHER}}</option>
+                  <option value="POOL">{{translations.homes.extras.POOL}}</option>
                 </select>
               </div>
               <div class='col s1 center-align'>
                 <i class="fa fa-home fa-2x grey-text text-lighten-1"></i>
               </div>
               <div class='col s5'>
-                <select id='house-type' class='material' multiple>
+                <select id='houseType' class='material' multiple>
                   <option value='all' disabled>{{translations.search.all_house_types}}</option>
                   {% for optionCode, optionName in translations.homes.home_types %}
                     <option value={{optionCode}}>{{optionName}}</option>
