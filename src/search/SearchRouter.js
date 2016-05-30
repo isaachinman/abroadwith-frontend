@@ -104,41 +104,38 @@ router.post('/', function (req, res) {
     query.push('offeredLanguages:(' + req.query.language + ')')
   }
 
+  // An object and array to keep track of filters
   var filters = []
-  search_response.params.filters = []
+  search_response.params.filters = {}
+
   if (req.query.specialPrefs) {
     var all = req.query.specialPrefs.split(',')
-    for (var i = 0; i < all.length; i++) {
-      filters.push(all[i])
-    }
+    search_response.params.filters.specialPrefs = all
+    filters = filters.concat(all)
   }
 
   if (req.query.mealPlan) {
     var all = req.query.mealPlan.split(',')
-    for (var i = 0; i < all.length; i++) {
-      filters.push(all[i])
-    }
+    search_response.params.filters.mealPlan = all
+    filters = filters.concat(all)
   }
 
   if (req.query.mealPref) {
     var all = req.query.mealPref.split(',')
-    for (var i = 0; i < all.length; i++) {
-      filters.push(all[i])
-    }
+    search_response.params.filters.mealPref = all
+    filters = filters.concat(all)
   }
 
   if (req.query.dietRestrictions) {
     var all = req.query.dietRestrictions.split(',')
-    for (var i = 0; i < all.length; i++) {
-      filters.push(all[i])
-    }
+    search_response.params.filters.dietRestrictions = all
+    filters = filters.concat(all)
   }
 
   if (req.query.amenities) {
     var all = req.query.amenities.split(',')
-    for (var i = 0; i < all.length; i++) {
-      filters.push(all[i])
-    }
+    search_response.params.filters.amenities = all
+    filters = filters.concat(all)
   }
 
   if (req.query.houseType) {
@@ -156,7 +153,6 @@ router.post('/', function (req, res) {
   }
 
   if (filters.length > 0) {
-    search_response.params.filters = filters
     query.push("filters:("+filters.join(" AND ")+")")
   }
 
