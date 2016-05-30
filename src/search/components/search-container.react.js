@@ -16,21 +16,20 @@ module.exports = React.createClass({
 
     // Get map data
     if (typeof bigMap !== 'undefined') {
-      var bounds = bigMap.getBounds();
-      var SW, NE;
-      bounds !== undefined ? SW = (bounds.getNorthEast()) : null;
-      bounds !== undefined ? NE = (bounds.getSouthWest()) : null;
+      var bounds = bigMap.getBounds()
+      var SW, NE
+      bounds !== undefined ? SW = (bounds.getNorthEast()) : null
+      bounds !== undefined ? NE = (bounds.getSouthWest()) : null
     }
 
     if (predeterminedQuery !== undefined && typeof predeterminedQuery === 'string') {
       var url = predeterminedQuery
 
       // Do pagination stuff
-      if (url.indexOf('pageSize')===-1) {
+      if (url.indexOf('pageSize') === -1) {
         url = url + '&pageSize=10'
       }
-
-      if (url.indexOf('pageOffset')===-1 ) {
+      if (url.indexOf('pageOffset') === -1) {
         if (activePage !== undefined) {
           url = url + '&pageOffset=' + ((activePage*10))
         } else {
@@ -96,14 +95,16 @@ module.exports = React.createClass({
     }
 
     // Get map bounds
-    var minLat = SW !== undefined ? url = url + '&minLat=' + (SW.lat()) : null;
-    var minLng = SW !== undefined ? url = url + '&minLng=' + (SW.lng()) : null;
-    var maxLat = NE !== undefined ? url = url + '&maxLat=' + (NE.lat()) : null;
-    var maxLng = NE !== undefined ? url = url + '&maxLng=' + (NE.lng()) : null;
+    var minLat = SW !== undefined ? url = url + '&minLat=' + (SW.lat()) : null
+    var minLng = SW !== undefined ? url = url + '&minLng=' + (SW.lng()) : null
+    var maxLat = NE !== undefined ? url = url + '&maxLat=' + (NE.lat()) : null
+    var maxLng = NE !== undefined ? url = url + '&maxLng=' + (NE.lng()) : null
 
     $.post('/search'+url, function(data) {
 
       var response = JSON.parse(data);
+
+      console.log(response)
 
       var newState = {
         // Set new state vars

@@ -156,17 +156,16 @@ module.exports = React.createClass({
 
       } else {
 
-        var predeterminedQuery = window.location.search;
+        var predeterminedQuery = window.location.search
 
         // This is the main initial GET for search page
-        if (predeterminedQuery !== '') {
-          handleChange(predeterminedQuery)
-        } else {
-          handleChange();
-        }
+        // Have to wait for map to init before we can call getBounds
+        google.maps.event.addListenerOnce(bigMap, 'idle', function(){
+          predeterminedQuery !== '' ? handleChange(predeterminedQuery) : handleChange()
+        })
 
-        bigMap.addListener('zoom_changed', handleChange);
-        bigMap.addListener('dragend', handleChange);
+        bigMap.addListener('zoom_changed', handleChange)
+        bigMap.addListener('dragend', handleChange)
 
       }
 
