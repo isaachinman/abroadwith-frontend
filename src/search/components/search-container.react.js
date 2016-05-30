@@ -94,11 +94,13 @@ module.exports = React.createClass({
 
     }
 
-    // Get map bounds
-    var minLat = SW !== undefined ? url = url + '&minLat=' + (SW.lat()) : null
-    var minLng = SW !== undefined ? url = url + '&minLng=' + (SW.lng()) : null
-    var maxLat = NE !== undefined ? url = url + '&maxLat=' + (NE.lat()) : null
-    var maxLng = NE !== undefined ? url = url + '&maxLng=' + (NE.lng()) : null
+    // Do map stuff
+    if (url.indexOf('minLat') === -1 && url.indexOf('minLng') === -1 && url.indexOf('maxLat') === -1 && url.indexOf('maxLng') === -1) {
+      url += '&minLat=' + SW.lat()
+      url += '&minLng=' + SW.lng()
+      url += '&maxLat=' + NE.lat()
+      url += '&maxLng=' + NE.lng()
+    }
 
     $.post('/search'+url, function(data) {
 
