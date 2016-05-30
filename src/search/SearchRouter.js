@@ -67,7 +67,7 @@ router.post('/', function (req, res) {
     search_response.params.location.maxLng = req.query.maxLng
     query.push('location:['+req.query.maxLat+','+req.query.maxLng+' TO '+req.query.minLat+','+req.query.minLng+']')
 
-  } else{
+  } else {
 
     // If no location is set, go to Berlin.
     search_response.params.location = {}
@@ -238,6 +238,8 @@ router.post('/', function (req, res) {
 
 var processResults = function(search_response) {
 
+  console.log(search_response)
+
   //TODO move this stuff to Solr
   var results = search_response.results
   var stop = results.length
@@ -263,7 +265,8 @@ var processResults = function(search_response) {
     results[i].lat = location[0]
     results[i].lng = location[1]
 
-    //TODO remove location member from the object
+    delete results[i].location
+
   }
 }
 
