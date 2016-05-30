@@ -605,6 +605,9 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after {
 .select-label {
   position: absolute;
 }
+ul.select-dropdown {
+  max-height: 300px;
+}
 .select-wrapper {
   position: relative;
 
