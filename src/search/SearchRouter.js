@@ -108,39 +108,21 @@ router.post('/', function (req, res) {
   var filters = []
   search_response.params.filters = {}
 
-  if (req.query.specialPrefs) {
-    var all = req.query.specialPrefs.split(',')
-    search_response.params.filters.specialPrefs = all
-    filters = filters.concat(all)
-  }
+  var filterSections = [
+    'specialPrefs',
+    'mealPlan',
+    'mealPref',
+    'dietRestrictions',
+    'amenities',
+    'houseType'
+  ]
 
-  if (req.query.mealPlan) {
-    var all = req.query.mealPlan.split(',')
-    search_response.params.filters.mealPlan = all
-    filters = filters.concat(all)
-  }
-
-  if (req.query.mealPref) {
-    var all = req.query.mealPref.split(',')
-    search_response.params.filters.mealPref = all
-    filters = filters.concat(all)
-  }
-
-  if (req.query.dietRestrictions) {
-    var all = req.query.dietRestrictions.split(',')
-    search_response.params.filters.dietRestrictions = all
-    filters = filters.concat(all)
-  }
-
-  if (req.query.amenities) {
-    var all = req.query.amenities.split(',')
-    search_response.params.filters.amenities = all
-    filters = filters.concat(all)
-  }
-
-  if (req.query.houseType) {
-    var all = req.query.houseType.split(',')
-    query.push("homeType:("+all.join(" ")+")")
+  for (var i=0; i < filterSections.length; i++) {
+    if (req.query[filterSections[i]]) {
+      var all = req.query[filterSections[i]].split(',')
+      search_response.params.filters[filterSections[i]] = all
+      filters = filters.concat(all)
+    }
   }
 
   if (req.query.neighbourhood) {
@@ -184,8 +166,6 @@ router.post('/', function (req, res) {
 
   winston.info("[Search Query]",query.join(" AND "))
   options.path += '?q='+encodeURIComponent(query.join(" AND "))+'&start='+req.query.pageOffset+'&rows='+req.query.pageSize+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')'
-
-  console.log(decodeURIComponent(options.path))
 
   http.get(options, function(resp){
 
