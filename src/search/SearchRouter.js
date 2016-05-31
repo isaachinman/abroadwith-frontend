@@ -87,20 +87,8 @@ router.post('/', function (req, res) {
   if (req.query.arrival && req.query.departure) {
     search_response.params.arrival = req.query.arrival
     search_response.params.departure = req.query.departure
-    console.log(req.query.arrival)
-    console.log(req.query.departure)
     query.push('-bookingDateRanges:[' + req.query.arrival + ' TO ' + req.query.departure + ']')
   }
-
-  // if (req.query.arrival) {
-  //   search_response.params.arrival = req.query.arrival
-  //   //TODO date search
-  // }
-  //
-  // if (req.query.departure) {
-  //   search_response.params.departure = req.query.departure
-  //   //TODO date search
-  // }
 
   if (req.query.guests) {
     search_response.params.guests = parseInt(req.query.guests)
