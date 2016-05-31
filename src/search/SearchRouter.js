@@ -110,8 +110,7 @@ router.post('/', function (req, res) {
     'mealPlan',
     'mealPref',
     'dietRestrictions',
-    'amenities',
-    'houseType'
+    'amenities'
   ]
 
   for (var i=0; i < filterSections.length; i++) {
@@ -129,6 +128,12 @@ router.post('/', function (req, res) {
     for (var i = 0; i < all.length; i++) {
       filters.push(all[i])
     }
+  }
+
+  if (req.query.houseType) {
+    var all = req.query.houseType.split(',')
+    search_response.params.filters.houseType = all
+    query.push("homeType:"+req.query.houseType)
   }
 
   if (filters.length > 0) {
