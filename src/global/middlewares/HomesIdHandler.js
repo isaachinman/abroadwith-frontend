@@ -60,8 +60,10 @@ module.exports = function (req, res, next, value) {
       req.context.home.host.joinedYear = joined.getFullYear()
 
       // Loop through rooms and calculate prices based on current currency
-      for (var i=0; i<req.context.home.rooms.length; i++) {
-        req.context.home.rooms[i].price = currency(req.context.home.rooms[i].price,req.context.home.pricing.currency,req.context.currency)
+      if (req.context.home.pricing.currency !== req.context.currency) {
+        for (var i=0; i<req.context.home.rooms.length; i++) {
+          req.context.home.rooms[i].price = Math.ceil(currency(req.context.home.rooms[i].price,req.context.home.pricing.currency,req.context.currency))
+        }
       }
 
       // If host has a teacher immersion, calcuate that price too
