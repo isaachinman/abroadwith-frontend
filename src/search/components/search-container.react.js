@@ -1,15 +1,16 @@
-var React =           require('react');
+var React =           require('react')
 var Dates =           require('./search-dates.react')
-var Language =        require('./search-language.react');
-var Price =           require('./search-price.react');
-var LanguageCourse =  require('./search-language-course.react');
-var Tandem =          require('./search-tandem.react');
-var MoreFilters =     require('./search-more-filters.react');
-var Results =         require('./search-results.react');
-var Pagination =      require('./search-pagination.react');
-var Map =             require('./search-map.react');
+var Language =        require('./search-language.react')
+var Price =           require('./search-price.react')
+var LanguageCourse =  require('./search-language-course.react')
+var Tandem =          require('./search-tandem.react')
+var MoreFilters =     require('./search-more-filters.react')
+var Results =         require('./search-results.react')
+var Pagination =      require('./search-pagination.react')
+var Map =             require('./search-map.react')
 
-var i18n = require('../../global/util/i18n');
+var i18n = require('../../global/util/i18n')
+var apiDate = require('api-date')
 
 module.exports = React.createClass({
   handleChange: function(predeterminedQuery, activePage) {
@@ -40,8 +41,6 @@ module.exports = React.createClass({
     } else {
 
       var simpleValues = [
-        $('#arrival'),
-        $('#departure'),
         $('#guests'),
         $('#language'),
         $('#immersions'),
@@ -53,9 +52,8 @@ module.exports = React.createClass({
         $('#houseType'),
       ]
 
-      var url = '?';
-
-      var counter = 0;
+      var url = '?'
+      var counter = 0
 
       // Push values into search string
       for (var i=0; i<simpleValues.length; i++) {
@@ -67,8 +65,16 @@ module.exports = React.createClass({
           } else {
             var param = '&' + simpleValues[i].attr('id') + '=' + val;
           }
-          url = url + param;
+          url += param;
         }
+      }
+
+      // Get dates
+      if ($('#arrival').val() !== undefined && $('#arrival').val() !== null && $('#arrival').val() !== '') {
+        url += '&arrival=' + apiDate($('#arrival').val())
+      }
+      if ($('#departure').val() !== undefined && $('#departure').val() !== null && $('#departure').val() !== '') {
+        url += '&departure=' + apiDate($('#departure').val())
       }
 
       // Get price data
