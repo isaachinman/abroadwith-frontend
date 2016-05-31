@@ -31,7 +31,13 @@ module.exports = React.createClass({
   },
   render: function() {
 
-    var languageOptionTags = this.props.currentAvailableLanguageTags.map(function(language) {<option value={language}>{i18n.t('languages:'+language)}</option>})
+    var languageOptionTags = []
+
+    for (var i=0; i<this.props.currentAvailableLanguageTags.length; i++) {
+      languageOptionTags.push(
+        <option value={this.props.currentAvailableLanguageTags[i]}>{i18n.t('languages:'+this.props.currentAvailableLanguageTags[i])}</option>
+      )
+    }
 
     // Sort option tags alphabetically
     languageOptionTags.sort(function(a, b) {
