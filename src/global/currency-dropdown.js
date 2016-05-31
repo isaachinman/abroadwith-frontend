@@ -17,6 +17,7 @@ var UiCurrency = React.createClass({
 
     $('select#ui-currency').change(function() {
       Cookies.set('ui-currency', $(this).val())
+      location.reload()
     })
 
     $('select.ui-language').change(function() {
