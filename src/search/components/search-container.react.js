@@ -1,5 +1,4 @@
 var React =           require('react')
-var Dates =           require('./search-dates.react')
 var Language =        require('./search-language.react')
 var Price =           require('./search-price.react')
 var LanguageCourse =  require('./search-language-course.react')
@@ -41,6 +40,8 @@ module.exports = React.createClass({
     } else {
 
       var simpleValues = [
+        $('#arrival'),
+        $('#departure'),
         $('#guests'),
         $('#language'),
         $('#immersions'),
@@ -67,14 +68,6 @@ module.exports = React.createClass({
           }
           url += param;
         }
-      }
-
-      // Get dates
-      if ($('#arrival').val() !== undefined && $('#arrival').val() !== null && $('#arrival').val() !== '') {
-        url += '&arrival=' + apiDate($('#arrival').val())
-      }
-      if ($('#departure').val() !== undefined && $('#departure').val() !== null && $('#departure').val() !== '') {
-        url += '&departure=' + apiDate($('#departure').val())
       }
 
       // Get price data
@@ -159,7 +152,7 @@ module.exports = React.createClass({
     // Send search event
     ga('send', 'event', 'user_events', 'search_performed')
 
-    window.handleChange = this.handleChange;
+    window.handleChange = this.handleChange
 
     $('select#language').change(function() {
       if ($(this).val() !== 'undefined' && $(this).val() !== '') {
@@ -205,13 +198,6 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-
-        <Dates
-          arrival={this.state.arrival}
-          departure={this.state.departure}
-          guests={this.state.guests}
-          handleChange={this.handleChange}
-        />
 
         <Language
           language={this.state.language}

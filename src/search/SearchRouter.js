@@ -4,6 +4,7 @@ const router = express.Router()
 const winston = require('winston')
 const http = require('http')
 const settings = require('../ServerSettings')
+const apiDate = require('../../src/utils/api-date')
 
 router.get('/', function (req, res) {
   if(!req.context) res.status(404).send('No search context.')
@@ -87,7 +88,7 @@ router.post('/', function (req, res) {
   if (req.query.arrival && req.query.departure) {
     search_response.params.arrival = req.query.arrival
     search_response.params.departure = req.query.departure
-    query.push('-bookingDateRanges:[' + req.query.arrival + ' TO ' + req.query.departure + ']')
+    query.push('-bookingDateRanges:[' + apiDate(req.query.arrival) + ' TO ' + apiDate(req.query.departure) + ']')
   }
 
   if (req.query.guests) {
