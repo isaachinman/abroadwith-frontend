@@ -15,6 +15,13 @@ module.exports = React.createClass({
     })
 
   },
+  componentDidUpdate: function() {
+
+    $.each(this.props, function(index, obj) {
+      $('#'+index).val(obj)
+    })
+
+  },
   render: function() {
 
     return (

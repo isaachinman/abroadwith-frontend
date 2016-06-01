@@ -4,6 +4,7 @@ const router = express.Router()
 const winston = require('winston')
 const http = require('http')
 const settings = require('../ServerSettings')
+const apiDate = require('../../src/utils/api-date')
 
 router.get('/', function (req, res) {
   if(!req.context) res.status(404).send('No search context.')
@@ -67,7 +68,7 @@ router.post('/', function (req, res) {
     search_response.params.location.maxLng = req.query.maxLng
     query.push('location:['+req.query.maxLat+','+req.query.maxLng+' TO '+req.query.minLat+','+req.query.minLng+']')
 
-  } else{
+  } else {
 
     // If no location is set, go to Berlin.
     search_response.params.location = {}
@@ -84,18 +85,14 @@ router.post('/', function (req, res) {
     query.push('immersions:('+all.join(" ")+')')
   }
 
-  if (req.query.arrival) {
+  if (req.query.arrival && req.query.departure) {
     search_response.params.arrival = req.query.arrival
-    //TODO date search
-  }
-
-  if (req.query.departure) {
     search_response.params.departure = req.query.departure
-    //TODO date search
+    query.push('-bookingDateRanges:[' + apiDate(req.query.arrival) + ' TO ' + apiDate(req.query.departure) + ']')
   }
 
   if (req.query.guests) {
-    search_response.params.guests = req.query.guests
+    search_response.params.guests = parseInt(req.query.guests)
     query.push('roomVacancies:['+req.query.guests+' TO *]')
   }
 
@@ -104,59 +101,23 @@ router.post('/', function (req, res) {
     query.push('offeredLanguages:(' + req.query.language + ')')
   }
 
+  // An object and array to keep track of filters
   var filters = []
   search_response.params.filters = {}
-  if (req.query.specialPrefs) {
-    var all = req.query.specialPrefs.split(',')
-    search_response.params.filters.specialPrefs = all
-    list = []
-    for (var i = 0; i < all.length; i++) {
-      filters.push(all[i])
-    }
-  }
 
-  if (req.query.mealPlan) {
-    var all = req.query.mealPlan.split(',')
-    search_response.params.filters.mealPlan = all
-    list = []
-    for (var i = 0; i < all.length; i++) {
-      filters.push(all[i])
-    }
-  }
+  var filterSections = [
+    'specialPrefs',
+    'mealPlan',
+    'mealPref',
+    'dietRestrictions',
+    'amenities'
+  ]
 
-  if (req.query.mealPref) {
-    var all = req.query.mealPref.split(',')
-    search_response.params.filters.mealPref = all
-    list = []
-    for (var i = 0; i < all.length; i++) {
-      filters.push(all[i])
-    }
-  }
-
-  if (req.query.dietRestrictions) {
-    var all = req.query.dietRestrictions.split(',')
-    search_response.params.filters.dietRestrictions = all
-    list = []
-    for (var i = 0; i < all.length; i++) {
-      filters.push(all[i])
-    }
-  }
-
-  if (req.query.ammenities) {
-    var all = req.query.ammenities.split(',')
-    search_response.params.filters.ammenities = all
-    list = []
-    for (var i = 0; i < all.length; i++) {
-      filters.push(all[i])
-    }
-  }
-
-  if (req.query.houseType) {
-    var all = req.query.houseType.split(',')
-    search_response.params.filters.houseType = all
-    list = []
-    for (var i = 0; i < all.length; i++) {
-      filters.push(all[i])
+  for (var i=0; i < filterSections.length; i++) {
+    if (req.query[filterSections[i]]) {
+      var all = req.query[filterSections[i]].split(',')
+      search_response.params.filters[filterSections[i]] = all
+      filters = filters.concat(all)
     }
   }
 
@@ -169,8 +130,14 @@ router.post('/', function (req, res) {
     }
   }
 
+  if (req.query.houseType) {
+    var all = req.query.houseType.split(',')
+    search_response.params.filters.houseType = all
+    query.push("homeType:("+(req.query.houseType.replace(/,/g, ' OR '))+')')
+  }
+
   if (filters.length > 0) {
-    query.push("filters:("+filters.join(" ")+")")
+    query.push("filters:("+filters.join(" AND ")+")")
   }
 
   if (req.query.lnglvl) {
@@ -200,7 +167,9 @@ router.post('/', function (req, res) {
   }
 
   winston.info("[Search Query]",query.join(" AND "))
-  options.path += '?q='+encodeURIComponent(query.join(" AND "))+'&isActive=true&start='+req.query.pageOffset+'&rows='+req.query.pageSize+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')'
+  options.path += '?q='+encodeURIComponent(query.join(" AND "))+'&start='+req.query.pageOffset+'&rows='+req.query.pageSize+'&stats=true&wt=json&fl=*,price:currency(roomPrice,'+search_response.params.currency+')'
+
+  console.log(decodeURIComponent(options.path))
 
   http.get(options, function(resp){
 
@@ -260,10 +229,11 @@ var processResults = function(search_response) {
 
     var location = results[i].location.split(',')
 
-    results[i].lat = location[0]
-    results[i].lng = location[1]
+    results[i].lat = parseFloat(location[0])
+    results[i].lng = parseFloat(location[1])
 
-    //TODO remove location member from the object
+    delete results[i].location
+
   }
 }
 

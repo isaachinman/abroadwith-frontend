@@ -88,9 +88,9 @@ module.exports = React.createClass({
       // more details for that place.
       searchBox.addListener('places_changed', function() {
 
-        var places = searchBox.getPlaces();
+        var places = searchBox.getPlaces()
         if (places.length == 0) {
-          return;
+          return
         }
 
         // Clear out the old markers.
@@ -104,6 +104,9 @@ module.exports = React.createClass({
         places.forEach(function(place) {
 
           window.newLocationObj = compileGoogleAddress(place)
+          console.log(place)
+          console.log(place.geometry.location.lat())
+
 
           if (newLocationObj === null) {
             toast(i18n.t('manage_home:invalid_address'))
@@ -145,14 +148,14 @@ module.exports = React.createClass({
     // Modify home object, using new location object
     if (typeof newLocationObj !== 'undefined') {
 
-      newLocationObj.lat = randomiseCoordinate(circle.center.lat())
-      newLocationObj.lng = randomiseCoordinate(circle.center.lng())
+      newLocationObj.lat = randomiseCoordinate(circle.center.lat(), 100)
+      newLocationObj.lng = randomiseCoordinate(circle.center.lng(), 100)
 
-      var newHomeObj = this.props.props;
-      newHomeObj.location = newLocationObj;
+      var newHomeObj = this.props.props
+      newHomeObj.location = newLocationObj
 
       this.props.updateHome(newHomeObj, function() {
-        toast(i18n.t('manage_home:address_updated_toast'));
+        toast(i18n.t('manage_home:address_updated_toast'))
       });
 
     }
@@ -163,8 +166,8 @@ module.exports = React.createClass({
     if (this.props.props.location) {
 
       var fullAddress = this.props.props.location.street + ', ' + (this.props.props.location.complement !== null ? this.props.props.location.complement + ', ' : '') + this.props.props.location.city + ' ' + (this.props.props.location.zipCode !== null ? this.props.props.location.zipCode : '') + ', ' + this.props.props.location.country;
-      mapLat = this.props.props.location.lat;
-      mapLng = this.props.props.location.lng;
+      mapLat = this.props.props.location.lat
+      mapLng = this.props.props.location.lng
       mapZoom = 16;
 
       $('#home-address').val(fullAddress);
