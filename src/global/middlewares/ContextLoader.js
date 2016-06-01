@@ -17,12 +17,19 @@ module.exports = function (req, res, next) {
     req.language = req.cookies['ui-language']
     res.cookie('ui-language', req.cookies['ui-language'])
 
-  } else if (req.headers['accept-language'] && ui_languages[req.headers['accept-language']]) {
+  } else if (req.originalUrl.indexOf('/es/') > -1) {
 
-    // Get accept-language value from browser request header
-    var browserLanguage = req.headers['accept-language'].substring(0,2)
-    req.language = browserLanguage
-    res.cookie('ui-language', browserLanguage)
+    console.log('spanish')
+
+    req.language = 'es'
+    res.cookie('ui-language', 'es')
+
+  } else if (req.originalUrl.indexOf('/de/') > -1) {
+
+    console.log('german')
+
+    req.language = 'de'
+    res.cookie('ui-language', 'de')
 
   } else {
     req.language = 'en'
