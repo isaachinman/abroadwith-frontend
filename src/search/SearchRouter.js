@@ -133,7 +133,7 @@ router.post('/', function (req, res) {
   if (req.query.houseType) {
     var all = req.query.houseType.split(',')
     search_response.params.filters.houseType = all
-    query.push("homeType:"+req.query.houseType)
+    query.push("homeType:("+(req.query.houseType.replace(/,/g, ' OR '))+')')
   }
 
   if (filters.length > 0) {
