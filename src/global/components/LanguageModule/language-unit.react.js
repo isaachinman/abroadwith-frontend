@@ -31,7 +31,7 @@ module.exports = React.createClass({
   },
   render: function() {
 
-    var languageOptionTags = [];
+    var languageOptionTags = []
 
     for (var i=0; i<this.props.currentAvailableLanguageTags.length; i++) {
       languageOptionTags.push(

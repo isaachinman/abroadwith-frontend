@@ -9,19 +9,19 @@ var currencies = require('currencies')
 module.exports = React.createClass({
   componentDidUpdate: function() {
 
-    var MarkerWithLabel = require('markerwithlabel');
+    var MarkerWithLabel = require('markerwithlabel')
 
     // Add a marker for each result
     if (this.props) {
       if (this.props.results && typeof markers !== 'undefined') {
 
-        var currency = this.props.currency;
+        var currency = this.props.currency
 
         // Clear out the old markers.
         markers.forEach(function(marker) {
-          marker.setMap(null);
-        });
-        markers = [];
+          marker.setMap(null)
+        })
+        markers = []
 
         this.props.results.forEach(function(obj) {
 
@@ -35,14 +35,14 @@ module.exports = React.createClass({
             labelAnchor: new google.maps.Point(20, 35),
             labelContent: "<div class='price'>" + currencies[currency] + Math.ceil(obj.price) + "</div><div class='down-triangle''></div>",
             labelClass: "map-marker-label"
-          });
+          })
 
-          markers.push(marker);
+          markers.push(marker)
 
           // On marker click, scroll to appropriate search result
           google.maps.event.addListener(marker, "click", function() {
-            document.getElementById('result-' + markers.indexOf(marker)).scrollIntoView();
-          });
+            document.getElementById('result-' + markers.indexOf(marker)).scrollIntoView()
+          })
 
         })
       }
@@ -89,33 +89,33 @@ module.exports = React.createClass({
             ]
           }
         ]
-      });
+      })
 
       // Create a PlacesService to run prefilled text queries
-      var service = new google.maps.places.PlacesService(bigMap);
+      var service = new google.maps.places.PlacesService(bigMap)
 
       // Create the search box and link it to the UI element.
-      var input = document.getElementById('location');
-      var searchBox = new google.maps.places.SearchBox(input);
+      var input = document.getElementById('location')
+      var searchBox = new google.maps.places.SearchBox(input)
 
       $('#location').keydown(function(event) {
 
         if (event.keyCode == 10 || event.keyCode == 13) {
-          event.preventDefault();
-          google.maps.event.trigger(searchBox, 'place_changed');
+          event.preventDefault()
+          google.maps.event.trigger(searchBox, 'place_changed')
         }
 
       });
 
       bigMap.addListener('bounds_changed', function() {
-        searchBox.setBounds(bigMap.getBounds());
+        searchBox.setBounds(bigMap.getBounds())
       });
 
-      window.markers = [];
+      window.markers = []
 
       searchBox.addListener('places_changed', function() {
 
-        var places = searchBox.getPlaces();
+        var places = searchBox.getPlaces()
 
         if (places.length == 0) {
           return;
@@ -123,16 +123,16 @@ module.exports = React.createClass({
 
         // Clear out the old markers.
         markers.forEach(function(marker) {
-          marker.setMap(null);
-        });
-        markers = [];
+          marker.setMap(null)
+        })
+        markers = []
 
         // For each place, get the icon, name and location.
-        var bounds = new google.maps.LatLngBounds();
+        var bounds = new google.maps.LatLngBounds()
         places.forEach(function(place) {
-          bigMap.setCenter(place.geometry.location);
+          bigMap.setCenter(place.geometry.location)
           bigMap.fitBounds(place.geometry.viewport)
-          handleChange();
+          handleChange()
         });
 
       });
@@ -156,17 +156,16 @@ module.exports = React.createClass({
 
       } else {
 
-        var predeterminedQuery = window.location.search;
+        var predeterminedQuery = window.location.search
 
         // This is the main initial GET for search page
-        if (predeterminedQuery !== '') {
-          handleChange(predeterminedQuery)
-        } else {
-          handleChange();
-        }
+        // Have to wait for map to init before we can call getBounds
+        google.maps.event.addListenerOnce(bigMap, 'idle', function(){
+          predeterminedQuery !== '' ? handleChange(predeterminedQuery) : handleChange()
+        })
 
-        bigMap.addListener('zoom_changed', handleChange);
-        bigMap.addListener('dragend', handleChange);
+        bigMap.addListener('zoom_changed', handleChange)
+        bigMap.addListener('dragend', handleChange)
 
       }
 

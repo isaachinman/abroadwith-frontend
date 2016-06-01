@@ -9,10 +9,9 @@ const validateMessageButtons = require('validate-message-buttons');
 validateBookNowButtons();
 validateMessageButtons();
 
-const apiDate = require('api-date');
-const uiDate = require('ui-date');
-const pikaday = require('pikaday');
-const select2 = require('select2-browserify');
+const uiDate = require('ui-date')
+const pikaday = require('pikaday')
+const select2 = require('select2-browserify')
 
 const i18n = require('i18n');
 
@@ -49,8 +48,8 @@ $(document).ready(function() {
 
       var language = $('#language option:selected').val() !== '' ? '&language=' + $('#language option:selected').attr('data-lang') : '';
       var location = $('#location').val() !== '' ? '&location_string=' + ($('#location').val()).replace(/ /g,"_") : '';
-      var arrival = $('#arrival').val() !== '' ? '&arrival=' + apiDate($('#arrival').val()) : '';
-      var departure = $('#departure').val() !== '' ? '&departure=' + apiDate($('#departure').val()) : '';
+      var arrival = $('#arrival').val() !== '' ? '&arrival=' + $('#arrival').val() : '';
+      var departure = $('#departure').val() !== '' ? '&departure=' + $('#departure').val() : '';
       var guests = $('#guest-count').val() !== 'undefined' ? '?guests=' + $('#guest-count').val() : '';
 
       var url = '/search'+ guests + language + location + arrival + departure;

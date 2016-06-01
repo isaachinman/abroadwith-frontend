@@ -1,36 +1,35 @@
-var React =           require('react');
-var Dates =           require('./search-dates.react')
-var Language =        require('./search-language.react');
-var Price =           require('./search-price.react');
-var LanguageCourse =  require('./search-language-course.react');
-var Tandem =          require('./search-tandem.react');
-var MoreFilters =     require('./search-more-filters.react');
-var Results =         require('./search-results.react');
-var Pagination =      require('./search-pagination.react');
-var Map =             require('./search-map.react');
+var React =           require('react')
+var Language =        require('./search-language.react')
+var Price =           require('./search-price.react')
+var LanguageCourse =  require('./search-language-course.react')
+var Tandem =          require('./search-tandem.react')
+var MoreFilters =     require('./search-more-filters.react')
+var Results =         require('./search-results.react')
+var Pagination =      require('./search-pagination.react')
+var Map =             require('./search-map.react')
 
-var i18n = require('../../global/util/i18n');
+var i18n = require('../../global/util/i18n')
+var apiDate = require('api-date')
 
 module.exports = React.createClass({
   handleChange: function(predeterminedQuery, activePage) {
 
     // Get map data
     if (typeof bigMap !== 'undefined') {
-      var bounds = bigMap.getBounds();
-      var SW, NE;
-      bounds !== undefined ? SW = (bounds.getNorthEast()) : null;
-      bounds !== undefined ? NE = (bounds.getSouthWest()) : null;
+      var bounds = bigMap.getBounds()
+      var SW, NE
+      bounds !== undefined ? SW = (bounds.getNorthEast()) : null
+      bounds !== undefined ? NE = (bounds.getSouthWest()) : null
     }
 
     if (predeterminedQuery !== undefined && typeof predeterminedQuery === 'string') {
       var url = predeterminedQuery
 
       // Do pagination stuff
-      if (url.indexOf('pageSize')===-1) {
+      if (url.indexOf('pageSize') === -1) {
         url = url + '&pageSize=10'
       }
-
-      if (url.indexOf('pageOffset')===-1 ) {
+      if (url.indexOf('pageOffset') === -1) {
         if (activePage !== undefined) {
           url = url + '&pageOffset=' + ((activePage*10))
         } else {
@@ -46,17 +45,16 @@ module.exports = React.createClass({
         $('#guests'),
         $('#language'),
         $('#immersions'),
-        $('#special-prefs'),
-        $('#meal_plan'),
-        $('#meal_pref'),
-        $('#diet_restrictions'),
+        $('#specialPrefs'),
+        $('#mealPlan'),
+        $('#mealPref'),
+        $('#dietRestrictions'),
         $('#amenities'),
-        $('#house-type'),
+        $('#houseType'),
       ]
 
-      var url = '?';
-
-      var counter = 0;
+      var url = '?'
+      var counter = 0
 
       // Push values into search string
       for (var i=0; i<simpleValues.length; i++) {
@@ -68,7 +66,7 @@ module.exports = React.createClass({
           } else {
             var param = '&' + simpleValues[i].attr('id') + '=' + val;
           }
-          url = url + param;
+          url += param;
         }
       }
 
@@ -95,15 +93,19 @@ module.exports = React.createClass({
 
     }
 
-    // Get map bounds
-    var minLat = SW !== undefined ? url = url + '&minLat=' + (SW.lat()) : null;
-    var minLng = SW !== undefined ? url = url + '&minLng=' + (SW.lng()) : null;
-    var maxLat = NE !== undefined ? url = url + '&maxLat=' + (NE.lat()) : null;
-    var maxLng = NE !== undefined ? url = url + '&maxLng=' + (NE.lng()) : null;
+    // Do map stuff
+    if (url.indexOf('minLat') === -1 && url.indexOf('minLng') === -1 && url.indexOf('maxLat') === -1 && url.indexOf('maxLng') === -1) {
+      url += '&minLat=' + SW.lat()
+      url += '&minLng=' + SW.lng()
+      url += '&maxLat=' + NE.lat()
+      url += '&maxLng=' + NE.lng()
+    }
 
     $.post('/search'+url, function(data) {
 
       var response = JSON.parse(data);
+
+      console.log(response)
 
       var newState = {
         // Set new state vars
@@ -125,13 +127,13 @@ module.exports = React.createClass({
         language:         response.params.language,
         tandem:           response.params.offeredLanguages ? response.params.offeredLanguages : null,
         course:           response.params.languageCourse ? response.params.languageCourse.level : null,
-        extras:           response.params.filters.extras,
-        specialPrefs:     response.params.filters.specialPrefs,
-        mealPlan:         response.params.filters.mealPlan,
-        mealPref:         response.params.filters.mealPref,
-        dietRestrictions: response.params.filters.dietRestrictions,
-        amenities:        response.params.filters.amenities,
-        houseType:        response.params.filters.houseType,
+        extras:           response.params.filters.extras ? response.params.filters.extras : null,
+        specialPrefs:     response.params.filters.specialPrefs ? response.params.filters.specialPrefs: null,
+        mealPlan:         response.params.filters.mealPlan ? response.params.filters.mealPlan: null,
+        mealPref:         response.params.filters.mealPref ? response.params.filters.mealPref: null,
+        dietRestrictions: response.params.filters.dietRestrictions ? response.params.filters.dietRestrictions : null,
+        amenities:        response.params.filters.amenities ? response.params.filters.amenities : null,
+        houseType:        response.params.filters.houseType ? response.params.filters.houseType : null,
         results:          response.results
       }
 
@@ -150,7 +152,7 @@ module.exports = React.createClass({
     // Send search event
     ga('send', 'event', 'user_events', 'search_performed')
 
-    window.handleChange = this.handleChange;
+    window.handleChange = this.handleChange
 
     $('select#language').change(function() {
       if ($(this).val() !== 'undefined' && $(this).val() !== '') {
@@ -172,12 +174,12 @@ module.exports = React.createClass({
       $('#language'),
       $('#immersions'),
       $('#language-switch'),
-      $('#special-prefs'),
-      $('#meal_plan'),
-      $('#meal_pref'),
-      $('#diet_restrictions'),
+      $('#specialPrefs'),
+      $('#mealPlan'),
+      $('#mealPref'),
+      $('#dietRestrictions'),
       $('#amenities'),
-      $('#house-type'),
+      $('#houseType'),
       $('#ui-currency')
     ]
 
@@ -196,13 +198,6 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-
-        <Dates
-          arrival={this.state.arrival}
-          departure={this.state.departure}
-          guests={this.state.guests}
-          handleChange={this.handleChange}
-        />
 
         <Language
           language={this.state.language}
