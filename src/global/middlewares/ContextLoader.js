@@ -19,14 +19,10 @@ module.exports = function (req, res, next) {
 
   } else if (req.originalUrl.indexOf('/es/') > -1) {
 
-    console.log('spanish')
-
     req.language = 'es'
     res.cookie('ui-language', 'es')
 
   } else if (req.originalUrl.indexOf('/de/') > -1) {
-
-    console.log('german')
 
     req.language = 'de'
     res.cookie('ui-language', 'de')
