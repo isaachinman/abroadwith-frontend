@@ -127,13 +127,13 @@ module.exports = React.createClass({
         language:         response.params.language,
         tandem:           response.params.offeredLanguages ? response.params.offeredLanguages : null,
         course:           response.params.languageCourse ? response.params.languageCourse.level : null,
-        extras:           response.params.filters.extras,
-        specialPrefs:     response.params.filters.specialPrefs,
-        mealPlan:         response.params.filters.mealPlan,
-        mealPref:         response.params.filters.mealPref,
-        dietRestrictions: response.params.filters.dietRestrictions,
-        amenities:        response.params.filters.amenities,
-        houseType:        response.params.filters.houseType,
+        extras:           response.params.filters.extras ? response.params.filters.extras : null,
+        specialPrefs:     response.params.filters.specialPrefs ? response.params.filters.specialPrefs: null,
+        mealPlan:         response.params.filters.mealPlan ? response.params.filters.mealPlan: null,
+        mealPref:         response.params.filters.mealPref ? response.params.filters.mealPref: null,
+        dietRestrictions: response.params.filters.dietRestrictions ? response.params.filters.dietRestrictions : null,
+        amenities:        response.params.filters.amenities ? response.params.filters.amenities : null,
+        houseType:        response.params.filters.houseType ? response.params.filters.houseType : null,
         results:          response.results
       }
 
