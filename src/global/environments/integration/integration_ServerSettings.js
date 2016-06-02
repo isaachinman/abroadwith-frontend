@@ -6,6 +6,8 @@ module.exports = {
     port: 8983,
     path: '/solr/Search/select'
   },
+  redirect_domain: ".test-abroadwith.com",
+  cookieDomain: '.test-abroadwith.com',
   facebookAppId:"144997212531478",
   public_key: "-----BEGIN PUBLIC KEY-----\n"+
   "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwiFPc0o+YUiBbrXkF7SA"+
