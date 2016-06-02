@@ -98,7 +98,7 @@ installImmersionConfirmation(app);
 app.post('/logout',function(req,res){
 
   // Remove the access_token cookie
-  res.cookie("access_token", "", { expires: new Date() })
+  res.clearCookie('access_token', null, { domain:req.get('host') })
   res.header("Access-Control-Allow-Credentials","true")
   res.sendStatus(200)
 
