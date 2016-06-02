@@ -2,6 +2,7 @@ module.exports = {
   strict: true,
   port:3000,
   redirect_domain: ".abroadwith.com",
+  cookieDomain: ".abroadwith.com",
   solr: {
     "host": "localhost",
     "port": 8983,

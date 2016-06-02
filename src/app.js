@@ -1,5 +1,5 @@
 // Disable all console logging for production
-console.log = function() {}
+// console.log = function() {}
 
 // Non-critical stylesheets get loaded async here
 var loadDeferredStyles = function() {
