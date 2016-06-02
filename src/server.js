@@ -75,34 +75,34 @@ app.use(function(req, res, next) {
 })
 
 // Install pages onto the app
-installImageUpload(app);
-installMain(app);
-installHomes(app);
-installUsers(app);
-installUserEdit(app);
-installInbox(app);
-installAdmin(app);
-installSearch(app);
-installManageHome(app);
-installStatic(app);
-installBooking(app);
-installReservations(app);
-installTrips(app);
-installVerification(app);
-installInvoice(app);
-installReceipt(app);
-installReview(app);
-installImmersionConfirmation(app);
+installImageUpload(app)
+installMain(app)
+installHomes(app)
+installUsers(app)
+installUserEdit(app)
+installInbox(app)
+installAdmin(app)
+installSearch(app)
+installManageHome(app)
+installStatic(app)
+installBooking(app)
+installReservations(app)
+installTrips(app)
+installVerification(app)
+installInvoice(app)
+installReceipt(app)
+installReview(app)
+installImmersionConfirmation(app)
 
 // This is the logout endpoint
 app.post('/logout',function(req,res){
 
   // Remove the access_token cookie
-  res.clearCookie('access_token', { domain:req.get('host') })
+  res.cookie('access_token',"null", { secure:true, httpOnly: true, expires:new Date(0), domain:ServerSettings.cookieDomain })
   res.header("Access-Control-Allow-Credentials","true")
   res.sendStatus(200)
 
-});
+})
 
 // This is the shutdown function for deployment
 app.post('/shutdown',function (req, res, next) {
