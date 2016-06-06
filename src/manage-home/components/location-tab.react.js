@@ -104,9 +104,6 @@ module.exports = React.createClass({
         places.forEach(function(place) {
 
           window.newLocationObj = compileGoogleAddress(place)
-          console.log(place)
-          console.log(place.geometry.location.lat())
-
 
           if (newLocationObj === null) {
             toast(i18n.t('manage_home:invalid_address'))
