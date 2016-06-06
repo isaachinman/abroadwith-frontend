@@ -45,7 +45,7 @@ module.exports = function() {
   }
 
   // If user was a host at any point in time, show reservations UI
-  if (JWT.whost) {
+  if (JWT.whost === true || JWT.hid != 'undefined') {
     $('.your-reservations').show()
   }
 
