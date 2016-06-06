@@ -1,32 +1,32 @@
-const React = require('react');
-const i18n = require('i18n');
-const room = require('../../global/constants/Room');
+const React = require('react')
+const i18n = require('i18n')
+const room = require('../../global/constants/Room')
 
 const Dropzone = require('dropzone')
 
-const domains = require('domains');
-const JWT = require('JWT');
+const domains = require('domains')
+const JWT = require('JWT')
 
 var compileBedTypes = function(){
-  var options = [];
+  var options = []
   for(var bed in room.bedType){
-    options.push(<option value={bed}>{i18n.t('rooms:bed_types.'+bed)}</option>);
+    options.push(<option value={bed}>{i18n.t('rooms:bed_types.'+bed)}</option>)
   }
-  return options;
+  return options
 }
 
 var compileFacilities = function(){
-  var options = [];
+  var options = []
   for(var facility in room.facilities){
-    options.push(<option value={facility}>{i18n.t('rooms:facilities.'+facility)}</option>);
+    options.push(<option value={facility}>{i18n.t('rooms:facilities.'+facility)}</option>)
   }
-  return options;
+  return options
 }
 
 module.exports = React.createClass({
   deleteRoom: function() {
 
-    $('#preloader').show();
+    $('#preloader').show()
 
     $.ajax({
       url: domains.API+'/users/'+JWT.rid+'/homes/'+JWT.hid+'/rooms/'+this.props.id,
@@ -35,9 +35,9 @@ module.exports = React.createClass({
       beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
       success: function() {
 
-        this.props.refreshState();
+        this.props.refreshState()
 
-        $('#preloader').hide();
+        $('#preloader').hide()
 
       }.bind(this),
       error: function(response) {
@@ -46,7 +46,7 @@ module.exports = React.createClass({
           $('#room-deletion-failure').openModal()
         }
 
-        $('#preloader').hide();
+        $('#preloader').hide()
 
       }
     })

@@ -18,17 +18,17 @@ module.exports = React.createClass({
     document.getElementById('home-add-room-form').reset()
     $('#add-room-form select.material').material_select()
 
-    var refreshState = this.props.refreshState;
+    var refreshState = this.props.refreshState
 
-    var newRooms = this.props.props.rooms;
+    var newRooms = this.props.props.rooms
     newRooms.push(newRoom)
 
-    this.setState({rooms:newRooms});
+    this.setState({rooms:newRooms})
 
     var RoomsContainer = React.createClass({
       render: function() {
         var allRooms = []
-        var inputstyle = {cursor: 'pointer',position: 'absolute',opacity: 0,top: 0,left: 0,width: '100%',height: '100%'};
+        var inputstyle = {cursor: 'pointer',position: 'absolute',opacity: 0,top: 0,left: 0,width: '100%',height: '100%'}
         newRooms.forEach(function(obj) {
           allRooms.push(
             <RoomModule
@@ -125,13 +125,14 @@ module.exports = React.createClass({
 
     // Create new rooms object
    var newHomeObj = this.props.props
-   var newRoomsObj = this.state.rooms !== undefined ? this.state.rooms : this.props.props.rooms
+   var newRoomsObj = this.state.rooms !== undefined && this.state.rooms !== null ? this.state.rooms : this.props.props.rooms
 
    // Modify home object, using new rooms object
    newHomeObj.rooms = newRoomsObj
    this.props.updateHome(newHomeObj, function() {
+     this.setState({rooms:null})
      toast(i18n.t('manage_home:room_updated_toast'))
-   })
+   }.bind(this))
 
 
   },
@@ -158,9 +159,7 @@ module.exports = React.createClass({
   },
   componentDidUpdate: function() {
 
-    var refreshState = this.props.refreshState;
-
-    $('ul.existing-rooms').collapsible();
+    $('ul.existing-rooms').collapsible()
 
   },
   render: function() {
