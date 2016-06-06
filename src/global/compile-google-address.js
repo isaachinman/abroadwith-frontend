@@ -17,7 +17,8 @@ module.exports = function compileGoogleAddress(place) {
   newAddressObj.lng =             place.geometry.location.lng() || null
 
   // Validate, return null if anything is wrong
-  $.each(newAddressObj, function(component, value) { value === null ? newAddressObj = null : null })
+  var requiredFields = ['street','city','lat','lng']
+  $.each(newAddressObj, function(component, value) { requiredFields.indexOf(component) > -1 && value === null ? newAddressObj = null : null })
 
   // Return the address object
   return newAddressObj
