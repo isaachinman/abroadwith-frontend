@@ -215,14 +215,12 @@ module.exports = React.createClass({
         teacherAvailableLanguages:       response.teacherAvailableLanguages ? response.teacherAvailableLanguages : null
       }
 
-      this.setState(newState);
+      this.setState(newState)
 
-      $('#preloader').hide();
+      $('#preloader').hide()
 
       // Refresh selects
-      $('select.material').material_select();
-
-
+      $('select.material').material_select()
 
     }.bind(this);
     GET(url, success)
