@@ -10,7 +10,7 @@ module.exports = function(url, success, error) {
     beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
     success: function(response) {
 
-      success(response);
+      success(response)
 
     },
     error: function(response) {
@@ -18,8 +18,8 @@ module.exports = function(url, success, error) {
       if (response.status === 401) {
         window.location = '/login'
       } else {
-        $('#preloader').hide();
-        typeof error === 'function' ? error(response) : toast('Something failed');
+        $('#preloader').hide()
+        typeof error === 'function' ? error(response) : toast('Something failed')
       }
 
     }
