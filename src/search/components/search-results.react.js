@@ -1,6 +1,7 @@
-var React = require('react');
-var IndividualResult = require('./search-individual-result.react');
-var Wallop = require('wallop');
+var React = require('react')
+var IndividualResult = require('./search-individual-result.react')
+var NoResults = require('./search-no-results.react')
+var Wallop = require('wallop')
 
 module.exports = React.createClass({
   componentDidUpdate: function() {
@@ -24,9 +25,9 @@ module.exports = React.createClass({
   },
   render: function() {
 
-    var results = [];
+    var results = []
 
-    if (this.props.results) {
+    if (this.props.results && this.props.results.length > 0) {
 
       var markerId = 0;
 
@@ -56,6 +57,8 @@ module.exports = React.createClass({
         markerId++;
       })
 
+    } else if (typeof this.props.currency !== 'undefined') {
+      results.push(<NoResults />)
     }
 
     return (
