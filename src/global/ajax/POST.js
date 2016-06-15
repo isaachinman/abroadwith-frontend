@@ -1,4 +1,4 @@
-const domains = require('domains');
+const domains = require('domains')
 const toast = require('toast')
 
 module.exports = function(url, data, success, error) {
@@ -11,7 +11,7 @@ module.exports = function(url, data, success, error) {
     beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'))},
     success: function(response) {
 
-      success !== null ? success(response) : null;
+      success !== null ? success(response) : null
 
     },
     error: function(response) {
@@ -20,7 +20,7 @@ module.exports = function(url, data, success, error) {
         window.location = '/login'
       } else {
         $('#preloader').hide();
-        typeof error === 'function' ? error(response) : toast('Something failed');
+        typeof error === 'function' ? error(response) : toast('Something failed')
       }
 
     }

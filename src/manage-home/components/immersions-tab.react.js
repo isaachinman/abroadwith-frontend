@@ -157,9 +157,13 @@ module.exports = React.createClass({
       acceptedFiles: 'image/jpeg,image/png',
       init: function() {
         this.on("maxfilesexceeded", function(file) {
-          this.removeAllFiles();
-          this.addFile(file);
-        });
+          this.removeAllFiles()
+          this.addFile(file)
+        })
+        this.on('error', function() {
+          $('#certificate-modal').closeModal()
+          toast('Something failed')
+        })
         this.on('success', function(x, response) {
 
           var serverResponse = JSON.parse(response)
