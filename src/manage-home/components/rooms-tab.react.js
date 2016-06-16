@@ -153,7 +153,14 @@ module.exports = React.createClass({
       dictDefaultMessage: i18n.t('manage_home:drop_room_photo'),
       headers: {'abroadauth': 'Bearer ' + localStorage.getItem('JWT')},
       maxFilesize: 10,
-      acceptedFiles: 'image/jpeg,image/png'
+      acceptedFiles: 'image/jpeg,image/png',
+      init: function() {
+      this.on("maxfilesexceeded", function(file) {
+          this.removeAllFiles()
+          this.addFile(file)
+          toast(i18n.t('manage_home:one_picture_per_room'))
+        })
+      }
     })
 
   },
