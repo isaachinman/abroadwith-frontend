@@ -127,33 +127,25 @@ module.exports = React.createClass({
     var newHomeObj = this.props.props
     var newRoomsObj = []
 
-    if (this.state.rooms !== undefined && this.state.rooms !== null) {
+    $('.existing-room').each(function() {
 
-      newRoomsObj = this.state.rooms
+      // Set up new object for each room
+      var id = parseInt($(this).attr('data-id'))
+      var room = {
+        id: id,
+        name: $(this).find('.room-name').val(),
+        bed: $(this).find('select.bed-type').val(),
+        vacancies: parseInt($(this).find('select.vacancies').val()),
+        facilities: $(this).find('select.facilities').val(),
+        shared: $(this).find('input.shared-switch').prop('checked'),
+        img: $(this).find("#photo_room_"+id).val() !== '' ? $(this).find("#photo_room_"+id).val() : null,
+        description: $(this).find('.room-description').val(),
+        price: $(this).attr('data-price')
+      }
 
-    } else {
+      newRoomsObj.push(room)
 
-      $('.existing-room').each(function() {
-
-       // Set up new object for each room
-       var id = parseInt($(this).attr('data-id'))
-       var room = {
-         id: id,
-         name: $(this).find('.room-name').val(),
-         bed: $(this).find('select.bed-type').val(),
-         vacancies: parseInt($(this).find('select.vacancies').val()),
-         facilities: $(this).find('select.facilities').val(),
-         shared: $(this).find('input.shared-switch').prop('checked'),
-         img: $(this).find("#photo_room_"+id).val() !== '' ? $(this).find("#photo_room_"+id).val() : null,
-         description: $(this).find('.room-description').val(),
-         price: $(this).attr('data-price')
-       }
-
-       newRoomsObj.push(room)
-
-     })
-
-    }
+   })
 
     // Modify home object, using new rooms object
     newHomeObj.rooms = newRoomsObj
