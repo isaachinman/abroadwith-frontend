@@ -138,7 +138,7 @@ module.exports = React.createClass({
         vacancies: parseInt($(this).find('select.vacancies').val()),
         facilities: $(this).find('select.facilities').val(),
         shared: $(this).find('input.shared-switch').prop('checked'),
-        img: $(this).find("#photo_room_"+id).val() !== '' ? $(this).find("#photo_room_"+id).val() : null,
+        img: $(this).find('.dz-filename span').html() !== '' ? $(this).find('.dz-filename span').html() : null,
         description: $(this).find('.room-description').val(),
         price: $(this).attr('data-price')
       }
