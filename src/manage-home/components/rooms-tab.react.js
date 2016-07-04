@@ -25,50 +25,14 @@ module.exports = React.createClass({
 
     this.setState({rooms:newRooms})
 
-    var RoomsContainer = React.createClass({
-      render: function() {
-        var allRooms = []
-        var inputstyle = {cursor: 'pointer',position: 'absolute',opacity: 0,top: 0,left: 0,width: '100%',height: '100%'}
-        newRooms.forEach(function(obj) {
-          allRooms.push(
-            <RoomModule
-              id={obj.id}
-              key={obj.id}
-              roomName={obj.name}
-              bed={obj.bed}
-              vacancies={obj.vacancies}
-              facilities={obj.facilities}
-              shared={obj.shared}
-              img={obj.img}
-              description={obj.description}
-              price={obj.price}
-              inputstyle={inputstyle}
-              refreshState={refreshState}
-              canDelete={true}
-            />
-          )
-        })
-        return (
-          <ul className="collapsible rooms-collapsible existing-rooms" data-collapsible="accordion">
-            {allRooms}
-          </ul>
-        )
-      }.bind(this)
-    })
-
-    ReactDOM.render(
-      <RoomsContainer
-      />, document.querySelector('#existing-rooms')
-    )
-
-    $('ul.existing-rooms').collapsible();
-    $('#room-name').val('');
-    $('#room-description').val('');
+    $('ul.existing-rooms').collapsible()
+    $('#room-name').val('')
+    $('#room-description').val('')
 
   },
   addRoom: function() {
 
-    var addRoomToList = this.addRoomToList;
+    var addRoomToList = this.addRoomToList
 
     var newRoom = {
       name: $('#room-name').val(),
@@ -77,7 +41,7 @@ module.exports = React.createClass({
       shared: $('#room-shared').prop('checked'),
       bed: $('#room-bed').val(),
       facilities: $('#room-facilities').val()
-    };
+    }
 
     $('#preloader').show();
 
@@ -98,7 +62,7 @@ module.exports = React.createClass({
 
           $.each(response, function(index, obj) {
             if (obj.status == 'OK') {
-              newRoom.img = obj.location;
+              newRoom.img = obj.location
             }
           })
 
@@ -112,13 +76,13 @@ module.exports = React.createClass({
       } else {
 
         // There's no room image
-        addRoomToList(newRoom);
-        $('#preloader').hide();
+        addRoomToList(newRoom)
+        $('#preloader').hide()
 
       }
 
-    };
-    POST(url, newRoom, success);
+    }
+    POST(url, newRoom, success)
 
   },
   saveRooms: function() {
@@ -140,7 +104,7 @@ module.exports = React.createClass({
         shared: $(this).find('input.shared-switch').prop('checked'),
         img: $(this).find('.dz-filename span').html() !== '' ? $(this).find('.dz-filename span').html() : null,
         description: $(this).find('.room-description').val(),
-        price: $(this).attr('data-price')
+        price: $(this).attr('data-price') !== 'null' ? $(this).attr('data-price') : null
       }
 
       newRoomsObj.push(room)
