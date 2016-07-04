@@ -116,7 +116,7 @@ module.exports = React.createClass({
       preferredCountries: ['us','gb','es','de','at','ch'],
       nationalMode: true,
       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
-    });
+    })
 
 
   },
