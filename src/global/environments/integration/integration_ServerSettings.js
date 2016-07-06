@@ -3,8 +3,7 @@ module.exports = {
   port:3000,
   solr: {
     host: 'ec2-52-58-151-13.eu-central-1.compute.amazonaws.com',
-    port: 8983,
-    path: '/solr/Search/select'
+    port: 8983
   },
   redirect_domain: ".test-abroadwith.com",
   cookieDomain: '.test-abroadwith.com',
