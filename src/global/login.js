@@ -39,6 +39,7 @@ module.exports = function(loginObj, firstTime) {
 
         // Send user registration tracking event
         ga('send', 'event', 'user_events', 'registration')
+        fbq('track', 'CompleteRegistration')
 
         $('#sign-up-modal').closeModal()
 
