@@ -27,7 +27,7 @@ $(document).ready(function() {
       })
     } else {
       i18n.loadNamespaces(['search'], function() {
-        $('#email-verified-successfully').html('<a onclick="$(' + "'" + '#login-modal' + "'" + ').openModal()">' + i18n.t('common:navbar_login') + '</a>')
+        $('#email-verified-successfully').html('<a href="/login">'+i18n.t('common:navbar_login')+'</a>')
       })
     }
 
