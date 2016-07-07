@@ -14,6 +14,14 @@ module.exports = function() {
   // Print username into navbar
   $('span#navbar-username').html(JWT.name)
 
+  // Perform certain actions if the user isn't fully verified
+  if (JWT.cbk > 0) {
+    verificationsModuleInit('/manage-home')
+  } else if (JWT.cbk === 0) {
+    // Perform other actions if the user is fully verified
+    $('li.get-verified').hide()
+  }
+
   // Remove modals
   $('#choose-languages-modal, #login-modal, #sign-up-modal').remove()
 
@@ -26,14 +34,6 @@ module.exports = function() {
   // Swap UI
   $('.logged-out').hide()
   $('.logged-in').fadeIn()
-
-  // Perform certain actions if the user isn't fully verified
-  if (JWT.cbk > 0) {
-    verificationsModuleInit('/manage-home')
-  } else if (JWT.cbk === 0) {
-    // Perform other actions if the user is fully verified
-    $('li.get-verified').hide()
-  }
 
   // Input links to profile page
   $('a.go-to-your-profile').attr('href','/users/'+JWT.rid)
