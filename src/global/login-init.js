@@ -15,6 +15,7 @@ if (localStorage.getItem('JWT') !== null) {
   loggedIn()
 } else {
   $('.logged-out').fadeIn()
+  $('.get-verified').hide()
 }
 
 $('form.email-login').submit(function() {
