@@ -9,5 +9,5 @@ if ($('#receipt-container').length) {
     ReactDOM.render(
       <ReceiptContainer />, document.querySelector('#receipt-container')
     )
-  });
+  })
 }
