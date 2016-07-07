@@ -24,8 +24,9 @@ if ($('a.become-a-host').length) {
       var data = {}
       var success = function() {
 
-        // Send user registration tracking event
+        // Send home creation tracking event
         ga('send', 'event', 'host_events', 'home_created')
+        fbq('track', 'Lead')
 
         refreshToken(function() {
           window.location = '/manage-home'
