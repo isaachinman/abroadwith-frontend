@@ -17,6 +17,7 @@ module.exports = React.createClass({
 
     document.getElementById('home-add-room-form').reset()
     $('#add-room-form select.material').material_select()
+    newRoomPhoto.removeAllFiles()
 
     var refreshState = this.props.refreshState
 
