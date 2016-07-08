@@ -33,6 +33,9 @@ module.exports = function(stayId, roomId, homeId) {
       settingNames:               []
     }
 
+    const jwt_decode = require('jwt-decode')
+    var JWT = jwt_decode(localStorage.getItem('JWT'))
+
     // Post to room price endpoint to see if room is available for these dates
     $.ajax({
       type: "POST",
