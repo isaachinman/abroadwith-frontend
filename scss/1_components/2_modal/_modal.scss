@@ -127,7 +127,19 @@ a.btn-signup {
   }
 }
 #how-does-it-work-modal {
-  max-height: 90% !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  h2 {
+    margin: 30px 0 50px 0;
+  }
+  h5 {
+    color: darken($grey-chateau, 10%);
+    min-height: 50px;
+  }
+  p {
+    text-align: left;
+    color: darken($grey-chateau, 5%);
+  }
   .row {
     &--blue {
       background: lighten($havelock-blue, 10%);
@@ -139,7 +151,8 @@ a.btn-signup {
 img.how-does-it-work {
   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.09);
   width: 80%;
-  max-width: 100%;
+  max-width: 250px;
+  max-height: 250px;
   border-radius: 50%;
 }
 .modal .status-bar {
