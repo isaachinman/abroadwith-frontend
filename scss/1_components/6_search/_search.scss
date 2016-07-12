@@ -170,3 +170,44 @@
   background: rgba(0,0,0,.25);
   z-index: 10;
 }
+
+nav.search-location {
+  @extend .overlay;
+  left: auto;
+  @media #{$large-and-up} {
+    width: calc(33.33333% - 20px);
+  }
+  @media #{$medium-and-down} {
+    width: calc(41.66667% - 20px);
+  }
+  @media #{$medium-and-up} {
+    z-index: 2;
+    position: fixed;
+    top: 60px;
+    right: 10px;
+  }
+  @media #{$medium-and-down} {
+    width: calc(41.66667% - 20px);
+  }
+  @media #{$small-and-down} {
+    position: relative;
+    box-shadow: none;
+    border: 1px solid #ddd;
+    width: 100%;
+    background: white;
+  }
+
+}
+
+.search-map-section {
+  @media #{$small-and-down} {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    input#location {
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+  }
+}
