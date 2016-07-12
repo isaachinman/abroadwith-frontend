@@ -11,19 +11,31 @@
 
     <div class='container'>
 
+      <nav class='light no-margin search-location'>
+        <div class="nav-wrapper">
+          <form>
+            <div class="input-field">
+              <input id="location" type="search" class='grey-text text-darken-1' placeholder='{{translations.search.map_input_placeholder}}' style='height:3rem'>
+              <label for="search"><i class="fa fa-search grey-text text-darken-1" aria-hidden="true"></i></label>
+              <i class="material-icons" onclick='$("#location").val("")'>close</i>
+            </div>
+          </form>
+        </div>
+      </nav>
+
       <div class='row section'>
-        <div class='input-field col s12 m3 l2 grey-text'>
+        <div class='input-field col s12 m3 l2 grey-text hide-on-small-and-down'>
           <div class='chip chip-grey'>{{translations.common.Dates}}</div>
         </div>
-        <div class='input-field col s12 m3 l3'>
+        <div class='input-field col s4 m3 l3'>
           <input id='arrival' type="text" class='arrival' value='{{query.arrival}}' autocomplete="off" />
           <label for='arrival' class='active'>{{translations.common.Arrival}}</label>
         </div>
-        <div class='input-field col s12 m3 l3'>
+        <div class='input-field col s4 m3 l3'>
           <input id='departure' type="text" class="departure" value='{{query.departure}}' autocomplete="off" />
           <label for='departure' class='active'>{{translations.common.Departure}}</label>
         </div>
-        <div class='input-field col s12 m3 l4'>
+        <div class='input-field col s4 m3 l4'>
           <select id='guests' class='material'>
             {% for i in range (1,5) %}
               {% if query.guests == i %}
@@ -39,10 +51,10 @@
       <div class='divider'></div>
 
       <div class='row section'>
-        <div class='col s12 m3 l2 grey-text'>
+        <div class='col s12 m3 l2 grey-text hide-on-small-and-down'>
           <div class='chip chip-grey'>{{translations.common.Language}}</div>
         </div>
-        <div class='col s12 m9 l3'>
+        <div class='col s6 m9 l3'>
           <select id="language" class="validate border-radius-left">
             <option></option>
             {% for code, lang in translations.languages %}
@@ -54,10 +66,10 @@
             {% endfor %}
           </select>
         </div>
-        <div class='col s12 m3 l2 grey-text'>
+        <div class='col s12 m3 l2 grey-text hide-on-small-and-down'>
           <div class='chip chip-grey'>{{translations.common.Immersion}}</div>
         </div>
-        <div class='col s12 m9 l5'>
+        <div class='col s6 m9 l5'>
           <select id='immersions' class='material' multiple>
             <option value="" disabled>{{translations.common.choose_immersion_type}}</option>
             <option value="stay">{{translations.common.Stay}}</option>
@@ -70,7 +82,7 @@
       <div class='divider tandem-language hide'></div>
 
       <div class='row section tandem-language hide'>
-        <div class='col s12 m6 l5 grey-text'>
+        <div class='col s12 m6 l5 grey-text hide-on-small-and-down'>
           <div class='chip chip-grey'>{{translations.search.your_tandem_language}}</div>
         </div>
         <div class='col s12 m6 l7'>
@@ -83,9 +95,9 @@
         </div>
       </div>
 
-      <div class='divider'></div>
+      <div class='divider hide-on-small-and-down'></div>
 
-      <div class='row section'>
+      <div class='row section hide-on-small-and-down'>
         <div class='col s3 m3 l2 grey-text'>
           <div class='chip chip-grey'>{{translations.common.Price}}</div>
         </div>
@@ -236,19 +248,7 @@
     {% include "partials/navigation/footer.html" %}
 
   </div>
-  <div class='col s12 m5 l4 no-padding fixed-100-vh hide-on-small-and-down'>
-
-    <nav class='overlay light row no-margin'>
-      <div class="nav-wrapper">
-        <form>
-          <div class="input-field">
-            <input id="location" type="search" class='grey-text text-darken-1' placeholder='{{translations.search.map_input_placeholder}}' style='height:3rem'>
-            <label for="search"><i class="fa fa-search grey-text text-darken-1" aria-hidden="true"></i></label>
-            <i class="material-icons" onclick='$("#location").val("")'>close</i>
-          </div>
-        </form>
-      </div>
-    </nav>
+  <div class='col s12 m5 l4 no-padding fixed-100-vh search-map-section'>
 
     <div id="search-map" class='big-map' data-location='{{query.location_string}}'></div>
 
