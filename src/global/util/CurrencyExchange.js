@@ -30,7 +30,7 @@ var loadCurrencies = function() {
   // If currency rate timestamp is old enough, get new data
   if (currencyRates.timestamp*1000 < (new Date().getTime() - updateTime)) {
 
-    https.get('https://www.openexchangerates.org/api/latest.json?app_id=dd1c917afe9e48e5860f6a913ed0e227', function (response) {
+    https.get('https://openexchangerates.org/api/latest.json?app_id=dd1c917afe9e48e5860f6a913ed0e227', function (response) {
 
       // Set up an empty string to add to
       var body = ''
