@@ -4,18 +4,17 @@
   <div id='review-container'></div>
   <h3 class='grey-text'>Leave a review</h3>
 </div>
-
 <div class='leave-review'>
   <div class='col s12 m6 l4'>
     <div class='reviewee-card'>
-      <img class='reviewee-image' src={{user.photo}}>
+      <img class='reviewee-image' src='https://abroadwith.imgix.net{{user.photo}}'>
       <div class='booking-details'>
         <div>{% if user.homeCity %}{{user.homeCity}}, {% endif %}{% if user.homeCountry %}{{translations.countries[user.homeCountry]}}{% endif %}</div>
       </div>
     </div>
   </div>
   <div class='col s12 m6 l8'>
-    <h5 class='grey-text text-darken-1'>Tell us about your experience with <span id='reviewee' data-id={{user.id}} data-type={{query.reviewee_role}}>{{user.firstName}}</span></h5>
+    <h5 class='grey-text text-darken-1'>Tell us about your experience with <span id='reviewee' data-id={{user.id}} data-type={{query.reviewee_type}}>{{user.firstName}}</span></h5>
     <h6 class='grey-text text-darken-1'>Your review will be public on {{user.firstName}}'s profile page</h6>
   </div>
   <div class="col s12 m6 l8">
