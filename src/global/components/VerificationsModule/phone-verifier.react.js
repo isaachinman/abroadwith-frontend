@@ -73,7 +73,7 @@ module.exports = React.createClass({
       refreshToken(function() {
         var JWT = localStorage.getItem('JWT') !== null ? jwt_decode(localStorage.getItem('JWT')) : null;
 
-        if (destinationUrl === 'booking') {
+        if (destinationUrl === 'booking' && JWT.cbk === 0) {
           goToBooking(parseInt($('a.btn-book').attr('data-stay-id')), parseInt($('a.btn-book').attr('data-rid')), $('a.btn-book').attr('data-hid'))
         } else if (JWT.cbk > 0) {
           refreshState();
