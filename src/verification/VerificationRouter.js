@@ -8,6 +8,8 @@ var router = express.Router()
 
 router.get('/', function(req, res) {
 
+  console.log(req.rawHeaders)
+
   if (!req.context) res.status(404).send('No verification context.')
 
   var post_options = {
@@ -21,15 +23,23 @@ router.get('/', function(req, res) {
   var post_req
   if (domains.API_HTTP == "https") {
 
-    post_req = https.request(post_options, function(response) {
+    var decodedToken = jwt.verify(req.cookies['access_token'], new Buffer(ServerSettings.public_key,'utf8'), { algorithms: ['RS512'] }, function (err, payload) {
 
-      if (response.statusCode == 204) {
-        res.send(nunjucks.render('verification/email-verified-success.html', req.context))
-      } else {
-        res.send(nunjucks.render('verification/email-verified-failure.html', req.context))
-      }
+      post_req = https.request(post_options, function(response) {
+
+        if (response.statusCode == 204) {
+          res.send(nunjucks.render('verification/email-verified-success.html', req.context))
+        } else if (decodedToken.cbk !== 1 && decodedToken.cbk !== 3) {
+          res.send(nunjucks.render('verification/email-already-verified.html', req.context))
+        } else {
+          res.send(nunjucks.render('verification/email-verified-failure.html', req.context))
+        }
+
+      })
 
     })
+
+
 
   } else {
 
