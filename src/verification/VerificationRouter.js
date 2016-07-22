@@ -3,12 +3,12 @@ const nunjucks = require('nunjucks')
 const http = require('http')
 const https = require('https')
 const domains = require('../global/constants/domains')
+const ServerSettings = require('../ServerSettings')
+const jwt = require('jsonwebtoken')
 
 var router = express.Router()
 
 router.get('/', function(req, res) {
-
-  console.log(req.rawHeaders)
 
   if (!req.context) res.status(404).send('No verification context.')
 
@@ -25,11 +25,13 @@ router.get('/', function(req, res) {
 
     var decodedToken = jwt.verify(req.cookies['access_token'], new Buffer(ServerSettings.public_key,'utf8'), { algorithms: ['RS512'] }, function (err, payload) {
 
+      console.log(payload)
+
       post_req = https.request(post_options, function(response) {
 
         if (response.statusCode == 204) {
           res.send(nunjucks.render('verification/email-verified-success.html', req.context))
-        } else if (decodedToken.cbk !== 1 && decodedToken.cbk !== 3) {
+        } else if (payload.cbk !== 1 && payload.cbk !== 3) {
           res.send(nunjucks.render('verification/email-already-verified.html', req.context))
         } else {
           res.send(nunjucks.render('verification/email-verified-failure.html', req.context))
@@ -37,11 +39,17 @@ router.get('/', function(req, res) {
 
       })
 
+      post_req.on('error', function(e) {
+        res.send(nunjucks.render('verification/email-verified-failure.html', req.context))
+      })
+
+      post_req.end()
+
     })
 
+  }
 
-
-  } else {
+  else {
 
     post_req = http.request(post_options, function(response) {
 
@@ -54,11 +62,6 @@ router.get('/', function(req, res) {
 
   }
 
-  post_req.on('error', function(e) {
-    res.send(nunjucks.render('verification/email-verified-failure.html', req.context))
-  })
-
-  post_req.end()
 })
 
 module.exports = router
