@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 
   // Set up the request
   var post_req
-  if (domains.API_HTTP == "https") {
+  if (domains.API_HTTP == "https" && req.cookies['access_token']) {
 
     var decodedToken = jwt.verify(req.cookies['access_token'], new Buffer(ServerSettings.public_key,'utf8'), { algorithms: ['RS512'] }, function (err, payload) {
 
