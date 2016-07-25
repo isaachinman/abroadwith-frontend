@@ -4,7 +4,6 @@ import Express from 'express'
 import React from 'react'
 import ReactDOM from 'react-dom/server'
 import config from './config'
-import favicon from 'serve-favicon'
 import compression from 'compression'
 import httpProxy from 'http-proxy'
 import path from 'path'
@@ -31,7 +30,6 @@ const proxy = httpProxy.createProxyServer({
 })
 
 app.use(compression())
-app.use(favicon(path.join(__dirname, '..', 'build', 'favicon.ico')))
 
 app.use(Express.static(path.join(__dirname, '..', 'build')))
 
