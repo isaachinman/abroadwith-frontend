@@ -16,7 +16,7 @@ module.exports = Object.assign({
   apiPort: process.env.APIPORT,
   app: {
     title: 'Abroadwith',
-    description: 'This is the description',
+    description: 'Immerse in a new language and culture',
     head: {
       titleTemplate: '%s',
       meta: [
