@@ -8,9 +8,6 @@
     "type": "git",
     "url": "REPO_HERE"
   },
-  "pre-push": [
-    "lint"
-  ],
   "browser": {
     "abroadwith-palette": "./src/styles/colors"
   },
