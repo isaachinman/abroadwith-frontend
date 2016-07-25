@@ -9,7 +9,7 @@
     "url": "REPO_HERE"
   },
   "pre-push": [
-    "npm run lint"
+    "lint"
   ],
   "browser": {
     "abroadwith-palette": "./src/styles/colors"
