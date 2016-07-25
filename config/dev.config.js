@@ -9,7 +9,6 @@ var webpack = require('webpack')
 var assetsPath = path.resolve(__dirname, '../build/dist')
 var host = (process.env.HOST || 'localhost')
 var port = (+process.env.PORT + 1) || 3001
-var Visualizer = require('webpack-visualizer-plugin')
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
@@ -104,8 +103,6 @@ module.exports = {
     alias: resolvePaths
   },
   plugins: [
-    // Visualizer
-    new Visualizer(),
     // Hot reload
     new webpack.HotModuleReplacementPlugin(),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
