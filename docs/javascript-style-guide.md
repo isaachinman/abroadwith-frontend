@@ -34,7 +34,7 @@ This is probably the most opinionated and controversial aspect of Abroadwith's J
 
 Two points to be made:
 1. JavaScript has Automatic Semicolon Insertion built in.
-2. All JavaScript in this project is transpiled from ES6/ES7 to ES5 by BabelJs, which also has automatic semicolon insertion.
+2. All non-Node-related JavaScript in this project is transpiled from ES6/ES7 to ES5 by BabelJs, which also has automatic semicolon insertion.
 
 Point #1 is enough to convince some people to stop using semicolons altogether.
 Point #1 in conjunction with point #2 means that as far as this project is concerned,
