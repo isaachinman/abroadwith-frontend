@@ -33,7 +33,7 @@ export default class Html extends Component {
           {head.link.toComponent()}
           {head.script.toComponent()}
 
-          <link rel="icon" type="image/png" sizes="32x32" href="https://abroadwith.imgix.net/app/favicon/favicon.png" />
+          <link rel='icon' type='image/png' sizes='32x32' href='https://abroadwith.imgix.net/app/favicon/favicon.png' />
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700' type='text/css' />
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           {/* styles (will be present only in production with webpack extract text plugin) */}
