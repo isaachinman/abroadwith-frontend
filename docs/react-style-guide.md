@@ -1,18 +1,11 @@
 # React Style Guide
 
-## Table of Contents
-
-* [Separate folder per UI component](#separate-folder-per-ui-component)
-* [Preference to functional components](#preference-to-functional-components)
-* [Use CSS Modules](#use-css-modules)
-* [Use higher-order components](#use-higher-order-components)
-
 ## Separate folder per UI component
 
-* Place each major UI component along with its resources in a separate folder<br>
+* Place each major UI component along with its resources in a separate folder
   This makes easier to find related resources for any particular UI
   element (CSS, images, unit tests, localization files etc.).
-* Avoid having CSS, images and other resource files shared between multiple components.<br>
+* Avoid having CSS, images and other resource files shared between multiple components.
   This will make the code more maintainable, easy to refactor.
 * Add component to `src/components/index.js`. This file is an index of all components,
   which allows for easy importing. Ie: `import { CounterButton, InfoBar } from 'components'`.
@@ -21,9 +14,9 @@ For more information google for [component-based UI development](https://google.
 
 ## Preference to functional components
 
-* Prefer using stateless functional components whenever possible.<br>
+* Prefer using stateless functional components whenever possible.
   Components that don't use state are better to be written as simple pure functions.
-* Some people refer to this pattern as "smart" vs "dumb" components.<br>
+* Some people refer to this pattern as "smart" vs "dumb" components.
   Component trees are *much* easier to test if state is kept as high up as possible,
   and children components are kept as "dumb", merely rendering out props and never
   dealing with state.
@@ -51,7 +44,7 @@ Navigation.propTypes = { items: PropTypes.array.isRequired }
 
 ## Use CSS Modules
 
-* Use CSS Modules<br>
+* Use CSS Modules
   This will allow using short CSS class names and at the same time avoid conflicts.
 * Keep CSS simple and declarative. Avoid loops, mixins etc.
 * Feel free to use variables in CSS via [precss](https://github.com/jonathantneal/precss) plugin for [PostCSS](https://github.com/postcss/postcss)
@@ -129,7 +122,7 @@ export default withStyles(Navigation, s)
 
 ## Use higher-order components
 
-* Use higher-order components (HOC) to extend existing React components.<br>
+* Use higher-order components (HOC) to extend existing React components.
   Here is an example:
 
 ```js
@@ -188,5 +181,3 @@ class MyComponent {
 
 export default withViewport(MyComponent)
 ```
-
-**[⬆ back to top](#table-of-contents)**
