@@ -1,0 +1,12 @@
+export const havelockBlue = `#4A90E2`
+export const ziggurat = `#AFD4DD`
+export const greyChateau = `#909AA8`
+export const americano = `#776B68`
+export const sulu = `#B8E986`
+export const sunsetOrange = `#FC5050`
+export const stay = `#105B63`
+export const tandem = `#45BF55`
+export const teacher = `#BD4932`
+export const accentBg = `#f7fafb`
+export const mintGreen = `#CEEFDE`
+export const forestGreen = `#657F49`
