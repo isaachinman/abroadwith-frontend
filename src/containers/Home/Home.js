@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
-import config from 'config'
 import Helmet from 'react-helmet'
+import styles from './Home.styles'
 
 export default class Home extends Component {
   render() {
-    const styles = require('./Home.scss')
     return (
-      <div className={styles.home}>
+      <div>
+        
         <Helmet title='Home' />
-        <div className={styles.masthead}>
+        <div style={styles.hero}>
           <div className='container'>
 
-            <h1>{config.app.title}</h1>
-            <h2>{config.app.description}</h2>
+            <h1 style={styles.h1}>Go abroad</h1>
+            <h2 style={styles.h2}>Immerse in a new language and culture.</h2>
 
           </div>
         </div>
