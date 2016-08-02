@@ -1,3 +1,5 @@
+import jwtDecode from 'jwt-decode'
+
 const LOAD = 'redux-example/auth/LOAD'
 const LOAD_SUCCESS = 'redux-example/auth/LOAD_SUCCESS'
 const LOAD_FAIL = 'redux-example/auth/LOAD_FAIL'
@@ -42,7 +44,7 @@ export default function reducer(state = initialState, action = {}) {
     return {
       ...state,
       loggingIn: false,
-      user: action.result,
+      user: jwtDecode(action.result.token),
     }
   case LOGIN_FAIL:
     return {
@@ -84,12 +86,14 @@ export function load() {
   }
 }
 
-export function login(name) {
+export function login(email, password) {
+  console.log(email, password)
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
-    promise: (client) => client.post('/login', {
+    promise: (client) => client.post('/users/login', {
       data: {
-        name,
+        email,
+        password,
       },
     }),
   }
