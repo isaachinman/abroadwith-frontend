@@ -1,6 +1,6 @@
 {
-  "name": "NAME_HERE",
-  "description": "DESCRIPTION_HERE",
+  "name": "Abroadwith",
+  "description": "Immerse in a new language and culture",
   "author": "Isaac Hinman <isaac@isaachinman.com> (github.com/isaachinman)",
   "license": "UNLICENSED",
   "version": "0.1.0",
@@ -13,19 +13,15 @@
   },
   "main": "bin/server.js",
   "scripts": {
-    "start": "concurrently --kill-others \"npm run start-prod\" \"npm run start-prod-api\"",
+    "start": "concurrently --kill-others \"npm run start-prod\"",
     "start-prod": "better-npm-run start-prod",
-    "start-prod-api": "better-npm-run start-prod-api",
     "build": "better-npm-run build",
     "postinstall": "npm run build",
     "lint": "eslint src",
     "start-dev": "better-npm-run start-dev",
-    "start-dev-api": "better-npm-run start-dev-api",
     "watch-client": "better-npm-run watch-client",
-    "dev": "concurrently --kill-others \"npm run watch-client\" \"npm run start-dev\" \"npm run start-dev-api\"",
-    "test": "karma start",
-    "test-node": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register",
-    "test-node-watch": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register --watch"
+    "dev": "concurrently --kill-others \"npm run watch-client\" \"npm run start-dev\"",
+    "test": "karma start"
   },
   "betterScripts": {
     "start-prod": {
@@ -34,15 +30,8 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
         "PORT": 3000,
-        "APIPORT": 3030
-      }
-    },
-    "start-prod-api": {
-      "command": "node ./bin/api.js",
-      "env": {
-        "NODE_PATH": "./api",
-        "NODE_ENV": "production",
-        "APIPORT": 3030
+        "APIHOST": "https://api.abroadwith.com",
+        "APIPORT": 8443
       }
     },
     "start-dev": {
@@ -51,15 +40,8 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
         "PORT": 3000,
-        "APIPORT": 3030
-      }
-    },
-    "start-dev-api": {
-      "command": "node ./bin/api.js",
-      "env": {
-        "NODE_PATH": "./api",
-        "NODE_ENV": "development",
-        "APIPORT": 3030
+        "APIHOST": "https://api.test-abroadwith.com",
+        "APIPORT": 8443
       }
     },
     "watch-client": {
@@ -79,6 +61,7 @@
     }
   },
   "dependencies": {
+    "axios": "^0.13.1",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.1",
     "babel-plugin-add-module-exports": "^0.1.2",
@@ -99,6 +82,7 @@
     "hoist-non-react-statics": "^1.0.3",
     "http-proxy": "^1.12.0",
     "invariant": "^2.2.0",
+    "jwt-decode": "^2.1.0",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
     "lru-memoize": "^1.0.0",
