@@ -1,12 +1,15 @@
-import { havelockBlue } from 'styles/colors'
+import { havelockBlue, bgGrey } from 'styles/colors'
 
 const size = 25
 
 export default {
+  app: {
+    backgroundColor: bgGrey,
+  },
   brand: {
     position: `absolute`,
-    top: 0,
-    right: `12.5px`,
+    top: 12.5,
+    right: 12.5,
     display: `inline-block`,
     width: size,
     height: size,

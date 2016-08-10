@@ -4,22 +4,19 @@ import { IndexLink } from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import Helmet from 'react-helmet'
-import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
-import { InfoBar, Logo } from 'components'
+import { Logo } from 'components'
 import { push } from 'react-router-redux'
 import config from '../../config'
 import { asyncConnect } from 'redux-async-connect'
+import styles from './App.styles'
 
 @asyncConnect([{
-  promise: ({ store: { dispatch, getState } }) => {
+  promise: ({ store: { dispatch, getState } }) => { // eslint-disable-line
     const promises = []
 
-    if (!isInfoLoaded(getState())) {
-      promises.push(dispatch(loadInfo()))
-    }
     if (!isAuthLoaded(getState())) {
-      promises.push(dispatch(loadAuth()))
+      loadAuth()
     }
 
     return Promise.all(promises)
@@ -56,20 +53,18 @@ export default class App extends Component {
   };
 
   render() {
-    const { user } = this.props
-    const styles = require('./App.scss')
 
-    console.log(styles.app)
+    const { user } = this.props
 
     return (
-      <div className={styles.app}>
+      <div>
         <Helmet {...config.app.head} />
         <Navbar fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
               <IndexLink to='/'>
-                <span className={styles.brandname}>{config.app.title}</span>
-                <Logo size={25} color='blue' componentClass={styles.brand} />
+                <span style={styles.brandname}>{config.app.title}</span>
+                <Logo size={25} color='blue' componentStyle={styles.brand} />
               </IndexLink>
             </Navbar.Brand>
             <Navbar.Toggle />
@@ -98,10 +93,9 @@ export default class App extends Component {
           </Navbar.Collapse>
         </Navbar>
 
-        <div className={styles.appContent}>
+        <div style={styles.appContent}>
           {this.props.children}
         </div>
-        <InfoBar />
 
       </div>
     )

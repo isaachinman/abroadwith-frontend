@@ -11,6 +11,7 @@ import {
 
 export default (store) => {
   const requireLogin = (nextState, replace, cb) => {
+
     function checkAuth() {
       const { auth: { user } } = store.getState()
       if (!user) {

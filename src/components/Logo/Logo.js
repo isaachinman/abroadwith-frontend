@@ -4,14 +4,14 @@ export default class Logo extends Component {
 
   static propTypes() {
     return {
-      componentClass: React.PropTypes.string,
+      componentStyle: React.PropTypes.string,
       size: React.PropTypes.number.isRequired,
       color: React.PropTypes.string.isRequired,
     }
   }
   render() {
 
-    const { componentClass, size, color } = this.props // eslint-disable-line no-shadow
+    const { componentStyle, size, color } = this.props // eslint-disable-line no-shadow
 
     const styles = {
       svg: {
@@ -24,7 +24,7 @@ export default class Logo extends Component {
 
     /* eslint-disable max-len */
     return (
-      <span className={componentClass}>
+      <span style={componentStyle}>
         <svg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
           width={size} height={size} viewBox='0 0 150.9 160.3' style={styles.svg} xmlSpace='preserve'>
 
