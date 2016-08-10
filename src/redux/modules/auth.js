@@ -1,14 +1,14 @@
 import jwtDecode from 'jwt-decode'
 
-const LOAD = 'redux-example/auth/LOAD'
-const LOAD_SUCCESS = 'redux-example/auth/LOAD_SUCCESS'
-const LOAD_FAIL = 'redux-example/auth/LOAD_FAIL'
-const LOGIN = 'redux-example/auth/LOGIN'
-const LOGIN_SUCCESS = 'redux-example/auth/LOGIN_SUCCESS'
-const LOGIN_FAIL = 'redux-example/auth/LOGIN_FAIL'
-const LOGOUT = 'redux-example/auth/LOGOUT'
-const LOGOUT_SUCCESS = 'redux-example/auth/LOGOUT_SUCCESS'
-const LOGOUT_FAIL = 'redux-example/auth/LOGOUT_FAIL'
+const LOAD = 'abroadwith/auth/LOAD'
+const LOAD_SUCCESS = 'abroadwith/auth/LOAD_SUCCESS'
+const LOAD_FAIL = 'abroadwith/auth/LOAD_FAIL'
+const LOGIN = 'abroadwith/auth/LOGIN'
+const LOGIN_SUCCESS = 'abroadwith/auth/LOGIN_SUCCESS'
+const LOGIN_FAIL = 'abroadwith/auth/LOGIN_FAIL'
+const LOGOUT = 'abroadwith/auth/LOGOUT'
+const LOGOUT_SUCCESS = 'abroadwith/auth/LOGOUT_SUCCESS'
+const LOGOUT_FAIL = 'abroadwith/auth/LOGOUT_FAIL'
 
 const initialState = {
   loaded: false,
@@ -87,7 +87,6 @@ export function load() {
 }
 
 export function login(email, password) {
-  console.log(email, password)
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
     promise: (client) => client.post('/users/login', {

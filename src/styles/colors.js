@@ -7,6 +7,6 @@ export const sunsetOrange = `#FC5050`
 export const stay = `#105B63`
 export const tandem = `#45BF55`
 export const teacher = `#BD4932`
-export const accentBg = `#f7fafb`
 export const mintGreen = `#CEEFDE`
 export const forestGreen = `#657F49`
+export const bgGrey = `#f7fafb`

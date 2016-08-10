@@ -15,4 +15,10 @@ export default {
   h2: {
     color: accentBg,
   },
+  button: {
+    marginTop: 50,
+  },
+  container: {
+    paddingTop: 50,
+  },
 }
