@@ -15,7 +15,7 @@ export default (store) => {
     function checkAuth() {
       const { auth: { user } } = store.getState()
       if (!user) {
-        // oops, not logged in, so can't be here!
+        // User is not logged in, and will get bounced to homepage
         replace('/')
       }
       cb()
