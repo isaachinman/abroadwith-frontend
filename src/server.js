@@ -12,6 +12,7 @@ import ApiClient from './helpers/ApiClient'
 import Html from './helpers/Html'
 import PrettyError from 'pretty-error'
 import http from 'http'
+import cookieParser from 'cookie-parser'
 
 import { match } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
@@ -19,6 +20,8 @@ import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect'
 import createHistory from 'react-router/lib/createMemoryHistory'
 import { Provider } from 'react-redux'
 import getRoutes from './routes'
+
+import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth'
 
 const targetUrl = config.apiHost
 const pretty = new PrettyError()
@@ -31,6 +34,8 @@ const proxy = httpProxy.createProxyServer({
 })
 
 app.use(compression())
+
+app.use(cookieParser())
 
 app.use(Express.static(path.join(__dirname, '..', 'build')))
 
@@ -75,6 +80,10 @@ app.use((req, res) => {
     return
   }
 
+  // Determine basic authorisation status
+  store.dispatch(loadAuth(req.cookies.access_token))
+  console.log(authorised)
+
   match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(redirectLocation.pathname + redirectLocation.search)
@@ -94,7 +103,7 @@ app.use((req, res) => {
 
         global.navigator = { userAgent: req.headers['user-agent'] }
 
-        res.send('<!doctype html>\n' +
+        res.send('<!doctype html>\n' + req.cookies.access_token +
           ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />))
       })
     } else {
