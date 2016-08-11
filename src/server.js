@@ -81,8 +81,7 @@ app.use((req, res) => {
   }
 
   // Determine basic authorisation status
-  store.dispatch(loadAuth(req.cookies.access_token))
-  console.log(authorised)
+  // store.dispatch(loadAuth(req.cookies.access_token))
 
   match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
@@ -103,7 +102,7 @@ app.use((req, res) => {
 
         global.navigator = { userAgent: req.headers['user-agent'] }
 
-        res.send('<!doctype html>\n' + req.cookies.access_token +
+        res.send('<!doctype html>\n' +
           ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />))
       })
     } else {

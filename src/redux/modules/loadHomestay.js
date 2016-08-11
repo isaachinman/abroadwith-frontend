@@ -1,12 +1,12 @@
-const LOAD = 'redux-example/LOAD'
-const LOAD_SUCCESS = 'redux-example/LOAD_SUCCESS'
-const LOAD_FAIL = 'redux-example/LOAD_FAIL'
+const LOAD = 'abroadwith/LOAD'
+const LOAD_SUCCESS = 'abroadwith/LOAD_SUCCESS'
+const LOAD_FAIL = 'abroadwith/LOAD_FAIL'
 
 const initialState = {
   loaded: false,
 }
 
-export default function info(state = initialState, action = {}) {
+export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
   case LOAD:
     return {
@@ -33,12 +33,12 @@ export default function info(state = initialState, action = {}) {
 }
 
 export function isLoaded(globalState) {
-  return globalState.info && globalState.info.loaded
+  return globalState.homestay && globalState.homestay.loaded
 }
 
-export function load() {
+export function load(homeID) {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: (client) => client.get('/loadInfo'),
+    promise: (client) => client.get(`/public/homes/${homeID}`),
   }
 }

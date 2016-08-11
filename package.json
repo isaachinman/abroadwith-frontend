@@ -6,10 +6,7 @@
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "REPO_HERE"
-  },
-  "browser": {
-    "abroadwith-palette": "./src/styles/colors"
+    "url": "https://bitbucket.org/abroadwith/frontend"
   },
   "main": "bin/server.js",
   "scripts": {
@@ -31,7 +28,7 @@
         "NODE_ENV": "production",
         "PORT": 3000,
         "APIHOST": "https://api.abroadwith.com",
-        "APIPORT": 8443
+        "APIPORT": 443
       }
     },
     "start-dev": {
@@ -41,7 +38,7 @@
         "NODE_ENV": "development",
         "PORT": 3000,
         "APIHOST": "https://api.test-abroadwith.com",
-        "APIPORT": 8443
+        "APIPORT": 443
       }
     },
     "watch-client": {
@@ -97,6 +94,7 @@
     "react-helmet": "^2.2.0",
     "react-inline-css": "^2.0.0",
     "react-redux": "^4.0.0",
+    "react-refetch": "^1.0.0-beta.8",
     "react-router": "2.0.0",
     "react-router-bootstrap": "^0.20.1",
     "react-router-redux": "^4.0.0",
