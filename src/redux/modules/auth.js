@@ -79,18 +79,10 @@ export function isLoaded(globalState) {
   return globalState.auth && globalState.auth.loaded
 }
 
-export function load(jwt) {
+export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: () => () => {
-      let potentialJWT = null
-      try {
-        potentialJWT = jwtDecode(jwt)
-      } catch (err) {
-        console.info('JWT decoding error:', err, jwt)
-      }
-      return potentialJWT
-    },
+    promise: (client) => client.get('/loadAuth'),
   }
 }
 

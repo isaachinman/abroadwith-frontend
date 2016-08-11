@@ -31,11 +31,11 @@ export default class App extends Component {
     user: PropTypes.object,
     logout: PropTypes.func.isRequired,
     pushState: PropTypes.func.isRequired,
-  };
+  }
 
   static contextTypes = {
     store: PropTypes.object.isRequired,
-  };
+  }
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.user && nextProps.user) {

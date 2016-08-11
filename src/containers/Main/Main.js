@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 import Helmet from 'react-helmet'
-import styles from './Home.styles'
+import styles from './Main.styles'
 
-export default class Home extends Component {
+export default class Main extends Component {
   render() {
     return (
       <div>
 
-        <Helmet title='Home' />
+        <Helmet title='Main' />
         <div style={styles.hero}>
           <div className='container'>
 

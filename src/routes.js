@@ -3,9 +3,10 @@ import { IndexRoute, Route } from 'react-router'
 import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth'
 import {
     App,
-    Home,
+    Homestay,
     Login,
     LoginSuccess,
+    Main,
     NotFound,
   } from 'containers'
 
@@ -28,24 +29,26 @@ export default (store) => {
     }
   }
 
-  /**
-   * Please keep routes in alphabetical order
-   */
+  // --------------------------------------------------------------------------------
+  // Please keep routes in alphabetical order
+  // With the exception of Main, as this is the IndexRoute
+  // --------------------------------------------------------------------------------
+
   return (
     <Route path='/' component={App}>
-      {}
-      <IndexRoute component={Home} />
 
-      {}
+      <IndexRoute component={Main} />
+
+      <Route path='homestay/:homeID' component={Homestay} />
+
       <Route onEnter={requireLogin}>
         <Route path='loginSuccess' component={LoginSuccess} />
       </Route>
 
-      {}
       <Route path='login' component={Login} />
 
-      {}
       <Route path='*' component={NotFound} status={404} />
+
     </Route>
   )
 }

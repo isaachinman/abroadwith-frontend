@@ -1,5 +1,6 @@
 export App from './App/App'
-export Home from './Home/Home'
+export Main from './Main/Main'
 export Login from './Login/Login'
 export LoginSuccess from './LoginSuccess/LoginSuccess'
+export Homestay from './Homestay/Homestay'
 export NotFound from './NotFound/NotFound'
