@@ -10,3 +10,6 @@ export const teacher = `#BD4932`
 export const mintGreen = `#CEEFDE`
 export const forestGreen = `#657F49`
 export const bgGrey = `#f7fafb`
+export const accentGrey3 = `#909AA8`
+export const accentGrey2 = `#AAB4C2`
+export const accentGrey1 = `#C3CDDB`

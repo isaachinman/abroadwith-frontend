@@ -57,7 +57,7 @@ export default class App extends Component {
     const { user } = this.props
 
     return (
-      <div>
+      <div style={styles.appContainer}>
         <Helmet {...config.app.head} />
         <Navbar fixedTop>
           <Navbar.Header>
@@ -96,6 +96,10 @@ export default class App extends Component {
         <div style={styles.appContent}>
           {this.props.children}
         </div>
+
+        <footer style={styles.footer}>
+          Footer stuff
+        </footer>
 
       </div>
     )
