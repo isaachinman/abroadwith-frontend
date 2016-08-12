@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import { Alert, Button, Col, Form, FormGroup, FormControl, InputGroup } from 'react-bootstrap'
+import { Alert, Button, Col, Form, FormGroup, FormControl, Grid, InputGroup, Row } from 'react-bootstrap'
+import FacebookLogin from 'react-facebook-login'
+import GoogleLogin from 'react-google-login'
 import FontAwesome from 'react-fontawesome'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
@@ -33,7 +35,15 @@ export default class Login extends Component {
     this.setState({ validatedFields: newValidationObj })
   }
 
-  handleSubmit = (event) => {
+  handleFacebookLogin = (response) => {
+    console.log(response)
+  }
+
+  handleGoogleLogin = (response) => {
+    console.log(response)
+  }
+
+  handleEmailLogin = (event) => {
 
     event.preventDefault()
 
@@ -73,62 +83,91 @@ export default class Login extends Component {
   }
 
   render() {
-    console.log(this)
+
     const { user, loginStatus, logout } = this.props
     const { email, password } = this.state.validatedFields
+    const facebookAppID = process.env.FACEBOOK_APP_ID
+
+    console.log(facebookAppID)
+
     return (
 
       <div style={styles.loginPage}>
         <Helmet title='Login'/>
-        <h1>Login</h1>
+        <h1 style={styles.h1}>Login</h1>
 
         {!user &&
-        <Form horizontal onSubmit={this.handleSubmit}>
-          <FormGroup controlId='formHorizontalEmail' validationState={email.uiState}>
-            <Col sm={4} smOffset={4}>
-              <InputGroup>
-                <InputGroup.Addon><FontAwesome name='at'/></InputGroup.Addon>
-                <FormControl type='email' placeholder='Email' onChange={this.handleEmailChange.bind(this)} />
-              </InputGroup>
-            </Col>
-          </FormGroup>
 
-          <FormGroup controlId='formHorizontalPassword' validationState={password.uiState}>
+        <Grid>
+          <Row style={styles.paddedRow}>
             <Col sm={4} smOffset={4}>
-              <InputGroup>
-                <InputGroup.Addon><FontAwesome name='lock'/></InputGroup.Addon>
-                <FormControl type='password' placeholder='Password' onChange={this.handlePasswordChange.bind(this)} />
-              </InputGroup>
+              <FacebookLogin
+                appId='144997212531478'
+                autoLoad
+                callback={this.handleFacebookLogin}
+                cssClass='btn btn-block'
+                fields='name,email,birthday'
+                textButton='Login with Facebook'
+              />
             </Col>
-            <Col sm={12}>
-              {password.message}
-            </Col>
-          </FormGroup>
-
-          <FormGroup>
-            <Col sm={12}>
-              <Button type='submit'>
-                Sign in
-              </Button>
-            </Col>
-          </FormGroup>
-          {loginStatus.error &&
+          </Row>
+          <Row style={styles.paddedRow}>
             <Col sm={4} smOffset={4}>
-              <Alert bsStyle='danger'>
-                <h5>LOGIN_FAILED</h5>
-              </Alert>
+              <GoogleLogin
+                buttonText='Login with Google'
+                callback={this.handleGoogleLogin}
+                clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
+                cssClass='btn btn-block'
+              />
             </Col>
-          }
-        </Form>
-      }
-      {user && <div>
-          <p>You are currently logged in as {user.name}.</p>
+          </Row>
+          <Form horizontal onSubmit={this.handleEmailLogin}>
+            <FormGroup controlId='formHorizontalEmail' validationState={email.uiState}>
+              <Col sm={4} smOffset={4}>
+                <InputGroup>
+                  <InputGroup.Addon><FontAwesome name='at'/></InputGroup.Addon>
+                  <FormControl type='email' placeholder='Email' onChange={this.handleEmailChange.bind(this)} />
+                </InputGroup>
+              </Col>
+            </FormGroup>
 
-          <div>
-            <button className='btn btn-danger' onClick={logout}><i className='fa fa-sign-out'/>{' '}Log Out</button>
+            <FormGroup controlId='formHorizontalPassword' validationState={password.uiState}>
+              <Col sm={4} smOffset={4}>
+                <InputGroup>
+                  <InputGroup.Addon><FontAwesome name='lock'/></InputGroup.Addon>
+                  <FormControl type='password' placeholder='Password' onChange={this.handlePasswordChange.bind(this)} />
+                </InputGroup>
+              </Col>
+              <Col sm={12}>
+                {password.message}
+              </Col>
+            </FormGroup>
+
+            <FormGroup>
+              <Col sm={12}>
+                <Button type='submit'>
+                  Sign in
+                </Button>
+              </Col>
+            </FormGroup>
+            {loginStatus.error &&
+              <Col sm={4} smOffset={4}>
+                <Alert bsStyle='danger'>
+                  <h5>LOGIN_FAILED</h5>
+                </Alert>
+              </Col>
+            }
+          </Form>
+        </Grid>
+        }
+        {user && <div>
+            <p>You are currently logged in as {user.name}.</p>
+
+            <div>
+              <button className='btn btn-danger' onClick={logout}><i className='fa fa-sign-out'/>{' '}Log Out</button>
+            </div>
           </div>
-        </div>
-      }
+        }
       </div>
     )
   }
