@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react'
-import { Form, FormGroup, Button, ControlLabel, FormControl, Col } from 'react-bootstrap'
+import { Alert, Button, Col, Form, FormGroup, FormControl, InputGroup } from 'react-bootstrap'
+import FontAwesome from 'react-fontawesome'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import * as authActions from 'redux/modules/auth'
 import styles from './Login.styles'
 import { validateExists, validatePassword } from 'utils/validation'
 
-@connect(state => ({ user: state.auth.user }), authActions)
+@connect(state => ({ user: state.auth.user, loginStatus: state.auth }), authActions)
 export default class Login extends Component {
 
   state = {
@@ -21,15 +22,15 @@ export default class Login extends Component {
   }
 
   handleEmailChange = (event) => {
-    this.setState({
-      validatedFields: {... email: {... {value: event.target.value}} },
-    })
+    let newValidationObj = this.state.validatedFields // eslint-disable-line
+    newValidationObj.email.value = event.target.value
+    this.setState({ validatedFields: newValidationObj })
   }
 
   handlePasswordChange = (event) => {
-    this.setState({
-      validatedFields: {... password: {... {value: event.target.value}} },
-    })
+    let newValidationObj = this.state.validatedFields // eslint-disable-line
+    newValidationObj.password.value = event.target.value
+    this.setState({ validatedFields: newValidationObj })
   }
 
   handleSubmit = (event) => {
@@ -39,21 +40,26 @@ export default class Login extends Component {
     const { email, password } = this.state.validatedFields
     let formIsValid = true
 
-
     let modifiedValidation = this.state.validatedFields // eslint-disable-line
 
     Object.keys(modifiedValidation).map(field => {
-      if (validateExists(field.value) === false) {
+      if (validateExists(modifiedValidation[field].value) === false) {
         modifiedValidation[field].uiState = 'error'
         formIsValid = false
+      } else {
+        modifiedValidation[field].uiState = null
       }
     })
 
-    const passwordValidation = validatePassword(this.state.password)
+    const passwordValidation = validatePassword(password.value)
 
     if (passwordValidation.valid === false) {
       modifiedValidation.password.message = passwordValidation.errors
+      modifiedValidation.password.uiState = 'error'
       formIsValid = false
+    } else {
+      modifiedValidation.password.message = []
+      modifiedValidation.password.uiState = null
     }
 
     this.setState({ validatedFields: modifiedValidation })
@@ -67,8 +73,8 @@ export default class Login extends Component {
   }
 
   render() {
-    console.log(this.state)
-    const { user, logout } = this.props
+    console.log(this)
+    const { user, loginStatus, logout } = this.props
     const { email, password } = this.state.validatedFields
     return (
 
@@ -79,20 +85,20 @@ export default class Login extends Component {
         {!user &&
         <Form horizontal onSubmit={this.handleSubmit}>
           <FormGroup controlId='formHorizontalEmail' validationState={email.uiState}>
-            <Col componentClass={ControlLabel} sm={2} smOffset={2}>
-              Email
-            </Col>
-            <Col sm={4}>
-              <FormControl type='email' placeholder='Email' onChange={this.handleEmailChange.bind(this)} />
+            <Col sm={4} smOffset={4}>
+              <InputGroup>
+                <InputGroup.Addon><FontAwesome name='at'/></InputGroup.Addon>
+                <FormControl type='email' placeholder='Email' onChange={this.handleEmailChange.bind(this)} />
+              </InputGroup>
             </Col>
           </FormGroup>
 
           <FormGroup controlId='formHorizontalPassword' validationState={password.uiState}>
-            <Col componentClass={ControlLabel} sm={2} smOffset={2}>
-              Password
-            </Col>
-            <Col sm={4}>
-              <FormControl type='password' placeholder='Password' onChange={this.handlePasswordChange.bind(this)} />
+            <Col sm={4} smOffset={4}>
+              <InputGroup>
+                <InputGroup.Addon><FontAwesome name='lock'/></InputGroup.Addon>
+                <FormControl type='password' placeholder='Password' onChange={this.handlePasswordChange.bind(this)} />
+              </InputGroup>
             </Col>
             <Col sm={12}>
               {password.message}
@@ -106,6 +112,13 @@ export default class Login extends Component {
               </Button>
             </Col>
           </FormGroup>
+          {loginStatus.error &&
+            <Col sm={4} smOffset={4}>
+              <Alert bsStyle='danger'>
+                <h5>LOGIN_FAILED</h5>
+              </Alert>
+            </Col>
+          }
         </Form>
       }
       {user && <div>
@@ -124,5 +137,6 @@ export default class Login extends Component {
 Login.propTypes = {
   user: PropTypes.object,
   login: PropTypes.func,
+  loginStatus: PropTypes.object,
   logout: PropTypes.func,
 }

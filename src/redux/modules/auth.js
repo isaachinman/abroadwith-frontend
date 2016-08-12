@@ -33,7 +33,8 @@ export default function reducer(state = initialState, action = {}) {
       ...state,
       loading: false,
       loaded: false,
-      error: action.error,
+      error: true,
+      errorMessage: action.error,
     }
   case LOGIN:
     return {
@@ -51,7 +52,8 @@ export default function reducer(state = initialState, action = {}) {
       ...state,
       loggingIn: false,
       user: null,
-      loginError: action.error,
+      error: true,
+      errorMessage: action.error,
     }
   case LOGOUT:
     return {
@@ -68,7 +70,8 @@ export default function reducer(state = initialState, action = {}) {
     return {
       ...state,
       loggingOut: false,
-      logoutError: action.error,
+      error: true,
+      errorMessage: action.error,
     }
   default:
     return state
