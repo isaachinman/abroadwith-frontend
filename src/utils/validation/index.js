@@ -5,3 +5,4 @@
 
 export validateExists from './validateExists'
 export validatePassword from './validatePassword'
+export updateValidation from './updateValidation'
