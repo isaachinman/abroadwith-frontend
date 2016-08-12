@@ -34,7 +34,7 @@ export default class Html extends Component {
           {head.link.toComponent()}
           {head.script.toComponent()}
 
-          /* Temporary FontAwesome from CDN */
+          {/* Temporary FontAwesome from CDN */}
           <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel='stylesheet' />
 
           <link rel='icon' type='image/png' sizes='32x32' href='https://abroadwith.imgix.net/app/favicon/favicon.png' />
