@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Alert, Button, Col, Form, FormGroup, FormControl, Grid, InputGroup, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Form, FormGroup, FormControl, Grid, InputGroup, Row, Panel } from 'react-bootstrap'
 import FacebookLogin from 'react-facebook-login'
 import GoogleLogin from 'react-google-login'
 import FontAwesome from 'react-fontawesome'
@@ -84,11 +84,10 @@ export default class Login extends Component {
 
   render() {
 
+    console.log(this)
+
     const { user, loginStatus, logout } = this.props
     const { email, password } = this.state.validatedFields
-    const facebookAppID = process.env.FACEBOOK_APP_ID
-
-    console.log(facebookAppID)
 
     return (
 
@@ -99,65 +98,89 @@ export default class Login extends Component {
         {!user &&
 
         <Grid>
-          <Row style={styles.paddedRow}>
-            <Col sm={4} smOffset={4}>
-              <FacebookLogin
-                appId='144997212531478'
-                autoLoad
-                callback={this.handleFacebookLogin}
-                cssClass='btn btn-block'
-                fields='name,email,birthday'
-                textButton='Login with Facebook'
-              />
-            </Col>
-          </Row>
-          <Row style={styles.paddedRow}>
-            <Col sm={4} smOffset={4}>
-              <GoogleLogin
-                buttonText='Login with Google'
-                callback={this.handleGoogleLogin}
-                clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
-                cssClass='btn btn-block'
-              />
-            </Col>
-          </Row>
-          <Form horizontal onSubmit={this.handleEmailLogin}>
-            <FormGroup controlId='formHorizontalEmail' validationState={email.uiState}>
-              <Col sm={4} smOffset={4}>
-                <InputGroup>
-                  <InputGroup.Addon><FontAwesome name='at'/></InputGroup.Addon>
-                  <FormControl type='email' placeholder='Email' onChange={this.handleEmailChange.bind(this)} />
-                </InputGroup>
-              </Col>
-            </FormGroup>
 
-            <FormGroup controlId='formHorizontalPassword' validationState={password.uiState}>
-              <Col sm={4} smOffset={4}>
-                <InputGroup>
-                  <InputGroup.Addon><FontAwesome name='lock'/></InputGroup.Addon>
-                  <FormControl type='password' placeholder='Password' onChange={this.handlePasswordChange.bind(this)} />
-                </InputGroup>
-              </Col>
-              <Col sm={12}>
-                {password.message}
-              </Col>
-            </FormGroup>
+          <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
+            <Panel style={styles.loginPanel}>
 
-            <FormGroup>
-              <Col sm={12}>
-                <Button type='submit'>
-                  Sign in
-                </Button>
-              </Col>
-            </FormGroup>
-            {loginStatus.error &&
-              <Col sm={4} smOffset={4}>
-                <Alert bsStyle='danger'>
-                  <h5>LOGIN_FAILED</h5>
-                </Alert>
-              </Col>
-            }
-          </Form>
+              <Row style={styles.paddedRow}>
+                <Col xs={12} sm={8} smOffset={2}>
+                  <FacebookLogin
+                    appId='144997212531478'
+                    autoLoad
+                    callback={this.handleFacebookLogin}
+                    cssClass='btn btn-block btn-lg btn-default'
+                    fields='name,email,birthday'
+                    textButton='Login with Facebook'
+                  />
+                </Col>
+              </Row>
+
+              <Row style={styles.paddedRow}>
+                <Col xs={12} sm={8} smOffset={2}>
+                  <GoogleLogin
+                    style={styles.googleBtn}
+                    buttonText='Login with Google'
+                    callback={this.handleGoogleLogin}
+                    clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
+                    cssClass='btn btn-block btn-lg btn-default'
+                  />
+                </Col>
+              </Row>
+
+              <Row>
+                <Col xs={12} sm={8} smOffset={2} style={styles.dividerContainer}>
+                  <div style={styles.divider}>
+                    <span style={styles.dividerText}>
+                      or
+                    </span>
+                  </div>
+                </Col>
+              </Row>
+
+              <Form horizontal onSubmit={this.handleEmailLogin}>
+
+                <FormGroup controlId='formHorizontalEmail' validationState={email.uiState}>
+                  <Col xs={12} sm={8} smOffset={2}>
+                    <InputGroup>
+                      <InputGroup.Addon><FontAwesome name='at'/></InputGroup.Addon>
+                      <FormControl required type='email' placeholder='Email' onChange={this.handleEmailChange.bind(this)} />
+                    </InputGroup>
+                  </Col>
+                </FormGroup>
+
+                <FormGroup controlId='formHorizontalPassword' validationState={password.uiState}>
+                  <Col xs={12} sm={8} smOffset={2}>
+                    <InputGroup>
+                      <InputGroup.Addon><FontAwesome name='lock'/></InputGroup.Addon>
+                      <FormControl required type='password' placeholder='Password' onChange={this.handlePasswordChange.bind(this)} />
+                    </InputGroup>
+                  </Col>
+                  <Col sm={12}>
+                    {password.message}
+                  </Col>
+                </FormGroup>
+
+                <FormGroup>
+                  <Col sm={12}>
+                    <Button type='submit' disabled={loginStatus.loading} >
+                      Sign in
+                    </Button>
+                  </Col>
+                </FormGroup>
+
+                {loginStatus.error &&
+                  <Col sm={4} smOffset={4}>
+                    <Alert bsStyle='danger'>
+                      <h5>LOGIN_FAILED</h5>
+                    </Alert>
+                  </Col>
+                }
+
+              </Form>
+
+            </Panel>
+          </Col>
+
         </Grid>
         }
         {user && <div>
