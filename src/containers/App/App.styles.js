@@ -6,6 +6,15 @@ export default {
   app: {
     backgroundColor: bgGrey,
   },
+  appContainer: {
+    display: `flex`,
+    minHeight: `100vh`,
+    flexDirection: `column`,
+  },
+  appContent: {
+    marginTop: 50,
+    flex: `1`,
+  },
   brand: {
     position: `absolute`,
     top: 12.5,
@@ -23,18 +32,12 @@ export default {
     fontSize: `2.35rem`,
     fontWeight: 600,
   },
-  appContainer: {
-    display: `flex`,
-    minHeight: `100vh`,
-    flexDirection: `column`,
-  },
-  appContent: {
-    marginTop: 50,
-    flex: `1`,
-  },
   footer: {
     color: `white`,
     backgroundColor: havelockBlue,
     padding: 20,
+  },
+  loginModal: {
+    width: 1000,
   },
 }

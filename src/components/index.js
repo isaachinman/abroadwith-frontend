@@ -3,4 +3,5 @@
 // ie: import { CounterButton, InfoBar } from 'components'
 // --------------------------------------------------------------------------------
 
+export Login from './Login/Login'
 export Logo from './Logo/Logo'

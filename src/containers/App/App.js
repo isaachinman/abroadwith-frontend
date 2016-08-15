@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { IndexLink } from 'react-router'
-import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Modal, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import { logout } from 'redux/modules/auth'
-import { Logo } from 'components'
+import { Login, Logo } from 'components'
 import { push } from 'react-router-redux'
 import config from '../../config'
 import { asyncConnect } from 'redux-async-connect'
@@ -23,9 +22,12 @@ import styles from './App.styles'
   },
 }])
 @connect(
-  state => ({ user: state.auth.user }),
+  state => ({
+    user: state.auth.user,
+  }),
   { logout, pushState: push })
 export default class App extends Component {
+
   static propTypes = {
     children: PropTypes.object.isRequired,
     user: PropTypes.object,
@@ -35,6 +37,14 @@ export default class App extends Component {
 
   static contextTypes = {
     store: PropTypes.object.isRequired,
+  }
+
+  state = {
+    modals: {
+      login: {
+        open: false,
+      },
+    },
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,10 +57,22 @@ export default class App extends Component {
     }
   }
 
+  openModal = (modalName) => {
+    let newState = this.state // eslint-disable-line
+    newState.modals[modalName].open = true
+    this.setState(newState)
+  }
+
+  closeModal = (modalName) => {
+    let newState = this.state // eslint-disable-line
+    newState.modals[modalName].open = false
+    this.setState(newState)
+  }
+
   handleLogout = (event) => {
     event.preventDefault()
     this.props.logout()
-  };
+  }
 
   render() {
 
@@ -73,9 +95,8 @@ export default class App extends Component {
           <Navbar.Collapse eventKey={0}>
             <Nav navbar pullRight>
               {!user &&
-              <LinkContainer to='/login'>
-                <NavItem eventKey={5}>Login</NavItem>
-              </LinkContainer>}
+              <NavItem eventKey={5} onClick={this.openModal.bind(null, 'login')}>Login</NavItem>
+              }
               {user &&
               <NavDropdown eventKey='7' title={user.name} id='nav-dropdown'>
                 <MenuItem eventKey='7.1'>Action</MenuItem>
@@ -92,6 +113,15 @@ export default class App extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
+
+        <Modal
+          style={styles.loginModal}
+          bsSize='small'
+          onHide={this.closeModal.bind(null, 'login')}
+          show={this.state.modals.login.open}
+        >
+          <Login compact/>
+        </Modal>
 
         <div style={styles.appContent}>
           {this.props.children}
