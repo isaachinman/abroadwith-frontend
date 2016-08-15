@@ -4,7 +4,7 @@ import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth'
 import {
     App,
     Homestay,
-    Login,
+    LoginPage,
     LoginSuccess,
     Main,
     NotFound,
@@ -45,7 +45,7 @@ export default (store) => {
         <Route path='loginSuccess' component={LoginSuccess} />
       </Route>
 
-      <Route path='login' component={Login} />
+      <Route path='login' component={LoginPage} />
 
       <Route path='*' component={NotFound} status={404} />
 
