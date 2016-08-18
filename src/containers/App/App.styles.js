@@ -32,11 +32,6 @@ export default {
     fontSize: `2.35rem`,
     fontWeight: 600,
   },
-  footer: {
-    color: `white`,
-    backgroundColor: havelockBlue,
-    padding: 20,
-  },
   loginModal: {
     width: 1000,
   },
