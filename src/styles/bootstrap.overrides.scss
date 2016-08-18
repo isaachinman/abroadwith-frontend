@@ -3,6 +3,13 @@
  *
  */
 
+ @media (min-width: 768px) {
+   .modal-sm {
+     width: 340px;
+   }
+ }
+
+
 .navbar-fixed-top {
   background-color: white;
 }

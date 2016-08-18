@@ -22,7 +22,6 @@ export default class Main extends Component {
 
         <div className='container' style={styles.container}>
 
-
         </div>
 
       </div>

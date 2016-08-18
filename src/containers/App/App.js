@@ -4,7 +4,7 @@ import { IndexLink } from 'react-router'
 import { Modal, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import { logout } from 'redux/modules/auth'
-import { Login, Logo } from 'components'
+import { Footer, Login, Logo } from 'components'
 import { push } from 'react-router-redux'
 import config from '../../config'
 import { asyncConnect } from 'redux-async-connect'
@@ -127,9 +127,7 @@ export default class App extends Component {
           {this.props.children}
         </div>
 
-        <footer style={styles.footer}>
-          Footer stuff
-        </footer>
+        <Footer/>
 
       </div>
     )

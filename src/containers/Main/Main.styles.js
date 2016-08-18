@@ -19,6 +19,7 @@ export default {
     marginTop: 50,
   },
   container: {
+    minHeight: 500,
     paddingTop: 50,
   },
 }
