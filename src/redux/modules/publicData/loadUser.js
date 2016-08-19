@@ -1,6 +1,6 @@
-const LOAD = 'abroadwith/LOAD'
-const LOAD_SUCCESS = 'abroadwith/LOAD_SUCCESS'
-const LOAD_FAIL = 'abroadwith/LOAD_FAIL'
+const LOAD_USER = 'abroadwith/LOAD_USER'
+const LOAD_USER_SUCCESS = 'abroadwith/LOAD_USER_SUCCESS'
+const LOAD_USER_FAIL = 'abroadwith/LOAD_USER_FAIL'
 
 const initialState = {
   loaded: false,
@@ -8,19 +8,19 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-  case LOAD:
+  case LOAD_USER:
     return {
       ...state,
       loading: true,
     }
-  case LOAD_SUCCESS:
+  case LOAD_USER_SUCCESS:
     return {
       ...state,
       loading: false,
       loaded: true,
       data: action.result,
     }
-  case LOAD_FAIL:
+  case LOAD_USER_FAIL:
     return {
       ...state,
       loading: false,
@@ -33,12 +33,12 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 export function isLoaded(globalState) {
-  return globalState.homestay && globalState.homestay.loaded
+  return globalState.publicData.user && globalState.publicData.user.loaded
 }
 
-export function load(homeID) {
+export function load(userID) {
   return {
-    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: (client) => client.get(`/public/homes/${homeID}`),
+    types: [LOAD_USER, LOAD_USER_SUCCESS, LOAD_USER_FAIL],
+    promise: (client) => client.get(`/public/users/${userID}`),
   }
 }
