@@ -12,7 +12,6 @@ import ApiClient from './helpers/ApiClient'
 import Html from './helpers/Html'
 import PrettyError from 'pretty-error'
 import http from 'http'
-import cookieParser from 'cookie-parser'
 
 import { match } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
@@ -20,8 +19,6 @@ import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect'
 import createHistory from 'react-router/lib/createMemoryHistory'
 import { Provider } from 'react-redux'
 import getRoutes from './routes'
-
-import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth'
 
 const targetUrl = config.apiHost
 const pretty = new PrettyError()
@@ -34,8 +31,6 @@ const proxy = httpProxy.createProxyServer({
 })
 
 app.use(compression())
-
-app.use(cookieParser())
 
 app.use(Express.static(path.join(__dirname, '..', 'build')))
 
@@ -59,6 +54,7 @@ proxy.on('error', (error, req, res) => {
 })
 
 app.use((req, res) => {
+
   if (__DEVELOPMENT__) {
     // Do not cache webpack stats: the script file would change since
     // hot module replacement is enabled in the development env
@@ -79,9 +75,6 @@ app.use((req, res) => {
     hydrateOnClient()
     return
   }
-
-  // Determine basic authorisation status
-  // store.dispatch(loadAuth(req.cookies.access_token))
 
   match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {

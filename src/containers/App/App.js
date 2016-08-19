@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { IndexLink } from 'react-router'
 import { Modal, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import Helmet from 'react-helmet'
-import { logout } from 'redux/modules/auth'
+import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
 import { Footer, Login, Logo } from 'components'
 import { push } from 'react-router-redux'
 import config from '../../config'
@@ -14,9 +14,9 @@ import styles from './App.styles'
   promise: ({ store: { dispatch, getState } }) => { // eslint-disable-line
     const promises = []
 
-    // if (!isAuthLoaded(getState())) {
-    //   loadAuth()
-    // }
+    if (!isAuthLoaded(getState())) {
+      loadAuth()
+    }
 
     return Promise.all(promises)
   },

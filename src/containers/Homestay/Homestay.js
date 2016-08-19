@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import { isLoaded, load as loadHomestay } from 'redux/modules/loadHomestay'
+import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/loadHomestay'
 import { asyncConnect } from 'redux-async-connect'
 import { initializeWithKey } from 'redux-form'
 
@@ -15,9 +15,9 @@ import { initializeWithKey } from 'redux-form'
 }])
 @connect(
   state => ({
-    homestay: state.loadHomestay.data,
-    error: state.loadHomestay.error,
-    loading: state.loadHomestay.loading,
+    homestay: state.publicData.homestay.data,
+    error: state.publicData.homestay.error,
+    loading: state.publicData.homestay.loading,
   }),
   { initializeWithKey })
 export default class Homestay extends Component {

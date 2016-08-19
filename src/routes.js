@@ -8,6 +8,7 @@ import {
     LoginSuccess,
     Main,
     NotFound,
+    UserProfile,
   } from 'containers'
 
 export default (store) => {
@@ -46,6 +47,8 @@ export default (store) => {
       </Route>
 
       <Route path='login' component={LoginPage} />
+
+      <Route path='users/:userID' component={UserProfile} />
 
       <Route path='*' component={NotFound} status={404} />
 
