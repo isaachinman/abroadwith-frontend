@@ -129,6 +129,16 @@ export default class Login extends Component {
               </Col>
             </Row>
 
+            {loginStatus.error &&
+              <Row>
+                <Col sm={compact ? 12 : 4} smOffset={compact ? 0 : 4}>
+                  <Alert bsStyle='danger'>
+                    <h5>LOGIN_FAILED</h5>
+                  </Alert>
+                </Col>
+              </Row>
+            }
+
             <Form horizontal onSubmit={this.handleEmailLogin}>
 
               <FormGroup controlId='formHorizontalEmail' validationState={email.uiState}>
@@ -159,14 +169,6 @@ export default class Login extends Component {
                   </Button>
                 </Col>
               </FormGroup>
-
-              {loginStatus.error &&
-                <Col sm={4} smOffset={4}>
-                  <Alert bsStyle='danger'>
-                    <h5>LOGIN_FAILED</h5>
-                  </Alert>
-                </Col>
-              }
 
             </Form>
 
