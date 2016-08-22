@@ -11,7 +11,7 @@ export default class LoginPage extends Component {
     return (
 
       <div style={styles.loginPage}>
-        <Helmet title='Login'/>
+        <Helmet title='Login' />
         <h1 style={styles.h1}>Login</h1>
         <Grid>
           <Row>

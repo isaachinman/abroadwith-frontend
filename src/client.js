@@ -2,30 +2,30 @@
 // This is the entry point for the client
 // --------------------------------------------------------------------------------
 
+// Absolute imports
 import 'babel-polyfill'
+import { applyRouterMiddleware, browserHistory, Router } from 'react-router'
+import { Provider } from 'react-redux'
+import { ReduxAsyncConnect } from 'redux-async-connect'
+import { syncHistoryWithStore } from 'react-router-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createStore from './redux/create'
-import ApiClient from './helpers/ApiClient'
-import { Provider } from 'react-redux'
-import { Router, browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
-import { ReduxAsyncConnect } from 'redux-async-connect'
-import useScroll from 'scroll-behavior/lib/useStandardScroll'
-import DevTools from './containers/DevTools/DevTools'
 
+// Relative imports
+import ApiClient from './helpers/ApiClient'
+import createStore from './redux/create'
+import DevTools from './containers/DevTools/DevTools'
 import getRoutes from './routes'
 
 const client = new ApiClient()
-const _browserHistory = useScroll(() => browserHistory)()
 const dest = document.getElementById('content')
-const store = createStore(_browserHistory, client, window.__data)
-const history = syncHistoryWithStore(_browserHistory, store)
+const store = createStore(browserHistory, client, window.__data)
+const history = syncHistoryWithStore(browserHistory, store)
 
 const component = (
-  <Router render={(props) =>
-    <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />
-    } history={history}
+  <Router
+    render={(props) => <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />}
+    history={history}
   >
     {getRoutes(store)}
   </Router>

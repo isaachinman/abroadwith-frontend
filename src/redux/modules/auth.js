@@ -16,66 +16,66 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-  case LOAD:
-    return {
-      ...state,
-      loading: true,
-    }
-  case LOAD_SUCCESS:
-    return {
-      ...state,
-      loading: false,
-      loaded: true,
-      user: action.result,
-    }
-  case LOAD_FAIL:
-    return {
-      ...state,
-      loading: false,
-      loaded: false,
-      error: true,
-      errorMessage: action.error,
-    }
-  case LOGIN:
-    return {
-      ...state,
-      loggingIn: true,
-    }
-  case LOGIN_SUCCESS:
-    console.log('LOGGED IN SUCCESSFULLY', action)
-    return {
-      ...state,
-      loggingIn: false,
-      user: jwtDecode(action.result.token),
-    }
-  case LOGIN_FAIL:
-    return {
-      ...state,
-      loggingIn: false,
-      user: null,
-      error: true,
-      errorMessage: action.error,
-    }
-  case LOGOUT:
-    return {
-      ...state,
-      loggingOut: true,
-    }
-  case LOGOUT_SUCCESS:
-    return {
-      ...state,
-      loggingOut: false,
-      user: null,
-    }
-  case LOGOUT_FAIL:
-    return {
-      ...state,
-      loggingOut: false,
-      error: true,
-      errorMessage: action.error,
-    }
-  default:
-    return state
+    case LOAD:
+      return {
+        ...state,
+        loading: true,
+      }
+    case LOAD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        user: action.result,
+      }
+    case LOAD_FAIL:
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error: true,
+        errorMessage: action.error,
+      }
+    case LOGIN:
+      return {
+        ...state,
+        loggingIn: true,
+      }
+    case LOGIN_SUCCESS:
+      console.log('LOGGED IN SUCCESSFULLY', action)
+      return {
+        ...state,
+        loggingIn: false,
+        user: jwtDecode(action.result.token),
+      }
+    case LOGIN_FAIL:
+      return {
+        ...state,
+        loggingIn: false,
+        user: null,
+        error: true,
+        errorMessage: action.error,
+      }
+    case LOGOUT:
+      return {
+        ...state,
+        loggingOut: true,
+      }
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        loggingOut: false,
+        user: null,
+      }
+    case LOGOUT_FAIL:
+      return {
+        ...state,
+        loggingOut: false,
+        error: true,
+        errorMessage: action.error,
+      }
+    default:
+      return state
   }
 }
 

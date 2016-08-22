@@ -8,27 +8,27 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-  case LOAD_HOMESTAY:
-    return {
-      ...state,
-      loading: true,
-    }
-  case LOAD_HOMESTAY_SUCCESS:
-    return {
-      ...state,
-      loading: false,
-      loaded: true,
-      data: action.result,
-    }
-  case LOAD_HOMESTAY_FAIL:
-    return {
-      ...state,
-      loading: false,
-      loaded: false,
-      error: action.error,
-    }
-  default:
-    return state
+    case LOAD_HOMESTAY:
+      return {
+        ...state,
+        loading: true,
+      }
+    case LOAD_HOMESTAY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        data: action.result,
+      }
+    case LOAD_HOMESTAY_FAIL:
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error: action.error,
+      }
+    default:
+      return state
   }
 }
 

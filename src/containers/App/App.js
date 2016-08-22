@@ -1,13 +1,16 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { IndexLink } from 'react-router'
-import { Modal, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
-import Helmet from 'react-helmet'
-import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
-import { Footer, Login, Logo } from 'components'
-import { push } from 'react-router-redux'
-import config from '../../config'
+// Absolute imports
 import { asyncConnect } from 'redux-async-connect'
+import { connect } from 'react-redux'
+import { Footer, Login, Logo } from 'components'
+import { IndexLink } from 'react-router'
+import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
+import { Modal, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { push } from 'react-router-redux'
+import Helmet from 'react-helmet'
+import React, { Component, PropTypes } from 'react'
+
+// Relative imports
+import config from '../../config'
 import styles from './App.styles'
 
 @asyncConnect([{
@@ -92,23 +95,24 @@ export default class App extends Component {
             <Navbar.Toggle />
           </Navbar.Header>
 
-          <Navbar.Collapse eventKey={0}>
+          <Navbar.Collapse>
             <Nav navbar pullRight>
               {!user &&
-              <NavItem eventKey={5} onClick={this.openModal.bind(null, 'login')}>Login</NavItem>
+                <NavItem onClick={this.openModal.bind(null, 'login')}>Login</NavItem>
               }
               {user &&
-              <NavDropdown eventKey='7' title={user.name} id='nav-dropdown'>
-                <MenuItem eventKey='7.1'>Action</MenuItem>
-                <MenuItem eventKey='7.2'>Another action</MenuItem>
-                <MenuItem eventKey='7.3'>Something else here</MenuItem>
-                <MenuItem divider />
-                <MenuItem eventKey='7.4'>
-                  <div eventKey={6} className='logout-link' onClick={this.handleLogout}>
-                    Logout
-                  </div>
-                </MenuItem>
-              </NavDropdown>}
+                <NavDropdown title={user.name} id='nav-dropdown'>
+                  <MenuItem>Action</MenuItem>
+                  <MenuItem>Another action</MenuItem>
+                  <MenuItem>Something else here</MenuItem>
+                  <MenuItem divider />
+                  <MenuItem>
+                    <div className='logout-link' onClick={this.handleLogout}>
+                      Logout
+                    </div>
+                  </MenuItem>
+                </NavDropdown>
+              }
 
             </Nav>
           </Navbar.Collapse>
@@ -117,17 +121,17 @@ export default class App extends Component {
         <Modal
           style={styles.loginModal}
           bsSize='small'
-          onHide={this.closeModal.bind(null, 'login')}
+          onHide={this.openModal.bind(null, 'login')}
           show={this.state.modals.login.open}
         >
-          <Login compact/>
+          <Login compact />
         </Modal>
 
         <div style={styles.appContent}>
           {this.props.children}
         </div>
 
-        <Footer/>
+        <Footer />
 
       </div>
     )

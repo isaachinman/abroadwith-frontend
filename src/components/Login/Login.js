@@ -1,11 +1,14 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import * as authActions from 'redux/modules/auth'
-import { validateExists, validatePassword } from 'utils/validation'
-import FacebookLogin from 'react-facebook-login'
-import GoogleLogin from 'react-google-login'
-import FontAwesome from 'react-fontawesome'
+// Absolute imports
 import { Alert, Button, Col, Form, FormGroup, FormControl, InputGroup, Row } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { validateExists, validatePassword } from 'utils/validation'
+import * as authActions from 'redux/modules/auth'
+import FacebookLogin from 'react-facebook-login'
+import FontAwesome from 'react-fontawesome'
+import GoogleLogin from 'react-google-login'
+import React, { Component, PropTypes } from 'react'
+
+// Relative imports
 import styles from './Login.styles'
 
 @connect(state => ({ user: state.auth.user, loginStatus: state.auth }), authActions)
@@ -114,7 +117,7 @@ export default class Login extends Component {
                   clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
                   cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-google-login'
                 >
-                  <FontAwesome name='google'/> Login with Google
+                  <FontAwesome name='google' /> Login with Google
                 </GoogleLogin>
               </Col>
             </Row>
@@ -144,7 +147,7 @@ export default class Login extends Component {
               <FormGroup controlId='formHorizontalEmail' validationState={email.uiState}>
                 <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                   <InputGroup>
-                    <InputGroup.Addon><FontAwesome name='at'/></InputGroup.Addon>
+                    <InputGroup.Addon><FontAwesome name='at' /></InputGroup.Addon>
                     <FormControl required type='email' placeholder='Email' onChange={this.handleEmailChange.bind(this)} />
                   </InputGroup>
                 </Col>
@@ -153,7 +156,7 @@ export default class Login extends Component {
               <FormGroup controlId='formHorizontalPassword' validationState={password.uiState}>
                 <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                   <InputGroup>
-                    <InputGroup.Addon><FontAwesome name='lock'/></InputGroup.Addon>
+                    <InputGroup.Addon><FontAwesome name='lock' /></InputGroup.Addon>
                     <FormControl required type='password' placeholder='Password' onChange={this.handlePasswordChange.bind(this)} />
                   </InputGroup>
                 </Col>
@@ -181,7 +184,7 @@ export default class Login extends Component {
             <p>You are currently logged in as {user.name}.</p>
 
             <div>
-              <button className='btn btn-danger' onClick={logout}><i className='fa fa-sign-out'/>{' '}Log Out</button>
+              <button className='btn btn-danger' onClick={logout}><i className='fa fa-sign-out' />{' '}Log Out</button>
             </div>
           </div>
         }

@@ -21,7 +21,7 @@ export default class Main extends Component {
         </div>
 
         <div className='container' style={styles.container}>
-
+          Main page
         </div>
 
       </div>

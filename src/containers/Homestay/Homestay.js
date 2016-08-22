@@ -7,7 +7,7 @@ import { initializeWithKey } from 'redux-form'
 
 @asyncConnect([{
   deferred: true,
-  promise: ({params, store: { dispatch, getState }}) => {
+  promise: ({ params, store: { dispatch, getState } }) => {
     if (!isLoaded(getState())) {
       return dispatch(loadHomestay(params.homeID))
     }

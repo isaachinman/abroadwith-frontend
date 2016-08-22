@@ -8,6 +8,6 @@ export default {
     enableBackground: 'new 0 0 150.9 160.3',
   },
   whiteLogo: {
-    fill: `#ffffff`,
+    fill: '#ffffff',
   },
 }
