@@ -6,7 +6,7 @@ export default {
     alignItems: 'center',
     textAlign: 'center',
     background: havelockBlue,
-    color: `white`,
+    color: 'white',
     minHeight: 400,
   },
   h1: {

@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import Helmet from 'react-helmet'
-import { isLoaded, load as loadUser } from 'redux/modules/publicData/loadUser'
+// Absolute imports
 import { asyncConnect } from 'redux-async-connect'
+import { connect } from 'react-redux'
 import { initializeWithKey } from 'redux-form'
+import { isLoaded, load as loadUser } from 'redux/modules/publicData/loadUser'
+import Helmet from 'react-helmet'
+import React, { Component } from 'react'
 
 @asyncConnect([{
   deferred: true,
-  promise: ({params, store: { dispatch, getState }}) => {
+  promise: ({ params, store: { dispatch, getState } }) => {
     if (!isLoaded(getState())) {
       return dispatch(loadUser(params.userID))
     }
@@ -59,14 +60,13 @@ export default class UserProfile extends Component {
       <div>
 
         <Helmet title='User Profile' />
-          <div>
-            <div className='container'>
+        <div className='container'>
 
-              <h1>User: {firstName}</h1>
-              <h2>Location: {homeCity}, {homeCountry}</h2>
+          <h1>User: {firstName}</h1>
+          <h2>Location: {homeCity}, {homeCountry}</h2>
 
-            </div>
-          </div>
+        </div>
+
 
       </div>
     )

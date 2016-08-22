@@ -1,24 +1,26 @@
 /* eslint no-undef: 0 */
 
-import Express from 'express'
-import React from 'react'
-import ReactDOM from 'react-dom/server'
-import config from './config'
+// Absolute imports
+import { match } from 'react-router'
+import { Provider } from 'react-redux'
+import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect'
+import { syncHistoryWithStore } from 'react-router-redux'
 import compression from 'compression'
+import createHistory from 'react-router/lib/createMemoryHistory'
+import Express from 'express'
+import http from 'http'
 import httpProxy from 'http-proxy'
 import path from 'path'
-import createStore from './redux/create'
-import ApiClient from './helpers/ApiClient'
-import Html from './helpers/Html'
 import PrettyError from 'pretty-error'
-import http from 'http'
+import React from 'react'
+import ReactDOM from 'react-dom/server'
 
-import { match } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
-import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect'
-import createHistory from 'react-router/lib/createMemoryHistory'
-import { Provider } from 'react-redux'
+// Relative imports
+import ApiClient from './helpers/ApiClient'
+import config from './config'
+import createStore from './redux/create'
 import getRoutes from './routes'
+import Html from './helpers/Html'
 
 const targetUrl = config.apiHost
 const pretty = new PrettyError()
@@ -41,7 +43,9 @@ app.use('/api', (req, res) => {
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', (error, req, res) => {
+
   let json
+
   if (error.code !== 'ECONNRESET') {
     console.error('proxy error', error)
   }
@@ -49,7 +53,7 @@ proxy.on('error', (error, req, res) => {
     res.writeHead(500, { 'content-type': 'application/json' })
   }
 
-  json = { error: 'proxy_error', reason: error.message }
+  json = { error: 'proxy_error', reason: error.message } // eslint-disable-line
   res.end(JSON.stringify(json))
 })
 

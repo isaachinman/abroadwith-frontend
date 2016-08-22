@@ -1,3 +1,1 @@
-export default (value) => {
-  return !!value
-}
+export default (value) => !!value

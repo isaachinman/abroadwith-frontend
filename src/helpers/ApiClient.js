@@ -17,6 +17,7 @@ function formatUrl(path) {
 
 export default class ApiClient {
   constructor(req) {
+    /* eslint-disable no-return-assign */
     methods.forEach((method) =>
       this[method] = (path, { params, data } = {}) => new Promise((resolve, reject) => {
         const request = superagent[method](formatUrl(path))
@@ -35,6 +36,7 @@ export default class ApiClient {
 
         request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body))
       }))
+    /* eslint-enable no-return-assign */
   }
   /*
    * There's a V8 bug where, when using Babel, exporting classes with only
