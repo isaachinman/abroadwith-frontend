@@ -1,4 +1,10 @@
+// Absolute imports
 import React from 'react'
+
+// --------------------------------------------------------------------------------
+// 404 Container
+// Dumb (stateless)
+// --------------------------------------------------------------------------------
 
 export default function NotFound() {
   return (

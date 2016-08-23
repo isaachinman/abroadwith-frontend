@@ -1,5 +1,13 @@
+// Absolute imports
 import React from 'react'
+
+// Relative imports
 import styles from './Logo.styles'
+
+// --------------------------------------------------------------------------------
+// Logo Component
+// Dumb (stateless)
+// --------------------------------------------------------------------------------
 
 export default function Logo(props) {
 

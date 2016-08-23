@@ -1,6 +1,14 @@
+// Absolute imports
 import { Col, Grid, Row } from 'react-bootstrap'
 import React from 'react'
+
+// Relative imports
 import styles from './Footer.styles'
+
+// --------------------------------------------------------------------------------
+// Footer Component
+// Dumb (stateless)
+// --------------------------------------------------------------------------------
 
 export default function Footer() {
 

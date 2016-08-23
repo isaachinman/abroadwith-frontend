@@ -26,7 +26,8 @@ import styles from './App.styles'
   state => ({
     user: state.auth.user,
   }),
-  { logout, pushState: push })
+  { logout, pushState: push }
+)
 export default class App extends Component {
 
   static propTypes = {
@@ -40,34 +41,14 @@ export default class App extends Component {
     store: PropTypes.object.isRequired,
   }
 
-  state = {
-    modals: {
-      login: {
-        open: false,
-      },
-    },
-  }
-
   componentWillReceiveProps(nextProps) {
     if (!this.props.user && nextProps.user) {
-      // login
+      // Login just happened
       this.props.pushState('/loginSuccess')
     } else if (this.props.user && !nextProps.user) {
-      // logout
+      // Logout just happened
       this.props.pushState('/')
     }
-  }
-
-  openModal = (modalName) => {
-    let newState = this.state // eslint-disable-line
-    newState.modals[modalName].open = true
-    this.setState(newState)
-  }
-
-  closeModal = (modalName) => {
-    let newState = this.state // eslint-disable-line
-    newState.modals[modalName].open = false
-    this.setState(newState)
   }
 
   handleLogout = (event) => {
