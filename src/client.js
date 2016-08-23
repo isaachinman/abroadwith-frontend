@@ -4,7 +4,7 @@
 
 // Absolute imports
 import 'babel-polyfill'
-import { applyRouterMiddleware, browserHistory, Router } from 'react-router'
+import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
 import { ReduxAsyncConnect } from 'redux-async-connect'
 import { syncHistoryWithStore } from 'react-router-redux'

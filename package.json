@@ -205,7 +205,8 @@
       "jsx-quotes": [
         2,
         "prefer-single"
-      ]
+      ],
+      "react/prefer-stateless-function": 0
     }
   },
   "engines": {

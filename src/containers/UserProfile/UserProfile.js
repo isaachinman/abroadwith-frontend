@@ -20,7 +20,8 @@ import React, { Component } from 'react'
     error: state.publicData.user.error,
     loading: state.publicData.user.loading,
   }),
-  { initializeWithKey })
+  { initializeWithKey }
+)
 export default class UserProfile extends Component {
   render() {
 

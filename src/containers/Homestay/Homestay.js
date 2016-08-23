@@ -19,7 +19,8 @@ import { initializeWithKey } from 'redux-form'
     error: state.publicData.homestay.error,
     loading: state.publicData.homestay.loading,
   }),
-  { initializeWithKey })
+  { initializeWithKey }
+)
 export default class Homestay extends Component {
   render() {
 
