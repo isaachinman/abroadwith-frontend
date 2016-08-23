@@ -7,6 +7,7 @@ import FacebookLogin from 'react-facebook-login'
 import FontAwesome from 'react-fontawesome'
 import GoogleLogin from 'react-google-login'
 import React, { Component, PropTypes } from 'react'
+import memobind from 'memobind'
 
 // Relative imports
 import styles from './Login.styles'
@@ -148,7 +149,7 @@ export default class Login extends Component {
                 <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                   <InputGroup>
                     <InputGroup.Addon><FontAwesome name='at' /></InputGroup.Addon>
-                    <FormControl required type='email' placeholder='Email' onChange={this.handleEmailChange.bind(this)} />
+                    <FormControl required type='email' placeholder='Email' onChange={memobind(this, 'handleEmailChange', this)} />
                   </InputGroup>
                 </Col>
               </FormGroup>
@@ -157,7 +158,7 @@ export default class Login extends Component {
                 <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                   <InputGroup>
                     <InputGroup.Addon><FontAwesome name='lock' /></InputGroup.Addon>
-                    <FormControl required type='password' placeholder='Password' onChange={this.handlePasswordChange.bind(this)} />
+                    <FormControl required type='password' placeholder='Password' onChange={memobind(this, 'handlePasswordChange', this)} />
                   </InputGroup>
                 </Col>
                 <Col sm={12}>

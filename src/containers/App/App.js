@@ -1,10 +1,8 @@
 // Absolute imports
 import { asyncConnect } from 'redux-async-connect'
 import { connect } from 'react-redux'
-import { Footer, Login, Logo } from 'components'
-import { IndexLink } from 'react-router'
+import { Footer, Navigation } from 'components'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
-import { Modal, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { push } from 'react-router-redux'
 import Helmet from 'react-helmet'
 import React, { Component, PropTypes } from 'react'
@@ -84,48 +82,8 @@ export default class App extends Component {
     return (
       <div style={styles.appContainer}>
         <Helmet {...config.app.head} />
-        <Navbar fixedTop>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <IndexLink to='/'>
-                <span style={styles.brandname}>{config.app.title}</span>
-                <Logo size={25} color='blue' componentStyle={styles.brand} />
-              </IndexLink>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
 
-          <Navbar.Collapse>
-            <Nav navbar pullRight>
-              {!user &&
-                <NavItem onClick={this.openModal.bind(null, 'login')}>Login</NavItem>
-              }
-              {user &&
-                <NavDropdown title={user.name} id='nav-dropdown'>
-                  <MenuItem>Action</MenuItem>
-                  <MenuItem>Another action</MenuItem>
-                  <MenuItem>Something else here</MenuItem>
-                  <MenuItem divider />
-                  <MenuItem>
-                    <div className='logout-link' onClick={this.handleLogout}>
-                      Logout
-                    </div>
-                  </MenuItem>
-                </NavDropdown>
-              }
-
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-
-        <Modal
-          style={styles.loginModal}
-          bsSize='small'
-          onHide={this.openModal.bind(null, 'login')}
-          show={this.state.modals.login.open}
-        >
-          <Login compact />
-        </Modal>
+        <Navigation user={user} title={config.app.title} />
 
         <div style={styles.appContent}>
           {this.props.children}
