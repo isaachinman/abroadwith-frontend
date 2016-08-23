@@ -24,6 +24,11 @@ For more information google for [component-based UI development](https://google.
   or calling a function that has been passed to them as a prop, and executes in some
   parent scope.
 
+**Important:** if a component does not require state, it should be written as a
+pure function. If a stateless component also requires connect or asyncConnect,
+the `compose` method (or some other method) must be used instead of class
+decorators. Stateful components can be written as classes.
+
 ```jsx
 // Bad
 class Navigation extends Component {

@@ -8,11 +8,6 @@ import memobind from 'memobind'
 // Relative imports
 import styles from './Navigation.styles'
 
-// --------------------------------------------------------------------------------
-// Navigation Component
-// Smart (stateful)
-// --------------------------------------------------------------------------------
-
 export default class Navigation extends Component {
 
   state = {

@@ -7,11 +7,6 @@ import React from 'react'
 // Relative imports
 import styles from './LoginPage.styles'
 
-// --------------------------------------------------------------------------------
-// Login Container
-// Dumb (stateless)
-// --------------------------------------------------------------------------------
-
 export default function LoginPage() {
 
   return (
