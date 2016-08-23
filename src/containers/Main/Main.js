@@ -6,11 +6,6 @@ import React from 'react'
 // Relative imports
 import styles from './Main.styles'
 
-// --------------------------------------------------------------------------------
-// Main Container
-// Dumb (stateless)
-// --------------------------------------------------------------------------------
-
 export default function Main() {
 
   return (

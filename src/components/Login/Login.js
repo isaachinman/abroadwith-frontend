@@ -11,11 +11,6 @@ import React, { Component, PropTypes } from 'react'
 // Relative imports
 import styles from './Login.styles'
 
-// --------------------------------------------------------------------------------
-// Login Component
-// Smart (stateful)
-// --------------------------------------------------------------------------------
-
 @connect(state => ({ user: state.auth.user, loginStatus: state.auth }), authActions)
 export default class Login extends Component {
 

@@ -4,11 +4,6 @@ import React from 'react'
 // Relative imports
 import styles from './Logo.styles'
 
-// --------------------------------------------------------------------------------
-// Logo Component
-// Dumb (stateless)
-// --------------------------------------------------------------------------------
-
 export default function Logo(props) {
 
   const { componentStyle, size, color } = props // eslint-disable-line no-shadow

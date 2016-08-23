@@ -5,11 +5,6 @@ import React from 'react'
 // Relative imports
 import styles from './Footer.styles'
 
-// --------------------------------------------------------------------------------
-// Footer Component
-// Dumb (stateless)
-// --------------------------------------------------------------------------------
-
 export default function Footer() {
 
   return (
