@@ -1,5 +1,4 @@
-# webpack-universal-react-boilerplate
-Yet another Webpack/React boilerplate
+# Abroadwith
 
-## Credit
-This project began as a fork of [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) but has diverged significantly over time to more closely match my personal needs.
+This is the main Abroadwith application, and contains NodeJs server(s), Express
+endpoints, isomorphic/universal rendering of UI via ReactJs, and more.
