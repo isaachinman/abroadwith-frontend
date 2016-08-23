@@ -1,7 +1,15 @@
+// Absolute imports
 import { Button } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import React from 'react'
+
+// Relative imports
 import styles from './Main.styles'
+
+// --------------------------------------------------------------------------------
+// Main Container
+// Dumb (stateless)
+// --------------------------------------------------------------------------------
 
 export default function Main() {
 

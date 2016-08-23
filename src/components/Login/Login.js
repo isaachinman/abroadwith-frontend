@@ -7,10 +7,14 @@ import FacebookLogin from 'react-facebook-login'
 import FontAwesome from 'react-fontawesome'
 import GoogleLogin from 'react-google-login'
 import React, { Component, PropTypes } from 'react'
-import memobind from 'memobind'
 
 // Relative imports
 import styles from './Login.styles'
+
+// --------------------------------------------------------------------------------
+// Login Component
+// Smart (stateful)
+// --------------------------------------------------------------------------------
 
 @connect(state => ({ user: state.auth.user, loginStatus: state.auth }), authActions)
 export default class Login extends Component {
@@ -26,15 +30,16 @@ export default class Login extends Component {
     },
   }
 
-  handleEmailChange = (event) => {
+  handleEmailChange = (newValue) => {
     let newValidationObj = this.state.validatedFields // eslint-disable-line
-    newValidationObj.email.value = event.target.value
+    newValidationObj.email.value = newValue
+    console.log(newValue)
     this.setState({ validatedFields: newValidationObj })
   }
 
-  handlePasswordChange = (event) => {
+  handlePasswordChange = (newValue) => {
     let newValidationObj = this.state.validatedFields // eslint-disable-line
-    newValidationObj.password.value = event.target.value
+    newValidationObj.password.value = newValue
     this.setState({ validatedFields: newValidationObj })
   }
 
@@ -149,7 +154,7 @@ export default class Login extends Component {
                 <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                   <InputGroup>
                     <InputGroup.Addon><FontAwesome name='at' /></InputGroup.Addon>
-                    <FormControl required type='email' placeholder='Email' onChange={memobind(this, 'handleEmailChange', this)} />
+                    <FormControl required type='email' placeholder='Email' onChange={event => this.handleEmailChange(event.target.value)} />
                   </InputGroup>
                 </Col>
               </FormGroup>
@@ -158,7 +163,7 @@ export default class Login extends Component {
                 <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                   <InputGroup>
                     <InputGroup.Addon><FontAwesome name='lock' /></InputGroup.Addon>
-                    <FormControl required type='password' placeholder='Password' onChange={memobind(this, 'handlePasswordChange', this)} />
+                    <FormControl required type='password' placeholder='Password' onChange={event => this.handlePasswordChange(event.target.value)} />
                   </InputGroup>
                 </Col>
                 <Col sm={12}>
