@@ -2,16 +2,14 @@
 import { asyncConnect } from 'redux-async-connect'
 import { connect } from 'react-redux'
 import { initializeWithKey } from 'redux-form'
-import { isLoaded, load as loadUser } from 'redux/modules/publicData/loadUser'
+import { load as loadUser } from 'redux/modules/publicData/loadUser'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 
 @asyncConnect([{
   deferred: true,
-  promise: ({ params, store: { dispatch, getState } }) => {
-    if (!isLoaded(getState())) {
-      return dispatch(loadUser(params.userID))
-    }
+  promise: ({ params, store: { dispatch } }) => {
+    return dispatch(loadUser(params.userID))
   },
 }])
 @connect(
@@ -24,6 +22,8 @@ import React, { Component } from 'react'
 )
 export default class UserProfile extends Component {
   render() {
+
+    const { error, loading, user } = this.props
 
     /* eslint-disable */
     const {
@@ -52,20 +52,22 @@ export default class UserProfile extends Component {
       occupation,
       phoneVerified,
       photo,
-    } = this.props.user
+    } = user ? user : {}
     /* eslint-enable */
 
     return (
       <div>
 
         <Helmet title='User Profile' />
-        <div className='container'>
 
-          <h1>User: {firstName}</h1>
-          <h2>Location: {homeCity}, {homeCountry}</h2>
+        {!error && !loading && user &&
 
-        </div>
+          <div className='container'>
+            <h1>User: {firstName}</h1>
+            <h2>Location: {homeCity}, {homeCountry}</h2>
+          </div>
 
+        }
 
       </div>
     )
@@ -73,6 +75,7 @@ export default class UserProfile extends Component {
 }
 
 UserProfile.propTypes = {
+  loading: React.PropTypes.bool,
   user: React.PropTypes.object,
   error: React.PropTypes.object,
 }

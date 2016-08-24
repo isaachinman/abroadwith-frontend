@@ -2,16 +2,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/loadHomestay'
+import { load as loadHomestay } from 'redux/modules/publicData/loadHomestay'
 import { asyncConnect } from 'redux-async-connect'
 import { initializeWithKey } from 'redux-form'
 
 @asyncConnect([{
   deferred: true,
-  promise: ({ params, store: { dispatch, getState } }) => {
-    if (!isLoaded(getState())) {
-      return dispatch(loadHomestay(params.homeID))
-    }
+  promise: ({ params, store: { dispatch } }) => {
+    return dispatch(loadHomestay(params.homeID))
   },
 }])
 @connect(
@@ -24,6 +22,8 @@ import { initializeWithKey } from 'redux-form'
 )
 export default class Homestay extends Component {
   render() {
+
+    const { error, homestay, loading } = this.props
 
     /* eslint-disable */
     const {
@@ -40,21 +40,22 @@ export default class Homestay extends Component {
       stayAvailableLanguages,
       tandemAvailableLanguages,
       teacherAvailableLanguages,
-    } = this.props.homestay
+    } = homestay ? homestay : {}
     /* eslint-enable */
 
     return (
       <div>
 
         <Helmet title='Homestay' />
-        <div>
-          <div className='container'>
 
+        {!error && !loading && homestay &&
+
+          <div className='container'>
             <h1>Host: {host.firstName}</h1>
             <h2>Location: {location.city}, {location.country}</h2>
-
           </div>
-        </div>
+
+        }
 
       </div>
     )
@@ -62,6 +63,7 @@ export default class Homestay extends Component {
 }
 
 Homestay.propTypes = {
-  homestay: React.PropTypes.object,
   error: React.PropTypes.object,
+  homestay: React.PropTypes.object,
+  loading: React.PropTypes.bool,
 }
