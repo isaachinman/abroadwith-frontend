@@ -31,8 +31,8 @@ export default class Navigation extends Component {
   }
 
   render() {
-    console.log('Navigation', this.props)
-    const { user, title } = this.props
+
+    const { jwt, title } = this.props
 
     return (
       <span>
@@ -49,11 +49,11 @@ export default class Navigation extends Component {
 
           <Navbar.Collapse>
             <Nav navbar pullRight>
-              {!user &&
+              {!jwt &&
                 <NavItem onClick={memobind(this, 'openModal', 'login')}>Login</NavItem>
               }
-              {user &&
-                <NavDropdown title={user.name} id='nav-dropdown'>
+              {jwt &&
+                <NavDropdown title={jwt.name} id='nav-dropdown'>
                   <MenuItem>Action</MenuItem>
                   <MenuItem>Another action</MenuItem>
                   <MenuItem>Something else here</MenuItem>
@@ -87,5 +87,5 @@ export default class Navigation extends Component {
 
 Navigation.propTypes = {
   title: PropTypes.string.isRequired,
-  user: PropTypes.object,
+  jwt: PropTypes.object,
 }

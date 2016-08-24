@@ -11,7 +11,7 @@ import React, { Component, PropTypes } from 'react'
 // Relative imports
 import styles from './Login.styles'
 
-@connect(state => ({ user: state.auth.user, loginStatus: state.auth }), authActions)
+@connect(state => ({ jwt: state.auth.jwt, loginStatus: state.auth }), authActions)
 export default class Login extends Component {
 
   state = {
@@ -87,13 +87,13 @@ export default class Login extends Component {
 
   render() {
 
-    const { compact, user, loginStatus, logout } = this.props
+    const { compact, jwt, loginStatus, logout } = this.props
     const { email, password } = this.state.validatedFields
 
     return (
       <div style={styles.loginPanel}>
 
-        {!user &&
+        {!jwt &&
 
           <span>
 
@@ -180,9 +180,9 @@ export default class Login extends Component {
 
         }
 
-        {user &&
+        {jwt &&
           <div>
-            <p>You are currently logged in as {user.name}.</p>
+            <p>You are currently logged in as {jwt.name}.</p>
 
             <div>
               <button className='btn btn-danger' onClick={logout}><i className='fa fa-sign-out' />{' '}Log Out</button>
@@ -197,7 +197,7 @@ export default class Login extends Component {
 
 Login.propTypes = {
   compact: PropTypes.bool,
-  user: PropTypes.object,
+  jwt: PropTypes.object,
   login: PropTypes.func,
   loginStatus: PropTypes.object,
   logout: PropTypes.func,

@@ -55,8 +55,6 @@ export default class UserProfile extends Component {
     } = this.props.user
     /* eslint-enable */
 
-    console.log(this)
-
     return (
       <div>
 

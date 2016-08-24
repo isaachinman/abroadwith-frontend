@@ -2,7 +2,7 @@
 import { asyncConnect } from 'redux-async-connect'
 import { connect } from 'react-redux'
 import { Footer, Navigation } from 'components'
-import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
+import { isLoaded as isAuthLoaded, logout } from 'redux/modules/auth'
 import { push } from 'react-router-redux'
 import Helmet from 'react-helmet'
 import React, { Component, PropTypes } from 'react'
@@ -15,8 +15,8 @@ import styles from './App.styles'
   promise: ({ store: { dispatch, getState } }) => { // eslint-disable-line
     const promises = []
 
-    if (!isAuthLoaded(getState())) {
-      loadAuth()
+    if (isAuthLoaded(getState())) {
+      console.log('auth is loaded')
     }
 
     return Promise.all(promises)
@@ -24,32 +24,25 @@ import styles from './App.styles'
 }])
 @connect(
   state => ({
-    user: state.auth.user,
+    jwt: state.auth.jwt,
   }),
   { logout, pushState: push }
 )
 export default class App extends Component {
 
-  static propTypes = {
-    children: PropTypes.object.isRequired,
-    user: PropTypes.object,
-    logout: PropTypes.func.isRequired,
-    pushState: PropTypes.func.isRequired,
-  }
-
   static contextTypes = {
     store: PropTypes.object.isRequired,
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.user && nextProps.user) {
-      // Login just happened
-      this.props.pushState('/loginSuccess')
-    } else if (this.props.user && !nextProps.user) {
-      // Logout just happened
-      this.props.pushState('/')
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (!this.props.user && nextProps.user) {
+  //     // Login just happened
+  //     this.props.pushState('/loginSuccess')
+  //   } else if (this.props.user && !nextProps.user) {
+  //     // Logout just happened
+  //     this.props.pushState('/')
+  //   }
+  // }
 
   handleLogout = (event) => {
     event.preventDefault()
@@ -58,13 +51,14 @@ export default class App extends Component {
 
   render() {
 
-    const { user } = this.props
+    const { jwt } = this.props
 
     return (
       <div style={styles.appContainer}>
+
         <Helmet {...config.app.head} />
 
-        <Navigation user={user} title={config.app.title} />
+        <Navigation jwt={jwt} title={config.app.title} />
 
         <div style={styles.appContent}>
           {this.props.children}
@@ -75,4 +69,11 @@ export default class App extends Component {
       </div>
     )
   }
+}
+
+App.propTypes = {
+  children: PropTypes.object.isRequired,
+  jwt: PropTypes.object,
+  logout: PropTypes.func,
+  pushState: PropTypes.func,
 }

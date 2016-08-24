@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect'
 import { syncHistoryWithStore } from 'react-router-redux'
 import compression from 'compression'
+import cookieParser from 'cookie-parser'
 import createHistory from 'react-router/lib/createMemoryHistory'
 import Express from 'express'
 import http from 'http'
@@ -21,6 +22,7 @@ import config from './config'
 import createStore from './redux/create'
 import getRoutes from './routes'
 import Html from './helpers/Html'
+import { load as loadAuth } from './redux/modules/auth'
 
 const targetUrl = config.apiHost
 const pretty = new PrettyError()
@@ -33,6 +35,7 @@ const proxy = httpProxy.createProxyServer({
 })
 
 app.use(compression())
+app.use(cookieParser())
 
 app.use(Express.static(path.join(__dirname, '..', 'build')))
 
@@ -44,17 +47,21 @@ app.use('/api', (req, res) => {
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', (error, req, res) => {
 
-  let json
+  let json = {}
 
   if (error.code !== 'ECONNRESET') {
     console.error('proxy error', error)
   }
+
   if (!res.headersSent) {
     res.writeHead(500, { 'content-type': 'application/json' })
   }
 
-  json = { error: 'proxy_error', reason: error.message } // eslint-disable-line
+  json.error = 'proxy_error'
+  json.reason = error.message
+
   res.end(JSON.stringify(json))
+
 })
 
 app.use((req, res) => {
@@ -82,13 +89,33 @@ app.use((req, res) => {
 
   match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
+
       res.redirect(redirectLocation.pathname + redirectLocation.search)
+
     } else if (error) {
+
       console.error('ROUTER ERROR:', pretty.render(error))
       res.status(500)
       hydrateOnClient()
+
     } else if (renderProps) {
+
+
+
       loadOnServer({ ...renderProps, store, helpers: { client } }).then(() => {
+
+        console.log('STORE STORE STORE', store)
+
+        console.log('LOAD ON SERVER', req.cookies.access_token)
+
+        // If user has an access_token cookie, log them in before even rendering the page
+        if (req.cookies.access_token) {
+
+          store.dispatch(loadAuth(req.cookies.access_token))
+        }
+
+        // dispatch(loadAuth())
+
         const component = (
           <Provider store={store} key='provider'>
             <ReduxAsyncConnect {...renderProps} />
@@ -102,6 +129,7 @@ app.use((req, res) => {
         res.send('<!doctype html>\n' +
           ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />))
       })
+
     } else {
       res.status(404).send('Not found')
     }
