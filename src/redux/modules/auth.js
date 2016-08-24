@@ -22,11 +22,12 @@ export default function reducer(state = initialState, action = {}) {
         loading: true,
       }
     case LOAD_SUCCESS:
+      console.log(action)
       return {
         ...state,
         loading: false,
         loaded: true,
-        user: action.result,
+        jwt: jwtDecode(action.jwt),
       }
     case LOAD_FAIL:
       return {
@@ -39,13 +40,15 @@ export default function reducer(state = initialState, action = {}) {
     case LOGIN:
       return {
         ...state,
+        loaded: false,
         loggingIn: true,
       }
     case LOGIN_SUCCESS:
       return {
         ...state,
+        loaded: true,
         loggingIn: false,
-        user: jwtDecode(action.result.token),
+        jwt: jwtDecode(action.result.token),
       }
     case LOGIN_FAIL:
       return {
@@ -79,13 +82,16 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 export function isLoaded(globalState) {
-  return globalState.auth && globalState.auth.loaded
+
+  const authIsLoaded = globalState.auth && globalState.auth.loaded
+  return authIsLoaded
+
 }
 
-export function load() {
+export function load(jwt) {
   return {
-    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: (client) => client.get('/loadAuth'),
+    type: LOAD_SUCCESS,
+    jwt,
   }
 }
 

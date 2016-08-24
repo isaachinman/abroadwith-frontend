@@ -24,7 +24,7 @@ module.exports = Object.assign({
         { charset: 'utf-8' },
         { property: 'og:site_name', content: 'Abroadwith' },
         { property: 'og:image', content: 'https://abroadwith.imgix.net/app/favicon/favicon.png' },
-        { property: 'og:locale', content: 'en_US' },
+        { property: 'og:locale', content: 'en' },
         { property: 'og:title', content: 'This is the meta title' },
         { property: 'og:description', content: 'This is the meta description' },
         { property: 'og:card', content: 'summary' },
