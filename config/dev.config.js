@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 require('babel-polyfill')
 
 var resolvePaths = require('./resolve.paths')
@@ -23,7 +25,6 @@ try {
   console.error('==>     ERROR: Error parsing your .babelrc.')
   console.error(err);
 }
-
 
 var babelrcObjectDevelopment = babelrcObject.env && babelrcObject.env.development || {}
 

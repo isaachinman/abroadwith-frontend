@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 var Express = require('express')
 var webpack = require('webpack')
 var config = require('../src/config')
@@ -8,10 +10,10 @@ var host = config.host || 'localhost'
 var port = (Number(config.port) + 1) || 3001
 var serverOptions = {
   contentBase: 'http://' + host + ':' + port,
+  https: true,
   quiet: true,
   noInfo: true,
   hot: true,
-  inline: true,
   lazy: false,
   publicPath: webpackConfig.output.publicPath,
   headers: {'Access-Control-Allow-Origin': '*'},
