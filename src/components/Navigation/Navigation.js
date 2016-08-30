@@ -1,6 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { IndexLink } from 'react-router'
+import { LinkContainer } from 'react-router-bootstrap'
 import { Login, Logo } from 'components'
 import { Modal, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import memobind from 'memobind'
@@ -54,9 +55,15 @@ export default class Navigation extends Component {
               }
               {jwt &&
                 <NavDropdown title={jwt.name} id='nav-dropdown'>
-                  <MenuItem>Action</MenuItem>
-                  <MenuItem>Another action</MenuItem>
-                  <MenuItem>Something else here</MenuItem>
+
+                  <LinkContainer to='/homestay/132'>
+                    <MenuItem>To a homestay</MenuItem>
+                  </LinkContainer>
+
+                  <LinkContainer to='/users/389'>
+                    <MenuItem>To a user profile</MenuItem>
+                  </LinkContainer>
+
                   <MenuItem divider />
                   <MenuItem>
                     <div className='logout-link' onClick={this.handleLogout}>

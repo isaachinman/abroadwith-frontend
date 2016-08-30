@@ -34,7 +34,11 @@ export default class ApiClient {
           request.send(data)
         }
 
-        request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body))
+        request.end((err, { body } = {}) => {
+
+          return err ? reject(body || err) : resolve(body)
+
+        })
       }))
     /* eslint-enable no-return-assign */
   }

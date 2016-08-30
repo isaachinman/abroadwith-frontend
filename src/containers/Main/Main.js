@@ -1,7 +1,6 @@
 // Absolute imports
 import { Button } from 'react-bootstrap'
 import Helmet from 'react-helmet'
-import { Link } from 'react-router'
 import React from 'react'
 
 // Relative imports
@@ -26,8 +25,7 @@ export default function Main() {
 
       <div className='container' style={styles.container}>
 
-        <Link to='/homestay/132'>Link to a homestay</Link>
-        <Link to='/users/389'>Link to a user profile</Link>
+        Main stuff
 
       </div>
 
