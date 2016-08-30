@@ -34,15 +34,18 @@ export default class App extends Component {
     store: PropTypes.object.isRequired,
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (!this.props.user && nextProps.user) {
-  //     // Login just happened
-  //     this.props.pushState('/loginSuccess')
-  //   } else if (this.props.user && !nextProps.user) {
-  //     // Logout just happened
-  //     this.props.pushState('/')
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.jwt && nextProps.jwt) {
+
+      // Login just happened
+      localStorage.setItem('jwt', JSON.stringify(nextProps.jwt))
+      console.log('LOAD FULL USER HERE')
+
+    } else if (this.props.jwt && !nextProps.jwt) {
+      // Logout just happened
+      this.props.pushState('/')
+    }
+  }
 
   handleLogout = (event) => {
     event.preventDefault()
