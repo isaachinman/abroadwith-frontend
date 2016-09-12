@@ -1,0 +1,24 @@
+{
+  "bedType":{
+    "SINGLE_BED":0,
+    "DOUBLE_BED":1,
+    "AIR_BED":2,
+    "FUTON":3,
+    "PULLOUT_SOFA":4,
+    "COUCH":5
+  },
+  "facilities":{
+    "AIR_CONDITIONING":0,
+    "BATHROOM":1,
+    "BEDSIDE_LOCKER":2,
+    "DESK":3,
+    "DRESSER":4,
+    "FRIDGE":5,
+    "HAIR_DRYER":6,
+    "HANGERS":7,
+    "HEATING":8,
+    "IRON":9,
+    "MIRROR":10,
+    "WARDROBE":11
+  }
+}

@@ -1,7 +1,7 @@
 // --------------------------------------------------------------------------------
-// Point of contact for public data-fetching modules
+// Point of contact for private data-fetching modules
 // ie: import { loadHomestay, loadUser } from 'redux/modules/publicData'
 // --------------------------------------------------------------------------------
 
-export loadHomestay from './homes/loadHomestay'
-export loadUser from './users/loadUser'
+export loadHomestayWithAuth from './homes/loadHomestayWithAuth'
+export loadUserWithAuth from './users/loadUserWithAuth'

@@ -16,5 +16,7 @@ export default combineReducers({
     homestay: loadHomestay,
     user: loadUser,
   }),
-  form,
+  ui: combineReducers({
+    form,
+  }),
 })

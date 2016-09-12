@@ -1,0 +1,15 @@
+{
+  "language_levels":{
+    "BEGINNER":0,
+    "INTERMEDIATE":1,
+    "ADVANCED":2,
+    "PROFICIENT":3,
+    "NATIVE":4
+  },
+  "interests":{
+    "COOKING":0,
+    "MOVIES":1,
+    "READING":2,
+    "SPORTS":3
+  }
+}

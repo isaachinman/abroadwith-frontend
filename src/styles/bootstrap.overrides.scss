@@ -1,41 +1,53 @@
 /**
- * Override Bootstrap styles that you can't modify via variables here.
- *
- */
+* Override Bootstrap styles that you can't modify via variables here.
+*
+*/
 
- @media (min-width: 768px) {
-   .modal-sm {
-     width: 340px;
-   }
+@import '~react-dates/css/variables';
+@import '~react-dates/css/styles.scss';
+
+// Custom AirBnb Datepicker styles
+.DayPicker__week-header, .CalendarMonth__caption {
+ -webkit-user-select: none; /* Chrome/Safari */
+ -moz-user-select: none; /* Firefox */
+ -ms-user-select: none; /* IE10+ */
+}
+// End custom AirBnb Datepicker styles
+
+
+@media (min-width: 768px) {
+ .modal-sm {
+   width: 340px;
  }
+}
 
 
 .navbar-fixed-top {
-  background-color: white;
+background-color: white;
 }
 
 .navbar-brand {
-  position: relative;
-  padding-right: 60px;
+position: relative;
+padding-right: 60px;
 }
 
 span.input-group-addon .fa {
-  width: 14px;
+width: 14px;
 }
 
 .btn-with-icon {
-  .fa {
-    position: absolute;
-    top: 7.5px;
-    left: 25px;
-    font-size: 30px;
-  }
+.fa {
+  position: absolute;
+  top: 7.5px;
+  left: 25px;
+  font-size: 30px;
+}
 }
 
 .btn-facebook-login .fa {
-  color: lighten(#3b5998, 10%);
+color: lighten(#3b5998, 10%);
 }
 
 .btn-google-login .fa {
-  color: lighten(#dd4b39, 5%);
+color: lighten(#dd4b39, 5%);
 }

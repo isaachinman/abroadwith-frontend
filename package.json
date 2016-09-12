@@ -88,7 +88,9 @@
     "piping": "^1.0.0-rc.3",
     "pretty-error": "^2.0.0",
     "react": "^15.3.1",
+    "react-autosuggest": "^6.0.3",
     "react-bootstrap": "^0.30.2",
+    "react-dates": "^2.1.1",
     "react-dom": "^15.3.0",
     "react-facebook-login": "^3.1.0",
     "react-fontawesome": "^1.1.0",
@@ -101,6 +103,7 @@
     "redux": "^3.5.2",
     "redux-async-connect": "^1.0.0-rc2",
     "redux-form": "^6.0.1",
+    "seamless-immutable": "^6.1.1",
     "serialize-javascript": "^1.1.2",
     "superagent": "^2.2.0",
     "url-loader": "^0.5.7",
@@ -117,7 +120,7 @@
     "bootstrap-sass-loader": "^1.0.9",
     "clean-webpack-plugin": "^0.1.6",
     "concurrently": "^2.2.0",
-    "css-loader": "^0.24.0",
+    "css-loader": "^0.25.0",
     "eslint": "3.4.0",
     "eslint-config-airbnb": "10.0.1",
     "eslint-loader": "^1.0.0",
@@ -127,9 +130,14 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "git-prepush-hook": "^1.0.1",
     "json-loader": "^0.5.4",
+    "moment": "^2.14.1",
     "node-sass": "^3.4.2",
+    "react": "^15.3.1",
     "react-a11y": "^0.3.3",
+    "react-addons-shallow-compare": "^15.3.1",
     "react-addons-test-utils": "^15.3.0",
+    "react-dates": "^2.1.1",
+    "react-dom": "^15.3.1",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.1.1",
@@ -163,6 +171,14 @@
       "max-len": [
         2,
         200
+      ],
+      "new-cap": [
+        "error",
+        {
+          "capIsNewExceptions": [
+            "Immutable"
+          ]
+        }
       ],
       "array-callback-return": 0,
       "consistent-return": 0,

@@ -3,13 +3,13 @@ import React, { Component, PropTypes } from 'react'
 import { IndexLink } from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Login, Logo } from 'components'
-import { Modal, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Modal, Navbar as BootstrapNavbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import memobind from 'memobind'
 
 // Relative imports
-import styles from './Navigation.styles'
+import styles from './Navbar.styles'
 
-export default class Navigation extends Component {
+export default class Navbar extends Component {
 
   state = {
     modals: {
@@ -37,18 +37,18 @@ export default class Navigation extends Component {
 
     return (
       <span>
-        <Navbar fixedTop>
-          <Navbar.Header>
-            <Navbar.Brand>
+        <BootstrapNavbar fixedTop>
+          <BootstrapNavbar.Header>
+            <BootstrapNavbar.Brand>
               <IndexLink to='/'>
                 <span style={styles.brandname}>{title}</span>
                 <Logo size={25} color='blue' componentStyle={styles.brand} />
               </IndexLink>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
+            </BootstrapNavbar.Brand>
+            <BootstrapNavbar.Toggle />
+          </BootstrapNavbar.Header>
 
-          <Navbar.Collapse>
+          <BootstrapNavbar.Collapse>
             <Nav navbar pullRight>
               {!jwt &&
                 <NavItem onClick={memobind(this, 'openModal', 'login')}>Login</NavItem>
@@ -74,8 +74,8 @@ export default class Navigation extends Component {
               }
 
             </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+          </BootstrapNavbar.Collapse>
+        </BootstrapNavbar>
 
         <Modal
           style={styles.loginModal}
@@ -92,7 +92,7 @@ export default class Navigation extends Component {
 
 }
 
-Navigation.propTypes = {
+Navbar.propTypes = {
   title: PropTypes.string.isRequired,
   jwt: PropTypes.object,
 }
