@@ -2,7 +2,7 @@
 import { asyncConnect } from 'redux-async-connect'
 import { connect } from 'react-redux'
 import { initializeWithKey } from 'redux-form'
-import { load as loadUser } from 'redux/modules/publicData/loadUser'
+import { loadUser } from 'redux/modules/publicData'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 

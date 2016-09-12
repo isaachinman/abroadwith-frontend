@@ -1,7 +1,7 @@
 // Absolute imports
 import { asyncConnect } from 'redux-async-connect'
 import { connect } from 'react-redux'
-import { Footer, Navigation } from 'components'
+import { Footer, Navbar } from 'components'
 import { isLoaded as isAuthLoaded, logout } from 'redux/modules/auth'
 import { push } from 'react-router-redux'
 import Helmet from 'react-helmet'
@@ -61,7 +61,7 @@ export default class App extends Component {
 
         <Helmet {...config.app.head} />
 
-        <Navigation jwt={jwt} title={config.app.title} />
+        <Navbar jwt={jwt} title={config.app.title} />
 
         <div style={styles.appContent}>
           {this.props.children}

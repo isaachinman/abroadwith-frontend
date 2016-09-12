@@ -42,8 +42,16 @@ export default class Login extends Component {
     console.log(response)
   }
 
+  handleFacebookLoginFailure = () => {
+    console.log('Facebook Login Failed')
+  }
+
   handleGoogleLogin = (response) => {
     console.log(response)
+  }
+
+  handleGoogleLoginFailure = () => {
+    console.log('Google Login Failed')
   }
 
   handleEmailLogin = (event) => {
@@ -114,9 +122,10 @@ export default class Login extends Component {
             <Row style={styles.paddedRow}>
               <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                 <GoogleLogin
-                  callback={this.handleGoogleLogin}
+                  onFailure={this.handleGoogleLoginFailure}
+                  onSuccess={this.handleGoogleLogin}
                   clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
-                  cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-google-login'
+                  className='btn btn-block btn-lg btn-default btn-with-icon btn-google-login'
                 >
                   <FontAwesome name='google' /> Login with Google
                 </GoogleLogin>

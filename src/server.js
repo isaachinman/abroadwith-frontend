@@ -67,10 +67,12 @@ proxy.on('error', (error, req, res) => {
 app.use((req, res) => {
 
   // Uncomment these lines to set a test token
+  /* eslint-disable */
   // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoieTFIeWRZbnN3MEdaV0NLdGZ4QmJQdyIsImlhdCI6MTQ3MjAyNjc3NSwiZXhwIjoxNDcyNjMxNTc1LCJuYmYiOjE0NzIwMjY2NTUsInN1YiI6IlVTRVIiLCJlbWFpbCI6IjIuMEBleGFtcGxlLmNvbSIsIm5hbWUiOiJJc2FhYyIsInJpZCI6MTAwMzgwLCJjYmsiOjMsIndob3N0IjpmYWxzZX0.nzuIvL_lwOoAuUO6bd7yD1EcBogHcpcn1M8NMEz5YIQ7G2FohjZs3MzwTrjQviuBxOJ4fSBhNVrljRBbymvGS7e_LN8DbrzgP8S-2r99sx4Tfxu8nzeyYjrjz84drvL-elA2iIrMnLJ2Yp-Za0ud3Ytq62Wz5NjQNhwyZsLwceoh8FBa1EPySusV3KxGdwCMjxTTcDaVzoFrlQ-QJ1N9esqFUaPhLqlXLMMnfkOXcwKqdMOxHpCGy8JkLMX7pmGXEHvJCmK_C-fqQSWiuh5WJVWW1O8AOvw6WbRMofXNzTHtKAtXl19Hz16E2JK-G7Ce34sMu1_OjtqnYh2OQPST1A'
   // const expiryDate = new Date()
   // expiryDate.setDate(expiryDate.getDate() + 7)
   // res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
+  /* eslint-enable */
 
   if (__DEVELOPMENT__) {
     // Do not cache webpack stats: the script file would change since
