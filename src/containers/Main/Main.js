@@ -1,5 +1,5 @@
 // Absolute imports
-import { Button, Form, FormGroup, Grid, Row } from 'react-bootstrap'
+import { Button, Grid, Row } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 import { DateRangePicker } from 'components'
@@ -32,23 +32,12 @@ export default class Main extends Component {
           </Grid>
 
           <Row style={styles.heroInputRow}>
-            <Form inline>
-              <FormGroup bsSize='large'>
-                <input style={styles.inputFieldLeft} className='form-control' placeholder='Pick a language to learn' />
-                <input style={styles.inputFieldMiddle} className='form-control' placeholder='Pick a place to learn it' />
-                <DateRangePicker
-                  inlineBlock
-                  large
-                  startDatePlaceholderText='Arrival'
-                  endDatePlaceholderText='Departure'
-                />
-                <select style={Object.assign({}, styles.inputFieldMiddle, { webkitAppearance: 'none', padding: '0 8px' })} className='form-control'>
-                  <option value='1'>1 guest</option>
-                  <option value='2'>2 guests</option>
-                </select>
-                <button style={styles.inputFieldRight} className='form-control' type='submit'>Submit</button>
-              </FormGroup>
-            </Form>
+            <DateRangePicker
+              inlineBlock
+              large
+              startDatePlaceholderText='Arrival'
+              endDatePlaceholderText='Departure'
+            />
           </Row>
 
         </div>
