@@ -26,7 +26,6 @@ export default class DateRangePicker extends Component {
       large,
       endDatePlaceholderText,
       startDatePlaceholderText,
-      small,
     } = this.props
 
     const {
@@ -41,8 +40,6 @@ export default class DateRangePicker extends Component {
     let combinedStyles = styles.base
     const styleVariations = {
       inlineBlock,
-      small,
-      large,
     }
     Object.keys(styleVariations).forEach(variation => {
       if (styleVariations[variation]) {
@@ -51,7 +48,7 @@ export default class DateRangePicker extends Component {
     })
 
     return (
-      <div style={combinedStyles}>
+      <div style={combinedStyles} className={large ? 'daterangepicker-large' : ''}>
         <DateRangePickerCore
           {...this.props}
           orientation={this.props.orientation}
@@ -74,5 +71,4 @@ DateRangePicker.propTypes = {
   endDatePlaceholderText: React.PropTypes.string,
   inlineBlock: React.PropTypes.bool,
   large: React.PropTypes.bool,
-  small: React.PropTypes.bool,
 }

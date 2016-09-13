@@ -15,7 +15,7 @@ export default {
     width: '100%',
     background: 'rgba(50,50,50,0.65)',
     marginTop: 100,
-    padding: 20,
+    padding: 30,
   },
   h1: {
     fontSize: '6rem',
@@ -34,6 +34,8 @@ export default {
   guestSelect: {
     borderRadius: 0,
     WebkitAppearance: 'none',
+    padding: '0 20px 0 16px',
+    lineHeight: '44px',
   },
   inputFieldLeft: {
     borderRadius: '6px 0 0 6px',
@@ -45,7 +47,7 @@ export default {
     borderRadius: '0 6px 6px 0',
   },
   submitBtn: {
-    height: 34,
+    height: 46,
     minWidth: 80,
   },
 }
