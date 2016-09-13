@@ -1,3 +1,4 @@
+/* eslint-disable */
 require('babel-polyfill')
 
 // Webpack config for creating the production bundle.
@@ -19,7 +20,7 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
-      'bootstrap-sass!./src/styles/bootstrap.config.prod.js',
+      'bootstrap-sass!./src/styles/bootstrap/bootstrap.config.prod.js',
       './src/client.js'
     ]
   },

@@ -46,10 +46,10 @@ module.exports = {
     // and I'm leaving this comment here in case anyone finds a better idea.
     bootstrap: {
       extension: 'js',
-      include: ['./src/styles/bootstrap.config.js'],
+      include: ['./src/styles/bootstrap/bootstrap.config.js'],
       filter: function(module, regex, options, log) {
         function is_bootstrap_style(name) {
-          return name.indexOf('./src/styles/bootstrap.config.js') >= 0;
+          return name.indexOf('./src/styles/bootstrap/bootstrap.config.js') >= 0;
         }
         if (options.development) {
           return is_bootstrap_style(module.name) && WebpackIsomorphicToolsPlugin.style_loader_filter(module, regex, options, log);
