@@ -1,28 +1,21 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { DateRangePicker as DateRangePickerCore } from 'react-dates'
 
 import styles from './DateRangePicker.styles.js'
 
-export default class DateRangePicker extends React.Component {
-  constructor(props) {
+export default class DateRangePicker extends Component {
 
-    super(props)
-
-    this.state = {
-      focusedInput: null,
-      startDate: null,
-      endDate: null,
-    }
-
-    this.onDatesChange = this.onDatesChange.bind(this)
-    this.onFocusChange = this.onFocusChange.bind(this)
+  state = {
+    focusedInput: null,
+    startDate: null,
+    endDate: null,
   }
 
-  onDatesChange({ startDate, endDate }) {
+  onDatesChange = ({ startDate, endDate }) => {
     this.setState({ startDate, endDate })
   }
 
-  onFocusChange(focusedInput) {
+  onFocusChange= (focusedInput) => {
     this.setState({ focusedInput })
   }
 
@@ -30,8 +23,10 @@ export default class DateRangePicker extends React.Component {
 
     const {
       inlineBlock,
+      large,
       endDatePlaceholderText,
       startDatePlaceholderText,
+      small,
     } = this.props
 
     const {
@@ -40,11 +35,20 @@ export default class DateRangePicker extends React.Component {
       endDate,
     } = this.state
 
+    // --------------------------------------------------------------------------------
+    // This is our standardised method of applying conditional styles
+    // --------------------------------------------------------------------------------
     let combinedStyles = styles.base
-
-    if (inlineBlock) {
-      combinedStyles = Object.assign({}, combinedStyles, styles.inlineBlock)
+    const styleVariations = {
+      inlineBlock,
+      small,
+      large,
     }
+    Object.keys(styleVariations).forEach(variation => {
+      if (styleVariations[variation]) {
+        combinedStyles = Object.assign({}, combinedStyles, styles[variation])
+      }
+    })
 
     return (
       <div style={combinedStyles}>
@@ -70,4 +74,5 @@ DateRangePicker.propTypes = {
   endDatePlaceholderText: React.PropTypes.string,
   inlineBlock: React.PropTypes.bool,
   large: React.PropTypes.bool,
+  small: React.PropTypes.bool,
 }

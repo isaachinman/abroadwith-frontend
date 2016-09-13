@@ -3,8 +3,12 @@
 *
 */
 
-@import '~react-dates/css/variables';
-@import '~react-dates/css/styles.scss';
+@import 'src/styles/react-dates/variables.scss';
+@import 'src/styles/react-dates/CalendarMonth.scss';
+@import 'src/styles/react-dates/DayPicker.scss';
+@import 'src/styles/react-dates/DateInput.scss';
+@import 'src/styles/react-dates/DateRangePicker.scss';
+@import 'src/styles/react-dates/DateRangePickerInput.scss';
 
 // Custom AirBnb Datepicker styles
 .DayPicker__week-header, .CalendarMonth__caption {
@@ -20,7 +24,6 @@
    width: 340px;
  }
 }
-
 
 .navbar-fixed-top {
 background-color: white;

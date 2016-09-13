@@ -6,7 +6,7 @@ export default {
     display: 'inline-block',
   },
   small: {
-    height: 33,
+    height: 34,
   },
   large: {
     height: 46,

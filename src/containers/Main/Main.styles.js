@@ -31,16 +31,21 @@ export default {
     minHeight: 500,
     paddingTop: 50,
   },
+  guestSelect: {
+    borderRadius: 0,
+    WebkitAppearance: 'none',
+  },
   inputFieldLeft: {
-    height: '50px',
     borderRadius: '6px 0 0 6px',
   },
   inputFieldMiddle: {
-    height: '50px',
     borderRadius: 0,
   },
   inputFieldRight: {
-    height: '50px',
     borderRadius: '0 6px 6px 0',
+  },
+  submitBtn: {
+    height: 34,
+    minWidth: 80,
   },
 }
