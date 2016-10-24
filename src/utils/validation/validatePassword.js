@@ -15,9 +15,9 @@ export default (password) => {
       validationMessages.push('AT_LEAST_ONE_LOWERCASE_LETTER')
     }
 
-    if (!(password.match(/[A-Z]/))) {
-      validationMessages.push('AT_LEAST_ONE_UPPERCASE_LETTER')
-    }
+    // if (!(password.match(/[A-Z]/))) {
+    //   validationMessages.push('AT_LEAST_ONE_UPPERCASE_LETTER')
+    // }
 
     if (!(/\d/.test(password))) {
       validationMessages.push('AT_LEAST_ONE_NUMBER')
