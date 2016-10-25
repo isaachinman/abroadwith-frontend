@@ -18,7 +18,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        data: action.result,
+        [action.result.id]: action.result,
       }
     case LOAD_HOMESTAY_FAIL:
       return {
@@ -32,8 +32,8 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function isLoaded(globalState) {
-  return globalState.publicData.homestay && globalState.publicData.homestay.loaded
+export function isLoaded(globalState, homeID) {
+  return globalState.publicData.homestay[homeID]
 }
 
 export function load(homeID) {

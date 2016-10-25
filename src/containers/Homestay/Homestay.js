@@ -2,26 +2,36 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import { load as loadHomestay } from 'redux/modules/publicData/homes/loadHomestay'
+import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/homes/loadHomestay'
 import { asyncConnect } from 'redux-async-connect'
-import { initializeWithKey } from 'redux-form'
+// import { initializeWithKey } from 'redux-form'
+
+const mapDispatchToProps = (state, globalState) => {
+  console.log('STATE: ', state)
+  console.log('GLOBAL STATE: ', globalState)
+  console.log('trying to set home: ', state.publicData.homestay[globalState.params.homeID])
+  return { homestay: state.publicData.homestay[globalState.params.homeID] }
+}
 
 @asyncConnect([{
   deferred: true,
-  promise: ({ params, store: { dispatch } }) => {
-    return dispatch(loadHomestay(params.homeID))
+  promise: ({ params, store: { dispatch, getState } }) => {
+    if (!isLoaded(getState(), params.homeID)) {
+      console.log('it was not already loaded')
+      return dispatch(loadHomestay(params.homeID))
+    }
+
+    console.log('it was indeed already loaded')
+
   },
 }])
 @connect(
-  state => ({
-    homestay: state.publicData.homestay.data,
-    error: state.publicData.homestay.error,
-    loading: state.publicData.homestay.loading,
-  }),
-  { initializeWithKey }
+  mapDispatchToProps
 )
 export default class Homestay extends Component {
   render() {
+
+    console.log(this)
 
     const { error, homestay, loading } = this.props
 
