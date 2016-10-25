@@ -13,7 +13,7 @@ export default combineReducers({
   reduxAsyncConnect,
   auth,
   publicData: combineReducers({
-    homestay: loadHomestay,
+    homestays: loadHomestay,
     user: loadUser,
   }),
   ui: combineReducers({

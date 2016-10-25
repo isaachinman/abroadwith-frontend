@@ -14,11 +14,12 @@ export default function reducer(state = initialState, action = {}) {
         loading: true,
       }
     case LOAD_USER_SUCCESS:
+      console.log(action)
       return {
         ...state,
         loading: false,
         loaded: true,
-        data: action.result,
+        [action.result.id]: action.result,
       }
     case LOAD_USER_FAIL:
       return {
@@ -32,8 +33,8 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function isLoaded(globalState) {
-  return globalState.publicData.user && globalState.publicData.user.loaded
+export function isLoaded(globalState, userID) {
+  return globalState.publicData.homestays[userID]
 }
 
 export function load(userID) {
