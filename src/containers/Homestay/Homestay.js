@@ -4,14 +4,7 @@ import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/homes/loadHomestay'
 import { asyncConnect } from 'redux-async-connect'
-// import { initializeWithKey } from 'redux-form'
-
-const mapDispatchToProps = (state, globalState) => {
-  console.log('STATE: ', state)
-  console.log('GLOBAL STATE: ', globalState)
-  console.log('trying to set home: ', state.publicData.homestay[globalState.params.homeID])
-  return { homestay: state.publicData.homestay[globalState.params.homeID] }
-}
+import { initializeWithKey } from 'redux-form'
 
 @asyncConnect([{
   deferred: true,
@@ -26,7 +19,13 @@ const mapDispatchToProps = (state, globalState) => {
   },
 }])
 @connect(
-  mapDispatchToProps
+  (state, ownProps) => ({
+    debug: ownProps,
+    homestay: state.publicData.homestay[ownProps.params.homeID],
+    error: state.publicData.homestay.error,
+    loading: state.publicData.homestay.loading,
+  }),
+  { initializeWithKey }
 )
 export default class Homestay extends Component {
   render() {
