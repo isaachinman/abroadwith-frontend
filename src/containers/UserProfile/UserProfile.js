@@ -2,19 +2,26 @@
 import { asyncConnect } from 'redux-async-connect'
 import { connect } from 'react-redux'
 import { initializeWithKey } from 'redux-form'
-import { load as loadUser } from 'redux/modules/publicData/users/loadUser'
+import { isLoaded, load as loadUser } from 'redux/modules/publicData/users/loadUser'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 
 @asyncConnect([{
   deferred: true,
-  promise: ({ params, store: { dispatch } }) => {
-    return dispatch(loadUser(params.userID))
+  promise: ({ params, store: { dispatch, getState } }) => {
+    if (!isLoaded(getState(), params.userID)) {
+      console.log('it was not already loaded')
+      return dispatch(loadUser(params.userID))
+    }
+
+    console.log('it was indeed already loaded')
+
   },
 }])
 @connect(
-  state => ({ // eslint-disable-line
-    user: state.publicData.user.data,
+  (state, ownProps) => ({
+    debug: ownProps,
+    user: state.publicData.user[ownProps.params.userID],
     error: state.publicData.user.error,
     loading: state.publicData.user.loading,
   }),

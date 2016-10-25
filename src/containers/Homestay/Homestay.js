@@ -1,10 +1,10 @@
 // Absolute imports
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import Helmet from 'react-helmet'
-import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/homes/loadHomestay'
 import { asyncConnect } from 'redux-async-connect'
+import { connect } from 'react-redux'
 import { initializeWithKey } from 'redux-form'
+import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/homes/loadHomestay'
+import Helmet from 'react-helmet'
+import React, { Component } from 'react'
 
 @asyncConnect([{
   deferred: true,
@@ -21,9 +21,9 @@ import { initializeWithKey } from 'redux-form'
 @connect(
   (state, ownProps) => ({
     debug: ownProps,
-    homestay: state.publicData.homestay[ownProps.params.homeID],
-    error: state.publicData.homestay.error,
-    loading: state.publicData.homestay.loading,
+    homestay: state.publicData.homestays[ownProps.params.homeID],
+    error: state.publicData.homestays.error,
+    loading: state.publicData.homestays.loading,
   }),
   { initializeWithKey }
 )
