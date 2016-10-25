@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import { loadHomestay } from 'redux/modules/publicData'
+import { load as loadHomestay } from 'redux/modules/publicData/homes/loadHomestay'
 import { asyncConnect } from 'redux-async-connect'
 import { initializeWithKey } from 'redux-form'
 
