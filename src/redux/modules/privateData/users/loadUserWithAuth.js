@@ -32,8 +32,8 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function isLoaded(globalState) {
-  return globalState.publicData.user && globalState.publicData.user.loaded
+export function isLoaded(globalState, userID) {
+  return globalState.publicData.users[userID]
 }
 
 export function load(userID) {
