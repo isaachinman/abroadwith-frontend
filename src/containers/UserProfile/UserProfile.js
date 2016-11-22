@@ -21,9 +21,9 @@ import React, { Component } from 'react'
 @connect(
   (state, ownProps) => ({
     debug: ownProps,
-    user: state.publicData.user[ownProps.params.userID],
-    error: state.publicData.user.error,
-    loading: state.publicData.user.loading,
+    user: state.publicData.users[ownProps.params.userID],
+    error: state.publicData.users.error,
+    loading: state.publicData.users.loading,
   }),
   { initializeWithKey }
 )
