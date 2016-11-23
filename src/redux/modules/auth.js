@@ -93,7 +93,7 @@ export function load(encodedJwt) {
   const jwt = jwtDecode(encodedJwt)
 
   // Ensure validity
-  if (moment(jwt.exp).isBefore(moment())) {
+  if (moment(jwt.exp * 1000).isBefore(moment())) {
     return {
       type: LOAD_FAIL,
       error: 'jwt expired',
