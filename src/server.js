@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser'
 import createHistory from 'react-router/lib/createMemoryHistory'
 import Express from 'express'
 import http from 'http'
+import https from 'https'
 import httpProxy from 'http-proxy'
 import path from 'path'
 import PrettyError from 'pretty-error'
@@ -27,7 +28,7 @@ import { load as loadAuth } from './redux/modules/auth'
 const targetUrl = config.apiHost
 const pretty = new PrettyError()
 const app = new Express()
-const server = new http.Server(app)
+const server = __DEVELOPMENT__ ? new http.Server(app) : new https.Server(app)
 const proxy = httpProxy.createProxyServer({
   target: targetUrl,
   changeOrigin: true,
