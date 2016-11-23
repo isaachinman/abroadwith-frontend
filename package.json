@@ -27,7 +27,7 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
         "PORT": 3000,
-        "APIHOST": "https://api.abroadwith.com",
+        "APIHOST": "https://api.test-abroadwith.com",
         "APIPORT": 443
       }
     },
