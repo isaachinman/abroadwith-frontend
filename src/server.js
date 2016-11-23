@@ -44,6 +44,16 @@ app.use('/api', (req, res) => {
   proxy.web(req, res, { target: targetUrl })
 })
 
+// This is the logout endpoint
+app.post('/logout', (req, res) => {
+
+  // Remove the access_token cookie
+  res.cookie('access_token', 'null', { secure: true, httpOnly: true, expires: new Date(0) })
+  res.header('Access-Control-Allow-Credentials', 'true')
+  res.sendStatus(200)
+
+})
+
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', (error, req, res) => {
 
