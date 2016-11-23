@@ -68,6 +68,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loggingOut: false,
         user: null,
+        jwt: null,
       }
     case LOGOUT_FAIL:
       return {
