@@ -123,6 +123,7 @@ export function logout() {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
     promise: () => fetch(new Request('/logout'), {
       method: 'POST',
+      credentials: 'include',
     }),
   }
 }
