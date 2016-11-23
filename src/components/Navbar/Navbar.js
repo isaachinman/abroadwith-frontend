@@ -1,14 +1,17 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import { IndexLink } from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Login, Logo } from 'components'
 import { Modal, Navbar as BootstrapNavbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import * as authActions from 'redux/modules/auth'
 import memobind from 'memobind'
 
 // Relative imports
 import styles from './Navbar.styles'
 
+@connect(() => authActions)
 export default class Navbar extends Component {
 
   state = {
@@ -17,6 +20,11 @@ export default class Navbar extends Component {
         open: false,
       },
     },
+  }
+
+  handleLogout = () => {
+    const { dispatch, logout } = this.props
+    dispatch(logout())
   }
 
   openModal = (modalName) => {
@@ -73,8 +81,8 @@ export default class Navbar extends Component {
                   </LinkContainer>
 
                   <MenuItem divider />
-                  <MenuItem>
-                    <div className='logout-link' onClick={this.handleLogout}>
+                  <MenuItem onSelect={this.handleLogout}>
+                    <div className='logout-link'>
                       Logout
                     </div>
                   </MenuItem>
@@ -103,4 +111,6 @@ export default class Navbar extends Component {
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
   jwt: PropTypes.object,
+  logout: PropTypes.func,
+  dispatch: PropTypes.func,
 }

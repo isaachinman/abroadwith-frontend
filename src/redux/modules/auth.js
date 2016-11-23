@@ -1,4 +1,5 @@
 import jwtDecode from 'jwt-decode'
+import moment from 'moment'
 
 const LOAD = 'abroadwith/auth/LOAD'
 const LOAD_SUCCESS = 'abroadwith/auth/LOAD_SUCCESS'
@@ -82,12 +83,23 @@ export default function reducer(state = initialState, action = {}) {
 
 export function isLoaded(globalState) {
 
-  const authIsLoaded = globalState.auth && globalState.auth.loaded
+  const authIsLoaded = globalState.jwt && globalState.auth && globalState.auth.loaded
   return authIsLoaded
 
 }
 
-export function load(jwt) {
+export function load(encodedJwt) {
+
+  const jwt = jwtDecode(encodedJwt)
+
+  // Ensure validity
+  if (moment(jwt.exp).isBefore(moment())) {
+    return {
+      type: LOAD_FAIL,
+      error: 'jwt expired',
+    }
+  }
+
   return {
     type: LOAD_SUCCESS,
     jwt,
@@ -109,6 +121,8 @@ export function login(email, password) {
 export function logout() {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
-    promise: (client) => client.get('/logout'),
+    promise: () => fetch(new Request('/logout'), {
+      method: 'POST',
+    }),
   }
 }
