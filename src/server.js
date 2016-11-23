@@ -28,7 +28,7 @@ import { load as loadAuth } from './redux/modules/auth'
 const targetUrl = config.apiHost
 const pretty = new PrettyError()
 const app = new Express()
-const server = __DEVELOPMENT__ ? new http.Server(app) : new https.Server(app)
+const server = __DEVELOPMENT__ ? http.createServer(app) : https.createServer(app)
 const proxy = httpProxy.createProxyServer({
   target: targetUrl,
   changeOrigin: true,
