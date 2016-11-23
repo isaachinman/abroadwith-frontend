@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable */
 require('../server.babel') // babel registration (runtime transpilation for node)
 var path = require('path')
 var rootDir = path.resolve(__dirname, '..')
@@ -22,7 +23,6 @@ if (__DEVELOPMENT__) {
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicTools = require('webpack-isomorphic-tools')
 global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('../config/webpack-isomorphic-tools'))
-  .development(__DEVELOPMENT__)
   .server(rootDir, function() {
     require('../src/server')
   })
