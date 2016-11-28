@@ -28,7 +28,6 @@ export default class Login extends Component {
   handleEmailChange = (newValue) => {
     let newValidationObj = this.state.validatedFields // eslint-disable-line
     newValidationObj.email.value = newValue
-    console.log(newValue)
     this.setState({ validatedFields: newValidationObj })
   }
 

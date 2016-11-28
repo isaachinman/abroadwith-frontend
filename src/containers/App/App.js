@@ -13,6 +13,7 @@ import styles from './App.styles'
 
 @asyncConnect([{
   promise: ({ store: { dispatch, getState } }) => { // eslint-disable-line
+
     const promises = []
 
     if (isAuthLoaded(getState())) {
@@ -38,12 +39,17 @@ export default class App extends Component {
     if (!this.props.jwt && nextProps.jwt) {
 
       // Login just happened
-      localStorage.setItem('jwt', JSON.stringify(nextProps.jwt))
+      const jwt = nextProps.jwt
+      localStorage.setItem('jwt', JSON.stringify(jwt))
+      console.log(jwt)
+      // this.props.dispatch(loadAllUserInfo(jwt))
       console.log('LOAD FULL USER HERE')
 
     } else if (this.props.jwt && !nextProps.jwt) {
+
       // Logout just happened
       this.props.pushState('/')
+
     }
   }
 
@@ -79,4 +85,5 @@ App.propTypes = {
   jwt: PropTypes.object,
   logout: PropTypes.func,
   pushState: PropTypes.func,
+  dispatch: PropTypes.func,
 }
