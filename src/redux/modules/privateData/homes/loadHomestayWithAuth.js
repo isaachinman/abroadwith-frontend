@@ -1,6 +1,6 @@
-const LOAD_HOMESTAY_WITH_AUTH = 'abroadwith/LOAD'
-const LOAD_HOMESTAY_WITH_AUTH_SUCCESS = 'abroadwith/LOAD_SUCCESS'
-const LOAD_HOMESTAY_WITH_AUTH_FAIL = 'abroadwith/LOAD_FAIL'
+const LOAD_HOMESTAY_WITH_AUTH = 'abroadwith/LOAD_HOMESTAY_WITH_AUTH'
+const LOAD_HOMESTAY_WITH_AUTH_SUCCESS = 'abroadwith/LOAD_HOMESTAY_WITH_AUTH_SUCCESS'
+const LOAD_HOMESTAY_WITH_AUTH_FAIL = 'abroadwith/LOAD_HOMESTAY_WITH_AUTH_FAIL'
 
 const initialState = {
   loaded: false,
@@ -39,6 +39,6 @@ export function isLoaded(globalState) {
 export function load(userID, homeID) {
   return {
     types: [LOAD_HOMESTAY_WITH_AUTH, LOAD_HOMESTAY_WITH_AUTH_SUCCESS, LOAD_HOMESTAY_WITH_AUTH_FAIL],
-    promise: (client) => client.get(`/users/${userID}/homes/${homeID}`),
+    promise: client => client.get(`/users/${userID}/homes/${homeID}`),
   }
 }

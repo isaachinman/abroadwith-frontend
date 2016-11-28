@@ -1,5 +1,7 @@
+// Absolute imports
 import jwtDecode from 'jwt-decode'
 import moment from 'moment'
+import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 
 // Load previously stored auth
 const LOAD = 'auth/LOAD'
@@ -15,16 +17,6 @@ const LOGIN_FAIL = 'auth/LOGIN_FAIL'
 const LOGOUT = 'auth/LOGOUT'
 const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS'
 const LOGOUT_FAIL = 'auth/LOGOUT_FAIL'
-
-// // Load full user object
-// const LOAD_FULL_USER = 'auth/LOAD_FULL_USER'
-// const LOAD_FULL_USER_SUCCESS = 'auth/LOAD_FULL_USER_SUCCESS'
-// const LOAD_FULL_USER_FAILURE = 'auth/LOAD_FULL_USER_FAILURE'
-//
-// // Load full home object
-// const LOAD_FULL_HOME = 'auth/LOAD_FULL_HOME'
-// const LOAD_FULL_HOME_SUCCESS = 'auth/LOAD_FULL_HOME_SUCCESS'
-// const LOAD_FULL_HOME_FAILURE = 'auth/LOAD_FULL_HOME_FAILURE'
 
 const initialState = {
   loaded: false,
@@ -123,18 +115,28 @@ export function load(encodedJwt) {
   return {
     type: LOAD_SUCCESS,
     jwt,
+    promise: client => client.get(`users/${jwt.rid}`),
   }
 }
 
 export function login(email, password) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
-    promise: (client) => client.post('/users/login', {
+    promise: client => client.post('/users/login', {
       data: {
         email,
         password,
       },
     }),
+  }
+}
+
+export function loginAndGetFullInto(email, password) {
+  return dispatch => {
+    return dispatch(login(email, password))
+    .then(() => {
+      return dispatch(loadUserWithAuth(100459))
+    })
   }
 }
 

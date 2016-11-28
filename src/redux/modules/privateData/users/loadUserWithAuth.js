@@ -39,6 +39,6 @@ export function isLoaded(globalState, userID) {
 export function load(userID) {
   return {
     types: [LOAD_USER_WITH_AUTH, LOAD_USER_WITH_AUTH_SUCCESS, LOAD_USER_WITH_AUTH_FAIL],
-    promise: (client) => client.get(`users/${userID}`),
+    promise: client => client.get(`users/${userID}`, true),
   }
 }

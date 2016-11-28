@@ -39,6 +39,6 @@ export function isLoaded(globalState, homeID) {
 export function load(homeID) {
   return {
     types: [LOAD_HOMESTAY, LOAD_HOMESTAY_SUCCESS, LOAD_HOMESTAY_FAIL],
-    promise: (client) => client.get(`/public/homes/${homeID}`),
+    promise: client => client.get(`/public/homes/${homeID}`),
   }
 }

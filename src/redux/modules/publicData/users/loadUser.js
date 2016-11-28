@@ -40,6 +40,6 @@ export function isLoaded(globalState, userID) {
 export function load(userID) {
   return {
     types: [LOAD_USER, LOAD_USER_SUCCESS, LOAD_USER_FAIL],
-    promise: (client) => client.get(`/public/users/${userID}`),
+    promise: client => client.get(`/public/users/${userID}`),
   }
 }
