@@ -1,15 +1,30 @@
 import jwtDecode from 'jwt-decode'
 import moment from 'moment'
 
-const LOAD = 'abroadwith/auth/LOAD'
-const LOAD_SUCCESS = 'abroadwith/auth/LOAD_SUCCESS'
-const LOAD_FAIL = 'abroadwith/auth/LOAD_FAIL'
-const LOGIN = 'abroadwith/auth/LOGIN'
-const LOGIN_SUCCESS = 'abroadwith/auth/LOGIN_SUCCESS'
-const LOGIN_FAIL = 'abroadwith/auth/LOGIN_FAIL'
-const LOGOUT = 'abroadwith/auth/LOGOUT'
-const LOGOUT_SUCCESS = 'abroadwith/auth/LOGOUT_SUCCESS'
-const LOGOUT_FAIL = 'abroadwith/auth/LOGOUT_FAIL'
+// Load previously stored auth
+const LOAD = 'auth/LOAD'
+const LOAD_SUCCESS = 'auth/LOAD_SUCCESS'
+const LOAD_FAIL = 'auth/LOAD_FAIL'
+
+// Login stuff
+const LOGIN = 'auth/LOGIN'
+const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS'
+const LOGIN_FAIL = 'auth/LOGIN_FAIL'
+
+// Logout stuff
+const LOGOUT = 'auth/LOGOUT'
+const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS'
+const LOGOUT_FAIL = 'auth/LOGOUT_FAIL'
+
+// // Load full user object
+// const LOAD_FULL_USER = 'auth/LOAD_FULL_USER'
+// const LOAD_FULL_USER_SUCCESS = 'auth/LOAD_FULL_USER_SUCCESS'
+// const LOAD_FULL_USER_FAILURE = 'auth/LOAD_FULL_USER_FAILURE'
+//
+// // Load full home object
+// const LOAD_FULL_HOME = 'auth/LOAD_FULL_HOME'
+// const LOAD_FULL_HOME_SUCCESS = 'auth/LOAD_FULL_HOME_SUCCESS'
+// const LOAD_FULL_HOME_FAILURE = 'auth/LOAD_FULL_HOME_FAILURE'
 
 const initialState = {
   loaded: false,
@@ -81,6 +96,10 @@ export default function reducer(state = initialState, action = {}) {
       return state
   }
 }
+
+// export function loadAllUserInfo(globalState) {
+//   return console.log(globalState)
+// }
 
 export function isLoaded(globalState) {
 
