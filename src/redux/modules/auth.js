@@ -1,7 +1,8 @@
 // Absolute imports
 import jwtDecode from 'jwt-decode'
 import moment from 'moment'
-import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
+import superagent from 'superagent'
+// import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 
 // Load previously stored auth
 const LOAD = 'auth/LOAD'
@@ -55,7 +56,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loaded: true,
         loggingIn: false,
-        jwt: jwtDecode(action.result.token),
+        jwt: action.jwt,
       }
     case LOGIN_FAIL:
       return {
@@ -120,25 +121,58 @@ export function load(encodedJwt) {
 }
 
 export function login(email, password) {
-  return {
-    types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
-    promise: client => client.post('/users/login', {
-      data: {
+  return async (dispatch) => {
+    try {
+
+      const request = superagent.post('https://api.test-abroadwith.com/users/login')
+
+      request.send({
         email,
         password,
-      },
-    }),
+      })
+
+      request.end((err, { body } = {}) => {
+
+        const jwt = jwtDecode(body.token)
+        dispatch({ type: LOGIN_SUCCESS, jwt })
+
+        // NOW PERFORM GETS FOR FULL USER AND FULL HOME OBJECT
+
+      })
+
+      // saveAuthToken(token)
+
+      // dispatch({ type: LOGIN_SUCCESS, token })
+      // dispatch({ type: FETCH_PROFILE_SUCCESS, user })
+
+    //   const { query } = router.state.location;
+    //   const redirectTo = (query && query.redirectTo) ? query.redirectTo : '/';
+    //   // TODO: don't do it here.
+    //   router.transitionTo(redirectTo);
+    } catch (err) {
+      // let error = (err.status === 401)
+      //   ? Error('Incorrect email or password')
+      //   : Error('Unknown error occured :-(. Please, try again later.');
+
+      dispatch({ type: LOGIN_FAIL, err })
+    }
   }
 }
 
-export function loginAndGetFullInto(email, password) {
-  return dispatch => {
-    return dispatch(login(email, password))
-    .then(() => {
-      return dispatch(loadUserWithAuth(100459))
-    })
-  }
-}
+// export function login(email, password) {
+//
+//
+//
+//   return {
+//     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
+//     promise: client => client.post('/users/login', {
+//       data: {
+//         email,
+//         password,
+//       },
+//     }),
+//   }
+// }
 
 export function logout() {
   return {
