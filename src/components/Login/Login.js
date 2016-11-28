@@ -85,7 +85,7 @@ export default class Login extends Component {
     this.setState({ validatedFields: modifiedValidation })
 
     if (formIsValid) {
-      this.props.login(email.value, password.value)
+      this.props.loginAndGetFullInto(email.value, password.value)
     } else {
       return false
     }
@@ -206,7 +206,7 @@ export default class Login extends Component {
 Login.propTypes = {
   compact: PropTypes.bool,
   jwt: PropTypes.object,
-  login: PropTypes.func,
+  loginAndGetFullInto: PropTypes.func,
   loginStatus: PropTypes.object,
   logout: PropTypes.func,
 }

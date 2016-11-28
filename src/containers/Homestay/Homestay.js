@@ -1,5 +1,5 @@
 // Absolute imports
-import { asyncConnect } from 'redux-async-connect'
+import { asyncConnect } from 'redux-connect'
 import { connect } from 'react-redux'
 import { initializeWithKey } from 'redux-form'
 import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/homes/loadHomestay'

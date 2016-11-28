@@ -3,7 +3,7 @@
 // Absolute imports
 import { match } from 'react-router'
 import { Provider } from 'react-redux'
-import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect'
+import { ReduxAsyncConnect, loadOnServer } from 'redux-connect'
 import { syncHistoryWithStore } from 'react-router-redux'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'

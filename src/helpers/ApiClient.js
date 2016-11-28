@@ -19,8 +19,14 @@ export default class ApiClient {
   constructor(req) {
     /* eslint-disable no-return-assign */
     methods.forEach((method) =>
-      this[method] = (path, { params, data } = {}) => new Promise((resolve, reject) => {
+      this[method] = (path, withCredentials, { params, data } = {}) => new Promise((resolve, reject) => {
+
         const request = superagent[method](formatUrl(path))
+
+        if (withCredentials) {
+          console.log('first of all, its true')
+          console.log(this)
+        }
 
         if (params) {
           request.query(params)

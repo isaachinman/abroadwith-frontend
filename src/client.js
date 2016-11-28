@@ -6,7 +6,7 @@
 import 'babel-polyfill'
 import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
-import { ReduxAsyncConnect } from 'redux-async-connect'
+import { ReduxAsyncConnect } from 'redux-connect'
 import { syncHistoryWithStore } from 'react-router-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'

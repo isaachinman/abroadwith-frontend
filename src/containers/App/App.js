@@ -1,5 +1,5 @@
 // Absolute imports
-import { asyncConnect } from 'redux-async-connect'
+import { asyncConnect } from 'redux-connect'
 import { connect } from 'react-redux'
 import { Footer, Navbar } from 'components'
 import { isLoaded as isAuthLoaded, logout } from 'redux/modules/auth'
