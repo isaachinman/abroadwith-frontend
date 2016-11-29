@@ -11,16 +11,30 @@ export default (password) => {
       validationMessages.push('TOO_SHORT')
     }
 
-    if (!(password.match(/[a-z]/))) {
-      validationMessages.push('AT_LEAST_ONE_LOWERCASE_LETTER')
+    if (password.length > 100) {
+      validationMessages.push('TOO_LONG')
     }
 
-    // if (!(password.match(/[A-Z]/))) {
-    //   validationMessages.push('AT_LEAST_ONE_UPPERCASE_LETTER')
-    // }
 
-    if (!(/\d/.test(password))) {
-      validationMessages.push('AT_LEAST_ONE_NUMBER')
+    let twoOfThreeConditions = 0
+
+    // Condition 1: uppercase letter
+    if (password.match(/[A-Z]/)) {
+      twoOfThreeConditions++
+    }
+
+    // Condition 2: lowercase letter
+    if (!(password.match(/[a-z]/))) {
+      twoOfThreeConditions++
+    }
+
+    // Condition 3: number
+    if (/\d/.test(password)) {
+      twoOfThreeConditions++
+    }
+
+    if (twoOfThreeConditions > 2) {
+      validationMessages.push('MUST_HAVE_TWO_OF_THREE')
     }
 
   } else {

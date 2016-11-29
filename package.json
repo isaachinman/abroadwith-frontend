@@ -47,8 +47,11 @@
       "env": {
         "UV_THREADPOOL_SIZE": 100,
         "NODE_PATH": "./src",
+        "NODE_ENV": "development",
         "PORT": 3000,
-        "APIPORT": 3030
+        "APIHOST": "https://api.test-abroadwith.com",
+        "APIPORT": 443,
+        "FACEBOOK_APP_ID": "144997212531478"
       }
     },
     "build": {

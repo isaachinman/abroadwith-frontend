@@ -1,3 +1,5 @@
+import jwtDecode from 'jwt-decode'
+
 const LOAD_USER_WITH_AUTH = 'abroadwith/LOAD_USER_WITH_AUTH'
 const LOAD_USER_WITH_AUTH_SUCCESS = 'abroadwith/LOAD_USER_WITH_AUTH_SUCCESS'
 const LOAD_USER_WITH_AUTH_FAIL = 'abroadwith/LOAD_USER_WITH_AUTH_FAIL'
@@ -36,9 +38,9 @@ export function isLoaded(globalState, userID) {
   return globalState.publicData.users[userID]
 }
 
-export function load(userID) {
+export function load(jwt) {
   return {
     types: [LOAD_USER_WITH_AUTH, LOAD_USER_WITH_AUTH_SUCCESS, LOAD_USER_WITH_AUTH_FAIL],
-    promise: client => client.get(`users/${userID}`, true),
+    promise: client => client.get(`users/${jwtDecode(jwt).rid}`, { auth: jwt }),
   }
 }

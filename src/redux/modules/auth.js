@@ -1,8 +1,10 @@
 // Absolute imports
 import jwtDecode from 'jwt-decode'
 import moment from 'moment'
+import config from 'config.js'
 import superagent from 'superagent'
-// import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
+import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
+import { load as loadHomeWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 
 // Load previously stored auth
 const LOAD = 'auth/LOAD'
@@ -56,7 +58,8 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loaded: true,
         loggingIn: false,
-        jwt: action.jwt,
+        jwt: jwtDecode(action.jwt),
+        token: action.jwt,
       }
     case LOGIN_FAIL:
       return {
@@ -124,7 +127,9 @@ export function login(email, password) {
   return async (dispatch) => {
     try {
 
-      const request = superagent.post('https://api.test-abroadwith.com/users/login')
+      console.log(`${config.apiHost}/users/login`)
+
+      const request = superagent.post(`${config.apiHost}/users/login`)
 
       request.send({
         email,
@@ -133,10 +138,17 @@ export function login(email, password) {
 
       request.end((err, { body } = {}) => {
 
-        const jwt = jwtDecode(body.token)
+        const jwt = body.token
         dispatch({ type: LOGIN_SUCCESS, jwt })
 
-        // NOW PERFORM GETS FOR FULL USER AND FULL HOME OBJECT
+        // Now fetch full private info on user
+        dispatch(loadUserWithAuth(jwt))
+
+        // If user has a home, get that info too
+        console.log(jwtDecode(jwt).hid)
+        if (jwtDecode(jwt).hid) {
+          dispatch(loadHomeWithAuth(jwt))
+        }
 
       })
 

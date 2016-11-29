@@ -12,18 +12,22 @@ function formatUrl(path) {
     return config.apiHost + adjustedPath
   }
   // Prepend `/api` to relative URL, to proxy to API server.
-  return '/api' + adjustedPath
+  return window.__apiHost + adjustedPath
 }
 
 export default class ApiClient {
   constructor(req) {
     /* eslint-disable no-return-assign */
     methods.forEach((method) =>
-      this[method] = (path, { params, data, token } = {}) => new Promise((resolve, reject) => {
+      this[method] = (path, { params, data, auth } = {}) => new Promise((resolve, reject) => {
 
         const request = superagent[method](formatUrl(path))
 
-        console.log(token)
+        console.log(auth)
+
+        if (auth) {
+          request.set({ Authorization: `Bearer ${(auth)}` })
+        }
 
         if (params) {
           request.query(params)
