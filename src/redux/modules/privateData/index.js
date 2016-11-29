@@ -3,5 +3,5 @@
 // ie: import { loadHomestay, loadUser } from 'redux/modules/publicData'
 // --------------------------------------------------------------------------------
 
-export loadHomestayWithAuth from './homes/loadHomestayWithAuth'
+export loadHomestayWithAuth from './homes/loadHomeWithAuth'
 export loadUserWithAuth from './users/loadUserWithAuth'

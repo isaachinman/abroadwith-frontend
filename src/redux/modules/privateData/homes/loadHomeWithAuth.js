@@ -1,3 +1,5 @@
+import jwtDecode from 'jwt-decode'
+
 const LOAD_HOMESTAY_WITH_AUTH = 'abroadwith/LOAD_HOMESTAY_WITH_AUTH'
 const LOAD_HOMESTAY_WITH_AUTH_SUCCESS = 'abroadwith/LOAD_HOMESTAY_WITH_AUTH_SUCCESS'
 const LOAD_HOMESTAY_WITH_AUTH_FAIL = 'abroadwith/LOAD_HOMESTAY_WITH_AUTH_FAIL'
@@ -36,9 +38,9 @@ export function isLoaded(globalState) {
   return globalState.publicData.homestays && globalState.publicData.homestays.loaded
 }
 
-export function load(userID, homeID) {
+export function load(jwt) {
   return {
     types: [LOAD_HOMESTAY_WITH_AUTH, LOAD_HOMESTAY_WITH_AUTH_SUCCESS, LOAD_HOMESTAY_WITH_AUTH_FAIL],
-    promise: client => client.get(`/users/${userID}/homes/${homeID}`),
+    promise: client => client.get(`/users/${jwtDecode(jwt).rid}/homes/${jwtDecode(jwt).hid}`, { auth: jwt }),
   }
 }

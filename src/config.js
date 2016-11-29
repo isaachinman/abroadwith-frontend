@@ -12,7 +12,7 @@ const environment = {
 module.exports = Object.assign({
   host: process.env.HOST || 'localhost',
   port: process.env.OVERRIDE_PORT || process.env.PORT,
-  apiHost: process.env.APIHOST || 'localhost',
+  apiHost: process.env.APIHOST || 'https://api.test-abroadwith.com',
   apiPort: process.env.APIPORT,
   app: {
     title: 'Abroadwith',
