@@ -19,6 +19,12 @@ export default class Navbar extends Component {
       login: {
         open: false,
       },
+      hostSignup: {
+        open: false,
+      },
+      studentSignup: {
+        open: false,
+      },
     },
   }
 
@@ -57,13 +63,18 @@ export default class Navbar extends Component {
           </BootstrapNavbar.Header>
 
           <BootstrapNavbar.Collapse>
-            <Nav navbar pullRight>
-              {!jwt &&
-                <NavItem onClick={memobind(this, 'openModal', 'login')}>Login</NavItem>
-              }
-              {jwt &&
-                <NavDropdown title={jwt.name} id='nav-dropdown'>
 
+            {!jwt &&
+              <Nav navbar pullRight>
+                <NavItem onClick={memobind(this, 'openModal', 'hostSignup')}>Become a host</NavItem>
+                <NavItem onClick={memobind(this, 'openModal', 'studentSignup')}>Student sign up</NavItem>
+                <NavItem onClick={memobind(this, 'openModal', 'login')}>Login</NavItem>
+              </Nav>
+            }
+
+            {jwt &&
+              <Nav navbar pullRight>
+                <NavDropdown title={jwt.name} id='nav-dropdown'>
                   <LinkContainer to='/homestay/132'>
                     <MenuItem>To homestay 132</MenuItem>
                   </LinkContainer>
@@ -87,20 +98,34 @@ export default class Navbar extends Component {
                     </div>
                   </MenuItem>
                 </NavDropdown>
-              }
+              </Nav>
+            }
 
-            </Nav>
           </BootstrapNavbar.Collapse>
         </BootstrapNavbar>
 
         <Modal
-          style={styles.loginModal}
           bsSize='small'
           onHide={memobind(this, 'closeModal', 'login')}
           show={this.state.modals.login.open}
         >
           <Login compact />
         </Modal>
+
+        <Modal
+          onHide={memobind(this, 'closeModal', 'studentSignup')}
+          show={this.state.modals.studentSignup.open}
+        >
+          Student signup
+        </Modal>
+
+        <Modal
+          onHide={memobind(this, 'closeModal', 'hostSignup')}
+          show={this.state.modals.hostSignup.open}
+        >
+          Host signup
+        </Modal>
+
       </span>
     )
 
