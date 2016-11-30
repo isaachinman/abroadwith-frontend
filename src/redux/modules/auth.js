@@ -37,7 +37,8 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        jwt: action.jwt,
+        jwt: jwtDecode(action.jwt),
+        token: action.jwt,
       }
     case LOAD_FAIL:
       return {
@@ -104,30 +105,28 @@ export function isLoaded(globalState) {
 
 }
 
-export function load(encodedJwt) {
-
-  const jwt = jwtDecode(encodedJwt)
+export function load(jwt) {
 
   // Ensure validity
-  if (moment(jwt.exp * 1000).isBefore(moment())) {
+  if (moment(jwtDecode(jwt).exp * 1000).isBefore(moment())) {
+    console.log('its expired')
     return {
       type: LOAD_FAIL,
       error: 'jwt expired',
     }
   }
 
+  console.log('its not expired')
   return {
     type: LOAD_SUCCESS,
     jwt,
-    promise: client => client.get(`users/${jwt.rid}`),
   }
+
 }
 
 export function login(email, password) {
   return async (dispatch) => {
     try {
-
-      console.log(`${config.apiHost}/users/login`)
 
       const request = superagent.post(`${config.apiHost}/users/login`)
 
