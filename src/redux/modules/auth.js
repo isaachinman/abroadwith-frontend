@@ -136,6 +136,8 @@ export function login(email, password) {
         password,
       })
 
+      request.withCredentials()
+
       request.end((err, { body } = {}) => {
 
         const jwt = body.token
