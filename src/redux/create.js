@@ -1,6 +1,7 @@
 // Absolute imports
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
+import thunk from 'redux-thunk'
 
 // Relative imports
 import createMiddleware from './middleware/clientMiddleware'
@@ -10,7 +11,7 @@ export default function createStore(history, client, data) {
   // Sync dispatched route actions to the history
   const reduxRouterMiddleware = routerMiddleware(history)
 
-  const middleware = [createMiddleware(client), reduxRouterMiddleware]
+  const middleware = [createMiddleware(client), reduxRouterMiddleware, thunk]
 
   let finalCreateStore
 

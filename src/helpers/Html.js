@@ -4,6 +4,7 @@ import serialize from 'serialize-javascript'
 import Helmet from 'react-helmet'
 import config from 'config'
 import styles from '../containers/App/App.styles'
+import { loadLocaleFromFileSystem } from '../redux/modules/ui/locale'
 
 /**
  * Wrapper component containing HTML metadata and boilerplate tags.
@@ -19,6 +20,8 @@ export default function Html(props) {
   const { assets, component, store } = props
   const content = component ? ReactDOM.renderToString(component) : ''
   const head = Helmet.rewind()
+
+  store.dispatch(loadLocaleFromFileSystem(store.getState().ui.locale.value))
 
   return (
     <html lang='en'>
