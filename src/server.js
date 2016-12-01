@@ -23,6 +23,8 @@ import createStore from './redux/create'
 import getRoutes from './routes'
 import Html from './helpers/Html'
 import { load as loadAuth } from './redux/modules/auth'
+import { changeCurrency } from './redux/modules/ui/currency'
+import { changeLocale } from './redux/modules/ui/locale'
 
 const targetUrl = config.apiHost
 const pretty = new PrettyError()
@@ -82,6 +84,7 @@ app.use((req, res) => {
   // const expiryDate = new Date()
   // expiryDate.setDate(expiryDate.getDate() + 7)
   // res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
+  // res.cookie('ui_currency', 'EUR')
   /* eslint-enable */
 
   if (__DEVELOPMENT__) {
@@ -119,6 +122,17 @@ app.use((req, res) => {
     } else if (renderProps) {
 
       loadOnServer({ ...renderProps, store, helpers: { client } }).then(() => {
+
+        // If user has a ui_language cookie, set their appropriate language.
+        if (req.cookies.ui_currency) {
+          console.log('has cookie')
+          store.dispatch(changeCurrency(req.cookies.ui_currency))
+        }
+
+        // If user has a ui_language cookie, set their appropriate language.
+        if (req.cookies.ui_language) {
+          store.dispatch(changeLocale(req.cookies.ui_language))
+        }
 
         // If user has an access_token cookie, log them in before even rendering the page
         if (req.cookies.access_token) {

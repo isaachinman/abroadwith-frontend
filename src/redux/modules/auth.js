@@ -125,7 +125,7 @@ export function load(jwt) {
 }
 
 export function login(email, password) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
 
       const request = superagent.post(`${config.apiHost}/users/login`)
