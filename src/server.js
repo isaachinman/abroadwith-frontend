@@ -125,13 +125,16 @@ app.use((req, res) => {
 
         // If user has a ui_language cookie, set their appropriate language.
         if (req.cookies.ui_currency) {
-          console.log('has cookie')
           store.dispatch(changeCurrency(req.cookies.ui_currency))
+        } else {
+          store.dispatch(changeCurrency('EUR'))
         }
 
         // If user has a ui_language cookie, set their appropriate language.
         if (req.cookies.ui_language) {
           store.dispatch(changeLocale(req.cookies.ui_language))
+        } else {
+          store.dispatch(changeLocale('en'))
         }
 
         // If user has an access_token cookie, log them in before even rendering the page
