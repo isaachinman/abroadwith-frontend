@@ -21,6 +21,10 @@ var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./w
 module.exports = {
   devtool: 'source-map',
   context: path.resolve(__dirname, '..'),
+  node: {
+    fs: 'empty',
+    child_process: 'empty',
+  },
   entry: {
     'main': [
       'bootstrap-sass!./src/styles/bootstrap/bootstrap.config.prod.js',
