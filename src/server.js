@@ -137,7 +137,7 @@ app.use((req, res) => {
           store.dispatch(changeLocale('en'))
         }
 
-        // If user has an access_token cookie, log them in before even rendering the page
+        // If user has an access_token cookie, log them in before rendering the page
         if (req.cookies.access_token) {
           store.dispatch(loadAuth(req.cookies.access_token))
         }
