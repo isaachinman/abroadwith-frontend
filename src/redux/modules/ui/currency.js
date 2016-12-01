@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 const CHANGE_CURRENCY = 'abroadwith/CHANGE_CURRENCY'
 const CHANGE_CURRENCY_SUCCESS = 'abroadwith/CHANGE_CURRENCY_SUCCESS'
 const CHANGE_CURRENCY_FAIL = 'abroadwith/CHANGE_CURRENCY_FAIL'
@@ -14,12 +16,11 @@ export default function reducer(state = initialState, action = {}) {
         loading: true,
       }
     case CHANGE_CURRENCY_SUCCESS:
-      console.log(action.currency)
       return {
         ...state,
         loading: false,
         loaded: true,
-        CURRENCY: action.currency,
+        value: action.currency,
       }
     case CHANGE_CURRENCY_FAIL:
       return {
@@ -33,11 +34,17 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function changeCurrency(currency) {
+export function changeCurrency(currency, setCookie) {
   return dispatch => {
     try {
 
       // To Do: validate currency format
+
+      // A boolean to control the setting of the cookie will be passed on client-side calls
+      if (setCookie) {
+        Cookies.set('ui_currency', currency)
+      }
+
       dispatch({ type: CHANGE_CURRENCY_SUCCESS, currency })
 
     } catch (err) {

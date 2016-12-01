@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 const CHANGE_LOCALE = 'abroadwith/CHANGE_LOCALE'
 const CHANGE_LOCALE_SUCCESS = 'abroadwith/CHANGE_LOCALE_SUCCESS'
 const CHANGE_LOCALE_FAIL = 'abroadwith/CHANGE_LOCALE_FAIL'
@@ -14,12 +16,11 @@ export default function reducer(state = initialState, action = {}) {
         loading: true,
       }
     case CHANGE_LOCALE_SUCCESS:
-      console.log(action.locale)
       return {
         ...state,
         loading: false,
         loaded: true,
-        locale: action.locale,
+        value: action.locale,
       }
     case CHANGE_LOCALE_FAIL:
       return {
@@ -33,11 +34,17 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function changeLocale(locale) {
+export function changeLocale(locale, setCookie) {
   return dispatch => {
     try {
 
       // To Do: validate locale format
+
+      // A boolean to control the setting of the cookie will be passed on client-side calls
+      if (setCookie) {
+        Cookies.set('ui_language', locale)
+      }
+
       dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
 
     } catch (err) {
