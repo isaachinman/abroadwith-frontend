@@ -23,8 +23,6 @@ export default class ApiClient {
 
         const request = superagent[method](formatUrl(path))
 
-        console.log(auth)
-
         if (auth) {
           request.set({ Authorization: `Bearer ${(auth)}` })
         }

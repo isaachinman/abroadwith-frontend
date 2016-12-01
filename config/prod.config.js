@@ -1,6 +1,9 @@
 /* eslint-disable */
 require('babel-polyfill')
 
+// Translations
+var translations = require('./translations.config.js')
+
 // Webpack config for creating the production bundle.
 var path = require('path')
 var webpack = require('webpack')

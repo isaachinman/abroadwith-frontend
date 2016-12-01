@@ -4,6 +4,9 @@ require('babel-polyfill')
 
 var resolvePaths = require('./resolve.paths')
 
+// Translations
+var translations = require('./translations.config.js')
+
 // Webpack config for development
 var fs = require('fs')
 var path = require('path')
@@ -67,6 +70,10 @@ reactTransform[1].transforms.push({
 module.exports = {
   devtool: 'inline-source-map',
   context: path.resolve(__dirname, '..'),
+  node: {
+    fs: 'empty',
+    child_process: 'empty',
+  },
   entry: {
     'main': [
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',

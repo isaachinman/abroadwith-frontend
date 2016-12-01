@@ -31,8 +31,6 @@ export default class Footer extends Component {
       currency,
     } = this.props
 
-    console.log('currency: ', currency.value)
-
     return (
       <footer style={styles.footer}>
         <Grid style={styles.mainContent}>
