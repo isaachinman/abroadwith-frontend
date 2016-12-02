@@ -3,7 +3,6 @@ import { combineReducers } from 'redux'
 import { reducer as form } from 'redux-form'
 import { reducer as reduxAsyncConnect } from 'redux-connect'
 import { routerReducer } from 'react-router-redux'
-import { i18nReducer } from 'react-redux-i18n'
 
 // Relative imports
 import auth from './auth'
@@ -27,7 +26,6 @@ export default combineReducers({
   ui: combineReducers({
     currency,
     form,
-    i18n: i18nReducer,
     locale,
   }),
 })

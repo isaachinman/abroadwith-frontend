@@ -11,6 +11,10 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+// Translation
+import { I18nextProvider } from 'react-i18next'
+import i18n from './i18n/i18n-client'
+
 // Relative imports
 import ApiClient from './helpers/ApiClient'
 import createStore from './redux/create'
@@ -22,6 +26,9 @@ const dest = document.getElementById('content')
 const store = createStore(browserHistory, client, window.__data)
 const history = syncHistoryWithStore(browserHistory, store)
 
+i18n.changeLanguage(window.__i18n.initialLocale)
+i18n.addResourceBundle(window.__i18n.initialLocale, 'translation', window.__i18n.resources, true)
+
 const component = (
   <Router
     render={(props) => <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />}
@@ -32,9 +39,11 @@ const component = (
 )
 
 ReactDOM.render(
-  <Provider store={store} key='provider'>
-    {component}
-  </Provider>,
+  <I18nextProvider i18n={i18n}>
+    <Provider store={store} key='provider'>
+      {component}
+    </Provider>
+  </I18nextProvider>,
   dest
 )
 
@@ -48,12 +57,14 @@ if (process.env.NODE_ENV !== 'production') {
 
 if (__DEVTOOLS__ && !window.devToolsExtension) {
   ReactDOM.render(
-    <Provider store={store} key='provider'>
-      <div>
-        {component}
-        <DevTools />
-      </div>
-    </Provider>,
+    <I18nextProvider i18n={i18n}>
+      <Provider store={store} key='provider'>
+        <div>
+          {component}
+          <DevTools />
+        </div>
+      </Provider>
+    </I18nextProvider>,
     dest
   )
 }
