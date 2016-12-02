@@ -146,7 +146,6 @@ export function login(email, password) {
         dispatch(loadUserWithAuth(jwt))
 
         // If user has a home, get that info too
-        console.log(jwtDecode(jwt).hid)
         if (jwtDecode(jwt).hid) {
           dispatch(loadHomeWithAuth(jwt))
         }

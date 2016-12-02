@@ -7,15 +7,10 @@ import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 
 @asyncConnect([{
-  deferred: true,
   promise: ({ params, store: { dispatch, getState } }) => {
     if (!isLoaded(getState(), params.userID)) {
-      console.log('it was not already loaded')
       return dispatch(loadUser(params.userID))
     }
-
-    console.log('it was indeed already loaded')
-
   },
 }])
 @connect(

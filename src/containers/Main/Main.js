@@ -31,7 +31,7 @@ export default class Main extends Component {
 
           <Grid>
             <h1 style={styles.h1}>{t('common.book_immersion')}</h1>
-            <h2 style={styles.h2}>{t('trips.reservation_with', { immersion: t('immersions.STAY'), guest: 'TEST GUY' })}</h2>
+            <h2 style={styles.h2}>{t('trips.reservation_with', { immersion: t('immersions.STAY'), guest: 'TEST HOSTNAME' })}</h2>
             <Button bsSize='large' style={styles.button}>How does it work?</Button>
           </Grid>
 
