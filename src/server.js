@@ -113,16 +113,15 @@ app.use((req, res) => {
   if (req.cookies.ui_language) {
     store.dispatch(changeLocale(req.cookies.ui_language))
   } else {
-    store.dispatch(changeLocale('de'))
+    store.dispatch(changeLocale('en'))
   }
 
   // Now initialise i18n
-  const initialLocale = store.getState().ui.locale.value
-  console.log('initialLocale: ', initialLocale)
-  const resources = i18n.getResourceBundle(initialLocale)
-  const i18nClient = { initialLocale, resources }
+  const locale = store.getState().ui.locale.value
+  const translations = i18n.getResourceBundle(locale)
+  const i18nClient = { locale, translations }
   const i18nServer = i18n.cloneInstance()
-  i18nServer.changeLanguage(initialLocale)
+  i18nServer.changeLanguage(locale)
 
   // If user has an access_token cookie, log them in before rendering the page
   if (req.cookies.access_token) {

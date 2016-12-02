@@ -26,8 +26,8 @@ const dest = document.getElementById('content')
 const store = createStore(browserHistory, client, window.__data)
 const history = syncHistoryWithStore(browserHistory, store)
 
-i18n.changeLanguage(window.__i18n.initialLocale)
-i18n.addResourceBundle(window.__i18n.initialLocale, 'translation', window.__i18n.resources, true)
+i18n.changeLanguage(window.__i18n.locale)
+i18n.addResourceBundle(window.__i18n.locale, 'translation', window.__i18n.translations, true)
 
 const component = (
   <Router
