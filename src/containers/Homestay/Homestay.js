@@ -8,9 +8,8 @@ import React, { Component } from 'react'
 
 @asyncConnect([{
   promise: ({ params, store: { dispatch, getState } }) => {
-    if (!isLoaded(getState(), params.homeID)) {
-      return dispatch(loadHomestay(params.homeID))
-    }
+    const result = !isLoaded(getState()) ? dispatch(loadHomestay(params.homeID)) : null
+    return __CLIENT__ ? null : result
   },
 }])
 @connect(
