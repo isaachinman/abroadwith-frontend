@@ -8,13 +8,9 @@ i18n
   .init({
     whitelist: ['en', 'es', 'de'],
     fallbackLng: 'en',
-
-    debug: true,
-
     interpolation: {
       escapeValue: false, // not needed for react!!
     },
-
     backend: {
       loadPath: 'build/locales/{{lng}}.json',
       jsonIndent: 2,
