@@ -1,6 +1,5 @@
 // Absolute imports
 import { combineReducers } from 'redux'
-import { reducer as form } from 'redux-form'
 import { reducer as reduxAsyncConnect } from 'redux-connect'
 import { routerReducer } from 'react-router-redux'
 
@@ -25,7 +24,6 @@ export default combineReducers({
   }),
   ui: combineReducers({
     currency,
-    form,
     locale,
   }),
 })
