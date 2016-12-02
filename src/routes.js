@@ -9,7 +9,6 @@ import {
     LoginSuccess,
     Main,
     NotFound,
-    TermsAndConditions,
     UserProfile,
   } from 'containers'
 
@@ -33,6 +32,16 @@ export default (store) => {
   }
 
   // --------------------------------------------------------------------------------
+  // Lazy loaded routes: some edge-case routes should only be loaded if needed
+  // Follow this format
+  // --------------------------------------------------------------------------------
+  const getTermsAndConditions = (nextState, cb) => {
+    require.ensure(['./containers/TermsAndConditions/TermsAndConditions'], (require) => {
+      cb(null, require('./containers/TermsAndConditions/TermsAndConditions'))
+    }, 'terms')
+  }
+
+  // --------------------------------------------------------------------------------
   // Please keep routes in alphabetical order
   // With the exception of Main, as this is the IndexRoute
   // --------------------------------------------------------------------------------
@@ -52,7 +61,7 @@ export default (store) => {
 
       <Route path='login' component={LoginPage} />
 
-      <Route path='terms' component={TermsAndConditions} />
+      <Route path='terms' getComponent={getTermsAndConditions} />
 
       <Route path='users/:userID' component={UserProfile} />
 
