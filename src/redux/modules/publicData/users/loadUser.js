@@ -33,7 +33,7 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 export function isLoaded(globalState, userID) {
-  return globalState.publicData.homestays[userID]
+  return globalState.publicData.users[userID]
 }
 
 export function load(userID) {
