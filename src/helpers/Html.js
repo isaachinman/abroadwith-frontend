@@ -1,10 +1,12 @@
+// Absolute imports
 import React, { PropTypes } from 'react'
 import ReactDOM from 'react-dom/server'
 import serialize from 'serialize-javascript'
 import Helmet from 'react-helmet'
 import config from 'config'
+
+// Relative imports
 import styles from '../containers/App/App.styles'
-import { loadLocaleFromFileSystem } from '../redux/modules/ui/locale'
 
 /**
  * Wrapper component containing HTML metadata and boilerplate tags.
@@ -17,11 +19,9 @@ import { loadLocaleFromFileSystem } from '../redux/modules/ui/locale'
  */
 export default function Html(props) {
 
-  const { assets, component, store } = props
+  const { assets, component, store, i18n } = props
   const content = component ? ReactDOM.renderToString(component) : ''
   const head = Helmet.rewind()
-
-  store.dispatch(loadLocaleFromFileSystem(store.getState().ui.locale.value))
 
   return (
     <html lang='en'>
@@ -53,6 +53,7 @@ export default function Html(props) {
       <body style={styles.app}>
         <div id='content' dangerouslySetInnerHTML={{ __html: content }} />
         <script dangerouslySetInnerHTML={{ __html: `window.__data=${serialize(store.getState())};` }} charSet='UTF-8' />
+        <script dangerouslySetInnerHTML={{ __html: `window.__i18n=${serialize(i18n)};` }} charSet='UTF-8' />
         <script dangerouslySetInnerHTML={{ __html: `window.__apiHost='${config.apiHost}'` }} charSet='UTF-8' />
         <script src={assets.javascript.main} charSet='UTF-8' />
       </body>
@@ -64,4 +65,5 @@ Html.propTypes = {
   assets: PropTypes.object,
   component: PropTypes.node,
   store: PropTypes.object,
+  i18n: PropTypes.object,
 }

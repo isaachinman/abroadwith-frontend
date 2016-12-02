@@ -1,9 +1,9 @@
 import Cookies from 'js-cookie'
 import fs from 'fs'
 import path from 'path'
+import superagent from 'superagent'
 
 const rootDir = path.resolve(__dirname, '../../../../')
-// import { loadTranslations, setLocale, syncTranslationWithStore } from 'react-redux-i18n'
 
 const LOAD_LOCALE = 'abroadwith/LOAD_LOCALE'
 const LOAD_LOCALE_SUCCESS = 'abroadwith/LOAD_LOCALE_SUCCESS'
@@ -61,16 +61,33 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function loadLocaleFromFileSystem(locale) {
-
-  console.log('is this running')
+export function loadLocaleFromHttp(locale) {
 
   return dispatch => {
     try {
 
-      const localeData = JSON.parse(fs.readFileSync(rootDir + '/build/locales/' + locale + '.json', 'utf8'))
-      console.log(localeData)
+      const request = superagent.get(`/locales/${locale}.json`)
+      request.end((err, res) => {
+        dispatch({ type: LOAD_LOCALE_SUCCESS, locale: JSON.parse(res.text) })
+      })
 
+    } catch (err) {
+
+      dispatch({ type: LOAD_LOCALE_FAIL })
+
+    }
+  }
+
+}
+
+export function loadLocaleFromFileSystem(locale) {
+
+  return dispatch => {
+    try {
+
+      const localeData = {
+        [locale]: JSON.parse(fs.readFileSync(rootDir + '/build/locales/' + locale + '.json', 'utf8')),
+      }
       dispatch({ type: LOAD_LOCALE_SUCCESS, locale: localeData })
 
     } catch (err) {
@@ -91,6 +108,7 @@ export function changeLocale(locale, setCookie) {
       // A boolean to control the setting of the cookie will be passed on client-side calls
       if (setCookie) {
         Cookies.set('ui_language', locale)
+        dispatch(loadLocaleFromHttp(locale))
       }
 
       dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })

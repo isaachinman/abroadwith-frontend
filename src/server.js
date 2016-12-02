@@ -15,6 +15,8 @@ import path from 'path'
 import PrettyError from 'pretty-error'
 import React from 'react'
 import ReactDOM from 'react-dom/server'
+import i18nMiddleware from 'i18next-express-middleware'
+import { I18nextProvider } from 'react-i18next'
 
 // Relative imports
 import ApiClient from './helpers/ApiClient'
@@ -25,6 +27,7 @@ import Html from './helpers/Html'
 import { load as loadAuth } from './redux/modules/auth'
 import { changeCurrency } from './redux/modules/ui/currency'
 import { changeLocale } from './redux/modules/ui/locale'
+import i18n from './i18n/i18n-server'
 
 const targetUrl = config.apiHost
 const pretty = new PrettyError()
@@ -38,6 +41,7 @@ const proxy = httpProxy.createProxyServer({
 
 app.use(compression())
 app.use(cookieParser())
+app.use(i18nMiddleware.handle(i18n))
 
 app.use(Express.static(path.join(__dirname, '..', 'build')))
 
@@ -98,6 +102,33 @@ app.use((req, res) => {
   const store = createStore(memoryHistory, client)
   const history = syncHistoryWithStore(memoryHistory, store)
 
+  // If user has a ui_language cookie, set their appropriate language.
+  if (req.cookies.ui_currency) {
+    store.dispatch(changeCurrency(req.cookies.ui_currency))
+  } else {
+    store.dispatch(changeCurrency('EUR'))
+  }
+
+  // If user has a ui_language cookie, set their appropriate language.
+  if (req.cookies.ui_language) {
+    store.dispatch(changeLocale(req.cookies.ui_language))
+  } else {
+    store.dispatch(changeLocale('de'))
+  }
+
+  // Now initialise i18n
+  const initialLocale = store.getState().ui.locale.value
+  console.log('initialLocale: ', initialLocale)
+  const resources = i18n.getResourceBundle(initialLocale)
+  const i18nClient = { initialLocale, resources }
+  const i18nServer = i18n.cloneInstance()
+  i18nServer.changeLanguage(initialLocale)
+
+  // If user has an access_token cookie, log them in before rendering the page
+  if (req.cookies.access_token) {
+    store.dispatch(loadAuth(req.cookies.access_token))
+  }
+
   function hydrateOnClient() {
     res.send('<!doctype html>\n' +
       ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store} />))
@@ -123,29 +154,12 @@ app.use((req, res) => {
 
       loadOnServer({ ...renderProps, store, helpers: { client } }).then(() => {
 
-        // If user has a ui_language cookie, set their appropriate language.
-        if (req.cookies.ui_currency) {
-          store.dispatch(changeCurrency(req.cookies.ui_currency))
-        } else {
-          store.dispatch(changeCurrency('EUR'))
-        }
-
-        // If user has a ui_language cookie, set their appropriate language.
-        if (req.cookies.ui_language) {
-          store.dispatch(changeLocale(req.cookies.ui_language))
-        } else {
-          store.dispatch(changeLocale('en'))
-        }
-
-        // If user has an access_token cookie, log them in before rendering the page
-        if (req.cookies.access_token) {
-          store.dispatch(loadAuth(req.cookies.access_token))
-        }
-
         const component = (
-          <Provider store={store} key='provider'>
-            <ReduxAsyncConnect {...renderProps} />
-          </Provider>
+          <I18nextProvider i18n={i18nServer}>
+            <Provider store={store} key='provider'>
+              <ReduxAsyncConnect {...renderProps} />
+            </Provider>
+          </I18nextProvider>
         )
 
         res.status(200)
@@ -153,7 +167,7 @@ app.use((req, res) => {
         global.navigator = { userAgent: req.headers['user-agent'] }
 
         res.send('<!doctype html>\n' +
-          ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />))
+          ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} i18n={i18nClient} />))
       })
 
     } else {

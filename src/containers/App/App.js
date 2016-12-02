@@ -41,9 +41,6 @@ export default class App extends Component {
       // Login just happened
       const jwt = nextProps.jwt
       localStorage.setItem('jwt', JSON.stringify(jwt))
-      console.log(jwt)
-      // this.props.dispatch(loadAllUserInfo(jwt))
-      console.log('LOAD FULL USER HERE')
 
     } else if (this.props.jwt && !nextProps.jwt) {
 

@@ -30,8 +30,6 @@ import React, { Component } from 'react'
 export default class Homestay extends Component {
   render() {
 
-    console.log(this)
-
     const { error, homestay, loading } = this.props
 
     /* eslint-disable */
