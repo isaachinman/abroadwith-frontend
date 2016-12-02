@@ -3,11 +3,13 @@ import { IndexRoute, Route } from 'react-router'
 import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth'
 import {
     App,
+    ContactUs,
     Homestay,
     LoginPage,
     LoginSuccess,
     Main,
     NotFound,
+    TermsAndConditions,
     UserProfile,
   } from 'containers'
 
@@ -40,6 +42,8 @@ export default (store) => {
 
       <IndexRoute component={Main} />
 
+      <Route path='contact' component={ContactUs} />
+
       <Route path='homestay/:homeID' component={Homestay} />
 
       <Route onEnter={requireLogin}>
@@ -47,6 +51,8 @@ export default (store) => {
       </Route>
 
       <Route path='login' component={LoginPage} />
+
+      <Route path='terms' component={TermsAndConditions} />
 
       <Route path='users/:userID' component={UserProfile} />
 
