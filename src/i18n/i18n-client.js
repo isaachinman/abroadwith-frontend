@@ -5,7 +5,7 @@ i18n
     whitelist: ['en', 'es', 'de'],
     fallbackLng: 'en',
     interpolation: {
-      escapeValue: false, // not needed for react!!
+      escapeValue: false, // Not needed for React
     },
   })
 
