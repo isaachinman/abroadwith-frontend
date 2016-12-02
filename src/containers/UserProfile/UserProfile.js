@@ -1,7 +1,6 @@
 // Absolute imports
 import { asyncConnect } from 'redux-connect'
 import { connect } from 'react-redux'
-import { initializeWithKey } from 'redux-form'
 import { isLoaded, load as loadUser } from 'redux/modules/publicData/users/loadUser'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
@@ -20,8 +19,7 @@ import React, { Component } from 'react'
     user: state.publicData.users[ownProps.params.userID],
     error: state.publicData.users.error,
     loading: state.publicData.users.loading,
-  }),
-  { initializeWithKey }
+  })
 )
 export default class UserProfile extends Component {
   render() {

@@ -1,7 +1,6 @@
 // Absolute imports
 import { asyncConnect } from 'redux-connect'
 import { connect } from 'react-redux'
-import { initializeWithKey } from 'redux-form'
 import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/homes/loadHome'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
@@ -20,8 +19,7 @@ import React, { Component } from 'react'
     homestay: state.publicData.homestays[ownProps.params.homeID],
     error: state.publicData.homestays.error,
     loading: state.publicData.homestays.loading,
-  }),
-  { initializeWithKey }
+  })
 )
 export default class Homestay extends Component {
   render() {
