@@ -4,7 +4,7 @@
 
 // Absolute imports
 import 'babel-polyfill'
-import { browserHistory, Router } from 'react-router'
+import { browserHistory, Router, match } from 'react-router'
 import { Provider } from 'react-redux'
 import { ReduxAsyncConnect } from 'redux-connect'
 import { syncHistoryWithStore } from 'react-router-redux'
@@ -32,23 +32,26 @@ if (window.__i18n) {
   i18n.addResourceBundle(window.__i18n.locale, 'translation', window.__i18n.translations, true)
 }
 
-const component = (
-  <Router
-    render={(props) => <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />}
-    history={history}
-  >
-    {getRoutes(store)}
-  </Router>
-)
+// const component = (
+//
+// )
 
-ReactDOM.render(
-  <I18nextProvider i18n={i18n}>
-    <Provider store={store} key='provider'>
-      {component}
-    </Provider>
-  </I18nextProvider>,
-  dest
-)
+match({ routes: getRoutes(store), history: browserHistory }, (error, redirectLocation, renderProps) => {
+  ReactDOM.render(
+    <I18nextProvider i18n={i18n}>
+      <Provider store={store} key='provider'>
+        <Router
+          {...renderProps}
+          render={(props) => <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />}
+          history={history}
+        >
+          {getRoutes(store)}
+        </Router>
+      </Provider>
+    </I18nextProvider>,
+    dest
+  )
+})
 
 if (process.env.NODE_ENV !== 'production') {
   window.React = React // enable debugger
@@ -59,15 +62,23 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 if (__DEVTOOLS__ && !window.devToolsExtension) {
-  ReactDOM.render(
-    <I18nextProvider i18n={i18n}>
-      <Provider store={store} key='provider'>
-        <div>
-          {component}
-          <DevTools />
-        </div>
-      </Provider>
-    </I18nextProvider>,
-    dest
-  )
+  match({ routes: getRoutes(store), history: browserHistory }, (error, redirectLocation, renderProps) => {
+    ReactDOM.render(
+      <I18nextProvider i18n={i18n}>
+        <Provider store={store} key='provider'>
+          <div>
+            <Router
+              {...renderProps}
+              render={(props) => <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />}
+              history={history}
+            >
+              {getRoutes(store)}
+            </Router>
+            <DevTools />
+          </div>
+        </Provider>
+      </I18nextProvider>,
+      dest
+    )
+  })
 }

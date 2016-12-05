@@ -35,20 +35,15 @@ export default (store) => {
 
   // --------------------------------------------------------------------------------
   // Lazy loaded routes: some edge-case routes should only be loaded if needed
-  // Follow this format
+  // The third argument require.ensure takes is the name of the chunk
   // --------------------------------------------------------------------------------
-
-  // const TermsAndConditions = {
-  //   path: 'terms',
-  //   getComponent(nextState, callback) {
-  //     require.ensure([], (require) => {
-  //       callback(null, require('../containers/TermsAndConditions/TermsAndConditions'))
-  //     })
-  //   },
-  // }
-
+  const getFAQ = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/FAQ/FAQ'))
+    }, 'faq')
+  }
   const getTermsAndConditions = (nextState, cb) => {
-    require.ensure(['../containers/TermsAndConditions/TermsAndConditions'], require => {
+    require.ensure([], require => {
       cb(null, require('../containers/TermsAndConditions/TermsAndConditions'))
     }, 'terms')
   }
@@ -64,6 +59,8 @@ export default (store) => {
       <IndexRoute component={Main} />
 
       <Route path='contact' component={ContactUs} />
+
+      <Route path='faq' getComponent={getFAQ} />
 
       <Route path='homestay/:homeID' component={Homestay} />
 

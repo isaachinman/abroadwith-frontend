@@ -2,10 +2,13 @@
 import React, { Component, PropTypes } from 'react'
 import { Grid, Row } from 'react-bootstrap'
 
+// Relative imports
+import styles from './TermsAndConditions.styles.js'
+
 export default class TermsAndConditions extends Component {
   render() {
     return (
-      <Grid>
+      <Grid style={styles}>
         <Row>
           <h1>Terms And Conditions</h1>
           <h3>1. Our Service</h3>
