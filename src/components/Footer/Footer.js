@@ -2,6 +2,7 @@
 import { Col, Grid, Row, FormControl } from 'react-bootstrap'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import { changeCurrency } from 'redux/modules/ui/currency'
 import { changeLocale } from 'redux/modules/ui/locale'
 
@@ -35,13 +36,18 @@ export default class Footer extends Component {
       <footer style={styles.footer}>
         <Grid style={styles.mainContent}>
           <Row>
-            <Col xs={4}>
+            <Col xs={12} sm={4}>
               UI Language
               <FormControl onChange={this.changeUILanguage} value={locale.value} componentClass='select' placeholder='select'>
                 <option value='en'>en</option>
                 <option value='es'>es</option>
                 <option value='de'>de</option>
               </FormControl>
+            </Col>
+            <Col xs={12} sm={4}>
+              <Link to='/terms'>
+                <span>Terms & Conditions</span>
+              </Link>
             </Col>
           </Row>
           <Row>
