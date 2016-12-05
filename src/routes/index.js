@@ -13,6 +13,7 @@ import {
   } from 'containers'
 
 export default (store) => {
+
   const requireLogin = (nextState, replace, cb) => {
 
     function checkAuth() {
@@ -29,15 +30,26 @@ export default (store) => {
     } else {
       checkAuth()
     }
+
   }
 
   // --------------------------------------------------------------------------------
   // Lazy loaded routes: some edge-case routes should only be loaded if needed
   // Follow this format
   // --------------------------------------------------------------------------------
+
+  // const TermsAndConditions = {
+  //   path: 'terms',
+  //   getComponent(nextState, callback) {
+  //     require.ensure([], (require) => {
+  //       callback(null, require('../containers/TermsAndConditions/TermsAndConditions'))
+  //     })
+  //   },
+  // }
+
   const getTermsAndConditions = (nextState, cb) => {
-    require.ensure(['./containers/TermsAndConditions/TermsAndConditions'], (require) => {
-      cb(null, require('./containers/TermsAndConditions/TermsAndConditions'))
+    require.ensure(['../containers/TermsAndConditions/TermsAndConditions'], require => {
+      cb(null, require('../containers/TermsAndConditions/TermsAndConditions'))
     }, 'terms')
   }
 
