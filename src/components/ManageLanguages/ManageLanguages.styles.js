@@ -19,6 +19,7 @@ export default {
     verticalAlign: 'middle',
     display: 'table-cell',
     width: '100%',
+    paddingRight: 1,
   },
   proficiencySelect: {
     verticalAlign: 'middle',
@@ -30,6 +31,7 @@ export default {
     textAlign: 'left',
     minWidth: 120,
     borderRadius: '0 3px 3px 0',
+    borderLeft: 'none',
     height: 34,
   },
   addLanguage: {
