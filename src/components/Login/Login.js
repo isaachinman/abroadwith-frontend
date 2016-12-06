@@ -38,7 +38,10 @@ export default class Login extends Component {
   }
 
   handleFacebookLogin = (response) => {
-    console.log(response)
+    console.log('email: ', response.email)
+    console.log('accessToken: ', response.accessToken)
+    console.log('facebookLogin: ', this.props.facebookLogin)
+    this.props.facebookLogin(response.email, response.accessToken)
   }
 
   handleFacebookLoginFailure = () => {
@@ -108,7 +111,6 @@ export default class Login extends Component {
               <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                 <FacebookLogin
                   appId='144997212531478'
-                  autoLoad
                   callback={this.handleFacebookLogin}
                   cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-facebook-login'
                   fields='name,email,birthday'
@@ -207,6 +209,7 @@ Login.propTypes = {
   compact: PropTypes.bool,
   jwt: PropTypes.object,
   login: PropTypes.func,
+  facebookLogin: PropTypes.func,
   loginStatus: PropTypes.object,
   logout: PropTypes.func,
 }

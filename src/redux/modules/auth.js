@@ -124,67 +124,70 @@ export function load(jwt) {
 
 }
 
-export function login(email, password) {
+export function login(email, password, facebookToken, googleToken) {
   return async dispatch => {
     try {
 
       const request = superagent.post(`${config.apiHost}/users/login`)
 
-      request.send({
-        email,
-        password,
-      })
+      // Determine what sort of login to perform
+      if (email && password) {
+        request.send({
+          email,
+          password,
+        })
+      } else if (email && facebookToken) {
+        request.send({
+          email,
+          facebookToken,
+        })
+      } else if (email && googleToken) {
+        request.send({
+          email,
+          googleToken,
+        })
+      }
 
       request.withCredentials()
 
       request.end((err, { body } = {}) => {
 
-        const jwt = body.token
-        dispatch({ type: LOGIN_SUCCESS, jwt })
+        if (err) {
 
-        // Now fetch full private info on user
-        dispatch(loadUserWithAuth(jwt))
+          dispatch({ type: LOGIN_FAIL, err })
 
-        // If user has a home, get that info too
-        if (jwtDecode(jwt).hid) {
-          dispatch(loadHomeWithAuth(jwt))
+        } else if (body && body.token) {
+
+          // Login was successful
+          const jwt = body.token
+          dispatch({ type: LOGIN_SUCCESS, jwt })
+
+          // Now fetch full private info on user
+          dispatch(loadUserWithAuth(jwt))
+
+          // If user has a home, get that info too
+          if (jwtDecode(jwt).hid) {
+            dispatch(loadHomeWithAuth(jwt))
+          }
+        } else {
+
+          dispatch({ type: LOGIN_FAIL, err: 'Unknown error' })
+
         }
 
       })
 
-      // saveAuthToken(token)
-
-      // dispatch({ type: LOGIN_SUCCESS, token })
-      // dispatch({ type: FETCH_PROFILE_SUCCESS, user })
-
-    //   const { query } = router.state.location;
-    //   const redirectTo = (query && query.redirectTo) ? query.redirectTo : '/';
-    //   // TODO: don't do it here.
-    //   router.transitionTo(redirectTo);
     } catch (err) {
-      // let error = (err.status === 401)
-      //   ? Error('Incorrect email or password')
-      //   : Error('Unknown error occured :-(. Please, try again later.');
-
       dispatch({ type: LOGIN_FAIL, err })
     }
   }
 }
 
-// export function login(email, password) {
-//
-//
-//
-//   return {
-//     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
-//     promise: client => client.post('/users/login', {
-//       data: {
-//         email,
-//         password,
-//       },
-//     }),
-//   }
-// }
+export function facebookLogin(email, facebookToken) {
+  return async dispatch => {
+    dispatch(login(email, null, facebookToken, null))
+  }
+}
 
 export function logout() {
   return {
