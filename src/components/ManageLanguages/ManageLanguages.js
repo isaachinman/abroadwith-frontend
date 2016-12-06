@@ -23,9 +23,12 @@ export default class ManageLanguages extends Component {
       updateLanguageLevel,
     } = this.props
 
+    const borderRadiusStyling = '.manage-language-module .bootstrap-typeahead-input-main { border-radius: 3px 0 0 3px; }'
+
     return (
 
-      <div>
+      <div className='manage-language-module'>
+        <style>{borderRadiusStyling}</style>
         <Well>
           <div style={styles.languageSectionHeader}>{t('common.languages_learning')}</div>
           {learningLanguages.map(lang => {
@@ -33,6 +36,7 @@ export default class ManageLanguages extends Component {
               <div key={lang.id} style={styles.container}>
                 <div style={styles.textInput}>
                   <Typeahead
+                    inputProps={{ styles: { borderRadius: 0 } }}
                     onChange={data => updateLanguage('learning', lang.id, data)}
                     options={availableLanguages}
                   />
