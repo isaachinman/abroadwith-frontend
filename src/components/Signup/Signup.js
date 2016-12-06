@@ -59,17 +59,19 @@ export default class Signup extends Component {
   }
 
   updateLanguage = (type, id, data) => {
+
     const newArray = this.state[`${type}Languages`].map(language => {
       if (language.id !== id) {
         return language
       }
       return ({
         id,
-        language: data[0].id,
-        level: language.level,
+        language: data.length > 0 ? data[0].id : null,
+        level: data.length > 0 ? language.level : null,
       })
     })
     this.setState({ [`${type}Languages`]: newArray })
+
   }
 
   updateLanguageLevel = (type, id, eventKey) => {
@@ -96,7 +98,9 @@ export default class Signup extends Component {
     console.log(learningLanguages)
 
     // Determine available languages
-    const availableLanguages = Object.entries(i18n.store.data[i18n.language].translation.languages).map(([id, label]) => ({ id, label }))
+    const usedLanguages = learningLanguages.map(lang => lang.language).concat(knownLanguages.map(lang => lang.language)).filter(lang => lang !== null)
+    const allLanguages = Object.entries(i18n.store.data[i18n.language].translation.languages).map(([id, label]) => ({ id, label }))
+    const availableLanguages = allLanguages.filter(lang => usedLanguages.indexOf(lang.id) === -1)
 
     const {
       jwt,

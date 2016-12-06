@@ -33,7 +33,6 @@ export default class ManageLanguages extends Component {
               <div key={lang.id} style={styles.container}>
                 <div style={styles.textInput}>
                   <Typeahead
-                    defaultSelected={[lang.language]}
                     onChange={data => updateLanguage('learning', lang.id, data)}
                     options={availableLanguages}
                   />
@@ -70,7 +69,6 @@ export default class ManageLanguages extends Component {
               <div key={lang.id} style={styles.container}>
                 <div style={styles.textInput}>
                   <Typeahead
-                    defaultSelected={[lang.language]}
                     onChange={data => updateLanguage('known', lang.id, data)}
                     options={availableLanguages}
                   />
