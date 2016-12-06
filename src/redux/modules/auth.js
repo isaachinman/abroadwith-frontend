@@ -189,6 +189,12 @@ export function facebookLogin(email, facebookToken) {
   }
 }
 
+export function googleLogin(email, googleToken) {
+  return async dispatch => {
+    dispatch(login(email, null, null, googleToken))
+  }
+}
+
 export function logout() {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],

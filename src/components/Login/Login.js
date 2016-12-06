@@ -38,9 +38,6 @@ export default class Login extends Component {
   }
 
   handleFacebookLogin = (response) => {
-    console.log('email: ', response.email)
-    console.log('accessToken: ', response.accessToken)
-    console.log('facebookLogin: ', this.props.facebookLogin)
     this.props.facebookLogin(response.email, response.accessToken)
   }
 
@@ -49,7 +46,7 @@ export default class Login extends Component {
   }
 
   handleGoogleLogin = (response) => {
-    console.log(response)
+    this.props.googleLogin(response.getBasicProfile().getEmail(), response.getAuthResponse().id_token)
   }
 
   handleGoogleLoginFailure = () => {
@@ -210,6 +207,7 @@ Login.propTypes = {
   jwt: PropTypes.object,
   login: PropTypes.func,
   facebookLogin: PropTypes.func,
+  googleLogin: PropTypes.func,
   loginStatus: PropTypes.object,
   logout: PropTypes.func,
 }
