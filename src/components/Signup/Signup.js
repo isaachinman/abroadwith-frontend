@@ -1,12 +1,11 @@
 // Absolute imports
-/* eslint-disable */
 import React, { Component, PropTypes } from 'react'
-import { Button, Col, Form, FormControl, FormGroup, InputGroup, Row } from 'react-bootstrap'
+import shortid from 'shortid'
+import { Col, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import FontAwesome from 'react-fontawesome'
 import { translate } from 'react-i18next'
 import { ManageLanguages } from 'components'
-// import { validateExists, validatePassword } from 'utils/validation'
+import i18n from 'i18n/i18n-client'
 import * as authActions from 'redux/modules/auth'
 
 // Relative imports
@@ -25,21 +24,85 @@ export default class Signup extends Component {
         uiState: null,
       },
     },
+    learningLanguages: [
+      {
+        id: shortid.generate(),
+        language: null,
+        level: null,
+      },
+    ],
+    knownLanguages: [
+      {
+        id: shortid.generate(),
+        language: null,
+        level: null,
+      },
+    ],
+  }
+
+  addLanguage = type => {
+    this.setState({
+      [`${type}Languages`]: this.state[`${type}Languages`].concat({
+        id: shortid.generate(),
+        language: null,
+        level: null,
+      }),
+    })
+  }
+
+  removeLanguage = (type, id) => {
+    this.setState({
+      [`${type}Languages`]: this.state[`${type}Languages`].filter(lang => {
+        return lang.id !== id
+      }),
+    })
+  }
+
+  updateLanguage = (type, id, data) => {
+    const newArray = this.state[`${type}Languages`].map(language => {
+      if (language.id !== id) {
+        return language
+      }
+      return ({
+        id,
+        language: data[0].id,
+        level: language.level,
+      })
+    })
+    this.setState({ [`${type}Languages`]: newArray })
+  }
+
+  updateLanguageLevel = (type, id, eventKey) => {
+    const newArray = this.state[`${type}Languages`].map(language => {
+      if (language.id !== id) {
+        return language
+      }
+      return ({
+        id,
+        language: language.language,
+        level: eventKey,
+      })
+    })
+    this.setState({ [`${type}Languages`]: newArray })
   }
 
   render() {
 
     const {
+      knownLanguages,
+      learningLanguages,
+    } = this.state
+
+    console.log(learningLanguages)
+
+    // Determine available languages
+    const availableLanguages = Object.entries(i18n.store.data[i18n.language].translation.languages).map(([id, label]) => ({ id, label }))
+
+    const {
       jwt,
-      loginStatus,
       logout,
       t,
     } = this.props
-
-    const {
-      email,
-      password,
-    } = this.state.validatedFields
 
     return (
       <div style={styles.signupPanel}>
@@ -50,13 +113,21 @@ export default class Signup extends Component {
 
             <Row style={styles.paddedRow}>
               <Col xs={12}>
-                <h3>{t('common.language_modal_hello')}</h3>
+                <h2>{t('common.language_modal_hello')}</h2>
                 <h5>{t('common.language_modal_title')}</h5>
               </Col>
             </Row>
             <Row>
               <Col xs={12} sm={10} smOffset={1}>
-                <ManageLanguages />
+                <ManageLanguages
+                  addLanguage={this.addLanguage}
+                  availableLanguages={availableLanguages}
+                  knownLanguages={knownLanguages}
+                  learningLanguages={learningLanguages}
+                  removeLanguage={this.removeLanguage}
+                  updateLanguage={this.updateLanguage}
+                  updateLanguageLevel={this.updateLanguageLevel}
+                />
               </Col>
             </Row>
           </span>
@@ -82,4 +153,5 @@ Signup.propTypes = {
   jwt: PropTypes.object,
   loginStatus: PropTypes.object,
   logout: PropTypes.func,
+  t: PropTypes.func,
 }

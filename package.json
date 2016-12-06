@@ -114,6 +114,7 @@
     "redux-connect": "^4.0.2",
     "seamless-immutable": "^6.1.1",
     "serialize-javascript": "^1.1.2",
+    "shortid": "^2.2.6",
     "superagent": "^2.2.0",
     "url-loader": "^0.5.7",
     "warning": "^3.0.0",
