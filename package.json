@@ -100,7 +100,7 @@
     "react-bootstrap": "^0.30.2",
     "react-dates": "^4.1.0",
     "react-dom": "^15.3.0",
-    "react-facebook-login": "^3.1.0",
+    "react-facebook-login": "^3.4.1",
     "react-fontawesome": "^1.1.0",
     "react-google-login": "^2.1.2",
     "react-helmet": "^3.1.0",
