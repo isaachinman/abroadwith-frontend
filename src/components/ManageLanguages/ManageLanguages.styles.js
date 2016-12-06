@@ -26,7 +26,9 @@ export default {
     width: '100%',
   },
   select: {
-    marginLeft: -4, // Sort of hacky way to hide border-radius of Typeahead component
+    fontSize: 12,
+    textAlign: 'left',
+    minWidth: 120,
     borderRadius: '0 3px 3px 0',
     height: 34,
   },

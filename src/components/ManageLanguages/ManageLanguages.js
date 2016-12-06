@@ -1,9 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { DropdownButton, InputGroup, MenuItem, Well } from 'react-bootstrap'
-import i18n from 'i18n/i18n-client'
 import { Typeahead } from 'react-bootstrap-typeahead'
-import memobind from 'memobind'
 import { translate } from 'react-i18next'
 
 // Relative imports
@@ -12,64 +10,18 @@ import styles from './ManageLanguages.styles.js'
 @translate()
 export default class ManageLanguages extends Component {
 
-  state = {
-    learningLanguages: [
-      {
-        lang: null,
-        level: null,
-      },
-    ],
-    knownLanguages: [
-      {
-        lang: null,
-        level: null,
-      },
-    ],
-  }
-
-  addKnownLanguage = () => {
-    this.setState({
-      knownLanguages: this.state.learningLanguages.concat([
-        {
-          lang: null,
-          level: null,
-        },
-      ]),
-    })
-  }
-
-  addLearningLanguage = () => {
-    this.setState({
-      learningLanguages: this.state.learningLanguages.concat([
-        {
-          lang: null,
-          level: null,
-        },
-      ]),
-    })
-  }
-
-  removeLearningLanguage = langIndex => {
-    console.log(langIndex)
-    const newLearningLanguages = this.state.learningLanguages.filter(lang => {
-      return this.state.learningLanguages.indexOf(lang) !== langIndex
-    })
-    this.setState({
-      learningLanguages: newLearningLanguages,
-    })
-  }
-
   render() {
 
     const {
+      addLanguage,
+      availableLanguages,
       learningLanguages,
       knownLanguages,
-    } = this.state
-
-    const {
       t,
+      removeLanguage,
+      updateLanguage,
+      updateLanguageLevel,
     } = this.props
-    const languageOptions = Object.entries(i18n.store.data[i18n.language].translation.languages).map(([id, label]) => ({ id, label }))
 
     return (
 
@@ -78,66 +30,74 @@ export default class ManageLanguages extends Component {
           <div style={styles.languageSectionHeader}>{t('common.languages_learning')}</div>
           {learningLanguages.map(lang => {
             return (
-              <div style={styles.container}>
+              <div key={lang.id} style={styles.container}>
                 <div style={styles.textInput}>
                   <Typeahead
-                    options={languageOptions}
+                    defaultSelected={[lang.language]}
+                    onChange={data => updateLanguage('learning', lang.id, data)}
+                    options={availableLanguages}
                   />
                 </div>
                 <div style={styles.proficiencySelect}>
                   <DropdownButton
+                    id='learning-language-levels'
+                    disabled={lang.language === null}
                     style={styles.select}
                     componentClass={InputGroup.Button}
-                    id='input-dropdown-addon'
-                    title={t('common.choose_a_level')}
+                    onSelect={eventKey => updateLanguageLevel('learning', lang.id, eventKey)}
+                    title={lang.level ? t(`common.learningLevels.${lang.level}`) : t('common.choose_a_level')}
                   >
-                    <MenuItem key='BEGINNER'>{t('common.learningLevels.BEGINNER')}</MenuItem>
-                    <MenuItem key='INTERMEDIATE'>{t('common.learningLevels.INTERMEDIATE')}</MenuItem>
-                    <MenuItem key='ADVANCED'>{t('common.learningLevels.ADVANCED')}</MenuItem>
+                    <MenuItem eventKey='BEGINNER'>{t('common.learningLevels.BEGINNER')}</MenuItem>
+                    <MenuItem eventKey='INTERMEDIATE'>{t('common.learningLevels.INTERMEDIATE')}</MenuItem>
+                    <MenuItem eventKey='ADVANCED'>{t('common.learningLevels.ADVANCED')}</MenuItem>
                   </DropdownButton>
                 </div>
                 {learningLanguages.length > 1 &&
-                  <div style={styles.removeLanguage} onClick={memobind(this, 'removeLearningLanguage', learningLanguages.indexOf(lang))}>X</div>
+                  <div onClick={() => removeLanguage('learning', lang.id)} style={styles.removeLanguage}>X</div>
                 }
               </div>
             )
           })}
           <div style={styles.addLanguage}>
-            <a onClick={this.addLearningLanguage}>{t('common.add_another_language')}</a>
+            <a onClick={() => addLanguage('learning')}>{t('common.add_another_language')}</a>
           </div>
         </Well>
 
         <Well>
           <div style={styles.languageSectionHeader}>{t('common.languages_known')}</div>
-          {knownLanguages.map(() => {
+          {knownLanguages.map(lang => {
             return (
-              <div style={styles.container}>
+              <div key={lang.id} style={styles.container}>
                 <div style={styles.textInput}>
                   <Typeahead
-                    options={languageOptions}
+                    defaultSelected={[lang.language]}
+                    onChange={data => updateLanguage('known', lang.id, data)}
+                    options={availableLanguages}
                   />
                 </div>
                 <div style={styles.proficiencySelect}>
 
                   <DropdownButton
+                    id='known-language-levels'
+                    disabled={lang.language === null}
                     style={styles.select}
                     componentClass={InputGroup.Button}
-                    id='input-dropdown-addon'
-                    title={t('common.choose_a_level')}
+                    onSelect={eventKey => updateLanguageLevel('known', lang.id, eventKey)}
+                    title={lang.level ? t(`common.knownLevels.${lang.level}`) : t('common.choose_a_level')}
                   >
-                    <MenuItem key='NATIVE'>{t('common.knownLevels.NATIVE')}</MenuItem>
-                    <MenuItem key='PROFICIENT'>{t('common.knownLevels.PROFICIENT')}</MenuItem>
+                    <MenuItem eventKey='NATIVE'>{t('common.knownLevels.NATIVE')}</MenuItem>
+                    <MenuItem eventKey='PROFICIENT'>{t('common.knownLevels.PROFICIENT')}</MenuItem>
                   </DropdownButton>
 
                 </div>
                 {knownLanguages.length > 1 &&
-                  <div style={styles.removeLanguage}>X</div>
+                  <div onClick={() => removeLanguage('known', lang.id)} style={styles.removeLanguage}>X</div>
                 }
               </div>
             )
           })}
           <div style={styles.addLanguage}>
-            <a onClick={this.addKnownLanguage}>{t('common.add_another_language')}</a>
+            <a onClick={() => addLanguage('known')}>{t('common.add_another_language')}</a>
           </div>
         </Well>
 
@@ -148,7 +108,14 @@ export default class ManageLanguages extends Component {
 }
 
 ManageLanguages.propTypes = {
+  addLanguage: PropTypes.func,
+  availableLanguages: PropTypes.array,
+  learningLanguages: PropTypes.array,
+  knownLanguages: PropTypes.array,
   learningLevels: PropTypes.bool,
   knownLevels: PropTypes.bool,
+  removeLanguage: PropTypes.func,
   t: PropTypes.func,
+  updateLanguage: PropTypes.func,
+  updateLanguageLevel: PropTypes.func,
 }
