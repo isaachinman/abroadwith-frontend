@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { IndexLink } from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Login, Logo } from 'components'
+import { Login, Logo, Signup } from 'components'
 import { Modal, Navbar as BootstrapNavbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import * as authActions from 'redux/modules/auth'
 import memobind from 'memobind'
@@ -116,7 +116,7 @@ export default class Navbar extends Component {
           onHide={memobind(this, 'closeModal', 'studentSignup')}
           show={this.state.modals.studentSignup.open}
         >
-          Student signup
+          <Signup />
         </Modal>
 
         <Modal

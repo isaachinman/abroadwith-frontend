@@ -94,8 +94,17 @@ export default class Login extends Component {
 
   render() {
 
-    const { compact, jwt, loginStatus, logout } = this.props
-    const { email, password } = this.state.validatedFields
+    const {
+      compact,
+      jwt,
+      loginStatus,
+      logout,
+    } = this.props
+
+    const {
+      email,
+      password,
+    } = this.state.validatedFields
 
     return (
       <div style={styles.loginPanel}>
