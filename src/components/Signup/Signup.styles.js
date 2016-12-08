@@ -5,6 +5,18 @@ export default {
     padding: '10px 20px',
     textAlign: 'center',
   },
+  signupMenu: {
+    maxWidth: 300,
+    padding: '40px 0',
+    margin: '0 auto',
+  },
+  emailSignupBtn: {
+    cursor: 'pointer',
+    textDecoration: 'none',
+  },
+  emailSignupInput: {
+    margin: '0 0 10px 0',
+  },
   paddedRow: {
     paddingBottom: 15,
   },
