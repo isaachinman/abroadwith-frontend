@@ -54,3 +54,9 @@ color: lighten(#3b5998, 10%);
 .btn-google-login .fa {
 color: lighten(#dd4b39, 5%);
 }
+
+.panel-title a {
+  &:hover {
+    text-decoration: none;
+  }
+}

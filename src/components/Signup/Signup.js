@@ -1,7 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import shortid from 'shortid'
-import { Col, Row } from 'react-bootstrap'
+import { Accordion, Button, Col, Collapse, FormGroup, FormControl, Panel, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { ManageLanguages } from 'components'
@@ -16,6 +16,7 @@ import styles from './Signup.styles.js'
 export default class Signup extends Component {
 
   state = {
+    page: 1,
     validatedFields: {
       email: {
         uiState: null,
@@ -88,6 +89,10 @@ export default class Signup extends Component {
     this.setState({ [`${type}Languages`]: newArray })
   }
 
+  changePage = page => {
+    this.setState({ page })
+  }
+
   render() {
 
     const {
@@ -95,7 +100,7 @@ export default class Signup extends Component {
       learningLanguages,
     } = this.state
 
-    console.log(learningLanguages)
+    console.log(this)
 
     // Determine available languages
     const usedLanguages = learningLanguages.map(lang => lang.language).concat(knownLanguages.map(lang => lang.language)).filter(lang => lang !== null)
@@ -108,6 +113,8 @@ export default class Signup extends Component {
       t,
     } = this.props
 
+    console.log(this.state.page === 1)
+
     return (
       <div style={styles.signupPanel}>
 
@@ -115,25 +122,90 @@ export default class Signup extends Component {
 
           <span>
 
-            <Row style={styles.paddedRow}>
-              <Col xs={12}>
-                <h2>{t('common.language_modal_hello')}</h2>
-                <h5>{t('common.language_modal_title')}</h5>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12} sm={10} smOffset={1}>
-                <ManageLanguages
-                  addLanguage={this.addLanguage}
-                  availableLanguages={availableLanguages}
-                  knownLanguages={knownLanguages}
-                  learningLanguages={learningLanguages}
-                  removeLanguage={this.removeLanguage}
-                  updateLanguage={this.updateLanguage}
-                  updateLanguageLevel={this.updateLanguageLevel}
-                />
-              </Col>
-            </Row>
+            <Collapse in={this.state.page === 1} unmountOnExit>
+              <div>
+                <Row style={styles.paddedRow}>
+                  <Col xs={12}>
+                    <h2>{t('common.language_modal_hello')}</h2>
+                    <h5>{t('common.language_modal_title')}</h5>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12} sm={10} smOffset={1}>
+                    <ManageLanguages
+                      addLanguage={this.addLanguage}
+                      availableLanguages={availableLanguages}
+                      knownLanguages={knownLanguages}
+                      learningLanguages={learningLanguages}
+                      removeLanguage={this.removeLanguage}
+                      updateLanguage={this.updateLanguage}
+                      updateLanguageLevel={this.updateLanguageLevel}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <Button onClick={() => this.changePage(2)}>Next</Button>
+                  </Col>
+                </Row>
+              </div>
+            </Collapse>
+
+            <Collapse in={this.state.page === 2} unmountOnExit>
+              <div style={styles.signupMenu}>
+                <Row>
+                  <Col xs={12}>
+                    <Accordion style={styles.emailSignupBtn}>
+                      <Panel header={t('common.sign_up_email')} eventKey='1'>
+                        <form>
+                          <FormGroup>
+                            <FormControl
+                              type='text'
+                              style={styles.emailSignupInput}
+                              value={this.state.value}
+                              placeholder={t('common.First_name')}
+                              onChange={this.handleChange}
+                            />
+                            <FormControl
+                              type='text'
+                              style={styles.emailSignupInput}
+                              value={this.state.value}
+                              placeholder={t('common.Last_name')}
+                              onChange={this.handleChange}
+                            />
+                            <FormControl
+                              type='email'
+                              style={styles.emailSignupInput}
+                              value={this.state.value}
+                              placeholder={t('common.Email')}
+                              onChange={this.handleChange}
+                            />
+                            <FormControl
+                              type='password'
+                              style={styles.emailSignupInput}
+                              value={this.state.value}
+                              placeholder={t('common.Password')}
+                              onChange={this.handleChange}
+                            />
+                            <FormControl
+                              type='date'
+                              style={styles.emailSignupInput}
+                              value={this.state.value}
+                              placeholder={t('common.Birthday')}
+                              onChange={this.handleChange}
+                            />
+                          </FormGroup>
+                          <Button bsStyle='success'>{t('common.Sign_up')}</Button>
+                        </form>
+                      </Panel>
+                    </Accordion>
+                    <Button block>{t('common.sign_up_facebook')}</Button>
+                    <Button block>{t('common.sign_up_google')}</Button>
+                  </Col>
+                </Row>
+              </div>
+            </Collapse>
+
           </span>
         }
 
