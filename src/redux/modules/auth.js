@@ -105,21 +105,24 @@ export function isLoaded(globalState) {
 
 }
 
+// This function is primarily serverside
 export function load(jwt) {
 
-  // Ensure validity
-  if (moment(jwtDecode(jwt).exp * 1000).isBefore(moment())) {
-    console.log('its expired')
-    return {
-      type: LOAD_FAIL,
-      error: 'jwt expired',
-    }
-  }
+  return dispatch => {
 
-  console.log('its not expired')
-  return {
-    type: LOAD_SUCCESS,
-    jwt,
+    try {
+
+      // Ensure validity
+      if (moment(jwtDecode(jwt).exp * 1000).isBefore(moment())) {
+        dispatch({ type: LOAD_FAIL, err: 'jwt expired' })
+      } else {
+        dispatch({ type: LOAD_SUCCESS, jwt })
+      }
+
+    } catch (err) {
+      dispatch({ type: LOAD_FAIL, err })
+    }
+
   }
 
 }
