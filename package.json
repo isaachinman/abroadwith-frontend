@@ -117,6 +117,7 @@
     "shortid": "^2.2.6",
     "superagent": "^2.2.0",
     "url-loader": "^0.5.7",
+    "validator": "^6.2.0",
     "warning": "^3.0.0",
     "webpack-isomorphic-tools": "^2.6.4"
   },
