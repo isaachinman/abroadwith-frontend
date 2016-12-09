@@ -151,8 +151,6 @@ export default class Signup extends Component {
 
     const { birthDate, firstName, lastName, email, password } = this.state.validatedFields
 
-    console.log(type, data)
-
     // These properties are used regardless of signup type
     let signupObject = {
       userKnownLanguages: filterLanguageArray(this.state.knownLanguages),
