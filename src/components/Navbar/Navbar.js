@@ -7,11 +7,13 @@ import { Login, Logo, Signup } from 'components'
 import { Modal, Navbar as BootstrapNavbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import * as authActions from 'redux/modules/auth'
 import memobind from 'memobind'
+import { translate } from 'react-i18next'
 
 // Relative imports
 import styles from './Navbar.styles'
 
 @connect(() => authActions)
+@translate()
 export default class Navbar extends Component {
 
   state = {
@@ -47,7 +49,7 @@ export default class Navbar extends Component {
 
   render() {
 
-    const { jwt, title } = this.props
+    const { jwt, t, title } = this.props
 
     return (
       <span>
@@ -66,36 +68,22 @@ export default class Navbar extends Component {
 
             {!jwt &&
               <Nav navbar pullRight>
-                <NavItem onClick={memobind(this, 'openModal', 'hostSignup')}>Become a host</NavItem>
-                <NavItem onClick={memobind(this, 'openModal', 'studentSignup')}>Student sign up</NavItem>
-                <NavItem onClick={memobind(this, 'openModal', 'login')}>Login</NavItem>
+                <NavItem onClick={memobind(this, 'openModal', 'hostSignup')}>{t('common.navbar_become_host')}</NavItem>
+                <NavItem onClick={memobind(this, 'openModal', 'studentSignup')}>{t('common.navbar_sign_up')}</NavItem>
+                <NavItem onClick={memobind(this, 'openModal', 'login')}>{t('common.navbar_login')}</NavItem>
               </Nav>
             }
 
             {jwt &&
               <Nav navbar pullRight>
                 <NavDropdown title={jwt.name} id='nav-dropdown'>
-                  <LinkContainer to='/homestay/132'>
-                    <MenuItem>To homestay 132</MenuItem>
-                  </LinkContainer>
-
-                  <LinkContainer to='/homestay/403'>
-                    <MenuItem>To homestay 403</MenuItem>
-                  </LinkContainer>
-
-                  <LinkContainer to='/homestay/409'>
-                    <MenuItem>To homestay 409</MenuItem>
-                  </LinkContainer>
-
-                  <LinkContainer to='/users/389'>
-                    <MenuItem>To a user profile</MenuItem>
+                  <LinkContainer to='/settings'>
+                    <MenuItem>{t('common.navbar_settings')}</MenuItem>
                   </LinkContainer>
 
                   <MenuItem divider />
                   <MenuItem onSelect={this.handleLogout}>
-                    <div className='logout-link'>
-                      Logout
-                    </div>
+                    {t('common.navbar_logout')}
                   </MenuItem>
                 </NavDropdown>
               </Nav>
@@ -116,14 +104,14 @@ export default class Navbar extends Component {
           onHide={memobind(this, 'closeModal', 'studentSignup')}
           show={this.state.modals.studentSignup.open}
         >
-          <Signup />
+          <Signup type={'student'} />
         </Modal>
 
         <Modal
           onHide={memobind(this, 'closeModal', 'hostSignup')}
           show={this.state.modals.hostSignup.open}
         >
-          Host signup
+          <Signup type={'host'} />
         </Modal>
 
       </span>
@@ -138,4 +126,5 @@ Navbar.propTypes = {
   jwt: PropTypes.object,
   logout: PropTypes.func,
   dispatch: PropTypes.func,
+  t: PropTypes.func,
 }
