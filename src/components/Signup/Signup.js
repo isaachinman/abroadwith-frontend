@@ -168,7 +168,7 @@ export default class Signup extends Component {
         email: email.value,
       })
 
-    } else if (type === 'facebook') {
+    } else if (type === 'facebook' && data.status !== 'unknown') {
 
       signupObject = Object.assign({}, signupObject, {
         firstName: data.first_name,
