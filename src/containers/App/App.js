@@ -26,6 +26,7 @@ import styles from './App.styles'
 @connect(
   state => ({
     jwt: state.auth.jwt,
+    user: state.privateData.user.loaded ? state.privateData.user.data : null,
   }),
   { logout, pushState: push }
 )
@@ -57,14 +58,14 @@ export default class App extends Component {
 
   render() {
 
-    const { jwt } = this.props
+    const { jwt, user } = this.props
 
     return (
       <div style={styles.appContainer}>
 
         <Helmet {...config.app.head} />
 
-        <Navbar jwt={jwt} title={config.app.title} />
+        <Navbar jwt={jwt} user={user} title={config.app.title} />
 
         <div style={styles.appContent}>
           {this.props.children}
@@ -80,6 +81,7 @@ export default class App extends Component {
 App.propTypes = {
   children: PropTypes.object.isRequired,
   jwt: PropTypes.object,
+  user: PropTypes.object,
   logout: PropTypes.func,
   pushState: PropTypes.func,
   dispatch: PropTypes.func,
