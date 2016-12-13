@@ -2,8 +2,12 @@ export default {
   mainRow: {
     margin: '20px 0 0 0',
   },
-  whiteBlock: {
+  sidebar: {
     padding: '5px 10px',
+    background: 'white',
+  },
+  mainPanel: {
+    padding: '20px 50px',
     background: 'white',
   },
   tabItem: {

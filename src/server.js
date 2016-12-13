@@ -25,6 +25,7 @@ import createStore from './redux/create'
 import getRoutes from './routes'
 import Html from './helpers/Html'
 import { load as loadAuth } from './redux/modules/auth'
+import { load as loadUserWithAuth } from './redux/modules/privateData/users/loadUserWithAuth'
 import { changeCurrency } from './redux/modules/ui/currency'
 import { changeLocale } from './redux/modules/ui/locale'
 import i18n from './i18n/i18n-server'
@@ -102,6 +103,20 @@ app.use((req, res) => {
   const store = createStore(memoryHistory, client)
   const history = syncHistoryWithStore(memoryHistory, store)
 
+  function hydrateOnClient() {
+    res.send('<!doctype html>\n' +
+      ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store} />))
+  }
+
+  if (__DISABLE_SSR__) {
+    hydrateOnClient()
+    return
+  }
+
+  // --------------------------------------------------------------------------------
+  // This is where we will do all the custom rendering and external calls necessary
+  // --------------------------------------------------------------------------------
+
   // If user has a ui_language cookie, set their appropriate language.
   if (req.cookies.ui_currency) {
     store.dispatch(changeCurrency(req.cookies.ui_currency))
@@ -123,22 +138,7 @@ app.use((req, res) => {
   const i18nServer = i18n.cloneInstance()
   i18nServer.changeLanguage(locale)
 
-  // If user has an access_token cookie, log them in before rendering the page
-  if (req.cookies.access_token) {
-    store.dispatch(loadAuth(req.cookies.access_token))
-  }
-
-  function hydrateOnClient() {
-    res.send('<!doctype html>\n' +
-      ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store} />))
-  }
-
-  if (__DISABLE_SSR__) {
-    hydrateOnClient()
-    return
-  }
-
-  match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
+  const renderFunction = () => match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
 
       res.redirect(redirectLocation.pathname + redirectLocation.search)
@@ -173,6 +173,13 @@ app.use((req, res) => {
       res.status(404).send('Not found')
     }
   })
+
+  // If user has an access_token cookie, log them in before rendering the page
+  if (req.cookies.access_token) {
+    store.dispatch(loadAuth(req.cookies.access_token))
+    store.dispatch(loadUserWithAuth(req.cookies.access_token, renderFunction, store.dispatch)) // eslint-disable-line
+  }
+
 })
 
 if (config.port) {
