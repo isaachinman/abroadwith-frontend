@@ -6,10 +6,11 @@ import { Col, Grid, Row, Nav, NavItem, Tab } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import { update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
 import ContactInfo from 'components/ContactInfo/ContactInfo'
-import debounce from 'debounce'
 
 // Relative imports
 import styles from './Settings.styles.js'
+
+var debounce =  require('debounce') // eslint-disable-line
 
 @connect(state => ({
   user: state.privateData.user.data,
@@ -20,20 +21,17 @@ import styles from './Settings.styles.js'
 export default class Settings extends Component {
 
   updateUser = newObject => {
+
     const { dispatch, jwt, token } = this.props
-
-    const throttledUpdate = () => {
-      dispatch(updateUser(jwt.rid, newObject, token, dispatch))
-    }
-
-    // Debounce the actual update so we make API calls at a reasonable rate
-    debounce(throttledUpdate, 5000)
+    dispatch(updateUser(jwt.rid, newObject, token, dispatch))
 
   }
 
   render() {
 
     const { t } = this.props
+
+    const debouncedUpdateUser = debounce(this.updateUser, 1000)
 
     return (
       <div>
@@ -57,7 +55,7 @@ export default class Settings extends Component {
                 <Tab.Content animation>
 
                   <Tab.Pane eventKey='contact-info'>
-                    <ContactInfo {...this.props} updateUser={this.updateUser} />
+                    <ContactInfo {...this.props} updateUser={debouncedUpdateUser} />
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='languages'>
