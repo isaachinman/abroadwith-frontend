@@ -49,7 +49,9 @@ export default class Navbar extends Component {
 
   render() {
 
-    const { jwt, t, title } = this.props
+    const { jwt, user, t, title } = this.props
+
+    console.log('user object inside navbar: ', user)
 
     return (
       <span>
@@ -76,7 +78,7 @@ export default class Navbar extends Component {
 
             {jwt &&
               <Nav navbar pullRight>
-                <NavDropdown title={jwt.name} id='nav-dropdown'>
+                <NavDropdown title={user ? user.firstName : jwt.name} id='nav-dropdown'>
                   <LinkContainer to='/settings'>
                     <MenuItem>{t('common.navbar_settings')}</MenuItem>
                   </LinkContainer>
@@ -126,5 +128,6 @@ Navbar.propTypes = {
   jwt: PropTypes.object,
   logout: PropTypes.func,
   dispatch: PropTypes.func,
+  user: PropTypes.object,
   t: PropTypes.func,
 }
