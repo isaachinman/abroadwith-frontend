@@ -56,7 +56,7 @@ export default function Html(props) {
         <script dangerouslySetInnerHTML={{ __html: `window.__i18n=${serialize(i18n)};` }} charSet='UTF-8' />
         <script dangerouslySetInnerHTML={{ __html: `window.__apiHost='${config.apiHost}'` }} charSet='UTF-8' />
         <script src={assets.javascript.main} charSet='UTF-8' />
-        <script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?libraries=places' />
+        <script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places' />
       </body>
     </html>
   )
