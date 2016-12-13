@@ -95,7 +95,7 @@ export default class ContactInfo extends Component {
         <Col xs={12} sm={6} md={4}>
           <FormGroup validationState={gender.uiState}>
             <ControlLabel>{t('users.gender_label')}</ControlLabel>
-            <FormControl componentClass='select' onChange={event => this.handleChange(event, 'string', 'gender')} value={user.gender ? user.gender : ''}>
+            <FormControl componentClass='select' onChange={event => this.handleChange(event, 'string', 'gender')} defaultValue={user.gender ? user.gender : ''}>
               <option value='' disabled>{t('users.gender_placeholder')}</option>
               <option value='MALE'>{t('users.genders.MALE')}</option>
               <option value='FEMALE'>{t('users.genders.FEMALE')}</option>
