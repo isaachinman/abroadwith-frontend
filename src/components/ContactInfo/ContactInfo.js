@@ -3,6 +3,8 @@ import React, { Component, PropTypes } from 'react'
 import { Col, ControlLabel, FormControl, FormGroup, Row } from 'react-bootstrap'
 import { translate } from 'react-i18next'
 import validator from 'validator'
+import Geosuggest from 'react-geosuggest'
+import ReactTelInput from 'react-telephone-input'
 
 @translate()
 export default class ContactInfo extends Component {
@@ -64,6 +66,8 @@ export default class ContactInfo extends Component {
       gender,
     } = this.state.validatedFields
 
+    console.log(ReactTelInput)
+
     return (
       <Row>
         <Col xs={12} sm={6} md={4}>
@@ -103,6 +107,34 @@ export default class ContactInfo extends Component {
             </FormControl>
           </FormGroup>
         </Col>
+
+        <Col xs={12} sm={6} md={4}>
+          <FormGroup>
+            <ControlLabel>{t('users.email_label')}</ControlLabel>
+            <FormControl.Static>
+              {user.email}
+            </FormControl.Static>
+          </FormGroup>
+        </Col>
+
+        <Col xs={12} sm={6} md={4}>
+          <FormGroup>
+            <ControlLabel>{t('users.phone_number_label')}</ControlLabel>
+            <ReactTelInput
+              flagsImagePath='https://abroadwith.imgix.net/app/flags/flags.png'
+            />
+          </FormGroup>
+        </Col>
+
+        <Col xs={12} sm={6} md={4}>
+          <FormGroup>
+            <ControlLabel>{t('users.home_address_label')}</ControlLabel>
+            <Geosuggest
+              inputClassName='form-control'
+            />
+          </FormGroup>
+        </Col>
+
       </Row>
     )
   }

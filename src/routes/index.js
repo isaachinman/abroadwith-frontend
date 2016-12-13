@@ -16,8 +16,6 @@ export default (store) => {
 
   const requireLogin = (nextState, replace, cb) => {
 
-    console.log('nextState: ', nextState)
-
     function checkAuth() {
 
       const { auth: { jwt } } = store.getState()
