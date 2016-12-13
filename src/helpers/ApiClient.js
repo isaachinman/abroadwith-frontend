@@ -41,7 +41,8 @@ export default class ApiClient {
 
         request.end((err, { body } = {}) => {
 
-          console.log('at end of api call: ', body)
+          console.log('RESPONSE BODY: ', body)
+          console.log('ERROR: ', err)
 
           return err ? reject(body || err) : resolve(body)
 
