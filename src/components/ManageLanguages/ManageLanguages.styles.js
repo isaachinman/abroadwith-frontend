@@ -1,4 +1,8 @@
 export default {
+  moduleContainer: {
+    maxWidth: 500,
+    margin: '0 auto',
+  },
   container: {
     position: 'relative',
     display: 'table',

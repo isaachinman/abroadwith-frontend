@@ -4,13 +4,17 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { Col, Grid, Row, Nav, NavItem, Tab } from 'react-bootstrap'
 import Helmet from 'react-helmet'
+import i18n from 'i18n/i18n-client'
 import { update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
+import shortid from 'shortid'
+import debounce from 'debounce'
+
+// Components
 import ContactInfo from 'components/ContactInfo/ContactInfo'
+import ManageLanguages from 'components/ManageLanguages/ManageLanguages'
 
 // Relative imports
 import styles from './Settings.styles.js'
-
-var debounce =  require('debounce') // eslint-disable-line
 
 @connect(state => ({
   user: state.privateData.user.data,
@@ -20,18 +24,69 @@ var debounce =  require('debounce') // eslint-disable-line
 @translate()
 export default class Settings extends Component {
 
-  updateUser = newObject => {
+  state = {
+    learningLanguages: [],
+    knownLanguages: [],
+  }
 
+  componentDidMount = () => {
+    this.setState({
+      knownLanguages: this.props.user.userKnownLanguages.map(language => Object.assign({}, language, { id: shortid() })),
+      learningLanguages: this.props.user.userLearningLanguages.map(language => Object.assign({}, language, { id: shortid() })),
+    })
+  }
+
+  addLanguage = type => {
+    this.setState({
+      [`${type}Languages`]: this.state[`${type}Languages`].concat({
+        id: shortid.generate(),
+        language: null,
+        level: null,
+      }),
+    })
+  }
+
+  removeLanguage = (type, id) => {
+    this.setState({
+      [`${type}Languages`]: this.state[`${type}Languages`].filter(lang => {
+        return lang.id !== id
+      }),
+    })
+  }
+
+  updateLanguage = (type, id, data) => {
+
+    const newArray = this.state[`${type}Languages`].map(language => {
+      if (language.id !== id) {
+        return language
+      }
+      return ({
+        id,
+        language: data.length > 0 ? data[0].id : null,
+        level: data.length > 0 ? language.level : null,
+      })
+    })
+    this.setState({ [`${type}Languages`]: newArray })
+
+  }
+
+  updateUser = newObject => {
     const { dispatch, jwt, token } = this.props
     dispatch(updateUser(jwt.rid, newObject, token, dispatch))
-
   }
 
   render() {
 
     const { t } = this.props
 
+    const { knownLanguages, learningLanguages } = this.state
+
     const debouncedUpdateUser = debounce(this.updateUser, 1000)
+
+    // Determine available languages
+    const usedLanguages = learningLanguages.map(lang => lang.language).concat(knownLanguages.map(lang => lang.language)).filter(lang => lang !== null)
+    const allLanguages = Object.entries(i18n.store.data[i18n.language].translation.languages).map(([id, label]) => ({ id, label }))
+    const availableLanguages = allLanguages.filter(lang => usedLanguages.indexOf(lang.id) === -1)
 
     return (
       <div>
@@ -55,12 +110,24 @@ export default class Settings extends Component {
                 <Tab.Content animation>
 
                   <Tab.Pane eventKey='contact-info'>
-                    <ContactInfo {...this.props} updateUser={debouncedUpdateUser} />
+                    <ContactInfo
+                      {...this.props}
+                      updateUser={debouncedUpdateUser}
+                    />
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='languages'>
-                    Manage Languages Module
+                    <ManageLanguages
+                      addLanguage={this.addLanguage}
+                      availableLanguages={availableLanguages}
+                      knownLanguages={knownLanguages}
+                      learningLanguages={learningLanguages}
+                      removeLanguage={this.removeLanguage}
+                      updateLanguage={this.updateLanguage}
+                      updateLanguageLevel={this.updateLanguageLevel}
+                    />
                   </Tab.Pane>
+
                   <Tab.Pane eventKey='notifications'>
                     Couple of check boxes for notifications
                   </Tab.Pane>

@@ -12,21 +12,10 @@ import GoogleLogin from 'react-google-login'
 import i18n from 'i18n/i18n-client'
 import { validateEighteenYearsOld, validatePassword } from 'utils/validation'
 import validator from 'validator'
+import filterLanguageArray from 'utils/languages/filter-language-array'
 
 // Relative imports
 import styles from './Signup.styles.js'
-
-const filterLanguageArray = array => {
-
-  const newArray = array.filter(language => {
-    return language.language && language.level
-  }).map(language => {
-    delete language.id // eslint-disable-line
-    return language
-  })
-  return newArray
-
-}
 
 @connect(state => ({ jwt: state.auth.jwt, loginStatus: state.auth }), signupActions)
 @translate()

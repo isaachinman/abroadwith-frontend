@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { DropdownButton, InputGroup, MenuItem, Well } from 'react-bootstrap'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import { translate } from 'react-i18next'
+import i18n from 'i18n/i18n-client'
 
 // Relative imports
 import styles from './ManageLanguages.styles.js'
@@ -25,18 +26,21 @@ export default class ManageLanguages extends Component {
 
     const borderRadiusStyling = '.manage-language-module .bootstrap-typeahead-input-main { border-radius: 3px 0 0 3px; }'
 
+    console.log(this)
+
     return (
 
-      <div className='manage-language-module'>
+      <div style={styles.moduleContainer} className='manage-language-module'>
         <style>{borderRadiusStyling}</style>
         <Well>
           <div style={styles.languageSectionHeader}>{t('common.languages_learning')}</div>
           {learningLanguages.map(lang => {
+            console.log('language: ', lang)
             return (
               <div key={lang.id} style={styles.container}>
                 <div style={styles.textInput}>
                   <Typeahead
-                    inputProps={{ styles: { borderRadius: 0 } }}
+                    selected={lang.language ? [i18n.store.data[i18n.language].translation.languages[lang.language]] : []}
                     onChange={data => updateLanguage('learning', lang.id, data)}
                     options={availableLanguages}
                   />
@@ -73,6 +77,7 @@ export default class ManageLanguages extends Component {
               <div key={lang.id} style={styles.container}>
                 <div style={styles.textInput}>
                   <Typeahead
+                    selected={lang.language ? [i18n.store.data[i18n.language].translation.languages[lang.language]] : []}
                     onChange={data => updateLanguage('known', lang.id, data)}
                     options={availableLanguages}
                   />
@@ -112,6 +117,7 @@ export default class ManageLanguages extends Component {
 ManageLanguages.propTypes = {
   addLanguage: PropTypes.func,
   availableLanguages: PropTypes.array,
+  controlled: PropTypes.bool,
   learningLanguages: PropTypes.array,
   knownLanguages: PropTypes.array,
   learningLevels: PropTypes.bool,

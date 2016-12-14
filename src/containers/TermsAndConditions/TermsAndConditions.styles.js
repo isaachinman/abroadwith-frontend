@@ -1,3 +1,3 @@
 export default {
-  padding: '50px 0',
+  padding: '50px 40px',
 }

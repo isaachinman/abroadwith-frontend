@@ -51,8 +51,6 @@ export default class Navbar extends Component {
 
     const { jwt, user, t, title } = this.props
 
-    console.log('user object inside navbar: ', user)
-
     return (
       <span>
         <BootstrapNavbar fixedTop>
