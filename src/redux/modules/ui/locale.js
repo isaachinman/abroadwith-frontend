@@ -70,11 +70,12 @@ export function loadLocale(locale) {
           translations: JSON.parse(res.text),
         }
 
-        i18n.changeLanguage(window.__i18n.locale)
         i18n.addResourceBundle(window.__i18n.locale, 'translation', window.__i18n.translations, true)
+        i18n.changeLanguage(window.__i18n.locale)
 
         dispatch({ type: LOAD_LOCALE_SUCCESS })
         dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
+
       })
 
     } catch (err) {
@@ -92,12 +93,17 @@ export function changeLocale(locale, setCookie) {
 
       // To Do: validate locale format
 
-      // A boolean to control the setting of the cookie will be passed on client-side calls
       if (setCookie) {
+
+        // A boolean to control the setting of the cookie will be passed on client-side calls
         Cookies.set('ui_language', locale)
         dispatch(loadLocale(locale))
+
       } else {
+
+        // No cookie for server-side
         dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
+
       }
 
 
