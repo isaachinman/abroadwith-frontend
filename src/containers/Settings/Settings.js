@@ -2,12 +2,14 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import { Col, Grid, Row, Nav, NavItem, Tab } from 'react-bootstrap'
+import { Button, Col, Grid, Row, Nav, NavItem, Tab } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import i18n from 'i18n/i18n-client'
 import { update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
 import shortid from 'shortid'
 import debounce from 'debounce'
+import doesNotHaveIDs from 'utils/languages/does-not-have-ids'
+import filterLanguageArray from 'utils/languages/filter-language-array'
 
 // Components
 import ContactInfo from 'components/ContactInfo/ContactInfo'
@@ -20,20 +22,25 @@ import styles from './Settings.styles.js'
   user: state.privateData.user.data,
   jwt: state.auth.jwt,
   token: state.auth.token,
+  uiLanguage: state.ui.locale.value,
 }))
 @translate()
 export default class Settings extends Component {
 
   state = {
-    learningLanguages: [],
-    knownLanguages: [],
+    knownLanguages: this.props.user.userKnownLanguages.map(language => Object.assign({}, language, { id: shortid() })),
+    learningLanguages: this.props.user.userLearningLanguages.map(language => Object.assign({}, language, { id: shortid() })),
   }
 
-  componentDidMount = () => {
-    this.setState({
-      knownLanguages: this.props.user.userKnownLanguages.map(language => Object.assign({}, language, { id: shortid() })),
-      learningLanguages: this.props.user.userLearningLanguages.map(language => Object.assign({}, language, { id: shortid() })),
-    })
+  componentWillReceiveProps = nextProps => {
+    console.log('nextProps: ', nextProps)
+    // If languages don't have ids, reset the state with ids
+    if (this.state.knownLanguages.some(doesNotHaveIDs)) {
+      this.setState({
+        knownLanguages: nextProps.user.userKnownLanguages.map(language => Object.assign({}, language, { id: shortid() })),
+        learningLanguages: nextProps.user.userLearningLanguages.map(language => Object.assign({}, language, { id: shortid() })),
+      })
+    }
   }
 
   addLanguage = type => {
@@ -51,7 +58,7 @@ export default class Settings extends Component {
       [`${type}Languages`]: this.state[`${type}Languages`].filter(lang => {
         return lang.id !== id
       }),
-    })
+    }, () => this.saveLanguages())
   }
 
   updateLanguage = (type, id, data) => {
@@ -70,6 +77,30 @@ export default class Settings extends Component {
 
   }
 
+  updateLanguageLevel = (type, id, eventKey) => {
+    const newArray = this.state[`${type}Languages`].map(language => {
+      if (language.id !== id) {
+        return language
+      }
+      return ({
+        id,
+        language: language.language,
+        level: eventKey,
+      })
+    })
+    this.setState({ [`${type}Languages`]: newArray })
+  }
+
+  saveLanguages = () => {
+    console.log(this.state)
+    console.log(filterLanguageArray(this.state.learningLanguages))
+
+    this.updateUser(Object.assign({}, this.props.user, {
+      userKnownLanguages: filterLanguageArray(this.state.knownLanguages),
+      userLearningLanguages: filterLanguageArray(this.state.learningLanguages),
+    }))
+  }
+
   updateUser = newObject => {
     const { dispatch, jwt, token } = this.props
     dispatch(updateUser(jwt.rid, newObject, token, dispatch))
@@ -77,16 +108,18 @@ export default class Settings extends Component {
 
   render() {
 
-    const { t } = this.props
-
+    const { uiLanguage, t } = this.props
     const { knownLanguages, learningLanguages } = this.state
 
+    // Debounce autosave functionality to a reasonable rate
     const debouncedUpdateUser = debounce(this.updateUser, 1000)
 
     // Determine available languages
     const usedLanguages = learningLanguages.map(lang => lang.language).concat(knownLanguages.map(lang => lang.language)).filter(lang => lang !== null)
-    const allLanguages = Object.entries(i18n.store.data[i18n.language].translation.languages).map(([id, label]) => ({ id, label }))
+    const allLanguages = Object.entries(i18n.store.data[uiLanguage].translation.languages).map(([id, label]) => ({ id, label }))
     const availableLanguages = allLanguages.filter(lang => usedLanguages.indexOf(lang.id) === -1)
+
+    console.log(this.state)
 
     return (
       <div>
@@ -110,6 +143,7 @@ export default class Settings extends Component {
                 <Tab.Content animation>
 
                   <Tab.Pane eventKey='contact-info'>
+                    <h3>{t('admin.contact_info_tabname')}</h3>
                     <ContactInfo
                       {...this.props}
                       updateUser={debouncedUpdateUser}
@@ -117,6 +151,7 @@ export default class Settings extends Component {
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='languages'>
+                    <h3>{t('admin.languages_tabname')}</h3>
                     <ManageLanguages
                       addLanguage={this.addLanguage}
                       availableLanguages={availableLanguages}
@@ -125,7 +160,9 @@ export default class Settings extends Component {
                       removeLanguage={this.removeLanguage}
                       updateLanguage={this.updateLanguage}
                       updateLanguageLevel={this.updateLanguageLevel}
+                      uiLanguage={uiLanguage}
                     />
+                    <Button bsStyle='success' onClick={this.saveLanguages}>Save</Button>
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='notifications'>
@@ -155,6 +192,7 @@ Settings.propTypes = {
   jwt: PropTypes.object,
   dispatch: PropTypes.func,
   t: PropTypes.func,
+  uiLanguage: PropTypes.string,
   user: PropTypes.object,
   token: PropTypes.string,
 }

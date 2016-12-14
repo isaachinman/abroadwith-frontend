@@ -22,11 +22,11 @@ export default class ManageLanguages extends Component {
       removeLanguage,
       updateLanguage,
       updateLanguageLevel,
+      uiLanguage,
     } = this.props
 
+    const i18nLanguage = i18n.language || uiLanguage
     const borderRadiusStyling = '.manage-language-module .bootstrap-typeahead-input-main { border-radius: 3px 0 0 3px; }'
-
-    console.log(this)
 
     return (
 
@@ -35,12 +35,11 @@ export default class ManageLanguages extends Component {
         <Well>
           <div style={styles.languageSectionHeader}>{t('common.languages_learning')}</div>
           {learningLanguages.map(lang => {
-            console.log('language: ', lang)
             return (
               <div key={lang.id} style={styles.container}>
                 <div style={styles.textInput}>
                   <Typeahead
-                    selected={lang.language ? [i18n.store.data[i18n.language].translation.languages[lang.language]] : []}
+                    selected={lang.language ? [i18n.store.data[i18nLanguage].translation.languages[lang.language]] : []}
                     onChange={data => updateLanguage('learning', lang.id, data)}
                     options={availableLanguages}
                   />
@@ -77,7 +76,7 @@ export default class ManageLanguages extends Component {
               <div key={lang.id} style={styles.container}>
                 <div style={styles.textInput}>
                   <Typeahead
-                    selected={lang.language ? [i18n.store.data[i18n.language].translation.languages[lang.language]] : []}
+                    selected={lang.language ? [i18n.store.data[i18nLanguage].translation.languages[lang.language]] : []}
                     onChange={data => updateLanguage('known', lang.id, data)}
                     options={availableLanguages}
                   />
@@ -124,6 +123,7 @@ ManageLanguages.propTypes = {
   knownLevels: PropTypes.bool,
   removeLanguage: PropTypes.func,
   t: PropTypes.func,
+  uiLanguage: PropTypes.string,
   updateLanguage: PropTypes.func,
   updateLanguageLevel: PropTypes.func,
 }
