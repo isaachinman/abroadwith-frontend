@@ -14,6 +14,7 @@ import filterLanguageArray from 'utils/languages/filter-language-array'
 // Components
 import ContactInfo from 'components/ContactInfo/ContactInfo'
 import ManageLanguages from 'components/ManageLanguages/ManageLanguages'
+import ManageNotifications from 'components/ManageNotifications/ManageNotifications'
 
 // Relative imports
 import styles from './Settings.styles.js'
@@ -142,7 +143,7 @@ export default class Settings extends Component {
                 <Tab.Content animation>
 
                   <Tab.Pane eventKey='contact-info'>
-                    <h3>{t('admin.contact_info_tabname')}</h3>
+                    <h3>{t('admin.contact_info_title')}</h3>
                     <ContactInfo
                       {...this.props}
                       updateUser={debouncedUpdateUser}
@@ -150,7 +151,7 @@ export default class Settings extends Component {
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='languages'>
-                    <h3>{t('admin.languages_tabname')}</h3>
+                    <h3>{t('admin.languages_title')}</h3>
                     <ManageLanguages
                       addLanguage={this.addLanguage}
                       availableLanguages={availableLanguages}
@@ -165,8 +166,13 @@ export default class Settings extends Component {
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='notifications'>
-                    Couple of check boxes for notifications
+                    <h3>{t('admin.notifications_title')}</h3>
+                    <ManageNotifications
+                      {...this.props}
+                      updateUser={this.updateUser}
+                    />
                   </Tab.Pane>
+
                   <Tab.Pane eventKey='payments'>
                     Manage Payments Module
                   </Tab.Pane>
