@@ -174,10 +174,17 @@ app.use((req, res) => {
     }
   })
 
-  // If user has an access_token cookie, log them in before rendering the page
   if (req.cookies.access_token) {
+
+    // If user has an access_token cookie, log them in before rendering the page
     store.dispatch(loadAuth(req.cookies.access_token))
     store.dispatch(loadUserWithAuth(req.cookies.access_token, renderFunction, store.dispatch)) // eslint-disable-line
+
+  } else {
+
+    // Otherwise just render the page
+    renderFunction()
+
   }
 
 })
