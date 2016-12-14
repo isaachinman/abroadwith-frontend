@@ -74,6 +74,7 @@ export function loadLocale(locale) {
         i18n.addResourceBundle(window.__i18n.locale, 'translation', window.__i18n.translations, true)
 
         dispatch({ type: LOAD_LOCALE_SUCCESS })
+        dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
       })
 
     } catch (err) {
@@ -95,9 +96,10 @@ export function changeLocale(locale, setCookie) {
       if (setCookie) {
         Cookies.set('ui_language', locale)
         dispatch(loadLocale(locale))
+      } else {
+        dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
       }
 
-      dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
 
     } catch (err) {
 

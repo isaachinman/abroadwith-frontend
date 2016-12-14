@@ -33,7 +33,7 @@ export default class Settings extends Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    console.log('nextProps: ', nextProps)
+
     // If languages don't have ids, reset the state with ids
     if (this.state.knownLanguages.some(doesNotHaveIDs)) {
       this.setState({
@@ -41,6 +41,7 @@ export default class Settings extends Component {
         learningLanguages: nextProps.user.userLearningLanguages.map(language => Object.assign({}, language, { id: shortid() })),
       })
     }
+
   }
 
   addLanguage = type => {
@@ -118,8 +119,6 @@ export default class Settings extends Component {
     const usedLanguages = learningLanguages.map(lang => lang.language).concat(knownLanguages.map(lang => lang.language)).filter(lang => lang !== null)
     const allLanguages = Object.entries(i18n.store.data[uiLanguage].translation.languages).map(([id, label]) => ({ id, label }))
     const availableLanguages = allLanguages.filter(lang => usedLanguages.indexOf(lang.id) === -1)
-
-    console.log(this.state)
 
     return (
       <div>

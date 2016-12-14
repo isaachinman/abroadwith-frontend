@@ -38,13 +38,10 @@ export default class Login extends Component {
   }
 
   handleFacebookLogin = (response) => {
-    if (response.status !== 'unknown') {
+    console.log(response)
+    if (response.status && response.status !== 'unknown') {
       this.props.facebookLogin(response.email, response.accessToken)
     }
-  }
-
-  handleFacebookLoginFailure = () => {
-    console.log('Facebook Login Failed')
   }
 
   handleGoogleLogin = (response) => {
