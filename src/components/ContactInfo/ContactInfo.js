@@ -66,8 +66,6 @@ export default class ContactInfo extends Component {
       gender,
     } = this.state.validatedFields
 
-    console.log(ReactTelInput)
-
     return (
       <Row>
         <Col xs={12} sm={6} md={4}>
