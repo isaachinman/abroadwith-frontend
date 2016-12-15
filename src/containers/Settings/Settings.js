@@ -15,6 +15,7 @@ import filterLanguageArray from 'utils/languages/filter-language-array'
 import ContactInfo from 'components/ContactInfo/ContactInfo'
 import ManageLanguages from 'components/ManageLanguages/ManageLanguages'
 import ManageNotifications from 'components/ManageNotifications/ManageNotifications'
+import ManageSecurity from 'components/ManageSecurity/ManageSecurity'
 
 // Relative imports
 import styles from './Settings.styles.js'
@@ -176,9 +177,14 @@ export default class Settings extends Component {
                   <Tab.Pane eventKey='payments'>
                     Manage Payments Module
                   </Tab.Pane>
+
                   <Tab.Pane eventKey='privacy-security'>
-                    Couple of buttons for privacy security
+                    <h3>{t('admin.privacy_title')}</h3>
+                    <ManageSecurity
+                      {...this.props}
+                    />
                   </Tab.Pane>
+
                   <Tab.Pane eventKey='verifications'>
                     Manage verifications Module
                   </Tab.Pane>
