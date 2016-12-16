@@ -9,6 +9,7 @@
   This will make the code more maintainable, easy to refactor.
 * Add component to `src/components/index.js`. This file is an index of all components,
   which allows for easy importing. Ie: `import { CounterButton, InfoBar } from 'components'`.
+  (NOTE: unless tree-shaking is in place, such a practice forces imports regardless of actual usage and undermines codesplitting)
 
 For more information google for [component-based UI development](https://google.com/search?q=component-based+ui+development).
 
@@ -23,29 +24,15 @@ For more information google for [component-based UI development](https://google.
 * "Dumb" components can still effect changes by either calling a Redux action,
   or calling a function that has been passed to them as a prop, and executes in some
   parent scope.
+* i18n is used throughout for translations, and requires actual React components to be able to do so,
+  so writing a normal function that returns JSX is in most cases not possible. Just use components without state
+  as much as possible.
 
 **Important:** if a component does not require state, it should be written as a
 pure function. If a stateless component also requires connect or asyncConnect,
-the `compose` method (or some other method) must be used instead of class
+the `compose` method (or some other method, eg `translate`) must be used instead of class
 decorators. Stateful components can be written as classes.
 
-```jsx
-// Bad
-class Navigation extends Component {
-  static propTypes = { items: PropTypes.array.isRequired }
-  render() {
-    return <nav><ul>{this.props.items.map(x => <li>{x.text}</li>)}</ul></nav>
-  }
-}
-
-// Better
-function Navigation({ items }) {
-  return (
-    <nav><ul>{items.map(x => <li>{x.text}</li>)}</ul></nav>
-  );
-}
-Navigation.propTypes = { items: PropTypes.array.isRequired }
-```
 
 ## Use CSS Modules
 

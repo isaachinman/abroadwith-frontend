@@ -4,7 +4,7 @@ import { Checkbox, Col, Row } from 'react-bootstrap'
 import { translate } from 'react-i18next'
 
 @translate()
-export default class ContactInfo extends Component {
+export default class ManageNotifications extends Component {
 
   changeNotificationPreference = (category, type) => {
     const newObject = this.props.user
@@ -18,8 +18,6 @@ export default class ContactInfo extends Component {
       user,
       t,
     } = this.props
-
-    console.log(user)
 
     return (
       <Row>
@@ -46,7 +44,7 @@ export default class ContactInfo extends Component {
   }
 }
 
-ContactInfo.propTypes = {
+ManageNotifications.propTypes = {
   updateUser: PropTypes.func,
   user: PropTypes.object,
   t: PropTypes.func,

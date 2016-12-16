@@ -149,6 +149,7 @@ export default class Signup extends Component {
     // Determine authentication type
     if (type === 'email') {
 
+      // Email signup object
       signupObject = Object.assign({}, signupObject, {
         password: password.value,
         birthDate: birthDate.value,
@@ -159,19 +160,19 @@ export default class Signup extends Component {
 
     } else if (type === 'facebook' && data.accessToken && data.status !== 'unknown') {
 
+      // Facebook signup object
       signupObject = Object.assign({}, signupObject, {
         firstName: data.first_name,
         lastName: data.last_name,
         email: data.email,
-        birthDate: (data.birthday).substring(6, 10) + '-' + (data.birthday).substring(0, 2) + '-' + (data.birthday).substring(3, 5),
+        birthDate: `${(data.birthday).substring(6, 10)}-${(data.birthday).substring(0, 2)}-${(data.birthday).substring(3, 5)}`, // Parse birthday from Facebook's format
         facebookId: data.id,
         facebookToken: data.accessToken,
       })
 
     } else if (type === 'google') {
 
-      console.log(data.getAuthResponse().id_token)
-
+      // Google signup object
       signupObject = Object.assign({}, signupObject, {
         firstName: data.profileObj.givenName,
         lastName: data.profileObj.familyName,
@@ -192,8 +193,6 @@ export default class Signup extends Component {
   }
 
   render() {
-
-    console.log(this)
 
     const {
       knownLanguages,
@@ -219,9 +218,11 @@ export default class Signup extends Component {
       birthDate,
     } = this.state.validatedFields
 
+    // To do: refactor to use array.some method; more performant than array.map in this case
     let languagesAreValid = false
     this.state.knownLanguages.map(language => { if (language.level && language.language) { languagesAreValid = true } })
 
+    // To do: refactor to use array.some method; more performant than array.map in this case
     let emailFormIsValid = true
     Object.values(this.state.validatedFields).map(field => { if (field.uiState !== 'success') { emailFormIsValid = false } })
 

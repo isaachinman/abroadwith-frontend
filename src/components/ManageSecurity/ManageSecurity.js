@@ -15,7 +15,7 @@ import styles from './ManageSecurity.styles'
   user: state.privateData.user.data,
 }))
 @translate()
-export default class ContactInfo extends Component {
+export default class ManageSecurity extends Component {
 
   render() {
 
@@ -38,7 +38,7 @@ export default class ContactInfo extends Component {
   }
 }
 
-ContactInfo.propTypes = {
+ManageSecurity.propTypes = {
   user: PropTypes.object,
   dispatch: PropTypes.func,
   jwt: PropTypes.object,
