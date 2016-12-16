@@ -1,6 +1,13 @@
 /* eslint-disable */
 
-// This is the nunjucks translation setup file
+// This is the translation setup file
+
+// All that it does is move translations from the locales
+// repo into the build dir to be used by the application from there
+
+// Additionally, it compiles all namespaces of a language into a single
+// nested JSON file
+
 var languages = require('../src/data/constants/UILanguages.json')
 
 var path = require('path')
@@ -12,7 +19,6 @@ var translations = {}
 // Function to re-assemble translation json
 var loadLanguage = function(language) {
 
-  /* eslint-disable */
   var util = require('util')
   var spawn = require('child_process').spawn
   var ls = spawn('ls', ['locales/' + language])
@@ -23,22 +29,22 @@ var loadLanguage = function(language) {
 
     for (var i = 0; i < files.length; i++) {
       if (files[i].length > 1) {
+
+        // Assemble each namespace into a nested object
         translations[language][files[i]] = JSON.parse(fs.readFileSync('./locales/' + language + '/' + files[i] + '.json', 'utf8').toString())
       }
     }
 
+    // Write translations as a single JSON file per namespace, eg "en.json"
     fs.writeFileSync(rootDir+'/build/locales/'+language+'.json', JSON.stringify(translations[language]))
 
   })
-  /* eslint-enable */
 
 }
 
 // Load all UI languages
-/* eslint-disable */
 for (obj in languages) {
   loadLanguage(obj)
 }
-/* eslint-enable */
 
 module.exports = translations

@@ -9,6 +9,7 @@ import currency from './ui/currency'
 import locale from './ui/locale'
 import { loadUserWithAuth, loadHomestayWithAuth } from './privateData/'
 import { loadHomestay, loadUser } from './publicData'
+import verifications from './verifications'
 
 export default combineReducers({
   routing: routerReducer,
@@ -26,4 +27,5 @@ export default combineReducers({
     currency,
     locale,
   }),
+  verifications,
 })
