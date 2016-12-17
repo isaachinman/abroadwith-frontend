@@ -13,4 +13,7 @@ export default {
   tabItem: {
     margin: '5px 0',
   },
+  verificationIcon: {
+    margin: '0 5px',
+  },
 }

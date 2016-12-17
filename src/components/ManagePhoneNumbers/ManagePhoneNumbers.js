@@ -121,8 +121,6 @@ export default class ManagePhoneNumbers extends Component {
       verificationCode,
     } = this.state.validatedFields
 
-    console.log(this)
-
     return (
       <div>
 
