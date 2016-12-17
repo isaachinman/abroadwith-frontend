@@ -1,5 +1,5 @@
 export default {
-  addAPhone: {
+  marginTop10: {
     marginTop: 5,
   },
   modal: {

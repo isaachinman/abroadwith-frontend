@@ -76,7 +76,7 @@ export default class ManagePhoneNumbers extends Component {
     const newValidatedFields = this.state.validatedFields
 
     // Validate for Twilio's SMS code format
-    if (validator.isLength(verificationCode, { min: 3 }) && validator.isInt(verificationCode)) {
+    if (validator.isLength(verificationCode, { min: 5, max: 5 }) && validator.isInt(verificationCode)) {
       newValidatedFields.verificationCode = {
         uiState: 'success',
         value: verificationCode,
@@ -126,79 +126,76 @@ export default class ManagePhoneNumbers extends Component {
     return (
       <div>
 
-        {!user.phoneNumber && !user.verifications.phone &&
-          <div onClick={this.openModal} style={styles.addAPhone}>
+        {user.phoneNumber && user.verifications.phone &&
+          <div style={styles.marginTop10}>
+            {user.phoneNumber}
+          </div>
+        }
+
+        {!user.verifications.phone &&
+          <div onClick={this.openModal} style={styles.marginTop10}>
             <a>{t('common.add_a_phone')}</a>
-          </div>
-        }
-
-        {user.phoneNumber &&
-          <div onClick={this.openModal} style={styles.addAPhone}>
-            User has a phone
-          </div>
-        }
-
-        <Modal
-          onHide={this.closeModal}
-          show={this.state.modalIsOpen}
-          bsSize='small'
-        >
-          <div style={styles.modal}>
-            {page === 1 &&
-              <div>
-                <Row>
-                  <Col xs={12}>
-                    <h4>{t('common.whats_your_phone')}</h4>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs={12}>
-                    <ReactTelInput
-                      initialValue={user.phoneNumber}
-                      onChange={this.validatePhone}
-                      flagsImagePath='https://abroadwith.imgix.net/app/flags/flags.png'
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs={12}>
-                    <Button onClick={this.handleNewPhone} bsStyle='success' style={styles.btn} disabled={!phoneIsValid}>
-                      {t('common.request_verification_sms')}
-                    </Button>
-                  </Col>
-                </Row>
-              </div>
-            }
-            {page === 2 &&
-              <div>
-                <Row>
-                  <Col xs={12}>
-                    <p>
-                      {t('common.we_sent_verification_sms')}
-                    </p>
-                    <p>
-                      {t('common.please_enter_sms_code_and_click')}
-                    </p>
-                    <FormGroup>
-                      <FormControl
-                        type='text'
-                        style={styles.emailSignupInput}
-                        placeholder={t('common.verification_code')}
-                        onChange={event => this.handleVerificationChange(event)}
+            <Modal
+              onHide={this.closeModal}
+              show={this.state.modalIsOpen}
+              bsSize='small'
+            >
+              <div style={styles.modal}>
+                {page === 1 &&
+                <div>
+                  <Row>
+                    <Col xs={12}>
+                      <h4>{t('common.whats_your_phone')}</h4>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs={12}>
+                      <ReactTelInput
+                        initialValue={user.phoneNumber}
+                        onChange={this.validatePhone}
+                        flagsImagePath='https://abroadwith.imgix.net/app/flags/flags.png'
                       />
-                      <FormControl.Feedback />
-                    </FormGroup>
-                    <Button onClick={this.verifyPhone} bsStyle='success' style={styles.btn} disabled={verificationCode.uiState !== 'success'}>
-                      {t('common.verify')}
-                    </Button>
-                  </Col>
-                </Row>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs={12}>
+                      <Button onClick={this.handleNewPhone} bsStyle='success' style={styles.btn} disabled={!phoneIsValid}>
+                        {t('common.request_verification_sms')}
+                      </Button>
+                    </Col>
+                  </Row>
+                </div>
+                  }
+                {page === 2 &&
+                <div>
+                  <Row>
+                    <Col xs={12}>
+                      <p>
+                        {t('common.we_sent_verification_sms')}
+                      </p>
+                      <p>
+                        {t('common.please_enter_sms_code_and_click')}
+                      </p>
+                      <FormGroup validationState={verificationCode.uiState}>
+                        <FormControl
+                          type='text'
+                          style={styles.emailSignupInput}
+                          placeholder={t('common.verification_code')}
+                          onChange={event => this.handleVerificationChange(event)}
+                        />
+                        <FormControl.Feedback />
+                      </FormGroup>
+                      <Button onClick={this.verifyPhone} bsStyle='success' style={styles.btn} disabled={verificationCode.uiState !== 'success'}>
+                        {t('common.verify')}
+                      </Button>
+                    </Col>
+                  </Row>
+                </div>
+                  }
               </div>
-            }
+            </Modal>
           </div>
-        </Modal>
-
-
+        }
       </div>
     )
   }
