@@ -106,7 +106,7 @@ export default class Settings extends Component {
 
   updateUser = newObject => {
     const { dispatch, jwt, token } = this.props
-    dispatch(updateUser(jwt.rid, newObject, token, dispatch))
+    dispatch(updateUser(jwt.rid, newObject, token))
   }
 
   render() {

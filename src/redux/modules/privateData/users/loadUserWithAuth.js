@@ -64,66 +64,6 @@ export function isLoaded(globalState, userID) {
   return globalState.publicData.users[userID]
 }
 
-// export function update(userID, userObject, jwt) {
-//
-//   return async dispatch => {
-//     try {
-//
-//       const request = superagent.post(`${config.apiHost}/users/${userID}`)
-//
-//       // Determine what sort of login to perform
-//       if (email && password) {
-//         request.send({
-//           email,
-//           password,
-//         })
-//       } else if (email && facebookToken) {
-//         request.send({
-//           email,
-//           facebookToken,
-//         })
-//       } else if (email && googleToken) {
-//         request.send({
-//           email,
-//           googleToken,
-//         })
-//       }
-//
-//       request.withCredentials()
-//
-//       request.end((err, { body } = {}) => {
-//
-//         if (err) {
-//
-//           dispatch({ type: UPDATE_USER_FAIL, err })
-//
-//         } else if (body && body.token) {
-//
-//           // Login was successful
-//           const jwt = body.token
-//           dispatch({ type: UPDATE_USER_SUCCESS, jwt })
-//
-//           // Now fetch full private info on user
-//           dispatch(loadUserWithAuth(jwt))
-//
-//           // If user has a home, get that info too
-//           if (jwtDecode(jwt).hid) {
-//             dispatch(loadHomeWithAuth(jwt))
-//           }
-//         } else {
-//
-//           dispatch({ type: UPDATE_USER_FAIL, err: 'Unknown error' })
-//
-//         }
-//
-//       })
-//
-//     } catch (err) {
-//       dispatch({ type: UPDATE_USER_FAIL, err })
-//     }
-//   }
-// }
-
 export function load(jwt, callback) {
 
   const cb = typeof callback === 'function' ? callback : () => {}
@@ -162,31 +102,48 @@ export function load(jwt, callback) {
       cb()
     }
   }
-
-  // return {
-  //   types: [LOAD_USER_WITH_AUTH, LOAD_USER_WITH_AUTH_SUCCESS, LOAD_USER_WITH_AUTH_FAIL],
-  //   promise: client => client.get(`users/${jwtDecode(jwt).rid}`, { auth: jwt })
-  //     .then(() => {
-  //       // dispatch({ type: LOAD_USER_WITH_AUTH_SUCCESS, data: response })
-  //       callback()
-  //     }
-  //     ),
-  // }
 }
 
-export function update(userID, userObject, jwt, dispatch) {
+export function update(userID, userObject, jwt, callback) {
 
+  // Clean the data - API will reject (eg 400) the presence of some properties
   const cleanedData = userObject
   delete cleanedData.paymentMethods
   delete cleanedData.payoutMethods
   delete cleanedData.verifications
   delete cleanedData.email
 
-  return {
-    types: [UPDATE_USER, UPDATE_USER_SUCCESS, UPDATE_USER_FAIL],
-    promise: client => client.post(`users/${userID}`, { data: cleanedData, auth: jwt })
-      .then(() => dispatch(load(jwt))
-      ),
+  const cb = typeof callback === 'function' ? callback : () => {}
+
+  return async dispatch => {
+    try {
+
+      const request = superagent.post(`${config.apiHost}/users/${userID}`)
+
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+
+      request.send(cleanedData)
+
+      request.end(err => {
+
+        if (err) {
+
+          dispatch({ type: UPDATE_USER_FAIL, err })
+
+        } else {
+
+          // Login was successful
+          dispatch({ type: UPDATE_USER_SUCCESS })
+          load(jwt)
+          cb() // In this case, only trigger callback if update was successful
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: UPDATE_USER_FAIL, err })
+    }
   }
 
 }
