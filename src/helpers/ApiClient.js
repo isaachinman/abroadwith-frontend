@@ -39,9 +39,22 @@ export default class ApiClient {
           request.send(data)
         }
 
-        request.end((err, { body } = {}) => {
+        request.end((err, res, { body } = {}) => {
 
-          return err ? reject(body || err) : resolve(body)
+          console.log('body: ', body)
+          console.log('res: ', res)
+
+          let response
+
+          if (body && typeof body !== 'undefined') {
+            response = body
+          } else if (res.text) {
+            response = res.text
+          }
+
+          console.log('decided on: ', response)
+
+          return err ? reject(body || err) : resolve(response)
 
         })
       }))

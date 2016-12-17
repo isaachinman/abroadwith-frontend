@@ -1,4 +1,6 @@
 import jwtDecode from 'jwt-decode'
+import superagent from 'superagent'
+import config from 'config.js'
 
 // Set payout method as default
 const REQUEST_VERIFICATION_EMAIL = 'abroadwith/REQUEST_VERIFICATION_EMAIL'
@@ -27,6 +29,7 @@ export default function reducer(state = initialState, action = {}) {
         loading: true,
       }
     case REQUEST_VERIFICATION_SMS_SUCCESS:
+      console.log('action: ', action)
       return {
         ...state,
         loading: false,
@@ -53,11 +56,36 @@ export function requestVerificationEmail(jwt) {
   }
 }
 
-export function requestVerificationSMS(jwt) {
-  return {
-    types: [REQUEST_VERIFICATION_SMS, REQUEST_VERIFICATION_SMS_SUCCESS, REQUEST_VERIFICATION_SMS_FAIL],
-    promise: client => client.get(`users/${jwtDecode(jwt).rid}/verification/phone`, { auth: jwt }),
+export function requestVerificationSMS(jwt, cb) {
+
+  return async dispatch => {
+    try {
+
+      const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}/verification/phone`)
+
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+
+      request.end((err, res) => {
+
+        if (err) {
+
+          dispatch({ type: REQUEST_VERIFICATION_SMS_FAIL, err })
+
+        } else {
+
+          // Login was successful
+          dispatch({ type: REQUEST_VERIFICATION_SMS_SUCCESS, result: res.text })
+          cb() // In this case, only trigger callback if update was successful
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: REQUEST_VERIFICATION_SMS_FAIL, err })
+    }
   }
+
 }
 
 export function verifyPhone(jwt, verifyPhoneObject) {

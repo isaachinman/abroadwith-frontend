@@ -4,7 +4,9 @@ import { Col, ControlLabel, FormControl, FormGroup, Row } from 'react-bootstrap'
 import { translate } from 'react-i18next'
 import validator from 'validator'
 import Geosuggest from 'react-geosuggest'
-import ReactTelInput from 'react-telephone-input'
+
+// Relative imports
+import ManagePhoneNumbers from '../ManagePhoneNumbers/ManagePhoneNumbers'
 
 @translate()
 export default class ContactInfo extends Component {
@@ -118,8 +120,8 @@ export default class ContactInfo extends Component {
         <Col xs={12} sm={6} md={4}>
           <FormGroup>
             <ControlLabel>{t('users.phone_number_label')}</ControlLabel>
-            <ReactTelInput
-              flagsImagePath='https://abroadwith.imgix.net/app/flags/flags.png'
+            <ManagePhoneNumbers
+              {...this.props}
             />
           </FormGroup>
         </Col>
