@@ -1,6 +1,7 @@
 import jwtDecode from 'jwt-decode'
 import superagent from 'superagent'
 import config from 'config.js'
+import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 
 // Set payout method as default
 const REQUEST_VERIFICATION_EMAIL = 'abroadwith/REQUEST_VERIFICATION_EMAIL'
@@ -73,7 +74,7 @@ export function requestVerificationSMS(jwt, cb) {
 
         } else {
 
-          // Login was successful
+          // Request was successful
           dispatch({ type: REQUEST_VERIFICATION_SMS_SUCCESS, result: res.text })
           cb() // In this case, only trigger callback if update was successful
 
@@ -89,8 +90,38 @@ export function requestVerificationSMS(jwt, cb) {
 }
 
 export function verifyPhone(jwt, verifyPhoneObject) {
-  return {
-    types: [VERIFY_PHONE, VERIFY_PHONE_SUCCESS, VERIFY_PHONE_FAIL],
-    promise: client => client.post(`users/${jwtDecode(jwt).rid}/verification/phone`, { data: verifyPhoneObject, auth: jwt }),
+
+  return async dispatch => {
+    try {
+
+      dispatch({ type: VERIFY_PHONE })
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/verification/phone`)
+
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+      request.send(verifyPhoneObject)
+
+      request.end((err) => {
+
+        if (err) {
+
+          dispatch({ type: VERIFY_PHONE_FAIL, err })
+
+        } else {
+
+          // Verification was successful
+          dispatch({ type: VERIFY_PHONE_SUCCESS })
+
+          // Reload the user object
+          dispatch(loadUserWithAuth(jwt))
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: VERIFY_PHONE_FAIL, err })
+    }
   }
+
 }

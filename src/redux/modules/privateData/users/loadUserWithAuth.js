@@ -68,6 +68,8 @@ export function load(jwt, callback) {
 
   const cb = typeof callback === 'function' ? callback : () => {}
 
+  console.log('callback inside load user function: ', cb)
+
   return async dispatch => {
     try {
 
@@ -134,8 +136,7 @@ export function update(userID, userObject, jwt, callback) {
 
           // Login was successful
           dispatch({ type: UPDATE_USER_SUCCESS })
-          load(jwt)
-          cb() // In this case, only trigger callback if update was successful
+          dispatch(load(jwt, cb))  // In this case, only trigger callback if update was successful
 
         }
 
