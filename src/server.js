@@ -17,6 +17,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/server'
 import i18nMiddleware from 'i18next-express-middleware'
 import { I18nextProvider } from 'react-i18next'
+import imageUploadInstaller from 'utils/upload/ImageUploadInstaller'
 
 // Relative imports
 import ApiClient from './helpers/ApiClient'
@@ -43,6 +44,7 @@ const proxy = httpProxy.createProxyServer({
 app.use(compression())
 app.use(cookieParser())
 app.use(i18nMiddleware.handle(i18n))
+imageUploadInstaller(app)
 
 app.use(Express.static(path.join(__dirname, '..', 'build')))
 
@@ -85,7 +87,7 @@ app.use((req, res) => {
 
   // Uncomment these lines to set a test token
   /* eslint-disable */
-  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiWjBvaGFKTVI1NzAzOGZpMElBNGFjdyIsImlhdCI6MTQ4MTI5Mzc5MywiZXhwIjoxNDgxODk4NTkzLCJuYmYiOjE0ODEyOTM2NzMsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IklzYWFjIiwicmlkIjoxMDA0OTUsImNiayI6Mywid2hvc3QiOmZhbHNlLCJpbWciOiIvdXNlcnMvMTAwNDk1LzE0ODEyODcyNTg2MDEuanBlZyJ9.rT47kbzAn2Lyf20I151fNIknf4qD-OmQMW7s9SGTowH0ypRk1l8_RGa_FaYJrN0P6EtjIjkTEh5hitOeZeU98lntrPPGmdVQj82xGkgbjKLCTQYmZdutd14EaHPXs2oE-HDEphMr-oB5F_U0pdX8--bUS7LpVLQn19DYdx7QzEo0_Cds8oJAyeQzvPDecmAAdLxWUJTunGi6MFeickeNPrXOhBTXRCAb28o8D7sEqO-p6BrWJl-NJBmxjigbjZppPkKi0n27yZNqpJMRGLWOsAWBJ7j1P3kNEvVZnxdSfR8vUqiZDpatWSi--NV5nQ7CB1O739d8qwh5jezbWsT8jg'
+  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiT0I1UjlEaUJjY3hjYjY1Vzk2bnVXZyIsImlhdCI6MTQ4MjAwNjkyMSwiZXhwIjoxNDgyNjExNzIxLCJuYmYiOjE0ODIwMDY4MDEsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IklzYWFjIiwicmlkIjoxMDA1MDEsImNiayI6MSwid2hvc3QiOmZhbHNlLCJpbWciOiIvdXNlcnMvMTAwNTAxLzE0ODE3OTYzOTI5OTQuanBlZyJ9.ktPq9M1HsuuZfhZsv4xFT3MbOqdOWArZB0bZEiGrvJdELKt_h8njve_fofZpq52Fa6Er2JvCYzDt6qAFWN0JP-xqz0HmmYWx5Nl0UirXk3ni5ojqQxUJ58GnEgLtU6dW_sCl85kjJb-qucwagGW7GvkyqK05jVTXwfB0Yvkolg4H03FGb6XpuzjXctP0MjwPnUObvWyy4M7lq0r94cXvTzoNe6XvV71vY0dsxnFYx9IzPqOQonSbKODbZ4oC0MhEwsPnacnCF0IqUpj-4upPcHUB-ycGsHoyvPbdyO8J5ajobVUPP3PsyP2kCFTHX6vAlfmrPX7NB7fG0krgXAeLWg'
   // const expiryDate = new Date()
   // expiryDate.setDate(expiryDate.getDate() + 7)
   // res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })

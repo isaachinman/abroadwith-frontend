@@ -16,6 +16,7 @@ import ContactInfo from 'components/ContactInfo/ContactInfo'
 import ManageLanguages from 'components/ManageLanguages/ManageLanguages'
 import ManageNotifications from 'components/ManageNotifications/ManageNotifications'
 import ManageSecurity from 'components/ManageSecurity/ManageSecurity'
+import ManageVerifications from 'components/ManageVerifications/ManageVerifications'
 
 // Relative imports
 import styles from './Settings.styles.js'
@@ -186,7 +187,8 @@ export default class Settings extends Component {
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='verifications'>
-                    Manage verifications Module
+                    <h3>{t('admin.verifications_title')}</h3>
+                    <ManageVerifications {...this.props} />
                   </Tab.Pane>
                 </Tab.Content>
               </Col>
