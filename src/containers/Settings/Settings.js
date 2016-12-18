@@ -136,6 +136,7 @@ export default class Settings extends Component {
                   <NavItem eventKey='languages' style={styles.tabItem}>{t('admin.languages_tabname')}</NavItem>
                   <NavItem eventKey='notifications' style={styles.tabItem}>{t('admin.notifications_tabname')}</NavItem>
                   <NavItem eventKey='payments' style={styles.tabItem}>{t('admin.payments_tabname')}</NavItem>
+                  {jwt.whost && <NavItem eventKey='payouts' style={styles.tabItem}>{t('admin.payouts_tabname')}</NavItem>}
                   <NavItem eventKey='privacy-security' style={styles.tabItem}>{t('admin.privacy_tabname')}</NavItem>
                   <NavItem eventKey='verifications' style={styles.tabItem}>{t('admin.verifications_tabname')}</NavItem>
                 </Nav>
@@ -175,11 +176,18 @@ export default class Settings extends Component {
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='payments'>
+                    <h3>{t('admin.payments_payment_methods')}</h3>
+                    <h5>{t('admin.payments_payment_methods_subtitle')}</h5>
                     <PaymentMethods {...this.props} />
-                    {jwt.whost &&
-                      <PayoutMethods {...this.props} />
-                    }
                   </Tab.Pane>
+
+                  {jwt.whost &&
+                    <Tab.Pane eventKey='payouts'>
+                      <h3>{t('admin.payments_payout_methods')}</h3>
+                      <h5>{t('admin.payments_payout_methods_subtitle')}</h5>
+                      <PayoutMethods {...this.props} />
+                    </Tab.Pane>
+                  }
 
                   <Tab.Pane eventKey='privacy-security'>
                     <h3>{t('admin.privacy_title')}</h3>

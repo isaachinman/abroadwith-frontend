@@ -1,4 +1,7 @@
 import jwtDecode from 'jwt-decode'
+import superagent from 'superagent'
+import config from 'config'
+import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 
 // Set payout method as default
 const SET_PAYOUT_METHOD_DEFAULT = 'abroadwith/SET_PAYOUT_METHOD_DEFAULT'
@@ -23,9 +26,34 @@ export function setPayoutMethodDefault(jwt, payoutMethodID) {
 }
 
 export function deletePaymentMethod(jwt, paymentMethodID) {
-  return {
-    types: [DELETE_PAYMENT_METHOD, DELETE_PAYMENT_METHOD_SUCCESS, DELETE_PAYMENT_METHOD_FAIL],
-    promise: client => client.delete(`users/${jwtDecode(jwt).rid}/paymentMethods/${paymentMethodID}`, { auth: jwt }),
+
+  return async dispatch => {
+    try {
+
+      dispatch({ type: DELETE_PAYMENT_METHOD })
+
+      const request = superagent.delete(`${config.apiHost}/users/${jwtDecode(jwt).rid}/paymentMethods/${paymentMethodID}`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+
+      request.end(err => {
+
+        if (err) {
+
+          dispatch({ type: DELETE_PAYMENT_METHOD_FAIL, err })
+
+        } else {
+
+          // Login was successful
+          dispatch({ type: DELETE_PAYMENT_METHOD_SUCCESS })
+          dispatch(loadUserWithAuth(jwt))  // In this case, only trigger callback if update was successful
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: DELETE_PAYMENT_METHOD_FAIL, err })
+    }
   }
 }
 

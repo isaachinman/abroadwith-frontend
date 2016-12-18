@@ -1,9 +1,19 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { Col, Row } from 'react-bootstrap'
+import { Accordion, Col, Row, Panel } from 'react-bootstrap'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
+import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { getBraintreeClientToken } from 'redux/modules/payments/client-token'
+import { deletePaymentMethod } from 'redux/modules/payments/payments'
+import sendPaymentNonce from 'redux/modules/payments/nonce'
+import $ from 'jquery'
+
+// Relative imports
+import CreditCard from './subcomponents/CreditCard'
+import PayPal from './subcomponents/PayPal'
+import styles from './PaymentMethods.styles.js'
+
 
 @connect(state => ({
   payments: state.payments,
@@ -28,14 +38,16 @@ export default class PaymentMethods extends Component {
 
   componentDidUpdate = () => {
 
-    const { t } = this.props
+    const { t, token, dispatch } = this.props
     const { clientToken } = this.props.payments
 
     if (clientToken.loaded) {
 
+      require.ensure(['utils/braintree/braintree'], function() { // eslint-disable-line
 
-        // Setup braintree form
-        braintree.setup(clientToken.value, 'custom', { // eslint-disable-line
+        const braintree = require('utils/braintree/braintree') // eslint-disable-line
+
+        const braintreeSetupObject = { // eslint-disable-line
           id: 'add-payment-form',
           hostedFields: {
             number: {
@@ -65,110 +77,81 @@ export default class PaymentMethods extends Component {
           dataCollector: {
             paypal: true,
           },
-          onPaymentMethodReceived(obj) {
-            console.log(obj)
-          // sendPaymentNonce(obj.nonce, function () {
-          //   callback()
-          //   $('#add-payment-method').remove()
-          // })
+          onPaymentMethodReceived: (obj) => {
+            dispatch(sendPaymentNonce(token, obj.nonce, () => {
+              dispatch(loadUserWithAuth(token))
+              window.braintreeIntegration.teardown()
+              braintree.setup(clientToken.value, 'custom', braintreeSetupObject)
+              $('#add-new-paypal').addClass('hide')
+            }))
           },
           onError(error) {
             console.log(error)
           },
           onReady(integration) {
 
-            console.log(integration)
+            window.braintreeIntegration = integration
+
+            /* eslint-disable */
+            var doPaypalThingOnce = true
+
+            $("#paypal-container").bind("DOMSubtreeModified", function() {
+
+              if (doPaypalThingOnce) {
+                $('#add-new-paypal').removeClass('hide')
+                $('#bt-pp-cancel').click(function() {
+                  $('#add-new-paypal').addClass('hide')
+                })
+              }
+              doPaypalThingOnce = false
+
+            })
+            /* eslint-disable */
 
           },
-        })
+        }
 
+        // Setup braintree form
+        braintree.setup(clientToken.value, 'custom', braintreeSetupObject)
+
+      })
 
     }
 
   }
 
+  deletePaymentMethod = paymentMethodID => {
+    const { dispatch, token } = this.props
+    dispatch(deletePaymentMethod(token, paymentMethodID))
+  }
+
   render() {
 
-    console.log(this)
-
-    const { t } = this.props
+    const { user, t } = this.props
 
     return (
       <Row>
+        {user.paymentMethods.map(paymentMethod => {
+          return paymentMethod.type === 'PAYPAL' ? <PayPal key={paymentMethod.id} {...paymentMethod} deletePaymentMethod={this.deletePaymentMethod} /> : <CreditCard key={paymentMethod.id} {...paymentMethod} deletePaymentMethod={this.deletePaymentMethod} />
+        })}
         <Col xs={12} md={6} lg={3}>
-          Braintree init here
-          <form id='add-payment-form' className='center-align relative'>
-
-            <div id='braintree-preloader' className='preloader-container preloader-container--absolute'>
-              <div className='preloader-wrapper big active'>
-                <div className='spinner-layer spinner-blue-only'>
-                  <div className='circle-clipper left'>
-                    <div className='circle' />
-                  </div>
-                  <div className='gap-patch'>
-                    <div className='circle' />
-                  </div>
-                  <div className='circle-clipper right'>
-                    <div className='circle' />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className='title'>{t('common.Add_payment_method')}</div>
-            <ul className='collapsible' data-collapsible='accordion'>
-              <li>
-                <div className='collapsible-header'>{t('common.Credit_card')}</div>
-                <div className='collapsible-body'>
-                  <div className='row'>
-
-                    <div className='col s12'>
-
-                      <div className='input-field'>
-                        <div id='card-number' className='braintree-input' />
-                      </div>
-                    </div>
-
-                    <div className='col s6'>
-                      <div className='input-field'>
-                        <div id='cvv' className='braintree-input' />
-                      </div>
-                    </div>
-
-                    <div className='col s6'>
-                      <div className='input-field'>
-                        <div id='expiration-date' className='braintree-input' />
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <div className='row'>
-                    <div className='col s12'>
-                      <input id='add-new-card' className='btn btn-flat btn-primary' type='submit' value={t('common.add_card_button')} onClick={this.showPreloader} />
-                    </div>
-                  </div>
-
-                </div>
-              </li>
-              <li>
-                <div className='collapsible-header'>{t('common.PayPal')}</div>
-                <div className='collapsible-body'>
-
-                  <div id='paypal-container' className='row no-margin-bottom section center-align' />
-
-                  <div className='row'>
-                    <div className='col s12'>
-                      <input id='add-new-paypal' className='btn btn-flat btn-primary hide' type='submit' value={t('common.add_paypal_button')} onClick={this.showPreloader} />
-                    </div>
-                  </div>
-
-                </div>
-              </li>
-            </ul>
-
-          </form>
-
+          <Panel>
+            <h4>{t('common.Add_payment_method')}</h4>
+            <form id='add-payment-form'>
+              <Accordion>
+                <Panel header={t('common.Credit_card')} eventKey='credit-card'>
+                  <div id='card-number' className='form-control' style={styles.ccFullWidth} />
+                  <div id='cvv' className='form-control' style={styles.ccHalfWidth} />
+                  <div id='expiration-date' className='form-control' style={Object.assign({}, styles.ccHalfWidth, { marginLeft: 5 })} />
+                  <input id='add-new-card' className='btn btn-flat btn-primary' type='submit' value={t('common.add_card_button')} onClick={this.showPreloader} />
+                </Panel>
+                <Panel header={t('common.PayPal')} eventKey='paypal'>
+                  <div id='paypal-container' style={styles.paypalContainer} />
+                  <input id='add-new-paypal' className='btn btn-flat btn-primary hide' type='submit' value={t('common.add_paypal_button')} onClick={this.showPreloader} />
+                </Panel>
+              </Accordion>
+            </form>
+          </Panel>
         </Col>
       </Row>
     )
