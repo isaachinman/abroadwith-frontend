@@ -9,6 +9,7 @@ import currency from './ui/currency'
 import locale from './ui/locale'
 import { loadUserWithAuth, loadHomestayWithAuth } from './privateData/'
 import { loadHomestay, loadUser } from './publicData'
+import clientToken from './payments/client-token'
 import verifications from './verifications'
 
 export default combineReducers({
@@ -26,6 +27,9 @@ export default combineReducers({
   ui: combineReducers({
     currency,
     locale,
+  }),
+  payments: combineReducers({
+    clientToken,
   }),
   verifications,
 })

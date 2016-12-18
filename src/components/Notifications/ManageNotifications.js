@@ -30,10 +30,6 @@ export default class ContactInfo extends Component {
 
     const { user } = this.props
 
-    console.log('event: ', event)
-    console.log('type: ', type)
-    console.log('field: ', field)
-
     // Get old state
     const modifiedValidation = this.state.validatedFields
 

@@ -17,6 +17,8 @@ import ManageLanguages from 'components/ManageLanguages/ManageLanguages'
 import ManageNotifications from 'components/ManageNotifications/ManageNotifications'
 import ManageSecurity from 'components/ManageSecurity/ManageSecurity'
 import ManageVerifications from 'components/ManageVerifications/ManageVerifications'
+import PaymentMethods from 'components/PaymentMethods/PaymentMethods'
+import PayoutMethods from 'components/PayoutMethods/PayoutMethods'
 
 // Relative imports
 import styles from './Settings.styles.js'
@@ -96,9 +98,6 @@ export default class Settings extends Component {
   }
 
   saveLanguages = () => {
-    console.log(this.state)
-    console.log(filterLanguageArray(this.state.learningLanguages))
-
     this.updateUser(Object.assign({}, this.props.user, {
       userKnownLanguages: filterLanguageArray(this.state.knownLanguages),
       userLearningLanguages: filterLanguageArray(this.state.learningLanguages),
@@ -112,7 +111,7 @@ export default class Settings extends Component {
 
   render() {
 
-    const { uiLanguage, t } = this.props
+    const { uiLanguage, jwt, t } = this.props
     const { knownLanguages, learningLanguages } = this.state
 
     // Debounce autosave functionality to a reasonable rate
@@ -176,7 +175,10 @@ export default class Settings extends Component {
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='payments'>
-                    Manage Payments Module
+                    <PaymentMethods {...this.props} />
+                    {jwt.whost &&
+                      <PayoutMethods {...this.props} />
+                    }
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='privacy-security'>

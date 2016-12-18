@@ -25,8 +25,7 @@ export default class ManageVerifications extends Component {
     successModalIsOpen: false,
   }
 
-  onDrop = (acceptedFiles, rejectedFiles) => {
-    console.log(acceptedFiles, rejectedFiles)
+  onDrop = acceptedFiles => {
 
     if (acceptedFiles.length > 0) {
 
@@ -59,8 +58,6 @@ export default class ManageVerifications extends Component {
   }
 
   render() {
-
-    console.log(this)
 
     const {
       user,

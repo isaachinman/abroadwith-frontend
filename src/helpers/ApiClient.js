@@ -41,9 +41,6 @@ export default class ApiClient {
 
         request.end((err, res, { body } = {}) => {
 
-          console.log('body: ', body)
-          console.log('res: ', res)
-
           let response
 
           if (body && typeof body !== 'undefined') {
@@ -51,8 +48,6 @@ export default class ApiClient {
           } else if (res.text) {
             response = res.text
           }
-
-          console.log('decided on: ', response)
 
           return err ? reject(body || err) : resolve(response)
 

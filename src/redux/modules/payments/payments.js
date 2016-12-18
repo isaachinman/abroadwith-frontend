@@ -15,11 +15,6 @@ const DELETE_PAYOUT_METHOD = 'abroadwith/DELETE_PAYOUT_METHOD'
 const DELETE_PAYOUT_METHOD_SUCCESS = 'abroadwith/DELETE_PAYOUT_METHOD_SUCCESS'
 const DELETE_PAYOUT_METHOD_FAIL = 'abroadwith/DELETE_PAYOUT_METHOD_FAIL'
 
-// --------------------------------------------------------------------------------
-// Payment and payout methods are within the user object,
-// so there is no need to have their own reducer, just actions
-// --------------------------------------------------------------------------------
-
 export function setPayoutMethodDefault(jwt, payoutMethodID) {
   return {
     types: [SET_PAYOUT_METHOD_DEFAULT, SET_PAYOUT_METHOD_DEFAULT_SUCCESS, SET_PAYOUT_METHOD_DEFAULT_FAIL],
