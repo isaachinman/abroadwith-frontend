@@ -56,7 +56,6 @@ export default class ManagePhoneNumbers extends Component {
       newUserObject.phoneNumber = this.state.phoneNumber
 
       dispatch(updateUser(jwt.rid, newUserObject, token, () => {
-        console.log('inside call back, about to make sms request')
         dispatch(requestVerificationSMS(token, () => {
           this.setState({ page: 2 })
         }))

@@ -68,8 +68,6 @@ export function load(jwt, callback) {
 
   const cb = typeof callback === 'function' ? callback : () => {}
 
-  console.log('callback inside load user function: ', cb)
-
   return async dispatch => {
     try {
 
@@ -121,9 +119,7 @@ export function update(userID, userObject, jwt, callback) {
     try {
 
       const request = superagent.post(`${config.apiHost}/users/${userID}`)
-
       request.set({ Authorization: `Bearer ${(jwt)}` })
-
       request.send(cleanedData)
 
       request.end(err => {
