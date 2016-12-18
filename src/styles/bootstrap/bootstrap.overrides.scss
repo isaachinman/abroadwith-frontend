@@ -17,6 +17,9 @@
 @import 'src/styles/react-dates/DateRangePicker.scss';
 @import 'src/styles/react-dates/DateRangePickerInput.scss';
 
+// Braintree imports
+@import 'src/styles/braintree/braintree.scss';
+
 // Custom AirBnb Datepicker styles
 .DayPicker__week-header, .CalendarMonth__caption {
  -webkit-user-select: none; /* Chrome/Safari */
@@ -62,8 +65,21 @@ color: lighten(#3b5998, 10%);
 color: lighten(#dd4b39, 5%);
 }
 
+.panel-heading {
+  position: relative;
+  min-height: 40px;
+}
 .panel-title a {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  line-height: 40px;
+  text-indent: 20px;
+  user-select: none;
   &:hover {
     text-decoration: none;
+    cursor: pointer;
   }
 }
