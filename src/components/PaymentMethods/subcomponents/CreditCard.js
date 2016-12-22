@@ -20,7 +20,7 @@ export default class CreditCard extends Component {
     const { t, id, lastFour, expiry, deletePaymentMethod } = this.props
 
     return (
-      <Col xs={12} md={6} lg={3}>
+      <Col xs={12} md={6} lg={4}>
         <Panel style={styles.panel}>
           <div>XXXXXXXXXXXX{lastFour}</div>
           <div>{expiry}</div>
