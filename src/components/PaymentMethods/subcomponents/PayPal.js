@@ -20,7 +20,7 @@ export default class PayPal extends Component {
     const { t, email, id, deletePaymentMethod } = this.props
 
     return (
-      <Col xs={12} md={6} lg={3}>
+      <Col xs={12} md={6} lg={4}>
         <Panel style={styles.panel}>
           <div style={styles.email}>{email}</div>
           <div style={styles.connected}>{t('common.Connected')}</div>

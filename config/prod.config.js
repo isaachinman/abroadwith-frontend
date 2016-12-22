@@ -37,6 +37,7 @@ module.exports = {
     publicPath: '/dist/'
   },
   module: {
+    noParse: [/braintree-web/],
     loaders: [
       { test: /\.jsx?$/, exclude: /node_modules/, loaders: [strip.loader('debug'), 'babel']},
       { test: /\.json$/, loader: 'json-loader' },
