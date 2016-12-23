@@ -34,7 +34,7 @@ export default function Html(props) {
 
         <link rel='icon' type='image/png' sizes='32x32' href='https://abroadwith.imgix.net/app/favicon/favicon.png' />
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700' type='text/css' />
-        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' type='text/css' async defer />
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' type='text/css' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         {/* styles (will be present only in production with webpack extract text plugin) */}
         {Object.keys(assets.styles).map((style, key) =>
@@ -53,9 +53,9 @@ export default function Html(props) {
       </head>
       <body style={styles.app}>
         <div id='content' dangerouslySetInnerHTML={{ __html: content }} />
-        <script dangerouslySetInnerHTML={{ __html: `window.__data=${serialize(store.getState())};` }} charSet='UTF-8' />
-        <script dangerouslySetInnerHTML={{ __html: `window.__i18n=${serialize(i18n)};` }} charSet='UTF-8' />
-        <script dangerouslySetInnerHTML={{ __html: `window.__apiHost='${config.apiHost}'` }} charSet='UTF-8' />
+        <script dangerouslySetInnerHTML={{ __html: `window.__data=${serialize(store.getState())};` }} />
+        <script dangerouslySetInnerHTML={{ __html: `window.__i18n=${serialize(i18n)};` }} />
+        <script dangerouslySetInnerHTML={{ __html: `window.__apiHost='${config.apiHost}'` }} />
         <script src={assets.javascript.main} charSet='UTF-8' />
         <script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places' />
       </body>
