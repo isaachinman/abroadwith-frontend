@@ -51,6 +51,11 @@ export default (store) => {
       cb(null, require('../containers/Settings/Settings'))
     }, 'settings')
   }
+  const getPrivacyPolicy = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/PrivacyPolicy/PrivacyPolicy'))
+    }, 'privacy-policy')
+  }
 
   // --------------------------------------------------------------------------------
   // Please keep routes in alphabetical order
@@ -74,6 +79,8 @@ export default (store) => {
       </Route>
 
       <Route path='login' component={LoginPage} />
+
+      <Route path='privacy' getComponent={getPrivacyPolicy} />
 
       <Route path='terms' getComponent={getTermsAndConditions} />
 

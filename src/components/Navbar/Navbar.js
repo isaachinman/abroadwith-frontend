@@ -5,14 +5,18 @@ import { IndexLink } from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Login, Logo, Signup } from 'components'
 import { Modal, Navbar as BootstrapNavbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
-import * as authActions from 'redux/modules/auth'
+import { logout } from 'redux/modules/auth'
+import { createHomestay } from 'redux/modules/privateData/homes/homeManagement'
 import memobind from 'memobind'
 import { translate } from 'react-i18next'
 
 // Relative imports
 import styles from './Navbar.styles'
 
-@connect(() => authActions)
+@connect(state => ({
+  jwt: state.auth.jwt,
+  token: state.auth.token,
+}))
 @translate()
 export default class Navbar extends Component {
 
@@ -31,8 +35,7 @@ export default class Navbar extends Component {
   }
 
   handleLogout = () => {
-    const { dispatch, logout } = this.props
-    dispatch(logout())
+    this.props.dispatch(logout())
   }
 
   openModal = (modalName) => {
@@ -49,7 +52,9 @@ export default class Navbar extends Component {
 
   render() {
 
-    const { jwt, user, t, title } = this.props
+    const { dispatch, jwt, user, t, token, title } = this.props
+
+    console.log('token: ', token)
 
     return (
       <span>
@@ -76,6 +81,7 @@ export default class Navbar extends Component {
 
             {jwt &&
               <Nav navbar pullRight>
+                <NavItem onClick={() => dispatch(createHomestay(token))}>{t('common.navbar_become_host')}</NavItem>
                 <NavDropdown title={user ? user.firstName : jwt.name} id='nav-dropdown'>
                   <LinkContainer to='/settings'>
                     <MenuItem>{t('common.navbar_settings')}</MenuItem>
@@ -124,6 +130,7 @@ export default class Navbar extends Component {
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
   jwt: PropTypes.object,
+  token: PropTypes.string,
   logout: PropTypes.func,
   dispatch: PropTypes.func,
   user: PropTypes.object,
