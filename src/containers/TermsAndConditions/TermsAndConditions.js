@@ -1,5 +1,5 @@
-/* eslint-disable */
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import Helmet from 'react-helmet'
 import { Grid, Row } from 'react-bootstrap'
 
 // Relative imports
@@ -9,6 +9,8 @@ export default class TermsAndConditions extends Component {
   render() {
     return (
       <Grid style={styles}>
+        <Helmet title='Terms' />
+        {/* eslint-disable */}
         <Row>
           <h1>Terms And Conditions</h1>
           <h3>1. Our Service</h3>
@@ -198,6 +200,7 @@ export default class TermsAndConditions extends Component {
           <p>These Terms and Conditions are governed by the applicable laws of the Federal Republic of Germany, and they will be interpreted in accordance with German law. &#8232;</p>
           <p>In case of conflict between the English original version of the terms and conditions and other languages the English version will prevail. You and we agree to submit submit to the personal and non-exclusive jurisdiction of the courts in Germany for resolving any dispute between the parties.</p>
         </Row>
+        {/* eslint-enable */}
       </Grid>
     )
   }

@@ -45,6 +45,9 @@ export default class Footer extends Component {
               </FormControl>
             </Col>
             <Col xs={12} sm={4}>
+              <Link to='privacy'>
+                <span>Privacy</span>
+              </Link>
               <Link to='terms'>
                 <span>Terms & Conditions</span>
               </Link>
