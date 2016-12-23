@@ -2,9 +2,6 @@
 1. See about possibility of doing away with cbk by just checking it directly in the user object
 2. For that matter, see about making JWT completely immutable
 
-// SETTINGS
-1. Finish payments and verifications module (probably get rid of verifications tab altogether)
-
 // REDUX
 1. Move all the various files on the top level of the redux dir into appropriate either public or private data dirs
 2. Either decide on dashes or camel case and be consistent
