@@ -3,9 +3,11 @@ require('babel-polyfill')
 const environment = {
   development: {
     isProduction: false,
+    img: 'http://img.test-abroadwith.com',
   },
   production: {
     isProduction: true,
+    img: 'https://abroadwith.imgix.net',
   },
 }[process.env.NODE_ENV || 'development']
 

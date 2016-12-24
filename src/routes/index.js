@@ -41,6 +41,11 @@ export default (store) => {
       cb(null, require('../containers/FAQ/FAQ'))
     }, 'faq')
   }
+  const getInbox = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/Inbox/Inbox'))
+    }, 'inbox')
+  }
   const getTermsAndConditions = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/TermsAndConditions/TermsAndConditions'))
@@ -74,6 +79,7 @@ export default (store) => {
       <Route path='homestay/:homeID' component={Homestay} />
 
       <Route onEnter={requireLogin}>
+        <Route path='inbox' getComponent={getInbox} />
         <Route path='loginSuccess' component={LoginSuccess} />
         <Route path='settings' getComponent={getSettings} />
       </Route>
