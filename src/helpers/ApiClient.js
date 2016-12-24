@@ -49,6 +49,12 @@ export default class ApiClient {
             response = res.text
           }
 
+          try {
+            response = JSON.parse(response)
+          } catch (e) {
+            // Not JSON, don't parse
+          }
+
           return err ? reject(body || err) : resolve(response)
 
         })

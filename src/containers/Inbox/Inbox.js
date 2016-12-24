@@ -24,6 +24,7 @@ import Thread from './subcomponents/Thread'
   state => ({
     messages: state.messaging.messages,
     token: state.auth.token,
+    jwt: state.auth.jwt,
   })
 )
 @translate()
@@ -39,7 +40,7 @@ export default class Inbox extends Component {
 
   render() {
 
-    const { t, token, messages } = this.props
+    const { t, token, messages, jwt } = this.props
 
     const { activeThread } = this.state
 
@@ -52,7 +53,7 @@ export default class Inbox extends Component {
 
         <Tab.Container id='inbox' activeKey={this.state.activeThread} onSelect={this.handleSelect}>
           <Row>
-            <Col xs={4}>
+            <Col xs={4} style={Object.assign({}, styles.inboxContainer, styles.sidebar)}>
               <Nav bsStyle='pills' stacked>
                 {messages.map(message => {
                   return (
@@ -69,11 +70,11 @@ export default class Inbox extends Component {
                 })}
               </Nav>
             </Col>
-            <Col xs={8}>
+            <Col xs={8} style={styles.inboxContainer}>
               <Tab.Content animation>
                 {messages.filter(message => message.id === activeThread).map(message => {
                   return (
-                    <Thread key={`thread-${message.id}`} thread={message} token={token} />
+                    <Thread key={`thread-${message.id}`} thread={message} jwt={jwt} token={token} />
                   )
                 })}
               </Tab.Content>
@@ -87,6 +88,7 @@ export default class Inbox extends Component {
 
 Inbox.propTypes = {
   messages: PropTypes.array,
+  jwt: PropTypes.object,
   t: PropTypes.func,
   token: PropTypes.string,
 }

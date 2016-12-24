@@ -1,4 +1,6 @@
 import jwtDecode from 'jwt-decode'
+import superagent from 'superagent'
+import config from 'config'
 
 // Get all messages (top level info)
 const GET_ALL_MESSAGES = 'abroadwith/GET_ALL_MESSAGES'
@@ -26,7 +28,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        messages: JSON.parse(action.result),
+        messages: action.result,
       }
     case GET_ALL_MESSAGES_FAIL:
       return {
@@ -46,7 +48,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        [`thread_${action.result.id}`]: JSON.parse(action.result),
+        [`thread_${action.threadID}`]: action.result,
       }
     case LOAD_MESSAGE_THREAD_FAIL:
       return {
@@ -70,14 +72,39 @@ export function loadMessages(jwt) {
 
 export function loadMessageThread(jwt, threadID, size, timestamp) {
 
-  let url = `users/${jwtDecode(jwt).rid}/messages/${threadID}?size=${size}`
+  console.log('inside message load function')
+
+  let url = `${config.apiHost}/users/${jwtDecode(jwt).rid}/messages/${threadID}?size=${size}`
   if (timestamp) {
     url += `&timestamp=${timestamp}`
   }
 
-  return {
-    types: [LOAD_MESSAGE_THREAD, LOAD_MESSAGE_THREAD_SUCCESS, LOAD_MESSAGE_THREAD_FAIL],
-    promise: client => client.get(url, { auth: jwt }),
+  return async dispatch => {
+    try {
+
+      dispatch({ type: LOAD_MESSAGE_THREAD })
+
+      const request = superagent.get(url)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+
+      request.end((err, res) => {
+
+        if (err) {
+
+          dispatch({ type: LOAD_MESSAGE_THREAD_FAIL, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: LOAD_MESSAGE_THREAD_SUCCESS, threadID, result: res.body })
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: LOAD_MESSAGE_THREAD_FAIL, err })
+    }
   }
 
 }
