@@ -88,6 +88,7 @@ color: lighten(#dd4b39, 5%);
 #inbox {
   ul.nav-stacked {
     li + li {
+      cursor: 'pointer';
       margin-top: 0;
     }
     a {
