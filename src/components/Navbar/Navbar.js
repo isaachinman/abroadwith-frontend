@@ -6,6 +6,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Login, Logo, Signup } from 'components'
 import { Modal, Navbar as BootstrapNavbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { logout } from 'redux/modules/auth'
+import FontAwesome from 'react-fontawesome'
 import { createHomestay } from 'redux/modules/privateData/homes/homeManagement'
 import memobind from 'memobind'
 import { translate } from 'react-i18next'
@@ -54,8 +55,6 @@ export default class Navbar extends Component {
 
     const { dispatch, jwt, user, t, token, title } = this.props
 
-    console.log('token: ', token)
-
     return (
       <span>
         <BootstrapNavbar fixedTop>
@@ -82,11 +81,25 @@ export default class Navbar extends Component {
             {jwt &&
               <Nav navbar pullRight>
                 <NavItem onClick={() => dispatch(createHomestay(token))}>{t('common.navbar_become_host')}</NavItem>
+                <LinkContainer to='/inbox'>
+                  <NavItem>
+                    <FontAwesome name='envelope-o' />
+                  </NavItem>
+                </LinkContainer>
                 <NavDropdown title={user ? user.firstName : jwt.name} id='nav-dropdown'>
-                  <LinkContainer to='/settings'>
+                  <LinkContainer to='settings'>
                     <MenuItem>{t('common.navbar_settings')}</MenuItem>
                   </LinkContainer>
-
+                  <LinkContainer to='/homestay/132'>
+                    <NavItem>
+                      Homestay
+                    </NavItem>
+                  </LinkContainer>
+                  <LinkContainer to='/users/389'>
+                    <NavItem>
+                      User profile
+                    </NavItem>
+                  </LinkContainer>
                   <MenuItem divider />
                   <MenuItem onSelect={this.handleLogout}>
                     {t('common.navbar_logout')}

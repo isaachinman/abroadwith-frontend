@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode'
 import superagent from 'superagent'
-import config from 'config.js'
+import config from 'config'
 
 // Load user
 const LOAD_USER_WITH_AUTH = 'abroadwith/LOAD_USER_WITH_AUTH'

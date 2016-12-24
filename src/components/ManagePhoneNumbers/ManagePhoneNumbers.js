@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import ReactTelInput from 'react-telephone-input'
 import validator from 'validator'
 import { update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
-import { requestVerificationSMS, verifyPhone } from 'redux/modules/verifications'
+import { requestVerificationSMS, verifyPhone } from 'redux/modules/privateData/users/verifications'
 
 // Relative imports
 import styles from './ManagePhoneNumbers.styles.js'

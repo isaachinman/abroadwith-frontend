@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import { Button, Col, Row } from 'react-bootstrap'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
-import { deleteUser } from 'redux/modules/delete-user'
+import { deleteUser } from 'redux/modules/privateData/users/deleteUser'
 import { requestResetPassword } from 'redux/modules/reset-password'
 
 // Relative imports
