@@ -1,12 +1,13 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Tab } from 'react-bootstrap'
+import { Button, Form, FormControl, Tab } from 'react-bootstrap'
 import { translate } from 'react-i18next'
 import { loadMessageThread } from 'redux/modules/privateData/messaging/messaging'
 
 // Relative imports
 import SingleMessage from './SingleMessage'
+import styles from '../Inbox.styles.js'
 
 @connect(
   (state, ownProps) => ({
@@ -25,19 +26,32 @@ export default class Thread extends Component {
 
   render() {
 
-    const { jwt, thread, messages } = this.props
+    const { jwt, t, thread, messages } = this.props
+    console.log(this)
+    console.log(typeof messages !== 'undefined')
 
     return (
-      <Tab.Pane eventKey={thread.id}>
+      <Tab.Pane eventKey={thread.id} style={styles.thread}>
         {typeof messages !== 'undefined' && messages.map(message => {
           return (
             <SingleMessage
+              key={`${message.author}_${message.timestamp}`}
               author={jwt.rid === message.author ? 'you' : 'them'}
               content={message.message}
               photo={jwt.rid === message.author ? jwt.img : thread.with.photo}
             />
           )
         })}
+        <Form inline style={styles.messageForm}>
+          <FormControl
+            type='text'
+            style={styles.messageInput}
+            placeholder={t('common.First_name')}
+          />
+          <Button type='submit'>
+            Send
+          </Button>
+        </Form>
       </Tab.Pane>
     )
   }
@@ -46,6 +60,7 @@ export default class Thread extends Component {
 Thread.propTypes = {
   dispatch: PropTypes.func,
   jwt: PropTypes.object,
+  t: PropTypes.func,
   thread: PropTypes.object,
   token: PropTypes.string,
   messages: PropTypes.array,

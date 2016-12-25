@@ -13,7 +13,6 @@ export default class SingleMessage extends Component {
   render() {
 
     const { author, content } = this.props
-    console.log(this)
 
     return (
       <div style={styles.messageContainer}>
