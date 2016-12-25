@@ -71,7 +71,7 @@ export default class Inbox extends Component {
               </Nav>
             </Col>
             <Col xs={8} style={styles.inboxContainer}>
-              <Tab.Content animation>
+              <Tab.Content animation={false} style={styles.threadContainer}>
                 {messages.filter(message => message.id === activeThread).map(message => {
                   return (
                     <Thread key={`thread-${message.id}`} thread={message} jwt={jwt} token={token} />

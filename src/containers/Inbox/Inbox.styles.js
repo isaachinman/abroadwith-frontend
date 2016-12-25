@@ -2,7 +2,7 @@ import { havelockBlue } from 'styles/colors'
 
 export default {
   inboxContainer: {
-    height: 'calc(100vh - 80px)',
+    height: 'calc(100vh - 100px)',
     overflow: 'scroll',
   },
   grid: {
@@ -50,5 +50,24 @@ export default {
     right: -7,
     color: '#e6e6e6',
     fontSize: 25,
+  },
+  threadContainer: {
+    width: '100%',
+    height: '100%',
+    float: 'left',
+  },
+  thread: {
+    width: '100%',
+    height: 'calc(100% - 70px)',
+    float: 'left',
+    overflow: 'scroll',
+  },
+  messageForm: {
+    position: 'absolute',
+    width: 'calc(100% - 45px)',
+    bottom: 15,
+  },
+  messageInput: {
+    width: 'calc(100% - 80px)',
   },
 }
