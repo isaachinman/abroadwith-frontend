@@ -64,10 +64,17 @@ export default {
   },
   messageForm: {
     position: 'absolute',
-    width: 'calc(100% - 45px)',
-    bottom: 15,
+    width: 'calc(100% - 15px)',
+    padding: 15,
+    bottom: 0,
+    left: 0,
+    background: '#eee',
   },
   messageInput: {
-    width: 'calc(100% - 80px)',
+    width: 'calc(100% - 100px)',
+    height: 46,
+  },
+  sendBtn: {
+    marginLeft: 5,
   },
 }
