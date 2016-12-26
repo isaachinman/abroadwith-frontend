@@ -12,6 +12,11 @@ const LOAD_MESSAGE_THREAD = 'abroadwith/LOAD_MESSAGE_THREAD'
 const LOAD_MESSAGE_THREAD_SUCCESS = 'abroadwith/LOAD_MESSAGE_THREAD_SUCCESS'
 const LOAD_MESSAGE_THREAD_FAIL = 'abroadwith/LOAD_MESSAGE_THREAD_FAIL'
 
+// Load messages from thread
+const SEND_MESSAGE = 'abroadwith/SEND_MESSAGE'
+const SEND_MESSAGE_SUCCESS = 'abroadwith/SEND_MESSAGE_SUCCESS'
+const SEND_MESSAGE_FAIL = 'abroadwith/SEND_MESSAGE_FAIL'
+
 const initialState = {
   loaded: false,
 }
@@ -70,9 +75,44 @@ export function loadMessages(jwt) {
   }
 }
 
-export function loadMessageThread(jwt, threadID, size, timestamp) {
+export function sendMessage(jwt, threadID, message, callback) {
 
-  console.log('inside message load function')
+  const cb = typeof callback === 'function' ? callback : () => {}
+
+  return async dispatch => {
+    try {
+
+      dispatch({ type: SEND_MESSAGE })
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/messages/${threadID}`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+      request.send(message)
+
+      request.end((err, res) => {
+
+        if (err) {
+
+          dispatch({ type: SEND_MESSAGE_FAIL, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: SEND_MESSAGE_SUCCESS, threadID, result: res.body })
+          cb()
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: SEND_MESSAGE_FAIL, err })
+    }
+  }
+}
+
+export function loadMessageThread(jwt, threadID, size, timestamp, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
 
   let url = `${config.apiHost}/users/${jwtDecode(jwt).rid}/messages/${threadID}?size=${size}`
   if (timestamp) {
@@ -97,6 +137,7 @@ export function loadMessageThread(jwt, threadID, size, timestamp) {
 
           // Request was successful
           dispatch({ type: LOAD_MESSAGE_THREAD_SUCCESS, threadID, result: res.body })
+          cb()
 
         }
 
@@ -106,5 +147,4 @@ export function loadMessageThread(jwt, threadID, size, timestamp) {
       dispatch({ type: LOAD_MESSAGE_THREAD_FAIL, err })
     }
   }
-
 }

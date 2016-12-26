@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Button, Form, FormControl, Tab } from 'react-bootstrap'
 import { translate } from 'react-i18next'
-import { loadMessageThread } from 'redux/modules/privateData/messaging/messaging'
+import { loadMessageThread, sendMessage } from 'redux/modules/privateData/messaging/messaging'
 
 // Relative imports
 import SingleMessage from './SingleMessage'
@@ -17,6 +17,11 @@ import styles from '../Inbox.styles.js'
 @translate()
 export default class Thread extends Component {
 
+  state = {
+    cachedMessages: [],
+    newMessage: '',
+  }
+
   componentWillMount = () => {
     const { dispatch, token, thread, messages } = this.props
     if (!messages) {
@@ -24,31 +29,68 @@ export default class Thread extends Component {
     }
   }
 
+  componentDidMount = () => {
+    const { messages } = this.props
+    const { cachedMessages } = this.state
+    if (messages && cachedMessages.length < messages.length) {
+      this.cacheMessages(messages)
+    }
+  }
+
+  handleTextareaChange = value => {
+    this.setState({ newMessage: value })
+  }
+
+  sendMessage = () => {
+    const { newMessage } = this.state
+    const { dispatch, token, thread } = this.props
+    if (newMessage) {
+      dispatch(sendMessage(token, thread.id, { message: newMessage }, () => {
+        dispatch(loadMessageThread(token, thread.id, 10, false))
+        this.resetForm()
+      }))
+    }
+  }
+
+  resetForm = () => {
+    this.setState({ newMessage: '' })
+  }
+
+  cacheMessages = messageArray => {
+    const { jwt, thread } = this.props
+    const cache = this.state.cachedMessages
+    messageArray.reverse().map(message => {
+      cache.push(
+        <SingleMessage
+          key={`${message.author}_${message.timestamp}`}
+          author={jwt.rid === message.author ? 'you' : 'them'}
+          content={message.message}
+          photo={jwt.rid === message.author ? jwt.img : thread.with.photo}
+        />
+      )
+    })
+    this.setState({ cacheMessages: cache })
+  }
+
   render() {
 
-    const { jwt, t, thread, messages } = this.props
+    const { t, thread } = this.props
+    const { cachedMessages } = this.state
+
     console.log(this)
-    console.log(typeof messages !== 'undefined')
 
     return (
       <Tab.Pane eventKey={thread.id} style={styles.thread}>
-        {typeof messages !== 'undefined' && messages.map(message => {
-          return (
-            <SingleMessage
-              key={`${message.author}_${message.timestamp}`}
-              author={jwt.rid === message.author ? 'you' : 'them'}
-              content={message.message}
-              photo={jwt.rid === message.author ? jwt.img : thread.with.photo}
-            />
-          )
-        })}
-        <Form inline style={styles.messageForm}>
+        {cachedMessages}
+        <Form ref={c => { this.form = c }} inline style={styles.messageForm}>
           <FormControl
-            type='text'
+            value={this.state.newMessage}
+            componentClass='textarea'
             style={styles.messageInput}
             placeholder={t('common.First_name')}
+            onChange={event => this.handleTextareaChange(event.target.value)}
           />
-          <Button type='submit'>
+          <Button onClick={this.sendMessage} bsSize='large' bsStyle='success' style={styles.sendBtn}>
             Send
           </Button>
         </Form>
