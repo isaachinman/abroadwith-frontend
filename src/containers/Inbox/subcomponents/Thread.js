@@ -27,7 +27,7 @@ export default class Thread extends Component {
   componentDidMount = () => {
     const { dispatch, token, thread, messages, loading } = this.props
     if (!loading && messages.length === 0) {
-      dispatch(loadMessageThread(token, thread.id, { data: [] }))
+      dispatch(loadMessageThread(token, thread.id, { data: [] }, 10))
     }
   }
 
@@ -37,12 +37,10 @@ export default class Thread extends Component {
 
   sendMessage = () => {
     const { newMessage } = this.state
-    const { dispatch, token, thread } = this.props
+    const { dispatch, token, thread, messages } = this.props
     if (newMessage) {
       dispatch(sendMessage(token, thread.id, { message: newMessage }, () => {
-        dispatch(loadMessageThread(token, thread.id, 10, false, () => {
-          this.refreshMessages()
-        }))
+        dispatch(loadMessageThread(token, thread.id, messages, 1))
         this.resetForm()
       }))
     }
@@ -57,11 +55,18 @@ export default class Thread extends Component {
     const { dispatch, t, token, thread, jwt, messages } = this.props
 
     console.log(this)
+    console.log('messages: ', messages)
+
+    const sortedMessages = Array.isArray(messages.data) ? messages.data.sort((a, b) => {
+      return new Date(a.timestamp) - new Date(b.timestamp)
+    }) : []
+
+    console.log('sortedMessages: ', sortedMessages)
 
     return (
       <Tab.Pane eventKey={thread.id} style={styles.thread}>
-        <div style={styles.floatLeft}><a onClick={() => dispatch(loadMessageThread(token, thread.id, messages))}>{t('inbox.load_previous')}</a></div>
-        {messages.data && messages.data.reverse().map(message => {
+        <div style={styles.floatLeft}><a onClick={() => dispatch(loadMessageThread(token, thread.id, messages, 10))}>{t('inbox.load_previous')}</a></div>
+        {sortedMessages.map(message => {
           return (
             <SingleMessage
               key={`${message.timestamp}`}
