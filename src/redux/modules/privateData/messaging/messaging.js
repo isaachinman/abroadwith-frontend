@@ -44,7 +44,7 @@ export default function reducer(state = initialState, action = {}) {
         errorMessage: action.error,
       }
     case LOAD_MESSAGE_THREAD: {
-      console.log('state inside case: ', state)
+
       const existingData = state[`thread_${action.threadID}`] || {}
       existingData.loading = true
       existingData.loaded = false
@@ -53,6 +53,7 @@ export default function reducer(state = initialState, action = {}) {
         loading: true,
         [`thread_${action.threadID}`]: existingData,
       }
+
     }
     case LOAD_MESSAGE_THREAD_SUCCESS:
       return {
@@ -122,9 +123,7 @@ export function sendMessage(jwt, threadID, message, callback) {
   }
 }
 
-export function loadMessageThread(jwt, threadID, previousData, callback) {
-
-  const cb = typeof callback === 'function' ? callback : () => {}
+export function loadMessageThread(jwt, threadID, previousData, depthToAdd) {
 
   return async dispatch => {
     try {
@@ -133,7 +132,7 @@ export function loadMessageThread(jwt, threadID, previousData, callback) {
 
       dispatch({ type: LOAD_MESSAGE_THREAD, threadID })
 
-      const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}/messages/${threadID}?size=${previousData.data.length + 10}`)
+      const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}/messages/${threadID}?size=${previousData.data.length + depthToAdd}`)
       request.set({ Authorization: `Bearer ${(jwt)}` })
 
       request.end((err, res) => {
@@ -155,7 +154,6 @@ export function loadMessageThread(jwt, threadID, previousData, callback) {
             lastTimestamp,
             endOfThread,
           })
-          cb()
 
         }
 
