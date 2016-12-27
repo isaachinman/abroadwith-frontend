@@ -22,7 +22,7 @@ import Thread from './subcomponents/Thread'
 }])
 @connect(
   state => ({
-    messages: state.messaging.messages,
+    messages: state.messaging.allThreads,
     token: state.auth.token,
     jwt: state.auth.jwt,
   })

@@ -33,7 +33,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        messages: action.result,
+        allThreads: action.result,
       }
     case GET_ALL_MESSAGES_FAIL:
       return {
@@ -53,7 +53,13 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        [`thread_${action.threadID}`]: action.result,
+        [`thread_${action.threadID}`]: {
+          loading: false,
+          loaded: true,
+          data: action.result,
+          lastTimestamp: action.lastTimestamp,
+          endOfThread: action.endOfThread,
+        },
       }
     case LOAD_MESSAGE_THREAD_FAIL:
       return {
@@ -110,21 +116,18 @@ export function sendMessage(jwt, threadID, message, callback) {
   }
 }
 
-export function loadMessageThread(jwt, threadID, size, timestamp, callback) {
+export function loadMessageThread(jwt, threadID, previousData, callback) {
 
   const cb = typeof callback === 'function' ? callback : () => {}
-
-  let url = `${config.apiHost}/users/${jwtDecode(jwt).rid}/messages/${threadID}?size=${size}`
-  if (timestamp) {
-    url += `&timestamp=${timestamp}`
-  }
 
   return async dispatch => {
     try {
 
+      console.log('previousData: ', previousData)
+
       dispatch({ type: LOAD_MESSAGE_THREAD })
 
-      const request = superagent.get(url)
+      const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}/messages/${threadID}?size=${previousData.data.length + 10}`)
       request.set({ Authorization: `Bearer ${(jwt)}` })
 
       request.end((err, res) => {
@@ -136,7 +139,16 @@ export function loadMessageThread(jwt, threadID, size, timestamp, callback) {
         } else {
 
           // Request was successful
-          dispatch({ type: LOAD_MESSAGE_THREAD_SUCCESS, threadID, result: res.body })
+          const data = res.body
+          const lastTimestamp = res.body[(res.body).length - 1].timestamp
+          const endOfThread = lastTimestamp === previousData.lastTimestamp
+          dispatch({
+            type: LOAD_MESSAGE_THREAD_SUCCESS,
+            threadID,
+            result: data,
+            lastTimestamp,
+            endOfThread,
+          })
           cb()
 
         }

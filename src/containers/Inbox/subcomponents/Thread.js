@@ -11,29 +11,23 @@ import styles from '../Inbox.styles.js'
 
 @connect(
   (state, ownProps) => ({
-    messages: state.messaging[`thread_${ownProps.thread.id}`],
+    loading: state.messaging[`thread_${ownProps.thread.id}`] ? state.messaging[`thread_${ownProps.thread.id}`].loading : false,
+    messages: state.messaging[`thread_${ownProps.thread.id}`] || [],
   })
 )
 @translate()
 export default class Thread extends Component {
 
   state = {
-    cachedMessages: [],
+    lastTimestamp: null,
     newMessage: '',
-  }
-
-  componentWillMount = () => {
-    const { dispatch, token, thread, messages } = this.props
-    if (!messages) {
-      dispatch(loadMessageThread(token, thread.id, 10, false))
-    }
+    cachedMessages: [],
   }
 
   componentDidMount = () => {
-    const { messages } = this.props
-    const { cachedMessages } = this.state
-    if (messages && cachedMessages.length < messages.length) {
-      this.cacheMessages(messages)
+    const { dispatch, token, thread, messages, loading } = this.props
+    if (!loading && messages.length === 0) {
+      dispatch(loadMessageThread(token, thread.id, { data: [] }))
     }
   }
 
@@ -46,7 +40,9 @@ export default class Thread extends Component {
     const { dispatch, token, thread } = this.props
     if (newMessage) {
       dispatch(sendMessage(token, thread.id, { message: newMessage }, () => {
-        dispatch(loadMessageThread(token, thread.id, 10, false))
+        dispatch(loadMessageThread(token, thread.id, 10, false, () => {
+          this.refreshMessages()
+        }))
         this.resetForm()
       }))
     }
@@ -56,32 +52,25 @@ export default class Thread extends Component {
     this.setState({ newMessage: '' })
   }
 
-  cacheMessages = messageArray => {
-    const { jwt, thread } = this.props
-    const cache = this.state.cachedMessages
-    messageArray.reverse().map(message => {
-      cache.push(
-        <SingleMessage
-          key={`${message.author}_${message.timestamp}`}
-          author={jwt.rid === message.author ? 'you' : 'them'}
-          content={message.message}
-          photo={jwt.rid === message.author ? jwt.img : thread.with.photo}
-        />
-      )
-    })
-    this.setState({ cacheMessages: cache })
-  }
-
   render() {
 
-    const { t, thread } = this.props
-    const { cachedMessages } = this.state
+    const { dispatch, t, token, thread, jwt, messages } = this.props
 
     console.log(this)
 
     return (
       <Tab.Pane eventKey={thread.id} style={styles.thread}>
-        {cachedMessages}
+        <div style={styles.floatLeft}><a onClick={() => dispatch(loadMessageThread(token, thread.id, messages))}>{t('inbox.load_previous')}</a></div>
+        {messages.data && messages.data.reverse().map(message => {
+          return (
+            <SingleMessage
+              key={`${message.timestamp}`}
+              author={jwt.rid === message.author ? 'you' : 'them'}
+              content={message.message}
+              photo={jwt.rid === message.author ? jwt.img : thread.with.photo}
+            />
+            )
+        })}
         <Form ref={c => { this.form = c }} inline style={styles.messageForm}>
           <FormControl
             value={this.state.newMessage}
@@ -100,6 +89,7 @@ export default class Thread extends Component {
 }
 
 Thread.propTypes = {
+  loading: PropTypes.bool,
   dispatch: PropTypes.func,
   jwt: PropTypes.object,
   t: PropTypes.func,

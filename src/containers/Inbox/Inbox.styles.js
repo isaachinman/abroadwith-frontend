@@ -1,6 +1,9 @@
 import { havelockBlue } from 'styles/colors'
 
 export default {
+  floatLeft: {
+    float: 'left',
+  },
   inboxContainer: {
     height: 'calc(100vh - 100px)',
     overflow: 'scroll',
