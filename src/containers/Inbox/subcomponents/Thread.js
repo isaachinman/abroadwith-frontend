@@ -31,6 +31,11 @@ export default class Thread extends Component {
     }
   }
 
+  componentDidUpdate = () => {
+    const container = document.getElementById(`inbox-pane-${this.props.thread.id}`)
+    container.scrollTop = container.scrollHeight
+  }
+
   handleTextareaChange = value => {
     this.setState({ newMessage: value })
   }
@@ -61,11 +66,11 @@ export default class Thread extends Component {
       return new Date(a.timestamp) - new Date(b.timestamp)
     }) : []
 
-    console.log('sortedMessages: ', sortedMessages)
-
     return (
       <Tab.Pane eventKey={thread.id} style={styles.thread}>
-        <div style={styles.floatLeft}><a onClick={() => dispatch(loadMessageThread(token, thread.id, messages, 10))}>{t('inbox.load_previous')}</a></div>
+        {sortedMessages.length > 0 &&
+          <div style={styles.loadMoreLink}><a onClick={() => dispatch(loadMessageThread(token, thread.id, messages, 10))}>{t('inbox.load_previous')}</a></div>
+        }
         {sortedMessages.map(message => {
           return (
             <SingleMessage

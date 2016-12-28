@@ -1,3 +1,4 @@
+// Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
 import { connect } from 'react-redux'
