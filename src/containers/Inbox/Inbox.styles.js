@@ -80,4 +80,8 @@ export default {
   sendBtn: {
     marginLeft: 5,
   },
+  loadMoreLink: {
+    float: 'left',
+    padding: '0 0 20px 10px',
+  },
 }
