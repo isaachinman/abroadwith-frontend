@@ -33,7 +33,7 @@ export default (store) => {
   }
 
   // --------------------------------------------------------------------------------
-  // Lazy loaded routes: some edge-case routes should only be loaded if needed
+  // Lazy loaded routes: some routes should only be loaded if needed
   // The third argument require.ensure takes is the name of the chunk
   // --------------------------------------------------------------------------------
   const getFAQ = (nextState, cb) => {
@@ -46,10 +46,20 @@ export default (store) => {
       cb(null, require('../containers/Inbox/Inbox'))
     }, 'inbox')
   }
+  const getInvoice = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/Invoice/Invoice'))
+    }, 'invoice')
+  }
   const getTermsAndConditions = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/TermsAndConditions/TermsAndConditions'))
     }, 'terms')
+  }
+  const getReceipt = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/Receipt/Receipt'))
+    }, 'receipt')
   }
   const getSettings = (nextState, cb) => {
     require.ensure([], require => {
@@ -80,7 +90,9 @@ export default (store) => {
 
       <Route onEnter={requireLogin}>
         <Route path='inbox' getComponent={getInbox} />
+        <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
         <Route path='loginSuccess' component={LoginSuccess} />
+        <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
         <Route path='settings' getComponent={getSettings} />
       </Route>
 
@@ -90,7 +102,7 @@ export default (store) => {
 
       <Route path='terms' getComponent={getTermsAndConditions} />
 
-      <Route path='users/:userID' component={UserProfile} />
+      <Route path='user/:userID' component={UserProfile} />
 
       <Route path='*' component={NotFound} status={404} />
 
