@@ -11,7 +11,6 @@
   "main": "bin/server.js",
   "scripts": {
     "start": "concurrently --kill-others \"npm run start-prod\"",
-    "integration": "better-npm-run start-integration",
     "production": "better-npm-run start-prod",
     "build": "better-npm-run build",
     "postinstall": "npm run build",
@@ -29,16 +28,6 @@
         "NODE_ENV": "production",
         "PORT": 3000,
         "APIHOST": "https://api.abroadwith.com",
-        "APIPORT": 443
-      }
-    },
-    "start-integration": {
-      "command": "node ./bin/server.js",
-      "env": {
-        "NODE_PATH": "./src",
-        "NODE_ENV": "development",
-        "PORT": 3000,
-        "APIHOST": "https://api.test-abroadwith.com",
         "APIPORT": 443
       }
     },
