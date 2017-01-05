@@ -47,6 +47,11 @@ export default (store) => {
       cb(null, require('../containers/Inbox/Inbox'))
     }, 'inbox')
   }
+  const getInvite = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/Invite/Invite'))
+    }, 'invite')
+  }
   const getInvoice = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/Invoice/Invoice'))
@@ -91,8 +96,9 @@ export default (store) => {
 
       <Route onEnter={requireLogin}>
         <Route path='inbox' getComponent={getInbox} />
-        <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
+        <Route path='invite' getComponent={getInvite} />
         <Route path='loginSuccess' component={LoginSuccess} />
+        <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
         <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
         <Route path='settings' getComponent={getSettings} />
       </Route>
