@@ -79,7 +79,7 @@ export function load(jwt, callback) {
 
         if (err) {
 
-          dispatch({ type: LOAD_USER_WITH_AUTH_SUCCESS, err })
+          dispatch({ type: LOAD_USER_WITH_AUTH_FAIL, err })
           cb()
 
         } else if (body) {
