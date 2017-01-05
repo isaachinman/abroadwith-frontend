@@ -9,6 +9,7 @@ import {
     LoginSuccess,
     Main,
     NotFound,
+    SignupPage,
     UserProfile,
   } from 'containers'
 
@@ -99,6 +100,8 @@ export default (store) => {
       <Route path='login' component={LoginPage} />
 
       <Route path='privacy' getComponent={getPrivacyPolicy} />
+
+      <Route path='signup' component={SignupPage} />
 
       <Route path='terms' getComponent={getTermsAndConditions} />
 
