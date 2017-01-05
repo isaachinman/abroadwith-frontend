@@ -45,7 +45,7 @@ export default class ApiClient {
 
           if (body && typeof body !== 'undefined') {
             response = body
-          } else if (res.text) {
+          } else if (res && typeof res !== 'undefined' && res.text) {
             response = res.text
           }
 

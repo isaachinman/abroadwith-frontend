@@ -10,6 +10,7 @@ import FacebookLogin from 'react-facebook-login'
 import FontAwesome from 'react-fontawesome'
 import GoogleLogin from 'react-google-login'
 import i18n from 'i18n/i18n-client'
+// import i18nServer from 'i18n/i18n-server'
 import { validateEighteenYearsOld, validatePassword } from 'utils/validation'
 import validator from 'validator'
 import filterLanguageArray from 'utils/languages/filter-language-array'
@@ -17,7 +18,7 @@ import filterLanguageArray from 'utils/languages/filter-language-array'
 // Relative imports
 import styles from './Signup.styles.js'
 
-@connect(state => ({ jwt: state.auth.jwt, loginStatus: state.auth }), signupActions)
+@connect(state => ({ jwt: state && state.auth ? state.auth.jwt : {}, loginStatus: state.auth }), signupActions)
 @translate()
 export default class Signup extends Component {
 
@@ -200,9 +201,15 @@ export default class Signup extends Component {
     } = this.state
 
     // Determine available languages
-    const usedLanguages = learningLanguages.map(lang => lang.language).concat(knownLanguages.map(lang => lang.language)).filter(lang => lang !== null)
-    const allLanguages = Object.entries(i18n.store.data[i18n.language].translation.languages).map(([id, label]) => ({ id, label }))
-    const availableLanguages = allLanguages.filter(lang => usedLanguages.indexOf(lang.id) === -1)
+    let usedLanguages = []
+    let allLanguages = []
+    let availableLanguages = []
+
+    if (i18n.store.data[i18n.language]) {
+      usedLanguages = learningLanguages.map(lang => lang.language).concat(knownLanguages.map(lang => lang.language)).filter(lang => lang !== null)
+      allLanguages = Object.entries(i18n.store.data[i18n.language].translation.languages).map(([id, label]) => ({ id, label }))
+      availableLanguages = allLanguages.filter(lang => usedLanguages.indexOf(lang.id) === -1)
+    }
 
     const {
       jwt,

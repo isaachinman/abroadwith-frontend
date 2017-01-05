@@ -1,6 +1,7 @@
 export default {
   moduleContainer: {
     maxWidth: 480,
+    margin: '0 auto',
   },
   container: {
     position: 'relative',
