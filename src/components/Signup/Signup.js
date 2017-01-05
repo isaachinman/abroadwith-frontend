@@ -18,7 +18,11 @@ import filterLanguageArray from 'utils/languages/filter-language-array'
 // Relative imports
 import styles from './Signup.styles.js'
 
-@connect(state => ({ jwt: state && state.auth ? state.auth.jwt : {}, loginStatus: state.auth }), signupActions)
+@connect(state => ({
+  jwt: state && state.auth ? state.auth.jwt : {},
+  loginStatus: state.auth,
+  query: state.routing.locationBeforeTransitions.query,
+}), signupActions)
 @translate()
 export default class Signup extends Component {
 
@@ -140,9 +144,11 @@ export default class Signup extends Component {
   signup = (type, data) => {
 
     const { birthDate, firstName, lastName, email, password } = this.state.validatedFields
+    const { referral_user } = this.props.query
 
     // These properties are used regardless of signup type
     let signupObject = {
+      referralUserId: validator.isInt(referral_user) ? referral_user : null,
       userKnownLanguages: filterLanguageArray(this.state.knownLanguages),
       userLearningLanguages: filterLanguageArray(this.state.learningLanguages),
     }
@@ -398,4 +404,5 @@ Signup.propTypes = {
   logout: PropTypes.func,
   signup: PropTypes.func,
   t: PropTypes.func,
+  query: PropTypes.object,
 }
