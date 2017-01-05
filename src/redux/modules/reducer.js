@@ -7,10 +7,12 @@ import { routerReducer } from 'react-router-redux'
 import auth from './auth'
 import clientToken from './payments/client-token'
 import currency from './ui/currency'
+import invoices from './privateData/invoices/invoices'
 import locale from './ui/locale'
 import { loadUserWithAuth, loadHomestayWithAuth } from './privateData/'
 import { loadHomestay, loadUser } from './publicData'
 import messaging from './privateData/messaging/messaging'
+import receipts from './privateData/receipts/receipts'
 import verifications from './privateData/users/verifications'
 
 export default combineReducers({
@@ -19,8 +21,10 @@ export default combineReducers({
   routing: routerReducer,
   reduxAsyncConnect,
   privateData: combineReducers({
+    invoices,
     user: loadUserWithAuth,
     home: loadHomestayWithAuth,
+    receipts,
   }),
   publicData: combineReducers({
     homestays: loadHomestay,
