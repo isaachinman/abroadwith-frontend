@@ -21,8 +21,7 @@ export default class SignupPage extends Component {
           <Row>
             <Col xs={12} sm={8} smOffset={2}>
               <Panel>
-                {/* FacebookLogin has SSR issues so for now, only render on client */}
-                {__CLIENT__ && <Signup />}
+                <Signup />
               </Panel>
             </Col>
           </Row>

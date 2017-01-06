@@ -123,14 +123,14 @@ export default class Navbar extends Component {
           onHide={memobind(this, 'closeModal', 'studentSignup')}
           show={this.state.modals.studentSignup.open}
         >
-          <Signup type={'student'} />
+          <Signup type={'STUDENT'} />
         </Modal>
 
         <Modal
           onHide={memobind(this, 'closeModal', 'hostSignup')}
           show={this.state.modals.hostSignup.open}
         >
-          <Signup type={'host'} />
+          <Signup type={'HOST'} />
         </Modal>
 
       </span>
