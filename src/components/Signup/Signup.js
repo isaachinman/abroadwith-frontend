@@ -10,7 +10,6 @@ import FacebookLogin from 'react-facebook-login'
 import FontAwesome from 'react-fontawesome'
 import GoogleLogin from 'react-google-login'
 import i18n from 'i18n/i18n-client'
-// import i18nServer from 'i18n/i18n-server'
 import { validateEighteenYearsOld, validatePassword } from 'utils/validation'
 import validator from 'validator'
 import filterLanguageArray from 'utils/languages/filter-language-array'
@@ -148,7 +147,8 @@ export default class Signup extends Component {
 
     // These properties are used regardless of signup type
     let signupObject = {
-      referralUserId: validator.isInt(referral_user) ? referral_user : null,
+      type: this.props.type,
+      referralUserId: typeof referral_user === 'string' && validator.isInt(referral_user) ? referral_user : null,
       userKnownLanguages: filterLanguageArray(this.state.knownLanguages),
       userLearningLanguages: filterLanguageArray(this.state.learningLanguages),
     }
@@ -200,6 +200,8 @@ export default class Signup extends Component {
   }
 
   render() {
+
+    console.log(this)
 
     const {
       knownLanguages,
@@ -404,5 +406,6 @@ Signup.propTypes = {
   logout: PropTypes.func,
   signup: PropTypes.func,
   t: PropTypes.func,
+  type: PropTypes.string,
   query: PropTypes.object,
 }

@@ -22,8 +22,7 @@ export default class LoginPage extends Component {
           <Row>
             <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
               <Panel>
-                {/* FacebookLogin has SSR issues so for now, only render on client */}
-                {__CLIENT__ && <Login />}
+                <Login />
               </Panel>
             </Col>
           </Row>
