@@ -1,6 +1,7 @@
 // Absolute imports
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
+import { persistStore, autoRehydrate } from 'redux-persist'
 
 // Relative imports
 import createMiddleware from './middleware/clientMiddleware'
@@ -28,7 +29,14 @@ export default function createStore(history, client, data) {
   }
 
   const reducer = require('./modules/reducer')
-  const store = finalCreateStore(reducer, data)
+  let store
+  if (__CLIENT__) {
+    store = finalCreateStore(reducer, data, autoRehydrate())
+    persistStore(store)
+  } else {
+    store = finalCreateStore(reducer, data)
+  }
+
 
   if (__DEVELOPMENT__ && module.hot) {
     module.hot.accept('./modules/reducer', () => {

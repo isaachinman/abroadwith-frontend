@@ -51,17 +51,24 @@ export default class App extends Component {
     this.checkLocale()
   }
 
+  // -------------------------------------------------------------------/
+  //   Note that componentDidMount doesn't fire on the server
+  //   So these requests will specifically wait to fire on the client,
+  //   reducing http request load and other computation on the server
+  // ------------------------------------------------------------------/
   componentDidMount = () => {
+
     const { dispatch, homes, token, user } = this.props
 
     // Load homes if necessary
     if (user && user.homeIds && homes.length !== user.homeIds.length) {
       user.homeIds.map(homeID => {
-        if (!homes[homeID]) {
+        if (!homes[homeID] || (homes[homeID] && !homes[homeID].loading && !homes[homeID].loaded)) {
           dispatch(loadHomestayWithAuth(token, homeID))
         }
       })
     }
+
   }
 
   componentWillReceiveProps(nextProps) {

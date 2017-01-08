@@ -57,6 +57,11 @@ export default (store) => {
       cb(null, require('../containers/Invoice/Invoice'))
     }, 'invoice')
   }
+  const getManageHome = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/ManageHome/ManageHome'))
+    }, 'manage-home')
+  }
   const getTermsAndConditions = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/TermsAndConditions/TermsAndConditions'))
@@ -101,7 +106,8 @@ export default (store) => {
             <Route onEnter={requireLogin}>
               <Route path='inbox' getComponent={getInbox} />
               <Route path='invite' getComponent={getInvite} />
-              <Route path='loginSuccess' component={LoginSuccess} />
+              <Route path='login-success' component={LoginSuccess} />
+              <Route path='manage-home' getComponent={getManageHome} />
               <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
               <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
               <Route path='settings' getComponent={getSettings} />
