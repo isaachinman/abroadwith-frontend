@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const jwt = require('jsonwebtoken')
 
 const public_key = '-----BEGIN PUBLIC KEY-----\n' +

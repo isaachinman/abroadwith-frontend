@@ -94,10 +94,6 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-// export function loadAllUserInfo(globalState) {
-//   return console.log(globalState)
-// }
-
 export function isLoaded(globalState) {
 
   const authIsLoaded = globalState.jwt && globalState.auth && globalState.auth.loaded
@@ -168,12 +164,17 @@ export function login(email, password, facebookToken, googleToken) {
           dispatch({ type: LOGIN_SUCCESS, jwt })
 
           // Now fetch full private info on user
-          dispatch(loadUserWithAuth(jwt))
+          dispatch(loadUserWithAuth(jwt, response => {
 
-          // If user has a home, get that info too
-          if (jwtDecode(jwt).hid) {
-            dispatch(loadHomeWithAuth(jwt))
-          }
+            // If user has a home (or multiple homes), get that info too
+            const { homeIds } = response
+
+            if (homeIds.constructor === Array && homeIds.length > 0) {
+              homeIds.map(homeID => dispatch(loadHomeWithAuth(jwt, homeID)))
+            }
+
+          }))
+
         } else {
 
           dispatch({ type: LOGIN_FAIL, err: 'Unknown error' })

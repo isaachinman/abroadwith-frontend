@@ -69,6 +69,9 @@ export function load(jwt, callback) {
   const cb = typeof callback === 'function' ? callback : () => {}
 
   return async dispatch => {
+
+    dispatch({ type: LOAD_USER_WITH_AUTH })
+
     try {
 
       const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}`)
@@ -80,13 +83,13 @@ export function load(jwt, callback) {
         if (err) {
 
           dispatch({ type: LOAD_USER_WITH_AUTH_FAIL, err })
-          cb()
+          cb(err)
 
         } else if (body) {
 
           // Login was successful
           dispatch({ type: LOAD_USER_WITH_AUTH_SUCCESS, result: body })
-          cb()
+          cb(body)
 
         } else {
 

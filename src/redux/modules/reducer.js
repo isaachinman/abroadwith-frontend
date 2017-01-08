@@ -23,7 +23,7 @@ export default combineReducers({
   privateData: combineReducers({
     invoices,
     user: loadUserWithAuth,
-    home: loadHomestayWithAuth,
+    homes: loadHomestayWithAuth,
     receipts,
   }),
   publicData: combineReducers({

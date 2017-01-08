@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Grid, Row, Tab, MenuItem, Nav, NavDropdown, NavItem } from 'react-bootstrap'
 import { translate } from 'react-i18next'
+import Helmet from 'react-helmet'
 
 // Relative imports
 import styles from './FAQ.styles.js'
@@ -11,6 +12,9 @@ export default class FAQ extends Component {
     const { t } = this.props
     return (
       <Grid style={styles.grid}>
+
+        <Helmet title={t('help.title')} />
+
         <Row>
           <h1 style={styles.h1}>{t('help.title')}</h1>
         </Row>
