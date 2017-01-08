@@ -1,6 +1,7 @@
 import React from 'react'
 import { IndexRoute, Route } from 'react-router'
 import { isLoaded as isAuthLoaded } from 'redux/modules/auth'
+import UILanguages from 'data/constants/UILanguages'
 import {
     App,
     ContactUs,
@@ -8,7 +9,6 @@ import {
     LoginPage,
     LoginSuccess,
     Main,
-    NotFound,
     SignupPage,
     UserProfile,
   } from 'containers'
@@ -84,37 +84,43 @@ export default (store) => {
   // --------------------------------------------------------------------------------
 
   return (
-    <Route path='/' component={App}>
 
-      <IndexRoute component={Main} />
+    <span>
+      {Object.values(UILanguages).map(locale => {
+        return (
+          <Route path={`${locale.basepath}`} key={locale.basepath} locale={locale} component={App} status={200}>
 
-      <Route path='contact' component={ContactUs} />
+            <IndexRoute component={Main} />
 
-      <Route path='faq' getComponent={getFAQ} />
+            <Route path='contact' component={ContactUs} />
 
-      <Route path='homestay/:homeID' component={Homestay} />
+            <Route path='faq' getComponent={getFAQ} />
 
-      <Route onEnter={requireLogin}>
-        <Route path='inbox' getComponent={getInbox} />
-        <Route path='invite' getComponent={getInvite} />
-        <Route path='loginSuccess' component={LoginSuccess} />
-        <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
-        <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
-        <Route path='settings' getComponent={getSettings} />
-      </Route>
+            <Route path='homestay/:homeID' component={Homestay} />
 
-      <Route path='login' component={LoginPage} />
+            <Route onEnter={requireLogin}>
+              <Route path='inbox' getComponent={getInbox} />
+              <Route path='invite' getComponent={getInvite} />
+              <Route path='loginSuccess' component={LoginSuccess} />
+              <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
+              <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
+              <Route path='settings' getComponent={getSettings} />
+            </Route>
 
-      <Route path='privacy' getComponent={getPrivacyPolicy} />
+            <Route path='login' component={LoginPage} />
 
-      <Route path='signup' component={SignupPage} />
+            <Route path='privacy' getComponent={getPrivacyPolicy} />
 
-      <Route path='terms' getComponent={getTermsAndConditions} />
+            <Route path='signup' component={SignupPage} />
 
-      <Route path='user/:userID' component={UserProfile} />
+            <Route path='terms' getComponent={getTermsAndConditions} />
 
-      <Route path='*' component={NotFound} status={404} />
+            <Route path='user/:userID' component={UserProfile} />
 
-    </Route>
+          </Route>
+        )
+      })}
+      <Route path='*' component={App} status={404} />
+    </span>
   )
 }

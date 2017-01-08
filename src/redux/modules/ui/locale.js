@@ -2,9 +2,12 @@ import Cookies from 'js-cookie'
 import superagent from 'superagent'
 import i18n from '../../../i18n/i18n-client.js'
 
+// Load locale
 const LOAD_LOCALE = 'abroadwith/LOAD_LOCALE'
 const LOAD_LOCALE_SUCCESS = 'abroadwith/LOAD_LOCALE_SUCCESS'
 const LOAD_LOCALE_FAIL = 'abroadwith/LOAD_LOCALE_FAIL'
+
+// Change locale (must be loaded first)
 const CHANGE_LOCALE = 'abroadwith/CHANGE_LOCALE'
 const CHANGE_LOCALE_SUCCESS = 'abroadwith/CHANGE_LOCALE_SUCCESS'
 const CHANGE_LOCALE_FAIL = 'abroadwith/CHANGE_LOCALE_FAIL'
@@ -42,7 +45,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD_LOCALE_SUCCESS:
       return {
         ...state,
-        loading: false,
+        loading: true,
         loaded: true,
       }
     case LOAD_LOCALE_FAIL:
@@ -57,7 +60,9 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function loadLocale(locale) {
+export function loadLocale(locale, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
 
   return dispatch => {
     try {
@@ -73,8 +78,7 @@ export function loadLocale(locale) {
         i18n.addResourceBundle(window.__i18n.locale, 'translation', window.__i18n.translations, true)
         i18n.changeLanguage(window.__i18n.locale)
 
-        dispatch({ type: LOAD_LOCALE_SUCCESS })
-        dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
+        cb(locale)
 
       })
 
@@ -84,12 +88,13 @@ export function loadLocale(locale) {
 
     }
   }
-
 }
 
 export function changeLocale(locale, setCookie) {
   return dispatch => {
     try {
+
+      dispatch({ type: CHANGE_LOCALE })
 
       // To Do: validate locale format
 
@@ -97,7 +102,10 @@ export function changeLocale(locale, setCookie) {
 
         // A boolean to control the setting of the cookie will be passed on client-side calls
         Cookies.set('ui_language', locale)
-        dispatch(loadLocale(locale))
+        dispatch(loadLocale(locale, () => {
+          dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
+          dispatch({ type: LOAD_LOCALE_SUCCESS })
+        }))
 
       } else {
 

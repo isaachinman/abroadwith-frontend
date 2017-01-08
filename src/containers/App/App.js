@@ -6,6 +6,9 @@ import { isLoaded as isAuthLoaded, logout } from 'redux/modules/auth'
 import { push } from 'react-router-redux'
 import Helmet from 'react-helmet'
 import React, { Component, PropTypes } from 'react'
+import NotFound from 'components/NotFound/NotFound'
+import UILanguages from 'data/constants/UILanguages'
+import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 
 // Relative imports
 import config from '../../config'
@@ -26,7 +29,11 @@ import styles from './App.styles'
 @connect(
   state => ({
     jwt: state.auth.jwt,
+    token: state.auth.token,
     user: state.privateData.user.loaded ? state.privateData.user.data : null,
+    homes: state.privateData.homes,
+    routing: state.routing.locationBeforeTransitions,
+    locale: state.ui.locale,
   }),
   { logout, pushState: push }
 )
@@ -36,7 +43,31 @@ export default class App extends Component {
     store: PropTypes.object.isRequired,
   }
 
+  state = {
+    times: 0,
+  }
+
+  componentWillMount = () => {
+    this.checkLocale()
+  }
+
+  componentDidMount = () => {
+    const { dispatch, homes, token, user } = this.props
+
+    // Load homes if necessary
+    if (user && user.homeIds && homes.length !== user.homeIds.length) {
+      user.homeIds.map(homeID => {
+        if (!homes[homeID]) {
+          dispatch(loadHomestayWithAuth(token, homeID))
+        }
+      })
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
+
+    this.checkLocale()
+
     if (!this.props.jwt && nextProps.jwt) {
 
       // Login just happened
@@ -49,6 +80,29 @@ export default class App extends Component {
       this.props.pushState('/')
 
     }
+
+  }
+
+  checkLocale = () => {
+
+    if (__CLIENT__) {
+      const { dispatch, locale, route, routing } = this.props
+
+      console.log(locale.value, route.locale.iso2)
+      console.log('locale: ', locale)
+
+      // Check to see if the cookie-stored locale matches the url
+      if (!locale.loading && locale.loaded && route.locale && locale.value !== route.locale.iso2 && this.state.times < 10) {
+
+        const times = this.state.times + 1
+        this.setState({ times })
+        dispatch(push(routing.pathname.replace(`${route.locale.basepath}`, `${UILanguages[locale.value].basepath}`)))
+
+        console.log('locales dont match')
+      } else {
+        console.log('locales match')
+      }
+    }
   }
 
   handleLogout = (event) => {
@@ -58,7 +112,7 @@ export default class App extends Component {
 
   render() {
 
-    const { jwt, user } = this.props
+    const { jwt, user, route } = this.props
 
     return (
       <div style={styles.appContainer}>
@@ -68,7 +122,8 @@ export default class App extends Component {
         <Navbar jwt={jwt} user={user} title={config.app.title} />
 
         <div style={styles.appContent}>
-          {this.props.children}
+          {route.status === 200 && this.props.children}
+          {route.status === 404 && <NotFound />}
         </div>
 
         <Footer />
@@ -79,10 +134,16 @@ export default class App extends Component {
 }
 
 App.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.object,
+  dispatch: PropTypes.func,
+  homes: PropTypes.object,
   jwt: PropTypes.object,
   user: PropTypes.object,
+  locale: PropTypes.object,
   logout: PropTypes.func,
+  params: PropTypes.object,
   pushState: PropTypes.func,
-  dispatch: PropTypes.func,
+  route: PropTypes.object,
+  routing: PropTypes.object,
+  token: PropTypes.string,
 }
