@@ -1,6 +1,7 @@
 import jwtDecode from 'jwt-decode'
 import superagent from 'superagent'
 import config from 'config'
+import { REHYDRATE } from 'redux-persist/constants'
 
 // Load user
 const LOAD_USER_WITH_AUTH = 'abroadwith/LOAD_USER_WITH_AUTH'
@@ -18,6 +19,12 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    // This is a rehydration (from localstore) case
+    case REHYDRATE: {
+      const incoming = action.payload.privateData ? action.payload.privateData.user : false
+      if (incoming) return { ...state, ...incoming }
+      return state
+    }
     case LOAD_USER_WITH_AUTH:
       return {
         ...state,

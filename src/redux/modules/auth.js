@@ -5,6 +5,7 @@ import config from 'config.js'
 import superagent from 'superagent'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { load as loadHomeWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
+import { REHYDRATE } from 'redux-persist/constants'
 
 // Load previously stored auth
 const LOAD = 'auth/LOAD'
@@ -27,6 +28,12 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    // This is a rehydration (from localstore) case
+    case REHYDRATE: {
+      const incoming = action.payload.auth
+      if (incoming) return { ...state, ...incoming }
+      return state
+    }
     case LOAD:
       return {
         ...state,
@@ -202,6 +209,7 @@ export function googleLogin(email, googleToken) {
 }
 
 export function logout() {
+  localStorage.clear()
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
     promise: () => fetch(new Request('/logout'), {
