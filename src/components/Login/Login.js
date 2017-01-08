@@ -7,11 +7,13 @@ import FacebookLogin from 'react-facebook-login'
 import FontAwesome from 'react-fontawesome'
 import GoogleLogin from 'react-google-login'
 import React, { Component, PropTypes } from 'react'
+import { translate } from 'react-i18next'
 
 // Relative imports
 import styles from './Login.styles'
 
 @connect(state => ({ jwt: state.auth.jwt, loginStatus: state.auth }), authActions)
+@translate()
 export default class Login extends Component {
 
   state = {
@@ -96,6 +98,7 @@ export default class Login extends Component {
     const {
       compact,
       jwt,
+      t,
       loginStatus,
       logout,
     } = this.props
@@ -119,7 +122,7 @@ export default class Login extends Component {
                   callback={this.handleFacebookLogin}
                   cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-facebook-login'
                   fields='name,email,birthday'
-                  textButton='Login with Facebook'
+                  textButton={t('common.login_with_facebook')}
                   icon='fa-facebook-square'
                 />
               </Col>
@@ -133,7 +136,7 @@ export default class Login extends Component {
                   clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
                   className='btn btn-block btn-lg btn-default btn-with-icon btn-google-login'
                 >
-                  <FontAwesome name='google' /> Login with Google
+                  <FontAwesome name='google' /> {t('common.login_with_google')}
                 </GoogleLogin>
               </Col>
             </Row>
@@ -142,7 +145,7 @@ export default class Login extends Component {
               <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2} style={styles.dividerContainer}>
                 <div style={styles.divider}>
                   <span style={styles.dividerText}>
-                    or
+                    {t('common.words.or')}
                   </span>
                 </div>
               </Col>
@@ -164,7 +167,7 @@ export default class Login extends Component {
                 <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                   <InputGroup>
                     <InputGroup.Addon><FontAwesome name='at' /></InputGroup.Addon>
-                    <FormControl required type='email' placeholder='Email' onChange={event => this.handleEmailChange(event.target.value)} />
+                    <FormControl required type='email' placeholder={t('common.Email')} onChange={event => this.handleEmailChange(event.target.value)} />
                   </InputGroup>
                 </Col>
               </FormGroup>
@@ -173,7 +176,7 @@ export default class Login extends Component {
                 <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                   <InputGroup>
                     <InputGroup.Addon><FontAwesome name='lock' /></InputGroup.Addon>
-                    <FormControl required type='password' placeholder='Password' onChange={event => this.handlePasswordChange(event.target.value)} />
+                    <FormControl required type='password' placeholder={t('common.Password')} onChange={event => this.handlePasswordChange(event.target.value)} />
                   </InputGroup>
                 </Col>
                 <Col sm={12}>
@@ -183,8 +186,8 @@ export default class Login extends Component {
 
               <FormGroup>
                 <Col sm={12}>
-                  <Button type='submit' disabled={loginStatus.loading} >
-                    Sign in
+                  <Button type='submit' bsStyle='primary' disabled={loginStatus.loggingIn} >
+                    {loginStatus.loggingIn ? <span>{t('common.Loading')}</span> : <span>{t('common.Log_in')}</span>}
                   </Button>
                 </Col>
               </FormGroup>
@@ -213,6 +216,7 @@ export default class Login extends Component {
 Login.propTypes = {
   compact: PropTypes.bool,
   jwt: PropTypes.object,
+  t: PropTypes.func,
   login: PropTypes.func,
   facebookLogin: PropTypes.func,
   googleLogin: PropTypes.func,

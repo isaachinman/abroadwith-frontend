@@ -134,6 +134,9 @@ export function load(jwt) {
 
 export function login(email, password, facebookToken, googleToken) {
   return async dispatch => {
+
+    dispatch({ type: LOGIN })
+
     try {
 
       const request = superagent.post(`${config.apiHost}/users/login`)
