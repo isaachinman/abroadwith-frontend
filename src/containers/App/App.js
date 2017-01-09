@@ -7,7 +7,6 @@ import { push } from 'react-router-redux'
 import Helmet from 'react-helmet'
 import React, { Component, PropTypes } from 'react'
 import NotFound from 'components/NotFound/NotFound'
-import UILanguages from 'data/constants/UILanguages'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 
 // Relative imports
@@ -43,14 +42,6 @@ export default class App extends Component {
     store: PropTypes.object.isRequired,
   }
 
-  state = {
-    times: 0,
-  }
-
-  componentWillMount = () => {
-    this.checkLocale()
-  }
-
   // -------------------------------------------------------------------/
   //   Note that componentDidMount doesn't fire on the server
   //   So these requests will specifically wait to fire on the client,
@@ -68,12 +59,9 @@ export default class App extends Component {
         }
       })
     }
-
   }
 
   componentWillReceiveProps(nextProps) {
-
-    this.checkLocale()
 
     if (!this.props.jwt && nextProps.jwt) {
 
@@ -88,30 +76,6 @@ export default class App extends Component {
 
     }
 
-  }
-
-  checkLocale = () => {
-
-    if (__CLIENT__) {
-      const { dispatch, locale, route, routing } = this.props
-
-      console.log(locale.value, route.locale.iso2)
-      console.log('locale: ', locale)
-      console.log('route: ', route)
-      console.log('routing: ', routing)
-
-      // Check to see if the cookie-stored locale matches the url
-      if (!locale.loading && locale.loaded && route.locale && locale.value !== route.locale.iso2 && routing.action !== 'PUSH' && this.state.times < 10) {
-
-        const times = this.state.times + 1
-        this.setState({ times })
-        dispatch(push(routing.pathname.replace(`${route.locale.basepath}`, `${UILanguages[locale.value].basepath}`)))
-
-        console.log('locales dont match')
-      } else {
-        console.log('locales match')
-      }
-    }
   }
 
   handleLogout = (event) => {

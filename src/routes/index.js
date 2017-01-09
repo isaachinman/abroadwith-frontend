@@ -15,6 +15,46 @@ import {
 
 export default (store) => {
 
+  const checkLocale = (nextState, replace) => {
+
+    const { routing, ui } = store.getState()
+    const route = routing.locationBeforeTransitions.pathname
+
+    if (ui.locale.value === 'en') {
+
+      Object.keys(UILanguages).map(locale => {
+        if (route.indexOf(`/${locale}/`) > -1) {
+          replace(route.replace(`/${locale}`, ''))
+        }
+      })
+
+    } else {
+
+      let onRightSite = true
+      let languageToRemove
+
+      if (route.indexOf(`/${ui.locale.value}`) === -1) {
+        onRightSite = false
+      }
+
+      Object.keys(UILanguages).map(locale => {
+        if (locale !== ui.locale.value && route.indexOf(`/${locale}/`) > -1) {
+          onRightSite = false
+          languageToRemove = locale
+        }
+      })
+
+      if (!onRightSite) {
+        replace(`/${ui.locale.value}` + route.replace(`/${languageToRemove}`, ''))
+      }
+
+    }
+  }
+
+  // const checkLocaleChange = (prevState, nextState, replace) => {
+  //   checkLocale(nextState, replace)
+  // }
+
   const requireLogin = (nextState, replace, cb) => {
 
     function checkAuth() {
@@ -93,7 +133,15 @@ export default (store) => {
     <span>
       {Object.values(UILanguages).map(locale => {
         return (
-          <Route path={`${locale.basepath}`} key={locale.basepath} locale={locale} component={App} status={200}>
+          <Route
+            path={`${locale.basepath}`}
+            key={locale.basepath}
+            locale={locale}
+            component={App}
+            onEnter={checkLocale}
+            onChange={() => console.log('changed')}
+            status={200}
+          >
 
             <IndexRoute component={Main} />
 

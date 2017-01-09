@@ -30,7 +30,7 @@ export default class ManageSecurity extends Component {
       <Row>
         <Col xs={12} md={6} lg={3}>
           <Button onClick={() => dispatch(requestResetPassword(user.email))} style={styles.btn} block bsStyle='info'>{t('admin.privacy_change_password')}</Button>
-          <Link to='terms'><Button style={styles.btn} block bsStyle='info'>{t('admin.privacy_terms')}</Button></Link>
+          <Link to='/terms'><Button style={styles.btn} block bsStyle='info'>{t('admin.privacy_terms')}</Button></Link>
           <Button onClick={() => dispatch(deleteUser(jwt))} style={styles.btn} block bsStyle='danger'>{t('admin.privacy_delete_button')}</Button>
         </Col>
       </Row>

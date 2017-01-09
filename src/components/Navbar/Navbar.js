@@ -87,7 +87,7 @@ export default class Navbar extends Component {
                   </NavItem>
                 </LinkContainer>
                 <NavDropdown title={user ? user.firstName : jwt.name} id='nav-dropdown'>
-                  <LinkContainer to='settings'>
+                  <LinkContainer to='/settings'>
                     <MenuItem>{t('common.navbar_settings')}</MenuItem>
                   </LinkContainer>
                   <LinkContainer to='/homestay/132'>
