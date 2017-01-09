@@ -119,17 +119,18 @@ app.use((req, res) => {
   // --------------------------------------------------------------------------------
   // This is where we will do all the custom rendering and external calls necessary
   // --------------------------------------------------------------------------------
+  const { dispatch } = store
 
   // If user has a currency cookie, set their appropriate language.
-  if (req.cookies.ui_currency) {
-    store.dispatch(changeCurrency(req.cookies.ui_currency))
-  } else {
-    store.dispatch(changeCurrency('EUR'))
+  let currencyDispatch = cb => cb()
+  if (!req.cookies.ui_currency) {
+    currencyDispatch = cb => dispatch(changeCurrency('EUR', null, cb))
   }
 
   // If user has a language cookie, set their appropriate language.
-  if (req.cookies.ui_language) {
-    store.dispatch(changeLocale(req.cookies.ui_language))
+  let languageDispatch = cb => cb()
+  if (req.cookies.ui_language && store.getState().ui.locale.value !== req.cookies.ui_language) {
+    languageDispatch = cb => dispatch(changeLocale(req.cookies.ui_language, null, cb))
   } else {
 
     // If the user has no cookie, check if they landed on a non-English url
@@ -137,70 +138,75 @@ app.use((req, res) => {
     Object.values(UILanguages).map(language => {
       if (language.iso2 !== 'en' && req.originalUrl.indexOf(language.basepath) > -1) {
         foreignLanguage = true
-        store.dispatch(changeLocale(language.iso2))
+        languageDispatch = cb => dispatch(changeLocale(language.iso2, null, cb))
       }
     })
 
     // Otherwise set language to English
     if (!foreignLanguage) {
-      store.dispatch(changeLocale('en'))
+      languageDispatch = cb => dispatch(changeLocale('en', null, cb))
     }
 
   }
 
-  // Now initialise i18n
-  const locale = store.getState().ui.locale.value
-  const translations = i18n.getResourceBundle(locale)
-  const i18nClient = { locale, translations }
-  const i18nServer = i18n.cloneInstance()
-  i18nServer.changeLanguage(locale)
-
   const renderFunction = () => match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
-    if (redirectLocation) {
 
-      res.redirect(redirectLocation.pathname + redirectLocation.search)
+    const locale = store.getState().ui.locale.value
+    const i18nServer = i18n.cloneInstance()
+    i18nServer.changeLanguage(locale, () => {
 
-    } else if (error) {
+      const i18nClient = {
+        locale,
+        translations: i18n.getResourceBundle(locale),
+      }
 
-      console.error('ROUTER ERROR:', pretty.render(error))
-      res.status(500)
-      hydrateOnClient()
+      if (redirectLocation) {
 
-    } else if (renderProps) {
+        res.redirect(redirectLocation.pathname + redirectLocation.search)
 
-      loadOnServer({ ...renderProps, store, helpers: { client } }).then(() => {
+      } else if (error) {
 
-        const component = (
-          <I18nextProvider i18n={i18nServer}>
-            <Provider store={store} key='provider'>
-              <ReduxAsyncConnect {...renderProps} />
-            </Provider>
-          </I18nextProvider>
-        )
+        console.error('ROUTER ERROR:', pretty.render(error))
+        res.status(500)
+        hydrateOnClient()
 
-        res.status(200)
+      } else if (renderProps) {
 
-        global.navigator = { userAgent: req.headers['user-agent'] }
+        loadOnServer({ ...renderProps, store, helpers: { client } }).then(() => {
 
-        res.send('<!doctype html>\n' +
-          ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} i18n={i18nClient} />))
-      })
+          const component = (
+            <I18nextProvider i18n={i18nServer}>
+              <Provider store={store} key='provider'>
+                <ReduxAsyncConnect {...renderProps} />
+              </Provider>
+            </I18nextProvider>
+          )
 
-    } else {
-      res.status(404).send('Not found')
-    }
+          res.status(200)
+
+          global.navigator = { userAgent: req.headers['user-agent'] }
+
+          res.send('<!doctype html>\n' +
+            ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} i18n={i18nClient} />))
+        })
+
+      } else {
+        res.status(404).send('Not found')
+      }
+    })
+
   })
 
   if (req.cookies.access_token) {
 
     // If user has an access_token cookie, log them in before rendering the page
     store.dispatch(loadAuth(req.cookies.access_token))
-    store.dispatch(loadUserWithAuth(req.cookies.access_token, renderFunction)) // eslint-disable-line
+    store.dispatch(loadUserWithAuth(req.cookies.access_token, currencyDispatch(languageDispatch.bind(null, renderFunction))))
 
   } else {
 
     // Otherwise just render the page
-    renderFunction()
+    currencyDispatch(languageDispatch.bind(null, renderFunction))
 
   }
 

@@ -34,7 +34,12 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function changeCurrency(currency, setCookie) {
+export function changeCurrency(currency, setCookie, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
+
+  console.log('inside currency dispatch')
+
   return dispatch => {
     try {
 
@@ -46,6 +51,7 @@ export function changeCurrency(currency, setCookie) {
       }
 
       dispatch({ type: CHANGE_CURRENCY_SUCCESS, currency })
+      cb()
 
     } catch (err) {
 

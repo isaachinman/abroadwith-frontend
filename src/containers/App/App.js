@@ -101,7 +101,7 @@ export default class App extends Component {
       console.log('routing: ', routing)
 
       // Check to see if the cookie-stored locale matches the url
-      if (!locale.loading && locale.loaded && route.locale && locale.value !== route.locale.iso2 && this.state.times < 10) {
+      if (!locale.loading && locale.loaded && route.locale && locale.value !== route.locale.iso2 && routing.action !== 'PUSH' && this.state.times < 10) {
 
         const times = this.state.times + 1
         this.setState({ times })

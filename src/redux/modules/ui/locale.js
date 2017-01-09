@@ -18,6 +18,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: true,
         loaded: false,
+        value: action.locale,
       }
     case CHANGE_LOCALE_SUCCESS:
       return {
@@ -38,11 +39,16 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function changeLocale(locale, setCookie) {
+export function changeLocale(locale, setCookie, callback) {
+
+  console.log('inside locale dispatch')
+
+  const cb = typeof callback === 'function' ? callback : () => {}
+
   return dispatch => {
     try {
 
-      dispatch({ type: CHANGE_LOCALE })
+      dispatch({ type: CHANGE_LOCALE, locale })
 
       // To Do: validate locale format
 
@@ -61,9 +67,11 @@ export function changeLocale(locale, setCookie) {
           }
 
           i18n.addResourceBundle(window.__i18n.locale, 'translation', window.__i18n.translations, true)
-          i18n.changeLanguage(window.__i18n.locale)
+          i18n.changeLanguage(window.__i18n.locale, () => {
+            dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
+            cb()
+          })
 
-          dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
 
         })
 
@@ -71,6 +79,7 @@ export function changeLocale(locale, setCookie) {
 
         // No cookie for server-side
         dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
+        cb()
 
       }
 
