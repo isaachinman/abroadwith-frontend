@@ -32,10 +32,6 @@ if (window.__i18n) {
   i18n.addResourceBundle(window.__i18n.locale, 'translation', window.__i18n.translations, true)
 }
 
-// const component = (
-//
-// )
-
 match({ routes: getRoutes(store), history: browserHistory }, (error, redirectLocation, renderProps) => {
   ReactDOM.render(
     <I18nextProvider i18n={i18n}>

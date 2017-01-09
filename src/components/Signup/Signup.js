@@ -201,8 +201,6 @@ export default class Signup extends Component {
 
   render() {
 
-    console.log(this)
-
     const {
       knownLanguages,
       learningLanguages,
