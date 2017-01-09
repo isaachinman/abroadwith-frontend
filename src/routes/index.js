@@ -15,7 +15,7 @@ import {
 
 export default (store) => {
 
-  const checkLocale = (nextState, replace) => {
+  const checkLocaleEnter = (nextState, replace, cb) => {
 
     const { routing, ui } = store.getState()
     const route = routing.locationBeforeTransitions.pathname
@@ -47,13 +47,13 @@ export default (store) => {
       if (!onRightSite) {
         replace(`/${ui.locale.value}` + route.replace(`/${languageToRemove}`, ''))
       }
-
     }
+    cb()
   }
 
-  // const checkLocaleChange = (prevState, nextState, replace) => {
-  //   checkLocale(nextState, replace)
-  // }
+  const checkLocaleChange = (prevState, nextState, replace, cb) => {
+    checkLocaleEnter(nextState, replace, cb)
+  }
 
   const requireLogin = (nextState, replace, cb) => {
 
@@ -138,8 +138,8 @@ export default (store) => {
             key={locale.basepath}
             locale={locale}
             component={App}
-            onEnter={checkLocale}
-            onChange={() => console.log('changed')}
+            onEnter={checkLocaleEnter}
+            onChange={checkLocaleChange}
             status={200}
           >
 

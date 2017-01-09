@@ -1,3 +1,4 @@
+import { browserHistory } from 'react-router'
 import Cookies from 'js-cookie'
 import superagent from 'superagent'
 import i18n from '../../../i18n/i18n-client.js'
@@ -41,8 +42,6 @@ export default function reducer(state = initialState, action = {}) {
 
 export function changeLocale(locale, setCookie, callback) {
 
-  console.log('inside locale dispatch')
-
   const cb = typeof callback === 'function' ? callback : () => {}
 
   return dispatch => {
@@ -69,6 +68,7 @@ export function changeLocale(locale, setCookie, callback) {
           i18n.addResourceBundle(window.__i18n.locale, 'translation', window.__i18n.translations, true)
           i18n.changeLanguage(window.__i18n.locale, () => {
             dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
+            browserHistory.replace(window.location.pathname)
             cb()
           })
 

@@ -130,8 +130,6 @@ export default class AddPayoutMethod extends Component {
 
   render() {
 
-    console.log(this)
-
     const {
       t,
     } = this.props
