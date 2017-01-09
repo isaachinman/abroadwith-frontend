@@ -97,6 +97,8 @@ export default class App extends Component {
 
       console.log(locale.value, route.locale.iso2)
       console.log('locale: ', locale)
+      console.log('route: ', route)
+      console.log('routing: ', routing)
 
       // Check to see if the cookie-stored locale matches the url
       if (!locale.loading && locale.loaded && route.locale && locale.value !== route.locale.iso2 && this.state.times < 10) {

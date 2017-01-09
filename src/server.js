@@ -18,6 +18,7 @@ import ReactDOM from 'react-dom/server'
 import i18nMiddleware from 'i18next-express-middleware'
 import { I18nextProvider } from 'react-i18next'
 import imageUploadInstaller from 'utils/upload/ImageUploadInstaller'
+import UILanguages from 'data/constants/UILanguages'
 
 // Relative imports
 import ApiClient from './helpers/ApiClient'
@@ -119,18 +120,32 @@ app.use((req, res) => {
   // This is where we will do all the custom rendering and external calls necessary
   // --------------------------------------------------------------------------------
 
-  // If user has a ui_language cookie, set their appropriate language.
+  // If user has a currency cookie, set their appropriate language.
   if (req.cookies.ui_currency) {
     store.dispatch(changeCurrency(req.cookies.ui_currency))
   } else {
     store.dispatch(changeCurrency('EUR'))
   }
 
-  // If user has a ui_language cookie, set their appropriate language.
+  // If user has a language cookie, set their appropriate language.
   if (req.cookies.ui_language) {
     store.dispatch(changeLocale(req.cookies.ui_language))
   } else {
-    store.dispatch(changeLocale('en'))
+
+    // If the user has no cookie, check if they landed on a non-English url
+    let foreignLanguage = false
+    Object.values(UILanguages).map(language => {
+      if (language.iso2 !== 'en' && req.originalUrl.indexOf(language.basepath) > -1) {
+        foreignLanguage = true
+        store.dispatch(changeLocale(language.iso2))
+      }
+    })
+
+    // Otherwise set language to English
+    if (!foreignLanguage) {
+      store.dispatch(changeLocale('en'))
+    }
+
   }
 
   // Now initialise i18n
