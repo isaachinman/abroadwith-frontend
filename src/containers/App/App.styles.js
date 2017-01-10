@@ -10,7 +10,7 @@ export default {
     flexDirection: 'column',
   },
   appContent: {
-    marginTop: 50,
+    marginTop: 80,
     flex: '1',
   },
 }

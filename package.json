@@ -231,6 +231,7 @@
       "no-underscore-dangle": 0,
       "jsx-first-prop-new-line": 0,
       "no-console": 0,
+      "radix": 0,
       "no-confusing-arrow": 0,
       "semi": [
         2,
