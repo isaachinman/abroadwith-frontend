@@ -1,5 +1,5 @@
 import React from 'react'
-import { IndexRoute, Route } from 'react-router'
+import { IndexRoute, Redirect, Route } from 'react-router'
 import { isLoaded as isAuthLoaded } from 'redux/modules/auth'
 import UILanguages from 'data/constants/UILanguages'
 import {
@@ -30,10 +30,15 @@ export default (store) => {
 
     } else {
 
+      console.log('inside foreign language site')
+
       let onRightSite = true
       let languageToRemove
 
       if (route.indexOf(`/${ui.locale.value}`) === -1) {
+        onRightSite = false
+      } else if (route.indexOf(`/${ui.locale.value}`) > -1 && route.indexOf(`/${ui.locale.value}/`) === -1) {
+        console.log('inside missing last slash condition')
         onRightSite = false
       }
 
@@ -172,6 +177,11 @@ export default (store) => {
             <Route path='user/:userID' component={UserProfile} />
 
           </Route>
+        )
+      })}
+      {Object.values(UILanguages).map(locale => {
+        return (
+          <Redirect from={`/${locale.iso2}`} to={locale.basepath} key={locale.iso2} />
         )
       })}
       <Route path='*' component={App} status={404} />
