@@ -26,8 +26,6 @@ export default function Html(props) {
 
   const { routing } = props.store.getState()
 
-  console.log('routing: ', routing)
-
   // Determine the basepath for SEO reasons (link rel=alternative)
   let basePath = routing.locationBeforeTransitions.pathname
   Object.values(UILanguages).map(locale => {

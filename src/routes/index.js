@@ -30,15 +30,10 @@ export default (store) => {
 
     } else {
 
-      console.log('inside foreign language site')
-
       let onRightSite = true
       let languageToRemove
 
       if (route.indexOf(`/${ui.locale.value}`) === -1) {
-        onRightSite = false
-      } else if (route.indexOf(`/${ui.locale.value}`) > -1 && route.indexOf(`/${ui.locale.value}/`) === -1) {
-        console.log('inside missing last slash condition')
         onRightSite = false
       }
 
@@ -107,6 +102,11 @@ export default (store) => {
       cb(null, require('../containers/ManageHome/ManageHome'))
     }, 'manage-home')
   }
+  const getMultiHomeLanderPage = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/ManageHome/MultiHomeLandingPage'))
+    }, 'manage-home')
+  }
   const getTermsAndConditions = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/TermsAndConditions/TermsAndConditions'))
@@ -160,7 +160,9 @@ export default (store) => {
               <Route path='inbox' getComponent={getInbox} />
               <Route path='invite' getComponent={getInvite} />
               <Route path='login-success' component={LoginSuccess} />
-              <Route path='manage-home' getComponent={getManageHome} />
+              <Route path='manage-home' getComponent={getMultiHomeLanderPage}>
+                <Route path=':homeID' getComponent={getManageHome} />
+              </Route>
               <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
               <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
               <Route path='settings' getComponent={getSettings} />
