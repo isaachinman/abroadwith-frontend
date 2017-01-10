@@ -38,8 +38,6 @@ export function changeCurrency(currency, setCookie, callback) {
 
   const cb = typeof callback === 'function' ? callback : () => {}
 
-  console.log('inside currency dispatch')
-
   return dispatch => {
     try {
 

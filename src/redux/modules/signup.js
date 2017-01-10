@@ -41,8 +41,6 @@ export function signup(type, signupObject, googleToken) {
   return async dispatch => {
     try {
 
-      console.log('inside redux function', signupObject, googleToken)
-
       const { email, password, facebookToken, googleId } = signupObject // eslint-disable-line
 
       const request = superagent.post(`${config.apiHost}/users`).send(signupObject).withCredentials()

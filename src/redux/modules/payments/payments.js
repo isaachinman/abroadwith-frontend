@@ -27,7 +27,6 @@ export function setPayoutMethodDefault(jwt, payoutMethodID) {
 
   return async dispatch => {
 
-    console.log('inside set payout method default')
     try {
 
       dispatch({ type: SET_PAYOUT_METHOD_DEFAULT })
