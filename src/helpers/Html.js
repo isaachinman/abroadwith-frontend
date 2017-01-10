@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/server'
 import serialize from 'serialize-javascript'
 import Helmet from 'react-helmet'
 import config from 'config'
+import UILanguages from 'data/constants/UILanguages'
 
 // Relative imports
 import styles from '../containers/App/App.styles'
@@ -23,6 +24,20 @@ export default function Html(props) {
   const content = component ? ReactDOM.renderToString(component) : ''
   const head = Helmet.rewind()
 
+  const { routing } = props.store.getState()
+
+  console.log('routing: ', routing)
+
+  // Determine the basepath for SEO reasons (link rel=alternative)
+  let basePath = routing.locationBeforeTransitions.pathname
+  Object.values(UILanguages).map(locale => {
+    if (locale.iso2 !== 'en') {
+      basePath = basePath.replace(locale.basepath, '')
+    }
+  })
+  basePath = basePath.replace(/^\//, '')
+
+
   return (
     <html lang='en'>
       <head>
@@ -31,6 +46,11 @@ export default function Html(props) {
         {head.meta.toComponent()}
         {head.link.toComponent()}
         {head.script.toComponent()}
+
+        <link rel='alternate' href={`https://www.abroadwith.com/es/${basePath}`} hrefLang='es' />
+        <link rel='alternate' href={`https://www.abroadwith.com/de/${basePath}`} hrefLang='de' />
+        <link rel='alternate' href={`https://www.abroadwith.com/${basePath}`} hrefLang='en' />
+        <link rel='alternate' href={`https://www.abroadwith.com/${basePath}`} hrefLang='x-default' />
 
         <link rel='icon' type='image/png' sizes='32x32' href='https://abroadwith.imgix.net/app/favicon/favicon.png' />
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700' type='text/css' />
