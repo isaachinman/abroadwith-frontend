@@ -160,9 +160,8 @@ export default (store) => {
               <Route path='inbox' getComponent={getInbox} />
               <Route path='invite' getComponent={getInvite} />
               <Route path='login-success' component={LoginSuccess} />
-              <Route path='manage-home' getComponent={getMultiHomeLanderPage}>
-                <Route path=':homeID' getComponent={getManageHome} />
-              </Route>
+              <Route path='manage-home' getComponent={getMultiHomeLanderPage} />
+              <Route path='manage-home/:homeID' getComponent={getManageHome} />
               <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
               <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
               <Route path='settings' getComponent={getSettings} />

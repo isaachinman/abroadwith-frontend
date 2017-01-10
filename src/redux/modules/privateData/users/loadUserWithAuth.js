@@ -18,7 +18,6 @@ const initialState = {
 }
 
 export default function reducer(state = initialState, action = {}) {
-  console.log(action)
   switch (action.type) {
     // This is a rehydration (from localstore) case
     case REHYDRATE: {
