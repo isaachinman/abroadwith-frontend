@@ -18,6 +18,7 @@ const initialState = {
 }
 
 export default function reducer(state = initialState, action = {}) {
+  console.log(action)
   switch (action.type) {
     // This is a rehydration (from localstore) case
     case REHYDRATE: {
@@ -71,7 +72,7 @@ export function isLoaded(globalState, userID) {
   return globalState.publicData.users[userID]
 }
 
-export function load(jwt, callback) {
+export function load(jwt, callback, bodylessCallback) {
 
   const cb = typeof callback === 'function' ? callback : () => {}
 
@@ -90,18 +91,18 @@ export function load(jwt, callback) {
         if (err) {
 
           dispatch({ type: LOAD_USER_WITH_AUTH_FAIL, err })
-          cb(err)
 
         } else if (body) {
 
           // Login was successful
           dispatch({ type: LOAD_USER_WITH_AUTH_SUCCESS, result: body })
           cb(body)
+          console.log(bodylessCallback)
+          bodylessCallback()
 
         } else {
 
           dispatch({ type: LOAD_USER_WITH_AUTH_FAIL, err: 'Unknown error' })
-          cb()
 
         }
 
@@ -109,7 +110,6 @@ export function load(jwt, callback) {
 
     } catch (err) {
       dispatch({ type: LOAD_USER_WITH_AUTH_FAIL, err })
-      cb()
     }
   }
 }

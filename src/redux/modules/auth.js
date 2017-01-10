@@ -109,7 +109,9 @@ export function isLoaded(globalState) {
 }
 
 // This function is primarily serverside
-export function load(jwt) {
+export function load(jwt, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
 
   return dispatch => {
 
@@ -122,6 +124,7 @@ export function load(jwt) {
         dispatch({ type: LOAD_FAIL, err: 'jwt expired' })
       } else {
         dispatch({ type: LOAD_SUCCESS, jwt })
+        cb()
       }
 
     } catch (err) {

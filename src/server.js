@@ -200,8 +200,8 @@ app.use((req, res) => {
   if (req.cookies.access_token) {
 
     // If user has an access_token cookie, log them in before rendering the page
-    store.dispatch(loadAuth(req.cookies.access_token))
-    store.dispatch(loadUserWithAuth(req.cookies.access_token, currencyDispatch(languageDispatch.bind(null, renderFunction))))
+    store.dispatch(loadAuth(req.cookies.access_token)) // synchronous action
+    store.dispatch(loadUserWithAuth(req.cookies.access_token, null, currencyDispatch.bind(null, languageDispatch.bind(null, renderFunction))))
 
   } else {
 
