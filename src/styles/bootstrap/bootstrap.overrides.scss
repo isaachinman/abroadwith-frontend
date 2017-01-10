@@ -36,16 +36,23 @@
 }
 
 .navbar-fixed-top {
-background-color: white;
+  background-color: white;
+  .navbar-nav li a {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
 }
 
 .navbar-brand {
-position: relative;
-padding-right: 60px;
+  height: 80px;
+  line-height: 80px;
+  padding: 0;
+  position: relative;
+  padding-right: 60px;
 }
 
 span.input-group-addon .fa {
-width: 14px;
+  width: 14px;
 }
 
 .btn-with-icon {
