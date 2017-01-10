@@ -102,9 +102,9 @@ export default (store) => {
       cb(null, require('../containers/ManageHome/ManageHome'))
     }, 'manage-home')
   }
-  const getMultiHomeLanderPage = (nextState, cb) => {
+  const getManageHomeLandingPage = (nextState, cb) => {
     require.ensure([], require => {
-      cb(null, require('../containers/ManageHome/MultiHomeLandingPage'))
+      cb(null, require('../containers/ManageHomeLandingPage/ManageHomeLandingPage'))
     }, 'manage-home')
   }
   const getTermsAndConditions = (nextState, cb) => {
@@ -160,7 +160,7 @@ export default (store) => {
               <Route path='inbox' getComponent={getInbox} />
               <Route path='invite' getComponent={getInvite} />
               <Route path='login-success' component={LoginSuccess} />
-              <Route path='manage-home' getComponent={getMultiHomeLanderPage} />
+              <Route path='manage-home' getComponent={getManageHomeLandingPage} />
               <Route path='manage-home/:homeID' getComponent={getManageHome} />
               <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
               <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
