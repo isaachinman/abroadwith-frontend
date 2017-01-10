@@ -31,7 +31,7 @@ import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/lo
   }),
 )
 @translate()
-export default class MultiHomeLandingPage extends Component {
+export default class ManageHomeLandingPage extends Component {
 
   redirectToManageHome = homeID => {
     this.props.dispatch(push(`/manage-home/${homeID}`))
@@ -61,7 +61,7 @@ export default class MultiHomeLandingPage extends Component {
   }
 }
 
-MultiHomeLandingPage.propTypes = {
+ManageHomeLandingPage.propTypes = {
   dispatch: PropTypes.func,
   homes: PropTypes.object,
   t: PropTypes.func,
