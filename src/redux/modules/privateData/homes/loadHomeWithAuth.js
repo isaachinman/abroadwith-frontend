@@ -45,8 +45,6 @@ export function isLoaded(globalState) {
 
 export function load(jwt, homeID) {
 
-  console.log('inside load homestay with auth')
-
   return async dispatch => {
 
     dispatch({ type: LOAD_HOMESTAY_WITH_AUTH, homeID })

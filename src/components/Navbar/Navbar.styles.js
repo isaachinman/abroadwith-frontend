@@ -5,7 +5,7 @@ const size = 25
 export default {
   brand: {
     position: 'absolute',
-    top: 12.5,
+    top: 6,
     right: 12.5,
     display: 'inline-block',
     width: size,
