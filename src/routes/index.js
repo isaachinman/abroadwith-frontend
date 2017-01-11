@@ -55,6 +55,13 @@ export default (store) => {
     checkLocaleEnter(nextState, replace, cb)
   }
 
+  const singleHomeRedirect = (nextState, replace) => {
+    const { homeIds } = store.getState().privateData.user.data
+    if (homeIds.length === 1) {
+      replace(`/manage-home/${homeIds[0]}`)
+    }
+  }
+
   const requireLogin = (nextState, replace, cb) => {
 
     function checkAuth() {
@@ -99,7 +106,7 @@ export default (store) => {
   }
   const getManageHome = (nextState, cb) => {
     require.ensure([], require => {
-      cb(null, require('../containers/ManageHome/ManageHome'))
+      cb(null, require('../components/ManageHome/ManageHome'))
     }, 'manage-home')
   }
   const getManageHomeLandingPage = (nextState, cb) => {
@@ -160,7 +167,7 @@ export default (store) => {
               <Route path='inbox' getComponent={getInbox} />
               <Route path='invite' getComponent={getInvite} />
               <Route path='login-success' component={LoginSuccess} />
-              <Route path='manage-home' getComponent={getManageHomeLandingPage} />
+              <Route path='manage-home' getComponent={getManageHomeLandingPage} onEnter={singleHomeRedirect} />
               <Route path='manage-home/:homeID' getComponent={getManageHome} />
               <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
               <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
