@@ -74,6 +74,7 @@ export function isLoaded(globalState, userID) {
 export function load(jwt, callback, bodylessCallback) {
 
   const cb = typeof callback === 'function' ? callback : () => {}
+  const bdCb = typeof bodylessCallback === 'function' ? bodylessCallback : () => {}
 
   return async dispatch => {
 
@@ -97,7 +98,7 @@ export function load(jwt, callback, bodylessCallback) {
           dispatch({ type: LOAD_USER_WITH_AUTH_SUCCESS, result: body })
           cb(body)
           console.log(bodylessCallback)
-          bodylessCallback()
+          bdCb()
 
         } else {
 
