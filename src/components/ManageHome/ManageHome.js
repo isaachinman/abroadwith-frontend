@@ -5,6 +5,7 @@ import { translate } from 'react-i18next'
 import { Col, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
+import { updateHomestay } from 'redux/modules/privateData/homes/homeManagement'
 import HomeStatusCodes from 'data/constants/HomeStatusCodes'
 
 // Relative imports
@@ -17,6 +18,8 @@ import HomePhotos from './subcomponents/HomePhotos'
 import HomePricing from './subcomponents/HomePricing'
 import HomeRooms from './subcomponents/HomeRooms'
 
+const homeSteps = ['location', 'basics', 'description', 'immersions', 'rooms', 'photos', 'pricing']
+
 @connect(
   (state, ownProps) => ({
     home: state.privateData.homes[ownProps.params.homeID],
@@ -27,7 +30,7 @@ import HomeRooms from './subcomponents/HomeRooms'
 export default class ManageHome extends Component {
 
   state = {
-    selectedTab: null,
+    tab: null,
   }
 
   componentDidMount = () => {
@@ -37,7 +40,12 @@ export default class ManageHome extends Component {
     }
   }
 
-  determineHomeActivationState = () => {
+  updateHome = homeObject => {
+    const { dispatch, token, routeParams } = this.props
+    dispatch(updateHomestay(token, routeParams.homeID, homeObject))
+  }
+
+  determineHomeCreationStep = () => {
 
     const { homeActivationResponse } = this.props.home.data
 
@@ -45,7 +53,12 @@ export default class ManageHome extends Component {
       return 'success'
     }
 
-    return Object.keys(HomeStatusCodes).find(status => HomeStatusCodes[status].indexOf(homeActivationResponse.code) > -1)
+    const step = Object.keys(HomeStatusCodes).find(status => HomeStatusCodes[status].indexOf(homeActivationResponse.code) > -1)
+
+    return {
+      stepName: step,
+      stepNum: homeSteps.indexOf(step),
+    }
 
   }
 
@@ -55,28 +68,25 @@ export default class ManageHome extends Component {
 
     const { home, t } = this.props
     const { tab } = this.state
-    console.log(this)
 
-    let activeStep = null
-    if (tab) {
-      activeStep = tab
-    } else if (home && home.data) {
-      activeStep = this.determineHomeActivationState()
-    }
-
-    console.log('activeStep: ', activeStep)
     const inProgress = home && home.data && !home.data.homeActivationResponse.activated
+    const activeStep = inProgress ? this.determineHomeCreationStep() : {}
+
+    console.log('inProgress: ', inProgress)
+    console.log('activeStep: ', activeStep)
+
+    console.log(this)
 
     return (
       <Grid>
         <Helmet title={t('manage_home.title')} />
-        <Tab.Container id='manage-home' onSelect={this.handleTabChange} activeKey={activeStep}>
+        <Tab.Container id='manage-home' onSelect={this.handleTabChange} activeKey={tab || activeStep.stepName}>
           <Row style={styles.mainRow}>
 
             <Col style={styles.sidebar} xs={12} sm={4} md={3} lg={2}>
               <Nav bsStyle='pills' stacked>
                 <NavItem
-                  disabled={inProgress && activeStep !== 'location'}
+                  disabled={inProgress && activeStep.stepNum < 1}
                   eventKey='location'
                   style={styles.tabItem}
                 >
@@ -84,7 +94,7 @@ export default class ManageHome extends Component {
                   {t('manage_home.location_tabname')}
                 </NavItem>
                 <NavItem
-                  disabled={inProgress && activeStep !== 'basics'}
+                  disabled={inProgress && activeStep.stepNum < 1}
                   eventKey='basics'
                   style={styles.tabItem}
                 >
@@ -92,7 +102,7 @@ export default class ManageHome extends Component {
                   {t('manage_home.basics_tabname')}
                 </NavItem>
                 <NavItem
-                  disabled={inProgress && activeStep !== 'description'}
+                  disabled={inProgress && activeStep.stepNum < 3}
                   eventKey='description'
                   style={styles.tabItem}
                 >
@@ -100,7 +110,7 @@ export default class ManageHome extends Component {
                   {t('manage_home.description_tabname')}
                 </NavItem>
                 <NavItem
-                  disabled={inProgress && activeStep !== 'immersions'}
+                  disabled={inProgress && activeStep.stepNum < 4}
                   eventKey='immersions'
                   style={styles.tabItem}
                 >
@@ -108,7 +118,7 @@ export default class ManageHome extends Component {
                   {t('manage_home.immersions_tabname')}
                 </NavItem>
                 <NavItem
-                  disabled={inProgress && activeStep !== 'rooms'}
+                  disabled={inProgress && activeStep.stepNum < 5}
                   eventKey='rooms'
                   style={styles.tabItem}
                 >
@@ -116,7 +126,7 @@ export default class ManageHome extends Component {
                   {t('manage_home.rooms_tabname')}
                 </NavItem>
                 <NavItem
-                  disabled={inProgress && activeStep !== 'photos'}
+                  disabled={inProgress && activeStep.stepNum < 6}
                   eventKey='photos'
                   style={styles.tabItem}
                 >
@@ -124,7 +134,7 @@ export default class ManageHome extends Component {
                   {t('manage_home.photos_tabname')}
                 </NavItem>
                 <NavItem
-                  disabled={inProgress && activeStep !== 'pricing'}
+                  disabled={inProgress && activeStep.stepNum < 7}
                   eventKey='pricing'
                   style={styles.tabItem}
                 >
@@ -136,6 +146,7 @@ export default class ManageHome extends Component {
                   eventKey='success'
                   style={styles.tabItem}
                 >
+                  {inProgress && <span>8. </span>}
                   {t('manage_home.success_title')}
                 </NavItem>
               </Nav>
@@ -146,7 +157,12 @@ export default class ManageHome extends Component {
 
                 <Tab.Pane eventKey='location'>
                   <h3>{t('manage_home.location_title')}</h3>
-                  <HomeLocation {...this.props} />
+                  <HomeLocation
+                    {...this.props}
+                    inProgress={inProgress}
+                    updateHome={this.updateHome}
+                    activeTab={tab}
+                  />
                 </Tab.Pane>
 
                 <Tab.Pane eventKey='basics'>

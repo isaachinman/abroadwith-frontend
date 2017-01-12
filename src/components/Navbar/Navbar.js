@@ -55,8 +55,6 @@ export default class Navbar extends Component {
 
     const { dispatch, jwt, user, t, token, title } = this.props
 
-    console.log(this)
-
     return (
       <span>
         <BootstrapNavbar fixedTop>
@@ -82,7 +80,7 @@ export default class Navbar extends Component {
 
             {jwt &&
               <Nav navbar pullRight>
-                {user.homeIds.length > 0 ?
+                {user && user.homeIds.length > 0 ?
                   <LinkContainer to='/manage-home'>
                     <NavItem>{t('common.navbar_your_home')}</NavItem>
                   </LinkContainer>
