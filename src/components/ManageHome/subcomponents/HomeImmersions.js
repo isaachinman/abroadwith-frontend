@@ -5,6 +5,7 @@ import { Button, Col, Collapse, ControlLabel, FormControl, InputGroup, Row, Pane
 import { SimpleSelect as Select, MultiSelect } from 'react-selectize'
 import Currencies from 'data/constants/Currencies'
 import ReactBootstrapSlider from 'react-bootstrap-slider'
+import validator from 'validator'
 
 // Styles
 const styles = {
@@ -24,7 +25,17 @@ export default class HomeImmersions extends Component {
       tandem: this.props.home.data.immersions.tandem && this.props.home.data.immersions.tandem.isActive,
       teacher: this.props.home.data.immersions.teacher && this.props.home.data.immersions.teacher.isActive,
     },
-    immersions: this.props.home.data.immersions,
+    immersions: {
+      stay: this.props.home.data.immersions.stay || {},
+      tandem: this.props.home.data.immersions.tandem || {},
+      teacher: this.props.home.data.immersions.teacher || {},
+    },
+  }
+
+  handleValueChange = (immersionType, field, value) => {
+    const { immersions } = this.state
+    immersions[`${immersionType}`][`${field}`] = value
+    this.setState({ immersions })
   }
 
   toggleImmersion = immersion => {
@@ -33,7 +44,7 @@ export default class HomeImmersions extends Component {
 
   render() {
 
-    const { immersionsEnabled } = this.state
+    const { immersions, immersionsEnabled } = this.state
     const { home, t } = this.props
 
     console.log(this)
@@ -52,7 +63,10 @@ export default class HomeImmersions extends Component {
                   <Row>
                     <Col xs={12}>
                       <ControlLabel>{t('immersions.hours_per_week_label')}*</ControlLabel>
-                      <Select theme='bootstrap3'>
+                      <Select
+                        theme='bootstrap3'
+                        onValueChange={event => this.handleValueChange('stay', 'hours', event.value)}
+                      >
                         {hoursSharedPerWeekOptions.map(num => <option value={num} key={`stayhr${num}`}>{num.toString()}</option>)}
                       </Select>
                     </Col>
@@ -62,7 +76,7 @@ export default class HomeImmersions extends Component {
                       <ControlLabel>{t('immersions.languages_offered_label')}*</ControlLabel>
                       <MultiSelect
                         theme='bootstrap3'
-                        onValuesChange={event => this.handleValueChange('SAFETY', event.map(option => option.value))}
+                        onValuesChange={event => this.handleValueChange('stay', 'languagesOffered', event.map(option => option.value))}
                         options={home.data.stayAvailableLanguages.map(language => {
                           return { label: t(`languages.${language}`), value: language }
                         })}
@@ -93,7 +107,10 @@ export default class HomeImmersions extends Component {
                   <Row>
                     <Col xs={12}>
                       <ControlLabel>{t('immersions.hours_per_week_label')}*</ControlLabel>
-                      <Select theme='bootstrap3'>
+                      <Select
+                        theme='bootstrap3'
+                        onValueChange={event => this.handleValueChange('tandem', 'hours', event.value)}
+                      >
                         {hoursSharedPerWeekOptions.map(num => <option value={num} key={`tandemhr${num}`}>{num.toString()}</option>)}
                       </Select>
                     </Col>
@@ -103,7 +120,7 @@ export default class HomeImmersions extends Component {
                       <ControlLabel>{t('immersions.languages_offered_label')}*</ControlLabel>
                       <MultiSelect
                         theme='bootstrap3'
-                        onValuesChange={event => this.handleValueChange('SAFETY', event.map(option => option.value))}
+                        onValuesChange={event => this.handleValueChange('tandem', 'languagesOffered', event.map(option => option.value))}
                         options={home.data.tandemAvailableLanguages.map(language => {
                           return { label: t(`languages.${language}`), value: language }
                         })}
@@ -115,7 +132,7 @@ export default class HomeImmersions extends Component {
                       <ControlLabel>{t('immersions.languages_interested_label')}*</ControlLabel>
                       <MultiSelect
                         theme='bootstrap3'
-                        onValuesChange={event => this.handleValueChange('SAFETY', event.map(option => option.value))}
+                        onValuesChange={event => this.handleValueChange('tandem', 'languagesInterested', event.map(option => option.value))}
                         options={home.data.tandemAvailableLearnLanguages.map(language => {
                           return { label: t(`languages.${language}`), value: language }
                         })}
@@ -158,7 +175,7 @@ export default class HomeImmersions extends Component {
                       <ControlLabel>{t('immersions.languages_offered_label')}*</ControlLabel>
                       <MultiSelect
                         theme='bootstrap3'
-                        onValuesChange={event => this.handleValueChange('SAFETY', event.map(option => option.value))}
+                        onValuesChange={event => this.handleValueChange('teacher', 'languagesOffered', event.map(option => option.value))}
                         options={home.data.teacherAvailableLanguages.map(language => {
                           return { label: t(`languages.${language}`), value: language }
                         })}
@@ -170,7 +187,7 @@ export default class HomeImmersions extends Component {
                       <ControlLabel>{t('immersions.packages_offered_label')}*</ControlLabel>
                       <MultiSelect
                         theme='bootstrap3'
-                        onValuesChange={event => this.handleValueChange('SAFETY', event.map(option => option.value))}
+                        onValuesChange={event => this.handleValueChange('teacher', 'packages', event.map(option => option.value))}
                         options={[
                           { value: 5, label: `5 ${t('immersions.hours_per_week_short')}` },
                           { value: 10, label: `10 ${t('immersions.hours_per_week_short')}` },
@@ -184,7 +201,16 @@ export default class HomeImmersions extends Component {
                       <ControlLabel>{t('immersions.hourly_rate_label')}*</ControlLabel>
                       <InputGroup>
                         <InputGroup.Addon>{Currencies[home.data.pricing.currency]}</InputGroup.Addon>
-                        <FormControl type='text' />
+                        <FormControl
+                          type='text'
+                          value={immersions.teacher.hourly || ''}
+                          onChange={event => {
+                            const value = event.target.value
+                            if (validator.isInt(value) || value === '') {
+                              this.handleValueChange('teacher', 'hourly', parseInt(value))
+                            }
+                          }}
+                        />
                         <InputGroup.Addon>.00</InputGroup.Addon>
                       </InputGroup>
                     </Col>
