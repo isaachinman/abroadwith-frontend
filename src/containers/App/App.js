@@ -8,6 +8,7 @@ import Helmet from 'react-helmet'
 import React, { Component, PropTypes } from 'react'
 import NotFound from 'components/NotFound/NotFound'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
+import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 
 // Relative imports
 import config from '../../config'
@@ -29,7 +30,7 @@ import styles from './App.styles'
   state => ({
     jwt: state.auth.jwt,
     token: state.auth.token,
-    user: state.privateData.user.loaded ? state.privateData.user.data : null,
+    user: state.privateData.user,
     homes: state.privateData.homes,
     routing: state.routing.locationBeforeTransitions,
     locale: state.ui.locale,
@@ -52,8 +53,8 @@ export default class App extends Component {
     const { dispatch, homes, token, user } = this.props
 
     // Load homes if necessary
-    if (user && user.homeIds && homes.length !== user.homeIds.length) {
-      user.homeIds.map(homeID => {
+    if (user.data && user.data.homeIds && homes.length !== user.data.homeIds.length) {
+      user.data.homeIds.map(homeID => {
         if (!homes[homeID] || (homes[homeID] && !homes[homeID].loading && !homes[homeID].loaded)) {
           dispatch(loadHomestayWithAuth(token, homeID))
         }
@@ -75,7 +76,16 @@ export default class App extends Component {
       this.props.pushState('/')
 
     }
+  }
 
+  componentDidUpdate = () => {
+
+    const { dispatch, token, user } = this.props
+
+    // Load user if necessary (sometimes happens in weird edge cases)
+    if (token && !user.loaded && !user.loading) {
+      dispatch(loadUserWithAuth(token))
+    }
   }
 
   handleLogout = (event) => {
