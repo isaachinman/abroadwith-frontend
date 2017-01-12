@@ -1,7 +1,8 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
-import { Button, Col, Collapse, ControlLabel, FormControl, InputGroup, Row, Panel } from 'react-bootstrap'
+import { Button, Col, Collapse, ControlLabel, FormControl, InputGroup, Modal, Row, Panel } from 'react-bootstrap'
+import UploadTeacherCertifications from 'components/UploadTeacherCertifications/UploadTeacherCertifications'
 import { SimpleSelect as Select, MultiSelect } from 'react-selectize'
 import Currencies from 'data/constants/Currencies'
 import ReactBootstrapSlider from 'react-bootstrap-slider'
@@ -20,6 +21,7 @@ const hoursSharedPerWeekOptions = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
 export default class HomeImmersions extends Component {
 
   state = {
+    certificationModalOpen: false,
     immersionsEnabled: {
       stay: this.props.home.data.immersions.stay && this.props.home.data.immersions.stay.isActive,
       tandem: this.props.home.data.immersions.tandem && this.props.home.data.immersions.tandem.isActive,
@@ -42,9 +44,12 @@ export default class HomeImmersions extends Component {
     this.setState({ immersionsEnabled: Object.assign({}, this.state.immersionsEnabled, { [`${immersion}`]: !this.state.immersionsEnabled[`${immersion}`] }) })
   }
 
+  closeCertificationModal = () => this.setState({ certificationModalOpen: false })
+  openCertificationModal = () => this.setState({ certificationModalOpen: true })
+
   render() {
 
-    const { immersions, immersionsEnabled } = this.state
+    const { certificationModalOpen, immersions, immersionsEnabled } = this.state
     const { home, t } = this.props
 
     console.log(this)
@@ -217,7 +222,7 @@ export default class HomeImmersions extends Component {
                   </Row>
                   <Row>
                     <Col xs={12}>
-                      <Button bsStyle='primary' bsSize='xsmall'>{t('manage_home.add_a_certificate')}</Button>
+                      <Button onClick={this.openCertificationModal} bsStyle='primary' bsSize='xsmall'>{t('manage_home.add_a_certificate')}</Button>
                     </Col>
                   </Row>
                 </Panel>
@@ -239,6 +244,14 @@ export default class HomeImmersions extends Component {
             <p dangerouslySetInnerHTML={{ __html: t('manage_home.immersions_explanation') }} />
           </Col>
         </Row>
+        <Modal show={certificationModalOpen} onHide={this.closeCertificationModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <UploadTeacherCertifications />
+          </Modal.Body>
+        </Modal>
       </span>
 
     )
