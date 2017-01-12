@@ -28,7 +28,7 @@ export default class HomeDescription extends Component {
     const { description } = this.state
     const { inProgress, t } = this.props
 
-    const formIsValid = description.summary.length > 5
+    const formIsValid = description.summary && description.summary.length > 5
     console.log(this)
 
     return (
