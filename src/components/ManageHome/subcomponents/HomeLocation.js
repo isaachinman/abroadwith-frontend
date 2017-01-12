@@ -14,7 +14,7 @@ export default class HomeLocation extends Component {
 
   state = {
     gMapsRender: shortid(),
-    newLocation: this.props.home && this.props.home.data.location ? this.props.home.data.location : {
+    newLocation: {
       lat: null,
       lng: null,
       street: null,
@@ -37,6 +37,7 @@ export default class HomeLocation extends Component {
 
   componentWillUpdate = nextProps => {
     // Google map component must be re-rendered if it was previously hidden
+    console.log(this.props.activeTab, nextProps.activeTab)
     if (this.props.activeTab !== 'location' && nextProps.activeTab === 'location' && this._googleMapComponent) {
       setTimeout(() => triggerEvent(this._googleMapComponent, 'resize'), 250)
       setTimeout(() => this.setState({ gMapsRender: shortid() }), 500)

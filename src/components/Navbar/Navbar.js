@@ -80,7 +80,7 @@ export default class Navbar extends Component {
 
             {jwt &&
               <Nav navbar pullRight>
-                {user && user.homeIds.length > 0 ?
+                {user.loaded && user.data.homeIds.length > 0 ?
                   <LinkContainer to='/manage-home'>
                     <NavItem>{t('common.navbar_your_home')}</NavItem>
                   </LinkContainer>
@@ -92,7 +92,7 @@ export default class Navbar extends Component {
                     <FontAwesome name='envelope-o' />
                   </NavItem>
                 </LinkContainer>
-                <NavDropdown title={user ? user.firstName : jwt.name} id='nav-dropdown'>
+                <NavDropdown title={user.loaded ? user.data.firstName : jwt.name} id='nav-dropdown'>
                   <LinkContainer to='/settings'>
                     <MenuItem>{t('common.navbar_settings')}</MenuItem>
                   </LinkContainer>

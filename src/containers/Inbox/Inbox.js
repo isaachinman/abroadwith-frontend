@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
 import { connect } from 'react-redux'
-import { Grid, Row, Col, Nav, NavItem, Tab } from 'react-bootstrap'
+import { Grid, Row, Col, Nav, NavItem, Tab, Panel } from 'react-bootstrap'
 import { translate } from 'react-i18next'
 import Helmet from 'react-helmet'
 import { loadMessages } from 'redux/modules/privateData/messaging/messaging'
@@ -32,7 +32,7 @@ import Thread from './subcomponents/Thread'
 export default class Inbox extends Component {
 
   state = {
-    activeThread: this.props.messages[0].id,
+    activeThread: this.props.messages.length > 0 ? this.props.messages[0].id : null,
   }
 
   handleSelect = threadID => {
@@ -48,41 +48,56 @@ export default class Inbox extends Component {
     console.log(activeThread)
 
     return (
-      <Grid style={styles.grid}>
-
+      <span>
         <Helmet title={t('inbox.title')} />
+        {messages.length > 0 &&
+          <Grid style={styles.grid}>
 
-        <Tab.Container id='inbox' activeKey={this.state.activeThread} onSelect={this.handleSelect}>
-          <Row>
-            <Col xs={4} style={Object.assign({}, styles.inboxContainer, styles.sidebar)}>
-              <Nav bsStyle='pills' stacked>
-                {messages.map(message => {
-                  return (
-                    <NavItem key={`sidebar-tab-${message.id}`} eventKey={message.id}>
-                      <img src={`${config.img}${message.with.photo}`} alt={`Other person: ${message.id}`} />
-                      <div style={styles.sidebarCopy}>
-                        <div style={styles.floatLeft}>
-                          <div>{t('inbox.conversation_with')} <strong>{message.with.firstName ? message.with.firstName : null}</strong></div>
-                          <div style={styles.sidebarDates}>{uiDate(message.arrival)} {t('common.words.to')} {uiDate(message.departure)}</div>
-                        </div>
-                      </div>
-                    </NavItem>
-                  )
-                })}
-              </Nav>
-            </Col>
-            <Col xs={8} style={styles.inboxContainer}>
-              <Tab.Content animation={false} style={styles.threadContainer}>
-                {messages.filter(message => message.id === activeThread).map(message => {
-                  return (
-                    <Thread key={`thread-${message.id}`} thread={message} jwt={jwt} token={token} />
-                  )
-                })}
-              </Tab.Content>
-            </Col>
-          </Row>
-        </Tab.Container>
-      </Grid>
+            <Tab.Container id='inbox' activeKey={this.state.activeThread} onSelect={this.handleSelect}>
+              <Row>
+                <Col xs={4} style={Object.assign({}, styles.inboxContainer, styles.sidebar)}>
+                  <Nav bsStyle='pills' stacked>
+                    {messages.map(message => {
+                      return (
+                        <NavItem key={`sidebar-tab-${message.id}`} eventKey={message.id}>
+                          <img src={`${config.img}${message.with.photo}`} alt={`Other person: ${message.id}`} />
+                          <div style={styles.sidebarCopy}>
+                            <div style={styles.floatLeft}>
+                              <div>{t('inbox.conversation_with')} <strong>{message.with.firstName ? message.with.firstName : null}</strong></div>
+                              <div style={styles.sidebarDates}>{uiDate(message.arrival)} {t('common.words.to')} {uiDate(message.departure)}</div>
+                            </div>
+                          </div>
+                        </NavItem>
+                        )
+                    })}
+                  </Nav>
+                </Col>
+                <Col xs={8} style={styles.inboxContainer}>
+                  <Tab.Content animation={false} style={styles.threadContainer}>
+                    {messages.filter(message => message.id === activeThread).map(message => {
+                      return (
+                        <Thread key={`thread-${message.id}`} thread={message} jwt={jwt} token={token} />
+                        )
+                    })}
+                  </Tab.Content>
+                </Col>
+              </Row>
+            </Tab.Container>
+          </Grid>
+        }
+        {messages.length === 0 &&
+          <Grid style={Object.assign({}, styles.grid, { background: 'none' })}>
+            <Row>
+              <Col xs={12} md={6} mdOffset={3}>
+                <Panel>
+                  <h3>{t('inbox.no_messages_title')}</h3>
+                  <p>{t('inbox.thread_will_be_here')}</p>
+                </Panel>
+              </Col>
+            </Row>
+          </Grid>
+        }
+      </span>
     )
   }
 }
