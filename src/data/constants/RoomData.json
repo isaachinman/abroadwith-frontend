@@ -1,0 +1,24 @@
+{
+  "bedTypes": [
+    "SINGLE_BED",
+    "DOUBLE_BED",
+    "AIR_BED",
+    "FUTON",
+    "PULLOUT_SOFA",
+    "COUCH"
+  ],
+  "facilities": [
+    "AIR_CONDITIONING",
+    "BATHROOM",
+    "BEDSIDE_LOCKER",
+    "DESK",
+    "DRESSER",
+    "FRIDGE",
+    "HAIR_DRYER",
+    "HANGERS",
+    "HEATING",
+    "IRON",
+    "MIRROR",
+    "WARDROBE"
+  ]
+}
