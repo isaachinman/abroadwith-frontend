@@ -175,12 +175,20 @@ export default class ManageHome extends Component {
 
                   <Tab.Pane eventKey='immersions'>
                     <h2>{t('manage_home.immersions_title')}</h2>
-                    <HomeImmersions {...this.props} />
+                    <HomeImmersions
+                      {...this.props}
+                      inProgress={inProgress}
+                      updateHome={this.updateHome}
+                    />
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='rooms'>
                     <h2>{t('manage_home.rooms_title')}</h2>
-                    <HomeRooms {...this.props} />
+                    <HomeRooms
+                      {...this.props}
+                      inProgress={inProgress}
+                      updateHome={this.updateHome}
+                    />
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='photos'>

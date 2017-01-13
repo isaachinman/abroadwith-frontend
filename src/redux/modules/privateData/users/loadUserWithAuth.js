@@ -122,6 +122,7 @@ export function update(userID, userObject, jwt, callback) {
   delete cleanedData.payoutMethods
   delete cleanedData.verifications
   delete cleanedData.email
+  delete cleanedData.homeIds
 
   const cb = typeof callback === 'function' ? callback : () => {}
 

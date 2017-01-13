@@ -41,25 +41,183 @@ export default class HomeImmersions extends Component {
   }
 
   toggleImmersion = immersion => {
-    this.setState({ immersionsEnabled: Object.assign({}, this.state.immersionsEnabled, { [`${immersion}`]: !this.state.immersionsEnabled[`${immersion}`] }) })
+    const { immersions } = this.state
+    immersions[`${immersion}`].isActive = !immersions[`${immersion}`].isActive
+    this.setState({ immersions })
   }
 
   closeCertificationModal = () => this.setState({ certificationModalOpen: false })
   openCertificationModal = () => this.setState({ certificationModalOpen: true })
 
+  stayImmersionIsValid = () => {
+
+    const { stay } = this.state.immersions
+    const { home } = this.props
+    let stayValidFields = 0
+
+    // Validate stay isActive
+    if (typeof stay.isActive === 'boolean') {
+      stayValidFields++
+    }
+
+    // Validate stay hours
+    if (stay.hours === parseInt(stay.hours) && stay.hours >= 7 && stay.hours <= 21) {
+      stayValidFields++
+    }
+
+    // Validate stay languages
+    if (stay.languagesOffered &&
+        stay.languagesOffered.constructor === Array &&
+        stay.languagesOffered.length > 0 &&
+        !stay.languagesOffered.some(lang => home.data.stayAvailableLanguages.indexOf(lang) === -1)) {
+      stayValidFields++
+    }
+
+    return stayValidFields === 3
+
+  }
+
+  tandemImmersionIsValid = () => {
+
+    const { tandem } = this.state.immersions
+    const { home } = this.props
+    let tandemValidFields = 0
+
+    // Validate tandem isActive
+    if (typeof tandem.isActive === 'boolean') {
+      tandemValidFields++
+    }
+
+    // Validate tandem hours
+    if (tandem.hours === parseInt(tandem.hours) && tandem.hours >= 7 && tandem.hours <= 21) {
+      tandemValidFields++
+    }
+
+    // Validate tandem offered languages
+    if (tandem.languagesOffered &&
+        tandem.languagesOffered.constructor === Array &&
+        tandem.languagesOffered.length > 0 &&
+        !tandem.languagesOffered.some(lang => home.data.tandemAvailableLanguages.indexOf(lang) === -1)) {
+      tandemValidFields++
+    }
+
+    // Validate tandem sought languages
+    if (tandem.languagesInterested &&
+        tandem.languagesInterested.constructor === Array &&
+        tandem.languagesInterested.length > 0) {
+      tandemValidFields++
+    }
+
+    return tandemValidFields === 4
+
+  }
+
+  teacherImmersionIsValid = () => {
+
+    const { teacher } = this.state.immersions
+    const { home } = this.props
+    let teacherValidFields = 0
+
+    // Validate teacher isActive
+    if (typeof teacher.isActive === 'boolean') {
+      teacherValidFields++
+    }
+
+    // Validate teacher offered languages
+    if (teacher.languagesOffered &&
+        teacher.languagesOffered.constructor === Array &&
+        teacher.languagesOffered.length > 0 &&
+        !teacher.languagesOffered.some(lang => home.data.teacherAvailableLanguages.indexOf(lang) === -1)) {
+      teacherValidFields++
+    }
+
+    // Validate teacher packages
+    if (teacher.packages &&
+        teacher.packages.constructor === Array &&
+        teacher.packages.length > 0 &&
+        !teacher.packages.some(lang => [5, 10, 15].indexOf(lang) === -1)) {
+      teacherValidFields++
+    }
+
+    // Validate teacher hourly rate
+    if (teacher.hourly === parseInt(teacher.hourly)) {
+      teacherValidFields++
+    }
+
+    return teacherValidFields === 4
+
+  }
+
+  distributeTandemDiscount = (inputObject, cb) => {
+
+    // Only proceed if there is indeed a global discount to apply
+    if (inputObject.discount) {
+      const discount = inputObject.discount
+      const tandem = Object.assign({}, inputObject, {
+        languagesInterested: inputObject.languagesInterested.map(lang => {
+          if (typeof lang === 'object') {
+            return {
+              lang: lang.lang,
+              discount,
+            }
+          } else if (typeof lang === 'string') {
+            return {
+              lang,
+              discount,
+            }
+          }
+        }),
+      })
+      delete tandem.discount
+      const { immersions } = this.state
+      immersions.tandem = tandem
+      this.setState({ immersions }, cb)
+    } else {
+      cb()
+    }
+
+  }
+
+  updateImmersions = () => {
+    const { updateHome, home } = this.props
+    const { immersions } = this.state
+    this.distributeTandemDiscount(immersions.tandem, () => {
+      const validatedImmersions = {
+        stay: this.stayImmersionIsValid() ? this.state.immersions.stay : null,
+        tandem: this.tandemImmersionIsValid() ? this.state.immersions.tandem : null,
+        teacher: this.teacherImmersionIsValid() ? this.state.immersions.teacher : null,
+      }
+      updateHome(Object.assign({}, home.data, {
+        immersions: validatedImmersions,
+      }))
+    })
+
+  }
+
   render() {
 
-    const { certificationModalOpen, immersions, immersionsEnabled } = this.state
-    const { home, t } = this.props
+    const { certificationModalOpen, immersions } = this.state
+    const { home, inProgress, t } = this.props
 
-    console.log(this)
+    const stayIsValid = this.stayImmersionIsValid()
+    const tandemIsValid = this.tandemImmersionIsValid()
+    const teacherIsValid = this.teacherImmersionIsValid()
+
+    const formIsValid = stayIsValid || tandemIsValid || teacherIsValid
+
+    let tandemDiscount = 0
+    if (immersions.tandem.discount) {
+      tandemDiscount = immersions.tandem.discount
+    } else if (immersions.tandem.languagesInterested && immersions.tandem.languagesInterested.length > 0 && immersions.tandem.languagesInterested[0].discount) {
+      tandemDiscount = immersions.tandem.languagesInterested[0].discount
+    }
 
     return (
 
       <span>
         <Row>
           <Col xs={12} md={4}>
-            <Collapse in={immersionsEnabled.stay}>
+            <Collapse in={immersions.stay.isActive}>
               <div>
                 <Panel
                   header={<h3>{t('common.Stay')}</h3>}
@@ -70,7 +228,8 @@ export default class HomeImmersions extends Component {
                       <ControlLabel>{t('immersions.hours_per_week_label')}*</ControlLabel>
                       <Select
                         theme='bootstrap3'
-                        onValueChange={event => this.handleValueChange('stay', 'hours', event.value)}
+                        onValueChange={event => this.handleValueChange('stay', 'hours', event ? event.value : '')}
+                        value={immersions.stay.hours ? { label: immersions.stay.hours, value: immersions.stay.hours } : null}
                       >
                         {hoursSharedPerWeekOptions.map(num => <option value={num} key={`stayhr${num}`}>{num.toString()}</option>)}
                       </Select>
@@ -85,13 +244,16 @@ export default class HomeImmersions extends Component {
                         options={home.data.stayAvailableLanguages.map(language => {
                           return { label: t(`languages.${language}`), value: language }
                         })}
+                        values={immersions.stay.languagesOffered ? immersions.stay.languagesOffered.map(language => {
+                          return { label: t(`languages.${language}`), value: language }
+                        }) : []}
                       />
                     </Col>
                   </Row>
                 </Panel>
               </div>
             </Collapse>
-            <Collapse in={!immersionsEnabled.stay}>
+            <Collapse in={!immersions.stay.isActive}>
               <div>
                 <Panel>
                   <h3>{t('common.Stay')}</h3>
@@ -103,7 +265,7 @@ export default class HomeImmersions extends Component {
           </Col>
 
           <Col xs={12} md={4}>
-            <Collapse in={immersionsEnabled.tandem}>
+            <Collapse in={immersions.tandem.isActive}>
               <div>
                 <Panel
                   header={<h3>{t('common.Tandem')}</h3>}
@@ -114,7 +276,8 @@ export default class HomeImmersions extends Component {
                       <ControlLabel>{t('immersions.hours_per_week_label')}*</ControlLabel>
                       <Select
                         theme='bootstrap3'
-                        onValueChange={event => this.handleValueChange('tandem', 'hours', event.value)}
+                        onValueChange={event => this.handleValueChange('tandem', 'hours', event ? event.value : '')}
+                        value={immersions.tandem.hours ? { label: immersions.tandem.hours, value: immersions.tandem.hours } : null}
                       >
                         {hoursSharedPerWeekOptions.map(num => <option value={num} key={`tandemhr${num}`}>{num.toString()}</option>)}
                       </Select>
@@ -129,6 +292,9 @@ export default class HomeImmersions extends Component {
                         options={home.data.tandemAvailableLanguages.map(language => {
                           return { label: t(`languages.${language}`), value: language }
                         })}
+                        values={immersions.tandem.languagesOffered ? immersions.tandem.languagesOffered.map(language => {
+                          return { label: t(`languages.${language}`), value: language }
+                        }) : []}
                       />
                     </Col>
                   </Row>
@@ -141,6 +307,12 @@ export default class HomeImmersions extends Component {
                         options={home.data.tandemAvailableLearnLanguages.map(language => {
                           return { label: t(`languages.${language}`), value: language }
                         })}
+                        values={immersions.tandem.languagesInterested ? immersions.tandem.languagesInterested.map(language => {
+                          if (typeof language === 'object') {
+                            return { label: t(`languages.${language.lang}`), value: language.lang }
+                          }
+                          return { label: t(`languages.${language}`), value: language }
+                        }) : []}
                       />
                     </Col>
                   </Row>
@@ -148,16 +320,18 @@ export default class HomeImmersions extends Component {
                     <Col xs={12}>
                       <ControlLabel>{t('manage_home.pricing_discount_tandem')}*</ControlLabel>
                       <ReactBootstrapSlider
+                        change={event => this.handleValueChange('tandem', 'discount', event.target.value)}
                         min={0}
                         max={100}
                         formatter={value => `${value}%`}
+                        value={tandemDiscount}
                       />
                     </Col>
                   </Row>
                 </Panel>
               </div>
             </Collapse>
-            <Collapse in={!immersionsEnabled.tandem}>
+            <Collapse in={!immersions.tandem.isActive}>
               <div>
                 <Panel>
                   <h3>{t('common.Tandem')}</h3>
@@ -169,7 +343,7 @@ export default class HomeImmersions extends Component {
           </Col>
 
           <Col xs={12} md={4}>
-            <Collapse in={immersionsEnabled.teacher}>
+            <Collapse in={immersions.teacher.isActive}>
               <div>
                 <Panel
                   header={<h3>{t('common.Teachers_stay')}</h3>}
@@ -184,6 +358,9 @@ export default class HomeImmersions extends Component {
                         options={home.data.teacherAvailableLanguages.map(language => {
                           return { label: t(`languages.${language}`), value: language }
                         })}
+                        values={immersions.teacher.languagesOffered ? immersions.teacher.languagesOffered.map(language => {
+                          return { label: t(`languages.${language}`), value: language }
+                        }) : []}
                       />
                     </Col>
                   </Row>
@@ -198,6 +375,9 @@ export default class HomeImmersions extends Component {
                           { value: 10, label: `10 ${t('immersions.hours_per_week_short')}` },
                           { value: 15, label: `15 ${t('immersions.hours_per_week_short')}` },
                         ]}
+                        values={immersions.teacher.packages ? immersions.teacher.packages.map(item => {
+                          return { label: `${item} ${t('immersions.hours_per_week_short')}`, value: item }
+                        }) : []}
                       />
                     </Col>
                   </Row>
@@ -228,7 +408,7 @@ export default class HomeImmersions extends Component {
                 </Panel>
               </div>
             </Collapse>
-            <Collapse in={!immersionsEnabled.teacher}>
+            <Collapse in={!immersions.teacher.isActive}>
               <div>
                 <Panel>
                   <h3>{t('common.Teachers_stay')}</h3>
@@ -244,9 +424,20 @@ export default class HomeImmersions extends Component {
             <p dangerouslySetInnerHTML={{ __html: t('manage_home.immersions_explanation') }} />
           </Col>
         </Row>
-        <Modal show={certificationModalOpen} onHide={this.closeCertificationModal}>
+        <Row>
+          <Col xs={12}>
+            <Button onClick={this.updateImmersions} disabled={!formIsValid} bsStyle='primary'>
+              {inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>}
+            </Button>
+          </Col>
+        </Row>
+        <Modal
+          bsSize='small'
+          show={certificationModalOpen}
+          onHide={this.closeCertificationModal}
+        >
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>{t('manage_home.certificate_modal_title')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <UploadTeacherCertifications />
@@ -261,6 +452,8 @@ export default class HomeImmersions extends Component {
 HomeImmersions.propTypes = {
   dispatch: PropTypes.func,
   home: PropTypes.object,
+  inProgress: PropTypes.bool,
   t: PropTypes.func,
+  updateHome: PropTypes.func,
   token: PropTypes.string,
 }
