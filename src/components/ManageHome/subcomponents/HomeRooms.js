@@ -3,16 +3,18 @@ import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
 import { Button, Col, ControlLabel, FormControl, Panel, PanelGroup, Row } from 'react-bootstrap'
 import { SimpleSelect as Select, MultiSelect } from 'react-selectize'
-import { createRoom, deleteRoom } from 'redux/modules/privateData/homes/roomManagement'
+import { createRoom, updateRoomImage, deleteRoom } from 'redux/modules/privateData/homes/roomManagement'
 import config from 'config'
 import Dropzone from 'react-dropzone'
 import RoomData from 'data/constants/RoomData'
 import Switch from 'react-bootstrap-switch'
+import shortid from 'shortid'
 
 @translate()
 export default class HomeRooms extends Component {
 
   state = {
+    render: shortid(),
     rooms: this.props.home.data.rooms,
     newRoom: {
       name: null,
@@ -25,18 +27,19 @@ export default class HomeRooms extends Component {
     newRoomImg: null,
   }
 
-  onDrop = acceptedFiles => {
+  newRoomDrop = acceptedFiles => {
     this.setState({ newRoomImg: acceptedFiles[0] })
   }
 
-  handleValueChange = (roomIsNew, roomID, field, value) => {
+  existingRoomDrop = (acceptedFiles, roomID) => {
+    const { token, dispatch, routeParams } = this.props
+    dispatch(updateRoomImage(token, routeParams.homeID, roomID, acceptedFiles[0]))
+  }
 
-    console.log(roomIsNew, roomID, field, value)
+  handleValueChange = (roomIsNew, roomID, field, value) => {
     const state = this.state
     const objectToAffect = roomIsNew ? state.newRoom : state.rooms.filter(room => room.id === roomID)[0]
-    console.log('objectToAffect', objectToAffect)
     objectToAffect[`${field}`] = value
-    console.log(state)
     this.setState(state)
   }
 
@@ -68,10 +71,22 @@ export default class HomeRooms extends Component {
 
   }
 
+  // This function forces a rerender
+  // react-bootstrap-switch doesn't render properly if hidden
+  forceRender = () => {
+    this.setState({ render: shortid() })
+  }
+
   createRoom = () => {
     const { dispatch, token, routeParams } = this.props
     const { newRoom, newRoomImg } = this.state
     dispatch(createRoom(token, routeParams.homeID, newRoom, newRoomImg))
+  }
+
+  updateRooms = () => {
+    this.props.updateHome(Object.assign({}, this.props.home.data, {
+      rooms: this.state.rooms,
+    }))
   }
 
   deleteRoom = roomID => {
@@ -81,7 +96,7 @@ export default class HomeRooms extends Component {
 
   render() {
 
-    const { newRoom, newRoomImg, rooms } = this.state
+    const { newRoom, newRoomImg, render, rooms } = this.state
     const { inProgress, t } = this.props
 
     const alphabeticalRooms = rooms.sort((a, b) => {
@@ -90,15 +105,18 @@ export default class HomeRooms extends Component {
       return x < y ? -1 : x > y ? 1 : 0 // eslint-disable-line
     })
 
-    console.log(this)
-
     const newRoomIsValid = this.validateRoom(newRoom)
 
     return (
 
       <Row>
         <Col xs={12}>
-          <PanelGroup defaultActiveKey={inProgress ? 'new-room' : null} accordion>
+          <PanelGroup
+            onSelect={this.forceRender}
+            id={render}
+            defaultActiveKey={inProgress ? 'new-room' : null}
+            accordion
+          >
             <Panel
               bsStyle='info'
               header={t('manage_home.rooms_newone')}
@@ -175,7 +193,7 @@ export default class HomeRooms extends Component {
                 <Col xs={12} md={6}>
                   <Dropzone
                     multiple={false}
-                    onDrop={this.onDrop}
+                    onDrop={this.newRoomDrop}
                   >
                     <div>{t('manage_home.drop_room_photo')}</div>
                     {newRoomImg &&
@@ -284,7 +302,7 @@ export default class HomeRooms extends Component {
                     <Col xs={12} md={6}>
                       <Dropzone
                         multiple={false}
-                        onDrop={this.onDrop}
+                        onDrop={acceptedFiles => this.existingRoomDrop(acceptedFiles, room.id)}
                       >
                         <div>{t('manage_home.drop_room_photo')}</div>
                         {room.img &&
@@ -308,11 +326,7 @@ export default class HomeRooms extends Component {
                   </Row>
                   <Row>
                     <Col xs={12}>
-                      <Button bsStyle='primary'>{t('manage_home.save_button')}</Button>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={12}>
+                      <Button onClick={this.updateRooms} disabled={!this.validateRoom(room)} bsStyle='primary'>{t('manage_home.save_button')}</Button>
                       <Button
                         bsStyle='danger'
                         className='pull-right'
@@ -341,5 +355,6 @@ HomeRooms.propTypes = {
   inProgress: PropTypes.bool,
   t: PropTypes.func,
   routeParams: PropTypes.object,
+  updateHome: PropTypes.func,
   token: PropTypes.string,
 }
