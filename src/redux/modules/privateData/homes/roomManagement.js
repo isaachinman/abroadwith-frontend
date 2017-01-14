@@ -3,17 +3,20 @@ import config from 'config'
 import superagent from 'superagent'
 import { load as loadHomeWithAuth } from './loadHomeWithAuth'
 
-// Create ROOM
+// Create room
 const CREATE_ROOM = 'abroadwith/CREATE_ROOM'
 const CREATE_ROOM_SUCCESS = 'abroadwith/CREATE_ROOM_SUCCESS'
 const CREATE_ROOM_FAIL = 'abroadwith/CREATE_ROOM_FAIL'
 
-// Update ROOM
-const UPDATE_ROOM = 'abroadwith/UPDATE_ROOM'
-const UPDATE_ROOM_SUCCESS = 'abroadwith/UPDATE_ROOM_SUCCESS'
-const UPDATE_ROOM_FAIL = 'abroadwith/UPDATE_ROOM_FAIL'
+// Note: creation and deletion of rooms happens via specific endpoints
+// However, updating/modifying existing rooms just happens via the home object
 
-// Delete ROOM
+// Update room image
+const UPDATE_ROOM_IMAGE = 'abroadwith/UPDATE_ROOM_IMAGE'
+const UPDATE_ROOM_IMAGE_SUCCESS = 'abroadwith/UPDATE_ROOM_IMAGE_SUCCESS'
+const UPDATE_ROOM_IMAGE_FAIL = 'abroadwith/UPDATE_ROOM_IMAGE_FAIL'
+
+// Delete room
 const DELETE_ROOM = 'abroadwith/DELETE_ROOM'
 const DELETE_ROOM_SUCCESS = 'abroadwith/DELETE_ROOM_SUCCESS'
 const DELETE_ROOM_FAIL = 'abroadwith/DELETE_ROOM_FAIL'
@@ -40,8 +43,6 @@ export function createRoom(jwt, homeID, roomObject, roomImg) {
 
           // Room creation was successful
           dispatch({ type: CREATE_ROOM_SUCCESS, homeID, result: body })
-
-          console.log('body: ', body)
 
           // Now upload the roomImg to s3 and associate it with the room
           if (roomImg) {
@@ -75,44 +76,37 @@ export function createRoom(jwt, homeID, roomObject, roomImg) {
   }
 }
 
-export function updateRoom(jwt, homeID, homeObject) {
-
-  // Clean the data
-  /* eslint-disable */
-  delete homeObject.published
-  delete homeObject.GENERAL
-  delete homeObject.homeActivationResponse
-  delete homeObject.isActive
-  /* eslint-enable */
+export function updateRoomImage(jwt, homeID, roomID, roomImg) {
 
   return async dispatch => {
 
-    dispatch({ type: UPDATE_ROOM, homeID })
+    dispatch({ type: UPDATE_ROOM_IMAGE })
 
     try {
 
-      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes/${homeID}`)
-      request.set({ Authorization: `Bearer ${(jwt)}` })
-      request.send(homeObject)
+      const imgRequest = superagent.post(`/upload/users/${jwtDecode(jwt).rid}/homes/${homeID}/rooms/${roomID}/photo`)
+      imgRequest.set({ abroadauth: `Bearer ${(jwt)}` })
 
-      request.end((err, { body } = {}) => {
+      imgRequest.attach('file', roomImg)
+
+      imgRequest.end(err => {
 
         if (err) {
 
-          dispatch({ type: UPDATE_ROOM_FAIL, homeID, err })
+          dispatch({ type: UPDATE_ROOM_IMAGE_FAIL, homeID, err })
 
         } else {
 
-          // Request was successful
-          dispatch({ type: UPDATE_ROOM_SUCCESS, homeID, result: body })
-          dispatch(loadHomeWithAuth(jwt, homeID))
+          dispatch({ type: UPDATE_ROOM_IMAGE_SUCCESS, homeID, err })
 
+          // Now refetch the home itself
+          dispatch(loadHomeWithAuth(jwt, homeID))
         }
 
       })
 
     } catch (err) {
-      dispatch({ type: UPDATE_ROOM_FAIL, homeID, err })
+      dispatch({ type: UPDATE_ROOM_IMAGE_FAIL, homeID, err })
     }
   }
 }
