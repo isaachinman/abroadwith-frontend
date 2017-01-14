@@ -71,10 +71,11 @@ export default class HomeBasics extends Component {
             </Col>
 
             <Col xs={12} md={4}>
-              <ControlLabel>{t('homes.home_safety_placeholder')}</ControlLabel>
+              <ControlLabel>{t('homes.home_safety_label')}</ControlLabel>
               <div>
                 <MultiSelect
                   theme='bootstrap3'
+                  placeholder={t('homes.home_safety_placeholder')}
                   onValuesChange={event => this.handleValueChange('SAFETY', event.map(option => option.value))}
                   options={HomeData.homeSettings.SAFETY.map(safetyItem => {
                     return { label: t(`homes.home_safety.${safetyItem}`), value: safetyItem }
@@ -87,10 +88,11 @@ export default class HomeBasics extends Component {
             </Col>
 
             <Col xs={12} md={4}>
-              <ControlLabel>{t('homes.amenities_placeholder')}</ControlLabel>
+              <ControlLabel>{t('homes.amenities_label')}</ControlLabel>
               <div>
                 <MultiSelect
                   theme='bootstrap3'
+                  placeholder={t('homes.amenities_placeholder')}
                   onValuesChange={event => this.handleValueChange('AMENITIES', event.map(option => option.value))}
                   options={HomeData.homeSettings.AMENITIES.map(amenityItem => {
                     return { label: t(`homes.amenities.${amenityItem}`), value: amenityItem }
@@ -105,10 +107,11 @@ export default class HomeBasics extends Component {
 
           <Row>
             <Col xs={12} md={4}>
-              <ControlLabel>{t('homes.diets_offered_placeholder')}</ControlLabel>
+              <ControlLabel>{t('homes.diets_offered_label')}</ControlLabel>
               <div>
                 <MultiSelect
                   theme='bootstrap3'
+                  placeholder={t('homes.diets_offered_placeholder')}
                   onValuesChange={event => this.handleValueChange('FOOD_OPTION', event.map(option => option.value))}
                   options={HomeData.homeServices.FOOD_OPTION.map(foodOptionItem => {
                     return { label: t(`homes.diets_offered.${foodOptionItem}`), value: foodOptionItem }
@@ -121,10 +124,11 @@ export default class HomeBasics extends Component {
             </Col>
 
             <Col xs={12} md={4}>
-              <ControlLabel>{t('homes.extras_placeholder')}</ControlLabel>
+              <ControlLabel>{t('homes.extras_label')}</ControlLabel>
               <div>
                 <MultiSelect
                   theme='bootstrap3'
+                  placeholder={t('homes.extras_placeholder')}
                   onValuesChange={event => this.handleValueChange('EXTRAS', event.map(option => option.value))}
                   options={HomeData.homeSettings.EXTRAS.map(extrasItem => {
                     return { label: t(`homes.extras.${extrasItem}`), value: extrasItem }
@@ -153,10 +157,11 @@ export default class HomeBasics extends Component {
 
           <Row>
             <Col xs={12} md={6}>
-              <ControlLabel>{t('homes.preferences_placeholder')}</ControlLabel>
+              <ControlLabel>{t('homes.preferences_label')}</ControlLabel>
               <div>
                 <MultiSelect
                   theme='bootstrap3'
+                  placeholder={t('homes.preferences_placeholder')}
                   onValuesChange={event => this.handleValueChange('PREFERENCES', event.map(option => option.value))}
                   options={HomeData.homeSettings.PREFERENCES.map(preferencesItem => {
                     return { label: t(`homes.preferences.${preferencesItem}`), value: preferencesItem }

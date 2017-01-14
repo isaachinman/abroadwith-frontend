@@ -62,7 +62,7 @@ export default (store) => {
     }
   }
 
-  const requireLogin = (nextState, replace, cb) => {
+  const requireLogin = (nextState, replace) => {
 
     function checkAuth() {
 
@@ -71,7 +71,6 @@ export default (store) => {
         // User is not logged in, and will get bounced to homepage
         replace('/')
       }
-      cb()
     }
 
     if (!isAuthLoaded(store.getState())) {

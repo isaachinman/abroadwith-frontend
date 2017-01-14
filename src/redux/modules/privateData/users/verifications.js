@@ -30,7 +30,6 @@ export default function reducer(state = initialState, action = {}) {
         loading: true,
       }
     case REQUEST_VERIFICATION_SMS_SUCCESS:
-      console.log('action: ', action)
       return {
         ...state,
         loading: false,
