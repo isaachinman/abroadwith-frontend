@@ -22,7 +22,7 @@ const homeSteps = ['location', 'basics', 'description', 'immersions', 'rooms', '
 
 @connect(
   (state, ownProps) => ({
-    home: state.privateData.homes[ownProps.params.homeID],
+    home: state.privateData.homes ? state.privateData.homes[ownProps.params.homeID] : {},
     token: state.auth.token,
   }),
 )

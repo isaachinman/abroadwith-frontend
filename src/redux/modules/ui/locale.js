@@ -45,9 +45,10 @@ export function changeLocale(locale, setCookie, callback) {
   const cb = typeof callback === 'function' ? callback : () => {}
 
   return dispatch => {
-    try {
 
-      dispatch({ type: CHANGE_LOCALE, locale })
+    dispatch({ type: CHANGE_LOCALE, locale })
+
+    try {
 
       // To Do: validate locale format
 

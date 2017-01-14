@@ -5,7 +5,7 @@ import { Button, Col, Collapse, ControlLabel, FormControl, InputGroup, Modal, Ro
 import UploadTeacherCertifications from 'components/UploadTeacherCertifications/UploadTeacherCertifications'
 import { SimpleSelect as Select, MultiSelect } from 'react-selectize'
 import Currencies from 'data/constants/Currencies'
-import ReactBootstrapSlider from 'react-bootstrap-slider'
+import Slider from 'rc-slider'
 import validator from 'validator'
 
 // Styles
@@ -319,13 +319,15 @@ export default class HomeImmersions extends Component {
                   <Row>
                     <Col xs={12}>
                       <ControlLabel>{t('manage_home.pricing_discount_tandem')}*</ControlLabel>
-                      <ReactBootstrapSlider
-                        change={event => this.handleValueChange('tandem', 'discount', event.target.value)}
+
+                      <Slider
+                        onChange={event => this.handleValueChange('tandem', 'discount', event)}
                         min={0}
                         max={100}
-                        formatter={value => `${value}%`}
+                        tipFormatter={value => `${value}%`}
                         value={tandemDiscount}
                       />
+
                     </Col>
                   </Row>
                 </Panel>

@@ -35,7 +35,6 @@ export default function Html(props) {
   })
   basePath = basePath.replace(/^\//, '')
 
-
   return (
     <html lang='en'>
       <head>

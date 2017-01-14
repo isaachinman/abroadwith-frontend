@@ -33,6 +33,7 @@ export function updateHomestay(jwt, homeID, homeObject) {
   delete homeObject.GENERAL
   delete homeObject.homeActivationResponse
   delete homeObject.isActive
+  homeObject.images.map(img => delete img.imagePath)
   /* eslint-enable */
 
   return async dispatch => {
