@@ -9,12 +9,21 @@ const LOAD_HOMESTAY_WITH_AUTH_FAIL = 'abroadwith/LOAD_HOMESTAY_WITH_AUTH_FAIL'
 export default function reducer(state = {}, action = {}) {
   switch (action.type) {
     case LOAD_HOMESTAY_WITH_AUTH:
+      if (!state[action.homeID]) {
+        return {
+          ...state,
+          [action.homeID]: {
+            loading: true,
+            loaded: false,
+          },
+        }
+      }
       return {
         ...state,
-        [action.homeID]: {
+        [action.homeID]: Object.assign({}, state[action.homeID], {
           loading: true,
           loaded: false,
-        },
+        }),
       }
     case LOAD_HOMESTAY_WITH_AUTH_SUCCESS:
       return {

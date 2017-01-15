@@ -4,13 +4,8 @@ export default {
   app: {
     backgroundColor: bgGrey,
   },
-  appContainer: {
-    display: 'flex',
-    minHeight: '100vh',
-    flexDirection: 'column',
-  },
   appContent: {
     marginTop: 80,
-    flex: '1',
+    minHeight: 'calc(100vh - 80px)',
   },
 }
