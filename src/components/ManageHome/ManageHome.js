@@ -66,6 +66,8 @@ export default class ManageHome extends Component {
 
   render() {
 
+    console.log(this)
+
     const { home, t } = this.props
     const { tab } = this.state
 
@@ -193,7 +195,11 @@ export default class ManageHome extends Component {
 
                   <Tab.Pane eventKey='photos'>
                     <h2>{t('manage_home.photos_title')}</h2>
-                    <HomePhotos {...this.props} />
+                    <HomePhotos
+                      {...this.props}
+                      inProgress={inProgress}
+                      updateHome={this.updateHome}
+                    />
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='pricing'>

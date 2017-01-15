@@ -273,7 +273,7 @@ routerHome.post('/', function (req, res) {
     return
   }
 
-  console.log(req.files)
+  console.log('files: ', req.files)
 
   var i = req.files.length
   req.done = 0

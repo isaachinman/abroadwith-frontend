@@ -136,6 +136,7 @@
     "react-router-bootstrap": "^0.23.1",
     "react-router-redux": "^4.0.0",
     "react-selectize": "^2.1.0",
+    "react-sortable-hoc": "^0.4.5",
     "react-telephone-input": "^3.8.6",
     "redux": "^3.5.2",
     "redux-connect": "^4.0.2",
@@ -211,14 +212,7 @@
         2,
         200
       ],
-      "new-cap": [
-        "error",
-        {
-          "capIsNewExceptions": [
-            "Immutable"
-          ]
-        }
-      ],
+      "new-cap": 0,
       "camelcase": 0,
       "array-callback-return": 0,
       "consistent-return": 0,
