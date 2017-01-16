@@ -3,6 +3,18 @@
 *
 */
 
+$bodyTextColor: #404041;
+
+.row {
+  margin-bottom: 22px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Toaster imports
+@import '../react-redux-toastr/react-redux-toastr.css';
+
 // Multiselect imports
 @import './bootstrap-multiselect.css';
 
@@ -28,6 +40,41 @@
 
 // Braintree imports
 @import 'src/styles/braintree/braintree.scss';
+
+// Fonts
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Heebo', sans-serif;
+}
+h1 {
+  font-size: 48px;
+  line-height: 56px;
+}
+h2 {
+  font-size: 42px;
+  line-height: 52px;
+}
+h3 {
+  font-size: 36px;
+  line-height: 48px;
+}
+h4 {
+  font-size: 30px;
+  line-height: 42px;
+}
+h5 {
+  font-size: 22px;
+  line-height: 32px;
+}
+h6 {
+  font-size: 18px;
+  line-height: 24px;
+}
+html {
+  color: $bodyTextColor !important;
+}
+a {
+  cursor: pointer;
+}
 
 // Custom AirBnb Datepicker styles
 .DayPicker__week-header, .CalendarMonth__caption {

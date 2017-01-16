@@ -9,6 +9,13 @@ import { triggerEvent } from 'react-google-maps/lib/utils'
 import debounce from 'debounce'
 import shortid from 'shortid'
 
+// Styles
+const styles = {
+  input: {
+    marginBottom: 10,
+  },
+}
+
 @translate()
 export default class HomeLocation extends Component {
 
@@ -113,7 +120,7 @@ export default class HomeLocation extends Component {
 
       <span>
         <Row>
-          <Col xs={12}>
+          <Col xs={12} style={styles.input}>
             <FormControl
               type='text'
               placeholder={`${t('manage_home.location.address_line_1')}*`}
@@ -121,7 +128,7 @@ export default class HomeLocation extends Component {
               value={newLocation.street || ''}
             />
           </Col>
-          <Col xs={12} sm={6}>
+          <Col xs={12} sm={6} style={styles.input}>
             <FormControl
               type='text'
               placeholder={t('manage_home.location.address_line_2')}
@@ -129,7 +136,7 @@ export default class HomeLocation extends Component {
               value={newLocation.complement || ''}
             />
           </Col>
-          <Col xs={12} sm={6}>
+          <Col xs={12} sm={6} style={styles.input}>
             <FormControl
               type='text'
               placeholder={t('manage_home.location.neighbourhood')}
@@ -137,7 +144,7 @@ export default class HomeLocation extends Component {
               value={newLocation.neighbourhood || ''}
             />
           </Col>
-          <Col xs={12} sm={6}>
+          <Col xs={12} sm={6} style={styles.input}>
             <FormControl
               type='text'
               placeholder={`${t('manage_home.location.city_town')}*`}
@@ -145,7 +152,7 @@ export default class HomeLocation extends Component {
               value={newLocation.city || ''}
             />
           </Col>
-          <Col xs={12} sm={6}>
+          <Col xs={12} sm={6} style={styles.input}>
             <FormControl
               type='text'
               placeholder={`${t('manage_home.location.state')}*`}
@@ -153,7 +160,7 @@ export default class HomeLocation extends Component {
               value={newLocation.state || ''}
             />
           </Col>
-          <Col xs={12} sm={6}>
+          <Col xs={12} sm={6} style={styles.input}>
             <FormControl
               type='text'
               placeholder={`${t('manage_home.location.postcode')}*`}
@@ -161,7 +168,7 @@ export default class HomeLocation extends Component {
               value={newLocation.zipCode || ''}
             />
           </Col>
-          <Col xs={12} sm={6}>
+          <Col xs={12} sm={6} style={styles.input}>
             <Typeahead
               selected={newLocation.country ? [{ label: t(`countries.${newLocation.country}`), id: newLocation.country }] : []}
               onChange={value => this.handleAddressChange(value[0].id, 'country')}

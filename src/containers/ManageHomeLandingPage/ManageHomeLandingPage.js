@@ -43,7 +43,9 @@ export default class ManageHomeLandingPage extends Component {
       <Grid>
         <Helmet title={t('manage_home.multi_home_title')} />
         <Row>
-          <h1>{t('manage_home.multi_home_title')}</h1>
+          <Col xs={12}>
+            <h1>{t('manage_home.multi_home_title')}</h1>
+          </Col>
         </Row>
         <Row>
           {Object.keys(homes).map(homeID => {
