@@ -2,6 +2,7 @@
 import { combineReducers } from 'redux'
 import { reducer as reduxAsyncConnect } from 'redux-connect'
 import { routerReducer } from 'react-router-redux'
+import { reducer as toastrReducer } from 'react-redux-toastr'
 
 // Relative imports
 import auth from './auth'
@@ -18,6 +19,7 @@ import verifications from './privateData/users/verifications'
 export default combineReducers({
   auth,
   messaging,
+  toastr: toastrReducer,
   routing: routerReducer,
   reduxAsyncConnect,
   privateData: combineReducers({

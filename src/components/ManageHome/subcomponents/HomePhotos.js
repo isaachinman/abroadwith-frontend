@@ -17,7 +17,7 @@ const styles = {
     border: '1px dotted black',
   },
   photoSquare: {
-    minHeight: 300,
+    minHeight: 340,
   },
   dragHandle: {
     cursor: 'move',

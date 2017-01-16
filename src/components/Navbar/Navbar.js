@@ -82,7 +82,7 @@ export default class Navbar extends Component {
               <Nav navbar pullRight>
                 {user.loaded && user.data.homeIds.length > 0 ?
                   <LinkContainer to='/manage-home'>
-                    <NavItem>{t('common.navbar_your_home')}</NavItem>
+                    {user.data.homeIds.length > 1 ? <NavItem>{t('common.navbar_your_homes')}</NavItem> : <NavItem>{t('common.navbar_your_home')}</NavItem>}
                   </LinkContainer>
                   :
                   <NavItem onClick={() => dispatch(createHomestay(token))}>{t('common.navbar_become_host')}</NavItem>

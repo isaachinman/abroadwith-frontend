@@ -13,3 +13,5 @@ export const bgGrey = '#f7fafb'
 export const accentGrey3 = '#909AA8'
 export const accentGrey2 = '#AAB4C2'
 export const accentGrey1 = '#C3CDDB'
+
+export const bodyTextColor = '#404041'

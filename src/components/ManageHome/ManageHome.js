@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import { updateHomestay } from 'redux/modules/privateData/homes/homeManagement'
 import HomeStatusCodes from 'data/constants/HomeStatusCodes'
+import { toastr } from 'react-redux-toastr'
 
 // Relative imports
 import styles from './ManageHome.styles'
@@ -43,6 +44,7 @@ export default class ManageHome extends Component {
   updateHome = homeObject => {
     const { dispatch, token, routeParams } = this.props
     dispatch(updateHomestay(token, routeParams.homeID, homeObject))
+    toastr.success('home updated', '', { timeOut: 0 })
   }
 
   determineHomeCreationStep = () => {
