@@ -1,13 +1,7 @@
-// JWT
-1. See about possibility of doing away with cbk by just checking it directly in the user object
-2. For that matter, see about making JWT completely immutable
-
-// REDUX
-1. Move all the various files on the top level of the redux dir into appropriate either public or private data dirs
-2. Either decide on dashes or camel case and be consistent
-
-// TRANSLATIONS
-1. Forgot about /en/about sort of routes, need to figure out a way to have dynamic routing like this that also triggers a ui-language change
-    -Basically should check if the first sub path, eg between first '/' and second '/' matches a valid locale
-    -If it does, just change to that locale and keep the route the same
-    -Also need to look into then keeping this '/en/' prefix in front of links the user goes to from there
+// Manage Home
+1. Go back through and put in tooltips
+2. Convert home photos to react-bootstrap Thumbnails
+3. Caption is not saved on inProgress when dropping second photo
+4. Show success modal on home publication
+5. Add calendar to last to last step of manage-home
+6. Need to change message/thread endpoint to include homeID

@@ -85,7 +85,7 @@ export default class Navbar extends Component {
                     {user.data.homeIds.length > 1 ? <NavItem>{t('common.navbar_your_homes')}</NavItem> : <NavItem>{t('common.navbar_your_home')}</NavItem>}
                   </LinkContainer>
                   :
-                  <NavItem onClick={() => dispatch(createHomestay(token))}>{t('common.navbar_become_host')}</NavItem>
+                  <NavItem onClick={() => dispatch(createHomestay(token, true))}>{t('common.navbar_become_host')}</NavItem>
                 }
                 <LinkContainer to='/inbox'>
                   <NavItem>

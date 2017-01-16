@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import { updateHomestay } from 'redux/modules/privateData/homes/homeManagement'
 import HomeStatusCodes from 'data/constants/HomeStatusCodes'
-import { toastr } from 'react-redux-toastr'
 
 // Relative imports
 import styles from './ManageHome.styles'
@@ -32,6 +31,7 @@ export default class ManageHome extends Component {
 
   state = {
     tab: null,
+    holdBackStep: false,
   }
 
   componentDidMount = () => {
@@ -41,15 +41,19 @@ export default class ManageHome extends Component {
     }
   }
 
-  updateHome = homeObject => {
+  tabOverride = tab => {
+    this.setState({ tabOverride: tab })
+  }
+
+  updateHome = (homeObject, notificationMessage) => {
     const { dispatch, token, routeParams } = this.props
-    dispatch(updateHomestay(token, routeParams.homeID, homeObject))
-    toastr.success('home updated', '', { timeOut: 0 })
+    dispatch(updateHomestay(token, routeParams.homeID, homeObject, notificationMessage))
   }
 
   determineHomeCreationStep = () => {
 
     const { homeActivationResponse } = this.props.home.data
+    const { tabOverride } = this.state
 
     if (homeActivationResponse.activated) {
       return 'success'
@@ -58,8 +62,8 @@ export default class ManageHome extends Component {
     const step = Object.keys(HomeStatusCodes).find(status => HomeStatusCodes[status].indexOf(homeActivationResponse.code) > -1)
 
     return {
-      stepName: step,
-      stepNum: homeSteps.indexOf(step) + 1,
+      stepName: tabOverride || step,
+      stepNum: tabOverride ? homeSteps.indexOf(step) : homeSteps.indexOf(step) + 1,
     }
 
   }
@@ -190,6 +194,7 @@ export default class ManageHome extends Component {
                     <h2>{t('manage_home.rooms_title')}</h2>
                     <HomeRooms
                       {...this.props}
+                      tabOverride={this.tabOverride}
                       inProgress={inProgress}
                       updateHome={this.updateHome}
                     />
@@ -199,6 +204,7 @@ export default class ManageHome extends Component {
                     <h2>{t('manage_home.photos_title')}</h2>
                     <HomePhotos
                       {...this.props}
+                      tabOverride={this.tabOverride}
                       inProgress={inProgress}
                       updateHome={this.updateHome}
                     />
@@ -206,7 +212,11 @@ export default class ManageHome extends Component {
 
                   <Tab.Pane eventKey='pricing'>
                     <h2>{t('manage_home.pricing_title')}</h2>
-                    <HomePricing {...this.props} />
+                    <HomePricing
+                      {...this.props}
+                      inProgress={inProgress}
+                      updateHome={this.updateHome}
+                    />
                   </Tab.Pane>
 
                   <Tab.Pane eventKey='success'>

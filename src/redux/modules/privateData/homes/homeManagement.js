@@ -1,7 +1,11 @@
 import jwtDecode from 'jwt-decode'
 import config from 'config'
 import superagent from 'superagent'
+import { push } from 'react-router-redux'
+import { toastr } from 'react-redux-toastr'
+import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { load as loadHomeWithAuth } from './loadHomeWithAuth'
+
 
 // Create homestay
 const CREATE_HOMESTAY = 'abroadwith/CREATE_HOMESTAY'
@@ -28,19 +32,44 @@ const DELETE_HOMESTAY = 'abroadwith/DELETE_HOMESTAY'
 const DELETE_HOMESTAY_SUCCESS = 'abroadwith/DELETE_HOMESTAY_SUCCESS'
 const DELETE_HOMESTAY_FAIL = 'abroadwith/DELETE_HOMESTAY_FAIL'
 
-export function createHomestay(jwt) {
-  return {
-    types: [CREATE_HOMESTAY, CREATE_HOMESTAY_SUCCESS, CREATE_HOMESTAY_FAIL],
-    promise: client => client.post(`/users/${jwtDecode(jwt).rid}/homes`, { auth: jwt }),
+export function createHomestay(jwt, redirectToManageHome) {
+  return async dispatch => {
+
+    dispatch({ type: CREATE_HOMESTAY })
+
+    try {
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+
+      request.end((err = {}) => {
+
+        if (err) {
+
+          dispatch({ type: CREATE_HOMESTAY_FAIL, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: CREATE_HOMESTAY_SUCCESS })
+          if (redirectToManageHome) {
+            dispatch(loadUserWithAuth(jwt, () => dispatch(push('/manage-home'))))
+          }
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: CREATE_HOMESTAY_FAIL, err })
+    }
   }
 }
 
-export function updateHomestay(jwt, homeID, originalObject) {
+export function updateHomestay(jwt, homeID, originalObject, notificationMessage) {
 
   // Clean the data
   /* eslint-disable */
-  console.log('originalObject before: ', originalObject)
-
   const homeObject = Object.assign({}, originalObject, {})
   delete homeObject.published
   delete homeObject.GENERAL
@@ -48,8 +77,6 @@ export function updateHomestay(jwt, homeID, originalObject) {
   delete homeObject.isActive
   homeObject.images =  homeObject.images.map(img => {return { caption: img.caption, id: img.id }})
   /* eslint-enable */
-
-  console.log('originalObject after: ', originalObject)
 
   return async dispatch => {
 
@@ -72,6 +99,11 @@ export function updateHomestay(jwt, homeID, originalObject) {
           // Request was successful
           dispatch({ type: UPDATE_HOMESTAY_SUCCESS, homeID, result: body })
           dispatch(loadHomeWithAuth(jwt, homeID))
+
+          // Dispatch a notification if necessary
+          if (typeof notificationMessage === 'string' && notificationMessage.length > 0) {
+            toastr.success(notificationMessage)
+          }
 
         }
 

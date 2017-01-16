@@ -230,6 +230,7 @@ export default class HomeImmersions extends Component {
                         theme='bootstrap3'
                         onValueChange={event => this.handleValueChange('stay', 'hours', event ? event.value : '')}
                         value={immersions.stay.hours ? { label: immersions.stay.hours, value: immersions.stay.hours } : null}
+                        placeholder={t('immersions.hours_per_week_placeholder')}
                       >
                         {hoursSharedPerWeekOptions.map(num => <option value={num} key={`stayhr${num}`}>{num.toString()}</option>)}
                       </Select>
@@ -241,6 +242,7 @@ export default class HomeImmersions extends Component {
                       <MultiSelect
                         theme='bootstrap3'
                         onValuesChange={event => this.handleValueChange('stay', 'languagesOffered', event.map(option => option.value))}
+                        placeholder={t('immersions.languages_offered_placeholder')}
                         options={home.data.stayAvailableLanguages.map(language => {
                           return { label: t(`languages.${language}`), value: language }
                         })}
@@ -255,10 +257,9 @@ export default class HomeImmersions extends Component {
             </Collapse>
             <Collapse in={!immersions.stay.isActive}>
               <div>
-                <Panel>
+                <Panel footer={<Button bsStyle='primary' onClick={() => this.toggleImmersion('stay')}>{t('manage_home.enable')}</Button>}>
                   <h3>{t('common.Stay')}</h3>
                   <p style={styles.descriptionParagraph}>{t('manage_home.stay_description')}</p>
-                  <Button bsStyle='primary' onClick={() => this.toggleImmersion('stay')}>{t('manage_home.enable')}</Button>
                 </Panel>
               </div>
             </Collapse>
@@ -278,6 +279,7 @@ export default class HomeImmersions extends Component {
                         theme='bootstrap3'
                         onValueChange={event => this.handleValueChange('tandem', 'hours', event ? event.value : '')}
                         value={immersions.tandem.hours ? { label: immersions.tandem.hours, value: immersions.tandem.hours } : null}
+                        placeholder={t('immersions.hours_per_week_placeholder')}
                       >
                         {hoursSharedPerWeekOptions.map(num => <option value={num} key={`tandemhr${num}`}>{num.toString()}</option>)}
                       </Select>
@@ -289,6 +291,7 @@ export default class HomeImmersions extends Component {
                       <MultiSelect
                         theme='bootstrap3'
                         onValuesChange={event => this.handleValueChange('tandem', 'languagesOffered', event.map(option => option.value))}
+                        placeholder={t('immersions.languages_offered_placeholder')}
                         options={home.data.tandemAvailableLanguages.map(language => {
                           return { label: t(`languages.${language}`), value: language }
                         })}
@@ -304,6 +307,7 @@ export default class HomeImmersions extends Component {
                       <MultiSelect
                         theme='bootstrap3'
                         onValuesChange={event => this.handleValueChange('tandem', 'languagesInterested', event.map(option => option.value))}
+                        placeholder={t('immersions.languages_interested_placeholder')}
                         options={home.data.tandemAvailableLearnLanguages.map(language => {
                           return { label: t(`languages.${language}`), value: language }
                         })}
@@ -335,10 +339,9 @@ export default class HomeImmersions extends Component {
             </Collapse>
             <Collapse in={!immersions.tandem.isActive}>
               <div>
-                <Panel>
+                <Panel footer={<Button bsStyle='primary' onClick={() => this.toggleImmersion('tandem')}>{t('manage_home.enable')}</Button>} >
                   <h3>{t('common.Tandem')}</h3>
                   <p style={styles.descriptionParagraph}>{t('manage_home.stay_description')}</p>
-                  <Button bsStyle='primary' onClick={() => this.toggleImmersion('tandem')}>{t('manage_home.enable')}</Button>
                 </Panel>
               </div>
             </Collapse>
@@ -357,6 +360,7 @@ export default class HomeImmersions extends Component {
                       <MultiSelect
                         theme='bootstrap3'
                         onValuesChange={event => this.handleValueChange('teacher', 'languagesOffered', event.map(option => option.value))}
+                        placeholder={t('immersions.languages_offered_placeholder')}
                         options={home.data.teacherAvailableLanguages.map(language => {
                           return { label: t(`languages.${language}`), value: language }
                         })}
@@ -372,6 +376,7 @@ export default class HomeImmersions extends Component {
                       <MultiSelect
                         theme='bootstrap3'
                         onValuesChange={event => this.handleValueChange('teacher', 'packages', event.map(option => option.value))}
+                        placeholder={t('immersions.packages_offered_placeholder')}
                         options={[
                           { value: 5, label: `5 ${t('immersions.hours_per_week_short')}` },
                           { value: 10, label: `10 ${t('immersions.hours_per_week_short')}` },
@@ -391,6 +396,7 @@ export default class HomeImmersions extends Component {
                         <FormControl
                           type='text'
                           value={immersions.teacher.hourly || ''}
+                          placeholder='20'
                           onChange={event => {
                             const value = event.target.value
                             if (validator.isInt(value) || value === '') {
@@ -412,10 +418,9 @@ export default class HomeImmersions extends Component {
             </Collapse>
             <Collapse in={!immersions.teacher.isActive}>
               <div>
-                <Panel>
+                <Panel footer={<Button bsStyle='primary' onClick={() => this.toggleImmersion('teacher')}>{t('manage_home.enable')}</Button>}>
                   <h3>{t('common.Teachers_stay')}</h3>
                   <p style={styles.descriptionParagraph}>{t('manage_home.stay_description')}</p>
-                  <Button bsStyle='primary' onClick={() => this.toggleImmersion('teacher')}>{t('manage_home.enable')}</Button>
                 </Panel>
               </div>
             </Collapse>
