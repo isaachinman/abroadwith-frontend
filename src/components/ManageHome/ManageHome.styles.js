@@ -4,7 +4,7 @@ export default {
   },
   sidebar: {
     padding: '5px 10px',
-    background: 'white',
+    background: '#E8E8E8',
   },
   mainPanel: {
     padding: '20px 50px',

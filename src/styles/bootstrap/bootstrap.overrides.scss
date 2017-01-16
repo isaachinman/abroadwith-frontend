@@ -11,6 +11,20 @@ $bodyTextColor: #404041;
     margin-bottom: 0;
   }
 }
+.home-photo-thumbnail {
+  .thumbnail {
+    position: relative;
+  }
+  img {
+    height: 160px;
+  }
+  .info {
+    min-height: 22px;
+    margin-top: 5px;
+  }
+}
+
+
 
 // Toaster imports
 @import '../react-redux-toastr/react-redux-toastr.css';

@@ -1,13 +1,12 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
-import { Col, FormControl, Panel, Row } from 'react-bootstrap'
+import { Button, Col, FormControl, Thumbnail, Row } from 'react-bootstrap'
 import { addHomePhoto, deleteHomePhoto } from 'redux/modules/privateData/homes/homeManagement'
 import config from 'config'
 import Dropzone from 'react-dropzone'
 import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc'
 import FontAwesome from 'react-fontawesome'
-import debounce from 'debounce'
 
 // Styles
 const styles = {
@@ -16,10 +15,12 @@ const styles = {
     padding: 20,
     border: '1px dotted black',
   },
-  photoSquare: {
-    minHeight: 340,
-  },
   dragHandle: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: 165,
     cursor: 'move',
   },
   trash: {
@@ -32,18 +33,13 @@ const styles = {
   },
 }
 
-const DragHandle = SortableHandle(({ title }) => <div style={styles.dragHandle}>{title}</div>)
+const DragHandle = SortableHandle(() => <div style={styles.dragHandle} />)
 
 const SortableItem = SortableElement(({ image, ind, t, deletePhoto, handleValueChange }) => {
   return (
-    <Col xs={12} md={4} key={`homeimg${image.id}${ind}`} style={styles.photoSquare}>
-      <Panel
-        header={image.caption ?
-          <DragHandle title={image.caption} /> :
-          <DragHandle title={t('manage_home.add_a_caption_to_image')} />}
-        bsStyle={ind === 0 ? 'success' : 'default'}
-      >
-        <img src={`${config.img}${image.imagePath}`} className='dropzone-img' alt={`homeimg${image.id}`} />
+    <Col xs={12} md={4} key={`homeimg${image.id}${ind}`} className='home-photo-thumbnail'>
+      <Thumbnail src={`${config.img}${image.imagePath}`} alt='242x200'>
+        <DragHandle />
         <div>
           <FormControl
             type='text'
@@ -52,9 +48,11 @@ const SortableItem = SortableElement(({ image, ind, t, deletePhoto, handleValueC
             value={image.caption || ''}
           />
         </div>
-        {ind > 0 && <div onClick={() => deletePhoto(image.id)} className='pull-right' style={styles.trash}><FontAwesome name='trash' /></div>}
-        {ind === 0 && <div><span style={styles.star}><FontAwesome name='star' /></span> {t('manage_home.featured_image')}</div>}
-      </Panel>
+        <div className='info'>
+          {ind > 0 && <div onClick={() => deletePhoto(image.id)} className='pull-right' style={styles.trash}><FontAwesome name='trash' /></div>}
+          {ind === 0 && <div><span style={styles.star}><FontAwesome name='star' /></span> {t('manage_home.featured_image')}</div>}
+        </div>
+      </Thumbnail>
     </Col>
   )
 })
@@ -90,7 +88,10 @@ export default class HomePhotos extends Component {
   }
 
   onDrop = acceptedFiles => {
-    const { token, dispatch, routeParams } = this.props
+    const { token, inProgress, tabOverride, dispatch, routeParams } = this.props
+    if (inProgress) {
+      tabOverride('photos')
+    }
     dispatch(addHomePhoto(token, routeParams.homeID, acceptedFiles))
   }
 
@@ -105,7 +106,6 @@ export default class HomePhotos extends Component {
     const newImage = images.filter(img => img.id === imageID)[0]
     newImage.caption = value
     this.setState({ images: images.map(image => image.id === imageID ? newImage : image) })
-    this.updatePhotos()
   }
 
   deletePhoto = photoID => {
@@ -113,16 +113,27 @@ export default class HomePhotos extends Component {
     dispatch(deleteHomePhoto(token, routeParams.homeID, photoID))
   }
 
-  updatePhotos = debounce(() => {
-    this.props.updateHome(Object.assign({}, this.props.home.data, {
+  goToNext = () => {
+    const { tabOverride, home, updateHome } = this.props
+    tabOverride(false)
+    updateHome(Object.assign({}, home.data, {
       images: this.state.images,
     }))
-  }, 2000)
+  }
+
+  updatePhotos = () => {
+    const { home, t, updateHome } = this.props
+    updateHome(Object.assign({}, home.data, {
+      images: this.state.images,
+    }), t('manage_home.images_updated'))
+  }
 
   render() {
 
-    const { t } = this.props
+    const { inProgress, t } = this.props
     console.log(this.state.images)
+
+    const formIsValid = this.state.images.length > 0
 
     return (
 
@@ -159,6 +170,13 @@ export default class HomePhotos extends Component {
             </Dropzone>
           </Col>
         </Row>
+        <Row>
+          <Col xs={12}>
+            <Button onClick={inProgress ? this.goToNext : this.updatePhotos} disabled={!formIsValid} bsStyle='primary'>
+              {inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>}
+            </Button>
+          </Col>
+        </Row>
       </span>
 
     )
@@ -168,7 +186,9 @@ export default class HomePhotos extends Component {
 HomePhotos.propTypes = {
   dispatch: PropTypes.func,
   home: PropTypes.object,
+  inProgress: PropTypes.bool,
   routeParams: PropTypes.object,
+  tabOverride: PropTypes.func,
   updateHome: PropTypes.func,
   t: PropTypes.func,
   token: PropTypes.string,

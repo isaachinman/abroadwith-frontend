@@ -27,6 +27,10 @@ export default class HomeRooms extends Component {
     newRoomImg: null,
   }
 
+  componentWillReceiveProps = nextProps => {
+    this.setState({ rooms: nextProps.home.data.rooms })
+  }
+
   newRoomDrop = acceptedFiles => {
     this.setState({ newRoomImg: acceptedFiles[0] })
   }
@@ -78,9 +82,29 @@ export default class HomeRooms extends Component {
   }
 
   createRoom = () => {
-    const { dispatch, token, routeParams } = this.props
+    const { dispatch, token, inProgress, tabOverride, routeParams } = this.props
     const { newRoom, newRoomImg } = this.state
-    dispatch(createRoom(token, routeParams.homeID, newRoom, newRoomImg))
+    if (inProgress) {
+      tabOverride('rooms')
+      dispatch(createRoom(token, routeParams.homeID, newRoom, newRoomImg))
+      this.setState({
+        newRoom: {
+          name: null,
+          description: null,
+          vacancies: 1,
+          shared: false,
+          bed: null,
+          facilities: [],
+        },
+      })
+    } else {
+      dispatch(createRoom(token, routeParams.homeID, newRoom, newRoomImg))
+    }
+  }
+
+  goToNext = () => {
+    this.props.tabOverride(false)
+    this.updateRooms()
   }
 
   updateRooms = () => {
@@ -105,245 +129,259 @@ export default class HomeRooms extends Component {
       return x < y ? -1 : x > y ? 1 : 0 // eslint-disable-line
     })
 
+    console.log(rooms, alphabeticalRooms)
+
     const newRoomIsValid = this.validateRoom(newRoom)
+    const formIsValid = rooms.length > 0
 
     return (
 
-      <Row>
-        <Col xs={12}>
-          <PanelGroup
-            onSelect={this.forceRender}
-            id={render}
-            defaultActiveKey={inProgress ? 'new-room' : null}
-            accordion
-          >
-            <Panel
-              bsStyle='info'
-              header={t('manage_home.rooms_newone')}
-              eventKey='new-room'
+      <span>
+        <Row>
+          <Col xs={12}>
+            <PanelGroup
+              onSelect={this.forceRender}
+              id={render}
+              defaultActiveKey={inProgress ? 'new-room' : null}
+              accordion
             >
-              <Row>
-                <Col xs={12} md={6}>
-                  <ControlLabel>{t('rooms.room_name_label')}*</ControlLabel>
-                  <FormControl
-                    type='text'
-                    placeholder={t('rooms.room_name_placeholder')}
-                    onChange={event => this.handleValueChange(true, null, 'name', event.target.value)}
-                    value={newRoom.name || ''}
-                  />
-                </Col>
-                <Col xs={12} md={6}>
-                  <ControlLabel>{t('rooms.bed_types_label')}*</ControlLabel>
-                  <Select
-                    theme='bootstrap3'
-                    placeholder={t('rooms.bed_types_placeholder')}
-                    onValueChange={event => this.handleValueChange(true, null, 'bed', event.value)}
-                    value={newRoom.bed ? { value: newRoom.bed, label: t(`rooms.bed_types.${newRoom.bed}`) } : null}
-                  >
-                    {RoomData.bedTypes.map(bedType => <option value={bedType} key={`newroombd${bedType}`}>{t(`rooms.bed_types.${bedType}`)}</option>)}
-                  </Select>
-                </Col>
-              </Row>
-
-              <Row>
-                <Col xs={12} md={6}>
-                  <ControlLabel>{t('rooms.vacancies_label')}*</ControlLabel>
-                  <Select
-                    theme='bootstrap3'
-                    placeholder={t('rooms.vacancies_placeholder')}
-                    onValueChange={event => this.handleValueChange(true, null, 'vacancies', event.value)}
-                    value={newRoom.vacancies ? { value: newRoom.vacancies, label: newRoom.vacancies } : null}
-                  >
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                  </Select>
-                </Col>
-                <Col xs={12} md={6}>
-                  <ControlLabel>{t('rooms.facilities_label')}</ControlLabel>
-                  <MultiSelect
-                    theme='bootstrap3'
-                    placeholder={t('rooms.facilities_label')}
-                    options={RoomData.facilities.map(item => {
-                      return { label: t(`rooms.facilities.${item}`), value: item }
-                    })}
-                    onValuesChange={event => this.handleValueChange(true, null, 'facilities', event.map(option => option.value))}
-                    value={newRoom.facilities.map(item => {
-                      return { label: t(`rooms.facilities.${item}`), value: item }
-                    })}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={12} md={6}>
-                  <ControlLabel>{t('rooms.shared_label')}</ControlLabel>
-                  <div>
-                    <Switch
-                      inverse
-                      labelText=''
-                      onChange={(option, checked) => this.handleValueChange(true, null, 'shared', checked)}
-                      offText={t('common.words.No')}
-                      onText={t('common.words.Yes')}
-                      value={newRoom.shared}
+              <Panel
+                bsStyle='info'
+                header={t('manage_home.rooms_newone')}
+                eventKey='new-room'
+              >
+                <Row>
+                  <Col xs={12} md={6}>
+                    <ControlLabel>{t('rooms.room_name_label')}*</ControlLabel>
+                    <FormControl
+                      type='text'
+                      placeholder={t('rooms.room_name_placeholder')}
+                      onChange={event => this.handleValueChange(true, null, 'name', event.target.value)}
+                      value={newRoom.name || ''}
                     />
-                  </div>
-                </Col>
-                <Col xs={12} md={6}>
-                  <Dropzone
-                    multiple={false}
-                    onDrop={this.newRoomDrop}
-                  >
-                    <div>{t('manage_home.drop_room_photo')}</div>
-                    {newRoomImg &&
-                      <img src={newRoomImg.preview} className='dropzone-img' alt='New room' />
-                    }
-                  </Dropzone>
-                </Col>
-              </Row>
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <ControlLabel>{t('rooms.bed_types_label')}*</ControlLabel>
+                    <Select
+                      theme='bootstrap3'
+                      placeholder={t('rooms.bed_types_placeholder')}
+                      onValueChange={event => this.handleValueChange(true, null, 'bed', event.value)}
+                      value={newRoom.bed ? { value: newRoom.bed, label: t(`rooms.bed_types.${newRoom.bed}`) } : null}
+                    >
+                      {RoomData.bedTypes.map(bedType => <option value={bedType} key={`newroombd${bedType}`}>{t(`rooms.bed_types.${bedType}`)}</option>)}
+                    </Select>
+                  </Col>
+                </Row>
 
-              <Row>
-                <Col xs={12}>
-                  <ControlLabel>{t('rooms.Description')}*</ControlLabel>
-                  <FormControl
-                    componentClass='textarea'
-                    placeholder={t('rooms.description_placeholder')}
-                    style={{ minHeight: 160 }}
-                    onChange={event => this.handleValueChange(true, null, 'description', event.target.value)}
-                    value={newRoom.description || ''}
-                  />
-                </Col>
-              </Row>
-
-              <Row>
-                <Col xs={12}>
-                  <Button onClick={this.createRoom} disabled={!newRoomIsValid} bsStyle='primary'>{t('manage_home.save_button')}</Button>
-                </Col>
-              </Row>
-
-            </Panel>
-
-            {alphabeticalRooms.map(room => {
-              return (
-                <Panel
-                  header={room.name}
-                  key={room.id}
-                  eventKey={room.id}
-                >
-                  <Row>
-                    <Col xs={12} md={6}>
-                      <ControlLabel>{t('rooms.room_name_label')}*</ControlLabel>
-                      <FormControl
-                        type='text'
-                        placeholder={t('rooms.room_name_placeholder')}
-                        onChange={event => this.handleValueChange(false, room.id, 'name', event.target.value)}
-                        value={room.name || ''}
+                <Row>
+                  <Col xs={12} md={6}>
+                    <ControlLabel>{t('rooms.vacancies_label')}*</ControlLabel>
+                    <Select
+                      theme='bootstrap3'
+                      placeholder={t('rooms.vacancies_placeholder')}
+                      onValueChange={event => this.handleValueChange(true, null, 'vacancies', event.value)}
+                      value={newRoom.vacancies ? { value: newRoom.vacancies, label: newRoom.vacancies } : null}
+                    >
+                      <option value={1}>1</option>
+                      <option value={2}>2</option>
+                      <option value={3}>3</option>
+                      <option value={4}>4</option>
+                      <option value={5}>5</option>
+                    </Select>
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <ControlLabel>{t('rooms.facilities_label')}</ControlLabel>
+                    <MultiSelect
+                      theme='bootstrap3'
+                      placeholder={t('rooms.facilities_label')}
+                      options={RoomData.facilities.map(item => {
+                        return { label: t(`rooms.facilities.${item}`), value: item }
+                      })}
+                      onValuesChange={event => this.handleValueChange(true, null, 'facilities', event.map(option => option.value))}
+                      value={newRoom.facilities.map(item => {
+                        return { label: t(`rooms.facilities.${item}`), value: item }
+                      })}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12} md={6}>
+                    <ControlLabel>{t('rooms.shared_label')}</ControlLabel>
+                    <div>
+                      <Switch
+                        inverse
+                        labelText=''
+                        onChange={(option, checked) => this.handleValueChange(true, null, 'shared', checked)}
+                        offText={t('common.words.No')}
+                        onText={t('common.words.Yes')}
+                        value={newRoom.shared}
                       />
-                    </Col>
-                    <Col xs={12} md={6}>
-                      <ControlLabel>{t('rooms.bed_types_label')}*</ControlLabel>
-                      <Select
-                        theme='bootstrap3'
-                        placeholder={t('rooms.bed_types_placeholder')}
-                        onValueChange={event => this.handleValueChange(false, room.id, 'bed', event.value)}
-                        value={room.bed ? { value: newRoom.bed, label: t(`rooms.bed_types.${room.bed}`) } : null}
-                      >
-                        {RoomData.bedTypes.map(bedType => <option value={bedType} key={`newroombd${bedType}`}>{t(`rooms.bed_types.${bedType}`)}</option>)}
-                      </Select>
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col xs={12} md={6}>
-                      <ControlLabel>{t('rooms.vacancies_label')}*</ControlLabel>
-                      <Select
-                        theme='bootstrap3'
-                        placeholder={t('rooms.vacancies_placeholder')}
-                        onValueChange={event => this.handleValueChange(false, room.id, 'vacancies', event.value)}
-                        value={room.vacancies ? { value: room.vacancies, label: room.vacancies } : null}
-                      >
-                        <option value={1}>1</option>
-                        <option value={2}>2</option>
-                        <option value={3}>3</option>
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                      </Select>
-                    </Col>
-                    <Col xs={12} md={6}>
-                      <ControlLabel>{t('rooms.facilities_label')}</ControlLabel>
-                      <MultiSelect
-                        theme='bootstrap3'
-                        placeholder={t('rooms.facilities_label')}
-                        options={RoomData.facilities.map(item => {
-                          return { label: t(`rooms.facilities.${item}`), value: item }
-                        })}
-                        onValuesChange={event => this.handleValueChange(false, room.id, 'facilities', event.map(option => option.value))}
-                        values={room.facilities.map(item => {
-                          return { label: t(`rooms.facilities.${item}`), value: item }
-                        })}
-                      />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={12} md={6}>
-                      <ControlLabel>{t('rooms.shared_label')}</ControlLabel>
-                      <div>
-                        <Switch
-                          inverse
-                          labelText=''
-                          onChange={(option, checked) => this.handleValueChange(false, room.id, 'shared', checked)}
-                          offText={t('common.words.No')}
-                          onText={t('common.words.Yes')}
-                          value={room.shared}
-                        />
-                      </div>
-                    </Col>
-                    <Col xs={12} md={6}>
-                      <Dropzone
-                        multiple={false}
-                        onDrop={acceptedFiles => this.existingRoomDrop(acceptedFiles, room.id)}
-                      >
-                        <div>{t('manage_home.drop_room_photo')}</div>
-                        {room.img &&
-                        <img src={`${config.img}${room.img}`} className='dropzone-img' alt={`${room.name}`} />
+                    </div>
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <Dropzone
+                      multiple={false}
+                      onDrop={this.newRoomDrop}
+                    >
+                      <div>{t('manage_home.drop_room_photo')}</div>
+                      {newRoomImg &&
+                        <img src={newRoomImg.preview} className='dropzone-img' alt='New room' />
                       }
-                      </Dropzone>
-                    </Col>
-                  </Row>
+                    </Dropzone>
+                  </Col>
+                </Row>
 
-                  <Row>
-                    <Col xs={12}>
-                      <ControlLabel>{t('rooms.Description')}*</ControlLabel>
-                      <FormControl
-                        componentClass='textarea'
-                        placeholder={t('rooms.description_placeholder')}
-                        style={{ minHeight: 160 }}
-                        onChange={event => this.handleValueChange(false, room.id, 'description', event.target.value)}
-                        value={room.description || ''}
-                      />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={12}>
-                      <Button onClick={this.updateRooms} disabled={!this.validateRoom(room)} bsStyle='primary'>{t('manage_home.save_button')}</Button>
-                      <Button
-                        bsStyle='danger'
-                        className='pull-right'
-                        bsSize='xsmall'
-                        onClick={() => this.deleteRoom(room.id)}
-                      >
-                        {t('manage_home.rooms_delete')}
-                      </Button>
-                    </Col>
-                  </Row>
-                </Panel>
-              )
-            })}
+                <Row>
+                  <Col xs={12}>
+                    <ControlLabel>{t('rooms.Description')}</ControlLabel>
+                    <FormControl
+                      componentClass='textarea'
+                      placeholder={t('rooms.description_placeholder')}
+                      style={{ minHeight: 160 }}
+                      onChange={event => this.handleValueChange(true, null, 'description', event.target.value)}
+                      value={newRoom.description || ''}
+                    />
+                  </Col>
+                </Row>
 
-          </PanelGroup>
-        </Col>
-      </Row>
+                <Row>
+                  <Col xs={12}>
+                    <Button onClick={this.createRoom} disabled={!newRoomIsValid} bsStyle='primary'>{t('manage_home.save_button')}</Button>
+                  </Col>
+                </Row>
+
+              </Panel>
+
+              {alphabeticalRooms.map(room => {
+                return (
+                  <Panel
+                    header={room.name}
+                    key={room.id}
+                    eventKey={room.id}
+                  >
+                    <Row>
+                      <Col xs={12} md={6}>
+                        <ControlLabel>{t('rooms.room_name_label')}*</ControlLabel>
+                        <FormControl
+                          type='text'
+                          placeholder={t('rooms.room_name_placeholder')}
+                          onChange={event => this.handleValueChange(false, room.id, 'name', event.target.value)}
+                          value={room.name || ''}
+                        />
+                      </Col>
+                      <Col xs={12} md={6}>
+                        <ControlLabel>{t('rooms.bed_types_label')}*</ControlLabel>
+                        <Select
+                          theme='bootstrap3'
+                          placeholder={t('rooms.bed_types_placeholder')}
+                          onValueChange={event => this.handleValueChange(false, room.id, 'bed', event.value)}
+                          value={room.bed ? { value: newRoom.bed, label: t(`rooms.bed_types.${room.bed}`) } : null}
+                        >
+                          {RoomData.bedTypes.map(bedType => <option value={bedType} key={`newroombd${bedType}`}>{t(`rooms.bed_types.${bedType}`)}</option>)}
+                        </Select>
+                      </Col>
+                    </Row>
+
+                    <Row>
+                      <Col xs={12} md={6}>
+                        <ControlLabel>{t('rooms.vacancies_label')}*</ControlLabel>
+                        <Select
+                          theme='bootstrap3'
+                          placeholder={t('rooms.vacancies_placeholder')}
+                          onValueChange={event => this.handleValueChange(false, room.id, 'vacancies', event.value)}
+                          value={room.vacancies ? { value: room.vacancies, label: room.vacancies } : null}
+                        >
+                          <option value={1}>1</option>
+                          <option value={2}>2</option>
+                          <option value={3}>3</option>
+                          <option value={4}>4</option>
+                          <option value={5}>5</option>
+                        </Select>
+                      </Col>
+                      <Col xs={12} md={6}>
+                        <ControlLabel>{t('rooms.facilities_label')}</ControlLabel>
+                        <MultiSelect
+                          theme='bootstrap3'
+                          placeholder={t('rooms.facilities_label')}
+                          options={RoomData.facilities.map(item => {
+                            return { label: t(`rooms.facilities.${item}`), value: item }
+                          })}
+                          onValuesChange={event => this.handleValueChange(false, room.id, 'facilities', event.map(option => option.value))}
+                          values={room.facilities.map(item => {
+                            return { label: t(`rooms.facilities.${item}`), value: item }
+                          })}
+                        />
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={12} md={6}>
+                        <ControlLabel>{t('rooms.shared_label')}</ControlLabel>
+                        <div>
+                          <Switch
+                            inverse
+                            labelText=''
+                            onChange={(option, checked) => this.handleValueChange(false, room.id, 'shared', checked)}
+                            offText={t('common.words.No')}
+                            onText={t('common.words.Yes')}
+                            value={room.shared}
+                          />
+                        </div>
+                      </Col>
+                      <Col xs={12} md={6}>
+                        <Dropzone
+                          multiple={false}
+                          onDrop={acceptedFiles => this.existingRoomDrop(acceptedFiles, room.id)}
+                        >
+                          <div>{t('manage_home.drop_room_photo')}</div>
+                          {room.img &&
+                          <img src={`${config.img}${room.img}`} className='dropzone-img' alt={`${room.name}`} />
+                        }
+                        </Dropzone>
+                      </Col>
+                    </Row>
+
+                    <Row>
+                      <Col xs={12}>
+                        <ControlLabel>{t('rooms.Description')}</ControlLabel>
+                        <FormControl
+                          componentClass='textarea'
+                          placeholder={t('rooms.description_placeholder')}
+                          style={{ minHeight: 160 }}
+                          onChange={event => this.handleValueChange(false, room.id, 'description', event.target.value)}
+                          value={room.description || ''}
+                        />
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={12}>
+                        <Button onClick={this.updateRooms} disabled={!this.validateRoom(room)} bsStyle='primary'>{t('manage_home.save_button')}</Button>
+                        <Button
+                          bsStyle='danger'
+                          className='pull-right'
+                          bsSize='xsmall'
+                          onClick={() => this.deleteRoom(room.id)}
+                        >
+                          {t('manage_home.rooms_delete')}
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Panel>
+                )
+              })}
+
+            </PanelGroup>
+          </Col>
+        </Row>
+        {inProgress &&
+          <Row>
+            <Col xs={12}>
+              <Button onClick={this.goToNext} disabled={!formIsValid} bsStyle='primary'>
+                {t('manage_home.next_button')}
+              </Button>
+            </Col>
+          </Row>
+        }
+      </span>
 
     )
   }
@@ -355,6 +393,7 @@ HomeRooms.propTypes = {
   inProgress: PropTypes.bool,
   t: PropTypes.func,
   routeParams: PropTypes.object,
+  tabOverride: PropTypes.func,
   updateHome: PropTypes.func,
   token: PropTypes.string,
 }
