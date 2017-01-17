@@ -160,7 +160,7 @@ export default (store) => {
 
             <Route path='faq' getComponent={getFAQ} />
 
-            <Route path='homestay/:homeID' component={Homestay} />
+            <Route path='home/:homeID' component={Homestay} />
 
             <Route onEnter={requireLogin}>
               <Route path='inbox' getComponent={getInbox} />

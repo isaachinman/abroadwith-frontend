@@ -16,4 +16,11 @@ export default {
   verificationIcon: {
     margin: '0 5px',
   },
+  successModalBody: {
+    margin: '20px 0',
+    textAlign: 'center',
+  },
+  successModalOr: {
+    margin: '10px 0',
+  },
 }
