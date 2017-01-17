@@ -13,8 +13,43 @@ const UPDATE_HOMESTAY = 'abroadwith/UPDATE_HOMESTAY'
 const UPDATE_HOMESTAY_SUCCESS = 'abroadwith/UPDATE_HOMESTAY_SUCCESS'
 const UPDATE_HOMESTAY_FAIL = 'abroadwith/UPDATE_HOMESTAY_FAIL'
 
+// Load homestay calendar
+const LOAD_HOMESTAY_CALENDAR = 'abroadwith/LOAD_HOMESTAY_CALENDAR'
+const LOAD_HOMESTAY_CALENDAR_SUCCESS = 'abroadwith/LOAD_HOMESTAY_CALENDAR_SUCCESS'
+const LOAD_HOMESTAY_CALENDAR_FAIL = 'abroadwith/LOAD_HOMESTAY_CALENDAR_FAIL'
+
 export default function reducer(state = {}, action = {}) {
   switch (action.type) {
+    case LOAD_HOMESTAY_CALENDAR: {
+      if (state[action.homeID]) {
+        return {
+          ...state,
+          [action.homeID]: Object.assign({}, state[action.homeID], {
+            calendar: Object.assign({}, state[action.homeID].calendar, {
+              loading: true,
+            }),
+          }),
+        }
+      }
+      return {
+        ...state,
+      }
+    }
+    case LOAD_HOMESTAY_CALENDAR_SUCCESS: {
+      if (state[action.homeID]) {
+        return {
+          ...state,
+          [action.homeID]: Object.assign({}, state[action.homeID], {
+            calendar: {
+              loading: true,
+              loaded: true,
+              data: action.result,
+            },
+          }),
+        }
+      }
+      break
+    }
     case UPDATE_HOMESTAY: {
       if (state[action.homeID]) {
         return {
@@ -99,6 +134,37 @@ export function load(jwt, homeID) {
 
     } catch (err) {
       dispatch({ type: LOAD_HOMESTAY_WITH_AUTH_FAIL, homeID, err })
+    }
+  }
+}
+
+export function loadHomestayCalendar(jwt, homeID) {
+  return async dispatch => {
+
+    dispatch({ type: LOAD_HOMESTAY_CALENDAR, homeID })
+
+    try {
+
+      const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes/${homeID}/availabilityCalendar`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+
+      request.end((err, { body } = {}) => {
+
+        if (err) {
+
+          dispatch({ type: LOAD_HOMESTAY_CALENDAR_FAIL, homeID, err })
+
+        } else {
+
+          // Login was successful
+          dispatch({ type: LOAD_HOMESTAY_CALENDAR_SUCCESS, homeID, result: body })
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: LOAD_HOMESTAY_CALENDAR_FAIL, homeID, err })
     }
   }
 }
