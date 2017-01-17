@@ -5,6 +5,7 @@ import { Button, Col, Collapse, ControlLabel, FormControl, InputGroup, Modal, To
 import UploadTeacherCertifications from 'components/UploadTeacherCertifications/UploadTeacherCertifications'
 import { SimpleSelect as Select, MultiSelect } from 'react-selectize'
 import Currencies from 'data/constants/Currencies'
+import FontAwesome from 'react-fontawesome'
 import Slider from 'rc-slider'
 import validator from 'validator'
 
@@ -226,19 +227,21 @@ export default class HomeImmersions extends Component {
                   footer={<a onClick={() => this.toggleImmersion('stay')}>{t('manage_home.disable')}</a>}
                 >
                   <Row>
-                    <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.stay_hours_tooltip')}</Tooltip>}>
-                      <Col xs={12}>
-                        <ControlLabel>{t('immersions.hours_per_week_label')}*</ControlLabel>
-                        <Select
-                          theme='bootstrap3'
-                          onValueChange={event => this.handleValueChange('stay', 'hours', event ? event.value : '')}
-                          value={immersions.stay.hours ? { label: immersions.stay.hours, value: immersions.stay.hours } : null}
-                          placeholder={t('immersions.hours_per_week_placeholder')}
-                        >
-                          {hoursSharedPerWeekOptions.map(num => <option value={num} key={`stayhr${num}`}>{num.toString()}</option>)}
-                        </Select>
-                      </Col>
-                    </OverlayTrigger>
+                    <Col xs={12}>
+                      <ControlLabel>{t('immersions.hours_per_week_label')}*</ControlLabel>
+                      <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.stay_hours_tooltip')}</Tooltip>}>
+                        <FontAwesome name='question-circle' className='pull-right text-muted' />
+                      </OverlayTrigger>
+                      <Select
+                        theme='bootstrap3'
+                        onValueChange={event => this.handleValueChange('stay', 'hours', event ? event.value : '')}
+                        value={immersions.stay.hours ? { label: immersions.stay.hours, value: immersions.stay.hours } : null}
+                        placeholder={t('immersions.hours_per_week_placeholder')}
+                      >
+                        {hoursSharedPerWeekOptions.map(num => <option value={num} key={`stayhr${num}`}>{num.toString()}</option>)}
+                      </Select>
+                    </Col>
+
                   </Row>
                   <Row>
                     <Col xs={12}>
@@ -277,19 +280,20 @@ export default class HomeImmersions extends Component {
                   footer={<a onClick={() => this.toggleImmersion('tandem')}>{t('manage_home.disable')}</a>}
                 >
                   <Row>
-                    <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.tandem_hours_tooltip')}</Tooltip>}>
-                      <Col xs={12}>
-                        <ControlLabel>{t('immersions.hours_per_week_label')}*</ControlLabel>
-                        <Select
-                          theme='bootstrap3'
-                          onValueChange={event => this.handleValueChange('tandem', 'hours', event ? event.value : '')}
-                          value={immersions.tandem.hours ? { label: immersions.tandem.hours, value: immersions.tandem.hours } : null}
-                          placeholder={t('immersions.hours_per_week_placeholder')}
-                        >
-                          {hoursSharedPerWeekOptions.map(num => <option value={num} key={`tandemhr${num}`}>{num.toString()}</option>)}
-                        </Select>
-                      </Col>
-                    </OverlayTrigger>
+                    <Col xs={12}>
+                      <ControlLabel>{t('immersions.hours_per_week_label')}*</ControlLabel>
+                      <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.tandem_hours_tooltip')}</Tooltip>}>
+                        <FontAwesome name='question-circle' className='pull-right text-muted' />
+                      </OverlayTrigger>
+                      <Select
+                        theme='bootstrap3'
+                        onValueChange={event => this.handleValueChange('tandem', 'hours', event ? event.value : '')}
+                        value={immersions.tandem.hours ? { label: immersions.tandem.hours, value: immersions.tandem.hours } : null}
+                        placeholder={t('immersions.hours_per_week_placeholder')}
+                      >
+                        {hoursSharedPerWeekOptions.map(num => <option value={num} key={`tandemhr${num}`}>{num.toString()}</option>)}
+                      </Select>
+                    </Col>
                   </Row>
                   <Row>
                     <Col xs={12}>
@@ -377,24 +381,25 @@ export default class HomeImmersions extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <OverlayTrigger placement='left' overlay={<Tooltip id='tooltip'>{t('manage_home.teacher_packages_tooltip')}</Tooltip>}>
-                      <Col xs={12}>
-                        <ControlLabel>{t('immersions.packages_offered_label')}*</ControlLabel>
-                        <MultiSelect
-                          theme='bootstrap3'
-                          onValuesChange={event => this.handleValueChange('teacher', 'packages', event.map(option => option.value))}
-                          placeholder={t('immersions.packages_offered_placeholder')}
-                          options={[
+                    <Col xs={12}>
+                      <ControlLabel>{t('immersions.packages_offered_label')}*</ControlLabel>
+                      <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.teacher_packages_tooltip')}</Tooltip>}>
+                        <FontAwesome name='question-circle' className='pull-right text-muted' />
+                      </OverlayTrigger>
+                      <MultiSelect
+                        theme='bootstrap3'
+                        onValuesChange={event => this.handleValueChange('teacher', 'packages', event.map(option => option.value))}
+                        placeholder={t('immersions.packages_offered_placeholder')}
+                        options={[
                           { value: 5, label: `5 ${t('immersions.hours_per_week_short')}` },
                           { value: 10, label: `10 ${t('immersions.hours_per_week_short')}` },
                           { value: 15, label: `15 ${t('immersions.hours_per_week_short')}` },
-                          ]}
-                          values={immersions.teacher.packages ? immersions.teacher.packages.map(item => {
-                            return { label: `${item} ${t('immersions.hours_per_week_short')}`, value: item }
-                          }) : []}
-                        />
-                      </Col>
-                    </OverlayTrigger>
+                        ]}
+                        values={immersions.teacher.packages ? immersions.teacher.packages.map(item => {
+                          return { label: `${item} ${t('immersions.hours_per_week_short')}`, value: item }
+                        }) : []}
+                      />
+                    </Col>
                   </Row>
                   <Row>
                     <Col xs={12}>
