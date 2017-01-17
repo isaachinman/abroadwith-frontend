@@ -73,6 +73,7 @@
     }
   },
   "dependencies": {
+    "antd": "^2.6.3",
     "aws-sdk": "^2.7.15",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.1",
@@ -120,7 +121,6 @@
     "react-autosuggest": "^6.0.3",
     "react-big-calendar": "^0.12.3",
     "react-bootstrap": "^0.30.7",
-    "react-bootstrap-switch": "^15.0.3",
     "react-bootstrap-typeahead": "^1.0.0-beta2",
     "react-dates": "^4.1.0",
     "react-dom": "^15.3.0",

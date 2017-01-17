@@ -8,7 +8,7 @@ import config from 'config'
 import Dropzone from 'react-dropzone'
 import FontAwesome from 'react-fontawesome'
 import RoomData from 'data/constants/RoomData'
-import Switch from 'react-bootstrap-switch'
+import Switch from 'antd/lib/switch'
 import shortid from 'shortid'
 
 @translate()
@@ -219,12 +219,10 @@ export default class HomeRooms extends Component {
                     </OverlayTrigger>
                     <div>
                       <Switch
-                        inverse
-                        labelText=''
-                        onChange={(option, checked) => this.handleValueChange(true, null, 'shared', checked)}
-                        offText={t('common.words.No')}
-                        onText={t('common.words.Yes')}
-                        value={newRoom.shared}
+                        onChange={checked => this.handleValueChange(true, null, 'shared', checked)}
+                        unCheckedChildren={t('common.words.No')}
+                        checkedChildren={t('common.words.Yes')}
+                        checked={newRoom.shared}
                       />
                     </div>
                   </Col>
@@ -328,12 +326,10 @@ export default class HomeRooms extends Component {
                         <ControlLabel>{t('rooms.shared_label')}</ControlLabel>
                         <div>
                           <Switch
-                            inverse
-                            labelText=''
-                            onChange={(option, checked) => this.handleValueChange(false, room.id, 'shared', checked)}
-                            offText={t('common.words.No')}
-                            onText={t('common.words.Yes')}
-                            value={room.shared}
+                            onChange={checked => this.handleValueChange(false, room.id, 'shared', checked)}
+                            unCheckedChildren={t('common.words.No')}
+                            checkedChildren={t('common.words.Yes')}
+                            checked={room.shared}
                           />
                         </div>
                       </Col>
@@ -344,8 +340,8 @@ export default class HomeRooms extends Component {
                         >
                           <div>{t('manage_home.drop_room_photo')}</div>
                           {room.img &&
-                          <img src={`${config.img}${room.img}`} className='dropzone-img' alt={`${room.name}`} />
-                        }
+                            <img src={`${config.img}${room.img}`} className='dropzone-img' alt={`${room.name}`} />
+                          }
                         </Dropzone>
                       </Col>
                     </Row>

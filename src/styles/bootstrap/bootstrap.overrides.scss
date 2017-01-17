@@ -24,6 +24,9 @@ $bodyTextColor: #404041;
   }
 }
 
+// Ant Design imports
+@import '../ant-design/ant-design.css';
+
 // Big calendar imports
 @import '../react-big-calendar/react-big-calendar.css';
 
@@ -35,9 +38,6 @@ $bodyTextColor: #404041;
 
 // Slider imports
 @import './rc-slider.css';
-
-// Switch imports
-@import './react-bootstrap-switch.css';
 
 // Telephone input imports
 @import 'src/styles/react-telephone-input/react-telephone-input.scss';
