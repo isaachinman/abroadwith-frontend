@@ -6,6 +6,7 @@ import { SimpleSelect as Select, MultiSelect } from 'react-selectize'
 import { createRoom, updateRoomImage, deleteRoom } from 'redux/modules/privateData/homes/roomManagement'
 import config from 'config'
 import Dropzone from 'react-dropzone'
+import FontAwesome from 'react-fontawesome'
 import RoomData from 'data/constants/RoomData'
 import Switch from 'react-bootstrap-switch'
 import shortid from 'shortid'
@@ -177,23 +178,24 @@ export default class HomeRooms extends Component {
                 </Row>
 
                 <Row>
-                  <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.rooms_vacancies_tooltip')}</Tooltip>}>
-                    <Col xs={12} md={6}>
-                      <ControlLabel>{t('rooms.vacancies_label')}*</ControlLabel>
-                      <Select
-                        theme='bootstrap3'
-                        placeholder={t('rooms.vacancies_placeholder')}
-                        onValueChange={event => this.handleValueChange(true, null, 'vacancies', event.value)}
-                        value={newRoom.vacancies ? { value: newRoom.vacancies, label: newRoom.vacancies } : null}
-                      >
-                        <option value={1}>1</option>
-                        <option value={2}>2</option>
-                        <option value={3}>3</option>
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                      </Select>
-                    </Col>
-                  </OverlayTrigger>
+                  <Col xs={12} md={6}>
+                    <ControlLabel>{t('rooms.vacancies_label')}*</ControlLabel>
+                    <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.rooms_vacancies_tooltip')}</Tooltip>}>
+                      <FontAwesome name='question-circle' className='pull-right text-muted' />
+                    </OverlayTrigger>
+                    <Select
+                      theme='bootstrap3'
+                      placeholder={t('rooms.vacancies_placeholder')}
+                      onValueChange={event => this.handleValueChange(true, null, 'vacancies', event.value)}
+                      value={newRoom.vacancies ? { value: newRoom.vacancies, label: newRoom.vacancies } : null}
+                    >
+                      <option value={1}>1</option>
+                      <option value={2}>2</option>
+                      <option value={3}>3</option>
+                      <option value={4}>4</option>
+                      <option value={5}>5</option>
+                    </Select>
+                  </Col>
                   <Col xs={12} md={6}>
                     <ControlLabel>{t('rooms.facilities_label')}</ControlLabel>
                     <MultiSelect
@@ -212,19 +214,18 @@ export default class HomeRooms extends Component {
                 <Row>
                   <Col xs={12} md={6}>
                     <ControlLabel>{t('rooms.shared_label')}</ControlLabel>
+                    <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.rooms_shared_tooltip')}</Tooltip>}>
+                      <FontAwesome name='question-circle' className='pull-right text-muted' />
+                    </OverlayTrigger>
                     <div>
-                      <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.rooms_shared_tooltip')}</Tooltip>}>
-                        <span>
-                          <Switch
-                            inverse
-                            labelText=''
-                            onChange={(option, checked) => this.handleValueChange(true, null, 'shared', checked)}
-                            offText={t('common.words.No')}
-                            onText={t('common.words.Yes')}
-                            value={newRoom.shared}
-                          />
-                        </span>
-                      </OverlayTrigger>
+                      <Switch
+                        inverse
+                        labelText=''
+                        onChange={(option, checked) => this.handleValueChange(true, null, 'shared', checked)}
+                        offText={t('common.words.No')}
+                        onText={t('common.words.Yes')}
+                        value={newRoom.shared}
+                      />
                     </div>
                   </Col>
                   <Col xs={12} md={6}>
