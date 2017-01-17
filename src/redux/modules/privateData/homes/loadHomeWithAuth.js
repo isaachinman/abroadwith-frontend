@@ -1,13 +1,32 @@
 import jwtDecode from 'jwt-decode'
 import config from 'config'
 import superagent from 'superagent'
+import { toastr } from 'react-redux-toastr'
 
+// Load homestay
 const LOAD_HOMESTAY_WITH_AUTH = 'abroadwith/LOAD_HOMESTAY_WITH_AUTH'
 const LOAD_HOMESTAY_WITH_AUTH_SUCCESS = 'abroadwith/LOAD_HOMESTAY_WITH_AUTH_SUCCESS'
 const LOAD_HOMESTAY_WITH_AUTH_FAIL = 'abroadwith/LOAD_HOMESTAY_WITH_AUTH_FAIL'
 
+// Update homestay
+const UPDATE_HOMESTAY = 'abroadwith/UPDATE_HOMESTAY'
+const UPDATE_HOMESTAY_SUCCESS = 'abroadwith/UPDATE_HOMESTAY_SUCCESS'
+const UPDATE_HOMESTAY_FAIL = 'abroadwith/UPDATE_HOMESTAY_FAIL'
+
 export default function reducer(state = {}, action = {}) {
   switch (action.type) {
+    case UPDATE_HOMESTAY: {
+      if (state[action.homeID]) {
+        return {
+          ...state,
+          [action.homeID]: Object.assign({}, state[action.homeID], {
+            loading: true,
+            loaded: false,
+          }),
+        }
+      }
+      break
+    }
     case LOAD_HOMESTAY_WITH_AUTH:
       if (!state[action.homeID]) {
         return {
@@ -80,6 +99,55 @@ export function load(jwt, homeID) {
 
     } catch (err) {
       dispatch({ type: LOAD_HOMESTAY_WITH_AUTH_FAIL, homeID, err })
+    }
+  }
+}
+
+export function updateHomestay(jwt, homeID, originalObject, notificationMessage) {
+
+  // Clean the data
+  /* eslint-disable */
+  const homeObject = Object.assign({}, originalObject, {})
+  delete homeObject.published
+  delete homeObject.GENERAL
+  delete homeObject.homeActivationResponse
+  delete homeObject.isActive
+  homeObject.images =  homeObject.images.map(img => {return { caption: img.caption, id: img.id }})
+  /* eslint-enable */
+
+  return async dispatch => {
+
+    dispatch({ type: UPDATE_HOMESTAY, homeID })
+
+    try {
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes/${homeID}`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+      request.send(homeObject)
+
+      request.end((err, { body } = {}) => {
+
+        if (err) {
+
+          dispatch({ type: UPDATE_HOMESTAY_FAIL, homeID, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: UPDATE_HOMESTAY_SUCCESS, homeID, result: body })
+          dispatch(load(jwt, homeID))
+
+          // Dispatch a notification if necessary
+          if (typeof notificationMessage === 'string' && notificationMessage.length > 0) {
+            toastr.success(notificationMessage)
+          }
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: UPDATE_HOMESTAY_FAIL, homeID, err })
     }
   }
 }

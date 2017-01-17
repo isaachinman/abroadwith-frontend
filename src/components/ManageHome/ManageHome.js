@@ -4,8 +4,7 @@ import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
 import { Col, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
-import { updateHomestay } from 'redux/modules/privateData/homes/homeManagement'
+import { load as loadHomestayWithAuth, updateHomestay } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import HomeStatusCodes from 'data/constants/HomeStatusCodes'
 
 // Relative imports
@@ -41,6 +40,13 @@ export default class ManageHome extends Component {
     }
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    const { home } = this.props
+    if (home && home.data && !home.data.homeActivationResponse.activated && nextProps.home.data.homeActivationResponse.activated) {
+      alert('home was just activated for the first time') // eslint-disable-line
+    }
+  }
+
   tabOverride = tab => {
     this.setState({ tabOverride: tab })
   }
@@ -55,8 +61,13 @@ export default class ManageHome extends Component {
     const { homeActivationResponse } = this.props.home.data
     const { tabOverride } = this.state
 
+    // This function shouldn't be called if a home is already activated,
+    // but this catch is here just in case
     if (homeActivationResponse.activated) {
-      return 'success'
+      return {
+        stepName: 'success',
+        stepNum: 8,
+      }
     }
 
     const step = Object.keys(HomeStatusCodes).find(status => HomeStatusCodes[status].indexOf(homeActivationResponse.code) > -1)
@@ -72,13 +83,13 @@ export default class ManageHome extends Component {
 
   render() {
 
-    console.log(this)
-
     const { home, t } = this.props
     const { tab } = this.state
 
     const inProgress = home && home.data && !home.data.homeActivationResponse.activated
-    const activeStep = inProgress ? this.determineHomeCreationStep() : {}
+    const activeStep = inProgress ? this.determineHomeCreationStep() : { stepName: 'success', stepNum: 8 }
+
+    console.log(this)
 
     return (
       <Grid>

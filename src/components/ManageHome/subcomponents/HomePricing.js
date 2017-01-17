@@ -17,7 +17,10 @@ export default class HomePricing extends Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    this.setState({ pricing: nextProps.home.data.pricing, rooms: nextProps.home.data.rooms })
+    const { home } = nextProps
+    if (!home.loading && home.loaded) {
+      this.setState({ pricing: nextProps.home.data.pricing, rooms: nextProps.home.data.rooms })
+    }
   }
 
   handleCurrencyChange = value => {
@@ -89,11 +92,10 @@ export default class HomePricing extends Component {
 
   render() {
 
-    console.log(this)
-
     const { rooms, pricing } = this.state
-    const { inProgress, t } = this.props
+    const { home, inProgress, t } = this.props
 
+    const loading = home.loading
     const formIsValid = !rooms.some(room => !room.price)
 
     // Generate discounts (re: idiotic data structures)
@@ -326,8 +328,9 @@ export default class HomePricing extends Component {
           </Row>
           <Row>
             <Col xs={12}>
-              <Button onClick={this.updatePricing} disabled={!formIsValid} bsStyle='primary'>
-                {inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>}
+              <Button onClick={this.updatePricing} disabled={!formIsValid || loading} bsStyle='primary'>
+                {loading && <span>{t('common.Loading')}</span>}
+                {!loading && (inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>)}
               </Button>
             </Col>
           </Row>

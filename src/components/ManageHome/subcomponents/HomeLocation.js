@@ -44,7 +44,6 @@ export default class HomeLocation extends Component {
 
   componentWillUpdate = nextProps => {
     // Google map component must be re-rendered if it was previously hidden
-    console.log(this.props.activeTab, nextProps.activeTab)
     if (this.props.activeTab !== 'location' && nextProps.activeTab === 'location' && this._googleMapComponent) {
       setTimeout(() => triggerEvent(this._googleMapComponent, 'resize'), 250)
       setTimeout(() => this.setState({ gMapsRender: shortid() }), 500)
@@ -106,8 +105,10 @@ export default class HomeLocation extends Component {
 
   render() {
 
-    const { inProgress, t } = this.props
+    const { inProgress, home, t } = this.props
     const { newLocation, gMapsRender } = this.state
+
+    const loading = home.loading
 
     const countryOptionTags = Object.keys(DefaultBankCurrencies).map(country => {
       return { id: country, label: t(`countries.${country}`) }
@@ -193,6 +194,7 @@ export default class HomeLocation extends Component {
               }
               googleMapElement={
                 <GoogleMap
+                  options={{ scrollwheel: false }}
                   ref={gMap => this._googleMapComponent = gMap}
                   zoom={hasGeolocation ? 10 : 2}
                   center={hasGeolocation ? { lat: newLocation.lat, lng: newLocation.lng } : { lat: 0, lng: 0 }}
@@ -221,8 +223,9 @@ export default class HomeLocation extends Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <Button onClick={this.updateLocation} disabled={!addressIsValid} bsStyle='primary'>
-              {inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>}
+            <Button onClick={this.updateLocation} disabled={!addressIsValid || loading} bsStyle='primary'>
+              {loading && <span>{t('common.Loading')}</span>}
+              {!loading && (inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>)}
             </Button>
           </Col>
         </Row>

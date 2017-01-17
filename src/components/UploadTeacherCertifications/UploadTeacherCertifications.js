@@ -15,6 +15,11 @@ export default class UploadTeacherCertifications extends Component {
       <div>
         <Row>
           <Col xs={12}>
+            <p>{t('manage_home.teacher_cerification_tooltip')}</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
             <ControlLabel>{t('manage_home.certificate_name_label')}*</ControlLabel>
             <FormControl
               type='text'

@@ -45,7 +45,9 @@ export default class HomeBasics extends Component {
   render() {
 
     const { basics } = this.state
-    const { inProgress, t } = this.props
+    const { home, inProgress, t } = this.props
+
+    const loading = home.loading
 
     return (
 
@@ -176,8 +178,9 @@ export default class HomeBasics extends Component {
 
           <Row>
             <Col xs={12}>
-              <Button onClick={this.updateBasics} bsStyle='primary'>
-                {inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>}
+              <Button onClick={this.updateBasics} disabled={loading} bsStyle='primary'>
+                {loading && <span>{t('common.Loading')}</span>}
+                {!loading && (inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>)}
               </Button>
             </Col>
           </Row>
