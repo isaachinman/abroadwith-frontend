@@ -4,7 +4,7 @@ import { translate } from 'react-i18next'
 import { Button, Col, ControlLabel, FormControl, FormGroup, Row } from 'react-bootstrap'
 import HomeData from 'data/constants/HomeData'
 import { MultiSelect } from 'react-selectize'
-import Switch from 'react-bootstrap-switch'
+import Switch from 'antd/lib/switch'
 
 @translate()
 export default class HomeBasics extends Component {
@@ -146,12 +146,10 @@ export default class HomeBasics extends Component {
               <ControlLabel>{t('homes.family_label')}</ControlLabel>
               <div>
                 <Switch
-                  inverse
-                  labelText=''
-                  onChange={(option, checked) => this.handleValueChange('family', checked)}
-                  offText={t('common.words.No')}
-                  onText={t('common.words.Yes')}
-                  value={basics.family}
+                  onChange={checked => this.handleValueChange('family', checked)}
+                  unCheckedChildren={t('common.words.No')}
+                  checkedChildren={t('common.words.Yes')}
+                  checked={basics.family}
                 />
               </div>
             </Col>
