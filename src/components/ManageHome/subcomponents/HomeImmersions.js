@@ -1,7 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
-import { Button, Col, Collapse, ControlLabel, FormControl, InputGroup, Modal, Row, Panel } from 'react-bootstrap'
+import { Button, Col, Collapse, ControlLabel, FormControl, InputGroup, Modal, Tooltip, OverlayTrigger, Row, Panel } from 'react-bootstrap'
 import UploadTeacherCertifications from 'components/UploadTeacherCertifications/UploadTeacherCertifications'
 import { SimpleSelect as Select, MultiSelect } from 'react-selectize'
 import Currencies from 'data/constants/Currencies'
@@ -199,6 +199,8 @@ export default class HomeImmersions extends Component {
     const { certificationModalOpen, immersions } = this.state
     const { home, inProgress, t } = this.props
 
+    const loading = home.loading
+
     const stayIsValid = this.stayImmersionIsValid()
     const tandemIsValid = this.tandemImmersionIsValid()
     const teacherIsValid = this.teacherImmersionIsValid()
@@ -216,7 +218,7 @@ export default class HomeImmersions extends Component {
 
       <span>
         <Row>
-          <Col xs={12} md={4}>
+          <Col xs={12} lg={4}>
             <Collapse in={immersions.stay.isActive}>
               <div>
                 <Panel
@@ -224,17 +226,19 @@ export default class HomeImmersions extends Component {
                   footer={<a onClick={() => this.toggleImmersion('stay')}>{t('manage_home.disable')}</a>}
                 >
                   <Row>
-                    <Col xs={12}>
-                      <ControlLabel>{t('immersions.hours_per_week_label')}*</ControlLabel>
-                      <Select
-                        theme='bootstrap3'
-                        onValueChange={event => this.handleValueChange('stay', 'hours', event ? event.value : '')}
-                        value={immersions.stay.hours ? { label: immersions.stay.hours, value: immersions.stay.hours } : null}
-                        placeholder={t('immersions.hours_per_week_placeholder')}
-                      >
-                        {hoursSharedPerWeekOptions.map(num => <option value={num} key={`stayhr${num}`}>{num.toString()}</option>)}
-                      </Select>
-                    </Col>
+                    <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.stay_hours_tooltip')}</Tooltip>}>
+                      <Col xs={12}>
+                        <ControlLabel>{t('immersions.hours_per_week_label')}*</ControlLabel>
+                        <Select
+                          theme='bootstrap3'
+                          onValueChange={event => this.handleValueChange('stay', 'hours', event ? event.value : '')}
+                          value={immersions.stay.hours ? { label: immersions.stay.hours, value: immersions.stay.hours } : null}
+                          placeholder={t('immersions.hours_per_week_placeholder')}
+                        >
+                          {hoursSharedPerWeekOptions.map(num => <option value={num} key={`stayhr${num}`}>{num.toString()}</option>)}
+                        </Select>
+                      </Col>
+                    </OverlayTrigger>
                   </Row>
                   <Row>
                     <Col xs={12}>
@@ -265,7 +269,7 @@ export default class HomeImmersions extends Component {
             </Collapse>
           </Col>
 
-          <Col xs={12} md={4}>
+          <Col xs={12} lg={4}>
             <Collapse in={immersions.tandem.isActive}>
               <div>
                 <Panel
@@ -273,17 +277,19 @@ export default class HomeImmersions extends Component {
                   footer={<a onClick={() => this.toggleImmersion('tandem')}>{t('manage_home.disable')}</a>}
                 >
                   <Row>
-                    <Col xs={12}>
-                      <ControlLabel>{t('immersions.hours_per_week_label')}*</ControlLabel>
-                      <Select
-                        theme='bootstrap3'
-                        onValueChange={event => this.handleValueChange('tandem', 'hours', event ? event.value : '')}
-                        value={immersions.tandem.hours ? { label: immersions.tandem.hours, value: immersions.tandem.hours } : null}
-                        placeholder={t('immersions.hours_per_week_placeholder')}
-                      >
-                        {hoursSharedPerWeekOptions.map(num => <option value={num} key={`tandemhr${num}`}>{num.toString()}</option>)}
-                      </Select>
-                    </Col>
+                    <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.tandem_hours_tooltip')}</Tooltip>}>
+                      <Col xs={12}>
+                        <ControlLabel>{t('immersions.hours_per_week_label')}*</ControlLabel>
+                        <Select
+                          theme='bootstrap3'
+                          onValueChange={event => this.handleValueChange('tandem', 'hours', event ? event.value : '')}
+                          value={immersions.tandem.hours ? { label: immersions.tandem.hours, value: immersions.tandem.hours } : null}
+                          placeholder={t('immersions.hours_per_week_placeholder')}
+                        >
+                          {hoursSharedPerWeekOptions.map(num => <option value={num} key={`tandemhr${num}`}>{num.toString()}</option>)}
+                        </Select>
+                      </Col>
+                    </OverlayTrigger>
                   </Row>
                   <Row>
                     <Col xs={12}>
@@ -347,7 +353,7 @@ export default class HomeImmersions extends Component {
             </Collapse>
           </Col>
 
-          <Col xs={12} md={4}>
+          <Col xs={12} lg={4}>
             <Collapse in={immersions.teacher.isActive}>
               <div>
                 <Panel
@@ -371,22 +377,24 @@ export default class HomeImmersions extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs={12}>
-                      <ControlLabel>{t('immersions.packages_offered_label')}*</ControlLabel>
-                      <MultiSelect
-                        theme='bootstrap3'
-                        onValuesChange={event => this.handleValueChange('teacher', 'packages', event.map(option => option.value))}
-                        placeholder={t('immersions.packages_offered_placeholder')}
-                        options={[
+                    <OverlayTrigger placement='left' overlay={<Tooltip id='tooltip'>{t('manage_home.teacher_packages_tooltip')}</Tooltip>}>
+                      <Col xs={12}>
+                        <ControlLabel>{t('immersions.packages_offered_label')}*</ControlLabel>
+                        <MultiSelect
+                          theme='bootstrap3'
+                          onValuesChange={event => this.handleValueChange('teacher', 'packages', event.map(option => option.value))}
+                          placeholder={t('immersions.packages_offered_placeholder')}
+                          options={[
                           { value: 5, label: `5 ${t('immersions.hours_per_week_short')}` },
                           { value: 10, label: `10 ${t('immersions.hours_per_week_short')}` },
                           { value: 15, label: `15 ${t('immersions.hours_per_week_short')}` },
-                        ]}
-                        values={immersions.teacher.packages ? immersions.teacher.packages.map(item => {
-                          return { label: `${item} ${t('immersions.hours_per_week_short')}`, value: item }
-                        }) : []}
-                      />
-                    </Col>
+                          ]}
+                          values={immersions.teacher.packages ? immersions.teacher.packages.map(item => {
+                            return { label: `${item} ${t('immersions.hours_per_week_short')}`, value: item }
+                          }) : []}
+                        />
+                      </Col>
+                    </OverlayTrigger>
                   </Row>
                   <Row>
                     <Col xs={12}>
@@ -433,13 +441,14 @@ export default class HomeImmersions extends Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <Button onClick={this.updateImmersions} disabled={!formIsValid} bsStyle='primary'>
-              {inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>}
+            <Button onClick={this.updateImmersions} disabled={!formIsValid || loading} bsStyle='primary'>
+              {loading && <span>{t('common.Loading')}</span>}
+              {!loading && (inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>)}
             </Button>
           </Col>
         </Row>
         <Modal
-          bsSize='small'
+          bsSize='large'
           show={certificationModalOpen}
           onHide={this.closeCertificationModal}
         >

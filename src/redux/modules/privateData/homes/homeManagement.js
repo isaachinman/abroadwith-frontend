@@ -2,20 +2,13 @@ import jwtDecode from 'jwt-decode'
 import config from 'config'
 import superagent from 'superagent'
 import { push } from 'react-router-redux'
-import { toastr } from 'react-redux-toastr'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { load as loadHomeWithAuth } from './loadHomeWithAuth'
-
 
 // Create homestay
 const CREATE_HOMESTAY = 'abroadwith/CREATE_HOMESTAY'
 const CREATE_HOMESTAY_SUCCESS = 'abroadwith/CREATE_HOMESTAY_SUCCESS'
 const CREATE_HOMESTAY_FAIL = 'abroadwith/CREATE_HOMESTAY_FAIL'
-
-// Update homestay
-const UPDATE_HOMESTAY = 'abroadwith/UPDATE_HOMESTAY'
-const UPDATE_HOMESTAY_SUCCESS = 'abroadwith/UPDATE_HOMESTAY_SUCCESS'
-const UPDATE_HOMESTAY_FAIL = 'abroadwith/UPDATE_HOMESTAY_FAIL'
 
 // Add home photo
 const ADD_HOME_PHOTO = 'abroadwith/ADD_HOME_PHOTO'
@@ -62,55 +55,6 @@ export function createHomestay(jwt, redirectToManageHome) {
 
     } catch (err) {
       dispatch({ type: CREATE_HOMESTAY_FAIL, err })
-    }
-  }
-}
-
-export function updateHomestay(jwt, homeID, originalObject, notificationMessage) {
-
-  // Clean the data
-  /* eslint-disable */
-  const homeObject = Object.assign({}, originalObject, {})
-  delete homeObject.published
-  delete homeObject.GENERAL
-  delete homeObject.homeActivationResponse
-  delete homeObject.isActive
-  homeObject.images =  homeObject.images.map(img => {return { caption: img.caption, id: img.id }})
-  /* eslint-enable */
-
-  return async dispatch => {
-
-    dispatch({ type: UPDATE_HOMESTAY, homeID })
-
-    try {
-
-      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes/${homeID}`)
-      request.set({ Authorization: `Bearer ${(jwt)}` })
-      request.send(homeObject)
-
-      request.end((err, { body } = {}) => {
-
-        if (err) {
-
-          dispatch({ type: UPDATE_HOMESTAY_FAIL, homeID, err })
-
-        } else {
-
-          // Request was successful
-          dispatch({ type: UPDATE_HOMESTAY_SUCCESS, homeID, result: body })
-          dispatch(loadHomeWithAuth(jwt, homeID))
-
-          // Dispatch a notification if necessary
-          if (typeof notificationMessage === 'string' && notificationMessage.length > 0) {
-            toastr.success(notificationMessage)
-          }
-
-        }
-
-      })
-
-    } catch (err) {
-      dispatch({ type: UPDATE_HOMESTAY_FAIL, homeID, err })
     }
   }
 }

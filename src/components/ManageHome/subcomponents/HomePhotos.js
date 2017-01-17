@@ -1,19 +1,25 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
-import { Button, Col, FormControl, Thumbnail, Row } from 'react-bootstrap'
+import { Button, Col, FormControl, Tooltip, Thumbnail, OverlayTrigger, Row } from 'react-bootstrap'
 import { addHomePhoto, deleteHomePhoto } from 'redux/modules/privateData/homes/homeManagement'
 import config from 'config'
 import Dropzone from 'react-dropzone'
 import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc'
 import FontAwesome from 'react-fontawesome'
+import debounce from 'debounce'
 
 // Styles
 const styles = {
-  dropzone: {
+  photoContainer: {
     width: '100%',
     padding: 20,
-    border: '1px dotted black',
+    border: '1px dashed #d9d9d9',
+  },
+  dropzone: {
+    cursor: 'pointer',
+    textAlign: 'center',
+    padding: '30px 0 40px 0',
   },
   dragHandle: {
     position: 'absolute',
@@ -37,7 +43,7 @@ const DragHandle = SortableHandle(() => <div style={styles.dragHandle} />)
 
 const SortableItem = SortableElement(({ image, ind, t, deletePhoto, handleValueChange }) => {
   return (
-    <Col xs={12} md={4} key={`homeimg${image.id}${ind}`} className='home-photo-thumbnail'>
+    <Col xs={12} md={6} lg={4} key={`homeimg${image.id}${ind}`} className='home-photo-thumbnail'>
       <Thumbnail src={`${config.img}${image.imagePath}`} alt='242x200'>
         <DragHandle />
         <div>
@@ -49,7 +55,13 @@ const SortableItem = SortableElement(({ image, ind, t, deletePhoto, handleValueC
           />
         </div>
         <div className='info'>
-          {ind > 0 && <div onClick={() => deletePhoto(image.id)} className='pull-right' style={styles.trash}><FontAwesome name='trash' /></div>}
+          {ind > 0 &&
+            <OverlayTrigger placement='bottom' overlay={<Tooltip id='tooltip'>{t('manage_home.delete_photo_tooltip')}</Tooltip>}>
+              <div onClick={() => deletePhoto(image.id)} className='pull-right' style={styles.trash}>
+                <FontAwesome name='trash' />
+              </div>
+            </OverlayTrigger>
+          }
           {ind === 0 && <div><span style={styles.star}><FontAwesome name='star' /></span> {t('manage_home.featured_image')}</div>}
         </div>
       </Thumbnail>
@@ -84,7 +96,10 @@ export default class HomePhotos extends Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    this.setState({ images: nextProps.home.data.images })
+    const { home } = nextProps
+    if (!home.loading && home.loaded) {
+      this.setState({ images: home.data.images })
+    }
   }
 
   onDrop = acceptedFiles => {
@@ -106,6 +121,7 @@ export default class HomePhotos extends Component {
     const newImage = images.filter(img => img.id === imageID)[0]
     newImage.caption = value
     this.setState({ images: images.map(image => image.id === imageID ? newImage : image) })
+    this.debouncedUpdate()
   }
 
   deletePhoto = photoID => {
@@ -121,19 +137,22 @@ export default class HomePhotos extends Component {
     }))
   }
 
+  debouncedUpdate = debounce(() => {
+    this.updatePhotos()
+  }, 1000)
+
   updatePhotos = () => {
-    const { home, t, updateHome } = this.props
+    const { home, updateHome } = this.props
     updateHome(Object.assign({}, home.data, {
       images: this.state.images,
-    }), t('manage_home.images_updated'))
+    }))
   }
 
   render() {
 
-    const { inProgress, t } = this.props
-    console.log(this.state.images)
-
+    const { home, inProgress, t } = this.props
     const formIsValid = this.state.images.length > 0
+    const loading = home.loading
 
     return (
 
@@ -144,36 +163,32 @@ export default class HomePhotos extends Component {
           </Col>
         </Row>
         <Row>
-          <Col xs={12}>
+          <Col xs={12} style={styles.photoContainer}>
             <Dropzone
               onDrop={this.onDrop}
               style={styles.dropzone}
-              disableClick
             >
-              <Row>
-                <Col xs={12}>
-                  <div>{t('common.drop_files_here')}</div>
-                </Col>
-              </Row>
-              <Row>
-                <SortableList
-                  axis={'xy'}
-                  useWindowAsScrollContainer
-                  useDragHandle
-                  images={this.state.images}
-                  onSortEnd={this.onSortEnd}
-                  t={t}
-                  deletePhoto={this.deletePhoto}
-                  handleValueChange={this.handleValueChange}
-                />
-              </Row>
+              <FontAwesome name='inbox' size='4x' style={{ color: '#5A65DB' }} />
+              <h5>{t('common.drop_files_here')}</h5>
             </Dropzone>
+
+            <SortableList
+              axis={'xy'}
+              useWindowAsScrollContainer
+              useDragHandle
+              images={this.state.images}
+              onSortEnd={this.onSortEnd}
+              t={t}
+              deletePhoto={this.deletePhoto}
+              handleValueChange={this.handleValueChange}
+            />
           </Col>
         </Row>
         <Row>
           <Col xs={12}>
-            <Button onClick={inProgress ? this.goToNext : this.updatePhotos} disabled={!formIsValid} bsStyle='primary'>
-              {inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>}
+            <Button onClick={inProgress ? this.goToNext : this.updatePhotos} disabled={!formIsValid || loading} bsStyle='primary'>
+              {loading && <span>{t('common.Loading')}</span>}
+              {!loading && (inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>)}
             </Button>
           </Col>
         </Row>

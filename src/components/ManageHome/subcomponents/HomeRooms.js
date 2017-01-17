@@ -1,7 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
-import { Button, Col, ControlLabel, FormControl, Panel, PanelGroup, Row } from 'react-bootstrap'
+import { Button, Col, ControlLabel, FormControl, Tooltip, Panel, PanelGroup, OverlayTrigger, Row } from 'react-bootstrap'
 import { SimpleSelect as Select, MultiSelect } from 'react-selectize'
 import { createRoom, updateRoomImage, deleteRoom } from 'redux/modules/privateData/homes/roomManagement'
 import config from 'config'
@@ -28,7 +28,10 @@ export default class HomeRooms extends Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    this.setState({ rooms: nextProps.home.data.rooms })
+    const { home } = nextProps
+    if (!home.loading && home.loaded) {
+      this.setState({ rooms: home.data.rooms })
+    }
   }
 
   newRoomDrop = acceptedFiles => {
@@ -121,15 +124,15 @@ export default class HomeRooms extends Component {
   render() {
 
     const { newRoom, newRoomImg, render, rooms } = this.state
-    const { inProgress, t } = this.props
+    const { home, inProgress, t } = this.props
+
+    const loading = home.loading
 
     const alphabeticalRooms = rooms.sort((a, b) => {
       const x = a.name.toLowerCase()
       const y = b.name.toLowerCase()
       return x < y ? -1 : x > y ? 1 : 0 // eslint-disable-line
     })
-
-    console.log(rooms, alphabeticalRooms)
 
     const newRoomIsValid = this.validateRoom(newRoom)
     const formIsValid = rooms.length > 0
@@ -174,21 +177,23 @@ export default class HomeRooms extends Component {
                 </Row>
 
                 <Row>
-                  <Col xs={12} md={6}>
-                    <ControlLabel>{t('rooms.vacancies_label')}*</ControlLabel>
-                    <Select
-                      theme='bootstrap3'
-                      placeholder={t('rooms.vacancies_placeholder')}
-                      onValueChange={event => this.handleValueChange(true, null, 'vacancies', event.value)}
-                      value={newRoom.vacancies ? { value: newRoom.vacancies, label: newRoom.vacancies } : null}
-                    >
-                      <option value={1}>1</option>
-                      <option value={2}>2</option>
-                      <option value={3}>3</option>
-                      <option value={4}>4</option>
-                      <option value={5}>5</option>
-                    </Select>
-                  </Col>
+                  <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.rooms_vacancies_tooltip')}</Tooltip>}>
+                    <Col xs={12} md={6}>
+                      <ControlLabel>{t('rooms.vacancies_label')}*</ControlLabel>
+                      <Select
+                        theme='bootstrap3'
+                        placeholder={t('rooms.vacancies_placeholder')}
+                        onValueChange={event => this.handleValueChange(true, null, 'vacancies', event.value)}
+                        value={newRoom.vacancies ? { value: newRoom.vacancies, label: newRoom.vacancies } : null}
+                      >
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
+                      </Select>
+                    </Col>
+                  </OverlayTrigger>
                   <Col xs={12} md={6}>
                     <ControlLabel>{t('rooms.facilities_label')}</ControlLabel>
                     <MultiSelect
@@ -208,14 +213,18 @@ export default class HomeRooms extends Component {
                   <Col xs={12} md={6}>
                     <ControlLabel>{t('rooms.shared_label')}</ControlLabel>
                     <div>
-                      <Switch
-                        inverse
-                        labelText=''
-                        onChange={(option, checked) => this.handleValueChange(true, null, 'shared', checked)}
-                        offText={t('common.words.No')}
-                        onText={t('common.words.Yes')}
-                        value={newRoom.shared}
-                      />
+                      <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.rooms_shared_tooltip')}</Tooltip>}>
+                        <span>
+                          <Switch
+                            inverse
+                            labelText=''
+                            onChange={(option, checked) => this.handleValueChange(true, null, 'shared', checked)}
+                            offText={t('common.words.No')}
+                            onText={t('common.words.Yes')}
+                            value={newRoom.shared}
+                          />
+                        </span>
+                      </OverlayTrigger>
                     </div>
                   </Col>
                   <Col xs={12} md={6}>
@@ -355,14 +364,30 @@ export default class HomeRooms extends Component {
                     <Row>
                       <Col xs={12}>
                         <Button onClick={this.updateRooms} disabled={!this.validateRoom(room)} bsStyle='primary'>{t('manage_home.save_button')}</Button>
-                        <Button
-                          bsStyle='danger'
-                          className='pull-right'
-                          bsSize='xsmall'
-                          onClick={() => this.deleteRoom(room.id)}
-                        >
-                          {t('manage_home.rooms_delete')}
-                        </Button>
+                        {rooms.length > 1 &&
+                          <Button
+                            bsStyle='danger'
+                            className='pull-right'
+                            bsSize='xsmall'
+                            onClick={() => this.deleteRoom(room.id)}
+                          >
+                            {t('manage_home.rooms_delete')}
+                          </Button>
+                        }
+                        {rooms.length <= 1 &&
+                          <OverlayTrigger placement='bottom' overlay={<Tooltip id='tooltip'>{t('manage_home.room_deletion_must_have_one')}</Tooltip>}>
+                            <div className='pull-right' style={{ display: 'inline-block', cursor: 'not-allowed' }}>
+                              <Button
+                                style={{ pointerEvents: 'none' }}
+                                bsStyle='danger'
+                                bsSize='xsmall'
+                                disabled
+                              >
+                                {t('manage_home.rooms_delete')}
+                              </Button>
+                            </div>
+                          </OverlayTrigger>
+                        }
                       </Col>
                     </Row>
                   </Panel>
@@ -375,8 +400,9 @@ export default class HomeRooms extends Component {
         {inProgress &&
           <Row>
             <Col xs={12}>
-              <Button onClick={this.goToNext} disabled={!formIsValid} bsStyle='primary'>
-                {t('manage_home.next_button')}
+              <Button onClick={this.goToNext} disabled={!formIsValid || loading} bsStyle='primary'>
+                {loading && <span>{t('common.Loading')}</span>}
+                {!loading && (inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>)}
               </Button>
             </Col>
           </Row>

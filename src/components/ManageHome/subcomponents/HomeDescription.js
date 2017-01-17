@@ -26,9 +26,10 @@ export default class HomeDescription extends Component {
   render() {
 
     const { description } = this.state
-    const { inProgress, t } = this.props
+    const { home, inProgress, t } = this.props
 
     const formIsValid = description.summary && description.summary.length > 5
+    const loading = home.loading
 
     return (
 
@@ -84,8 +85,9 @@ export default class HomeDescription extends Component {
 
         <Row>
           <Col xs={12}>
-            <Button onClick={this.updateDescription} disabled={!formIsValid} bsStyle='primary'>
-              {inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>}
+            <Button onClick={this.updateDescription} disabled={!formIsValid || loading} bsStyle='primary'>
+              {loading && <span>{t('common.Loading')}</span>}
+              {!loading && (inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>)}
             </Button>
           </Col>
         </Row>

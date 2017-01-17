@@ -1,7 +1,6 @@
 // Manage Home
-1. Go back through and put in tooltips
-2. Convert home photos to react-bootstrap Thumbnails
-3. Caption is not saved on inProgress when dropping second photo
-4. Show success modal on home publication
-5. Add calendar to last to last step of manage-home
-6. Need to change message/thread endpoint to include homeID
+
+
+3. Show success modal on home publication
+4. Add calendar to last to last step of manage-home
+5. Need to change message/thread endpoint to include homeID
