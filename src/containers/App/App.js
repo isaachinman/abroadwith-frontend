@@ -9,7 +9,6 @@ import React, { Component, PropTypes } from 'react'
 import NotFound from 'components/NotFound/NotFound'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
-import ReduxToastr from 'react-redux-toastr'
 
 // Relative imports
 import config from '../../config'
@@ -102,12 +101,6 @@ export default class App extends Component {
       <div style={styles.appContainer}>
 
         <Helmet {...config.app.head} />
-
-        <ReduxToastr
-          position='bottom-right'
-          transitionIn='fadeIn'
-          transitionOut='fadeOut'
-        />
 
         <Navbar jwt={jwt} user={user} title={config.app.title} />
 
