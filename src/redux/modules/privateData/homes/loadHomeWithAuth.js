@@ -17,8 +17,55 @@ const LOAD_HOMESTAY_CALENDAR = 'abroadwith/LOAD_HOMESTAY_CALENDAR'
 const LOAD_HOMESTAY_CALENDAR_SUCCESS = 'abroadwith/LOAD_HOMESTAY_CALENDAR_SUCCESS'
 const LOAD_HOMESTAY_CALENDAR_FAIL = 'abroadwith/LOAD_HOMESTAY_CALENDAR_FAIL'
 
+// Update room calendar
+const UPDATE_ROOM_CALENDAR = 'abroadwith/UPDATE_ROOM_CALENDAR'
+const UPDATE_ROOM_CALENDAR_SUCCESS = 'abroadwith/UPDATE_ROOM_CALENDAR_SUCCESS'
+const UPDATE_ROOM_CALENDAR_FAIL = 'abroadwith/UPDATE_ROOM_CALENDAR_FAIL'
+
 export default function reducer(state = {}, action = {}) {
   switch (action.type) {
+    case UPDATE_ROOM_CALENDAR: {
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          calendar: Object.assign({}, state[action.homeID].calendar, {
+            roomsLoading: state[action.homeID].calendar.roomsLoading + 1,
+          }),
+        }),
+      }
+    }
+    case UPDATE_ROOM_CALENDAR_SUCCESS: {
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          calendar: Object.assign({}, state[action.homeID].calendar, {
+            roomsLoading: state[action.homeID].calendar.roomsLoading - 1,
+          }),
+        }),
+      }
+    }
+    case UPDATE_ROOM_CALENDAR_FAIL: {
+      if (action.err && action.err.status === 409) {
+        return {
+          ...state,
+          [action.homeID]: Object.assign({}, state[action.homeID], {
+            calendar: Object.assign({}, state[action.homeID].calendar, {
+              conflicts: state[action.homeID].calendar.conflicts.concat([action.roomID]),
+              roomsLoading: state[action.homeID].calendar.roomsLoading - 1,
+            }),
+          }),
+        }
+      }
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          calendar: Object.assign({}, state[action.homeID].calendar, {
+            error: action.error,
+            roomsLoading: state[action.homeID].calendar.roomsLoading - 1,
+          }),
+        }),
+      }
+    }
     case LOAD_HOMESTAY_CALENDAR: {
       if (state[action.homeID]) {
         return {
@@ -26,6 +73,8 @@ export default function reducer(state = {}, action = {}) {
           [action.homeID]: Object.assign({}, state[action.homeID], {
             calendar: Object.assign({}, state[action.homeID].calendar, {
               loading: true,
+              conflicts: state[action.homeID].calendar ? state[action.homeID].calendar.conflicts : [],
+              roomsLoading: state[action.homeID].calendar ? state[action.homeID].calendar.roomsLoading : 0,
             }),
           }),
         }
@@ -40,9 +89,11 @@ export default function reducer(state = {}, action = {}) {
           ...state,
           [action.homeID]: Object.assign({}, state[action.homeID], {
             calendar: {
-              loading: true,
+              loading: false,
               loaded: true,
               data: action.result,
+              conflicts: state[action.homeID].calendar ? state[action.homeID].calendar.conflicts : [],
+              roomsLoading: state[action.homeID].calendar ? state[action.homeID].calendar.roomsLoading : [],
             },
           }),
         }
@@ -164,6 +215,38 @@ export function loadHomestayCalendar(jwt, homeID) {
 
     } catch (err) {
       dispatch({ type: LOAD_HOMESTAY_CALENDAR_FAIL, homeID, err })
+    }
+  }
+}
+
+export function updateRoomCalendar(jwt, homeID, roomID, calendar) {
+  return async dispatch => {
+
+    dispatch({ type: UPDATE_ROOM_CALENDAR, homeID, roomID })
+
+    try {
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes/${homeID}/rooms/${roomID}/availabilityCalendar`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+      request.send(calendar)
+
+      request.end((err, { body } = {}) => {
+
+        if (err) {
+
+          dispatch({ type: UPDATE_ROOM_CALENDAR_FAIL, homeID, roomID, err })
+
+        } else {
+
+          // Update was successful
+          dispatch({ type: UPDATE_ROOM_CALENDAR_SUCCESS, homeID, roomID, result: body })
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: UPDATE_ROOM_CALENDAR_FAIL, homeID, roomID, err })
     }
   }
 }

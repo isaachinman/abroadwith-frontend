@@ -11,10 +11,6 @@ export default class DateRangePicker extends Component {
     endDate: null,
   }
 
-  onDatesChange = ({ startDate, endDate }) => {
-    this.setState({ startDate, endDate })
-  }
-
   onFocusChange= (focusedInput) => {
     this.setState({ focusedInput })
   }
@@ -26,12 +22,13 @@ export default class DateRangePicker extends Component {
       large,
       endDatePlaceholderText,
       startDatePlaceholderText,
+      startDate,
+      onDatesChange,
+      endDate,
     } = this.props
 
     const {
       focusedInput,
-      startDate,
-      endDate,
     } = this.state
 
     // --------------------------------------------------------------------------------
@@ -52,7 +49,7 @@ export default class DateRangePicker extends Component {
         <DateRangePickerCore
           {...this.props}
           orientation={this.props.orientation}
-          onDatesChange={this.onDatesChange}
+          onDatesChange={onDatesChange}
           onFocusChange={this.onFocusChange}
           focusedInput={focusedInput}
           startDate={startDate}
@@ -66,7 +63,10 @@ export default class DateRangePicker extends Component {
 }
 
 DateRangePicker.propTypes = {
+  endDate: React.PropTypes.object,
   orientation: React.PropTypes.string,
+  onDatesChange: React.PropTypes.func,
+  startDate: React.PropTypes.object,
   startDatePlaceholderText: React.PropTypes.string,
   endDatePlaceholderText: React.PropTypes.string,
   inlineBlock: React.PropTypes.bool,

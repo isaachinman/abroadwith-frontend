@@ -108,7 +108,7 @@ export default class ManageHome extends Component {
             <Tab.Container id='manage-home' onSelect={this.handleTabChange} activeKey={tab || activeStep.stepName}>
               <Row style={styles.mainRow}>
 
-                <Col style={styles.sidebar} xs={12} sm={4} md={3} lg={2}>
+                <Col style={styles.sidebar} xs={12} sm={3} md={2}>
                   <Nav bsStyle='pills' stacked>
                     <NavItem
                       disabled={inProgress && activeStep.stepNum < 1}
@@ -169,7 +169,7 @@ export default class ManageHome extends Component {
                   </Nav>
                 </Col>
 
-                <Col style={styles.mainPanel} xs={12} sm={8} md={9} lg={10}>
+                <Col style={styles.mainPanel} xs={12} sm={9} md={10}>
                   <Tab.Content animation>
 
                     <Tab.Pane eventKey='location'>
