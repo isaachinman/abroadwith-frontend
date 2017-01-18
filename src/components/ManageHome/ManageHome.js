@@ -49,6 +49,9 @@ export default class ManageHome extends Component {
     if (home && home.data && !home.data.homeActivationResponse.activated && nextProps.home.data.homeActivationResponse.activated) {
       this.setState({ successModalOpen: true })
     }
+    if (home && home.data && !home.data.homeActivationResponse.activated && this.state.tab) {
+      this.setState({ tab: null })
+    }
   }
 
   tabOverride = tab => {
@@ -180,7 +183,7 @@ export default class ManageHome extends Component {
                       />
                     </Tab.Pane>
 
-                    <Tab.Pane eventKey='basics'>
+                    <Tab.Pane unmountOnExit eventKey='basics'>
                       <h2>{t('manage_home.basics_title')}</h2>
                       <HomeBasics
                         {...this.props}
@@ -190,7 +193,7 @@ export default class ManageHome extends Component {
                       />
                     </Tab.Pane>
 
-                    <Tab.Pane eventKey='description'>
+                    <Tab.Pane unmountOnExit eventKey='description'>
                       <h2>{t('manage_home.description_title')}</h2>
                       <HomeDescription
                         {...this.props}
@@ -199,7 +202,7 @@ export default class ManageHome extends Component {
                       />
                     </Tab.Pane>
 
-                    <Tab.Pane eventKey='immersions'>
+                    <Tab.Pane unmountOnExit eventKey='immersions'>
                       <h2>{t('manage_home.immersions_title')}</h2>
                       <HomeImmersions
                         {...this.props}
@@ -208,7 +211,7 @@ export default class ManageHome extends Component {
                       />
                     </Tab.Pane>
 
-                    <Tab.Pane eventKey='rooms'>
+                    <Tab.Pane unmountOnExit eventKey='rooms'>
                       <h2>{t('manage_home.rooms_title')}</h2>
                       <HomeRooms
                         {...this.props}
@@ -218,7 +221,7 @@ export default class ManageHome extends Component {
                       />
                     </Tab.Pane>
 
-                    <Tab.Pane eventKey='photos'>
+                    <Tab.Pane unmountOnExit eventKey='photos'>
                       <h2>{t('manage_home.photos_title')}</h2>
                       <HomePhotos
                         {...this.props}
@@ -228,7 +231,7 @@ export default class ManageHome extends Component {
                       />
                     </Tab.Pane>
 
-                    <Tab.Pane eventKey='pricing'>
+                    <Tab.Pane unmountOnExit eventKey='pricing'>
                       <h2>{t('manage_home.pricing_title')}</h2>
                       <HomePricing
                         {...this.props}
@@ -237,7 +240,7 @@ export default class ManageHome extends Component {
                       />
                     </Tab.Pane>
 
-                    <Tab.Pane eventKey='calendar'>
+                    <Tab.Pane unmountOnExit eventKey='calendar'>
                       <h2>{t('home_calendar.title')}</h2>
                       {!inProgress && <HomeCalendar homeID={routeParams.homeID} />}
                     </Tab.Pane>
