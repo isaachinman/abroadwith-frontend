@@ -1,6 +1,4 @@
 // Manage Home
 
-
-3. Show success modal on home publication
-4. Add calendar to last to last step of manage-home
-5. Need to change message/thread endpoint to include homeID
+1. Add room-conflict resolution modal to availability calendar
+2. Need to change message/thread endpoint to include homeID

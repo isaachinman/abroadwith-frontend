@@ -1,5 +1,5 @@
 import moment from 'moment'
 
-export default function uiDate(date) {
+export default function apiDate(date) {
   return moment(date).format('YYYY-MM-DD')
 }

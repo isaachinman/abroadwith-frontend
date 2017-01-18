@@ -43,12 +43,7 @@ $bodyTextColor: #404041;
 @import 'src/styles/react-geosuggest/react-geosuggest.scss';
 
 // React dates imports
-@import 'src/styles/react-dates/variables.scss';
-@import 'src/styles/react-dates/CalendarMonth.scss';
-@import 'src/styles/react-dates/DayPicker.scss';
-@import 'src/styles/react-dates/DateInput.scss';
-@import 'src/styles/react-dates/DateRangePicker.scss';
-@import 'src/styles/react-dates/DateRangePickerInput.scss';
+@import '../react-dates/react-dates.css';
 
 // Braintree imports
 @import 'src/styles/braintree/braintree.scss';
