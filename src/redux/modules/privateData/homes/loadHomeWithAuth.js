@@ -1,7 +1,6 @@
 import jwtDecode from 'jwt-decode'
 import config from 'config'
 import superagent from 'superagent'
-import { toastr } from 'react-redux-toastr'
 
 // Load homestay
 const LOAD_HOMESTAY_WITH_AUTH = 'abroadwith/LOAD_HOMESTAY_WITH_AUTH'
@@ -204,9 +203,7 @@ export function updateHomestay(jwt, homeID, originalObject, notificationMessage)
           dispatch(load(jwt, homeID))
 
           // Dispatch a notification if necessary
-          if (typeof notificationMessage === 'string' && notificationMessage.length > 0) {
-            toastr.success(notificationMessage)
-          }
+          console.log(notificationMessage)
 
         }
 
