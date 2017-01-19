@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Footer, Navbar } from 'components'
 import { isLoaded as isAuthLoaded, logout } from 'redux/modules/auth'
 import { push } from 'react-router-redux'
+import { StyleRoot } from 'radium'
 import Helmet from 'react-helmet'
 import React, { Component, PropTypes } from 'react'
 import NotFound from 'components/NotFound/NotFound'
@@ -98,20 +99,22 @@ export default class App extends Component {
     const { jwt, user, route } = this.props
 
     return (
-      <div style={styles.appContainer}>
+      <StyleRoot>
+        <div style={styles.appContainer}>
 
-        <Helmet {...config.app.head} />
+          <Helmet {...config.app.head} />
 
-        <Navbar jwt={jwt} user={user} title={config.app.title} />
+          <Navbar jwt={jwt} user={user} title={config.app.title} />
 
-        <div style={styles.appContent}>
-          {route.status === 200 && this.props.children}
-          {route.status === 404 && <NotFound />}
+          <div style={styles.appContent}>
+            {route.status === 200 && this.props.children}
+            {route.status === 404 && <NotFound />}
+          </div>
+
+          <Footer />
+
         </div>
-
-        <Footer />
-
-      </div>
+      </StyleRoot>
     )
   }
 }

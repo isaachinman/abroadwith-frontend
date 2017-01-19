@@ -5,7 +5,6 @@ import { Button, Col, ControlLabel, InputGroup, ListGroup, ListGroupItem, FormCo
 import Currencies from 'data/constants/Currencies'
 import FontAwesome from 'react-fontawesome'
 
-
 // Arrays to iterate over
 const lengthDiscounts = ['oneMonthDiscount', 'threeMonthDiscount', 'sixMonthDiscount']
 const extras = ['CLEANING', 'AIRPORT_PICKUP', 'LAUNDRY', 'EXTRA_GUEST', 'HALF_BOARD', 'FULL_BOARD']
@@ -197,7 +196,7 @@ export default class HomePricing extends Component {
                       <ListGroupItem key={`room${room.id}`}>
                         <div>
                           <h5 className='list-group-item-heading'>{room.name} <small>{t(`rooms.bed_types.${room.bed}`)} / {t('rooms.vacancies_label')}: {room.vacancies}</small></h5>
-                          <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
+                          <ControlLabel>{t('rooms.Weekly_rate')}*</ControlLabel>
                           <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('rooms.price_tooltip')}</Tooltip>}>
                             <FontAwesome name='question-circle' className='pull-right text-muted' />
                           </OverlayTrigger>

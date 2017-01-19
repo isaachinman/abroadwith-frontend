@@ -6,6 +6,7 @@ export default {
     background: 'rgba(51,51,51,0.08)',
   },
   footer: {
+    marginTop: 20,
     color: 'white',
     backgroundColor: havelockBlue,
   },

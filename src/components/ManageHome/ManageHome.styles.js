@@ -8,6 +8,9 @@ export default {
   },
   mainPanel: {
     padding: '20px 50px',
+    '@media (max-width: 500px)': {
+      padding: 0,
+    },
     background: 'white',
   },
   tabItem: {
