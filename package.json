@@ -28,7 +28,7 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
         "PORT": 3000,
-        "IMG": "https://abroadwith.imgix.net",
+        "IMG": "IMGIX",
         "APIHOST": "https://api.abroadwith.com",
         "APIPORT": 443
       }
@@ -39,7 +39,7 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
         "PORT": 3002,
-        "IMG": "http://img.test-abroadwith.com",
+        "IMG": "S3",
         "APIHOST": "https://api.test-abroadwith.com",
         "APIPORT": 443
       }
@@ -50,7 +50,7 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
         "PORT": 3000,
-        "IMG": "http://img.test-abroadwith.com",
+        "IMG": "S3",
         "APIHOST": "https://api.test-abroadwith.com",
         "APIPORT": 443,
         "FACEBOOK_APP_ID": "144997212531478"
@@ -63,7 +63,7 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
         "PORT": 3000,
-        "IMG": "http://img.test-abroadwith.com",
+        "IMG": "S3",
         "APIHOST": "https://api.test-abroadwith.com",
         "APIPORT": 443,
         "FACEBOOK_APP_ID": "144997212531478"

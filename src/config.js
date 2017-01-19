@@ -1,9 +1,19 @@
 require('babel-polyfill')
 
-module.exports = {
+const img = {
+  IMGIX: {
+    isProduction: false,
+    img: 'http://img.test-abroadwith.com',
+  },
+  S3: {
+    isProduction: true,
+    img: 'https://abroadwith.imgix.net',
+  },
+}[process.env.IMG || 'IMGIX']
+
+module.exports = Object.assign({
   host: process.env.HOST || 'localhost',
   port: process.env.OVERRIDE_PORT || process.env.PORT,
-  img: process.env.IMG,
   apiHost: process.env.APIHOST || 'https://api.test-abroadwith.com',
   apiPort: process.env.APIPORT,
   app: {
@@ -21,4 +31,4 @@ module.exports = {
     },
   },
 
-}
+}, img)
