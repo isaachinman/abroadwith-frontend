@@ -243,7 +243,7 @@ export default class ManageHome extends Component {
 
                       <Tab.Pane unmountOnExit eventKey='calendar'>
                         <h2>{t('home_calendar.title')}</h2>
-                        {!inProgress && <HomeCalendar homeID={routeParams.homeID} />}
+                        {!inProgress && <HomeCalendar homeID={parseInt(routeParams.homeID)} />}
                       </Tab.Pane>
 
                     </Tab.Content>
