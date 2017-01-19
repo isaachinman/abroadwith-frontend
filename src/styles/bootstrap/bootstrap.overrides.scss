@@ -3,6 +3,15 @@
 *
 */
 
+// BigCalendar custom styles
+.rbc-day-bg {
+  cursor: cell;
+  &.rbc-day-past {
+    cursor: not-allowed;
+    background: #eee;
+  }
+}
+
 $bodyTextColor: #404041;
 
 .row {

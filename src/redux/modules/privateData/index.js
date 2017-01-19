@@ -5,3 +5,4 @@
 
 export loadHomestayWithAuth from './homes/loadHomeWithAuth'
 export loadUserWithAuth from './users/loadUserWithAuth'
+export reservations from './reservations/reservations'

@@ -9,7 +9,7 @@ import clientToken from './payments/client-token'
 import currency from './ui/currency'
 import invoices from './privateData/invoices/invoices'
 import locale from './ui/locale'
-import { loadUserWithAuth, loadHomestayWithAuth } from './privateData/'
+import { loadUserWithAuth, loadHomestayWithAuth, reservations } from './privateData/'
 import { loadHomestay, loadUser } from './publicData'
 import messaging from './privateData/messaging/messaging'
 import receipts from './privateData/receipts/receipts'
@@ -25,6 +25,7 @@ export default combineReducers({
     user: loadUserWithAuth,
     homes: loadHomestayWithAuth,
     receipts,
+    reservations,
   }),
   publicData: combineReducers({
     homestays: loadHomestay,

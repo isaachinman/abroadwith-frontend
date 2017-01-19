@@ -22,8 +22,22 @@ const UPDATE_ROOM_CALENDAR = 'abroadwith/UPDATE_ROOM_CALENDAR'
 const UPDATE_ROOM_CALENDAR_SUCCESS = 'abroadwith/UPDATE_ROOM_CALENDAR_SUCCESS'
 const UPDATE_ROOM_CALENDAR_FAIL = 'abroadwith/UPDATE_ROOM_CALENDAR_FAIL'
 
+// Resolve room availability conflicts
+// This is a synchronous action that just fires when the user is notified about conflicts
+const RESOLVE_ROOM_AVAILABILITY_CONFLICTS = 'abroadwith/RESOLVE_ROOM_AVAILABILITY_CONFLICTS'
+
 export default function reducer(state = {}, action = {}) {
   switch (action.type) {
+    case RESOLVE_ROOM_AVAILABILITY_CONFLICTS: {
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          calendar: Object.assign({}, state[action.homeID].calendar, {
+            conflicts: [],
+          }),
+        }),
+      }
+    }
     case UPDATE_ROOM_CALENDAR: {
       return {
         ...state,
@@ -249,6 +263,10 @@ export function updateRoomCalendar(jwt, homeID, roomID, calendar) {
       dispatch({ type: UPDATE_ROOM_CALENDAR_FAIL, homeID, roomID, err })
     }
   }
+}
+
+export function resolveRoomAvailabilityConflicts(homeID) {
+  return dispatch => dispatch({ type: RESOLVE_ROOM_AVAILABILITY_CONFLICTS, homeID })
 }
 
 export function updateHomestay(jwt, homeID, originalObject, notificationMessage) {
