@@ -65,7 +65,6 @@ export default class CalendarEvent extends Component {
 
   render() {
 
-    console.log(this)
     const { t, title, event } = this.props
 
     const combinedStyle = Object.assign({}, styles.default, styles[event.type])

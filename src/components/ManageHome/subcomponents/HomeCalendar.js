@@ -166,7 +166,6 @@ export default class HomeCalendar extends Component {  // eslint-disable-line
     const { home, reservations, t } = this.props
     const { calendar } = this.props.home
 
-    console.log(this)
     const events = []
 
     if (calendar && calendar.data) {
@@ -210,7 +209,6 @@ export default class HomeCalendar extends Component {  // eslint-disable-line
     }
 
     const isLoading = home.loading === true || (typeof home.calendar === 'object' && (home.calendar.loading === true || home.calendar.roomsLoading > 0))
-    console.log('isLoading: ', isLoading)
 
     return (
       <span>

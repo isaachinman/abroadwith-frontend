@@ -2,7 +2,6 @@
 import moment from 'moment'
 
 const today = moment().startOf('day').subtract(1, 'minutes')
-console.log('today: ', today)
 
 'use strict';
 

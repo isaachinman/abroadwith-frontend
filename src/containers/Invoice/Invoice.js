@@ -22,8 +22,6 @@ import React, { Component } from 'react'
 export default class Invoice extends Component {
   render() {
 
-    console.log(this)
-
     return (
       <div>
 

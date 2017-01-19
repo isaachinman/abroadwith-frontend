@@ -59,9 +59,6 @@ export default class Thread extends Component {
 
     const { dispatch, t, token, thread, jwt, messages } = this.props
 
-    console.log(this)
-    console.log('messages: ', messages)
-
     const sortedMessages = Array.isArray(messages.data) ? messages.data.sort((a, b) => {
       return new Date(a.timestamp) - new Date(b.timestamp)
     }) : []

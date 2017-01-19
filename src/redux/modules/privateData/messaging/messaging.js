@@ -128,8 +128,6 @@ export function loadMessageThread(jwt, threadID, previousData, depthToAdd) {
   return async dispatch => {
     try {
 
-      console.log('previousData: ', previousData)
-
       dispatch({ type: LOAD_MESSAGE_THREAD, threadID })
 
       const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}/messages/${threadID}?size=${previousData.data.length + depthToAdd}`)
