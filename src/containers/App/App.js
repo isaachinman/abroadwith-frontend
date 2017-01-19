@@ -10,10 +10,12 @@ import React, { Component, PropTypes } from 'react'
 import NotFound from 'components/NotFound/NotFound'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
+import config from 'config'
 
 // Relative imports
-import config from '../../config'
 import styles from './App.styles'
+
+console.log('config: ', config)
 
 @asyncConnect([{
   promise: ({ store: { dispatch, getState } }) => { // eslint-disable-line

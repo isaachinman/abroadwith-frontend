@@ -363,7 +363,7 @@ export default class HomeCalendar extends Component {  // eslint-disable-line
 HomeCalendar.propTypes = {
   dispatch: PropTypes.func,
   home: PropTypes.object,
-  homeID: PropTypes.string,
+  homeID: PropTypes.number,
   reservations: PropTypes.object,
   t: PropTypes.func,
   token: PropTypes.string,
