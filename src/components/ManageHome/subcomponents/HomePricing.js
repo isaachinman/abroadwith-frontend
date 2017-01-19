@@ -1,7 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
-import { Button, Col, ControlLabel, InputGroup, ListGroup, ListGroupItem, FormControl, FormGroup, OverlayTrigger, Tooltip, Row } from 'react-bootstrap'
+import { Button, Col, ControlLabel, InputGroup, ListGroup, ListGroupItem, FormControl, FormGroup, OverlayTrigger, Tooltip, Row, Well } from 'react-bootstrap'
 import Currencies from 'data/constants/Currencies'
 import FontAwesome from 'react-fontawesome'
 
@@ -187,154 +187,156 @@ export default class HomePricing extends Component {
               </FormGroup>
             </Col>
           </Row>
-          <Row>
-            <Col xs={12} lg={6}>
-              <h4>{t('manage_home.pricing_room_rates')}</h4>
-              <ListGroup>
-                {rooms.map(room => {
-                  return (
-                    <ListGroupItem key={`room${room.id}`}>
-                      <div>
-                        <h5 className='list-group-item-heading'>{room.name} <small>{t(`rooms.bed_types.${room.bed}`)} / {t('rooms.vacancies_label')}: {room.vacancies}</small></h5>
-                        <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
-                        <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('rooms.price_tooltip')}</Tooltip>}>
-                          <FontAwesome name='question-circle' className='pull-right text-muted' />
-                        </OverlayTrigger>
-                        <FormGroup>
-                          <InputGroup>
-                            <FormControl
-                              type='text'
-                              placeholder='150'
-                              onChange={event => this.handleRoomChange(room.id, event.target.value)}
-                              value={room.price || ''}
-                            />
-                            <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
-                          </InputGroup>
-                        </FormGroup>
-                      </div>
-                    </ListGroupItem>
-                )
-                })}
-              </ListGroup>
-            </Col>
+          <Well>
+            <Row>
+              <Col xs={12} lg={6}>
+                <h4>{t('manage_home.pricing_room_rates')}</h4>
+                <ListGroup>
+                  {rooms.map(room => {
+                    return (
+                      <ListGroupItem key={`room${room.id}`}>
+                        <div>
+                          <h5 className='list-group-item-heading'>{room.name} <small>{t(`rooms.bed_types.${room.bed}`)} / {t('rooms.vacancies_label')}: {room.vacancies}</small></h5>
+                          <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
+                          <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('rooms.price_tooltip')}</Tooltip>}>
+                            <FontAwesome name='question-circle' className='pull-right text-muted' />
+                          </OverlayTrigger>
+                          <FormGroup>
+                            <InputGroup>
+                              <FormControl
+                                type='text'
+                                placeholder='150'
+                                onChange={event => this.handleRoomChange(room.id, event.target.value)}
+                                value={room.price || ''}
+                              />
+                              <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
+                            </InputGroup>
+                          </FormGroup>
+                        </div>
+                      </ListGroupItem>
+                  )
+                  })}
+                </ListGroup>
+              </Col>
 
-            <Col xs={12} lg={6}>
-              <h4>{t('manage_home.pricing_extra_charges')}</h4>
-              <ListGroup>
-                <ListGroupItem>
-                  <div>
-                    <h5 className='list-group-item-heading'>{t('homes.extras.EXTRA_GUEST')}</h5>
-                    <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
-                    <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.pricing_extra_guest_tooltip')}</Tooltip>}>
-                      <FontAwesome name='question-circle' className='pull-right text-muted' />
-                    </OverlayTrigger>
-                    <FormGroup>
-                      <InputGroup>
-                        <FormControl
-                          type='text'
-                          placeholder='20'
-                          onChange={event => this.handleExtraChange('EXTRA_GUEST', event.target.value)}
-                          value={extraGuest}
-                        />
-                        <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
-                      </InputGroup>
-                    </FormGroup>
-                  </div>
-                </ListGroupItem>
-                <ListGroupItem>
-                  <div>
-                    <h5 className='list-group-item-heading'>{t('homes.menus_offered.FULL_BOARD')}</h5>
-                    <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
-                    <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.pricing_full_board_tooltip')}</Tooltip>}>
-                      <FontAwesome name='question-circle' className='pull-right text-muted' />
-                    </OverlayTrigger>
-                    <FormGroup>
-                      <InputGroup>
-                        <FormControl
-                          type='text'
-                          placeholder='20'
-                          onChange={event => this.handleExtraChange('FULL_BOARD', event.target.value)}
-                          value={fullBoard}
-                        />
-                        <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
-                      </InputGroup>
-                    </FormGroup>
-                  </div>
-                </ListGroupItem>
-                <ListGroupItem>
-                  <div>
-                    <h5 className='list-group-item-heading'>{t('homes.menus_offered.HALF_BOARD')}</h5>
-                    <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
-                    <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.pricing_half_board_tooltip')}</Tooltip>}>
-                      <FontAwesome name='question-circle' className='pull-right text-muted' />
-                    </OverlayTrigger>
-                    <FormGroup>
-                      <InputGroup>
-                        <FormControl
-                          type='text'
-                          placeholder='20'
-                          onChange={event => this.handleExtraChange('HALF_BOARD', event.target.value)}
-                          value={halfBoard}
-                        />
-                        <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
-                      </InputGroup>
-                    </FormGroup>
-                  </div>
-                </ListGroupItem>
-                <ListGroupItem>
-                  <div>
-                    <h5 className='list-group-item-heading'>{t('homes.extras.LAUNDRY')}</h5>
-                    <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
-                    <FormGroup>
-                      <InputGroup>
-                        <FormControl
-                          type='text'
-                          placeholder='20'
-                          onChange={event => this.handleExtraChange('LAUNDRY', event.target.value)}
-                          value={laundry}
-                        />
-                        <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
-                      </InputGroup>
-                    </FormGroup>
-                  </div>
-                </ListGroupItem>
-                <ListGroupItem>
-                  <div>
-                    <h5 className='list-group-item-heading'>{t('homes.extras.CLEANING')}</h5>
-                    <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
-                    <FormGroup>
-                      <InputGroup>
-                        <FormControl
-                          type='text'
-                          placeholder='20'
-                          onChange={event => this.handleExtraChange('CLEANING', event.target.value)}
-                          value={cleaning}
-                        />
-                        <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
-                      </InputGroup>
-                    </FormGroup>
-                  </div>
-                </ListGroupItem>
-                <ListGroupItem>
-                  <div>
-                    <h5 className='list-group-item-heading'>{t('homes.extras.AIRPORT_PICKUP')}</h5>
-                    <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
-                    <FormGroup>
-                      <InputGroup>
-                        <FormControl
-                          type='text'
-                          placeholder='20'
-                          onChange={event => this.handleExtraChange('AIRPORT_PICKUP', event.target.value)}
-                          value={airportPickup}
-                        />
-                        <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
-                      </InputGroup>
-                    </FormGroup>
-                  </div>
-                </ListGroupItem>
-              </ListGroup>
-            </Col>
-          </Row>
+              <Col xs={12} lg={6}>
+                <h4>{t('manage_home.pricing_extra_charges')}</h4>
+                <ListGroup>
+                  <ListGroupItem>
+                    <div>
+                      <h5 className='list-group-item-heading'>{t('homes.extras.EXTRA_GUEST')}</h5>
+                      <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
+                      <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.pricing_extra_guest_tooltip')}</Tooltip>}>
+                        <FontAwesome name='question-circle' className='pull-right text-muted' />
+                      </OverlayTrigger>
+                      <FormGroup>
+                        <InputGroup>
+                          <FormControl
+                            type='text'
+                            placeholder='20'
+                            onChange={event => this.handleExtraChange('EXTRA_GUEST', event.target.value)}
+                            value={extraGuest}
+                          />
+                          <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
+                        </InputGroup>
+                      </FormGroup>
+                    </div>
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    <div>
+                      <h5 className='list-group-item-heading'>{t('homes.menus_offered.FULL_BOARD')}</h5>
+                      <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
+                      <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.pricing_full_board_tooltip')}</Tooltip>}>
+                        <FontAwesome name='question-circle' className='pull-right text-muted' />
+                      </OverlayTrigger>
+                      <FormGroup>
+                        <InputGroup>
+                          <FormControl
+                            type='text'
+                            placeholder='20'
+                            onChange={event => this.handleExtraChange('FULL_BOARD', event.target.value)}
+                            value={fullBoard}
+                          />
+                          <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
+                        </InputGroup>
+                      </FormGroup>
+                    </div>
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    <div>
+                      <h5 className='list-group-item-heading'>{t('homes.menus_offered.HALF_BOARD')}</h5>
+                      <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
+                      <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('manage_home.pricing_half_board_tooltip')}</Tooltip>}>
+                        <FontAwesome name='question-circle' className='pull-right text-muted' />
+                      </OverlayTrigger>
+                      <FormGroup>
+                        <InputGroup>
+                          <FormControl
+                            type='text'
+                            placeholder='20'
+                            onChange={event => this.handleExtraChange('HALF_BOARD', event.target.value)}
+                            value={halfBoard}
+                          />
+                          <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
+                        </InputGroup>
+                      </FormGroup>
+                    </div>
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    <div>
+                      <h5 className='list-group-item-heading'>{t('homes.extras.LAUNDRY')}</h5>
+                      <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
+                      <FormGroup>
+                        <InputGroup>
+                          <FormControl
+                            type='text'
+                            placeholder='20'
+                            onChange={event => this.handleExtraChange('LAUNDRY', event.target.value)}
+                            value={laundry}
+                          />
+                          <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
+                        </InputGroup>
+                      </FormGroup>
+                    </div>
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    <div>
+                      <h5 className='list-group-item-heading'>{t('homes.extras.CLEANING')}</h5>
+                      <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
+                      <FormGroup>
+                        <InputGroup>
+                          <FormControl
+                            type='text'
+                            placeholder='20'
+                            onChange={event => this.handleExtraChange('CLEANING', event.target.value)}
+                            value={cleaning}
+                          />
+                          <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
+                        </InputGroup>
+                      </FormGroup>
+                    </div>
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    <div>
+                      <h5 className='list-group-item-heading'>{t('homes.extras.AIRPORT_PICKUP')}</h5>
+                      <ControlLabel>{t('rooms.Weekly_rate')}</ControlLabel>
+                      <FormGroup>
+                        <InputGroup>
+                          <FormControl
+                            type='text'
+                            placeholder='20'
+                            onChange={event => this.handleExtraChange('AIRPORT_PICKUP', event.target.value)}
+                            value={airportPickup}
+                          />
+                          <InputGroup.Addon>{Currencies[pricing.currency]}</InputGroup.Addon>
+                        </InputGroup>
+                      </FormGroup>
+                    </div>
+                  </ListGroupItem>
+                </ListGroup>
+              </Col>
+            </Row>
+          </Well>
           <Row>
             <Col xs={12}>
               <Button onClick={this.updatePricing} disabled={!formIsValid || loading} bsStyle='primary'>

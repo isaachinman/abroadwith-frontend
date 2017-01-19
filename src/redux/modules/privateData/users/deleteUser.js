@@ -40,9 +40,6 @@ export default function reducer(state = initialState, action = {}) {
 
 export function deleteUser(jwt) {
 
-  console.log('jwt: ', jwt)
-  console.log('jwt: ', jwtDecode(jwt))
-
   return async dispatch => {
     try {
 

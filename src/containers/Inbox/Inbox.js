@@ -42,10 +42,7 @@ export default class Inbox extends Component {
   render() {
 
     const { t, token, messages, jwt } = this.props
-
     const { activeThread } = this.state
-
-    console.log(activeThread)
 
     return (
       <span>
