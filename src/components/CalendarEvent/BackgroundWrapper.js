@@ -1,5 +1,6 @@
 /* eslint-disable */
 import moment from 'moment'
+import React from 'react'
 
 const today = moment().startOf('day').subtract(1, 'minutes')
 
