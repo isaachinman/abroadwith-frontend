@@ -185,7 +185,7 @@ export default class HomeCalendar extends Component {  // eslint-disable-line
 
     if (reservations && reservations.data) {
       reservations.data.map(reservation => {
-        if (reservation.status === 'APPROVED') {
+        if (reservation.homeId === this.props.homeID && reservation.status === 'APPROVED') {
           events.push({
             type: 'RESERVATION',
             title: `${reservation.guestName} (${reservation.roomName})`,
@@ -208,7 +208,9 @@ export default class HomeCalendar extends Component {  // eslint-disable-line
       agenda: t('common.agenda'),
     }
 
-    const isLoading = home.loading === true || (typeof home.calendar === 'object' && (home.calendar.loading === true || home.calendar.roomsLoading > 0))
+    const isLoading = home.loading === true ||
+                      (typeof home.calendar === 'object' && (home.calendar.loading === true || home.calendar.roomsLoading > 0)) ||
+                      (typeof reservations === 'object' && reservations.loading === true)
 
     return (
       <span>
