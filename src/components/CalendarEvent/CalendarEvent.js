@@ -4,7 +4,6 @@ import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import { translate } from 'react-i18next'
 import { Link } from 'react-router'
-import FontAwesome from 'react-fontawesome'
 import { Row, Col, Button, Overlay, Popover } from 'react-bootstrap'
 import { uiDate } from 'utils/dates'
 import config from 'config'
@@ -111,7 +110,7 @@ export default class CalendarEvent extends Component {
         }
         {event.type === 'UNAVAILABLE' &&
           <div style={styles.truncate}>
-            <FontAwesome name='times-circle' /> {event.title}
+            {event.title}
             <Overlay
               target={() => ReactDOM.findDOMNode(this.refs.target)}
               placement='top'

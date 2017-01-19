@@ -4,6 +4,12 @@
 */
 
 // BigCalendar custom styles
+.rbc-row {
+  cursor: cell;
+  .rbc-date-cell {
+    cursor: default;
+  }
+}
 .rbc-day-bg {
   cursor: cell;
   &.rbc-day-past {

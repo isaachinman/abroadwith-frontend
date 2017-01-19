@@ -63,7 +63,7 @@ export default class HomeCalendar extends Component {  // eslint-disable-line
         this.refreshCalendar()
       }
 
-      if (nextProps.home.calendar.conflicts.length > 0) {
+      if (nextProps.home.calendar && nextProps.home.calendar.conflicts.length > 0) {
         this.setState({ conflictModalOpen: true })
       }
 

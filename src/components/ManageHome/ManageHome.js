@@ -1,5 +1,6 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import Radium from 'radium'
 import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
 import { Button, Col, Grid, Image, Modal, Nav, NavItem, Row, Tab } from 'react-bootstrap'
@@ -29,6 +30,7 @@ const homeSteps = ['location', 'basics', 'description', 'immersions', 'rooms', '
   }),
 )
 @translate()
+@Radium
 export default class ManageHome extends Component {
 
   state = {
@@ -167,83 +169,85 @@ export default class ManageHome extends Component {
                   </Nav>
                 </Col>
 
-                <Col style={styles.mainPanel} xs={12} sm={9} md={10}>
-                  <Tab.Content animation>
+                <Col xs={12} sm={9} md={10}>
+                  <div style={styles.mainPanel}>
+                    <Tab.Content animation>
 
-                    <Tab.Pane eventKey='location'>
-                      <h2>{t('manage_home.location_title')}</h2>
-                      <HomeLocation
-                        {...this.props}
-                        activeStep={activeStep}
-                        inProgress={inProgress}
-                        updateHome={this.updateHome}
-                        activeTab={tab || activeStep.stepName}
-                      />
-                    </Tab.Pane>
+                      <Tab.Pane eventKey='location'>
+                        <h2>{t('manage_home.location_title')}</h2>
+                        <HomeLocation
+                          {...this.props}
+                          activeStep={activeStep}
+                          inProgress={inProgress}
+                          updateHome={this.updateHome}
+                          activeTab={tab || activeStep.stepName}
+                        />
+                      </Tab.Pane>
 
-                    <Tab.Pane unmountOnExit eventKey='basics'>
-                      <h2>{t('manage_home.basics_title')}</h2>
-                      <HomeBasics
-                        {...this.props}
-                        activeStep={activeStep}
-                        inProgress={inProgress}
-                        updateHome={this.updateHome}
-                      />
-                    </Tab.Pane>
+                      <Tab.Pane unmountOnExit eventKey='basics'>
+                        <h2>{t('manage_home.basics_title')}</h2>
+                        <HomeBasics
+                          {...this.props}
+                          activeStep={activeStep}
+                          inProgress={inProgress}
+                          updateHome={this.updateHome}
+                        />
+                      </Tab.Pane>
 
-                    <Tab.Pane unmountOnExit eventKey='description'>
-                      <h2>{t('manage_home.description_title')}</h2>
-                      <HomeDescription
-                        {...this.props}
-                        inProgress={inProgress}
-                        updateHome={this.updateHome}
-                      />
-                    </Tab.Pane>
+                      <Tab.Pane unmountOnExit eventKey='description'>
+                        <h2>{t('manage_home.description_title')}</h2>
+                        <HomeDescription
+                          {...this.props}
+                          inProgress={inProgress}
+                          updateHome={this.updateHome}
+                        />
+                      </Tab.Pane>
 
-                    <Tab.Pane unmountOnExit eventKey='immersions'>
-                      <h2>{t('manage_home.immersions_title')}</h2>
-                      <HomeImmersions
-                        {...this.props}
-                        inProgress={inProgress}
-                        updateHome={this.updateHome}
-                      />
-                    </Tab.Pane>
+                      <Tab.Pane unmountOnExit eventKey='immersions'>
+                        <h2>{t('manage_home.immersions_title')}</h2>
+                        <HomeImmersions
+                          {...this.props}
+                          inProgress={inProgress}
+                          updateHome={this.updateHome}
+                        />
+                      </Tab.Pane>
 
-                    <Tab.Pane unmountOnExit eventKey='rooms'>
-                      <h2>{t('manage_home.rooms_title')}</h2>
-                      <HomeRooms
-                        {...this.props}
-                        tabOverride={this.tabOverride}
-                        inProgress={inProgress}
-                        updateHome={this.updateHome}
-                      />
-                    </Tab.Pane>
+                      <Tab.Pane unmountOnExit eventKey='rooms'>
+                        <h2>{t('manage_home.rooms_title')}</h2>
+                        <HomeRooms
+                          {...this.props}
+                          tabOverride={this.tabOverride}
+                          inProgress={inProgress}
+                          updateHome={this.updateHome}
+                        />
+                      </Tab.Pane>
 
-                    <Tab.Pane unmountOnExit eventKey='photos'>
-                      <h2>{t('manage_home.photos_title')}</h2>
-                      <HomePhotos
-                        {...this.props}
-                        tabOverride={this.tabOverride}
-                        inProgress={inProgress}
-                        updateHome={this.updateHome}
-                      />
-                    </Tab.Pane>
+                      <Tab.Pane unmountOnExit eventKey='photos'>
+                        <h2>{t('manage_home.photos_title')}</h2>
+                        <HomePhotos
+                          {...this.props}
+                          tabOverride={this.tabOverride}
+                          inProgress={inProgress}
+                          updateHome={this.updateHome}
+                        />
+                      </Tab.Pane>
 
-                    <Tab.Pane unmountOnExit eventKey='pricing'>
-                      <h2>{t('manage_home.pricing_title')}</h2>
-                      <HomePricing
-                        {...this.props}
-                        inProgress={inProgress}
-                        updateHome={this.updateHome}
-                      />
-                    </Tab.Pane>
+                      <Tab.Pane unmountOnExit eventKey='pricing'>
+                        <h2>{t('manage_home.pricing_title')}</h2>
+                        <HomePricing
+                          {...this.props}
+                          inProgress={inProgress}
+                          updateHome={this.updateHome}
+                        />
+                      </Tab.Pane>
 
-                    <Tab.Pane unmountOnExit eventKey='calendar'>
-                      <h2>{t('home_calendar.title')}</h2>
-                      {!inProgress && <HomeCalendar homeID={routeParams.homeID} />}
-                    </Tab.Pane>
+                      <Tab.Pane unmountOnExit eventKey='calendar'>
+                        <h2>{t('home_calendar.title')}</h2>
+                        {!inProgress && <HomeCalendar homeID={routeParams.homeID} />}
+                      </Tab.Pane>
 
-                  </Tab.Content>
+                    </Tab.Content>
+                  </div>
                 </Col>
 
               </Row>

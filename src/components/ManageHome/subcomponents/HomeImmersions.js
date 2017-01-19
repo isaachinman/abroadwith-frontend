@@ -453,7 +453,7 @@ export default class HomeImmersions extends Component {
           </Col>
         </Row>
         <Modal
-          bsSize='large'
+          bsSize='small'
           show={certificationModalOpen}
           onHide={this.closeCertificationModal}
         >
