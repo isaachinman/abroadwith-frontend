@@ -45,9 +45,6 @@ button.rbc-input::-moz-focus-inner {
 .rbc-row-segment .rbc-event-content,
 .rbc-show-more {
   display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 .rbc-rtl {
   direction: rtl;
@@ -174,12 +171,8 @@ button.rbc-input::-moz-focus-inner {
 .rbc-event {
   cursor: pointer;
   padding: 2px 5px;
-  background-color: #3174ad;
   border-radius: 5px;
   color: #fff;
-}
-.rbc-event.rbc-selected {
-  background-color: #265985;
 }
 .rbc-event-label {
   font-size: 80%;

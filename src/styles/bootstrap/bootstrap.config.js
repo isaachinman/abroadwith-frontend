@@ -54,7 +54,7 @@ module.exports = {
     badges: true,
     jumbotron: false,
     thumbnails: true,
-    alerts: false,
+    alerts: true,
     'progress-bars': false,
     media: true,
     'list-group': true,

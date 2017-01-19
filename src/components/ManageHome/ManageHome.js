@@ -98,8 +98,6 @@ export default class ManageHome extends Component {
     const inProgress = home && home.data && !home.data.homeActivationResponse.activated
     const activeStep = inProgress ? this.determineHomeCreationStep() : { stepName: 'calendar', stepNum: 8 }
 
-    console.log(this)
-
     return (
       <Grid>
         <Helmet title={t('manage_home.title')} />

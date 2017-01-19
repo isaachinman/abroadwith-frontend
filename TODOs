@@ -1,4 +1,4 @@
 // Manage Home
 
-1. Add room-conflict resolution modal to availability calendar
+1. Add antd notification feedback for photos saving
 2. Need to change message/thread endpoint to include homeID

@@ -10,6 +10,11 @@ const CREATE_HOMESTAY = 'abroadwith/CREATE_HOMESTAY'
 const CREATE_HOMESTAY_SUCCESS = 'abroadwith/CREATE_HOMESTAY_SUCCESS'
 const CREATE_HOMESTAY_FAIL = 'abroadwith/CREATE_HOMESTAY_FAIL'
 
+// Toggle home pausing
+const TOGGLE_HOME_PAUSING = 'abroadwith/TOGGLE_HOME_PAUSING'
+const TOGGLE_HOME_PAUSING_SUCCESS = 'abroadwith/TOGGLE_HOME_PAUSING_SUCCESS'
+const TOGGLE_HOME_PAUSING_FAIL = 'abroadwith/TOGGLE_HOME_PAUSING_FAIL'
+
 // Add home photo
 const ADD_HOME_PHOTO = 'abroadwith/ADD_HOME_PHOTO'
 const ADD_HOME_PHOTO_SUCCESS = 'abroadwith/ADD_HOME_PHOTO_SUCCESS'
@@ -55,6 +60,38 @@ export function createHomestay(jwt, redirectToManageHome) {
 
     } catch (err) {
       dispatch({ type: CREATE_HOMESTAY_FAIL, err })
+    }
+  }
+}
+
+export function toggleHomePausing(jwt, homeID, pausedStatus) {
+  return async dispatch => {
+
+    dispatch({ type: TOGGLE_HOME_PAUSING })
+
+    try {
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes/${homeID}/pausing`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+      request.send({ isPaused: pausedStatus })
+
+      request.end((err = {}) => {
+
+        if (err) {
+
+          dispatch({ type: TOGGLE_HOME_PAUSING_FAIL, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: TOGGLE_HOME_PAUSING_SUCCESS })
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: TOGGLE_HOME_PAUSING_FAIL, err })
     }
   }
 }
