@@ -196,7 +196,7 @@ export default class ManageHome extends Component {
                   </Nav>
                 </Col>
 
-                <Col xs={12} sm={9} md={10} style={{ background: 'white' }}>
+                <Col style={styles.mainCol} xs={12} sm={9} md={10}>
                   <div style={styles.mainPanel}>
                     <Tab.Content animation>
 

@@ -77,7 +77,7 @@ export default class ManagePhoneNumbers extends Component {
     const newValidatedFields = this.state.validatedFields
 
     // Validate for Twilio's SMS code format
-    if (validator.isLength(verificationCode, { min: 4, max: 5 }) && validator.isInt(verificationCode)) {
+    if (validator.isLength(verificationCode, { min: 3, max: 5 }) && validator.isInt(verificationCode)) {
       newValidatedFields.verificationCode = {
         uiState: 'success',
         value: verificationCode,
