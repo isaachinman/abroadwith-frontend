@@ -117,6 +117,7 @@ export default class ContactInfo extends Component {
           <FormGroup>
             <ControlLabel>{t('users.phone_number_label')}</ControlLabel>
             <ManagePhoneNumbers
+              dismissable
               {...this.props}
             />
           </FormGroup>

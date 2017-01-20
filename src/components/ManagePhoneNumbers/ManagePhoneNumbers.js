@@ -11,8 +11,10 @@ import { requestVerificationSMS, verifyPhone } from 'redux/modules/privateData/u
 // Relative imports
 import styles from './ManagePhoneNumbers.styles.js'
 
-@connect(store => ({
-  verifications: store.verifications,
+@connect(state => ({
+  user: state.privateData.user.data,
+  jwt: state.auth.jwt,
+  verifications: state.verifications,
 }))
 @translate()
 export default class ManagePhoneNumbers extends Component {
@@ -75,7 +77,7 @@ export default class ManagePhoneNumbers extends Component {
     const newValidatedFields = this.state.validatedFields
 
     // Validate for Twilio's SMS code format
-    if (validator.isLength(verificationCode, { min: 5, max: 5 }) && validator.isInt(verificationCode)) {
+    if (validator.isLength(verificationCode, { min: 4, max: 5 }) && validator.isInt(verificationCode)) {
       newValidatedFields.verificationCode = {
         uiState: 'success',
         value: verificationCode,
@@ -92,23 +94,33 @@ export default class ManagePhoneNumbers extends Component {
 
   verifyPhone = () => {
 
-    const { dispatch, token, user, verifications } = this.props
+    const { dispatch, token, user, verifications, successCallback } = this.props
 
     const verifyPhoneObject = {
-      secret: verifications.phoneSecret,
+      secret: verifications.phone.phoneSecret,
       key: user.phoneNumber,
       shortCode: this.state.validatedFields.verificationCode.value,
     }
 
-    dispatch(verifyPhone(token, verifyPhoneObject))
+    if (typeof successCallback === 'function') {
+      dispatch(verifyPhone(token, verifyPhoneObject, successCallback))
+    } else {
+      dispatch(verifyPhone(token, verifyPhoneObject))
+    }
+
 
   }
 
   render() {
 
     const {
+      closeModal,
+      dismissable,
       user,
+      show,
+      modalOnly,
       t,
+      verifications,
     } = this.props
 
     const {
@@ -119,6 +131,8 @@ export default class ManagePhoneNumbers extends Component {
     const {
       verificationCode,
     } = this.state.validatedFields
+
+    console.log(this)
 
     return (
       <div>
@@ -131,10 +145,10 @@ export default class ManagePhoneNumbers extends Component {
 
         {!user.verifications.phone &&
           <div onClick={this.openModal} style={styles.marginTop10}>
-            <a>{t('common.add_a_phone')}</a>
+            {!modalOnly && <a>{t('common.add_a_phone')}</a>}
             <Modal
-              onHide={this.closeModal}
-              show={this.state.modalIsOpen}
+              onHide={dismissable ? closeModal || this.closeModal : () => {}}
+              show={show || this.state.modalIsOpen}
               bsSize='small'
             >
               <div style={styles.modal}>
@@ -156,8 +170,8 @@ export default class ManagePhoneNumbers extends Component {
                   </Row>
                   <Row>
                     <Col xs={12}>
-                      <Button onClick={this.handleNewPhone} bsStyle='success' style={styles.btn} disabled={!phoneIsValid}>
-                        {t('common.request_verification_sms')}
+                      <Button onClick={this.handleNewPhone} bsStyle='success' block style={styles.btn} disabled={!phoneIsValid || verifications.phone.loading}>
+                        {verifications.phone.loading ? <span>{t('common.Loading')}</span> : <span>{t('common.request_verification_sms')}</span>}
                       </Button>
                     </Col>
                   </Row>
@@ -182,7 +196,7 @@ export default class ManagePhoneNumbers extends Component {
                         />
                         <FormControl.Feedback />
                       </FormGroup>
-                      <Button onClick={this.verifyPhone} bsStyle='success' style={styles.btn} disabled={verificationCode.uiState !== 'success'}>
+                      <Button onClick={this.verifyPhone} block bsStyle='success' style={styles.btn} disabled={verificationCode.uiState !== 'success'}>
                         {t('common.verify')}
                       </Button>
                     </Col>
@@ -199,11 +213,16 @@ export default class ManagePhoneNumbers extends Component {
 }
 
 ManagePhoneNumbers.propTypes = {
+  closeModal: PropTypes.func,
+  dismissable: PropTypes.bool,
   jwt: PropTypes.object,
   token: PropTypes.string,
   dispatch: PropTypes.func,
+  modalOnly: PropTypes.bool,
   updateUser: PropTypes.func,
   user: PropTypes.object,
   verifications: PropTypes.object,
+  show: PropTypes.bool,
+  successCallback: PropTypes.func,
   t: PropTypes.func,
 }

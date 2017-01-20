@@ -157,6 +157,10 @@ export default class Signup extends Component {
     // Determine authentication type
     if (type === 'email') {
 
+      if (Object.values(this.state.validatedFields).some(field => field.uiState !== 'success')) {
+        return
+      }
+
       // Email signup object
       signupObject = Object.assign({}, signupObject, {
         password: password.value,
@@ -292,7 +296,11 @@ export default class Signup extends Component {
                   <Col xs={12}>
                     <Accordion style={styles.emailSignupBtn}>
                       <Panel header={t('common.sign_up_email')} eventKey='1'>
-                        <form>
+                        <form onSubmit={event => {
+                          event.preventDefault()
+                          this.signup('email')
+                        }}
+                        >
                           <FormGroup validationState={firstName.uiState}>
                             <FormControl
                               type='text'
@@ -343,7 +351,7 @@ export default class Signup extends Component {
                           <Button
                             disabled={!emailFormIsValid || signupStatus.loading}
                             bsStyle='success'
-                            onClick={() => this.signup('email')}
+                            type='submit'
                           >
                             {signupStatus.loading ? <span>{t('common.Loading')}</span> : <span>{t('common.Sign_up')}</span>}
                           </Button>

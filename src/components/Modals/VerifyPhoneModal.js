@@ -1,65 +1,102 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { Col, Modal, Row, Well } from 'react-bootstrap'
+import { Button, Col, Modal, Row } from 'react-bootstrap'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
-import FontAwesome from 'react-fontawesome'
-import { requestVerificationEmail } from 'redux/modules/privateData/users/verifications'
+import { push } from 'react-router-redux'
+import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
+import { closeVerifyPhoneModal } from 'redux/modules/ui/modals'
+import ManagePhoneNumbers from 'components/ManagePhoneNumbers/ManagePhoneNumbers'
+
+// Relative imports
+import styles from './Modals.styles'
 
 @connect(state => ({
-  user: state.privateData.user.data,
+  verifyPhoneModal: state.ui.modals.verifyPhoneModal,
+  token: state.auth.token,
 }))
 @translate()
 export default class VerifyPhoneModal extends Component {
 
   state = {
-    idModalIsOpen: false,
-    successModalIsOpen: false,
+    verifyProcessStarted: false,
   }
 
-  closeModal = modalName => {
-    this.setState({ [`${modalName}ModalIsOpen`]: false })
-  }
+  startProcess = () => this.setState({ verifyProcessStarted: true })
 
-  openModal = modalName => {
-    this.setState({ [`${modalName}ModalIsOpen`]: true })
+  closeModalWithoutSuccess = () => {
+    const { dispatch, verifyPhoneModal } = this.props
+    if (verifyPhoneModal.reason === 'HOME_PUBLICATION') {
+      dispatch(push('/'))
+      setTimeout(() => { dispatch(closeVerifyPhoneModal()) }, 250)
+    } else {
+      dispatch(closeVerifyPhoneModal())
+    }
   }
 
   render() {
 
+    const { verifyProcessStarted } = this.state
+
     const {
-      user,
+      dispatch,
+      verifyPhoneModal,
       t,
       token,
-      dispatch,
     } = this.props
 
+    let successCallback = () => {}
+
+    if (verifyPhoneModal.reason === 'HOME_PUBLICATION') {
+      successCallback = () => {
+        dispatch(loadHomestayWithAuth(token, verifyPhoneModal.additionalData.homeID, () => dispatch(closeVerifyPhoneModal())))
+      }
+    }
+
+    console.log(this)
+
     return (
-      <Modal>
-        <Row>
-          <Col xs={12}>
-            <Well>
-              <h4>
-                {t('admin.verifications_email_title')}
-                {user.verifications.email ? <FontAwesome name='check-circle' /> : <FontAwesome name='times-circle' />}
-              </h4>
-              {!user.verifications.email &&
-                <div>
-                  <a onClick={() => dispatch(requestVerificationEmail(token))}>{t('admin.verifications_email_button')}</a>
-                </div>
-              }
-            </Well>
-          </Col>
-        </Row>
-      </Modal>
+      <span>
+        <Modal show={verifyPhoneModal.open && !verifyProcessStarted} bsSize='small'>
+          <Modal.Header>
+            <Modal.Title>{t('common.verifications_modal_title')}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {verifyPhoneModal.reason === 'HOME_PUBLICATION' &&
+              <Row>
+                <Col xs={12}>
+                  {t('manage_home.phone_verification_explanation')}
+                </Col>
+              </Row>
+            }
+          </Modal.Body>
+          <Modal.Footer>
+            {verifyPhoneModal.reason === 'HOME_PUBLICATION' &&
+              <Button bsStyle='primary' block onClick={this.startProcess}>{t('manage_home.phone_verification_proceed')}</Button>
+            }
+            <div style={styles.or}>{t('common.words.or')}</div>
+            {verifyPhoneModal.reason === 'HOME_PUBLICATION' &&
+              <Button onClick={this.closeModalWithoutSuccess} block>{t('manage_home.phone_verification_not_now')}</Button>
+            }
+          </Modal.Footer>
+        </Modal>
+        <ManagePhoneNumbers
+          modalOnly
+          dismissable={!verifyPhoneModal.reason === 'HOME_PUBLICATION'}
+          closeModal={this.closeModalWithoutSuccess}
+          show={verifyProcessStarted}
+          token={token}
+          successCallback={successCallback}
+        />
+      </span>
     )
   }
 }
 
 VerifyPhoneModal.propTypes = {
-  user: PropTypes.object,
   dispatch: PropTypes.func,
   jwt: PropTypes.object,
   t: PropTypes.func,
   token: PropTypes.string,
+  verifyPhoneModal: PropTypes.object,
 }

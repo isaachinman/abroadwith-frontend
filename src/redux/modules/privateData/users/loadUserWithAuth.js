@@ -45,16 +45,14 @@ export default function reducer(state = initialState, action = {}) {
         error: action.error,
       }
     case UPDATE_USER:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         loading: true,
-      }
+      })
     case UPDATE_USER_SUCCESS:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         loading: false,
-        loaded: true,
-      }
+        loaded: false,
+      })
     case UPDATE_USER_FAIL:
       return {
         ...state,
@@ -116,7 +114,7 @@ export function load(jwt, callback, bodylessCallback) {
 export function update(userID, userObject, jwt, callback) {
 
   // Clean the data - API will reject (eg 400) the presence of some properties
-  const cleanedData = userObject
+  const cleanedData = Object.assign({}, userObject)
   delete cleanedData.paymentMethods
   delete cleanedData.payoutMethods
   delete cleanedData.verifications
@@ -126,6 +124,9 @@ export function update(userID, userObject, jwt, callback) {
   const cb = typeof callback === 'function' ? callback : () => {}
 
   return async dispatch => {
+
+    dispatch({ type: UPDATE_USER })
+
     try {
 
       const request = superagent.post(`${config.apiHost}/users/${userID}`)

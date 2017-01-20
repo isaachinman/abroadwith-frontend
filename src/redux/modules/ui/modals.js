@@ -10,10 +10,12 @@ const initialState = {
   verifyEmailModal: {
     open: false,
     reason: null,
+    additionalData: {},
   },
   verifyPhoneModal: {
     open: false,
     reason: null,
+    additionalData: {},
   },
 }
 
@@ -41,6 +43,7 @@ export default function reducer(state = initialState, action = {}) {
         verifyPhoneModal: {
           open: true,
           reason: action.reason,
+          additionalData: action.additionalData || {},
         },
       }
     case CLOSE_VERIFY_PHONE_MODAL:
@@ -62,8 +65,8 @@ export function openVerifyEmailModal(reason) {
 export function closeVerifyEmailModal() {
   return dispatch => dispatch({ type: CLOSE_VERIFY_EMAIL_MODAL })
 }
-export function openVerifyPhoneModal(reason) {
-  return dispatch => dispatch({ type: OPEN_VERIFY_PHONE_MODAL, reason })
+export function openVerifyPhoneModal(reason, additionalData) {
+  return dispatch => dispatch({ type: OPEN_VERIFY_PHONE_MODAL, reason, additionalData })
 }
 export function closeVerifyPhoneModal() {
   return dispatch => dispatch({ type: CLOSE_VERIFY_PHONE_MODAL })

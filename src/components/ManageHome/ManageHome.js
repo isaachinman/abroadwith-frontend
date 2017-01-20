@@ -7,6 +7,7 @@ import { Button, Col, Grid, Image, Modal, Nav, NavItem, Row, Tab } from 'react-b
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { load as loadHomestayWithAuth, updateHomestay } from 'redux/modules/privateData/homes/loadHomeWithAuth'
+import { openVerifyPhoneModal } from 'redux/modules/ui/modals'
 import HomeStatusCodes from 'data/constants/HomeStatusCodes'
 import config from 'config'
 
@@ -27,6 +28,7 @@ const homeSteps = ['location', 'basics', 'description', 'immersions', 'rooms', '
   (state, ownProps) => ({
     home: state.privateData.homes ? state.privateData.homes[ownProps.params.homeID] : {},
     token: state.auth.token,
+    modals: state.ui.modals,
   }),
 )
 @translate()
@@ -47,12 +49,37 @@ export default class ManageHome extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    const { home } = this.props
-    if (home && home.data && !home.data.homeActivationResponse.activated && nextProps.home.data.homeActivationResponse.activated) {
-      this.setState({ successModalOpen: true })
+
+    const { dispatch, home, routeParams } = this.props
+
+    if (home && home.data) {
+
+      // Home was just published case
+      if (!home.data.homeActivationResponse.activated && nextProps.home.data.homeActivationResponse.activated) {
+        this.setState({ successModalOpen: true })
+      }
+
+      // If user is in home-creation process, override previous tab navigation on save,
+      // and progress them to the next step
+      if (!home.data.homeActivationResponse.activated && this.state.tab) {
+        this.setState({ tab: null })
+      }
+
+      // User is in home-creation process and now needs to verify their phone
+      if (!home.data.homeActivationResponse.activated &&
+          home.data.homeActivationResponse.code !== 'PHONE_NOT_VERIFIED' &&
+          nextProps.data && nextProps.data.homeActivationResponse.code === 'PHONE_NOT_VERIFIED') {
+        dispatch(openVerifyPhoneModal('HOME_PUBLICATION', { homeID: routeParams.homeID }))
+      }
+
     }
-    if (home && home.data && !home.data.homeActivationResponse.activated && this.state.tab) {
-      this.setState({ tab: null })
+  }
+
+  componentDidUpdate = () => {
+    console.log('componentDidUpdate')
+    const { dispatch, home, modals, routeParams } = this.props
+    if (home && home.data && home.data.homeActivationResponse.code === 'PHONE_NOT_VERIFIED' && !modals.verifyPhoneModal.open) {
+      dispatch(openVerifyPhoneModal('HOME_PUBLICATION', { homeID: routeParams.homeID }))
     }
   }
 
@@ -103,7 +130,7 @@ export default class ManageHome extends Component {
     return (
       <Grid>
         <Helmet title={t('manage_home.title')} />
-        {home && home.data &&
+        {home && home.data && home.data.homeActivationResponse.code !== 'PHONE_NOT_VERIFIED' &&
           <span>
             <Tab.Container id='manage-home' onSelect={this.handleTabChange} activeKey={tab || activeStep.stepName}>
               <Row style={styles.mainRow}>
@@ -270,7 +297,7 @@ export default class ManageHome extends Component {
                         <Button bsStyle='primary' block>{t('manage_home.view_your_home')}</Button>
                       </Link>
                       <div style={styles.successModalOr}>{t('common.words.or')}</div>
-                      <Button onClick={this.closeSuccessModal} block>{t('manage_home.manage_your_calendar')}</Button>
+                      <Button onClick={this.closeSuccessModal} block>{t('home_calendar.manage_your_calendar')}</Button>
                     </div>
                   </Col>
                 </Row>
@@ -289,4 +316,5 @@ ManageHome.propTypes = {
   routeParams: PropTypes.object,
   t: PropTypes.func,
   token: PropTypes.string,
+  modals: PropTypes.object,
 }
