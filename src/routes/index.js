@@ -123,6 +123,11 @@ export default (store) => {
       cb(null, require('../containers/Receipt/Receipt'))
     }, 'receipt')
   }
+  const getReservations = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/Reservations/Reservations'))
+    }, 'reservations')
+  }
   const getSettings = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/Settings/Settings'))
@@ -170,6 +175,7 @@ export default (store) => {
               <Route path='manage-home/:homeID' getComponent={getManageHome} />
               <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
               <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
+              <Route path='reservations' getComponent={getReservations} />
               <Route path='settings' getComponent={getSettings} />
             </Route>
 

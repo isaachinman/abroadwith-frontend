@@ -4,7 +4,12 @@ export default {
   },
   sidebar: {
     padding: '5px 10px',
-    background: '#E8E8E8',
+    background: 'white',
+    borderRight: '1px solid #eee',
+  },
+  mainCol: {
+    background: 'white',
+    boxShadow: '5px 5px 12px 0 rgba(0,0,0,0.15)',
   },
   mainPanel: {
     padding: '20px 50px',

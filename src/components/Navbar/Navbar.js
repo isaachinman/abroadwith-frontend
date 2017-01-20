@@ -99,14 +99,9 @@ export default class Navbar extends Component {
                   <LinkContainer to='/manage-home'>
                     <MenuItem>{t('common.navbar_your_home')}</MenuItem>
                   </LinkContainer>
-                  <LinkContainer to='/homestay/132'>
+                  <LinkContainer to='/reservations'>
                     <NavItem>
-                      Homestay
-                    </NavItem>
-                  </LinkContainer>
-                  <LinkContainer to='/users/389'>
-                    <NavItem>
-                      User profile
+                      {t('common.navbar_reservations')}
                     </NavItem>
                   </LinkContainer>
                   <MenuItem divider />
