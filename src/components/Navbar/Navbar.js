@@ -80,7 +80,7 @@ export default class Navbar extends Component {
 
             {jwt &&
               <Nav navbar pullRight>
-                {user.loaded && user.data.homeIds.length > 0 ?
+                {user.loaded && user.data && user.data.homeIds && user.data.homeIds.length > 0 ?
                   <LinkContainer to='/manage-home'>
                     {user.data.homeIds.length > 1 ? <NavItem>{t('common.navbar_your_homes')}</NavItem> : <NavItem>{t('common.navbar_your_home')}</NavItem>}
                   </LinkContainer>

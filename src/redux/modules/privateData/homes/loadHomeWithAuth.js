@@ -170,7 +170,9 @@ export function isLoaded(globalState) {
   return globalState.publicData.homestays && globalState.publicData.homestays.loaded
 }
 
-export function load(jwt, homeID) {
+export function load(jwt, homeID, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
 
   return async dispatch => {
 
@@ -191,6 +193,7 @@ export function load(jwt, homeID) {
 
           // Login was successful
           dispatch({ type: LOAD_HOMESTAY_WITH_AUTH_SUCCESS, homeID, result: body })
+          cb()
 
         }
 

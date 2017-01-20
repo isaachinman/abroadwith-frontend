@@ -165,7 +165,9 @@ export function requestVerificationSMS(jwt, cb) {
 
 }
 
-export function verifyPhone(jwt, verifyPhoneObject) {
+export function verifyPhone(jwt, verifyPhoneObject, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
 
   return async dispatch => {
     try {
@@ -190,6 +192,9 @@ export function verifyPhone(jwt, verifyPhoneObject) {
 
           // Reload the user object
           dispatch(loadUserWithAuth(jwt))
+
+          // Fire callback
+          cb()
 
         }
 

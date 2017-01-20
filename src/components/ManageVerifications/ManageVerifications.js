@@ -86,7 +86,7 @@ export default class ManageVerifications extends Component {
             </h4>
             {!user.verifications.phone &&
               <div style={styles.sectionContent}>
-                <ManagePhoneNumbers {...this.props} />
+                <ManagePhoneNumbers dismissable {...this.props} />
               </div>
             }
           </Well>
