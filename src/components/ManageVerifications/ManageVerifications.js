@@ -14,7 +14,6 @@ import superagent from 'superagent'
 import styles from './ManageVerifications.styles'
 
 @connect(state => ({
-  jwt: state.auth.token,
   user: state.privateData.user.data,
 }))
 @translate()

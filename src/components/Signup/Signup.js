@@ -21,6 +21,7 @@ import styles from './Signup.styles.js'
   jwt: state && state.auth ? state.auth.jwt : {},
   loginStatus: state.auth,
   query: state.routing.locationBeforeTransitions.query,
+  signupStatus: state.signupStatus,
 }), signupActions)
 @translate()
 export default class Signup extends Component {
@@ -221,6 +222,7 @@ export default class Signup extends Component {
       jwt,
       logout,
       t,
+      signupStatus,
     } = this.props
 
     const {
@@ -230,6 +232,8 @@ export default class Signup extends Component {
       password,
       birthDate,
     } = this.state.validatedFields
+
+    console.log(this)
 
     // To do: refactor to use array.some method; more performant than array.map in this case
     let languagesAreValid = false
@@ -248,10 +252,10 @@ export default class Signup extends Component {
 
             <Collapse in={this.state.page === 1}>
               <div>
-                <Row style={styles.paddedRow}>
+                <Row>
                   <Col xs={12}>
                     <h2>{t('common.language_modal_hello')}</h2>
-                    <h5>{t('common.language_modal_title')}</h5>
+                    <h6 className='text-muted'>{t('common.language_modal_title')}</h6>
                   </Col>
                 </Row>
                 <Row>
@@ -337,11 +341,11 @@ export default class Signup extends Component {
                             <FormControl.Feedback />
                           </FormGroup>
                           <Button
-                            disabled={!emailFormIsValid}
+                            disabled={!emailFormIsValid || signupStatus.loading}
                             bsStyle='success'
                             onClick={() => this.signup('email')}
                           >
-                            {t('common.Sign_up')}
+                            {signupStatus.loading ? <span>{t('common.Loading')}</span> : <span>{t('common.Sign_up')}</span>}
                           </Button>
                         </form>
                       </Panel>
@@ -349,7 +353,7 @@ export default class Signup extends Component {
                   </Col>
                 </Row>
 
-                <Row style={styles.paddedRow}>
+                <Row>
                   <Col xs={12}>
                     <FacebookLogin
                       appId='144997212531478'
@@ -362,7 +366,7 @@ export default class Signup extends Component {
                   </Col>
                 </Row>
 
-                <Row style={styles.paddedRow}>
+                <Row>
                   <Col xs={12}>
                     <GoogleLogin
                       onFailure={() => {}}
@@ -403,6 +407,7 @@ Signup.propTypes = {
   loginStatus: PropTypes.object,
   logout: PropTypes.func,
   signup: PropTypes.func,
+  signupStatus: PropTypes.object,
   t: PropTypes.func,
   type: PropTypes.string,
   query: PropTypes.object,

@@ -17,9 +17,6 @@ export default {
   emailSignupInput: {
     margin: '0 0 10px 0',
   },
-  paddedRow: {
-    paddingBottom: 15,
-  },
   dividerContainer: {
     height: 50,
   },

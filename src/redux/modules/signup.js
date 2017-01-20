@@ -8,6 +8,7 @@ const SIGNUP_SUCCESS = 'auth/SIGNUP_SUCCESS'
 const SIGNUP_FAIL = 'auth/SIGNUP_FAIL'
 
 const initialState = {
+  loading: false,
   loaded: false,
 }
 
@@ -39,6 +40,9 @@ export default function reducer(state = initialState, action = {}) {
 
 export function signup(type, signupObject, googleToken) {
   return async dispatch => {
+
+    dispatch({ type: SIGNUP })
+
     try {
 
       const { email, password, facebookToken, googleId } = signupObject // eslint-disable-line

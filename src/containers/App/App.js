@@ -10,12 +10,12 @@ import React, { Component, PropTypes } from 'react'
 import NotFound from 'components/NotFound/NotFound'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
+import VerifyEmailModal from 'components/Modals/VerifyEmailModal'
+import VerifyPhoneModal from 'components/Modals/VerifyPhoneModal'
 import config from 'config'
 
 // Relative imports
 import styles from './App.styles'
-
-console.log('config: ', config)
 
 @asyncConnect([{
   promise: ({ store: { dispatch, getState } }) => { // eslint-disable-line
@@ -100,6 +100,8 @@ export default class App extends Component {
 
     const { jwt, user, route } = this.props
 
+    console.log(user)
+
     return (
       <StyleRoot>
         <div style={styles.appContainer}>
@@ -112,6 +114,13 @@ export default class App extends Component {
             {route.status === 200 && this.props.children}
             {route.status === 404 && <NotFound />}
           </div>
+
+          {user && user.data && user.data.verifications && !user.data.verifications.email &&
+            <VerifyEmailModal />
+          }
+          {user && user.data && user.data.verifications && !user.data.verifications.phone &&
+            <VerifyPhoneModal />
+          }
 
           <Footer />
 

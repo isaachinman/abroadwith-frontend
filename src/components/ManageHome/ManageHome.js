@@ -169,7 +169,7 @@ export default class ManageHome extends Component {
                   </Nav>
                 </Col>
 
-                <Col xs={12} sm={9} md={10}>
+                <Col xs={12} sm={9} md={10} style={{ background: 'white' }}>
                   <div style={styles.mainPanel}>
                     <Tab.Content animation>
 
@@ -270,7 +270,7 @@ export default class ManageHome extends Component {
                         <Button bsStyle='primary' block>{t('manage_home.view_your_home')}</Button>
                       </Link>
                       <div style={styles.successModalOr}>{t('common.words.or')}</div>
-                      <Button onClick={this.closeSuccessModal} block>Manage your calendar</Button>
+                      <Button onClick={this.closeSuccessModal} block>{t('manage_home.manage_your_calendar')}</Button>
                     </div>
                   </Col>
                 </Row>

@@ -26,11 +26,10 @@ export default function reducer(state = initialState, action = {}) {
     //   return state
     // }
     case LOAD_USER_WITH_AUTH:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         loading: true,
         loaded: false,
-      }
+      })
     case LOAD_USER_WITH_AUTH_SUCCESS:
       return {
         ...state,

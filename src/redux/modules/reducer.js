@@ -12,7 +12,9 @@ import locale from './ui/locale'
 import { loadUserWithAuth, loadHomestayWithAuth, reservations } from './privateData/'
 import { loadHomestay, loadUser } from './publicData'
 import messaging from './privateData/messaging/messaging'
+import modals from './ui/modals'
 import receipts from './privateData/receipts/receipts'
+import signupStatus from './signup'
 import verifications from './privateData/users/verifications'
 
 export default combineReducers({
@@ -34,9 +36,11 @@ export default combineReducers({
   ui: combineReducers({
     currency,
     locale,
+    modals,
   }),
   payments: combineReducers({
     clientToken,
   }),
+  signupStatus,
   verifications,
 })

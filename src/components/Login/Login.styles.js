@@ -5,9 +5,6 @@ export default {
     padding: '20px 20px 10px 20px',
     textAlign: 'center',
   },
-  paddedRow: {
-    paddingBottom: 15,
-  },
   dividerContainer: {
     height: 50,
   },
