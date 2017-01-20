@@ -115,7 +115,7 @@ export default class Login extends Component {
 
           <span>
 
-            <Row style={styles.paddedRow}>
+            <Row>
               <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                 <FacebookLogin
                   appId='144997212531478'
@@ -128,7 +128,7 @@ export default class Login extends Component {
               </Col>
             </Row>
 
-            <Row style={styles.paddedRow}>
+            <Row>
               <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                 <GoogleLogin
                   onFailure={this.handleGoogleLoginFailure}

@@ -11,7 +11,6 @@ export default {
     '@media (max-width: 500px)': {
       padding: 0,
     },
-    background: 'white',
   },
   tabItem: {
     margin: '5px 0',

@@ -36,7 +36,7 @@ export default class ManageLanguages extends Component {
           <div style={styles.languageSectionHeader}>{t('common.languages_learning')}</div>
           {learningLanguages.map(lang => {
             return (
-              <div key={lang.id} style={styles.container}>
+              <div key={`learning${lang.id}`} style={styles.container}>
                 <div style={styles.textInput}>
                   <Typeahead
                     selected={lang.language ? [i18n.store.data[i18nLanguage].translation.languages[lang.language]] : []}
@@ -73,7 +73,7 @@ export default class ManageLanguages extends Component {
           <div style={styles.languageSectionHeader}>{t('common.languages_known')}</div>
           {knownLanguages.map(lang => {
             return (
-              <div key={lang.id} style={styles.container}>
+              <div key={`known${lang.id}`} style={styles.container}>
                 <div style={styles.textInput}>
                   <Typeahead
                     selected={lang.language ? [i18n.store.data[i18nLanguage].translation.languages[lang.language]] : []}

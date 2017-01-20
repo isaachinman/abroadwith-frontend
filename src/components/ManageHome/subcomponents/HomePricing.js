@@ -338,15 +338,15 @@ export default class HomePricing extends Component {
           </Well>
           <Row>
             <Col xs={12}>
-              <Button onClick={this.updatePricing} disabled={!formIsValid || loading} bsStyle='primary'>
-                {loading && <span>{t('common.Loading')}</span>}
-                {!loading && (inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>)}
-              </Button>
+              <small className='text-muted'>{t('manage_home.pricing_fee_explanation')}</small>
             </Col>
           </Row>
           <Row>
             <Col xs={12}>
-              <p>{t('manage_home.pricing_fee_explanation')}</p>
+              <Button onClick={this.updatePricing} disabled={!formIsValid || loading} bsStyle='primary'>
+                {loading && <span>{t('common.Loading')}</span>}
+                {!loading && (inProgress ? <span>{t('manage_home.next_button')}</span> : <span>{t('manage_home.save_button')}</span>)}
+              </Button>
             </Col>
           </Row>
         </FormGroup>

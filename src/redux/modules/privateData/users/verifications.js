@@ -19,46 +19,123 @@ const VERIFY_PHONE_SUCCESS = 'abroadwith/VERIFY_PHONE_SUCCESS'
 const VERIFY_PHONE_FAIL = 'abroadwith/VERIFY_PHONE_FAIL'
 
 const initialState = {
-  loaded: false,
+  email: {
+    loading: false,
+    loaded: false,
+  },
+  phone: {
+    loading: false,
+    loaded: false,
+    phoneSecret: null,
+  },
 }
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    case REQUEST_VERIFICATION_EMAIL: {
+      return {
+        ...state,
+        email: {
+          loading: true,
+          loaded: false,
+        },
+      }
+    }
+    case REQUEST_VERIFICATION_EMAIL_SUCCESS: {
+      return {
+        ...state,
+        email: {
+          loading: false,
+          loaded: true,
+        },
+      }
+    }
+    case REQUEST_VERIFICATION_EMAIL_FAIL: {
+      return {
+        ...state,
+        email: {
+          loading: false,
+          loaded: false,
+          error: true,
+          errorMessage: action.error,
+        },
+      }
+    }
     case REQUEST_VERIFICATION_SMS:
       return {
         ...state,
-        loading: true,
+        phone: {
+          loading: true,
+          loaded: false,
+          phoneSecret: null,
+        },
       }
     case REQUEST_VERIFICATION_SMS_SUCCESS:
       return {
         ...state,
-        loading: false,
-        loaded: true,
-        phoneSecret: action.result,
+        phone: {
+          loading: false,
+          loaded: true,
+          phoneSecret: action.result,
+        },
       }
     case REQUEST_VERIFICATION_SMS_FAIL:
       return {
         ...state,
-        loading: false,
-        loaded: false,
-        error: true,
-        errorMessage: action.error,
+        phone: {
+          loading: false,
+          loaded: false,
+          error: true,
+          errorMessage: action.error,
+        },
       }
     default:
       return state
   }
 }
 
-export function requestVerificationEmail(jwt) {
-  return {
-    types: [REQUEST_VERIFICATION_EMAIL, REQUEST_VERIFICATION_EMAIL_SUCCESS, REQUEST_VERIFICATION_EMAIL_FAIL],
-    promise: client => client.get(`users/${jwtDecode(jwt).rid}/verification/email`, { auth: jwt }),
+export function requestVerificationEmail(jwt, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
+
+  return async dispatch => {
+
+    dispatch({ type: REQUEST_VERIFICATION_EMAIL })
+
+    try {
+
+      const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}/verification/email`)
+
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+
+      request.end((err, res) => {
+
+        if (err) {
+
+          dispatch({ type: REQUEST_VERIFICATION_EMAIL_FAIL, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: REQUEST_VERIFICATION_EMAIL_SUCCESS, result: res.text })
+          cb() // In this case, only trigger callback if update was successful
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: REQUEST_VERIFICATION_EMAIL_FAIL, err })
+    }
   }
 }
 
 export function requestVerificationSMS(jwt, cb) {
 
   return async dispatch => {
+
+    dispatch({ type: REQUEST_VERIFICATION_SMS })
+
     try {
 
       const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}/verification/phone`)

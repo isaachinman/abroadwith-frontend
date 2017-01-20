@@ -2,8 +2,10 @@ import jwtDecode from 'jwt-decode'
 import config from 'config'
 import superagent from 'superagent'
 import { push } from 'react-router-redux'
+import { openVerifyEmailModal } from 'redux/modules/ui/modals'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { load as loadHomeWithAuth } from './loadHomeWithAuth'
+
 
 // Create homestay
 const CREATE_HOMESTAY = 'abroadwith/CREATE_HOMESTAY'
@@ -31,32 +33,43 @@ const DELETE_HOMESTAY_SUCCESS = 'abroadwith/DELETE_HOMESTAY_SUCCESS'
 const DELETE_HOMESTAY_FAIL = 'abroadwith/DELETE_HOMESTAY_FAIL'
 
 export function createHomestay(jwt, redirectToManageHome) {
+  console.log(redirectToManageHome)
   return async dispatch => {
 
     dispatch({ type: CREATE_HOMESTAY })
 
     try {
 
-      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes`)
-      request.set({ Authorization: `Bearer ${(jwt)}` })
+      dispatch(loadUserWithAuth(jwt, response => {
 
-      request.end((err = {}) => {
+        if (response && response.verifications && response.verifications.email) {
+          const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes`)
+          request.set({ Authorization: `Bearer ${(jwt)}` })
 
-        if (err) {
+          request.end((err = {}) => {
 
-          dispatch({ type: CREATE_HOMESTAY_FAIL, err })
+            if (err) {
 
+              dispatch({ type: CREATE_HOMESTAY_FAIL, err })
+
+            } else {
+
+              // Request was successful
+              dispatch({ type: CREATE_HOMESTAY_SUCCESS })
+              if (redirectToManageHome) {
+                dispatch(loadUserWithAuth(jwt, () => dispatch(push('/manage-home'))))
+              }
+
+            }
+
+          })
         } else {
-
-          // Request was successful
-          dispatch({ type: CREATE_HOMESTAY_SUCCESS })
-          if (redirectToManageHome) {
-            dispatch(loadUserWithAuth(jwt, () => dispatch(push('/manage-home'))))
-          }
-
+          dispatch({ type: CREATE_HOMESTAY_FAIL, err: 'Email not verified' })
+          dispatch(openVerifyEmailModal('CREATE_HOMESTAY'))
         }
 
-      })
+
+      }))
 
     } catch (err) {
       dispatch({ type: CREATE_HOMESTAY_FAIL, err })
