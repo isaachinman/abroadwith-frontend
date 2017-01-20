@@ -1,7 +1,11 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { Checkbox, Col, Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import { translate } from 'react-i18next'
+import Switch from 'antd/lib/switch'
+
+// Relative imports
+import styles from './ManageNotifications.styles'
 
 @translate()
 export default class ManageNotifications extends Component {
@@ -20,26 +24,29 @@ export default class ManageNotifications extends Component {
     } = this.props
 
     return (
-      <Row>
-        <Col xs={12}>
-          <strong>{t('admin.notifications_email')}</strong>
-
-          <Checkbox
-            onChange={() => this.changeNotificationPreference('email', 'reminders')}
-            defaultChecked={user.notifications.email.reminders}
-          >
-            {t('admin.notifications_reservations')}
-          </Checkbox>
-          <Checkbox
-            onChange={() => this.changeNotificationPreference('email', 'promotion')}
-            defaultChecked={user.notifications.email.promotion}
-          >
-            {t('admin.notifications_promotion')}
-          </Checkbox>
-
-        </Col>
-
-      </Row>
+      <span>
+        <Row>
+          <Col xs={12}>
+            <h5>{t('admin.notifications_email')}</h5>
+          </Col>
+          <Col xs={12}>
+            <Switch
+              onChange={() => this.changeNotificationPreference('email', 'reminders')}
+              defaultChecked={user.notifications.email.reminders}
+            />
+            <div style={styles.switchLabel}>{t('admin.notifications_reservations')}</div>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <Switch
+              onChange={() => this.changeNotificationPreference('email', 'promotion')}
+              defaultChecked={user.notifications.email.promotion}
+            />
+            <div style={styles.switchLabel}>{t('admin.notifications_promotion')}</div>
+          </Col>
+        </Row>
+      </span>
     )
   }
 }
