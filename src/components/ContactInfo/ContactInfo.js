@@ -65,74 +65,74 @@ export default class ContactInfo extends Component {
     } = this.state.validatedFields
 
     return (
-      <Row>
-        <Col xs={12} sm={6} md={4}>
-          <FormGroup validationState={firstName.uiState}>
-            <ControlLabel>{t('common.First_name')}</ControlLabel>
-            <FormControl
-              type='text'
-              label={t('common.First_name')}
-              defaultValue={user.firstName}
-              placeholder={t('common.First_name')}
-              onChange={event => this.handleChange(event, 'string', 'firstName')}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-        </Col>
-        <Col xs={12} sm={6} md={4}>
-          <FormGroup validationState={lastName.uiState}>
-            <ControlLabel>{t('common.Last_name')}</ControlLabel>
-            <FormControl
-              type='text'
-              label={t('common.First_name')}
-              defaultValue={user.lastName}
-              placeholder={t('common.First_name')}
-              onChange={event => this.handleChange(event, 'string', 'lastName')}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-        </Col>
-        <Col xs={12} sm={6} md={4}>
-          <FormGroup validationState={gender.uiState}>
-            <ControlLabel>{t('users.gender_label')}</ControlLabel>
-            <FormControl componentClass='select' onChange={event => this.handleChange(event, 'string', 'gender')} defaultValue={user.gender ? user.gender : ''}>
-              <option value='' disabled>{t('users.gender_placeholder')}</option>
-              <option value='MALE'>{t('users.genders.MALE')}</option>
-              <option value='FEMALE'>{t('users.genders.FEMALE')}</option>
-              <option value='OTHER'>{t('users.genders.OTHER')}</option>
-            </FormControl>
-          </FormGroup>
-        </Col>
-
-        <Col xs={12} sm={6} md={4}>
-          <FormGroup>
-            <ControlLabel>{t('users.email_label')}</ControlLabel>
-            <FormControl.Static>
-              {user.email}
-            </FormControl.Static>
-          </FormGroup>
-        </Col>
-
-        <Col xs={12} sm={6} md={4}>
-          <FormGroup>
-            <ControlLabel>{t('users.phone_number_label')}</ControlLabel>
-            <ManagePhoneNumbers
-              dismissable
-              {...this.props}
-            />
-          </FormGroup>
-        </Col>
-
-        <Col xs={12} sm={6} md={4}>
-          <FormGroup>
-            <ControlLabel>{t('users.home_address_label')}</ControlLabel>
-            <Geosuggest
-              inputClassName='form-control'
-            />
-          </FormGroup>
-        </Col>
-
-      </Row>
+      <span>
+        <Row>
+          <Col xs={12} sm={6} md={4}>
+            <FormGroup validationState={firstName.uiState}>
+              <ControlLabel>{t('common.First_name')}</ControlLabel>
+              <FormControl
+                type='text'
+                label={t('common.First_name')}
+                defaultValue={user.firstName}
+                placeholder={t('common.First_name')}
+                onChange={event => this.handleChange(event, 'string', 'firstName')}
+              />
+              <FormControl.Feedback />
+            </FormGroup>
+          </Col>
+          <Col xs={12} sm={6} md={4}>
+            <FormGroup validationState={lastName.uiState}>
+              <ControlLabel>{t('common.Last_name')}</ControlLabel>
+              <FormControl
+                type='text'
+                label={t('common.First_name')}
+                defaultValue={user.lastName}
+                placeholder={t('common.First_name')}
+                onChange={event => this.handleChange(event, 'string', 'lastName')}
+              />
+              <FormControl.Feedback />
+            </FormGroup>
+          </Col>
+          <Col xs={12} sm={6} md={4}>
+            <FormGroup validationState={gender.uiState}>
+              <ControlLabel>{t('users.gender_label')}</ControlLabel>
+              <FormControl componentClass='select' onChange={event => this.handleChange(event, 'string', 'gender')} defaultValue={user.gender ? user.gender : ''}>
+                <option value='' disabled>{t('users.gender_placeholder')}</option>
+                <option value='MALE'>{t('users.genders.MALE')}</option>
+                <option value='FEMALE'>{t('users.genders.FEMALE')}</option>
+                <option value='OTHER'>{t('users.genders.OTHER')}</option>
+              </FormControl>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} sm={6} md={4}>
+            <FormGroup>
+              <ControlLabel>{t('users.email_label')}</ControlLabel>
+              <FormControl.Static>
+                {user.email}
+              </FormControl.Static>
+            </FormGroup>
+          </Col>
+          <Col xs={12} sm={6} md={4}>
+            <FormGroup>
+              <ControlLabel>{t('users.phone_number_label')}</ControlLabel>
+              <ManagePhoneNumbers
+                dismissable
+                {...this.props}
+              />
+            </FormGroup>
+          </Col>
+          <Col xs={12} sm={6} md={4}>
+            <FormGroup>
+              <ControlLabel>{t('users.home_address_label')}</ControlLabel>
+              <Geosuggest
+                inputClassName='form-control'
+              />
+            </FormGroup>
+          </Col>
+        </Row>
+      </span>
     )
   }
 }

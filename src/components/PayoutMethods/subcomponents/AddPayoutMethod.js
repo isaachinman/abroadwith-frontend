@@ -200,8 +200,6 @@ export default class AddPayoutMethod extends Component {
                     <FormControl.Feedback />
                   </FormGroup>
                 </Col>
-              </Row>
-              <Row>
                 <Col xs={12}>
                   <FormGroup>
                     <FormControl
@@ -212,8 +210,6 @@ export default class AddPayoutMethod extends Component {
                     <FormControl.Feedback />
                   </FormGroup>
                 </Col>
-              </Row>
-              <Row>
                 <Col xs={12}>
                   <FormGroup>
                     <FormControl
@@ -224,8 +220,6 @@ export default class AddPayoutMethod extends Component {
                     <FormControl.Feedback />
                   </FormGroup>
                 </Col>
-              </Row>
-              <Row>
                 <Col xs={12} sm={6}>
                   <FormGroup>
                     <FormControl
@@ -246,8 +240,6 @@ export default class AddPayoutMethod extends Component {
                     <FormControl.Feedback />
                   </FormGroup>
                 </Col>
-              </Row>
-              <Row>
                 <Col xs={12} sm={6}>
                   <FormGroup>
                     <FormControl
@@ -272,70 +264,62 @@ export default class AddPayoutMethod extends Component {
                     <FormControl.Feedback />
                   </FormGroup>
                 </Col>
+
+                {bankType === 'BANK' &&
+                <span>
+                  <Col xs={12}>
+                    <FormGroup>
+                      <FormControl
+                        type='text'
+                        placeholder={t('admin.payments_bank_iban')}
+                        onChange={event => handleBankInputChange(event.target.value, 'ibanCode', false)}
+                      />
+                      <FormControl.Feedback />
+                    </FormGroup>
+                  </Col>
+                  <Col xs={12}>
+                    <FormGroup>
+                      <FormControl
+                        type='text'
+                        placeholder={t('admin.payments_bank_swift')}
+                        onChange={event => handleBankInputChange(event.target.value, 'swiftBicCode', false)}
+                      />
+                      <FormControl.Feedback />
+                    </FormGroup>
+                  </Col>
+                </span>
+              }
+
+                {bankType === 'ROUTING_TRANSIT' &&
+                <span>
+                  <Col xs={12}>
+                    <FormGroup>
+                      <FormControl
+                        type='text'
+                        placeholder={t('admin.payments_bank_account')}
+                        onChange={event => handleBankInputChange(event.target.value, 'routingAccountNumber', false)}
+                      />
+                      <FormControl.Feedback />
+                    </FormGroup>
+                  </Col>
+                  <Col xs={12}>
+                    <FormGroup>
+                      <FormControl
+                        type='text'
+                        placeholder={t('admin.payments_bank_routing')}
+                        onChange={event => handleBankInputChange(event.target.value, 'routerNumber', false)}
+                      />
+                      <FormControl.Feedback />
+                    </FormGroup>
+                  </Col>
+
+                </span>
+              }
+
+                <Col xs={12}>
+                  <strong>{t('admin.payments_currency')}:</strong> {bankCurrency}
+                </Col>
               </Row>
-
-              {bankType === 'BANK' &&
-                <span>
-                  <Row>
-                    <Col xs={12}>
-                      <FormGroup>
-                        <FormControl
-                          type='text'
-                          placeholder={t('admin.payments_bank_iban')}
-                          onChange={event => handleBankInputChange(event.target.value, 'ibanCode', false)}
-                        />
-                        <FormControl.Feedback />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={12}>
-                      <FormGroup>
-                        <FormControl
-                          type='text'
-                          placeholder={t('admin.payments_bank_swift')}
-                          onChange={event => handleBankInputChange(event.target.value, 'swiftBicCode', false)}
-                        />
-                        <FormControl.Feedback />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                </span>
-              }
-
-              {bankType === 'ROUTING_TRANSIT' &&
-                <span>
-                  <Row>
-                    <Col xs={12}>
-                      <FormGroup>
-                        <FormControl
-                          type='text'
-                          placeholder={t('admin.payments_bank_account')}
-                          onChange={event => handleBankInputChange(event.target.value, 'routingAccountNumber', false)}
-                        />
-                        <FormControl.Feedback />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={12}>
-                      <FormGroup>
-                        <FormControl
-                          type='text'
-                          placeholder={t('admin.payments_bank_routing')}
-                          onChange={event => handleBankInputChange(event.target.value, 'routerNumber', false)}
-                        />
-                        <FormControl.Feedback />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                </span>
-              }
-
-              <div>
-                <strong>{t('admin.payments_currency')}:</strong> {bankCurrency}
-              </div>
-
               <Button
                 style={styles.addPayoutButton}
                 disabled={!bankFormIsValid}
@@ -370,8 +354,6 @@ export default class AddPayoutMethod extends Component {
                     <FormControl.Feedback />
                   </FormGroup>
                 </Col>
-              </Row>
-              <Row>
                 <Col xs={12}>
                   <FormGroup>
                     <FormControl
@@ -382,8 +364,6 @@ export default class AddPayoutMethod extends Component {
                     <FormControl.Feedback />
                   </FormGroup>
                 </Col>
-              </Row>
-              <Row>
                 <Col xs={12}>
                   <FormGroup>
                     <FormControl
@@ -394,8 +374,6 @@ export default class AddPayoutMethod extends Component {
                     <FormControl.Feedback />
                   </FormGroup>
                 </Col>
-              </Row>
-              <Row>
                 <Col xs={12} sm={6}>
                   <FormGroup>
                     <FormControl
@@ -416,8 +394,6 @@ export default class AddPayoutMethod extends Component {
                     <FormControl.Feedback />
                   </FormGroup>
                 </Col>
-              </Row>
-              <Row>
                 <Col xs={12} sm={6}>
                   <FormGroup>
                     <FormControl
@@ -442,9 +418,6 @@ export default class AddPayoutMethod extends Component {
                     <FormControl.Feedback />
                   </FormGroup>
                 </Col>
-              </Row>
-
-              <Row>
                 <Col xs={12}>
                   <FormGroup>
                     <FormControl
@@ -455,11 +428,10 @@ export default class AddPayoutMethod extends Component {
                     <FormControl.Feedback />
                   </FormGroup>
                 </Col>
+                <Col xs={12}>
+                  <strong>{t('admin.payments_currency')}:</strong> {paypalCurrency}
+                </Col>
               </Row>
-
-              <div>
-                <strong>{t('admin.payments_currency')}:</strong> {paypalCurrency}
-              </div>
 
               <Button
                 style={styles.addPayoutButton}

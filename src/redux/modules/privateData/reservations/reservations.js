@@ -7,7 +7,13 @@ const LOAD_RESERVATIONS = 'abroadwith/LOAD_RESERVATIONS'
 const LOAD_RESERVATIONS_SUCCESS = 'abroadwith/LOAD_RESERVATIONS_SUCCESS'
 const LOAD_RESERVATIONS_FAIL = 'abroadwith/LOAD_RESERVATIONS_FAIL'
 
-export default function reducer(state = {}, action = {}) {
+const initialState = {
+  loading: false,
+  loaded: false,
+  data: [],
+}
+
+export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD_RESERVATIONS:
       return Object.assign({}, state, {

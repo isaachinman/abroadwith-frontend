@@ -146,6 +146,7 @@
     "react-selectize": "^2.1.0",
     "react-sortable-hoc": "^0.4.5",
     "react-telephone-input": "^3.8.6",
+    "reactable": "^0.14.1",
     "redux": "^3.5.2",
     "redux-connect": "^4.0.2",
     "redux-persist": "^4.0.1",
@@ -217,7 +218,7 @@
     "rules": {
       "max-len": [
         2,
-        200
+        300
       ],
       "new-cap": 0,
       "camelcase": 0,
