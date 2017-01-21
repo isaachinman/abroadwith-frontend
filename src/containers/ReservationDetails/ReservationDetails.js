@@ -4,6 +4,7 @@ import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import { Col, Grid, Panel, Row } from 'react-bootstrap'
 import { uiDate } from 'utils/dates'
+import { loadReservations } from 'redux/modules/privateData/reservations/reservations'
 import { Link } from 'react-router'
 import config from 'config'
 import Currencies from 'data/constants/Currencies'
@@ -15,10 +16,18 @@ import styles from './ReservationDetails.styles'
 @connect(
   (state, ownProps) => ({
     reservation: state.privateData.reservations.data.filter(reservation => reservation.id === parseInt(ownProps.routeParams.reservationID))[0],
+    token: state.auth.token,
   }),
 )
 @translate()
 export default class ReservationDetails extends Component {
+
+  componentDidMount = () => {
+    const { dispatch, reservation, token } = this.props
+    if (!reservation) {
+      dispatch(loadReservations(token))
+    }
+  }
 
   render() {
 
@@ -137,6 +146,8 @@ export default class ReservationDetails extends Component {
 }
 
 ReservationDetails.propTypes = {
+  dispatch: PropTypes.func,
   reservation: PropTypes.object,
   t: PropTypes.func,
+  token: PropTypes.string,
 }
