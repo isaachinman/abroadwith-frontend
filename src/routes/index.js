@@ -128,6 +128,11 @@ export default (store) => {
       cb(null, require('../containers/Reservations/Reservations'))
     }, 'reservations')
   }
+  const getReservationDetails = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/ReservationDetails/ReservationDetails'))
+    }, 'reservations')
+  }
   const getSettings = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/Settings/Settings'))
@@ -176,6 +181,7 @@ export default (store) => {
               <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
               <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
               <Route path='reservations' getComponent={getReservations} />
+              <Route path='reservation/:reservationID' getComponent={getReservationDetails} />
               <Route path='settings' getComponent={getSettings} />
             </Route>
 

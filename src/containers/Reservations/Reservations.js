@@ -1,15 +1,17 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { Col, Grid, Row, Panel } from 'react-bootstrap'
+import { Button, Col, Grid, Row, Panel } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import { loadReservations } from 'redux/modules/privateData/reservations/reservations'
-import { Table } from 'reactable'
+import { Table, Tr, Td } from 'reactable'
 import { uiDate } from 'utils/dates'
+import { Link } from 'react-router'
 import config from 'config'
 import Currencies from 'data/constants/Currencies'
 import Fees from 'data/constants/Fees'
+import FontAwesome from 'react-fontawesome'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
 
 // Relative imports
@@ -33,24 +35,10 @@ export default class Reservations extends Component {
 
     const { reservations, t } = this.props
 
-    const data = []
-    reservations.data.map(reservation => {
-      data.push({
-        [t('reservations.sections.guest')]: (
-          <div>
-            <img style={styles.guestPhoto} src={`${config.img}${reservation.guestPhoto ? reservation.guestPhoto : '/users/default.jpg'}`} alt={reservation.guestName} />
-          </div>
-        ),
-        [t('reservations.sections.status')]: t(`reservations.status_codes.${reservation.status}`),
-        [t('reservations.sections.location_details')]: (
-          <div>
-            <div>{uiDate(reservation.arrivalDate)} / {uiDate(reservation.departureDate)}</div>
-            <div>{reservation.homeAddress ? <span>{reservation.homeAddress.street}, {reservation.homeAddress.city}</span> : <span>{t('trips.not_applicable')}</span>}</div>
-          </div>
-        ),
-        [t('reservations.sections.details')]: `${Currencies[reservation.chargesCurrency]}${(reservation.baseCharges * ((100 - Fees.maximumServiceFee) / 100)).toFixed(2)}`,
-      })
-    })
+    const guestColumnName = t('reservations.sections.guest')
+    const statusColumnName = t('reservations.sections.status')
+    const locationColumnName = t('reservations.sections.location_details')
+    const detailsColumnName = t('reservations.sections.details')
 
     return (
 
@@ -69,10 +57,55 @@ export default class Reservations extends Component {
                 <Panel style={styles.mainPanel}>
                   <Table
                     className='table'
-                    data={data}
+                    filterable={[guestColumnName]}
+                    filterPlaceholder={t('reservations.search_by_guest_name')}
                     itemsPerPage={5}
                     sortable
-                  />
+                    nextPageLabel={<FontAwesome name='caret-right' />}
+                    previousPageLabel={<FontAwesome name='caret-left' />}
+                  >
+                    {reservations.data.map(reservation => {
+                      return (
+                        <Tr key={reservation.id}>
+                          <Td column={guestColumnName} value={reservation.guestName}>
+                            <div>
+                              <img className='reservation-table-guest-img' style={styles.guestPhoto} src={`${config.img}${reservation.guestPhoto ? reservation.guestPhoto : '/users/default.jpg'}`} alt={reservation.guestName} />
+                              <div style={styles.guestName}>{reservation.guestName ? <span>{reservation.guestName}</span> : <span>{t('common.deleted_account')}</span>}</div>
+                            </div>
+                          </Td>
+                          <Td className='status-column' column={statusColumnName} value={reservation.status}>
+                            <div>
+                              <div>{t(`reservations.status_codes.${reservation.status}`)}</div>
+                            </div>
+                          </Td>
+                          <Td className='location-column' column={locationColumnName} value={reservation.arrivalDate}>
+                            <div>
+                              <div>{uiDate(reservation.arrivalDate)} / {uiDate(reservation.departureDate)}</div>
+                              <div>{reservation.homeAddress ? <span>{reservation.homeAddress.street}, {reservation.homeAddress.city}</span> : <span>{t('trips.not_applicable')}</span>}</div>
+                            </div>
+                          </Td>
+                          <Td column={detailsColumnName} value={reservation.baseCharges}>
+                            <div>
+                              <Link to={`/reservation/${reservation.id}`}>
+                                <Button bsSize='xsmall'>{t('trips.view_details')}</Button>
+                              </Link>
+                              <div className='reservation-more-details' style={styles.invoiceList}>
+                                <div>
+                                  {t('trips.you_will_earn')}: {Currencies[reservation.chargesCurrency]}{(reservation.baseCharges * ((100 - Fees.maximumServiceFee) / 100)).toFixed(2)}
+                                </div>
+                                {t('trips.invoices')}:
+                                {reservation.invoiceIds.length > 0 ? reservation.invoiceIds.map(invoice => {
+                                  return (
+                                    <Link key={`invoicelink${invoice}`} to={`/invoice/${invoice}`}> {t('trips.invoice')} #{invoice}</Link>
+                                  )
+                                }) : <span> {t('trips.not_applicable')}</span>}
+                              </div>
+                            </div>
+                          </Td>
+                        </Tr>
+                      )
+                    })}
+                  </Table>
                 </Panel>
               </SpinLoader>
             </Col>

@@ -3,6 +3,64 @@
 *
 */
 
+// Reactable styles
+.reactable-pagination {
+  td {
+    padding: 15px 0 0 0 !important;
+  }
+}
+.reactable-page-button, .reactable-previous-page, .reactable-next-page {
+  font-size: 15px;
+  padding: 5px 10px;
+  margin: 0;
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  &:first-child {
+    border-radius: 5px 0 0 5px;
+    border-left: 1px solid #ddd;
+  }
+  &:last-child {
+    border-radius: 0 5px 5px 0;
+  }
+}
+.reactable-current-page {
+  background-color: #5533FF;
+  color: white;
+  &:focus {
+    color: white;
+    text-decoration: none;
+  }
+}
+.reactable-filterer {
+  td {
+    padding: 0 0 10px 0 !important;
+  }
+}
+.reactable-filter-input {
+  @extend .form-control;
+  max-width: 260px;
+  float: right;
+}
+table {
+  max-width: 100%;
+}
+// Big breakpoint
+@media (max-width: 700px) {
+  td.location-column, .reactable-th-dates-\&-location {
+    display: none;
+  }
+}
+// Small breakpoint
+@media (max-width: 400px) {
+  img.reservation-table-guest-img {
+    display: none !important;
+  }
+  td.status-column, .reactable-th-status, .reservation-more-details {
+    display: none;
+  }
+}
+
 // BigCalendar custom styles
 .rbc-row {
   cursor: cell;
