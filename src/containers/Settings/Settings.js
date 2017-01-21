@@ -128,6 +128,11 @@ export default class Settings extends Component {
         <Helmet title={t('admin.title')} />
 
         <Grid>
+          <Row style={styles.h1Row}>
+            <Col xs={12}>
+              <h1>{t('admin.title')}</h1>
+            </Col>
+          </Row>
           <Tab.Container id='left-tabs-example' defaultActiveKey='contact-info'>
             <Row style={styles.mainRow}>
               <Col style={styles.sidebar} xs={12} sm={4} md={3} lg={2}>

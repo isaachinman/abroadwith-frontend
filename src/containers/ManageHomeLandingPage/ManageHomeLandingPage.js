@@ -8,6 +8,9 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 
+// Relative imports
+import styles from './ManageHomeLandingPage.styles'
+
 @asyncConnect([{
   deferred: false,
   promise: ({ store: { dispatch, getState } }) => {
@@ -42,7 +45,7 @@ export default class ManageHomeLandingPage extends Component {
     return (
       <Grid>
         <Helmet title={t('manage_home.multi_home_title')} />
-        <Row>
+        <Row style={styles.h1Row}>
           <Col xs={12}>
             <h1>{t('manage_home.multi_home_title')}</h1>
           </Col>

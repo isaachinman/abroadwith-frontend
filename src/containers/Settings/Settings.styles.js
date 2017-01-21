@@ -1,4 +1,7 @@
 export default {
+  h1Row: {
+    marginTop: 20,
+  },
   mainRow: {
     margin: '20px 0 0 0',
   },
