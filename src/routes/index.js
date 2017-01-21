@@ -178,7 +178,7 @@ export default (store) => {
               <Route path='login-success' component={LoginSuccess} />
               <Route path='manage-home' getComponent={getManageHomeLandingPage} onEnter={singleHomeRedirect} />
               <Route path='manage-home/:homeID' getComponent={getManageHome} />
-              <Route path='user/:userID/invoices/:invoiceID' getComponent={getInvoice} />
+              <Route path='invoice/:invoiceID' getComponent={getInvoice} />
               <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
               <Route path='reservations' getComponent={getReservations} />
               <Route path='reservation/:reservationID' getComponent={getReservationDetails} />
