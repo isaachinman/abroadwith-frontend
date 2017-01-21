@@ -17,7 +17,6 @@ export default function reducer(state = {}, action = {}) {
         },
       }
     case LOAD_INVOICE_SUCCESS:
-      console.log('load invoice was successful')
       return {
         ...state,
         [action.result.id]: {
