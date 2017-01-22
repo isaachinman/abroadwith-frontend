@@ -3,3 +3,4 @@
 1. Add antd notification feedback for photos saving
 2. Need to change message/thread endpoint to include homeID
 3. Build email verification page
+4. Need to decide between react-bootstrap-typeahead and react-selectize
