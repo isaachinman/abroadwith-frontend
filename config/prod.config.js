@@ -61,11 +61,14 @@ module.exports = {
   plugins: [
     new CleanPlugin([assetsPath], { root: projectRootPath }),
 
+    // Ignore momentjs locales
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin('[name]-[chunkhash].css', {allChunks: true}),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
+        NODE_ENV: JSON.stringify('production')
       },
 
       __CLIENT__: true,
@@ -78,13 +81,31 @@ module.exports = {
     new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
 
     // optimizations
-    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
+      comments: false,
       compress: {
-        warnings: false
-      }
+        unused: true,
+        dead_code: true,
+        drop_debugger: true,
+        conditionals: true,
+        evaluate: true,
+        drop_console: true,
+        sequences: true,
+        booleans: true,
+        warnings: false,
+        pure_getters: true,
+        unsafe: true,
+        unsafe_comps: true,
+        screw_ie8: true
+      },
+      output: {
+        comments: false
+      },
+      exclude: [/\.min\.js$/gi]
     }),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.DedupePlugin(),
 
     webpackIsomorphicToolsPlugin
   ]
