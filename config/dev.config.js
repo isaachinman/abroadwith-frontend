@@ -15,6 +15,9 @@ var assetsPath = path.resolve(__dirname, '../build/dist')
 var host = (process.env.HOST || 'localhost')
 var port = (+process.env.PORT + 1) || 3001
 
+// Happypack
+var HappyPack = require('happypack')
+
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'))
@@ -68,7 +71,7 @@ reactTransform[1].transforms.push({
 })
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: 'inline-eval-cheap-source-map',
   context: path.resolve(__dirname, '..'),
   node: {
     fs: 'empty',
@@ -90,10 +93,10 @@ module.exports = {
   module: {
     noParse: [/braintree-web/],
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel?' + JSON.stringify(babelLoaderQuery), 'eslint-loader']},
+      { test: /\.jsx?$/, exclude: /node_modules/, loaders: [ 'happypack/loader' ]},
       { test: /\.json$/, loader: 'json-loader' },
-      { test: /\.less$/, loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap' },
-      { test: /\.scss$/, loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap' },
+      { test: /\.less$/, loader: 'style!css?modules&importLoaders=3&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap' },
+      { test: /\.scss$/, loader: 'style!css?modules&importLoaders=3&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap' },
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
       { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
@@ -112,6 +115,14 @@ module.exports = {
     alias: resolvePaths
   },
   plugins: [
+
+    new HappyPack({
+      loaders: [
+        'babel?' + JSON.stringify(babelLoaderQuery)
+      ],
+      threads: 4
+    }),
+
     // Hot reload
     new webpack.HotModuleReplacementPlugin(),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
