@@ -244,6 +244,7 @@ export default class HomeCalendar extends Component {  // eslint-disable-line
                 onChange={pausedStatus => this.toggleHomePausing(pausedStatus)}
                 unCheckedChildren={t('home_calendar.unlisted')}
                 checkedChildren={t('home_calendar.listed')}
+                checked={home.data.isActive}
               />
               <OverlayTrigger placement='top' overlay={<Tooltip id='tooltip'>{t('home_calendar.pausing_explanation')}</Tooltip>}>
                 <FontAwesome name='question-circle' style={{ margin: '0 5px', paddingTop: 2 }} className='text-muted' />
