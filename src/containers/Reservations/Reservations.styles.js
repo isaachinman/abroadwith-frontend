@@ -4,6 +4,10 @@ export default {
   },
   mainPanel: {
     minHeight: 'calc(100vh - 300px)',
+    boxShadow: '5px 5px 12px 0 rgba(0,0,0,0.15)',
+  },
+  tableRow: {
+    paddingTop: 30,
   },
   guestPhoto: {
     width: 100,
@@ -18,7 +22,10 @@ export default {
     maxWidth: 160,
     verticalAlign: 'top',
   },
-  invoiceList: {
+  alert: {
+    lineHeight: '2em',
+  },
+  marginTop10: {
     marginTop: 10,
   },
 }
