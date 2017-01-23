@@ -9,6 +9,7 @@ import { Link } from 'react-router'
 import config from 'config'
 import Currencies from 'data/constants/Currencies'
 import Helmet from 'react-helmet'
+import HomestayBookingStatusCodes from 'data/constants/HomestayBookingStatusCodes'
 
 // Styles
 import styles from './ReservationDetails.styles'
@@ -32,6 +33,15 @@ export default class ReservationDetails extends Component {
   render() {
 
     const { reservation, t } = this.props
+
+    // Determine if reservation can have actions performed upon it
+    // TODO: still need to compare the arrival date to today's date
+    // and then render a panel with action buttons if it's good to go
+    const isActionable = ['pendingCodes', 'approvedCodes'].includes(Object.keys(HomestayBookingStatusCodes).filter(statusCategory => {
+      return HomestayBookingStatusCodes[statusCategory].indexOf(reservation.status) > -1
+    })[0])
+
+    console.log('isActionable: ', isActionable)
 
     console.log(this)
 
@@ -58,9 +68,9 @@ export default class ReservationDetails extends Component {
                     <Col xs={12}>
                       {reservation.guestId &&
                         <div>
-                          <div><strong>{t('receipts_invoices.guest_name')}:</strong> {reservation.guestName}</div>
-                          <div><strong>{t('common.Email')}:</strong> {reservation.guestEmail ? <span>reservation.guestEmail</span> : <span>{t('trips.not_applicable')}</span>}</div>
-                          <div><strong>{t('users.phone_number_label')}:</strong> {reservation.guestPhone ? <span>reservation.guestPhone</span> : <span>{t('trips.not_applicable')}</span>}</div>
+                          <div>{reservation.guestName && <span>{reservation.guestName}</span>}</div>
+                          <div>{reservation.guestEmail && <span>{reservation.guestEmail}</span>}</div>
+                          <div>{reservation.guestPhone && <span>{reservation.guestPhone}</span>}</div>
                         </div>
                       }
                       {!reservation.guestId && <span><strong>{t('receipts_invoices.guest_name')}:</strong> {t('common.deleted_account')}</span>}
@@ -124,7 +134,14 @@ export default class ReservationDetails extends Component {
                   </Row>
                   <Row>
                     <Col xs={6}>
-                      <strong>{t('admin.contact_info_emergency_contact_title')}:</strong> {reservation.guestEmergencyContact ? <span>{reservation.guestEmergencyContact}</span> : <span>{t('trips.not_applicable')}</span>}
+                      <strong>{t('admin.contact_info_emergency_contact_title')}:</strong> {reservation.guestEmergencyContact ?
+                        <span>
+                          {reservation.guestEmergencyContact.name && <span>{reservation.guestEmergencyContact.name}</span>}
+                          {reservation.guestEmergencyContact.relationship && <span> ({reservation.guestEmergencyContact.relationship})</span>}
+                          {reservation.guestEmergencyContact.email && <span>, {reservation.guestEmergencyContact.email}</span>}
+                          {reservation.guestEmergencyContact.phone && <span>, {reservation.guestEmergencyContact.phone}</span>}
+                        </span>
+                        : <span>{t('trips.not_applicable')}</span>}
                     </Col>
                     <Col xs={6}>
                       <strong>{t('trips.invoices')}:</strong> {reservation.invoiceIds.length > 0 ? reservation.invoiceIds.map(invoice => {

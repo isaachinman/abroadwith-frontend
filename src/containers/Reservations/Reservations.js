@@ -4,7 +4,7 @@ import { Alert, Button, Col, Grid, Row, Panel } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
-import { loadReservations } from 'redux/modules/privateData/reservations/reservations'
+import { loadReservations, approveReservation, declineReservation } from 'redux/modules/privateData/reservations/reservations'
 import { Table, Tr, Td } from 'reactable'
 import { uiDate } from 'utils/dates'
 import { Link } from 'react-router'
@@ -31,6 +31,16 @@ export default class Reservations extends Component {
     dispatch(loadReservations(token))
   }
 
+  approveReservation = (reservationID) => {
+    const { dispatch, token } = this.props
+    dispatch(approveReservation(token, reservationID, true))
+  }
+
+  declineReservation = (reservationID) => {
+    const { dispatch, token } = this.props
+    dispatch(declineReservation(token, reservationID, true))
+  }
+
   render() {
 
     const { reservations, t } = this.props
@@ -55,9 +65,10 @@ export default class Reservations extends Component {
             <Col xs={12}>
               <SpinLoader show={reservations.loading}>
                 <Panel style={styles.mainPanel}>
-                  {reservations.data.length > 0 &&
+                  {!reservations.loading && reservations.loaded && reservations.data && reservations.data.length > 0 &&
                     <Table
                       className='table'
+                      defaultSort={{ column: statusColumnName, direction: 'desc' }}
                       filterable={[guestColumnName]}
                       filterPlaceholder={t('reservations.search_by_guest_name')}
                       itemsPerPage={5}
@@ -67,11 +78,23 @@ export default class Reservations extends Component {
                     >
                       {reservations.data.map(reservation => {
                         return (
-                          <Tr key={reservation.id}>
+                          <Tr key={reservation.id} style={styles.tableRow}>
                             <Td column={guestColumnName} value={reservation.guestName}>
                               <div>
-                                <img className='reservation-table-guest-img' style={styles.guestPhoto} src={`${config.img}${reservation.guestPhoto ? reservation.guestPhoto : '/users/default.jpg'}`} alt={reservation.guestName} />
-                                <div style={styles.guestName}>{reservation.guestName ? <span>{reservation.guestName}</span> : <span>{t('common.deleted_account')}</span>}</div>
+                                {reservation.guestId ?
+                                  <Link to={`/user/${reservation.guestId}`}>
+                                    <img className='reservation-table-guest-img' style={styles.guestPhoto} src={`${config.img}${reservation.guestPhoto ? reservation.guestPhoto : '/users/default.jpg'}`} alt={reservation.guestName} />
+                                  </Link>
+                                  :
+                                  <img className='reservation-table-guest-img' style={styles.guestPhoto} src={`${config.img}${reservation.guestPhoto ? reservation.guestPhoto : '/users/default.jpg'}`} alt={reservation.guestName} />
+                                }
+                                {reservation.guestId ?
+                                  <Link to={`/user/${reservation.guestId}`}>
+                                    <div style={styles.guestName}>{reservation.guestName ? <span>{reservation.guestName}</span> : <span>{t('common.deleted_account')}</span>}</div>
+                                  </Link>
+                                  :
+                                  <div style={styles.guestName}>{reservation.guestName ? <span>{reservation.guestName}</span> : <span>{t('common.deleted_account')}</span>}</div>
+                                }
                               </div>
                             </Td>
                             <Td className='status-column' column={statusColumnName} value={reservation.status}>
@@ -87,10 +110,17 @@ export default class Reservations extends Component {
                             </Td>
                             <Td column={detailsColumnName} value={reservation.baseCharges}>
                               <div>
-                                <Link to={`/reservation/${reservation.id}`}>
-                                  <Button bsSize='xsmall'>{t('trips.view_details')}</Button>
-                                </Link>
-                                <div className='reservation-more-details' style={styles.invoiceList}>
+                                {reservation.status === 'PENDING' &&
+                                  <Alert style={styles.alert}>
+                                    <Button onClick={() => this.approveReservation(reservation.id)} bsSize='xsmall' bsStyle='primary'>{t('trips.actions.approve')}</Button>
+                                    &nbsp;{t('common.words.or')}&nbsp;
+                                    <Button onClick={() => this.declineReservation(reservation.id)} bsSize='xsmall' bsStyle='danger'>{t('trips.actions.decline')}</Button>
+                                  </Alert>
+                                }
+                                <div>
+                                  <Link to={`/reservation/${reservation.id}`}>{t('trips.view_details')}</Link>
+                                </div>
+                                <div style={styles.marginTop10} className='reservation-more-details'>
                                   <div>
                                     {t('trips.you_will_earn')}: {Currencies[reservation.chargesCurrency]}{(reservation.baseCharges * ((100 - Fees.maximumServiceFee) / 100)).toFixed(2)}
                                   </div>
@@ -108,7 +138,7 @@ export default class Reservations extends Component {
                       })}
                     </Table>
                   }
-                  {reservations.data.length === 0 &&
+                  {!reservations.loading && reservations.loaded && reservations.data && reservations.data.length === 0 &&
                     <Alert bsStyle='warning'>
                       {t('trips.no_reservations')}
                     </Alert>
