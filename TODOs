@@ -1,6 +1,3 @@
 // Manage Home
 
 1. Need to change message/thread endpoint to include homeID
-2. Build email verification page
-3. Need to decide between react-bootstrap-typeahead and react-selectize
-4. Add a placeholder to /reservations for when a user has none

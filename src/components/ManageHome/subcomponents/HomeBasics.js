@@ -57,7 +57,7 @@ export default class HomeBasics extends Component {
           validationState={null}
         >
           <Row>
-            <Col xs={12} md={4}>
+            <Col xs={12} md={6}>
               <ControlLabel>{t('homes.home_types_placeholder')}*</ControlLabel>
               <FormControl
                 componentClass='select'
@@ -72,7 +72,7 @@ export default class HomeBasics extends Component {
               </FormControl>
             </Col>
 
-            <Col xs={12} md={4}>
+            <Col xs={12} md={6}>
               <ControlLabel>{t('homes.home_safety_label')}</ControlLabel>
               <div>
                 <MultiSelect
@@ -88,27 +88,10 @@ export default class HomeBasics extends Component {
                 />
               </div>
             </Col>
-
-            <Col xs={12} md={4}>
-              <ControlLabel>{t('homes.amenities_label')}</ControlLabel>
-              <div>
-                <MultiSelect
-                  theme='bootstrap3'
-                  placeholder={t('homes.amenities_placeholder')}
-                  onValuesChange={event => this.handleValueChange('AMENITIES', event.map(option => option.value))}
-                  options={HomeData.homeSettings.AMENITIES.map(amenityItem => {
-                    return { label: t(`homes.amenities.${amenityItem}`), value: amenityItem }
-                  })}
-                  values={basics.AMENITIES.map(safetyItem => {
-                    return { label: t(`homes.amenities.${safetyItem}`), value: safetyItem }
-                  })}
-                />
-              </div>
-            </Col>
           </Row>
 
           <Row>
-            <Col xs={12} md={4}>
+            <Col xs={12} md={6}>
               <ControlLabel>{t('homes.diets_offered_label')}</ControlLabel>
               <div>
                 <MultiSelect
@@ -125,7 +108,7 @@ export default class HomeBasics extends Component {
               </div>
             </Col>
 
-            <Col xs={12} md={4}>
+            <Col xs={12} md={6}>
               <ControlLabel>{t('homes.extras_label')}</ControlLabel>
               <div>
                 <MultiSelect
@@ -141,21 +124,25 @@ export default class HomeBasics extends Component {
                 />
               </div>
             </Col>
-
-            <Col xs={12} md={4}>
-              <ControlLabel>{t('homes.family_label')}</ControlLabel>
-              <div>
-                <Switch
-                  onChange={checked => this.handleValueChange('family', checked)}
-                  unCheckedChildren={t('common.words.No')}
-                  checkedChildren={t('common.words.Yes')}
-                  checked={basics.family}
-                />
-              </div>
-            </Col>
           </Row>
 
           <Row>
+            <Col xs={12} md={6}>
+              <ControlLabel>{t('homes.amenities_label')}</ControlLabel>
+              <div>
+                <MultiSelect
+                  theme='bootstrap3'
+                  placeholder={t('homes.amenities_placeholder')}
+                  onValuesChange={event => this.handleValueChange('AMENITIES', event.map(option => option.value))}
+                  options={HomeData.homeSettings.AMENITIES.map(amenityItem => {
+                    return { label: t(`homes.amenities.${amenityItem}`), value: amenityItem }
+                  })}
+                  values={basics.AMENITIES.map(safetyItem => {
+                    return { label: t(`homes.amenities.${safetyItem}`), value: safetyItem }
+                  })}
+                />
+              </div>
+            </Col>
             <Col xs={12} md={6}>
               <ControlLabel>{t('homes.preferences_label')}</ControlLabel>
               <div>
@@ -169,6 +156,20 @@ export default class HomeBasics extends Component {
                   values={basics.PREFERENCES.map(safetyItem => {
                     return { label: t(`homes.preferences.${safetyItem}`), value: safetyItem }
                   })}
+                />
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col xs={12} md={6}>
+              <ControlLabel>{t('homes.family_label')}</ControlLabel>
+              <div>
+                <Switch
+                  onChange={checked => this.handleValueChange('family', checked)}
+                  unCheckedChildren={t('common.words.No')}
+                  checkedChildren={t('common.words.Yes')}
+                  checked={basics.family}
                 />
               </div>
             </Col>
