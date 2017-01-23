@@ -228,7 +228,7 @@ export default class HomeCalendar extends Component {  // eslint-disable-line
                   defaultView='month'
                   defaultDate={new Date()}
                   onSelectSlot={this.handleSlotSelect}
-                  views={['month', 'agenda']}
+                  views={['month']}
                 />
               </div>
             </SpinLoader>
