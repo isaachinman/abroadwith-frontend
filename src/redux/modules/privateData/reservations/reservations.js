@@ -13,6 +13,11 @@ const APPROVE_RESERVATION_SUCCESS = 'abroadwith/APPROVE_RESERVATION_SUCCESS'
 const APPROVE_RESERVATION_FAIL = 'abroadwith/APPROVE_RESERVATION_FAIL'
 
 // Decline reservation
+const CANCEL_RESERVATION = 'abroadwith/CANCEL_RESERVATION'
+const CANCEL_RESERVATION_SUCCESS = 'abroadwith/CANCEL_RESERVATION_SUCCESS'
+const CANCEL_RESERVATION_FAIL = 'abroadwith/CANCEL_RESERVATION_FAIL'
+
+// Decline reservation
 const DECLINE_RESERVATION = 'abroadwith/DECLINE_RESERVATION'
 const DECLINE_RESERVATION_SUCCESS = 'abroadwith/DECLINE_RESERVATION_SUCCESS'
 const DECLINE_RESERVATION_FAIL = 'abroadwith/DECLINE_RESERVATION_FAIL'
@@ -51,6 +56,21 @@ export default function reducer(state = initialState, action = {}) {
         loaded: true,
       })
     case APPROVE_RESERVATION_FAIL:
+      return Object.assign({}, state, {
+        loading: false,
+        loaded: false,
+      })
+    case CANCEL_RESERVATION:
+      return Object.assign({}, state, {
+        loading: true,
+        loaded: false,
+      })
+    case CANCEL_RESERVATION_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        loaded: true,
+      })
+    case CANCEL_RESERVATION_FAIL:
       return Object.assign({}, state, {
         loading: false,
         loaded: false,
@@ -143,6 +163,46 @@ export function approveReservation(jwt, reservationID, refetchReservations) {
 
     } catch (err) {
       dispatch({ type: APPROVE_RESERVATION_FAIL, err })
+    }
+  }
+}
+
+export function cancelReservation(jwt, reservationID, refetchReservations) {
+
+  return async dispatch => {
+
+    dispatch({ type: CANCEL_RESERVATION })
+
+    try {
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/reservations/${reservationID}`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+      request.send({
+        reservationStatusRequest: 'CANCELLED',
+      })
+
+      request.end((err, { body } = {}) => {
+
+        if (err) {
+
+          dispatch({ type: CANCEL_RESERVATION_FAIL, err })
+
+        } else {
+
+          // Decline was successful
+          dispatch({ type: CANCEL_RESERVATION_SUCCESS, result: body })
+
+          // Refetch if desired
+          if (refetchReservations) {
+            dispatch(loadReservations(jwt))
+          }
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: CANCEL_RESERVATION_FAIL, err })
     }
   }
 }
