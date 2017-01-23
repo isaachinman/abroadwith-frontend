@@ -134,7 +134,7 @@ export default class PaymentMethods extends Component {
         {user.paymentMethods.map(paymentMethod => {
           return paymentMethod.type === 'PAYPAL' ? <PayPal key={paymentMethod.id} {...paymentMethod} deletePaymentMethod={this.deletePaymentMethod} /> : <CreditCard key={paymentMethod.id} {...paymentMethod} deletePaymentMethod={this.deletePaymentMethod} />
         })}
-        <Col xs={12} md={6} lg={4}>
+        <Col xs={12} md={6}>
           <Panel>
             <h4>{t('common.Add_payment_method')}</h4>
             <form id='add-payment-form'>
