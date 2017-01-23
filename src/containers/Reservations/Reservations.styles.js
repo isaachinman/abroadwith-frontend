@@ -3,7 +3,7 @@ export default {
     marginTop: 20,
   },
   mainPanel: {
-    minHeight: 'calc(100vh - 260px)',
+    minHeight: 'calc(100vh - 300px)',
   },
   guestPhoto: {
     width: 100,
