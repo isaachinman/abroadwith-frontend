@@ -3,20 +3,25 @@ import superagent from 'superagent'
 import config from 'config.js'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 
-// Set payout method as default
+// Request verification email
 const REQUEST_VERIFICATION_EMAIL = 'abroadwith/REQUEST_VERIFICATION_EMAIL'
 const REQUEST_VERIFICATION_EMAIL_SUCCESS = 'abroadwith/REQUEST_VERIFICATION_EMAIL_SUCCESS'
 const REQUEST_VERIFICATION_EMAIL_FAIL = 'abroadwith/REQUEST_VERIFICATION_EMAIL_FAIL'
 
-// Delete payment method
+// Request verification sms
 const REQUEST_VERIFICATION_SMS = 'abroadwith/REQUEST_VERIFICATION_SMS'
 const REQUEST_VERIFICATION_SMS_SUCCESS = 'abroadwith/REQUEST_VERIFICATION_SMS_SUCCESS'
 const REQUEST_VERIFICATION_SMS_FAIL = 'abroadwith/REQUEST_VERIFICATION_SMS_FAIL'
 
-// Delete payout method
+// Verify phone
 const VERIFY_PHONE = 'abroadwith/VERIFY_PHONE'
 const VERIFY_PHONE_SUCCESS = 'abroadwith/VERIFY_PHONE_SUCCESS'
 const VERIFY_PHONE_FAIL = 'abroadwith/VERIFY_PHONE_FAIL'
+
+// Verify email
+const VERIFY_EMAIL = 'abroadwith/VERIFY_EMAIL'
+const VERIFY_EMAIL_SUCCESS = 'abroadwith/VERIFY_EMAIL_SUCCESS'
+const VERIFY_EMAIL_FAIL = 'abroadwith/VERIFY_EMAIL_FAIL'
 
 const initialState = {
   email: {
@@ -51,6 +56,35 @@ export default function reducer(state = initialState, action = {}) {
       }
     }
     case REQUEST_VERIFICATION_EMAIL_FAIL: {
+      return {
+        ...state,
+        email: {
+          loading: false,
+          loaded: false,
+          error: true,
+          errorMessage: action.error,
+        },
+      }
+    }
+    case VERIFY_EMAIL: {
+      return {
+        ...state,
+        email: {
+          loading: true,
+          loaded: false,
+        },
+      }
+    }
+    case VERIFY_EMAIL_SUCCESS: {
+      return {
+        ...state,
+        email: {
+          loading: false,
+          loaded: true,
+        },
+      }
+    }
+    case VERIFY_EMAIL_FAIL: {
       return {
         ...state,
         email: {
@@ -202,6 +236,46 @@ export function verifyPhone(jwt, verifyPhoneObject, callback) {
 
     } catch (err) {
       dispatch({ type: VERIFY_PHONE_FAIL, err })
+    }
+  }
+
+}
+
+export function verifyEmail(jwt, secret, key, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
+
+  return async dispatch => {
+
+    dispatch({ type: VERIFY_EMAIL })
+
+    try {
+
+      const request = superagent.post(`${config.apiHost}/verify/email?secret=${secret}&key=${key}`)
+
+      request.end((err) => {
+
+        if (err) {
+
+          dispatch({ type: VERIFY_EMAIL_FAIL, err })
+
+        } else {
+
+          // Verification was successful
+          dispatch({ type: VERIFY_EMAIL_SUCCESS })
+
+          // Reload the user object
+          dispatch(loadUserWithAuth(jwt))
+
+          // Fire callback
+          cb()
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: VERIFY_EMAIL_FAIL, err })
     }
   }
 
