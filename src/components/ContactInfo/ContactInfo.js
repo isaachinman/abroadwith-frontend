@@ -38,12 +38,12 @@ export default class ContactInfo extends Component {
     // Perform general validation for strings
     if (type === 'string') {
       const isValid = validator.isLength(event.target.value, { min: 2 })
-      modifiedValidation[`${field}`] = { uiState: isValid ? 'success' : 'error', value: isValid ? event.target.value : null }
+      modifiedValidation[field] = { uiState: isValid ? 'success' : 'error', value: isValid ? event.target.value : null }
     }
 
     // Only proceed to API action if the field is valid
-    if (modifiedValidation[`${field}`].uiState === 'success') {
-      const newUserObject = Object.assign({}, user, { [`${field}`]: modifiedValidation[`${field}`].value })
+    if (modifiedValidation[field].uiState === 'success') {
+      const newUserObject = Object.assign({}, user, { [field]: modifiedValidation[field].value })
       this.props.updateUser(newUserObject)
     }
 

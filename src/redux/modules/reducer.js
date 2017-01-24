@@ -14,6 +14,7 @@ import { loadHomestay, loadUser } from './publicData'
 import messaging from './privateData/messaging/messaging'
 import modals from './ui/modals'
 import receipts from './privateData/receipts/receipts'
+import reviews from './privateData/reviews/reviews'
 import signupStatus from './signup'
 import verifications from './privateData/users/verifications'
 
@@ -28,6 +29,7 @@ export default combineReducers({
     homes: loadHomestayWithAuth,
     receipts,
     reservations,
+    reviews,
   }),
   publicData: combineReducers({
     homestays: loadHomestay,

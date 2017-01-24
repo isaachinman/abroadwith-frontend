@@ -93,9 +93,9 @@ export default class AddPayoutMethod extends Component {
     const payoutObject = this.state.newBankObject
 
     if (isAddressField) {
-      payoutObject.address[`${fieldName}`] = value
+      payoutObject.address[fieldName] = value
     } else {
-      payoutObject[`${fieldName}`] = value
+      payoutObject[fieldName] = value
     }
 
     this.setState({ newBankObject: payoutObject })
@@ -106,9 +106,9 @@ export default class AddPayoutMethod extends Component {
     const payoutObject = this.state.newPayPalObject
 
     if (isAddressField) {
-      payoutObject.address[`${fieldName}`] = value
+      payoutObject.address[fieldName] = value
     } else {
-      payoutObject[`${fieldName}`] = value
+      payoutObject[fieldName] = value
     }
 
     this.setState({ newPayPalObject: payoutObject })

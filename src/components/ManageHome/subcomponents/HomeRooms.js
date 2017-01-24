@@ -47,7 +47,7 @@ export default class HomeRooms extends Component {
   handleValueChange = (roomIsNew, roomID, field, value) => {
     const state = this.state
     const objectToAffect = roomIsNew ? state.newRoom : state.rooms.filter(room => room.id === roomID)[0]
-    objectToAffect[`${field}`] = value
+    objectToAffect[field] = value
     this.setState(state)
   }
 

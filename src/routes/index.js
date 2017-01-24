@@ -138,6 +138,16 @@ export default (store) => {
       cb(null, require('../containers/ReservationDetails/ReservationDetails'))
     }, 'reservations')
   }
+  const getReview = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/Review/Review'))
+    }, 'reviews')
+  }
+  const getReviewHome = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../components/ReviewHome/ReviewHome'))
+    }, 'reviews')
+  }
   const getSettings = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/Settings/Settings'))
@@ -188,6 +198,9 @@ export default (store) => {
               <Route path='user/:userID/bookings/:bookingID/receipt' getComponent={getReceipt} />
               <Route path='reservations' getComponent={getReservations} />
               <Route path='reservation/:reservationID' getComponent={getReservationDetails} />
+              <Route path='review' getComponent={getReview}>
+                <Route path='home/:homeID' getComponent={getReviewHome} />
+              </Route>
               <Route path='settings' getComponent={getSettings} />
             </Route>
 
