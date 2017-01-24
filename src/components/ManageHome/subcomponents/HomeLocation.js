@@ -52,7 +52,7 @@ export default class HomeLocation extends Component {
 
   handleAddressChange = (value, field) => {
     const { newLocation } = this.state
-    newLocation[`${field}`] = value
+    newLocation[field] = value
     this.setState({ newLocation }, this.geolocateAddress)
   }
 

@@ -12,10 +12,19 @@ import config from 'config'
 import Currencies from 'data/constants/Currencies'
 import Fees from 'data/constants/Fees'
 import FontAwesome from 'react-fontawesome'
+import HomestayBookingStatusCodes from 'data/constants/HomestayBookingStatusCodes'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
 
 // Relative imports
 import styles from './Reservations.styles'
+
+const orderOfPriority = {
+  pending: 1,
+  approved: 2,
+  cancelled: 3,
+  declined: 4,
+  archived: 5,
+}
 
 @connect(
   state => ({
@@ -68,7 +77,7 @@ export default class Reservations extends Component {
                   {!reservations.loading && reservations.loaded && reservations.data && reservations.data.length > 0 &&
                     <Table
                       className='table'
-                      defaultSort={{ column: statusColumnName, direction: 'desc' }}
+                      defaultSort={{ column: statusColumnName, direction: 'asc' }}
                       filterable={[guestColumnName]}
                       filterPlaceholder={t('reservations.search_by_guest_name')}
                       itemsPerPage={5}
@@ -97,7 +106,7 @@ export default class Reservations extends Component {
                                 }
                               </div>
                             </Td>
-                            <Td className='status-column' column={statusColumnName} value={reservation.status}>
+                            <Td className='status-column' column={statusColumnName} value={orderOfPriority[Object.keys(HomestayBookingStatusCodes).filter(statusCategory => HomestayBookingStatusCodes[statusCategory].indexOf(reservation.status) > -1)[0]]}>
                               <div>
                                 <div>{t(`reservations.status_codes.${reservation.status}`)}</div>
                               </div>

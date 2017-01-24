@@ -13,7 +13,7 @@ export default class HomeDescription extends Component {
 
   handleValueChange = debounce((field, value) => {
     const { description } = this.state
-    description[`${field}`] = value
+    description[field] = value
     this.setState({ description })
   }, 200)
 

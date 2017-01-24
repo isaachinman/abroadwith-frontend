@@ -37,13 +37,13 @@ export default class HomeImmersions extends Component {
 
   handleValueChange = (immersionType, field, value) => {
     const { immersions } = this.state
-    immersions[`${immersionType}`][`${field}`] = value
+    immersions[immersionType][field] = value
     this.setState({ immersions })
   }
 
   toggleImmersion = immersion => {
     const { immersions } = this.state
-    immersions[`${immersion}`].isActive = !immersions[`${immersion}`].isActive
+    immersions[immersion].isActive = !immersions[immersion].isActive
     this.setState({ immersions })
   }
 

@@ -32,7 +32,7 @@ export default class HomeBasics extends Component {
 
   handleValueChange = (field, data) => {
     const basics = this.state.basics
-    basics[`${field}`] = data
+    basics[field] = data
     this.setState({ basics })
   }
 
