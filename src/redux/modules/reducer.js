@@ -7,6 +7,7 @@ import { routerReducer } from 'react-router-redux'
 import auth from './auth'
 import clientToken from './payments/client-token'
 import currency from './ui/currency'
+import educators from './publicData/educators/loadEducator'
 import invoices from './privateData/invoices/invoices'
 import locale from './ui/locale'
 import { loadUserWithAuth, loadHomestayWithAuth, reservations } from './privateData/'
@@ -32,6 +33,7 @@ export default combineReducers({
     reviews,
   }),
   publicData: combineReducers({
+    educators,
     homestays: loadHomestay,
     users: loadUser,
   }),

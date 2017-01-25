@@ -143,6 +143,11 @@ export default (store) => {
       cb(null, require('../containers/Review/Review'))
     }, 'reviews')
   }
+  const getReviewEducator = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../components/ReviewEducator/ReviewEducator'))
+    }, 'reviews')
+  }
   const getReviewHome = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../components/ReviewHome/ReviewHome'))
@@ -204,6 +209,7 @@ export default (store) => {
               <Route path='reservations' getComponent={getReservations} />
               <Route path='reservation/:reservationID' getComponent={getReservationDetails} />
               <Route path='review' getComponent={getReview}>
+                <Route path='educator/:educatorID' getComponent={getReviewEducator} />
                 <Route path='home/:homeID' getComponent={getReviewHome} />
                 <Route path='user/:userID' getComponent={getReviewUser} />
               </Route>

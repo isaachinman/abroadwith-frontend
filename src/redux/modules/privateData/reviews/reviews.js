@@ -2,6 +2,11 @@ import jwtDecode from 'jwt-decode'
 import config from 'config'
 import superagent from 'superagent'
 
+// Create educator review
+const CREATE_EDUCATOR_REVIEW = 'abroadwith/CREATE_EDUCATOR_REVIEW'
+const CREATE_EDUCATOR_REVIEW_SUCCESS = 'abroadwith/CREATE_EDUCATOR_REVIEW_SUCCESS'
+const CREATE_EDUCATOR_REVIEW_FAIL = 'abroadwith/CREATE_EDUCATOR_REVIEW_FAIL'
+
 // Create home review
 const CREATE_HOME_REVIEW = 'abroadwith/CREATE_HOME_REVIEW'
 const CREATE_HOME_REVIEW_SUCCESS = 'abroadwith/CREATE_HOME_REVIEW_SUCCESS'
@@ -19,6 +24,22 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    case CREATE_EDUCATOR_REVIEW:
+      return Object.assign({}, state, {
+        loading: true,
+        loaded: false,
+      })
+    case CREATE_EDUCATOR_REVIEW_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        loaded: true,
+        data: action.result,
+      })
+    case CREATE_EDUCATOR_REVIEW_FAIL:
+      return Object.assign({}, state, {
+        loading: false,
+        loaded: false,
+      })
     case CREATE_HOME_REVIEW:
       return Object.assign({}, state, {
         loading: true,
@@ -53,6 +74,44 @@ export default function reducer(state = initialState, action = {}) {
       })
     default:
       return state
+  }
+}
+
+export function createEducatorReview(jwt, reviewObject, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
+
+  return async dispatch => {
+
+    dispatch({ type: CREATE_EDUCATOR_REVIEW })
+
+    try {
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/educatorReviews`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+      request.send(reviewObject)
+
+      request.end((err, { body } = {}) => {
+
+        if (err) {
+
+          dispatch({ type: CREATE_EDUCATOR_REVIEW_FAIL, err })
+
+        } else {
+
+          // Creation was successful
+          dispatch({ type: CREATE_EDUCATOR_REVIEW_SUCCESS, result: body })
+
+          // Callback
+          cb()
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: CREATE_EDUCATOR_REVIEW_FAIL, err })
+    }
   }
 }
 
