@@ -1,3 +1,6 @@
 // Manage Home
 
 1. Need to change message/thread endpoint to include homeID
+2. Make teacher certificate upload functional
+3. Add maxlengths to all input[type=text] and textareas
+4. Create maxlength counter to extend react-bootstrap
