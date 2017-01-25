@@ -37,3 +37,5 @@ Feedback from TheKids
 15) Look at Lianne's PDF for "Diet wishes" -- toggles to hide more complex UI that not all users will need
 
 16) Stickied final overview in all steps of booking process
+
+17) Consider not including homestay upsell in course booking and just adding to an email list
