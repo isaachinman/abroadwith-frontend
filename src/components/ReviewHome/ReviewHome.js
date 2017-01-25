@@ -76,7 +76,8 @@ export default class ReviewHome extends Component {
 
     const { homestay, reviews, t } = this.props
     const formIsValid = this.validateForm()
-    console.log(this)
+
+    console.log('config :', config)
 
     return (
       <Panel

@@ -148,6 +148,11 @@ export default (store) => {
       cb(null, require('../components/ReviewHome/ReviewHome'))
     }, 'reviews')
   }
+  const getReviewUser = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../components/ReviewUser/ReviewUser'))
+    }, 'reviews')
+  }
   const getSettings = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/Settings/Settings'))
@@ -200,6 +205,7 @@ export default (store) => {
               <Route path='reservation/:reservationID' getComponent={getReservationDetails} />
               <Route path='review' getComponent={getReview}>
                 <Route path='home/:homeID' getComponent={getReviewHome} />
+                <Route path='user/:userID' getComponent={getReviewUser} />
               </Route>
               <Route path='settings' getComponent={getSettings} />
             </Route>
