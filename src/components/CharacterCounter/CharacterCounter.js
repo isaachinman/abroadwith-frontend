@@ -22,7 +22,6 @@ export default class CharacterCounter extends Component {
 
   componentDidMount() {
     const input = this.container.firstChild
-    console.log('input: ', input)
     const inputRender = () => { this.setState({ valueLength: input.value.length }) }
     input.addEventListener('keyup', inputRender)
     inputRender()
@@ -30,16 +29,14 @@ export default class CharacterCounter extends Component {
 
   render() {
 
-    console.log(this)
-
     const { valueLength } = this.state
-    const { children } = this.props
+    const { children, style } = this.props
     const maxLength = (children.props.type === 'text' || children.props.componentClass === 'textarea') && children.props.maxLength ? children.props.maxLength : false
 
     return (
       <div ref={div => this.container = div}>
         {children}
-        <span className='form-control-character-counter' style={styles.counter}>
+        <span className='form-control-character-counter' style={style ? Object.assign({}, styles.counter) : styles.counter}>
           {valueLength && maxLength &&
             <span>{valueLength}/{maxLength}</span>
           }
@@ -51,5 +48,6 @@ export default class CharacterCounter extends Component {
 }
 
 CharacterCounter.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.element.isRequired,
+  style: PropTypes.object,
 }
