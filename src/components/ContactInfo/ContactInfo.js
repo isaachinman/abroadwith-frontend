@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Col, ControlLabel, FormControl, FormGroup, Row } from 'react-bootstrap'
 import { translate } from 'react-i18next'
+import CharacterCounter from 'components/CharacterCounter/CharacterCounter'
 import validator from 'validator'
 import Geosuggest from 'react-geosuggest'
 
@@ -70,13 +71,16 @@ export default class ContactInfo extends Component {
           <Col xs={12} sm={6} md={4}>
             <FormGroup validationState={firstName.uiState}>
               <ControlLabel>{t('common.First_name')}</ControlLabel>
-              <FormControl
-                type='text'
-                label={t('common.First_name')}
-                defaultValue={user.firstName}
-                placeholder={t('common.First_name')}
-                onChange={event => this.handleChange(event, 'string', 'firstName')}
-              />
+              <CharacterCounter>
+                <FormControl
+                  type='text'
+                  label={t('common.First_name')}
+                  defaultValue={user.firstName}
+                  placeholder={t('common.First_name')}
+                  onChange={event => this.handleChange(event, 'string', 'firstName')}
+                  maxLength={10}
+                />
+              </CharacterCounter>
               <FormControl.Feedback />
             </FormGroup>
           </Col>
