@@ -1,15 +1,15 @@
 require('babel-polyfill')
 
 const img = {
-  IMGIX: {
-    isProduction: false,
-    img: 'http://img.test-abroadwith.com',
-  },
   S3: {
     isProduction: true,
+    img: 'http://img.test-abroadwith.com',
+  },
+  IMGIX: {
+    isProduction: false,
     img: 'https://abroadwith.imgix.net',
   },
-}[process.env.IMG || 'IMGIX']
+}[process.env.IMG || 'S3']
 
 module.exports = Object.assign({
   host: process.env.HOST || 'localhost',

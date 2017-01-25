@@ -100,8 +100,6 @@ export default class App extends Component {
 
     const { jwt, user, route } = this.props
 
-    console.log(user)
-
     return (
       <StyleRoot>
         <div style={styles.appContainer}>
