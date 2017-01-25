@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
 import { Button, Col, ControlLabel, FormControl, FormGroup, Row } from 'react-bootstrap'
+import CharacterCounter from 'components/CharacterCounter/CharacterCounter'
 import debounce from 'debounce'
 
 @translate()
@@ -37,37 +38,52 @@ export default class HomeDescription extends Component {
 
         <Row>
           <Col xs={12}>
-            <ControlLabel>{t('manage_home.description_summary_label')}*</ControlLabel>
-            <FormControl
-              componentClass='textarea'
-              placeholder={t('manage_home.description_summary_placeholder')}
-              style={{ minHeight: 160 }}
-              defaultValue={description.summary}
-              onChange={event => this.handleValueChange('summary', event.target.value)}
-            />
+            <FormGroup>
+              <ControlLabel>{t('manage_home.description_summary_label')}*</ControlLabel>
+              <CharacterCounter>
+                <FormControl
+                  componentClass='textarea'
+                  placeholder={t('manage_home.description_summary_placeholder')}
+                  style={{ minHeight: 160 }}
+                  defaultValue={description.summary}
+                  onChange={event => this.handleValueChange('summary', event.target.value)}
+                  maxLength={510}
+                />
+              </CharacterCounter>
+            </FormGroup>
           </Col>
         </Row>
 
         <Row>
           <Col xs={12} md={6}>
-            <ControlLabel>{t('manage_home.description_rules_label')}</ControlLabel>
-            <FormControl
-              componentClass='textarea'
-              placeholder={t('manage_home.description_rules_placeholder')}
-              style={{ minHeight: 160 }}
-              defaultValue={description.rules}
-              onChange={event => this.handleValueChange('rules', event.target.value)}
-            />
+            <FormGroup>
+              <ControlLabel>{t('manage_home.description_rules_label')}</ControlLabel>
+              <CharacterCounter>
+                <FormControl
+                  componentClass='textarea'
+                  placeholder={t('manage_home.description_rules_placeholder')}
+                  style={{ minHeight: 160 }}
+                  defaultValue={description.rules}
+                  onChange={event => this.handleValueChange('rules', event.target.value)}
+                  maxLength={255}
+                />
+              </CharacterCounter>
+            </FormGroup>
           </Col>
           <Col xs={12} md={6}>
-            <ControlLabel>{t('manage_home.description_neighbourhood_label')}</ControlLabel>
-            <FormControl
-              componentClass='textarea'
-              placeholder={t('manage_home.description_neighbourhood_placeholder')}
-              style={{ minHeight: 160 }}
-              defaultValue={description.neighbourhood}
-              onChange={event => this.handleValueChange('neighbourhood', event.target.value)}
-            />
+            <FormGroup>
+              <ControlLabel>{t('manage_home.description_neighbourhood_label')}</ControlLabel>
+              <CharacterCounter>
+                <FormControl
+                  componentClass='textarea'
+                  placeholder={t('manage_home.description_neighbourhood_placeholder')}
+                  style={{ minHeight: 160 }}
+                  defaultValue={description.neighbourhood}
+                  onChange={event => this.handleValueChange('neighbourhood', event.target.value)}
+                  maxLength={255}
+                />
+              </CharacterCounter>
+            </FormGroup>
           </Col>
         </Row>
 

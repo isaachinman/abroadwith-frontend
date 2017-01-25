@@ -78,7 +78,7 @@ export default class ContactInfo extends Component {
                   defaultValue={user.firstName}
                   placeholder={t('common.First_name')}
                   onChange={event => this.handleChange(event, 'string', 'firstName')}
-                  maxLength={10}
+                  maxLength={50}
                 />
               </CharacterCounter>
               <FormControl.Feedback />
@@ -87,13 +87,16 @@ export default class ContactInfo extends Component {
           <Col xs={12} sm={6} md={4}>
             <FormGroup validationState={lastName.uiState}>
               <ControlLabel>{t('common.Last_name')}</ControlLabel>
-              <FormControl
-                type='text'
-                label={t('common.First_name')}
-                defaultValue={user.lastName}
-                placeholder={t('common.First_name')}
-                onChange={event => this.handleChange(event, 'string', 'lastName')}
-              />
+              <CharacterCounter>
+                <FormControl
+                  type='text'
+                  label={t('common.First_name')}
+                  defaultValue={user.lastName}
+                  placeholder={t('common.First_name')}
+                  onChange={event => this.handleChange(event, 'string', 'lastName')}
+                  maxLength={50}
+                />
+              </CharacterCounter>
               <FormControl.Feedback />
             </FormGroup>
           </Col>
