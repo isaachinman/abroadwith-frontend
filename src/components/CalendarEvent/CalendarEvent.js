@@ -100,7 +100,7 @@ export default class CalendarEvent extends Component {
                 <Row>
                   <Col xs={12}>
                     <Link to='/reservations'>
-                      <Button onClick={() => this.removeBlockedRange(event.roomID, event.slotID)} bsStyle='primary' block>{t('reservations.title')}</Button>
+                      <Button bsStyle='primary' block>{t('reservations.title')}</Button>
                     </Link>
                   </Col>
                 </Row>

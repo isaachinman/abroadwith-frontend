@@ -6,7 +6,6 @@ import { openVerifyEmailModal } from 'redux/modules/ui/modals'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { load as loadHomeWithAuth } from './loadHomeWithAuth'
 
-
 // Create homestay
 const CREATE_HOMESTAY = 'abroadwith/CREATE_HOMESTAY'
 const CREATE_HOMESTAY_SUCCESS = 'abroadwith/CREATE_HOMESTAY_SUCCESS'
@@ -33,7 +32,6 @@ const DELETE_HOMESTAY_SUCCESS = 'abroadwith/DELETE_HOMESTAY_SUCCESS'
 const DELETE_HOMESTAY_FAIL = 'abroadwith/DELETE_HOMESTAY_FAIL'
 
 export function createHomestay(jwt, redirectToManageHome) {
-  console.log(redirectToManageHome)
   return async dispatch => {
 
     dispatch({ type: CREATE_HOMESTAY })

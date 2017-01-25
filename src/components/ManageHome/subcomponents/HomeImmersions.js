@@ -35,6 +35,12 @@ export default class HomeImmersions extends Component {
     },
   }
 
+  componentWillReceiveProps = nextProps => {
+    if (this.props.home.certificateLoading === true && nextProps.home.certificateLoading === false) {
+      this.setState({ certificationModalOpen: false })
+    }
+  }
+
   handleValueChange = (immersionType, field, value) => {
     const { immersions } = this.state
     immersions[immersionType][field] = value
@@ -426,6 +432,21 @@ export default class HomeImmersions extends Component {
                       <Button onClick={this.openCertificationModal} bsStyle='primary' bsSize='xsmall'>{t('manage_home.add_a_certificate')}</Button>
                     </Col>
                   </Row>
+                  {immersions.teacher.certifications && immersions.teacher.certifications.length > 0 &&
+                    <Row>
+                      <Col xs={12}>
+                        <small>
+                          {immersions.teacher.certifications.map(cert => {
+                            return (
+                              <div key={`cert${cert.id}`}>
+                                {t('manage_home.certificate_name_label')}: {cert.name}
+                              </div>
+                            )
+                          })}
+                        </small>
+                      </Col>
+                    </Row>
+                  }
                 </Panel>
               </div>
             </Collapse>
@@ -461,7 +482,7 @@ export default class HomeImmersions extends Component {
             <Modal.Title>{t('manage_home.certificate_modal_title')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <UploadTeacherCertifications />
+            <UploadTeacherCertifications {...this.props} />
           </Modal.Body>
         </Modal>
       </span>

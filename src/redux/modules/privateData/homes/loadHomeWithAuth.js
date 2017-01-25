@@ -12,6 +12,11 @@ const UPDATE_HOMESTAY = 'abroadwith/UPDATE_HOMESTAY'
 const UPDATE_HOMESTAY_SUCCESS = 'abroadwith/UPDATE_HOMESTAY_SUCCESS'
 const UPDATE_HOMESTAY_FAIL = 'abroadwith/UPDATE_HOMESTAY_FAIL'
 
+// Add teacher certificate
+const ADD_TEACHER_CERTIFICATE = 'abroadwith/ADD_TEACHER_CERTIFICATE'
+const ADD_TEACHER_CERTIFICATE_SUCCESS = 'abroadwith/ADD_TEACHER_CERTIFICATE_SUCCESS'
+const ADD_TEACHER_CERTIFICATE_FAIL = 'abroadwith/ADD_TEACHER_CERTIFICATE_FAIL'
+
 // Load homestay calendar
 const LOAD_HOMESTAY_CALENDAR = 'abroadwith/LOAD_HOMESTAY_CALENDAR'
 const LOAD_HOMESTAY_CALENDAR_SUCCESS = 'abroadwith/LOAD_HOMESTAY_CALENDAR_SUCCESS'
@@ -126,6 +131,31 @@ export default function reducer(state = {}, action = {}) {
       }
       break
     }
+    case ADD_TEACHER_CERTIFICATE: {
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          certificateLoading: true,
+        }),
+      }
+    }
+    case ADD_TEACHER_CERTIFICATE_SUCCESS: {
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          certificateLoading: false,
+        }),
+      }
+    }
+    case ADD_TEACHER_CERTIFICATE_FAIL: {
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          certificateLoading: false,
+          error: action.error,
+        }),
+      }
+    }
     case LOAD_HOMESTAY_WITH_AUTH:
       if (!state[action.homeID]) {
         return {
@@ -150,6 +180,7 @@ export default function reducer(state = {}, action = {}) {
           loading: false,
           loaded: true,
           data: action.result,
+          certificateLoading: false,
         },
       }
     case LOAD_HOMESTAY_WITH_AUTH_FAIL:
@@ -276,7 +307,7 @@ export function updateHomestay(jwt, homeID, originalObject, notificationMessage)
 
   // Clean the data
   /* eslint-disable */
-  const homeObject = Object.assign({}, originalObject, {})
+  const homeObject = Object.assign({}, originalObject)
   delete homeObject.published
   delete homeObject.GENERAL
   delete homeObject.homeActivationResponse
@@ -315,6 +346,57 @@ export function updateHomestay(jwt, homeID, originalObject, notificationMessage)
 
     } catch (err) {
       dispatch({ type: UPDATE_HOMESTAY_FAIL, homeID, err })
+    }
+  }
+}
+
+export function addTeacherCertificate(jwt, homeID, homeObject, newCertificate, newCertificateImg) {
+
+  console.log(jwt, homeID, homeObject, newCertificate, newCertificateImg)
+
+  return async dispatch => {
+
+    dispatch({ type: ADD_TEACHER_CERTIFICATE, homeID })
+
+    try {
+
+      const request = superagent.post(`/upload/users/${jwtDecode(jwt).rid}/certificate`)
+      request.set({ abroadauth: `Bearer ${(jwt)}` })
+      request.send(newCertificateImg)
+      request.attach('file', newCertificateImg)
+
+      request.end((err, res = {}) => {
+
+        if (err || res.status !== 200) {
+
+          dispatch({ type: ADD_TEACHER_CERTIFICATE_FAIL, homeID, err })
+
+        } else {
+
+          const finalCert = Object.assign({}, newCertificate, {
+            img: JSON.parse(res.text).location,
+          })
+
+          const newTeacherCerts = Object.assign(homeObject.immersions.teacher, {
+            certifications: homeObject.immersions.teacher.certifications ?
+                              homeObject.immersions.teacher.certifications.concat(finalCert) :
+                              [].push(finalCert),
+          })
+
+          const newHomeObj = homeObject
+          newHomeObj.immersions.teacher = newTeacherCerts
+
+          dispatch(updateHomestay(jwt, homeID, newHomeObj))
+
+          // // Request was successful
+          dispatch({ type: ADD_TEACHER_CERTIFICATE_SUCCESS, homeID, result: res })
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: ADD_TEACHER_CERTIFICATE_FAIL, homeID, err })
     }
   }
 }
