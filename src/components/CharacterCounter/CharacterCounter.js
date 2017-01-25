@@ -4,12 +4,13 @@ import React, { Component, PropTypes } from 'react'
 // Styles
 const styles = {
   counter: {
-    height: 12,
+    height: 11,
     position: 'absolute',
     bottom: -12,
     right: 0,
-    fontSize: 12,
-    lineHeight: '12px',
+    fontSize: 11,
+    lineHeight: '11px',
+    color: '#C0C0C0',
   },
 }
 
@@ -21,29 +22,25 @@ export default class CharacterCounter extends Component {
 
   componentDidMount() {
     const input = this.container.firstChild
+    console.log('input: ', input)
     const inputRender = () => { this.setState({ valueLength: input.value.length }) }
-    input.addEventListener('input', inputRender)
+    input.addEventListener('keyup', inputRender)
     inputRender()
   }
 
   render() {
 
-    const { valueLength } = this.state
-    const { children } = this.props
-
     console.log(this)
 
-    let maxLength = null
-
-    if (['text', 'textarea'].includes(children.props.type) && children.props.maxLength) {
-      maxLength = children.props.maxLength
-    }
+    const { valueLength } = this.state
+    const { children } = this.props
+    const maxLength = (children.props.type === 'text' || children.props.componentClass === 'textarea') && children.props.maxLength ? children.props.maxLength : false
 
     return (
       <div ref={div => this.container = div}>
         {children}
         <span className='form-control-character-counter' style={styles.counter}>
-          {maxLength && valueLength &&
+          {valueLength && maxLength &&
             <span>{valueLength}/{maxLength}</span>
           }
         </span>
