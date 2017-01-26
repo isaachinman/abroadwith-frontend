@@ -9,7 +9,16 @@ const img = {
     isProduction: false,
     img: 'https://abroadwith.imgix.net',
   },
-}[process.env.IMG || 'S3']
+}[process.env.IMG || 'IMGIX']
+
+const solr = {
+  PROD: {
+    solr: 'http://solr.test-abroadwith.com:8983',
+  },
+  DEV: {
+    solr: 'http://solr.test-abroadwith.com:8983',
+  },
+}[process.env.SOLR || 'PROD']
 
 module.exports = Object.assign({
   host: process.env.HOST || 'localhost',
@@ -31,4 +40,4 @@ module.exports = Object.assign({
     },
   },
 
-}, img)
+}, img, solr)

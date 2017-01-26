@@ -22,6 +22,13 @@ import React, { Component } from 'react'
   })
 )
 export default class Homestay extends Component {
+
+  componentDidMount = () => {
+    fetch(`/public/room-availability-calendar/${this.props.homestay.rooms[0].id}`, res => {
+      console.log('res: ', res)
+    })
+  }
+
   render() {
 
     const { error, homestay, loading } = this.props
