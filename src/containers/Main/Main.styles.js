@@ -1,53 +1,71 @@
-import { havelockBlue, accentBg } from 'styles/colors'
+import { darkBlue, headerPink } from 'styles/colors'
 
 export default {
   hero: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    textAlign: 'center',
-    background: havelockBlue,
+    justifyContent: 'center',
+    background: darkBlue,
     color: 'white',
-    padding: '60px 0 0 0',
+    height: '60vh',
+    minHeight: 340,
+    marginBottom: 30,
   },
-  heroInputRow: {
-    fontSize: '16px !important',
-    width: '100%',
-    background: 'rgba(50,50,50,0.65)',
-    marginTop: 100,
-    padding: 30,
-  },
-  h1: {
-    fontSize: '6rem',
-  },
-  h2: {
-    color: accentBg,
-  },
-  button: {
-    marginTop: 50,
+  heroTextContent: {
+    maxWidth: 600,
+    margin: '0 auto',
+    paddingBottom: 40,
   },
   container: {
     maxWidth: '100vw',
     minHeight: 500,
     paddingTop: 50,
   },
-  guestSelect: {
-    borderRadius: 0,
-    WebkitAppearance: 'none',
-    padding: '0 20px 0 16px',
-    lineHeight: '44px',
+  searchBtn: {
+    background: headerPink,
+    border: 'none',
+    height: 60,
+    borderRadius: '0 5px 5px 0',
+    color: 'white',
+    fontSize: 16,
+    padding: '0 25px',
   },
-  inputFieldLeft: {
-    borderRadius: '6px 0 0 6px',
+  heroInputRow: {
+    position: 'absolute',
+    bottom: -30,
+    margin: '0 auto',
+    background: 'white',
+    borderRadius: 5,
+    boxShadow: '5px 5px 13px 0 rgba(0,0,0,0.15)',
   },
-  inputFieldMiddle: {
-    borderRadius: 0,
+  relative: {
+    position: 'relative',
   },
-  inputFieldRight: {
-    borderRadius: '0 6px 6px 0',
+  centerAlign: {
+    textAlign: 'center',
   },
-  submitBtn: {
-    height: 46,
-    minWidth: 80,
+  paddedGrid: {
+    padding: '80px 0 30px 0',
+  },
+  immersionDescription: {
+    minHeight: 160,
+  },
+  immersionBtn: {
+    color: 'white',
+    border: 'none',
+    padding: '3px 15px',
+  },
+  hostBtnRow: {
+    color: 'white',
+    textAlign: 'center',
+    padding: '20px 0',
+  },
+  hostBtn: {
+    color: 'white',
+    border: 'none',
+    padding: '3px 15px',
+    margin: '5px 10px',
   },
 }

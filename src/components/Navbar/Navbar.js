@@ -55,13 +55,13 @@ export default class Navbar extends Component {
 
   render() {
 
-    const { dispatch, jwt, user, t, token, title } = this.props
+    const { dispatch, jwt, user, t, token } = this.props
 
     const hostUI = jwt && user && user.data && user.data.homeIds.length > 0
     const guestUI = jwt ? !hostUI : false
 
     return (
-      <span>
+      <span style={styles.navbarContainer}>
         <BootstrapNavbar
           collapseOnSelect
           fixedTop
@@ -70,8 +70,7 @@ export default class Navbar extends Component {
           <BootstrapNavbar.Header>
             <BootstrapNavbar.Brand>
               <IndexLink to='/'>
-                <span style={styles.brandname}>{title}</span>
-                <Logo size={25} color='blue' componentStyle={styles.brand} />
+                <Logo size={148} color='blue' />
               </IndexLink>
             </BootstrapNavbar.Brand>
             <BootstrapNavbar.Toggle><FontAwesome name={this.state.navExpanded ? 'caret-up' : 'caret-down'} /></BootstrapNavbar.Toggle>

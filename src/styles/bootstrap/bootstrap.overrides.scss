@@ -3,6 +3,60 @@
 *
 */
 
+// Panel
+.panel {
+  box-shadow: 5px 5px 13px 0 rgba(0,0,0,0.15);
+}
+
+// Inline search unit
+.inline-search-unit {
+  .bootstrap-typeahead-input-main {
+    min-width: 200px;
+  }
+  .bootstrap-typeahead, .geosuggest, .react-selectize {
+    width: auto;
+    display: inline-block;
+  }
+  input.form-control {
+    font-size: 14px;
+    color: $darkBlue;
+    &::-webkit-input-placeholder {
+      color: $darkBlue;
+    }
+    ::-moz-placeholder {  /* Firefox 19+ */
+      color: $darkBlue;
+    }
+    padding: 0 10px;
+    height: 60px;
+    border: none;
+  }
+  .DateInput__label, .DateInput__display-text {
+    font-size: 14px;
+    color: $darkBlue;
+    text-align: center;
+  }
+  .react-selectize-control, .react-selectize.root-node .react-selectize-control .react-selectize-toggle-button-container {
+    height: 60px;
+  }
+  .simple-value {
+    font-size: 14px;
+    color: $darkBlue;
+    font-family: 'Karla';
+  }
+  .react-selectize.bootstrap3.root-node.simple-select {
+    line-height: 48px;
+    .dropdown-menu {
+      line-height: 1.42857;
+    }
+  }
+  .DateRangePickerInput, .react-selectize.bootstrap3.root-node .react-selectize-control {
+    border: none;
+  }
+  .react-selectize.root-node .react-selectize-control .react-selectize-reset-button-container {
+    display: none;
+  }
+}
+
 // React Bootstrap Character Counter
 @import "../react-bootstrap-character-counter/react-bootstrap-character-counter.scss";
 
@@ -125,6 +179,9 @@ $bodyTextColor: #404041;
 @import 'src/styles/braintree/braintree.scss';
 
 // Fonts
+html {
+  -webkit-font-smoothing: antialiased;
+}
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Heebo', sans-serif;
 }
@@ -158,6 +215,18 @@ html {
 a {
   cursor: pointer;
 }
+p {
+  line-height: 22px;
+}
+.header-pink {
+  color: $headerPink;
+}
+.header-blue {
+  color: $headerBluePurple;
+}
+.header-green {
+  color: $headerGreen;
+}
 
 // Custom AirBnb Datepicker styles
 .DayPicker__week-header, .CalendarMonth__caption {
@@ -174,6 +243,19 @@ a {
  }
 }
 
+// Buttons
+button {
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+// Navbar
+.navbar-default .navbar-nav > li > a {
+  color: $darkBlue;
+  &:hover {
+    color: $saturatedPurple;
+  }
+}
 .navbar-fixed-top {
   background-color: white;
   ul.navbar-nav > li > a {
@@ -181,7 +263,6 @@ a {
     padding-bottom: 30px;
   }
 }
-
 .navbar-brand {
   height: 80px;
   line-height: 80px;

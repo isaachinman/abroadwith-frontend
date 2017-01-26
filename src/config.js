@@ -9,7 +9,7 @@ const img = {
     isProduction: false,
     img: 'https://abroadwith.imgix.net',
   },
-}[process.env.IMG || 'IMGIX']
+}[process.env.IMG || 'S3']
 
 const solr = {
   PROD: {

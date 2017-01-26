@@ -3,8 +3,10 @@ import { Col, Grid, Row, FormControl } from 'react-bootstrap'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { translate } from 'react-i18next'
 import { changeCurrency } from 'redux/modules/ui/currency'
 import { changeLocale } from 'redux/modules/ui/locale'
+import moment from 'moment'
 
 // Relative imports
 import styles from './Footer.styles'
@@ -15,6 +17,7 @@ import styles from './Footer.styles'
     currency: state.ui.currency,
   }
 })
+@translate()
 export default class Footer extends Component {
 
   changeUICurrency = e => {
@@ -28,12 +31,24 @@ export default class Footer extends Component {
   render() {
 
     const {
+      t,
       locale,
       currency,
     } = this.props
 
     return (
       <footer style={styles.footer}>
+        <div style={styles.topRow}>
+          <Grid>
+            <Link to='/about' style={styles.topLink}>{t('common.About')}</Link>
+            <a href='//blog.abroadwith.com' style={styles.topLink}>{t('common.Blog')}</a>
+            <a href='//jobs.abroadwith.com' style={styles.topLink}>{t('common.Jobs')}</a>
+            <a href='//press.abroadwith.com' style={styles.topLink}>{t('common.Press')}</a>
+            <Link to='/privacy' style={styles.topLink}>{t('common.Policies')}</Link>
+            <Link to='/terms' style={styles.topLink}>{t('common.terms_and_conditions')}</Link>
+            <Link to='/contact-us' style={styles.topLink}>{t('common.contact')}</Link>
+          </Grid>
+        </div>
         <Grid style={styles.mainContent}>
           <Row>
             <Col xs={12} sm={4}>
@@ -70,7 +85,7 @@ export default class Footer extends Component {
         </Grid>
         <div style={styles.bottomRow}>
           <Grid>
-            Bottom row
+            &copy; {moment().year()} Abroadwith
           </Grid>
         </div>
       </footer>
@@ -82,5 +97,6 @@ export default class Footer extends Component {
 Footer.propTypes = {
   currency: PropTypes.string,
   locale: PropTypes.string,
+  t: PropTypes.func,
   dispatch: PropTypes.func,
 }
