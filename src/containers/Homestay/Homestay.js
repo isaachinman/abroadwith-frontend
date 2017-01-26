@@ -1,9 +1,9 @@
 // Absolute imports
 import { asyncConnect } from 'redux-connect'
 import { connect } from 'react-redux'
-import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/homes/loadHome'
+import { isLoaded, load as loadHomestay, loadRoomCalendar } from 'redux/modules/publicData/homes/loadHome'
 import Helmet from 'react-helmet'
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 
 @asyncConnect([{
   promise: ({ params, store: { dispatch, getState } }) => {
@@ -23,10 +23,18 @@ import React, { Component } from 'react'
 )
 export default class Homestay extends Component {
 
+  state = {
+    activeRoom: this.props.homestay.data.rooms[0],
+  }
+
   componentDidMount = () => {
-    fetch(`/public/room-availability-calendar/${this.props.homestay.rooms[0].id}`, res => {
-      console.log('res: ', res)
-    })
+    this.fetchRoomCalendar()
+  }
+
+  fetchRoomCalendar = () => {
+    const { activeRoom } = this.state
+    const { dispatch, homestay } = this.props
+    dispatch(loadRoomCalendar(homestay.data.id, activeRoom.id))
   }
 
   render() {
@@ -48,7 +56,7 @@ export default class Homestay extends Component {
       stayAvailableLanguages,
       tandemAvailableLanguages,
       teacherAvailableLanguages,
-    } = homestay ? homestay : {}
+    } = homestay && homestay.data ? homestay.data : {}
     /* eslint-enable */
 
     return (
@@ -71,7 +79,8 @@ export default class Homestay extends Component {
 }
 
 Homestay.propTypes = {
-  error: React.PropTypes.object,
-  homestay: React.PropTypes.object,
-  loading: React.PropTypes.bool,
+  dispatch: PropTypes.func,
+  error: PropTypes.object,
+  homestay: PropTypes.object,
+  loading: PropTypes.bool,
 }
