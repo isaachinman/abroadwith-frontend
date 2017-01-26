@@ -3,6 +3,7 @@
 // ie: import { CounterButton, InfoBar } from 'components'
 // --------------------------------------------------------------------------------
 
+export BackgroundColorBlock from './BackgroundColorBlock/BackgroundColorBlock'
 export DateRangePicker from './DateRangePicker/DateRangePicker'
 export Footer from './Footer/Footer'
 export SpinLoader from './SpinLoader/SpinLoader'

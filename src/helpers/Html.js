@@ -67,6 +67,8 @@ export default function Html(props) {
         {/* eslint-disable */}
         {Object.keys(assets.styles).length === 0 ? <style dangerouslySetInnerHTML={{ __html: require('../containers/App/App.styles')._style }} /> : null}
         {/* eslint-enable */}
+
+        <script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places' />
       </head>
       <body style={styles.app}>
         <div id='content' dangerouslySetInnerHTML={{ __html: content }} />
@@ -74,7 +76,6 @@ export default function Html(props) {
         <script dangerouslySetInnerHTML={{ __html: `window.__i18n=${serialize(i18n)};` }} />
         <script dangerouslySetInnerHTML={{ __html: `window.__apiHost='${config.apiHost}'` }} />
         <script src={assets.javascript.main} charSet='UTF-8' />
-        <script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places' />
       </body>
     </html>
   )

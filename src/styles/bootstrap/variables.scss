@@ -1,29 +1,29 @@
-// Custom palette
-$havelock-blue: #4A90E2;
-$ziggurat: #AFD4DD;
-$grey-chateau: #909AA8;
-$americano: #776B68;
-$sulu: #B8E986;
-$sunset-orange: #FC5050;
-$stay: #F7A4EC;
-$tandem: #5533FF;
-$teacher: #3ECF8E;
-$accent-bg: lighten($grey-chateau, 32.5%);
-$mint-green: #CEEFDE;
-$forest-green: #657F49;
-$accentGrey3: #909AA8;
-$accentGrey2: #AAB4C2;
-$accentGrey1: #C3CDDB;
+// Theme colours
+$darkBlue: #32325D;
+$darkGrey: #404041;
+$headerGreen: #24B47E;
+$freshGreen: #3ECF8E;
+$headerPink: #F6A4EB;
+$warmPurple: #9251AC;
+$headerBluePurple: #5A65DB;
+$saturatedPurple: #5533FF;
+$sunsetOrange: #FC5050;
+
+// Immersion colours
+$stayColor: #F7A4EC;
+$tandemColor: #5533FF;
+$teacherColor: #3ECF8E;
+
 
 // Bootstrap Variables
-$brand-primary: darken($havelock-blue, 5%);
-$brand-secondary: darken($ziggurat, 2%);
-$brand-success: darken($sulu, 15%);
-$brand-warning: lighten($sunset-orange, 5%);
-$brand-danger: darken($sunset-orange, 15%);
-$brand-info: darken($grey-chateau, 5%);
+$brand-primary: $warmPurple;
+$brand-secondary: lighten($darkBlue, 2%);
+$brand-success: $freshGreen;
+$brand-warning: lighten($sunsetOrange, 5%);
+$brand-danger: darken($sunsetOrange, 10%);
+$brand-info: $darkGrey;
 
-$text-color: #404041;
+$text-color: $darkGrey;
 
 $font-size-base: 16px;
 $font-family-sans-serif: "Karla", sans-serif;
