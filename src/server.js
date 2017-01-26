@@ -20,6 +20,10 @@ import { I18nextProvider } from 'react-i18next'
 import imageUploadInstaller from 'utils/upload/ImageUploadInstaller'
 import UILanguages from 'data/constants/UILanguages'
 
+// Custom API imports
+import getRoomCalendar from 'helpers/api/getRoomCalendar'
+import logout from 'helpers/api/logout'
+
 // Relative imports
 import ApiClient from './helpers/ApiClient'
 import config from './config'
@@ -42,6 +46,12 @@ const proxy = httpProxy.createProxyServer({
   secure: !(__DEVELOPMENT__),
 })
 
+// Install custom API endpoints
+const customApiEndpoints = [getRoomCalendar, logout]
+customApiEndpoints.map(endpoint => {
+  endpoint(app)
+})
+
 app.use(compression())
 app.use(cookieParser())
 app.use(i18nMiddleware.handle(i18n))
@@ -52,16 +62,6 @@ app.use(Express.static(path.join(__dirname, '..', 'build')))
 // Proxy to API server
 app.use('/api', (req, res) => {
   proxy.web(req, res, { target: targetUrl })
-})
-
-// This is the logout endpoint
-app.post('/logout', (req, res) => {
-
-  // Remove the access_token cookie
-  res.cookie('access_token', 'null', { secure: true, httpOnly: true, expires: new Date(0), domain: '.test-abroadwith.com' })
-  res.header('Access-Control-Allow-Credentials', 'true')
-  res.sendStatus(200)
-
 })
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
