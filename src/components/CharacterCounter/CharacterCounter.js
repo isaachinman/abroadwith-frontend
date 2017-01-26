@@ -31,13 +31,13 @@ export default class CharacterCounter extends Component {
 
     const { valueLength } = this.state
     const { children, style } = this.props
-    const maxLength = (children.props.type === 'text' || children.props.componentClass === 'textarea') && children.props.maxLength ? children.props.maxLength : false
+    const maxLength = (['text', 'email', 'password'].includes(children.props.type) || children.props.componentClass === 'textarea') && children.props.maxLength ? children.props.maxLength : false
 
     return (
       <div ref={div => this.container = div}>
         {children}
         <span className='form-control-character-counter' style={style ? Object.assign({}, styles.counter) : styles.counter}>
-          {valueLength && maxLength &&
+          {valueLength !== null && valueLength > 0 && maxLength &&
             <span>{valueLength}/{maxLength}</span>
           }
         </span>
