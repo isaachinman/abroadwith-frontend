@@ -108,10 +108,10 @@ export default class App extends Component {
 
           <Navbar jwt={jwt} user={user} title={config.app.title} />
 
-          <div style={styles.appContent}>
+          <main style={styles.appContent}>
             {route.status === 200 && this.props.children}
             {route.status === 404 && <NotFound />}
-          </div>
+          </main>
 
           {user && user.data && user.data.verifications && !user.data.verifications.email &&
             <VerifyEmailModal />
