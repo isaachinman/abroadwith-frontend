@@ -10,6 +10,9 @@ export const headerBluePurple = '#5A65DB'
 export const saturatedPurple = '#5533FF'
 export const sunsetOrange = '#FC5050'
 
+// Background colours
+export const backgroundGreyLight = '#fafafa'
+
 // Immersion colours
 export const stayColor = '#F7A4EC'
 export const tandemColor = '#5533FF'

@@ -9,8 +9,30 @@
 }
 
 // Inline search unit
+// Very hacky shit going on here
 .inline-search-unit {
-  .bootstrap-typeahead-input-main {
+  // Media queries
+  @media (max-width: 900px) {
+    .daterangepicker-large, .react-selectize {
+      display: none !important;
+    }
+  }
+  @media (max-width: 515px) {
+    &-row {
+      width: calc(100vw - 30px) !important;
+      left: 15px;
+    }
+    input {
+      text-indent: 10px;
+    }
+    .bootstrap-typeahead-input, .geosuggest, button.btn-lg {
+      width: calc(100vw - 30px) !important;
+    }
+    .search-btn {
+      border-radius: 0 0 5px 5px !important;
+    }
+  }
+  .bootstrap-typeahead-input-main, .geosuggest__input {
     min-width: 200px;
   }
   .bootstrap-typeahead, .geosuggest, .react-selectize {
@@ -51,6 +73,9 @@
   }
   .DateRangePickerInput, .react-selectize.bootstrap3.root-node .react-selectize-control {
     border: none;
+  }
+  .DateRangePickerInput__arrow svg {
+    fill: $darkBlue;
   }
   .react-selectize.root-node .react-selectize-control .react-selectize-reset-button-container {
     display: none;
@@ -178,9 +203,16 @@ $bodyTextColor: #404041;
 // Braintree imports
 @import 'src/styles/braintree/braintree.scss';
 
+// Main content theming
+body {
+  background: $backgroundGreyLight;
+}
+
 // Fonts
-html {
+body {
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: $bodyTextColor !important;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Heebo', sans-serif;
@@ -209,9 +241,6 @@ h6 {
   font-size: 18px;
   line-height: 24px;
 }
-html {
-  color: $bodyTextColor !important;
-}
 a {
   cursor: pointer;
 }
@@ -226,6 +255,12 @@ p {
 }
 .header-green {
   color: $headerGreen;
+}
+.header-saturated-purple {
+  color: $saturatedPurple;
+}
+.header-warm-purple {
+  color: $warmPurple;
 }
 
 // Custom AirBnb Datepicker styles

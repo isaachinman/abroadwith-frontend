@@ -1,11 +1,14 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { Button, Col, Form, FormGroup, Grid, Panel, Row } from 'react-bootstrap'
+import { Button, Col, Form, Image, Grid, Panel, Row } from 'react-bootstrap'
+import config from 'config'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { BackgroundColorBlock, DateRangePicker } from 'components'
 import { translate } from 'react-i18next'
 import { SimpleSelect as Select } from 'react-selectize'
+import Radium from 'radium'
+import Testimonial from 'components/Testimonial/Testimonial'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import { freshGreen, headerPink, warmPurple, saturatedPurple, headerBluePurple } from 'styles/colors'
 import Geosuggest from 'react-geosuggest'
@@ -18,6 +21,7 @@ import styles from './Main.styles'
   uiLanguage: state.ui.locale.value,
 }))
 @translate()
+@Radium
 export default class Main extends Component {
 
   state = {
@@ -52,9 +56,9 @@ export default class Main extends Component {
             </Row>
           </Grid>
 
-          <Row style={styles.heroInputRow}>
+          <Row style={styles.heroInputRow} className='inline-search-unit-row'>
             <Form inline>
-              <FormGroup className='inline-search-unit'>
+              <div className='inline-search-unit'>
                 <Typeahead
                   placeholder={t('search.language_to_learn')}
                   options={allLanguages}
@@ -75,42 +79,39 @@ export default class Main extends Component {
                 >
                   <option value={1}>1</option>
                 </Select>
-                <Button bsSize='large' style={styles.searchBtn}>{t('common.search')}</Button>
-              </FormGroup>
+                <Button bsSize='large' className='search-btn' style={styles.searchBtn}>{t('common.search')}</Button>
+              </div>
 
             </Form>
           </Row>
 
         </div>
 
-        <Grid style={styles.paddedGrid}>
-          <Row>
-            <Col xs={12} md={8} mdOffset={2} lg={6} lgOffset={3}>
-              <h3 className='header-green'>{t('common.most_popular_immersions')}</h3>
-              <p>{t('common.you_may_book_school')}</p>
-            </Col>
-          </Row>
-        </Grid>
-
         <div style={styles.relative}>
           <Grid style={styles.paddedGrid}>
+            <Row style={{ marginBottom: 50 }}>
+              <Col xs={10} xsOffset={1} sm={10} smOffset={1} md={8} mdOffset={2} lg={6} lgOffset={3}>
+                <h3 className='header-green'>{t('common.most_popular_immersions')}</h3>
+                <p>{t('common.you_may_book_school')}</p>
+              </Col>
+            </Row>
             <Row>
               <Col xs={12} md={4}>
-                <Panel>
+                <Panel style={styles.immersionPanel}>
                   <h3 className='header-pink'>{t('common.Stay')}</h3>
                   <p style={styles.immersionDescription}>{t('common.stay_description')}</p>
                   <Button bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: warmPurple })}>{t('common.find_host')}</Button>
                 </Panel>
               </Col>
               <Col xs={12} md={4}>
-                <Panel>
+                <Panel style={styles.immersionPanel}>
                   <h3 className='header-blue'>{t('common.Tandem')}</h3>
                   <p style={styles.immersionDescription}>{t('common.tandem_description')}</p>
                   <Button bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: saturatedPurple })} >{t('common.find_host')}</Button>
                 </Panel>
               </Col>
               <Col xs={12} md={4}>
-                <Panel>
+                <Panel style={styles.immersionPanel}>
                   <h3 className='header-green'>{t('common.Teacher')}</h3>
                   <p style={styles.immersionDescription}>{t('common.teacher_description')}</p>
                   <Button bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: freshGreen })}>{t('common.find_host')}</Button>
@@ -129,13 +130,62 @@ export default class Main extends Component {
         </div>
 
         <Grid style={styles.paddedGrid}>
-          <Row>
-            <Col xs={12} style={styles.centerAlign}>
+          <Row style={{ marginBottom: 60 }}>
+            <Col xs={10} xsOffset={1} sm={8} smOffset={2} md={8} mdOffset={2} lg={6} lgOffset={3}>
               <h3 className='header-green'>{t('main.how_does_it_work_title')}</h3>
+              <p>{t('main.meta_description')}</p>
+            </Col>
+          </Row>
+          <Row>
+            <Col style={styles.howItWorksBox} xs={10} xsOffset={1} sm={8} smOffset={2} md={4} mdOffset={0}>
+              <h4 style={styles.bigNumber}>1.</h4>
+              <Image src={`${config.img}/app/how_it_works/how_it_works_1_floating.png`} alt='How it works #1' style={styles.howItWorksImage} rounded responsive />
+              <h5 className='header-saturated-purple'>{t('common.discover')}</h5>
+              <p>{t('common.discover_description')}</p>
+            </Col>
+            <Col style={styles.howItWorksBox} xs={10} xsOffset={1} sm={8} smOffset={2} md={4} mdOffset={0}>
+              <h4 style={styles.bigNumber}>2.</h4>
+              <Image src={`${config.img}/app/how_it_works/how_it_works_2_floating.png`} alt='How it works #2' style={styles.howItWorksImage} rounded responsive />
+              <h5 className='header-saturated-purple'>{t('common.book_immersion')}</h5>
+              <p>{t('common.book_immersion_description', { stay: t('common.stay'), tandem: t('common.tandem'), teachers_stay: t('common.teachers_stay') })}</p>
+            </Col>
+            <Col style={styles.howItWorksBox} xs={10} xsOffset={1} sm={8} smOffset={2} md={4} mdOffset={0}>
+              <h4 style={styles.bigNumber}>3.</h4>
+              <Image src={`${config.img}/app/how_it_works/how_it_works_3_floating.png`} alt='How it works #3' style={styles.howItWorksImage} rounded responsive />
+              <h5 className='header-saturated-purple'>{t('common.book_language_course')}</h5>
+              <p>{t('common.book_language_course_description')}</p>
             </Col>
           </Row>
         </Grid>
 
+        <div style={styles.relative}>
+          <Grid style={styles.paddedGrid}>
+            <Row style={{ marginBottom: 60, textAlign: 'center' }}>
+              <Col xs={10} xsOffset={1} sm={8} smOffset={2} md={8} mdOffset={2} lg={6} lgOffset={3}>
+                <h3 className='header-warm-purple'>{t('testimonials.title')}</h3>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} sm={10} smOffset={1} lg={8} lgOffset={2}>
+                <Testimonial
+                  type='student'
+                  person='daniel'
+                />
+                <Testimonial
+                  type='student'
+                  person='isabel'
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} style={styles.hostBtnRow}>
+                <Button bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: saturatedPurple })} >{t('common.see_more_testimonials')}</Button>
+              </Col>
+            </Row>
+            <BackgroundColorBlock color={headerPink} minHeight={320} />
+          </Grid>
+        </div>
+        <div style={{ marginBottom: -20 }} />
       </div>
     )
   }

@@ -1,4 +1,4 @@
-import { darkBlue, headerPink } from 'styles/colors'
+import { darkBlue, headerPink, warmPurple } from 'styles/colors'
 
 export default {
   hero: {
@@ -7,7 +7,13 @@ export default {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    background: darkBlue,
+    backgroundSize: 'cover',
+    '@media (max-width: 515px)': {
+      paddingTop: 40,
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start',
+    },
+    backgroundColor: darkBlue,
     color: 'white',
     height: '60vh',
     minHeight: 340,
@@ -17,11 +23,7 @@ export default {
     maxWidth: 600,
     margin: '0 auto',
     paddingBottom: 40,
-  },
-  container: {
-    maxWidth: '100vw',
-    minHeight: 500,
-    paddingTop: 50,
+    textShadow: '1px 2px 2px rgba(0, 0, 0, .2)',
   },
   searchBtn: {
     background: headerPink,
@@ -40,6 +42,11 @@ export default {
     borderRadius: 5,
     boxShadow: '5px 5px 13px 0 rgba(0,0,0,0.15)',
   },
+  immersionPanel: {
+    maxWidth: 400,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
   relative: {
     position: 'relative',
   },
@@ -47,7 +54,7 @@ export default {
     textAlign: 'center',
   },
   paddedGrid: {
-    padding: '80px 0 30px 0',
+    padding: '100px 15px 40px 15px',
   },
   immersionDescription: {
     minHeight: 160,
@@ -67,5 +74,17 @@ export default {
     border: 'none',
     padding: '3px 15px',
     margin: '5px 10px',
+  },
+  bigNumber: {
+    fontSize: 64,
+    color: warmPurple,
+  },
+  howItWorksBox: {
+    marginBottom: 30,
+  },
+  howItWorksImage: {
+    width: 300,
+    margin: '0 0 20px 0',
+    padding: 10,
   },
 }
