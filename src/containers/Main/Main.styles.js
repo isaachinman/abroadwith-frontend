@@ -7,6 +7,7 @@ export default {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    background: 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url(http://i.imgur.com/jCJPALs.jpg)',
     backgroundSize: 'cover',
     '@media (max-width: 515px)': {
       paddingTop: 40,
