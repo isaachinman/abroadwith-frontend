@@ -1,6 +1,7 @@
 import React from 'react'
 import { IndexRoute, Redirect, Route } from 'react-router'
 import { isLoaded as isAuthLoaded } from 'redux/modules/auth'
+import { hideFooter, showFooter } from 'redux/modules/ui/footer'
 import UILanguages from 'data/constants/UILanguages'
 import {
     App,
@@ -9,11 +10,19 @@ import {
     LoginPage,
     LoginSuccess,
     Main,
+    SearchHomestays,
     SignupPage,
     UserProfile,
   } from 'containers'
 
 export default (store) => {
+
+  const noFooterEnter = liftedStore => {
+    liftedStore.dispatch(hideFooter())
+  }
+  const noFooterLeave = liftedStore => {
+    liftedStore.dispatch(showFooter())
+  }
 
   const checkLocaleEnter = (nextState, replace, cb) => {
 
@@ -219,6 +228,13 @@ export default (store) => {
             <Route path='login' component={LoginPage} />
 
             <Route path='privacy' getComponent={getPrivacyPolicy} />
+
+            <Route
+              path='homestays/search'
+              onEnter={() => noFooterEnter(store)}
+              onLeave={() => noFooterLeave(store)}
+              component={SearchHomestays}
+            />
 
             <Route path='signup' component={SignupPage} />
 

@@ -90,7 +90,7 @@ export default class Main extends Component {
         <div style={styles.relative}>
           <Grid style={styles.paddedGrid}>
             <Row style={{ marginBottom: 50 }}>
-              <Col xs={10} xsOffset={1} sm={10} smOffset={1} md={8} mdOffset={2} lg={6} lgOffset={3}>
+              <Col xs={10} xsOffset={1} sm={8} smOffset={2} md={8} mdOffset={2} lg={6} lgOffset={3}>
                 <h3 className='header-green'>{t('common.most_popular_immersions')}</h3>
                 <p>{t('common.you_may_book_school')}</p>
               </Col>

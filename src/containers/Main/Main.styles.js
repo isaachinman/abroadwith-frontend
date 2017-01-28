@@ -1,3 +1,4 @@
+import config from 'config'
 import { darkBlue, headerPink, warmPurple } from 'styles/colors'
 
 export default {
@@ -7,7 +8,7 @@ export default {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url(http://i.imgur.com/jCJPALs.jpg)',
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url(${config.img}/app/hero/hero_v2_homepage_large.jpg)`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundColor: darkBlue,
@@ -19,6 +20,9 @@ export default {
     color: 'white',
     height: '60vh',
     minHeight: 420,
+    '@media (max-width: 350px)': {
+      minHeight: 460,
+    },
     marginBottom: 30,
   },
   heroTextContent: {
@@ -30,7 +34,7 @@ export default {
     background: headerPink,
     border: 'none',
     height: 60,
-    borderRadius: '0 5px 5px 0',
+    borderRadius: '0 4px 4px 0',
     color: 'white',
     fontSize: 16,
     padding: '0 25px',

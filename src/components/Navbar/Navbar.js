@@ -69,11 +69,17 @@ export default class Navbar extends Component {
         >
           <BootstrapNavbar.Header>
             <BootstrapNavbar.Brand>
-              <IndexLink to='/'>
-                <Logo size={148} color='blue' />
-              </IndexLink>
+              <div style={styles.brand}>
+                <IndexLink to='/'>
+                  <Logo size={148} color='blue' />
+                </IndexLink>
+              </div>
             </BootstrapNavbar.Brand>
-            <BootstrapNavbar.Toggle><FontAwesome name={this.state.navExpanded ? 'caret-up' : 'caret-down'} /></BootstrapNavbar.Toggle>
+            <div style={styles.mobileToggle}>
+              <BootstrapNavbar.Toggle>
+                <FontAwesome size='2x' name={this.state.navExpanded ? 'caret-up' : 'bars'} />
+              </BootstrapNavbar.Toggle>
+            </div>
           </BootstrapNavbar.Header>
 
           <BootstrapNavbar.Collapse>

@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 
+// Change currency
 const CHANGE_CURRENCY = 'abroadwith/CHANGE_CURRENCY'
 const CHANGE_CURRENCY_SUCCESS = 'abroadwith/CHANGE_CURRENCY_SUCCESS'
 const CHANGE_CURRENCY_FAIL = 'abroadwith/CHANGE_CURRENCY_FAIL'
