@@ -3,6 +3,38 @@
 *
 */
 
+//  The gradient animation mixin
+//  The most up to date version can be found here:
+//  https://gist.github.com/himynameisdave/32e51f5ff4780ae2104d
+@mixin gradient-animation( $start, $end, $transTime ){
+  background-size: 100%;
+  background-image: linear-gradient($start, $end);
+  position: relative;
+  z-index: 100;
+  &:before {
+    background-image: linear-gradient($end, $start);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0;
+    width: 100%;
+    z-index: -100;
+    transition: opacity $transTime;
+  }
+  &:hover {
+     &:before {
+       opacity: 1;
+     }
+  }
+}
+
+// Hide Google Maps stuff
+.gm-style-cc {
+  display: none;
+}
+
 // Extend Bootstrap panel
 .panel {
   box-shadow: 5px 5px 13px 0 rgba(0,0,0,0.15);
@@ -31,6 +63,10 @@
     .search-btn {
       border-radius: 0 0 5px 5px !important;
     }
+  }
+  .search-btn {
+    @include gradient-animation( #F7A4EC, #9251AC, 0.25s );// gradient animation mixin usage
+    overflow: hidden;
   }
   .bootstrap-typeahead-input-main, .geosuggest__input {
     min-width: 200px;
@@ -285,6 +321,9 @@ button {
 }
 
 // Navbar
+.navbar-toggle {
+  border: none;
+}
 .navbar-default .navbar-nav > li > a {
   color: $darkBlue;
   &:hover {

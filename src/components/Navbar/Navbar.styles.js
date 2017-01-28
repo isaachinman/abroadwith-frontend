@@ -1,11 +1,14 @@
 import { darkBlue } from 'styles/colors'
 
 export default {
-  brandname: {
-    textTransform: 'lowercase',
+  brand: {
+    '@media (max-width: 767px)': {
+      marginLeft: 15,
+    },
+  },
+  mobileToggle: {
+    marginTop: 7,
     color: darkBlue,
-    fontSize: '2.35rem',
-    fontWeight: 600,
   },
   mobileNavbar: {
     '@media (min-width: 767px)': {

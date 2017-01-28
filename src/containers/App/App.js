@@ -31,6 +31,7 @@ import styles from './App.styles'
 }])
 @connect(
   state => ({
+    footer: state.ui.footer,
     jwt: state.auth.jwt,
     token: state.auth.token,
     user: state.privateData.user,
@@ -98,7 +99,7 @@ export default class App extends Component {
 
   render() {
 
-    const { jwt, user, route } = this.props
+    const { footer, jwt, user, route } = this.props
 
     return (
       <StyleRoot>
@@ -120,7 +121,9 @@ export default class App extends Component {
             <VerifyPhoneModal />
           }
 
-          <Footer />
+          {!footer.hidden &&
+            <Footer />
+          }
 
         </div>
       </StyleRoot>
@@ -131,6 +134,7 @@ export default class App extends Component {
 App.propTypes = {
   children: PropTypes.object,
   dispatch: PropTypes.func,
+  footer: PropTypes.object,
   homes: PropTypes.object,
   jwt: PropTypes.object,
   user: PropTypes.object,

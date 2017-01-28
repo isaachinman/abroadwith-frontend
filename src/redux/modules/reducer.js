@@ -8,6 +8,7 @@ import auth from './auth'
 import clientToken from './payments/client-token'
 import currency from './ui/currency'
 import educators from './publicData/educators/loadEducator'
+import footer from './ui/footer'
 import invoices from './privateData/invoices/invoices'
 import locale from './ui/locale'
 import { loadUserWithAuth, loadHomestayWithAuth, reservations } from './privateData/'
@@ -39,6 +40,7 @@ export default combineReducers({
   }),
   ui: combineReducers({
     currency,
+    footer,
     locale,
     modals,
   }),
