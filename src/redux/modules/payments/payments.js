@@ -3,7 +3,7 @@ import superagent from 'superagent'
 import config from 'config'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 
-// Set payout method as default
+// Add payout method
 const ADD_PAYOUT_METHOD = 'abroadwith/ADD_PAYOUT_METHOD'
 const ADD_PAYOUT_METHOD_SUCCESS = 'abroadwith/ADD_PAYOUT_METHOD_SUCCESS'
 const ADD_PAYOUT_METHOD_FAIL = 'abroadwith/ADD_PAYOUT_METHOD_FAIL'
