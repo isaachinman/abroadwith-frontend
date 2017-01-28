@@ -2,7 +2,7 @@ import jwtDecode from 'jwt-decode'
 import superagent from 'superagent'
 import config from 'config.js'
 
-// Get Braintree clientToken
+// Send payment nonce
 const SEND_PAYMENT_NONCE = 'abroadwith/SEND_PAYMENT_NONCE'
 const SEND_PAYMENT_NONCE_SUCCESS = 'abroadwith/SEND_PAYMENT_NONCE_SUCCESS'
 const SEND_PAYMENT_NONCE_FAIL = 'abroadwith/SEND_PAYMENT_NONCE_FAIL'

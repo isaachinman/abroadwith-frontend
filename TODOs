@@ -1,7 +1,6 @@
 // General
 1. Need to change message/thread endpoint to include homeID
-2. Document each redux action with the exact API endpoint it contacts (via swagger url)
-3. Build contact component and endpoint
+2. Build contact component and endpoint
 
 // Homestay search page
 1. Immersion selection needs to be a central focus of the dashboard
