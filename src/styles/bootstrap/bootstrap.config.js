@@ -12,7 +12,7 @@
 
 module.exports = {
   preBootstrapCustomizations: './src/styles/bootstrap/variables.scss',
-  mainSass: './src/styles/bootstrap/bootstrap.overrides.scss',
+  mainSass: './src/styles/index.scss',
   verbose: false,
   debug: false,
   scripts: {
@@ -36,9 +36,9 @@ module.exports = {
     glyphicons: true,
     scaffolding: true,
     type: true,
-    code: true,
+    code: false,
     grid: true,
-    tables: true,
+    tables: false,
     forms: true,
     buttons: true,
     'component-animations': true,
@@ -49,7 +49,7 @@ module.exports = {
     navbar: true,
     breadcrumbs: false,
     pagination: true,
-    pager: true,
+    pager: false,
     labels: true,
     badges: true,
     jumbotron: false,
