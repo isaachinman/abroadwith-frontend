@@ -6,7 +6,7 @@ export default (app) => {
   // This is the (public) room calendar endpoint
   app.get('/public/room-availability-calendar/:roomID', (req, res) => {
 
-    const request = superagent.get(`${config.solr}/solr/abroadwith_rooms/select?q=roomId:${req.params.roomID}&wt=json`)
+    const request = superagent.get(`http://${config.solr.host}:${config.solr.port}/solr/abroadwith_rooms/select?q=roomId:${req.params.roomID}&wt=json`)
     request.buffer()
     request.end((err, solrRes) => {
 
@@ -14,7 +14,6 @@ export default (app) => {
 
         // Error
         res.sendStatus(500)
-        res.send(err)
 
       } else {
 
