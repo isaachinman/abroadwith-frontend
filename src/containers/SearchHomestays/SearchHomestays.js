@@ -2,18 +2,21 @@
 import React, { Component, PropTypes } from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import { Col, Grid, Row } from 'react-bootstrap'
+import { Grid, Popover } from 'react-bootstrap'
 import { translate } from 'react-i18next'
 import { fitBounds } from 'google-map-react/utils'
-import Measure from 'react-measure'
+import { performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
+import SpinLoader from 'components/SpinLoader/SpinLoader'
 
 // Relative imports
 import Map from './subcomponents/Map'
+import ResultList from './subcomponents/ResultList'
 import styles from './SearchHomestays.styles'
 
 @connect(
   state => ({
     reviews: state.privateData.reviews,
+    search: state.ui.homestaySearch,
   })
 )
 @translate()
@@ -26,53 +29,79 @@ export default class SearchHomestays extends Component {
     },
   }
 
+  performSearch = () => {
+    const { bounds } = this.state.map
+    const url = `/homestays/search/get-results?minPrice=0&maxPrice=500&pageSize=10&pageOffset=0&maxLat=${bounds.se.lat}&maxLng=${bounds.nw.lng}&minLat=${bounds.nw.lat}&minLng=${bounds.se.lng}`
+    this.props.dispatch(performRoomSearch(url))
+  }
+
   handleLocationChange = newGeometry => {
-    console.log(newGeometry)
+    this.setState({
+      map: Object.assign({}, this.state.map, {
+        bounds: {
+          nw: newGeometry.bounds.nw,
+          se: newGeometry.bounds.se,
+        },
+      }),
+      mapSize: {
+        width: newGeometry.size.width,
+        height: newGeometry.size.height,
+      },
+    }, this.performSearch)
   }
 
   handleSearchboxChange = place => {
-    console.log('places changing')
     const { mapSize } = this.state
     const { viewport } = place.geometry
+    const bounds = { nw: { lat: viewport.f.b, lng: viewport.b.b }, se: { lat: viewport.f.f, lng: viewport.b.f } }
     const { center, zoom } = fitBounds(
-      { nw: { lat: viewport.f.b, lng: viewport.b.b }, se: { lat: viewport.f.f, lng: viewport.b.f } },
+      bounds,
       { width: mapSize.width, height: mapSize.height }
     )
-    this.setState({ map: { center, zoom } })
+    this.setState({ map: { center, zoom, bounds } })
   }
 
   render() {
 
-    const { t } = this.props
+    const { t, search } = this.props
+    const { map } = this.state
+    console.log(this)
 
     return (
       <div>
         <Helmet title={t('search.title')} />
-        <Grid>
-          <Row>
-            <Col xs={12} md={7} style={styles.interactionPanel}>
-              <div style={styles.headerBg}>
-                <div style={styles.header}>
-                  <h5>Find a place to stay.</h5>
-                </div>
+        <Grid style={styles.grid}>
+          <div style={styles.interactionPanel}>
+            <div style={styles.interactionPanelBorder} />
+            <div style={styles.headerBg}>
+              <div style={styles.header}>
+                <h5>Find a place to stay.</h5>
               </div>
-            </Col>
-            <Measure
-              onMeasure={dimensions => this.setState({ mapSize: dimensions })}
-            >
-              <Col xsHidden smHidden md={5}>
-                <Map
-                  center={this.state.map.center}
-                  handleSearchboxChange={this.handleSearchboxChange}
-                  handleLocationChange={this.handleLocationChange}
-                  zoom={this.state.map.zoom}
-                  results={[
-                  { lat: 52.52, lng: 13.405 },
-                  ]}
+            </div>
+            <SpinLoader light noLoader show={search.loading}>
+              <div>
+                <ResultList
+                  currency={search.data.params.currency}
+                  results={search.data.results}
                 />
-              </Col>
-            </Measure>
-          </Row>
+              </div>
+            </SpinLoader>
+          </div>
+          <div style={styles.mapPanel}>
+            <Map
+              center={map.center}
+              currency={search.data.params.currency}
+              handleSearchboxChange={this.handleSearchboxChange}
+              handleLocationChange={this.handleLocationChange}
+              zoom={map.zoom}
+              results={search.data.results}
+            />
+            <Popover placement='top' bsClass='homestay-map-marker'>
+              <div className='popover-content' style={styles.popoverSmall}>
+                €123
+              </div>
+            </Popover>
+          </div>
         </Grid>
       </div>
     )
@@ -80,5 +109,7 @@ export default class SearchHomestays extends Component {
 }
 
 SearchHomestays.propTypes = {
+  dispatch: PropTypes.func,
+  search: PropTypes.object,
   t: PropTypes.func,
 }

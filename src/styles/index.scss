@@ -30,7 +30,19 @@
   }
 }
 
-// Hide Google Maps stuff
+// Modify carousel controls
+.carousel-control {
+  .glyphicon {
+    display: none;
+  }
+  &:hover {
+    .glyphicon {
+      display: block;
+    }
+  }
+}
+
+// Search page styles
 .gm-style-cc {
   display: none;
 }
@@ -65,7 +77,7 @@
     }
   }
   .search-btn {
-    @include gradient-animation( #F7A4EC, #9251AC, 0.25s );// gradient animation mixin usage
+    @include gradient-animation( #9251AC, #F7A4EC, 0.25s );// gradient animation mixin usage
     overflow: hidden;
   }
   .bootstrap-typeahead-input-main, .geosuggest__input {
@@ -332,14 +344,15 @@ button {
 }
 .navbar-fixed-top {
   background-color: white;
+  margin-bottom: 0;
   ul.navbar-nav > li > a {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 29px;
+    padding-bottom: 28px;
   }
 }
 .navbar-brand {
-  height: 80px;
-  line-height: 80px;
+  height: 77px;
+  line-height: 77px;
   padding: 0;
   position: relative;
   padding-right: 60px;
@@ -350,12 +363,12 @@ span.input-group-addon .fa {
 }
 
 .btn-with-icon {
-.fa {
-  position: absolute;
-  top: 7.5px;
-  left: 25px;
-  font-size: 30px;
-}
+  .fa {
+    position: absolute;
+    top: 7.5px;
+    left: 25px;
+    font-size: 30px;
+  }
 }
 
 .btn-facebook-login .fa {
@@ -408,4 +421,137 @@ color: lighten(#dd4b39, 5%);
 .dropzone-img {
   max-width: 100%;
   max-height: 100%;
+}
+
+
+$popover-bg: $darkBlue;
+$popover-arrow-color: $darkBlue;
+.homestay-map-marker {
+  &--active {
+    background-color: red;
+  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: $zindex-popover;
+  display: none;
+  max-width: $popover-max-width;
+  padding: 1px;
+  // Our parent element can be arbitrary since popovers are by default inserted as a sibling of their target element.
+  // So reset our font and text properties to avoid inheriting weird values.
+  @include reset-text;
+  font-size: $font-size-base;
+
+  background-color: $popover-bg;
+  &--hovered {
+    background-color: $freshGreen;
+  }
+  color: white;
+  background-clip: padding-box;
+  border: 1px solid $popover-fallback-border-color;
+  border: 1px solid $popover-border-color;
+  border-radius: 3px;
+  @include box-shadow(0 5px 10px rgba(0,0,0,.2));
+
+  // Offset the popover to account for the popover arrow
+  &.top     { margin-top: -$popover-arrow-width; }
+  &.right   { margin-left: $popover-arrow-width; }
+  &.bottom  { margin-top: $popover-arrow-width; }
+  &.left    { margin-left: -$popover-arrow-width; }
+}
+
+.homestay-map-marker-content {
+  padding: 3px 5px;
+  font-size: 13px;
+  font-weight: bold;
+  .currency {
+    font-size: 10px;
+  }
+}
+
+// Arrows
+//
+// .arrow is outer, .arrow:after is inner
+
+.homestay-map-marker > .arrow {
+  &,
+  &:after {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+  }
+}
+.homestay-map-marker > .arrow {
+  border-width: $popover-arrow-outer-width;
+}
+.homestay-map-marker > .arrow:after {
+  border-width: $popover-arrow-width;
+  content: "";
+}
+
+.homestay-map-marker {
+  &.top > .arrow {
+    left: 50%;
+    margin-left: -$popover-arrow-outer-width;
+    border-bottom-width: 0;
+    border-top-color: $popover-arrow-outer-fallback-color; // IE8 fallback
+    border-top-color: $popover-arrow-outer-color;
+    bottom: -$popover-arrow-outer-width;
+    &:after {
+      content: " ";
+      bottom: 1px;
+      margin-left: -$popover-arrow-width;
+      border-bottom-width: 0;
+      border-top-color: $popover-arrow-color;
+    }
+  }
+  &.right > .arrow {
+    top: 50%;
+    left: -$popover-arrow-outer-width;
+    margin-top: -$popover-arrow-outer-width;
+    border-left-width: 0;
+    border-right-color: $popover-arrow-outer-fallback-color; // IE8 fallback
+    border-right-color: $popover-arrow-outer-color;
+    &:after {
+      content: " ";
+      left: 1px;
+      bottom: -$popover-arrow-width;
+      border-left-width: 0;
+      border-right-color: $popover-arrow-color;
+    }
+  }
+  &.bottom > .arrow {
+    left: 50%;
+    margin-left: -$popover-arrow-outer-width;
+    border-top-width: 0;
+    border-bottom-color: $popover-arrow-outer-fallback-color; // IE8 fallback
+    border-bottom-color: $popover-arrow-outer-color;
+    top: -$popover-arrow-outer-width;
+    &:after {
+      content: " ";
+      top: 1px;
+      margin-left: -$popover-arrow-width;
+      border-top-width: 0;
+      border-bottom-color: $popover-arrow-color;
+    }
+  }
+
+  &.left > .arrow {
+    top: 50%;
+    right: -$popover-arrow-outer-width;
+    margin-top: -$popover-arrow-outer-width;
+    border-right-width: 0;
+    border-left-color: $popover-arrow-outer-fallback-color; // IE8 fallback
+    border-left-color: $popover-arrow-outer-color;
+    &:after {
+      content: " ";
+      right: 1px;
+      border-right-width: 0;
+      border-left-color: $popover-arrow-color;
+      bottom: -$popover-arrow-width;
+    }
+  }
 }

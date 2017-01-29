@@ -23,6 +23,7 @@ import UILanguages from 'data/constants/UILanguages'
 // Custom API imports
 import getRoomCalendar from 'helpers/api/getRoomCalendar'
 import logout from 'helpers/api/logout'
+import homestaySearch from 'helpers/api/homestaySearch'
 
 // Relative imports
 import ApiClient from './helpers/ApiClient'
@@ -47,7 +48,7 @@ const proxy = httpProxy.createProxyServer({
 })
 
 // Install custom API endpoints
-const customApiEndpoints = [getRoomCalendar, logout]
+const customApiEndpoints = [getRoomCalendar, logout, homestaySearch]
 customApiEndpoints.map(endpoint => {
   endpoint(app)
 })

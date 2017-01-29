@@ -6,12 +6,15 @@ export default class SpinLoader extends Component {
 
   render() {
 
+    const { light, noLoader } = this.props
+    const backgroundColor = light ? 'rgba(250, 250, 250, 0.45)' : 'rgba(0, 0, 0, 0.25)'
+
     return (
       <Loader
         contentBlur={1}
-        backgroundStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.25)' }}
+        backgroundStyle={{ backgroundColor }}
         show={this.props.show}
-        message={<Spinner delay={500} type='spin' color='#fff' />}
+        message={!noLoader ? <Spinner delay={500} type='spin' color='#fff' /> : <span />}
       >
         {this.props.children}
       </Loader>
@@ -22,5 +25,7 @@ export default class SpinLoader extends Component {
 
 SpinLoader.propTypes = {
   children: PropTypes.element,
+  light: PropTypes.bool,
+  noLoader: PropTypes.bool,
   show: PropTypes.bool,
 }

@@ -13,10 +13,16 @@ const img = {
 
 const solr = {
   PROD: {
-    solr: 'http://solr.test-abroadwith.com:8983',
+    solr: {
+      host: 'solr.abroadwith.com',
+      port: 8983,
+    },
   },
   DEV: {
-    solr: 'http://solr.test-abroadwith.com:8983',
+    solr: {
+      host: 'solr.test-abroadwith.com',
+      port: 8983,
+    },
   },
 }[process.env.SOLR || 'PROD']
 

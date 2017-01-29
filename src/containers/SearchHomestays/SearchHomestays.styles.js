@@ -1,6 +1,9 @@
-import { headerGreen, babyBlue } from 'styles/colors'
+import { darkBlue, freshGreen, headerBluePurple, headerGreen, babyBlue } from 'styles/colors'
 
 export default {
+  grid: {
+    padding: 0,
+  },
   headerBg: {
     position: 'absolute',
     top: 0,
@@ -20,8 +23,26 @@ export default {
     borderRadius: 5,
   },
   interactionPanel: {
+    display: 'inline-block',
+    verticalAlign: 'top',
     position: 'relative',
-    paddingTop: 80,
+    paddingTop: 100,
+    height: 'calc(100vh - 80px)',
+    overflowY: 'scroll',
+    width: '60%',
+  },
+  mapPanel: {
+    display: 'inline-block',
+    verticalAlign: 'top',
+    width: '40%',
+  },
+  interactionPanelBorder: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 2,
+    height: 'calc(100vh - 80px)',
+    background: 'linear-gradient(to bottom, rgba(111,168,239,1) 0%, rgba(255,255,255,0.18) 82%, rgba(255,255,255,0) 100%)',
   },
   mapContainer: {
     height: 'calc(100vh - 80px)',
@@ -41,5 +62,74 @@ export default {
     left: 8,
     paddingLeft: 30,
     width: 'calc(100% - 15px)',
+  },
+  searchResult: {
+    cursor: 'pointer',
+    background: 'white',
+    margin: '0 0 10px 10px',
+    position: 'relative',
+    width: 'calc(50% - 15px)',
+    display: 'inline-block',
+    borderRadius: 5,
+  },
+  searchResultHovered: {
+    cursor: 'pointer',
+    background: 'white',
+    margin: '0 0 10px 10px',
+    position: 'relative',
+    width: 'calc(50% - 15px)',
+    display: 'inline-block',
+    borderRadius: 5,
+    boxShadow: '5px 5px 12px 0 rgba(0,0,0,0.15)',
+  },
+  searchResultCarouselImg: {
+    backgroundSize: 'cover',
+    width: '100%',
+    height: 160,
+  },
+  searchResultPrice: {
+    zIndex: 99,
+    background: headerBluePurple,
+    color: 'white',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    padding: '3px 10px',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  perWeek: {
+    fontWeight: 'normal',
+    fontSize: 12,
+  },
+  searchResultBottomHalf: {
+    borderRight: '1px solid #ddd',
+    borderBottom: '1px solid #ddd',
+    borderLeft: '1px solid #ddd',
+  },
+  searchResultHostImg: {
+    width: 80,
+    height: 80,
+    backgroundSize: 'cover',
+    position: 'absolute',
+    right: 10,
+    top: 120,
+    borderRadius: 5,
+  },
+  searchResultText: {
+    padding: 10,
+    maxWidth: 'calc(100% - 80px)',
+    color: darkBlue,
+  },
+  searchResultSubtitle: {
+    fontSize: 12,
+  },
+  popoverSmall: {
+    fontSize: 12,
+    padding: 0,
+  },
+  hoveredPopoverSmall: {
+    zIndex: 1099,
+    background: freshGreen,
   },
 }

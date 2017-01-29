@@ -13,7 +13,7 @@ export default class Map extends Component {
 
   render() {
 
-    const { center, handleSearchboxChange, handleLocationChange, results, zoom } = this.props
+    const { center, currency, handleSearchboxChange, handleLocationChange, results, zoom } = this.props
 
     return (
       <div style={styles.mapContainer}>
@@ -29,7 +29,7 @@ export default class Map extends Component {
             styles: MapStyles,
           })}
         >
-          {results.map(result => <Marker key={shortid()} lat={result.lat} lng={result.lng} {...result} />)}
+          {results.map(result => <Marker key={shortid()} currency={currency} lat={result.lat} lng={result.lng} {...result} />)}
         </GoogleMap>
       </div>
     )
@@ -38,6 +38,7 @@ export default class Map extends Component {
 
 Map.propTypes = {
   center: PropTypes.object,
+  currency: PropTypes.string,
   handleSearchboxChange: PropTypes.func,
   handleLocationChange: PropTypes.func,
   results: PropTypes.array,
