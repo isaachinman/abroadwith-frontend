@@ -19,6 +19,7 @@ import styles from './SearchHomestays.styles'
 
 @connect(
   state => ({
+    uiCurrency: state.ui.currency.value,
     reviews: state.privateData.reviews,
     search: state.ui.homestaySearch,
     uiLanguage: state.ui.locale.value,
@@ -101,8 +102,10 @@ export default class SearchHomestays extends Component {
 
   render() {
 
-    const { t, search } = this.props
+    const { uiCurrency, t, search } = this.props
     const { map } = this.state
+
+    const currency = search.data && search.data.params ? search.data.params.currency : uiCurrency
     console.log(this)
 
     return (
@@ -123,7 +126,7 @@ export default class SearchHomestays extends Component {
             <SpinLoader light noLoader show={search.loading}>
               <div>
                 <ResultList
-                  currency={search.data.params.currency}
+                  currency={currency}
                   results={search.data.results}
                 />
               </div>
@@ -132,7 +135,7 @@ export default class SearchHomestays extends Component {
           <div style={styles.mapPanel}>
             <Map
               center={map.center}
-              currency={search.data.params.currency}
+              currency={currency}
               handleLocationChange={this.handleLocationChange}
               handleMapClick={this.handleMapClick}
               zoom={map.zoom}
@@ -149,5 +152,6 @@ SearchHomestays.propTypes = {
   dispatch: PropTypes.func,
   search: PropTypes.object,
   t: PropTypes.func,
+  uiCurrency: PropTypes.string,
   uiLanguage: PropTypes.string,
 }

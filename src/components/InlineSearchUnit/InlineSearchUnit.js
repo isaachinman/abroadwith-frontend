@@ -5,24 +5,92 @@
 
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import { apiDate } from 'utils/dates'
 import { connect } from 'react-redux'
 import { Button, Form } from 'react-bootstrap'
 import { DateRangePicker } from 'components'
-import Geosuggest from 'react-geosuggest'
 import i18n from 'i18n/i18n-client'
 import { SimpleSelect as Select } from 'react-selectize'
+import moment from 'moment'
 import { translate } from 'react-i18next'
 import { Typeahead } from 'react-bootstrap-typeahead'
+import { updateRoomSearchParams } from 'redux/modules/ui/search/homestaySearch'
 import { push } from 'react-router-redux'
 
 // Relative imports
+import LocationSearch from './subcomponents/LocationSearch'
 import styles from './InlineSearchUnit.styles'
 
 @connect(state => ({
   uiLanguage: state.ui.locale.value,
+  homestaySearch: state.ui.homestaySearch,
 }))
 @translate()
 export default class InlineSearchUnit extends Component {
+
+  handleValueChange = (field, value) => {
+
+    console.log('inside function', field, value)
+
+    const { dispatch, integrated } = this.props
+    const { params } = this.props.homestaySearch
+    let newParams
+
+    if (field === 'dates') {
+
+      // The dates input returns both dates at once
+      newParams = Object.assign({}, params, {
+        arrival: value.startDate ? apiDate(value.startDate) : null,
+        departure: value.endDate ? apiDate(value.endDate) : null,
+      })
+
+    } else if (field === 'location') {
+
+      // The location input returns complex data
+      const { viewport, location } = value.geometry
+
+      let mapData = {
+        locationString: value.formatted_address,
+      }
+
+      // Larger places come with a viewport object from Google
+      if (viewport) {
+        mapData.bounds = {
+          maxLat: viewport.f.f,
+          maxLng: viewport.b.b,
+          minLat: viewport.f.b,
+          minLng: viewport.b.f,
+        }
+      } else {
+
+        // Smaller places, like specific addresses, do not
+        mapData = {
+          bounds: null,
+          center: {
+            lat: location.lat(),
+            lng: location.lng(),
+          },
+          zoom: 15,
+        }
+
+      }
+
+      newParams = Object.assign({}, params, {
+        mapData,
+      })
+
+    } else {
+
+      // Three inputs return simple values
+      newParams = Object.assign({}, params, {
+        [field]: value,
+      })
+
+    }
+
+    dispatch(updateRoomSearchParams(newParams, integrated === true))
+
+  }
 
   handleGoToSearchPage = () => {
     this.props.dispatch(push('/language-homestay/search'))
@@ -30,7 +98,8 @@ export default class InlineSearchUnit extends Component {
 
   render() {
 
-    const { uiLanguage, standalone, integrated, t } = this.props
+    const { homestaySearch, uiLanguage, standalone, integrated, t } = this.props
+    console.log(homestaySearch)
     const allLanguages = Object.entries(i18n.store.data[uiLanguage].translation.languages).map(([id, label]) => ({ id, label }))
 
     let topLevelClassName = 'inline-search-unit'
@@ -47,18 +116,25 @@ export default class InlineSearchUnit extends Component {
       <Form inline>
         <div className={topLevelClassName}>
           <Typeahead
+            defaultSelected={homestaySearch.params.language ? [{ label: t(`languages.${homestaySearch.params.language}`), id: homestaySearch.params.language }] : []}
             placeholder={t('search.language_to_learn')}
             options={allLanguages}
+            onChange={options => {
+              return options[0] ? this.handleValueChange('language', options[0].id) : this.handleValueChange('language', null)
+            }}
           />
-          <Geosuggest
-            placeholder={t('common.where')}
-            inputClassName='form-control'
+          <LocationSearch
+            defaultValue={homestaySearch.params.mapData.locationString}
+            handleValueChange={this.handleValueChange}
           />
           <DateRangePicker
             inlineBlock
             large
-            startDatePlaceholderText='Arrival'
-            endDatePlaceholderText='Departure'
+            startDate={homestaySearch.params.arrival ? moment(homestaySearch.params.arrival) : null}
+            endDate={homestaySearch.params.departure ? moment(homestaySearch.params.departure) : null}
+            startDatePlaceholderText={t('common.Arrival')}
+            endDatePlaceholderText={t('common.Departure')}
+            onDatesChange={datesObject => this.handleValueChange('dates', datesObject)}
           />
           <Select
             theme='bootstrap3'
@@ -80,6 +156,7 @@ export default class InlineSearchUnit extends Component {
 
 InlineSearchUnit.propTypes = {
   dispatch: PropTypes.func,
+  homestaySearch: PropTypes.object,
   uiLanguage: PropTypes.string,
   standalone: PropTypes.bool,
   integrated: PropTypes.bool,
