@@ -6,6 +6,7 @@
 export BackgroundColorBlock from './BackgroundColorBlock/BackgroundColorBlock'
 export DateRangePicker from './DateRangePicker/DateRangePicker'
 export Footer from './Footer/Footer'
+export InlineSearchUnit from './InlineSearchUnit/InlineSearchUnit'
 export SpinLoader from './SpinLoader/SpinLoader'
 export Login from './Login/Login'
 export Logo from './Logo/Logo'

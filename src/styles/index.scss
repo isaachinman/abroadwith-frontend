@@ -76,18 +76,32 @@
       border-radius: 0 0 5px 5px !important;
     }
   }
+  .daterangepicker-large, .DateRangePickerInput {
+    height: 60px;
+    vertical-align: middle;
+  }
+  .DateInput {
+    padding: 10px 7.5px;
+  }
+  .DateInput__display-text {
+    padding: 8px;
+  }
   .search-btn {
     @include gradient-animation( #9251AC, #F7A4EC, 0.25s );// gradient animation mixin usage
     overflow: hidden;
   }
   .bootstrap-typeahead-input-main, .geosuggest__input {
-    min-width: 200px;
+    box-shadow: none;
+  }
+  .bootstrap-typeahead-input-main {
+    box-shadow: none;
   }
   .bootstrap-typeahead, .geosuggest, .react-selectize {
     width: auto;
     display: inline-block;
   }
   input.form-control {
+    box-shadow: none;
     font-size: 14px;
     color: $darkBlue;
     &::-webkit-input-placeholder {
@@ -127,6 +141,24 @@
   }
   .react-selectize.root-node .react-selectize-control .react-selectize-reset-button-container {
     display: none;
+  }
+  /* Standalone styles */
+  &.standalone {
+    .bootstrap-typeahead-input-main, .geosuggest__input {
+      min-width: 200px;
+    }
+  }
+  /* Integrated styles */
+  &.integrated {
+    .bootstrap-typeahead-input-main {
+      width: 180px;
+    }
+    .geosuggest {
+      width: 170px;
+    }
+    .DateInput {
+      width: 100px !important;
+    }
   }
 }
 
@@ -530,4 +562,10 @@ $popover-arrow-color: $darkBlue;
     }
   }
 
+}
+
+.result-second-child-margin {
+  &:nth-child(even) {
+    margin-left: 10px;
+  }
 }

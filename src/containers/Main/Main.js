@@ -1,26 +1,17 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { Button, Col, Form, Image, Grid, Panel, Row } from 'react-bootstrap'
+import { Button, Col, Image, Grid, Panel, Row } from 'react-bootstrap'
 import config from 'config'
 import Helmet from 'react-helmet'
-import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
-import { BackgroundColorBlock, DateRangePicker } from 'components'
+import { BackgroundColorBlock, InlineSearchUnit } from 'components'
 import { translate } from 'react-i18next'
-import { SimpleSelect as Select } from 'react-selectize'
 import Radium from 'radium'
 import Testimonial from 'components/Testimonial/Testimonial'
-import { Typeahead } from 'react-bootstrap-typeahead'
 import { freshGreen, headerPink, warmPurple, saturatedPurple, headerBluePurple } from 'styles/colors'
-import Geosuggest from 'react-geosuggest'
-import i18n from 'i18n/i18n-client'
 
 // Relative imports
 import styles from './Main.styles'
 
-@connect(state => ({
-  uiLanguage: state.ui.locale.value,
-}))
 @translate()
 @Radium
 export default class Main extends Component {
@@ -33,14 +24,9 @@ export default class Main extends Component {
     },
   }
 
-  handleSearch = () => {
-    this.props.dispatch(push('/homestays/search'))
-  }
-
   render() {
 
-    const { uiLanguage, t } = this.props
-    const allLanguages = Object.entries(i18n.store.data[uiLanguage].translation.languages).map(([id, label]) => ({ id, label }))
+    const { t } = this.props
 
     return (
       <div>
@@ -62,32 +48,7 @@ export default class Main extends Component {
           </Grid>
 
           <Row style={styles.heroInputRow} className='inline-search-unit-row'>
-            <Form inline>
-              <div className='inline-search-unit'>
-                <Typeahead
-                  placeholder={t('search.language_to_learn')}
-                  options={allLanguages}
-                />
-                <Geosuggest
-                  placeholder={t('common.where')}
-                  inputClassName='form-control'
-                />
-                <DateRangePicker
-                  inlineBlock
-                  large
-                  startDatePlaceholderText='Arrival'
-                  endDatePlaceholderText='Departure'
-                />
-                <Select
-                  theme='bootstrap3'
-                  value={{ value: 1, label: '1 guest' }}
-                >
-                  <option value={1}>1</option>
-                </Select>
-                <Button onClick={this.handleSearch} bsSize='large' className='search-btn' style={styles.searchBtn}>{t('common.search')}</Button>
-              </div>
-
-            </Form>
+            <InlineSearchUnit standalone />
           </Row>
 
         </div>
@@ -198,6 +159,5 @@ export default class Main extends Component {
 
 Main.propTypes = {
   dispatch: PropTypes.func,
-  uiLanguage: PropTypes.string,
   t: PropTypes.func,
 }

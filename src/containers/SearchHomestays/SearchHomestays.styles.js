@@ -3,18 +3,27 @@ import { darkBlue, headerBluePurple, headerGreen, babyBlue } from 'styles/colors
 export default {
   grid: {
     padding: 0,
+    position: 'relative',
   },
-  headerBg: {
+  controls: {
     position: 'absolute',
     top: 0,
     left: 0,
+    width: '60%',
+    '@media (max-width: 1199px)': {
+      width: '100%',
+      zIndex: 2999,
+    },
+  },
+  headerBg: {
+    position: 'relative',
     background: babyBlue,
-    height: 50,
-    width: 'calc(100% + 15px)',
+    height: 40,
+    width: '100%',
   },
   header: {
     position: 'absolute',
-    left: 15,
+    left: 10,
     bottom: -25,
     background: 'white',
     color: headerGreen,
@@ -22,27 +31,18 @@ export default {
     boxShadow: '5px 5px 12px 0 rgba(0,0,0,0.15)',
     borderRadius: 5,
   },
-  interactionPanel: {
+  resultScrollList: {
+    height: 'calc(100vh - 285px)',
+    width: '60%',
     display: 'inline-block',
     verticalAlign: 'top',
-    position: 'relative',
-    paddingTop: 100,
-    height: 'calc(100vh - 80px)',
-    overflowY: 'scroll',
-    width: '60%',
+    overflow: 'scroll',
+    marginTop: 205,
   },
   mapPanel: {
     display: 'inline-block',
     verticalAlign: 'top',
     width: '40%',
-  },
-  interactionPanelBorder: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: 2,
-    height: 'calc(100vh - 80px)',
-    background: 'linear-gradient(to bottom, rgba(111,168,239,1) 0%, rgba(255,255,255,0.18) 82%, rgba(255,255,255,0) 100%)',
   },
   mapContainer: {
     height: 'calc(100vh - 80px)',
@@ -64,20 +64,18 @@ export default {
     width: 'calc(100% - 15px)',
   },
   searchResult: {
-    cursor: 'pointer',
     background: 'white',
-    margin: '0 0 10px 10px',
+    marginBottom: 10,
     position: 'relative',
-    width: 'calc(50% - 15px)',
+    width: 'calc(50% - 5px)',
     display: 'inline-block',
     borderRadius: 5,
   },
   searchResultHovered: {
-    cursor: 'pointer',
     background: 'white',
-    margin: '0 0 10px 10px',
+    marginBottom: 10,
     position: 'relative',
-    width: 'calc(50% - 15px)',
+    width: 'calc(50% - 5px)',
     display: 'inline-block',
     borderRadius: 5,
     boxShadow: '5px 5px 12px 0 rgba(0,0,0,0.15)',
@@ -108,6 +106,7 @@ export default {
     borderLeft: '1px solid #ddd',
   },
   searchResultHostImg: {
+    pointerEvents: 'none',
     width: 80,
     height: 80,
     backgroundSize: 'cover',
@@ -123,5 +122,18 @@ export default {
   },
   searchResultSubtitle: {
     fontSize: 12,
+  },
+  overlayLink: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+  },
+  filters: {
+    width: '100%',
+    background: 'white',
+    padding: '50px 15px 15px 15px',
+    margin: '0 0 10px 0',
   },
 }
