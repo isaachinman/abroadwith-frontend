@@ -5,17 +5,29 @@ const PERFORM_ROOM_SEARCH = 'abroadwith/PERFORM_ROOM_SEARCH'
 const PERFORM_ROOM_SEARCH_SUCCESS = 'abroadwith/PERFORM_ROOM_SEARCH_SUCCESS'
 const PERFORM_ROOM_SEARCH_FAIL = 'abroadwith/PERFORM_ROOM_SEARCH_FAIL'
 
+// Update search params
+const UPDATE_ROOM_SEARCH_PARAMS = 'abroadwith/UPDATE_ROOM_SEARCH_PARAMS'
+
 const initialState = {
   loaded: false,
   loading: false,
+  params: {
+    arrival: null,
+    departure: null,
+    mapData: {},
+  },
   data: {
-    params: {},
     results: [],
   },
 }
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    case UPDATE_ROOM_SEARCH_PARAMS:
+      return {
+        ...state,
+        params: action.params,
+      }
     case PERFORM_ROOM_SEARCH:
       return {
         ...state,
@@ -67,5 +79,17 @@ export function performRoomSearch(url) {
     } catch (err) {
       dispatch({ type: PERFORM_ROOM_SEARCH_FAIL, err })
     }
+  }
+}
+
+export function updateRoomSearchParams(params, refetch) {
+  return async dispatch => {
+
+    dispatch({ type: UPDATE_ROOM_SEARCH_PARAMS, params })
+
+    if (refetch) {
+      performRoomSearch(params)
+    }
+
   }
 }

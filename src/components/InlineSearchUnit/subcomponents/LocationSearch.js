@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { translate } from 'react-i18next'
 
 @translate()
-export default class Searchbox extends Component {
+export default class LocationSearch extends Component {
 
   componentDidMount() {
     console.log('search is mounting', this)
@@ -21,23 +21,24 @@ export default class Searchbox extends Component {
   }
 
   onPlacesChanged = () => {
-    this.props.handleSearchboxChange(this.searchBox.getPlaces()[0])
+    this.props.handleValueChange('location', this.searchBox.getPlaces()[0])
   }
 
   /* eslint-disable */
   render() {
 
-    const { t } = this.props
+    const { defaultValue, t } = this.props
 
     return (
-      <input placeholder={t('search.map_input_placeholder')} ref='input' type='text' className='form-control' />
+      <input defaultValue={defaultValue} placeholder={t('search.map_input_placeholder')} ref='input' type='text' className='form-control location-search' />
     )
   }
   /* eslint-enable */
 
 }
 
-Searchbox.propTypes = {
-  handleSearchboxChange: PropTypes.func,
+LocationSearch.propTypes = {
+  defaultValue: PropTypes.string,
+  handleValueChange: PropTypes.func,
   t: PropTypes.func,
 }

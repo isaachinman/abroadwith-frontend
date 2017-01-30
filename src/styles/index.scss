@@ -144,7 +144,7 @@
   }
   /* Standalone styles */
   &.standalone {
-    .bootstrap-typeahead-input-main, .geosuggest__input {
+    .bootstrap-typeahead-input-main, .location-search {
       min-width: 200px;
     }
   }
@@ -153,7 +153,7 @@
     .bootstrap-typeahead-input-main {
       width: 180px;
     }
-    .geosuggest {
+    .location-search {
       width: 170px;
     }
     .DateInput {
