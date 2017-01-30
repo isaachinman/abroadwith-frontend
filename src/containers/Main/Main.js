@@ -4,6 +4,7 @@ import { Button, Col, Form, Image, Grid, Panel, Row } from 'react-bootstrap'
 import config from 'config'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import { BackgroundColorBlock, DateRangePicker } from 'components'
 import { translate } from 'react-i18next'
 import { SimpleSelect as Select } from 'react-selectize'
@@ -30,6 +31,10 @@ export default class Main extends Component {
         open: false,
       },
     },
+  }
+
+  handleSearch = () => {
+    this.props.dispatch(push('/homestays/search'))
   }
 
   render() {
@@ -79,7 +84,7 @@ export default class Main extends Component {
                 >
                   <option value={1}>1</option>
                 </Select>
-                <Button bsSize='large' className='search-btn' style={styles.searchBtn}>{t('common.search')}</Button>
+                <Button onClick={this.handleSearch} bsSize='large' className='search-btn' style={styles.searchBtn}>{t('common.search')}</Button>
               </div>
 
             </Form>
@@ -192,6 +197,7 @@ export default class Main extends Component {
 }
 
 Main.propTypes = {
+  dispatch: PropTypes.func,
   uiLanguage: PropTypes.string,
   t: PropTypes.func,
 }
