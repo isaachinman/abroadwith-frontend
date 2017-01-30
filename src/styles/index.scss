@@ -493,6 +493,27 @@ $popover-arrow-color: $darkBlue;
 }
 
 .homestay-map-marker {
+  cursor: pointer;
+  &.small-result {
+    padding: 0;
+    background-color: white;
+    z-index: 1062;
+    border: none;
+    .homestay-map-marker-content {
+      padding: 0;
+      width: 250px;
+    }
+    .arrow:after {
+      border-top-color: white !important;
+    }
+  }
+  &.hovered {
+    z-index: 1061;
+    background-color: $headerGreen;
+    .arrow:after {
+      border-top-color: $headerGreen !important;
+    }
+  }
   &.top > .arrow {
     left: 50%;
     margin-left: -$popover-arrow-outer-width;
@@ -508,50 +529,5 @@ $popover-arrow-color: $darkBlue;
       border-top-color: $popover-arrow-color;
     }
   }
-  &.right > .arrow {
-    top: 50%;
-    left: -$popover-arrow-outer-width;
-    margin-top: -$popover-arrow-outer-width;
-    border-left-width: 0;
-    border-right-color: $popover-arrow-outer-fallback-color; // IE8 fallback
-    border-right-color: $popover-arrow-outer-color;
-    &:after {
-      content: " ";
-      left: 1px;
-      bottom: -$popover-arrow-width;
-      border-left-width: 0;
-      border-right-color: $popover-arrow-color;
-    }
-  }
-  &.bottom > .arrow {
-    left: 50%;
-    margin-left: -$popover-arrow-outer-width;
-    border-top-width: 0;
-    border-bottom-color: $popover-arrow-outer-fallback-color; // IE8 fallback
-    border-bottom-color: $popover-arrow-outer-color;
-    top: -$popover-arrow-outer-width;
-    &:after {
-      content: " ";
-      top: 1px;
-      margin-left: -$popover-arrow-width;
-      border-top-width: 0;
-      border-bottom-color: $popover-arrow-color;
-    }
-  }
 
-  &.left > .arrow {
-    top: 50%;
-    right: -$popover-arrow-outer-width;
-    margin-top: -$popover-arrow-outer-width;
-    border-right-width: 0;
-    border-left-color: $popover-arrow-outer-fallback-color; // IE8 fallback
-    border-left-color: $popover-arrow-outer-color;
-    &:after {
-      content: " ";
-      right: 1px;
-      border-right-width: 0;
-      border-left-color: $popover-arrow-color;
-      bottom: -$popover-arrow-width;
-    }
-  }
 }

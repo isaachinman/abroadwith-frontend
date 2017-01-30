@@ -13,7 +13,7 @@ export default class Map extends Component {
 
   render() {
 
-    const { center, currency, handleSearchboxChange, handleLocationChange, results, zoom } = this.props
+    const { center, currency, handleSearchboxChange, handleLocationChange, handleMapClick, results, zoom } = this.props
 
     return (
       <div style={styles.mapContainer}>
@@ -22,6 +22,7 @@ export default class Map extends Component {
           center={center}
           zoom={zoom}
           onChange={handleLocationChange}
+          onClick={handleMapClick}
           options={() => ({
             panControl: false,
             mapTypeControl: false,
@@ -41,6 +42,7 @@ Map.propTypes = {
   currency: PropTypes.string,
   handleSearchboxChange: PropTypes.func,
   handleLocationChange: PropTypes.func,
+  handleMapClick: PropTypes.func,
   results: PropTypes.array,
   zoom: PropTypes.number,
 }
