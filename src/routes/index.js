@@ -225,16 +225,16 @@ export default (store) => {
               <Route path='settings' getComponent={getSettings} />
             </Route>
 
-            <Route path='login' component={LoginPage} />
-
-            <Route path='privacy' getComponent={getPrivacyPolicy} />
-
             <Route
-              path='homestays/search'
+              path='language-homestay/search'
               onEnter={() => noFooterEnter(store)}
               onLeave={() => noFooterLeave(store)}
               component={SearchHomestays}
             />
+
+            <Route path='login' component={LoginPage} />
+
+            <Route path='privacy' getComponent={getPrivacyPolicy} />
 
             <Route path='signup' component={SignupPage} />
 

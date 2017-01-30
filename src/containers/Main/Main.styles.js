@@ -1,5 +1,5 @@
 import config from 'config'
-import { darkBlue, headerPink, warmPurple } from 'styles/colors'
+import { darkBlue, warmPurple } from 'styles/colors'
 
 export default {
   hero: {
@@ -29,15 +29,6 @@ export default {
     maxWidth: 600,
     margin: '0 auto',
     textShadow: '1px 2px 2px rgba(0, 0, 0, .2)',
-  },
-  searchBtn: {
-    background: headerPink,
-    border: 'none',
-    height: 60,
-    borderRadius: '0 4px 4px 0',
-    color: 'white',
-    fontSize: 16,
-    padding: '0 25px',
   },
   heroInputRow: {
     position: 'absolute',

@@ -7,17 +7,15 @@ import shortid from 'shortid'
 // Relative imports
 import styles from '../SearchHomestays.styles'
 import Marker from './MapMarker'
-import SearchBox from './Searchbox'
 
 export default class Map extends Component {
 
   render() {
 
-    const { center, currency, handleSearchboxChange, handleLocationChange, handleMapClick, results, zoom } = this.props
+    const { center, currency, handleLocationChange, handleMapClick, results, zoom } = this.props
 
     return (
       <div style={styles.mapContainer}>
-        <SearchBox handleSearchboxChange={handleSearchboxChange} />
         <GoogleMap
           center={center}
           zoom={zoom}
@@ -40,7 +38,6 @@ export default class Map extends Component {
 Map.propTypes = {
   center: PropTypes.object,
   currency: PropTypes.string,
-  handleSearchboxChange: PropTypes.func,
   handleLocationChange: PropTypes.func,
   handleMapClick: PropTypes.func,
   results: PropTypes.array,

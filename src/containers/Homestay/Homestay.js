@@ -23,12 +23,12 @@ import React, { Component, PropTypes } from 'react'
 )
 export default class Homestay extends Component {
 
-  state = {
-    activeRoom: this.props.homestay.data.rooms[0],
-  }
-
   componentDidMount = () => {
-    this.fetchRoomCalendar()
+    if (this.props.homestay.data) {
+      this.setState({
+        activeRoom: this.props.homestay.data.rooms[0],
+      }, this.fetchRoomCalendar)
+    }
   }
 
   fetchRoomCalendar = () => {
@@ -64,7 +64,7 @@ export default class Homestay extends Component {
 
         <Helmet title='Homestay' />
 
-        {!error && !loading && homestay &&
+        {!error && !loading && homestay && homestay.data &&
 
           <div className='container'>
             <h1>Host: {host.firstName}</h1>

@@ -5,6 +5,7 @@ import { Carousel } from 'react-bootstrap'
 import { roomResultMouseEnter, roomResultMouseLeave } from 'redux/modules/ui/search/hoverables'
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
+import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import parsePhotoOrder from 'utils/homes/parsePhotoOrder'
 import Radium from 'radium'
@@ -46,7 +47,9 @@ export default class Result extends Component {
         style={result.roomId === roomHovered ? styles.searchResultHovered : styles.searchResult}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
+        className='result-second-child-margin'
       >
+        <Link to={`/homestay/${result.homeId}`} style={styles.overlayLink} />
         <div style={styles.searchResultPrice}>{Currencies[currency]}{Math.ceil(result.price)}<span style={styles.perWeek}>{t('search.per_week')}</span></div>
         <Carousel
           indicators={false}

@@ -2,10 +2,6 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import { translate } from 'react-i18next'
-import FontAwesome from 'react-fontawesome'
-
-// Relative imports
-import styles from '../SearchHomestays.styles'
 
 @translate()
 export default class Searchbox extends Component {
@@ -34,10 +30,7 @@ export default class Searchbox extends Component {
     const { t } = this.props
 
     return (
-      <div className='form-group-sm'>
-        <FontAwesome name='search' style={styles.searchIcon} />
-        <input style={styles.searchBox} placeholder={t('search.map_input_placeholder')} ref='input' type='text' className='form-control' />
-      </div>
+      <input placeholder={t('search.map_input_placeholder')} ref='input' type='text' className='form-control' />
     )
   }
   /* eslint-enable */
