@@ -1,4 +1,4 @@
-import { darkBlue, freshGreen, headerBluePurple, headerGreen, babyBlue } from 'styles/colors'
+import { darkBlue, headerBluePurple, headerGreen, babyBlue } from 'styles/colors'
 
 export default {
   grid: {
@@ -123,13 +123,5 @@ export default {
   },
   searchResultSubtitle: {
     fontSize: 12,
-  },
-  popoverSmall: {
-    fontSize: 12,
-    padding: 0,
-  },
-  hoveredPopoverSmall: {
-    zIndex: 1099,
-    background: freshGreen,
   },
 }

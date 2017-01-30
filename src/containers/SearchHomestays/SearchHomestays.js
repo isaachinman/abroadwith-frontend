@@ -2,9 +2,10 @@
 import React, { Component, PropTypes } from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import { Grid, Popover } from 'react-bootstrap'
+import { Grid } from 'react-bootstrap'
 import { translate } from 'react-i18next'
 import { fitBounds } from 'google-map-react/utils'
+import { roomPopoverClose, roomResultMouseLeave } from 'redux/modules/ui/search/hoverables'
 import { performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
 
@@ -50,15 +51,47 @@ export default class SearchHomestays extends Component {
     }, this.performSearch)
   }
 
+  handleMapClick = ({ event }) => {
+
+    console.log(event.target)
+
+    // Somewhat hacky way of ensuring the click target is the parent map
+    if (event.target.style.width === '100%') {
+      const { dispatch } = this.props
+      dispatch(roomPopoverClose())
+      dispatch(roomResultMouseLeave())
+    }
+
+  }
+
   handleSearchboxChange = place => {
+    console.log('place: ', place)
     const { mapSize } = this.state
-    const { viewport } = place.geometry
-    const bounds = { nw: { lat: viewport.f.b, lng: viewport.b.b }, se: { lat: viewport.f.f, lng: viewport.b.f } }
-    const { center, zoom } = fitBounds(
-      bounds,
-      { width: mapSize.width, height: mapSize.height }
-    )
-    this.setState({ map: { center, zoom, bounds } })
+    const { viewport, location } = place.geometry
+
+    // Larger places come with a viewport object from Google
+    if (viewport) {
+      const bounds = { nw: { lat: viewport.f.b, lng: viewport.b.b }, se: { lat: viewport.f.f, lng: viewport.b.f } }
+      const { center, zoom } = fitBounds(
+        bounds,
+        { width: mapSize.width, height: mapSize.height }
+      )
+      this.setState({ map: { center, zoom, bounds } })
+    } else {
+
+      // Smaller places, like specific addresses, do not
+      this.setState({
+        map: {
+          center: {
+            lat: location.lat(),
+            lng: location.lng(),
+          },
+          zoom: 15,
+        },
+      })
+
+    }
+
   }
 
   render() {
@@ -93,14 +126,10 @@ export default class SearchHomestays extends Component {
               currency={search.data.params.currency}
               handleSearchboxChange={this.handleSearchboxChange}
               handleLocationChange={this.handleLocationChange}
+              handleMapClick={this.handleMapClick}
               zoom={map.zoom}
               results={search.data.results}
             />
-            <Popover placement='top' bsClass='homestay-map-marker'>
-              <div className='popover-content' style={styles.popoverSmall}>
-                €123
-              </div>
-            </Popover>
           </div>
         </Grid>
       </div>
