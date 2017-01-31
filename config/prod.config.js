@@ -7,7 +7,6 @@ var translations = require('./translations.config.js')
 // Webpack config for creating the production bundle.
 var path = require('path')
 var webpack = require('webpack')
-var CleanPlugin = require('clean-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var strip = require('strip-loader')
 
@@ -59,7 +58,6 @@ module.exports = {
     extensions: ['', '.json', '.js', '.jsx']
   },
   plugins: [
-    new CleanPlugin([assetsPath], { root: projectRootPath }),
 
     // Ignore momentjs locales
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
