@@ -5,10 +5,13 @@
 
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import abroadwithBoundsToGMAPBounds from 'utils/search/abroadwithBoundsToGMAPBounds'
 import { apiDate } from 'utils/dates'
 import { connect } from 'react-redux'
 import { Button, Form } from 'react-bootstrap'
 import { DateRangePicker } from 'components'
+import { fitBounds } from 'google-map-react/utils'
+import gmapBoundsToAbroadwithBounds from 'utils/search/gmapBoundsToAbroadwithBounds'
 import i18n from 'i18n/i18n-client'
 import { SimpleSelect as Select } from 'react-selectize'
 import moment from 'moment'
@@ -30,7 +33,7 @@ export default class InlineSearchUnit extends Component {
 
   handleValueChange = (field, value) => {
 
-    const { dispatch, integrated } = this.props
+    const { dispatch, homestaySearch, integrated } = this.props
     const { params } = this.props.homestaySearch
     let newParams
 
@@ -51,12 +54,21 @@ export default class InlineSearchUnit extends Component {
 
       // Larger places come with a viewport object from Google
       if (viewport) {
+
         mapData.bounds = {
           maxLat: viewport.f.f,
           maxLng: viewport.b.b,
           minLat: viewport.f.b,
           minLng: viewport.b.f,
         }
+
+        if (integrated && homestaySearch.mapDimensions.width && homestaySearch.mapDimensions.height) {
+          mapData.bounds = gmapBoundsToAbroadwithBounds(fitBounds(
+            abroadwithBoundsToGMAPBounds(mapData.bounds),
+            { width: homestaySearch.mapDimensions.width || 0, height: homestaySearch.mapDimensions.height || 0 }
+          ).newBounds)
+        }
+
       } else {
 
         // Smaller places, like specific addresses, do not

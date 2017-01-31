@@ -2,6 +2,9 @@ import superagent from 'superagent'
 import homestaySearchParamsToUrl from 'utils/search/homestaySearchParamsToUrl'
 import { REHYDRATE } from 'redux-persist/constants'
 
+// Define homestay map size
+const DEFINE_HOMESTAY_MAP_SIZE = 'abroadwith/DEFINE_HOMESTAY_MAP_SIZE'
+
 // Perform search
 const PERFORM_ROOM_SEARCH = 'abroadwith/PERFORM_ROOM_SEARCH'
 const PERFORM_ROOM_SEARCH_SUCCESS = 'abroadwith/PERFORM_ROOM_SEARCH_SUCCESS'
@@ -13,6 +16,7 @@ const UPDATE_ROOM_SEARCH_PARAMS = 'abroadwith/UPDATE_ROOM_SEARCH_PARAMS'
 const initialState = {
   loaded: false,
   loading: false,
+  mapDimensions: {},
   params: {
     arrival: null,
     departure: null,
@@ -32,6 +36,11 @@ export default function reducer(state = initialState, action = {}) {
       if (incoming) return Object.assign({}, state, incoming.homestaySearch)
       return state
     }
+    case DEFINE_HOMESTAY_MAP_SIZE:
+      return {
+        ...state,
+        mapDimensions: action.dimensions,
+      }
     case UPDATE_ROOM_SEARCH_PARAMS:
       return {
         ...state,
@@ -63,6 +72,10 @@ export default function reducer(state = initialState, action = {}) {
 
 export function updateRoomSearchParams(params) {
   return async dispatch => dispatch({ type: UPDATE_ROOM_SEARCH_PARAMS, params })
+}
+
+export function defineHomestayMapSize(dimensions) {
+  return async dispatch => dispatch({ type: DEFINE_HOMESTAY_MAP_SIZE, dimensions })
 }
 
 export function performRoomSearch(params, push) {
