@@ -14,7 +14,7 @@ import { SimpleSelect as Select } from 'react-selectize'
 import moment from 'moment'
 import { translate } from 'react-i18next'
 import { Typeahead } from 'react-bootstrap-typeahead'
-import { updateRoomSearchParams } from 'redux/modules/ui/search/homestaySearch'
+import { updateRoomSearchParams, performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
 import { push } from 'react-router-redux'
 
 // Relative imports
@@ -29,8 +29,6 @@ import styles from './InlineSearchUnit.styles'
 export default class InlineSearchUnit extends Component {
 
   handleValueChange = (field, value) => {
-
-    console.log('inside function', field, value)
 
     const { dispatch, integrated } = this.props
     const { params } = this.props.homestaySearch
@@ -49,9 +47,7 @@ export default class InlineSearchUnit extends Component {
       // The location input returns complex data
       const { viewport, location } = value.geometry
 
-      let mapData = {
-        locationString: value.formatted_address,
-      }
+      let mapData = {}
 
       // Larger places come with a viewport object from Google
       if (viewport) {
@@ -77,6 +73,7 @@ export default class InlineSearchUnit extends Component {
 
       newParams = Object.assign({}, params, {
         mapData,
+        locationString: value.formatted_address,
       })
 
     } else {
@@ -88,18 +85,23 @@ export default class InlineSearchUnit extends Component {
 
     }
 
-    dispatch(updateRoomSearchParams(newParams, integrated === true))
+    if (integrated) {
+      dispatch(performRoomSearch(newParams, push))
+    } else {
+      dispatch(updateRoomSearchParams(newParams))
+    }
 
   }
 
   handleGoToSearchPage = () => {
-    this.props.dispatch(push('/language-homestay/search'))
+    const { dispatch, homestaySearch } = this.props
+    dispatch(performRoomSearch(homestaySearch.params, push))
   }
 
   render() {
 
     const { homestaySearch, uiLanguage, standalone, integrated, t } = this.props
-    console.log(homestaySearch)
+    const searchLoading = homestaySearch.loading
     const allLanguages = Object.entries(i18n.store.data[uiLanguage].translation.languages).map(([id, label]) => ({ id, label }))
 
     let topLevelClassName = 'inline-search-unit'
@@ -116,7 +118,7 @@ export default class InlineSearchUnit extends Component {
       <Form inline>
         <div className={topLevelClassName}>
           <Typeahead
-            defaultSelected={homestaySearch.params.language ? [{ label: t(`languages.${homestaySearch.params.language}`), id: homestaySearch.params.language }] : []}
+            selected={homestaySearch.params.language ? [{ label: t(`languages.${homestaySearch.params.language}`), id: homestaySearch.params.language }] : []}
             placeholder={t('search.language_to_learn')}
             options={allLanguages}
             onChange={options => {
@@ -124,7 +126,7 @@ export default class InlineSearchUnit extends Component {
             }}
           />
           <LocationSearch
-            defaultValue={homestaySearch.params.mapData.locationString}
+            defaultValue={homestaySearch.params.locationString}
             handleValueChange={this.handleValueChange}
           />
           <DateRangePicker
@@ -144,7 +146,15 @@ export default class InlineSearchUnit extends Component {
           </Select>
 
           {standalone &&
-            <Button onClick={this.handleGoToSearchPage} bsSize='large' className='search-btn' style={styles.searchBtn}>{t('common.search')}</Button>
+            <Button
+              disabled={searchLoading}
+              onClick={this.handleGoToSearchPage}
+              bsSize='large'
+              className='search-btn'
+              style={styles.searchBtn}
+            >
+              {searchLoading ? <span>{t('common.Loading')}</span> : <span>{t('common.search')}</span>}
+            </Button>
           }
 
         </div>

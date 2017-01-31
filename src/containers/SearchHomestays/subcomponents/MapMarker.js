@@ -47,7 +47,6 @@ export default class MapMarker extends Component {
       markerClass += ' hovered'
     }
 
-    console.log('how many MapMarkers are rendering')
     return (
       <span>
         {!popoverOpen &&

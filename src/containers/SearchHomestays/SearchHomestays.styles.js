@@ -43,6 +43,7 @@ export default {
     display: 'inline-block',
     verticalAlign: 'top',
     width: '40%',
+    height: 'calc(100vh - 80px)',
   },
   mapContainer: {
     height: 'calc(100vh - 80px)',

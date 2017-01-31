@@ -14,7 +14,7 @@ export default class ResultList extends Component {
 
     return (
       <div>
-        {results.length > 0 && results.map(result => {
+        {results && results.length > 0 && results.map(result => {
           return (
             <Result key={shortid()} currency={currency} result={result} />
           )
