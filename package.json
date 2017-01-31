@@ -35,7 +35,7 @@
       }
     },
     "start-integration": {
-      "command": "node ./bin/server.js",
+      "command": "pm2 start node ./bin/server.js --name frontend_v2",
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
