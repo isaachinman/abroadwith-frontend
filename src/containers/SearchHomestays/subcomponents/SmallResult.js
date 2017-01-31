@@ -15,7 +15,7 @@ import styles from '../SearchHomestays.styles'
 
 @connect(
   state => ({
-    roomHovered: state.hoverables.roomHovered,
+    roomHovered: state.ui.hoverables.roomHovered,
   })
 )
 @translate()

@@ -10,8 +10,8 @@ import homestaySearchUrlToParams from 'utils/search/homestaySearchUrlToParams'
 import Measure from 'react-measure'
 import { translate } from 'react-i18next'
 import { fitBounds } from 'google-map-react/utils'
-import { roomPopoverClose, roomResultMouseLeave } from 'redux/modules/hoverables'
-import { updateRoomSearchParams, performRoomSearch, defineHomestayMapSize } from 'redux/modules/ui/search/homestaySearch'
+import { roomPopoverClose, roomResultMouseLeave } from 'redux/modules/ui/search/hoverables'
+import { performRoomSearch, defineHomestayMapSize } from 'redux/modules/ui/search/homestaySearch'
 import Radium from 'radium'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
 
@@ -38,21 +38,40 @@ export default class SearchHomestays extends Component {
     initialSearchPerformed: false,
   }
 
-  componentDidMount = () => {
+  componentWillReceiveProps = nextProps => {
 
-    const { dispatch, search } = this.props
+    const { dispatch, routing, search } = this.props
 
-    console.log('MOUNTING: ', search.loaded)
+    // This is our initialisation step
+    if (!search.mapDimensions.width && nextProps.search.mapDimensions.width) {
 
-    // If this component mounts without bounds,
-    // the map will automatically place itself based on query params
-    if (!search.params.mapData.bounds && this.props.routing.query.maxLat) {
+      // We will assume that if there aren't bounds in the store, and no data has been loaded,
+      // the user isn't already inside a search process
+      if (!search.loaded && !search.params.mapData.bounds) {
 
-      if (search.data.loaded) {
-        dispatch(updateRoomSearchParams(homestaySearchUrlToParams(this.props.routing.query)))
-      } else {
-        console.log('search being called from mount function')
-        dispatch(performRoomSearch(homestaySearchUrlToParams(this.props.routing.query)))
+        // If there are bounds in the query, hydrate the entire query
+        if (routing.query.maxLat && routing.query.maxLng && routing.query.minLat && routing.query.minLng) {
+
+          console.log('search being called from mount function')
+          dispatch(performRoomSearch(homestaySearchUrlToParams(this.props.routing.query)))
+
+        } else {
+
+          // If there are no bounds in the query, hydrate any remaining query params,
+          // and append some default location variables
+          dispatch(performRoomSearch(Object.assign({}, homestaySearchUrlToParams(this.props.routing.query), {
+            mapData: {
+              bounds: {
+                maxLat: -15.5,
+                maxLng: -19.1,
+                minLat: 79.8,
+                minLng: 63.1,
+              },
+            },
+          })))
+
+        }
+
       }
 
     }
@@ -63,14 +82,16 @@ export default class SearchHomestays extends Component {
 
     const { dispatch, search } = this.props
 
-    if (this.state.initialSearchPerformed) {
+    console.log(newGeometry)
+
+    if (this.state.initialSearchPerformed && !search.loading) {
       console.log('search being called from map function')
       dispatch(performRoomSearch(Object.assign({}, search.params, {
         mapData: {
           bounds: gmapBoundsToAbroadwithBounds(newGeometry.bounds),
         },
       })))
-    } else {
+    } else if (!this.state.initialSearchPerformed) {
       this.setState({ initialSearchPerformed: true })
     }
 
