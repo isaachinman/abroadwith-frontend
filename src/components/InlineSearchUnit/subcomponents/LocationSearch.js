@@ -7,13 +7,13 @@ import { translate } from 'react-i18next'
 export default class LocationSearch extends Component {
 
   componentDidMount() {
-    console.log('search is mounting', this)
     const input = ReactDOM.findDOMNode(this.refs.input) // eslint-disable-line
     this.searchBox = new google.maps.places.SearchBox(input) // eslint-disable-line
     this.searchBox.addListener('places_changed', this.onPlacesChanged)
   }
 
   componentWillUnmount() {
+    console.log('location search unmounting')
     if (typeof this.searchBox.removeListener === 'function') {
       console.log('removing event listener')
       this.searchBox.removeListener('places_changed', this.onPlacesChanged)

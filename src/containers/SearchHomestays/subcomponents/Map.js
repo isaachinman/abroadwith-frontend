@@ -28,7 +28,7 @@ export default class Map extends Component {
             styles: MapStyles,
           })}
         >
-          {results.map(result => <Marker key={shortid()} currency={currency} lat={result.lat} lng={result.lng} {...result} />)}
+          {results && results.map(result => <Marker key={shortid()} currency={currency} lat={result.lat} lng={result.lng} {...result} />)}
         </GoogleMap>
       </div>
     )

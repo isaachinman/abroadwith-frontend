@@ -1,4 +1,6 @@
 import superagent from 'superagent'
+import homestaySearchParamsToUrl from 'utils/search/homestaySearchParamsToUrl'
+import { REHYDRATE } from 'redux-persist/constants'
 
 // Perform search
 const PERFORM_ROOM_SEARCH = 'abroadwith/PERFORM_ROOM_SEARCH'
@@ -14,6 +16,7 @@ const initialState = {
   params: {
     arrival: null,
     departure: null,
+    guests: 1,
     mapData: {},
   },
   data: {
@@ -23,6 +26,12 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    // This is a rehydration (from localstore) case
+    case REHYDRATE: {
+      const incoming = action.payload.ui
+      if (incoming) return Object.assign({}, state, incoming.homestaySearch)
+      return state
+    }
     case UPDATE_ROOM_SEARCH_PARAMS:
       return {
         ...state,
@@ -52,15 +61,22 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function performRoomSearch(url) {
+export function updateRoomSearchParams(params) {
+  return async dispatch => dispatch({ type: UPDATE_ROOM_SEARCH_PARAMS, params })
+}
+
+export function performRoomSearch(params, push) {
 
   return async dispatch => {
 
+    dispatch(updateRoomSearchParams(params))
     dispatch({ type: PERFORM_ROOM_SEARCH })
 
     try {
 
-      const request = superagent.get(url)
+      const query = homestaySearchParamsToUrl(Object.assign({}, params))
+
+      const request = superagent.get(`/homestays/search/get-results${query}`)
       request.end((err, res = {}) => {
 
         if (err) {
@@ -72,6 +88,12 @@ export function performRoomSearch(url) {
           // GET was successful
           dispatch({ type: PERFORM_ROOM_SEARCH_SUCCESS, result: JSON.parse(res.text) })
 
+          // By dispatching the push after results are already loaded, users will hit
+          // the search page with results already populated
+          if (typeof push === 'function') {
+            dispatch(push(`/language-homestay/search${query}`))
+          }
+
         }
 
       })
@@ -79,17 +101,5 @@ export function performRoomSearch(url) {
     } catch (err) {
       dispatch({ type: PERFORM_ROOM_SEARCH_FAIL, err })
     }
-  }
-}
-
-export function updateRoomSearchParams(params, refetch) {
-  return async dispatch => {
-
-    dispatch({ type: UPDATE_ROOM_SEARCH_PARAMS, params })
-
-    if (refetch) {
-      performRoomSearch(params)
-    }
-
   }
 }
