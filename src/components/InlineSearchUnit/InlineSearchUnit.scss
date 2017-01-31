@@ -1,139 +1,133 @@
 // Inline search unit
-// Very hacky shit going on here
 .inline-search-unit {
 
   // Basic styles
   max-height: 60px;
-  margin: 0 auto;
+  display: inline-block;
+  border-radius: 5px;
 
-  // Media queries
-  @media (max-width: 900px) {
-    .daterangepicker-large, .react-selectize {
-      display: none !important;
-    }
-  }
-  @media (max-width: 515px) {
-    &-row {
-      width: calc(100vw - 30px) !important;
-      left: 15px;
-    }
-    input {
-      text-indent: 10px;
-    }
-    .bootstrap-typeahead-input, .geosuggest, button.btn-lg {
-      width: calc(100vw - 30px) !important;
-    }
-    .search-btn {
-      border-radius: 0 0 5px 5px !important;
-    }
-  }
-  .daterangepicker-large, .DateRangePickerInput {
-    height: 60px;
-    vertical-align: middle;
-  }
-  .DateInput {
-    padding: 10px 7.5px;
-  }
-  .DateInput__display-text {
-    padding: 8px;
-  }
-  .search-btn {
-    @include gradient-animation( #9251AC, #F7A4EC, 0.25s );// gradient animation mixin usage
-    overflow: hidden;
-  }
-  .bootstrap-typeahead-input-main, .geosuggest__input {
-    box-shadow: none;
-  }
-  .bootstrap-typeahead-input-main {
-    box-shadow: none;
-  }
-  .bootstrap-typeahead, .geosuggest, .react-selectize {
-    width: auto;
+  // Inputs
+  input {
     display: inline-block;
     vertical-align: top;
   }
-  input.form-control {
+
+  // Language selection
+  .bootstrap-typeahead {
+    height: 60px;
+    background: white;
+    display: inline-block;
+    border-radius: 5px 0 0 5px;
+    &-input {
+      height: 60px;
+    }
+    // Main language input
+    input {
+      font-size: 14px;
+      height: 60px;
+      border: none;
+      color: $bodyTextColor;
+      box-shadow: none;
+    }
+  }
+
+  // Location search
+  input.location-search {
+    width: auto;
+    border: none;
+    border-radius: 0;
     box-shadow: none;
-    font-size: 14px;
-    color: $darkBlue;
-    &::-webkit-input-placeholder {
-      color: $darkBlue;
-    }
-    ::-moz-placeholder {  /* Firefox 19+ */
-      color: $darkBlue;
-    }
-    padding: 0 10px;
     height: 60px;
-    border: none;
-  }
-  .DateInput__label, .DateInput__display-text {
+    color: $bodyTextColor;
     font-size: 14px;
-    color: $darkBlue;
-    text-align: center;
   }
-  .react-selectize-control, .react-selectize.root-node .react-selectize-control .react-selectize-toggle-button-container {
+
+  // Date range picker
+  .daterangepicker-large {
     height: 60px;
-  }
-  .simple-value {
-    font-size: 14px;
-    color: $darkBlue;
-    font-family: 'Karla';
-  }
-  .react-selectize-control .resizable-input {
-    min-width: 2px;
-  }
-  .react-selectize.bootstrap3.root-node.simple-select {
-    line-height: 48px;
-    .dropdown-menu {
-      line-height: 1.42857;
-    }
-  }
-  .DateRangePickerInput, .react-selectize.bootstrap3.root-node .react-selectize-control {
-    border: none;
-  }
-  .DateRangePickerInput__arrow svg {
-    fill: $darkBlue;
-  }
-  .react-selectize.root-node .react-selectize-control .react-selectize-reset-button-container {
-    display: none;
-  }
-  /* Standalone styles */
-  &.standalone {
-    .bootstrap-typeahead-input-main, .location-search {
-      min-width: 200px;
-    }
-  }
-  /* Integrated styles */
-  &.integrated {
-    .bootstrap-typeahead-input-main {
-      width: 180px;
-    }
-    .location-search {
-      width: 170px;
+    vertical-align: top;
+    .DateRangePickerInput {
+      height: 60px;
+      border: none;
     }
     .DateInput {
-      width: 100px !important;
+      padding: 19px 7.5px 17px 7.5px;
+    }
+    .DateInput__input {
+      height: 60px;
+    }
+    .DateInput__display-text--focused {
+      background: $babyBlue;
+      color: white;
+    }
+    .DateInput__display-text {
+      font-size: 14px;
+      text-align: center;
+      padding: 0;
     }
   }
+
+  // Guest count picker
+  .react-selectize {
+    background: white;
+    display: inline-block;
+    vertical-align: top;
+    &.root-node {
+      width: auto;
+    }
+    &-control {
+      border: none !important;
+      border-radius: 0 !important;
+    }
+    .simple-value {
+      font-size: 14px;
+      color: $bodyTextColor;
+    }
+    .resizable-input {
+      height: 60px;
+      margin: 0 2px !important;
+    }
+    .react-selectize-reset-button-container {
+      display: none !important;
+    }
+    .react-selectize-toggle-button-container {
+      height: 60px !important;
+    }
+  }
+
+  // Search button
+  button.search-btn {
+    vertical-align: top;
+  }
+
+  // ---------------------------------------------------------------------------
+  // MODIFIERS
+  // ---------------------------------------------------------------------------
+  &.shadow {
+    box-shadow: 5px 5px 13px 0 rgba(0,0,0,0.15);
+  }
+
 }
 
-// Global styles
+// Google search results
+// Has to be global
 .pac-container {
   padding: 5px 0;
   border-radius: 5px;
-  margin-top: 5px;
+  min-width: 240px;
+  margin-top: 2px;
   border: 1px solid #ccc;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   .pac-item-query, .pac-matched {
     color: $bodyTextColor;
-    font-size: 16px;
+    font-size: 14px;
     opacity: 1 !important;
   }
   .pac-item {
     color: $bodyTextColor;
     cursor: pointer;
     font-family: "Karla";
-    font-size: 16px;
+    font-size: 14px;
     span {
       opacity: .5;
     }
@@ -147,16 +141,5 @@
   }
   &:after {
     display: none;
-  }
-}
-
-ul.bootstrap-typeahead-menu {
-  margin-top: 5px;
-  li {
-    a {
-      min-height: 50px;
-      line-height: 50px;
-      padding: 0 10px;
-    }
   }
 }

@@ -102,7 +102,7 @@ export default class InlineSearchUnit extends Component {
 
   render() {
 
-    const { homestaySearch, uiLanguage, standalone, integrated, t } = this.props
+    const { homestaySearch, uiLanguage, standalone, integrated, shadow, t } = this.props
     const searchLoading = homestaySearch.loading
     const allLanguages = Object.entries(i18n.store.data[uiLanguage].translation.languages).map(([id, label]) => ({ id, label }))
 
@@ -114,6 +114,10 @@ export default class InlineSearchUnit extends Component {
 
     if (integrated) {
       topLevelClassName += ' integrated'
+    }
+
+    if (shadow) {
+      topLevelClassName += ' shadow'
     }
 
     return (
@@ -169,6 +173,7 @@ InlineSearchUnit.propTypes = {
   homestaySearch: PropTypes.object,
   uiLanguage: PropTypes.string,
   standalone: PropTypes.bool,
+  shadow: PropTypes.bool,
   integrated: PropTypes.bool,
   t: PropTypes.func,
 }

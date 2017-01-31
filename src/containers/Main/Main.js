@@ -48,7 +48,7 @@ export default class Main extends Component {
           </Grid>
 
           <div style={styles.heroInputRow}>
-            <InlineSearchUnit standalone />
+            <InlineSearchUnit standalone shadow />
           </div>
 
         </div>

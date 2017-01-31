@@ -35,6 +35,7 @@ export default {
     bottom: -30,
     left: 0,
     width: '100%',
+    textAlign: 'center',
   },
   immersionPanel: {
     maxWidth: 400,
