@@ -39,7 +39,7 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
-        "PORT": 3000,
+        "PORT": 3002,
         "IMG": "S3",
         "SOLR": "DEV",
         "APIHOST": "https://api.test-abroadwith.com",
