@@ -10,7 +10,7 @@ import currency from './ui/currency'
 import educators from './publicData/educators/loadEducator'
 import footer from './ui/footer'
 import homestaySearch from './ui/search/homestaySearch'
-import hoverables from './ui/search/hoverables'
+import hoverables from './hoverables'
 import invoices from './privateData/invoices/invoices'
 import locale from './ui/locale'
 import { loadUserWithAuth, loadHomestayWithAuth, reservations } from './privateData/'
@@ -24,6 +24,7 @@ import verifications from './privateData/users/verifications'
 
 export default combineReducers({
   auth,
+  hoverables,
   messaging,
   routing: routerReducer,
   reduxAsyncConnect,
@@ -44,7 +45,6 @@ export default combineReducers({
     currency,
     footer,
     homestaySearch,
-    hoverables,
     locale,
     modals,
   }),

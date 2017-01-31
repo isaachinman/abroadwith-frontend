@@ -1,14 +1,14 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { roomResultMouseEnter, roomResultMouseLeave, roomPopoverOpen } from 'redux/modules/ui/search/hoverables'
+import { roomResultMouseEnter, roomResultMouseLeave, roomPopoverOpen } from 'redux/modules/hoverables'
 import Currencies from 'data/constants/Currencies'
 import SmallResult from './SmallResult'
 
 @connect(
   state => ({
-    roomHovered: state.ui.hoverables.roomHovered,
-    roomPopover: state.ui.hoverables.roomPopover,
+    roomHovered: state.hoverables.roomHovered,
+    roomPopover: state.hoverables.roomPopover,
   })
 )
 export default class MapMarker extends Component {
