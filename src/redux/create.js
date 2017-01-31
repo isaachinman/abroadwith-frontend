@@ -32,7 +32,7 @@ export default function createStore(history, client, data) {
   let store
   if (__CLIENT__) {
     store = finalCreateStore(reducer, data, autoRehydrate())
-    persistStore(store, { blacklist: ['hoverables'] })
+    persistStore(store, { blacklist: ['hoverables', 'routing', 'reduxAsyncConnect', 'privateData', __DEVELOPMENT__ ? 'allowAuthRehydration' : 'auth'] })
   } else {
     store = finalCreateStore(reducer, data)
   }
