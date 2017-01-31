@@ -21,6 +21,7 @@ export default class LocationSearch extends Component {
   }
 
   onPlacesChanged = () => {
+    console.log('places change called')
     this.props.handleValueChange('location', this.searchBox.getPlaces()[0])
   }
 

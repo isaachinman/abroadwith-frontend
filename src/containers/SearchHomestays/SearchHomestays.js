@@ -11,7 +11,7 @@ import Measure from 'react-measure'
 import { translate } from 'react-i18next'
 import { fitBounds } from 'google-map-react/utils'
 import { roomPopoverClose, roomResultMouseLeave } from 'redux/modules/ui/search/hoverables'
-import { updateRoomSearchParams, performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
+import { updateRoomSearchParams, performRoomSearch, defineHomestayMapSize } from 'redux/modules/ui/search/homestaySearch'
 import Radium from 'radium'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
 
@@ -36,7 +36,6 @@ export default class SearchHomestays extends Component {
 
   state = {
     initialSearchPerformed: false,
-    mapSize: {},
   }
 
   componentDidMount = () => {
@@ -64,18 +63,11 @@ export default class SearchHomestays extends Component {
 
     const { dispatch, search } = this.props
 
-    console.log('newGEO: ', newGeometry)
-
-    if (this.state.initialSearchPerformed && this.state.mapSize.width && this.state.mapSize.height) {
-
-      console.log('trying to fit: ', fitBounds(newGeometry.bounds, { width: this.state.mapSize.width || 0, height: this.state.mapSize.height || 0 }))
-
+    if (this.state.initialSearchPerformed) {
+      console.log('search being called from map function')
       dispatch(performRoomSearch(Object.assign({}, search.params, {
         mapData: {
-          bounds: gmapBoundsToAbroadwithBounds(fitBounds(
-            newGeometry.bounds,
-            { width: this.state.mapSize.width || 0, height: this.state.mapSize.height || 0 }
-          ).newBounds),
+          bounds: gmapBoundsToAbroadwithBounds(newGeometry.bounds),
         },
       })))
     } else {
@@ -98,7 +90,6 @@ export default class SearchHomestays extends Component {
   render() {
 
     const { uiCurrency, t, search } = this.props
-    const { mapSize } = this.state
 
     const currency = search.data && search.data.params ? search.data.params.currency : uiCurrency
 
@@ -107,10 +98,10 @@ export default class SearchHomestays extends Component {
     let zoom = false
 
     // The map must be measured before it can be rendered
-    if (mapSize.width && mapSize.height && search.params.mapData.bounds && search.params.mapData.bounds.maxLat) {
+    if (search.mapDimensions.width && search.mapDimensions.height && search.params.mapData.bounds && search.params.mapData.bounds.maxLat) {
       const fittedBounds = fitBounds(
         abroadwithBoundsToGMAPBounds(search.params.mapData.bounds),
-        { width: mapSize.width || 0, height: mapSize.height || 0 }
+        { width: search.mapDimensions.width || 0, height: search.mapDimensions.height || 0 }
       )
       center = fittedBounds.center
       zoom = fittedBounds.zoom
@@ -141,8 +132,8 @@ export default class SearchHomestays extends Component {
             </SpinLoader>
           </div>
           <Measure
-            onMeasure={(dimensions) => {
-              this.setState({ mapSize: dimensions })
+            onMeasure={dimensions => {
+              this.props.dispatch(defineHomestayMapSize(dimensions))
             }}
           >
             <div style={styles.mapPanel}>
