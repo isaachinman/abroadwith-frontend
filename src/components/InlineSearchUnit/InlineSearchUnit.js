@@ -5,13 +5,10 @@
 
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import abroadwithBoundsToGMAPBounds from 'utils/search/abroadwithBoundsToGMAPBounds'
 import { apiDate } from 'utils/dates'
 import { connect } from 'react-redux'
-import { Button, Form } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { DateRangePicker } from 'components'
-import { fitBounds } from 'google-map-react/utils'
-import gmapBoundsToAbroadwithBounds from 'utils/search/gmapBoundsToAbroadwithBounds'
 import i18n from 'i18n/i18n-client'
 import { SimpleSelect as Select } from 'react-selectize'
 import moment from 'moment'
@@ -33,7 +30,7 @@ export default class InlineSearchUnit extends Component {
 
   handleValueChange = (field, value) => {
 
-    const { dispatch, homestaySearch, integrated } = this.props
+    const { dispatch, integrated } = this.props
     const { params } = this.props.homestaySearch
     let newParams
 
@@ -62,13 +59,6 @@ export default class InlineSearchUnit extends Component {
           minLng: viewport.b.f,
         }
 
-        if (integrated && homestaySearch.mapDimensions.width && homestaySearch.mapDimensions.height) {
-          mapData.bounds = gmapBoundsToAbroadwithBounds(fitBounds(
-            abroadwithBoundsToGMAPBounds(mapData.bounds),
-            { width: homestaySearch.mapDimensions.width || 0, height: homestaySearch.mapDimensions.height || 0 }
-          ).newBounds)
-        }
-
       } else {
 
         // Smaller places, like specific addresses, do not
@@ -90,7 +80,7 @@ export default class InlineSearchUnit extends Component {
 
     } else {
 
-      // Three inputs return simple values
+      // Two inputs return simple values
       newParams = Object.assign({}, params, {
         [field]: value,
       })
@@ -127,51 +117,49 @@ export default class InlineSearchUnit extends Component {
     }
 
     return (
-      <Form inline>
-        <div className={topLevelClassName}>
-          <Typeahead
-            selected={homestaySearch.params.language ? [{ label: t(`languages.${homestaySearch.params.language}`), id: homestaySearch.params.language }] : []}
-            placeholder={t('search.language_to_learn')}
-            options={allLanguages}
-            onChange={options => {
-              return options[0] ? this.handleValueChange('language', options[0].id) : this.handleValueChange('language', null)
-            }}
-          />
-          <LocationSearch
-            defaultValue={homestaySearch.params.locationString}
-            handleValueChange={this.handleValueChange}
-          />
-          <DateRangePicker
-            inlineBlock
-            large
-            startDate={homestaySearch.params.arrival ? moment(homestaySearch.params.arrival) : null}
-            endDate={homestaySearch.params.departure ? moment(homestaySearch.params.departure) : null}
-            startDatePlaceholderText={t('common.Arrival')}
-            endDatePlaceholderText={t('common.Departure')}
-            onDatesChange={datesObject => this.handleValueChange('dates', datesObject)}
-          />
-          <Select
-            theme='bootstrap3'
-            value={{ value: 1, label: '1 guest' }}
-          >
-            <option value={1}>1</option>
-          </Select>
+      <div className={topLevelClassName}>
+        <Typeahead
+          selected={homestaySearch.params.language ? [{ label: t(`languages.${homestaySearch.params.language}`), id: homestaySearch.params.language }] : []}
+          placeholder={t('search.language_to_learn')}
+          options={allLanguages}
+          onChange={options => {
+            return options[0] ? this.handleValueChange('language', options[0].id) : this.handleValueChange('language', null)
+          }}
+        />
+        <LocationSearch
+          defaultValue={homestaySearch.params.locationString}
+          handleValueChange={this.handleValueChange}
+        />
+        <DateRangePicker
+          inlineBlock
+          large
+          startDate={homestaySearch.params.arrival ? moment(homestaySearch.params.arrival) : null}
+          endDate={homestaySearch.params.departure ? moment(homestaySearch.params.departure) : null}
+          startDatePlaceholderText={t('common.Arrival')}
+          endDatePlaceholderText={t('common.Departure')}
+          onDatesChange={datesObject => this.handleValueChange('dates', datesObject)}
+        />
+        <Select
+          theme='bootstrap3'
+          value={{ value: 1, label: '1 guest' }}
+        >
+          <option value={1}>1</option>
+        </Select>
 
-          {standalone &&
-            <Button
-              disabled={searchLoading}
-              onClick={this.handleGoToSearchPage}
-              bsSize='large'
-              className='search-btn'
-              style={styles.searchBtn}
-            >
-              {searchLoading ? <span>{t('common.Loading')}</span> : <span>{t('common.search')}</span>}
-            </Button>
+        {standalone &&
+        <Button
+          disabled={searchLoading}
+          onClick={this.handleGoToSearchPage}
+          bsSize='large'
+          className='search-btn'
+          style={styles.searchBtn}
+        >
+          {searchLoading ? <span>{t('common.Loading')}</span> : <span>{t('common.search')}</span>}
+        </Button>
           }
 
-        </div>
+      </div>
 
-      </Form>
     )
   }
 }

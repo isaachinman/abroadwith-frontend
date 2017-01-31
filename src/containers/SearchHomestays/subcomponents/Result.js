@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Carousel } from 'react-bootstrap'
-import { roomResultMouseEnter, roomResultMouseLeave } from 'redux/modules/hoverables'
+import { roomResultMouseEnter, roomResultMouseLeave } from 'redux/modules/ui/search/hoverables'
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
 import { Link } from 'react-router'
@@ -16,7 +16,7 @@ import styles from '../SearchHomestays.styles'
 
 @connect(
   state => ({
-    roomHovered: state.hoverables.roomHovered,
+    roomHovered: state.ui.hoverables.roomHovered,
   })
 )
 @translate()

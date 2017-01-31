@@ -33,10 +33,8 @@ export default {
   heroInputRow: {
     position: 'absolute',
     bottom: -30,
-    margin: '0 auto',
-    background: 'white',
-    borderRadius: 5,
-    boxShadow: '5px 5px 13px 0 rgba(0,0,0,0.15)',
+    left: 0,
+    width: '100%',
   },
   immersionPanel: {
     maxWidth: 400,

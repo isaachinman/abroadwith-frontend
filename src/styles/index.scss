@@ -52,116 +52,6 @@
   box-shadow: 5px 5px 13px 0 rgba(0,0,0,0.15);
 }
 
-// Inline search unit
-// Very hacky shit going on here
-.inline-search-unit {
-  // Media queries
-  @media (max-width: 900px) {
-    .daterangepicker-large, .react-selectize {
-      display: none !important;
-    }
-  }
-  @media (max-width: 515px) {
-    &-row {
-      width: calc(100vw - 30px) !important;
-      left: 15px;
-    }
-    input {
-      text-indent: 10px;
-    }
-    .bootstrap-typeahead-input, .geosuggest, button.btn-lg {
-      width: calc(100vw - 30px) !important;
-    }
-    .search-btn {
-      border-radius: 0 0 5px 5px !important;
-    }
-  }
-  .daterangepicker-large, .DateRangePickerInput {
-    height: 60px;
-    vertical-align: middle;
-  }
-  .DateInput {
-    padding: 10px 7.5px;
-  }
-  .DateInput__display-text {
-    padding: 8px;
-  }
-  .search-btn {
-    @include gradient-animation( #9251AC, #F7A4EC, 0.25s );// gradient animation mixin usage
-    overflow: hidden;
-  }
-  .bootstrap-typeahead-input-main, .geosuggest__input {
-    box-shadow: none;
-  }
-  .bootstrap-typeahead-input-main {
-    box-shadow: none;
-  }
-  .bootstrap-typeahead, .geosuggest, .react-selectize {
-    width: auto;
-    display: inline-block;
-  }
-  input.form-control {
-    box-shadow: none;
-    font-size: 14px;
-    color: $darkBlue;
-    &::-webkit-input-placeholder {
-      color: $darkBlue;
-    }
-    ::-moz-placeholder {  /* Firefox 19+ */
-      color: $darkBlue;
-    }
-    padding: 0 10px;
-    height: 60px;
-    border: none;
-  }
-  .DateInput__label, .DateInput__display-text {
-    font-size: 14px;
-    color: $darkBlue;
-    text-align: center;
-  }
-  .react-selectize-control, .react-selectize.root-node .react-selectize-control .react-selectize-toggle-button-container {
-    height: 60px;
-  }
-  .simple-value {
-    font-size: 14px;
-    color: $darkBlue;
-    font-family: 'Karla';
-  }
-  .react-selectize.bootstrap3.root-node.simple-select {
-    line-height: 48px;
-    .dropdown-menu {
-      line-height: 1.42857;
-    }
-  }
-  .DateRangePickerInput, .react-selectize.bootstrap3.root-node .react-selectize-control {
-    border: none;
-  }
-  .DateRangePickerInput__arrow svg {
-    fill: $darkBlue;
-  }
-  .react-selectize.root-node .react-selectize-control .react-selectize-reset-button-container {
-    display: none;
-  }
-  /* Standalone styles */
-  &.standalone {
-    .bootstrap-typeahead-input-main, .location-search {
-      min-width: 200px;
-    }
-  }
-  /* Integrated styles */
-  &.integrated {
-    .bootstrap-typeahead-input-main {
-      width: 180px;
-    }
-    .location-search {
-      width: 170px;
-    }
-    .DateInput {
-      width: 100px !important;
-    }
-  }
-}
-
 // React Bootstrap Character Counter
 @import "../react-bootstrap-character-counter/react-bootstrap-character-counter.scss";
 
@@ -258,6 +148,9 @@ $bodyTextColor: #404041;
     margin-top: 5px;
   }
 }
+
+// InlineSearchUnit
+@import 'src/components/InlineSearchUnit/InlineSearchUnit.scss';
 
 // Ant Design imports
 @import '../ant-design/ant-design.css';
@@ -564,6 +457,7 @@ $popover-arrow-color: $darkBlue;
 
 }
 
+// Search results
 .result-second-child-margin {
   &:nth-child(even) {
     margin-left: 10px;
