@@ -32,7 +32,7 @@ export default function createStore(history, client, data) {
   let store
   if (__CLIENT__) {
     store = finalCreateStore(reducer, data, autoRehydrate())
-    persistStore(store)
+    persistStore(store, { blacklist: ['hoverables'] })
   } else {
     store = finalCreateStore(reducer, data)
   }

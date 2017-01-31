@@ -1,3 +1,8 @@
+// --------------------------------------------------------------------------------
+// While this is technically a UI reducer, it's at the top level for 2 reasons:
+// 1) speed of duplication, 2) blacklist from redux-persist (localstorage)
+// --------------------------------------------------------------------------------
+
 // Result mouseEnter
 const ROOM_RESULT_MOUSE_ENTER = 'abroadwith/ROOM_RESULT_MOUSE_ENTER'
 
