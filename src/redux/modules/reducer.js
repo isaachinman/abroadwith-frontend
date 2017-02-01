@@ -43,10 +43,12 @@ export default combineReducers({
   ui: combineReducers({
     currency,
     footer,
-    homestaySearch,
     hoverables,
     locale,
     modals,
+  }),
+  uiPersist: combineReducers({
+    homestaySearch,
   }),
   payments: combineReducers({
     clientToken,

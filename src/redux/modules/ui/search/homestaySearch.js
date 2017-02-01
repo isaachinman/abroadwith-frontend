@@ -32,7 +32,7 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     // This is a rehydration (from localstore) case
     case REHYDRATE: {
-      const incoming = action.payload.ui
+      const incoming = action.payload.uiPersist
       if (incoming) return Object.assign({}, state, incoming.homestaySearch)
       return state
     }

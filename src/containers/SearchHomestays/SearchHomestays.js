@@ -25,7 +25,7 @@ import styles from './SearchHomestays.styles'
   state => ({
     uiCurrency: state.ui.currency.value,
     reviews: state.privateData.reviews,
-    search: state.ui.homestaySearch,
+    search: state.uiPersist.homestaySearch,
     uiLanguage: state.ui.locale.value,
     routing: state.routing.locationBeforeTransitions,
   })
