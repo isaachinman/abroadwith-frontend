@@ -19,7 +19,6 @@ import { push } from 'react-router-redux'
 
 // Relative imports
 import LocationSearch from './subcomponents/LocationSearch'
-import styles from './InlineSearchUnit.styles'
 
 @connect(state => ({
   uiLanguage: state.ui.locale.value,
@@ -156,7 +155,6 @@ export default class InlineSearchUnit extends Component {
           onClick={this.handleGoToSearchPage}
           bsSize='large'
           className='search-btn'
-          style={styles.searchBtn}
         >
           {searchLoading ? <span>{t('common.Loading')}</span> : <span>{t('common.search')}</span>}
         </Button>

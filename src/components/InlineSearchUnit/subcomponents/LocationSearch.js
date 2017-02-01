@@ -31,7 +31,7 @@ export default class LocationSearch extends Component {
     const { defaultValue, t } = this.props
 
     return (
-      <input defaultValue={defaultValue} placeholder={t('search.map_input_placeholder')} ref='input' type='text' className='form-control location-search' />
+      <input defaultValue={defaultValue} placeholder={t('common.where')} ref='input' type='text' className='form-control location-search' />
     )
   }
   /* eslint-enable */

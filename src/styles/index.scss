@@ -261,6 +261,11 @@ button {
 .navbar-toggle {
   border: none;
 }
+.navbar-collapse {
+  background: white;
+  height: calc(100vh - 80px);
+  max-height: calc(100vh - 80px) !important;
+}
 .navbar-default .navbar-nav > li > a {
   color: $darkBlue;
   &:hover {
@@ -270,6 +275,7 @@ button {
 .navbar-fixed-top {
   background-color: white;
   margin-bottom: 0;
+  height: 80px;
   ul.navbar-nav > li > a {
     padding-top: 29px;
     padding-bottom: 28px;
