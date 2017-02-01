@@ -87,7 +87,7 @@ export default class App extends Component {
     const { dispatch, token, user } = this.props
 
     // Load user if necessary (sometimes happens in weird edge cases)
-    if (token && !user.loaded && !user.loading) {
+    if (token && !user.loaded && !user.loading && !user.error) {
       dispatch(loadUserWithAuth(token))
     }
   }

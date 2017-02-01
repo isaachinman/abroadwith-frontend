@@ -1,5 +1,5 @@
 import config from 'config'
-import { darkBlue, warmPurple } from 'styles/colors'
+import { darkBlue } from 'styles/colors'
 
 export default {
   hero: {
@@ -69,17 +69,5 @@ export default {
     border: 'none',
     padding: '3px 15px',
     margin: '5px 10px',
-  },
-  bigNumber: {
-    fontSize: 64,
-    color: warmPurple,
-  },
-  howItWorksBox: {
-    marginBottom: 30,
-  },
-  howItWorksImage: {
-    width: 300,
-    margin: '0 0 20px 0',
-    padding: 10,
   },
 }

@@ -11,13 +11,11 @@ export default function Logo(props) {
 
   const src = color === 'blue' ? `${config.img}/app/logo/abroadwith_logo_blue.png` : ''
 
-  /* eslint-disable max-len */
   return (
     <span style={Object.assign({}, styles.logoContainer, { maxWidth: size }, componentStyle)}>
       <img src={src} alt='Abroadwith' style={styles.image} />
     </span>
   )
-  /* eslint-enable max-len */
 
 }
 
