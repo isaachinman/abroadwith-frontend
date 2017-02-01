@@ -190,6 +190,7 @@ Dimensions:
     }
     .resizable-input {
       height: 60px;
+      min-width: 2px;
       margin: 0 2px !important;
     }
     .react-selectize-reset-button-container {
