@@ -82,8 +82,11 @@ export function performRoomSearch(params, push) {
 
   return async dispatch => {
 
-    dispatch(updateRoomSearchParams(params))
     dispatch({ type: PERFORM_ROOM_SEARCH })
+
+    // It's important to dispatch param update _after_ search.loading has been set
+    // to prevent the map from calling another search on bounds change
+    dispatch(updateRoomSearchParams(params))
 
     try {
 

@@ -295,6 +295,17 @@ Dimensions:
 
   }
 
+  // Integrated styles
+  &.integrated {
+    margin: 0 10px 0 0;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    border: 5px solid #eee;
+    background: white;
+    max-height: 70px;
+  }
+
 }
 
 // Google search results
