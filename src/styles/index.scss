@@ -469,3 +469,15 @@ $popover-arrow-color: $darkBlue;
     margin-left: 10px;
   }
 }
+
+// Featured homestay hover effect
+.featured-homestay {
+  h6.title {
+    transition: color .15s ease-in;
+  }
+  &:hover {
+    h6.title {
+      color: $saturatedPurple;
+    }
+  }
+}

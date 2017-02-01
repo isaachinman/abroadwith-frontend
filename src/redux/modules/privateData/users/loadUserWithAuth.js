@@ -42,7 +42,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: false,
-        error: action.error,
+        error: true,
       }
     case UPDATE_USER:
       return Object.assign({}, state, {

@@ -5,7 +5,9 @@
 
 export BackgroundColorBlock from './BackgroundColorBlock/BackgroundColorBlock'
 export DateRangePicker from './DateRangePicker/DateRangePicker'
+export FeaturedHomes from './FeaturedHomes/FeaturedHomes'
 export Footer from './Footer/Footer'
+export HowDoesItWork from './HowDoesItWork/HowDoesItWork'
 export InlineSearchUnit from './InlineSearchUnit/InlineSearchUnit'
 export SpinLoader from './SpinLoader/SpinLoader'
 export Login from './Login/Login'

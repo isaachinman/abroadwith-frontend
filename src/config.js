@@ -3,7 +3,7 @@ require('babel-polyfill')
 const img = {
   S3: {
     isProduction: true,
-    img: 'http://img.test-abroadwith.com',
+    img: 'https://s3.eu-central-1.amazonaws.com/img.test-abroadwith.com',
   },
   IMGIX: {
     isProduction: false,
