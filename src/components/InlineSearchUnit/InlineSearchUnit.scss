@@ -297,13 +297,19 @@ Dimensions:
 
   // Integrated styles
   &.integrated {
-    margin: 0 10px 0 0;
     display: flex;
     -webkit-justify-content: space-between;
     justify-content: space-between;
     border: 5px solid #eee;
+    border-top: none;
+    border-right: none;
+    border-radius: 0;
     background: white;
     max-height: 70px;
+    padding: 0 20px;
+    @media (max-width: 1199px) {
+      border-right: 5px solid #eee;
+    }
   }
 
 }

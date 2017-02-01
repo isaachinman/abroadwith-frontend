@@ -1,4 +1,4 @@
-import { darkBlue, headerBluePurple, headerGreen, babyBlue } from 'styles/colors'
+import { darkBlue, headerBluePurple, babyBlue } from 'styles/colors'
 
 export default {
   grid: {
@@ -6,6 +6,7 @@ export default {
     position: 'relative',
   },
   controls: {
+    zIndex: 99,
     position: 'absolute',
     top: 0,
     left: 0,
@@ -15,29 +16,23 @@ export default {
       zIndex: 2999,
     },
   },
-  headerBg: {
-    position: 'relative',
-    background: babyBlue,
-    height: 40,
-    width: '100%',
-  },
   header: {
-    position: 'absolute',
-    left: 10,
-    bottom: -25,
-    background: 'white',
-    color: headerGreen,
-    padding: '0 30px',
-    boxShadow: '5px 5px 12px 0 rgba(0,0,0,0.15)',
-    borderRadius: 5,
+    margin: 0,
+  },
+  headerBg: {
+    background: babyBlue,
+    color: 'white',
+    width: '100%',
+    padding: '9px 10px',
   },
   resultScrollList: {
-    height: 'calc(100vh - 285px)',
+    height: 'calc(100vh - 205px)',
     width: '60%',
     display: 'inline-block',
     verticalAlign: 'top',
     overflow: 'scroll',
-    marginTop: 205,
+    marginTop: 115,
+    padding: '10px 10px 0 1px',
   },
   mapPanel: {
     display: 'inline-block',
@@ -48,21 +43,6 @@ export default {
   mapContainer: {
     height: 'calc(100vh - 80px)',
     position: 'relative',
-  },
-  searchIcon: {
-    zIndex: 3,
-    position: 'absolute',
-    top: 17,
-    left: 17,
-    color: headerGreen,
-  },
-  searchBox: {
-    zIndex: 2,
-    position: 'absolute',
-    top: 10,
-    left: 8,
-    paddingLeft: 30,
-    width: 'calc(100% - 15px)',
   },
   searchResult: {
     background: 'white',
@@ -134,7 +114,5 @@ export default {
   filters: {
     width: '100%',
     background: '#fafafa',
-    padding: '40px 0 15px 0',
-    margin: '0 0 10px 0',
   },
 }

@@ -134,9 +134,7 @@ export default class SearchHomestays extends Component {
         <Grid style={styles.grid}>
           <div style={styles.controls}>
             <div style={styles.headerBg}>
-              <div style={styles.header}>
-                <h5>Find a place to stay.</h5>
-              </div>
+              <h5 style={styles.header}>Find a place to stay.</h5>
             </div>
             <div style={styles.filters}>
               <InlineSearchUnit integrated />
