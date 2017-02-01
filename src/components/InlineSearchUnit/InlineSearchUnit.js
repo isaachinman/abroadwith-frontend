@@ -22,7 +22,7 @@ import LocationSearch from './subcomponents/LocationSearch'
 
 @connect(state => ({
   uiLanguage: state.ui.locale.value,
-  homestaySearch: state.ui.homestaySearch,
+  homestaySearch: state.uiPersist.homestaySearch,
 }))
 @translate()
 export default class InlineSearchUnit extends Component {
