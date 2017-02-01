@@ -6,10 +6,18 @@ import { translate } from 'react-i18next'
 @translate()
 export default class LocationSearch extends Component {
 
+  state = {
+    value: null,
+  }
+
   componentDidMount() {
     const input = ReactDOM.findDOMNode(this.refs.input) // eslint-disable-line
     this.searchBox = new google.maps.places.SearchBox(input) // eslint-disable-line
     this.searchBox.addListener('places_changed', this.onPlacesChanged)
+  }
+
+  componentWillReceiveProps = nextProps => {
+    this.setState({ value: nextProps.defaultValue })
   }
 
   componentWillUnmount() {
@@ -28,10 +36,17 @@ export default class LocationSearch extends Component {
   /* eslint-disable */
   render() {
 
-    const { defaultValue, t } = this.props
+    const { t } = this.props
 
     return (
-      <input defaultValue={defaultValue} placeholder={t('common.where')} ref='input' type='text' className='form-control location-search' />
+      <input
+        onChange={event => this.setState({ value: event.target.value })}
+        value={this.state.value || ''}
+        placeholder={t('common.where')}
+        ref='input'
+        type='text'
+        className='form-control location-search'
+      />
     )
   }
   /* eslint-enable */
