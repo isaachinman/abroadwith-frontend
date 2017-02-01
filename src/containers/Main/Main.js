@@ -29,7 +29,7 @@ export default class Main extends Component {
     return (
       <div>
 
-        <Helmet title='Main' />
+        <Helmet title={t('main.title')} />
         <div style={styles.hero}>
 
           <Grid style={styles.heroTextContent}>
