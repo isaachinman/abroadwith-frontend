@@ -133,8 +133,8 @@ export default {
   },
   filters: {
     width: '100%',
-    background: 'white',
-    padding: '50px 15px 15px 15px',
+    background: '#fafafa',
+    padding: '40px 0 15px 0',
     margin: '0 0 10px 0',
   },
 }
