@@ -23,6 +23,8 @@ const initialState = {
     guests: 1,
     mapData: {},
     filters: [],
+    pageOffset: 0,
+    pageSize: 10,
   },
   data: {
     results: [],
@@ -45,7 +47,7 @@ export default function reducer(state = initialState, action = {}) {
     case UPDATE_ROOM_SEARCH_PARAMS:
       return {
         ...state,
-        params: action.params,
+        params: Object.assign({}, state.params, action.params),
       }
     case PERFORM_ROOM_SEARCH:
       return {

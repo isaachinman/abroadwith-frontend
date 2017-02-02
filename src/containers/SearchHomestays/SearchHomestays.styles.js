@@ -128,4 +128,14 @@ export default {
     width: '100%',
     background: '#fafafa',
   },
+  noResults: {
+    background: '#eee',
+    padding: 40,
+  },
+  resultListMinHeight: {
+    minHeight: 'calc(100vh - 190px)',
+  },
+  pagination: {
+    textAlign: 'center',
+  },
 }
