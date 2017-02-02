@@ -4,7 +4,8 @@
 3. Swap react-google-maps in homestay creation for google-map-react
 
 // Homestay search page
-1. Immersion selection needs to be a central focus of the dashboard
-  - Integrate immersion colours more clearly
-  - Immersions should be visible without any clicking
-  - Potentially use stepped slider to explain meal options (three steps: breakfast, breakfast + dinner, all three)
+- Immersion selection needs to be a central focus of the dashboard
+- Integrate immersion colours more clearly
+- Immersions should be visible without any clicking
+- Potentially use stepped slider to explain meal options (three steps: breakfast, breakfast + dinner, all three)
+---- DATE CHECK: if arrival or departure is present, make sure the other is present too before triggering search, otherwise it's useless
