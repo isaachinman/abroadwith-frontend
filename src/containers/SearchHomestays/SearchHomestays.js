@@ -166,7 +166,7 @@ export default class SearchHomestays extends Component {
               this.props.dispatch(defineHomestayMapSize(dimensions))
             }}
           >
-            <div>
+            <span>
               {center && zoom && typeof window !== 'undefined' && window.innerWidth > 767 &&
                 <div style={styles.mapPanel}>
                   <Map
@@ -179,7 +179,7 @@ export default class SearchHomestays extends Component {
                   />
                 </div>
               }
-            </div>
+            </span>
           </Measure>
         </Grid>
       </div>
