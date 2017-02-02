@@ -9,3 +9,4 @@
 - Immersions should be visible without any clicking
 - Potentially use stepped slider to explain meal options (three steps: breakfast, breakfast + dinner, all three)
 ---- DATE CHECK: if arrival or departure is present, make sure the other is present too before triggering search, otherwise it's useless
+---- Add filters, pageSize, pageOffset into url rehydration

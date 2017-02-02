@@ -154,6 +154,7 @@ export default class SearchHomestays extends Component {
             <SpinLoader light noLoader show={search.loading}>
               <div>
                 <ResultList
+                  loaded={search.loaded}
                   currency={currency}
                   results={search.data.results}
                 />
