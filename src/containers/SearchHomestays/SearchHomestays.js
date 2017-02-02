@@ -137,9 +137,9 @@ export default class SearchHomestays extends Component {
         <Grid style={styles.grid}>
           <div style={styles.controls}>
             <div style={styles.headerBg}>
-              <h5 style={styles.header}>Find a place to stay.</h5>
+              <h5 style={styles.header}>{t('search.homestay_search_title')}</h5>
               <div style={styles.filtersBtn} onClick={this.openFiltersPanel}>
-                Filters <FontAwesome name='sliders' />
+                {t('search.filters_btn')} <FontAwesome name='sliders' />
               </div>
             </div>
             <div style={styles.inlineSearchUnit}>

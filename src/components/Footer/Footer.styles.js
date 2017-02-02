@@ -1,6 +1,9 @@
 import { darkBlue, headerBluePurple } from 'styles/colors'
 
 export default {
+  compactGrid: {
+    maxWidth: '100%',
+  },
   topRow: {
     borderBottom: '1px solid rgba(250,250,250,.6)',
     textAlign: 'center',
@@ -57,6 +60,11 @@ export default {
       margin: '0 auto',
     },
   },
+  flexContainerCompact: {
+    display: 'block',
+    maxWidth: 500,
+    margin: '0 auto',
+  },
   flexChild: {
     width: '25%',
     '@media (max-width: 991px)': {
@@ -66,6 +74,13 @@ export default {
       marginBottom: 30,
       padding: '0 5px',
     },
+  },
+  flexChildCompact: {
+    display: 'inline-block',
+    verticalAlign: 'middle',
+    width: '50%',
+    marginBottom: 30,
+    padding: '0 5px',
   },
   helpMeIcon: {
     color: headerBluePurple,
@@ -89,5 +104,10 @@ export default {
       textAlign: 'left',
       width: '100%',
     },
+  },
+  socialIconsCompact: {
+    marginTop: 20,
+    textAlign: 'left',
+    width: '50%',
   },
 }

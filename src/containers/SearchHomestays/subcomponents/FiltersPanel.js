@@ -88,8 +88,6 @@ export default class FiltersPanel extends Component {
 
   handleChange = (value) => {
 
-    console.log('change value: ', value)
-
     if (Number.isInteger(value) && value >= 50) {
 
       // Special case for weird meal plan slider thing
@@ -120,9 +118,6 @@ export default class FiltersPanel extends Component {
 
     const { filters } = this.state
     const { handleClose, open, t } = this.props
-
-    console.log(filters)
-    console.log(this)
 
     let mealPlanValue = 0
     if (filters.includes('HALF_BOARD')) {
@@ -240,7 +235,7 @@ export default class FiltersPanel extends Component {
 
                 <Row style={styles.bottomRow}>
                   <Col xs={12}>
-                    <Button onClick={this.handleSearch} bsSize='large' bsStyle='primary'>Search</Button>
+                    <Button onClick={this.handleSearch} bsSize='large' bsStyle='primary'>{t('common.search')}</Button>
                   </Col>
                 </Row>
               </div>

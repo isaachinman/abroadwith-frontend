@@ -1,5 +1,6 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import { Footer } from 'components'
 import { translate } from 'react-i18next'
 import shortid from 'shortid'
 
@@ -19,6 +20,7 @@ export default class ResultList extends Component {
             <Result key={shortid()} currency={currency} result={result} />
           )
         })}
+        <Footer compact />
       </div>
     )
   }

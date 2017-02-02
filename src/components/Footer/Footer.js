@@ -35,6 +35,7 @@ export default class Footer extends Component {
   render() {
 
     const {
+      compact,
       t,
       locale,
       currency,
@@ -42,20 +43,22 @@ export default class Footer extends Component {
 
     return (
       <footer style={styles.footer}>
-        <div style={styles.topRow}>
-          <Grid>
-            <Link to='/about' style={styles.topLink}>{t('common.About')}</Link>
-            <a href='//blog.abroadwith.com' style={styles.topLink}>{t('common.Blog')}</a>
-            <a href='//jobs.abroadwith.com' style={styles.topLink}>{t('common.Jobs')}</a>
-            <a href='//press.abroadwith.com' style={styles.topLink}>{t('common.Press')}</a>
-            <Link to='/privacy' style={styles.topLink}>{t('common.Policies')}</Link>
-            <Link to='/terms' style={styles.topLink}>{t('common.terms_and_conditions')}</Link>
-            <Link to='/contact-us' style={styles.topLink}>{t('common.contact')}</Link>
-          </Grid>
-        </div>
-        <Grid style={styles.mainContent}>
-          <div style={styles.flexContainer}>
-            <div style={styles.flexChild}>
+        {!compact &&
+          <div style={styles.topRow}>
+            <Grid>
+              <Link to='/about' style={styles.topLink}>{t('common.About')}</Link>
+              <a href='//blog.abroadwith.com' style={styles.topLink}>{t('common.Blog')}</a>
+              <a href='//jobs.abroadwith.com' style={styles.topLink}>{t('common.Jobs')}</a>
+              <a href='//press.abroadwith.com' style={styles.topLink}>{t('common.Press')}</a>
+              <Link to='/privacy' style={styles.topLink}>{t('common.Policies')}</Link>
+              <Link to='/terms' style={styles.topLink}>{t('common.terms_and_conditions')}</Link>
+              <Link to='/contact-us' style={styles.topLink}>{t('common.contact')}</Link>
+            </Grid>
+          </div>
+        }
+        <Grid style={compact ? Object.assign({}, styles.mainContent, styles.compactGrid) : styles.mainContent}>
+          <div style={compact ? styles.flexContainerCompact : styles.flexContainer}>
+            <div style={compact ? styles.flexChildCompact : styles.flexChild}>
               <div style={styles.relative}>
                 <FormControl
                   onChange={this.changeUILanguage}
@@ -86,24 +89,24 @@ export default class Footer extends Component {
                 <FontAwesome style={styles.caretDown} name='caret-down' />
               </div>
             </div>
-            <div style={styles.flexChild}>
+            <div style={compact ? styles.flexChildCompact : styles.flexChild}>
               {t('common.footer_help_me')} <FontAwesome name='comments' size='2x' style={styles.helpMeIcon} />
             </div>
-            <div style={styles.flexChild} className='hidden-md hidden-lg'>
+            <div style={compact ? styles.flexChildCompact : styles.flexChild} className='hidden-md hidden-lg'>
               <h6>{t('common.company')}</h6>
               <div><Link to='/abroadwith-for-students' style={styles.footerLink}>{t('common.footer_why_abroadwith')}</Link></div>
               <div><Link to='/host-international-students' style={styles.footerLink}>{t('common.footer_responsible_homestay')}</Link></div>
               <div><a href='//www.abroadwith-educators.com' style={styles.footerLink}>{t('common.footer_abroadwith_for_educators')}</a></div>
               <div><Link to='/popular-languages-destinations' style={styles.footerLink}>{t('common.footer_popular')}</Link></div>
             </div>
-            <div style={styles.flexChild}>
+            <div style={compact ? styles.flexChildCompact : styles.flexChild}>
               <h6>{t('common.footer_host')}</h6>
               <div><Link to='/abroadwith-for-students' style={styles.footerLink}>{t('common.footer_why_abroadwith')}</Link></div>
               <div><Link to='/host-international-students' style={styles.footerLink}>{t('common.footer_responsible_homestay')}</Link></div>
               <div><a href='//www.abroadwith-educators.com' style={styles.footerLink}>{t('common.footer_abroadwith_for_educators')}</a></div>
               <div><Link to='/popular-languages-destinations' style={styles.footerLink}>{t('common.footer_popular')}</Link></div>
             </div>
-            <div style={Object.assign({}, styles.flexChild, styles.socialIcons)}>
+            <div style={compact ? Object.assign({}, styles.flexChildCompact, styles.socialIconsCompact) : Object.assign({}, styles.flexChild, styles.socialIcons)}>
               <a href='//twitter.com/abroadwith_' style={styles.socialIcon} key='icon-twitter'>
                 <FontAwesome name='twitter' size='2x' />
               </a>
@@ -120,7 +123,7 @@ export default class Footer extends Component {
           </div>
         </Grid>
         <div style={styles.bottomRow}>
-          <Grid>
+          <Grid style={compact ? styles.compactGrid : {}}>
             &copy; {moment().year()} Abroadwith
           </Grid>
         </div>
@@ -131,6 +134,7 @@ export default class Footer extends Component {
 }
 
 Footer.propTypes = {
+  compact: PropTypes.bool,
   currency: PropTypes.string,
   locale: PropTypes.string,
   t: PropTypes.func,
