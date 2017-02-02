@@ -36,13 +36,13 @@ export default class LocationSearch extends Component {
   /* eslint-disable */
   render() {
 
-    const { t } = this.props
+    const { integrated, t } = this.props
 
     return (
       <input
         onChange={event => this.setState({ value: event.target.value })}
         value={this.state.value || ''}
-        placeholder={t('common.where')}
+        placeholder={integrated ? t('common.where_mobile') : t('common.where')}
         ref='input'
         type='text'
         className='form-control location-search'
@@ -56,5 +56,6 @@ export default class LocationSearch extends Component {
 LocationSearch.propTypes = {
   defaultValue: PropTypes.string,
   handleValueChange: PropTypes.func,
+  integrated: PropTypes.bool,
   t: PropTypes.func,
 }

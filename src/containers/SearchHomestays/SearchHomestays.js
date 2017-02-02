@@ -139,7 +139,7 @@ export default class SearchHomestays extends Component {
             <div style={styles.headerBg}>
               <h5 style={styles.header}>{t('search.homestay_search_title')}</h5>
               <div style={styles.filtersBtn} onClick={this.openFiltersPanel}>
-                {t('search.filters_btn')} <FontAwesome name='sliders' />
+                <FontAwesome name='sliders' />
               </div>
             </div>
             <div style={styles.inlineSearchUnit}>
@@ -166,16 +166,18 @@ export default class SearchHomestays extends Component {
               this.props.dispatch(defineHomestayMapSize(dimensions))
             }}
           >
-            <div style={styles.mapPanel}>
-              {center && zoom &&
-                <Map
-                  center={center}
-                  currency={currency}
-                  handleLocationChange={this.handleMapChange}
-                  handleMapClick={this.handleMapClick}
-                  zoom={zoom}
-                  results={search.data.results}
-                />
+            <div>
+              {center && zoom && typeof window !== 'undefined' && window.innerWidth > 767 &&
+                <div style={styles.mapPanel}>
+                  <Map
+                    center={center}
+                    currency={currency}
+                    handleLocationChange={this.handleMapChange}
+                    handleMapClick={this.handleMapClick}
+                    zoom={zoom}
+                    results={search.data.results}
+                  />
+                </div>
               }
             </div>
           </Measure>

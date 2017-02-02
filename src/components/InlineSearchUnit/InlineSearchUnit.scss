@@ -7,13 +7,13 @@
 Dimensions:
 
   Standalone: --------------------
-    XLarge (800px-1100px):
+    XLarge (1100px+):
       Language Input:    200px
       Location Input:    190px
       DateRange Input:   265px
       Guest Input:       120px
       Button:            140px
-      Total _____________///
+      Total _____________915px
     Large (800px-1100px):
       Language Input:    180px
       Location Input:    170px
@@ -36,6 +36,32 @@ Dimensions:
       Button:            100%
       Total _____________n/a
 
+
+  Integrated: --------------------
+    XLarge (800px-1100px):
+      Language Input:    145px
+      Location Input:    142px
+      DateRange Input:   260px
+      Guest Input:       150px
+      Total _____________697px
+    Large (800px-1100px):
+      Language Input:    180px
+      Location Input:    170px
+      DateRange Input:   225px
+      Guest Input:       80px
+      Total _____________775px
+    Medium (500px-800px):
+      Language Input:    180px
+      Location Input:    170px
+      DateRange Input:   0
+      Guest Input:       0
+      Total _____________470px
+    Small (<500px)
+      Language Input:    100%
+      Location Input:    100%
+      DateRange Input:   0
+      Guest Input:       0
+      Total _____________n/a
 
 */
 
@@ -301,21 +327,56 @@ Dimensions:
 
   // Integrated styles
   &.integrated {
-    display: flex;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
+    box-sizing: border-box;
     border: 5px solid #eee;
     border-top: none;
     border-right: none;
     border-radius: 0;
     background: white;
     max-height: 70px;
-    padding: 0 20px;
     @media (max-width: 1199px) {
+      text-align: center;
+      width: 100%;
       border-right: 5px solid #eee;
     }
-  }
 
+    // Language input
+    .bootstrap-typeahead {
+      width: 145px;
+      @media (max-width: 799px) {
+        width: 50%;
+      }
+      input {
+        border-radius: 0;
+      }
+    }
+
+    // Location input
+    input.location-search {
+      width: 142px;
+      @media (max-width: 799px) {
+        width: 50%;
+      }
+    }
+
+    // Date input
+    .DateRangePicker {
+      padding: 0 10px;
+      .DateInput {
+        width: 108px;
+      }
+    }
+
+    // Guest input
+    .react-selectize {
+      min-width: 150px;
+      &-control {
+        padding: 0 34px;
+      }
+    }
+
+
+  }
 }
 
 // Google search results

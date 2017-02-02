@@ -465,8 +465,10 @@ $popover-arrow-color: $darkBlue;
 
 // Search results
 .result-second-child-margin {
-  &:nth-child(even) {
-    margin-left: 10px;
+  @media (min-width: 992px) {
+    &:nth-child(even) {
+      margin-left: 10px;
+    }
   }
 }
 
@@ -479,5 +481,36 @@ $popover-arrow-color: $darkBlue;
     h6.title {
       color: $saturatedPurple;
     }
+  }
+}
+
+// Immersion tags
+.immersion-tag {
+  display: inline;
+  margin-right: 4px;
+  padding: 2px 4px;
+  font-size: 10px;
+  line-height: 1;
+  background: rgba(0,0,0,.085);
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+}
+
+// Search result rating
+.small-rating-wrapper {
+  .ant-rate {
+    font-size: 12px;
+  }
+  .ant-rate-star {
+    margin-right: 1px;
+  }
+  .ant-rate-star-half .ant-rate-star-content:before, .ant-rate-star-full:before {
+    font-size: 12px;
+    color: $headerBluePurple;
+  }
+  .ant-rate-star:before, .ant-rate-star-content:before {
+    font-size: 12px;
   }
 }

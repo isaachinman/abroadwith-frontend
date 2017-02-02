@@ -87,7 +87,15 @@ export default class InlineSearchUnit extends Component {
     }
 
     if (integrated) {
-      dispatch(performRoomSearch(newParams, push))
+
+      // Don't dispatch search until we have a proper date range
+      if (field !== 'dates' || (field === 'dates' && value.startDate && value.endDate)) {
+        dispatch(performRoomSearch(newParams, push))
+      } else {
+        dispatch(updateRoomSearchParams(newParams))
+      }
+
+
     } else {
       dispatch(updateRoomSearchParams(newParams))
     }
@@ -123,13 +131,14 @@ export default class InlineSearchUnit extends Component {
       <div className={topLevelClassName}>
         <Typeahead
           selected={homestaySearch.params.language ? [{ label: t(`languages.${homestaySearch.params.language}`), id: homestaySearch.params.language }] : []}
-          placeholder={t('search.language_to_learn')}
+          placeholder={integrated ? t('search.language_to_learn_mobile') : t('search.language_to_learn')}
           options={allLanguages}
           onChange={options => {
             return options[0] ? this.handleValueChange('language', options[0].id) : this.handleValueChange('language', null)
           }}
         />
         <LocationSearch
+          integrated={integrated}
           defaultValue={homestaySearch.params.locationString}
           handleValueChange={this.handleValueChange}
         />

@@ -22,7 +22,7 @@ export default {
   },
   filtersBtn: {
     display: 'inline-block',
-    fontSize: 14,
+    fontSize: 22,
     verticalAlign: 'baseline',
     width: '100px',
     textAlign: 'right',
@@ -37,10 +37,14 @@ export default {
     color: 'white',
     width: '100%',
     padding: '9px 10px',
+    maxHeight: 50,
   },
   resultScrollList: {
     height: 'calc(100vh - 195px)',
     width: '60%',
+    '@media (max-width: 767px)': {
+      width: '100%',
+    },
     display: 'inline-block',
     verticalAlign: 'top',
     overflow: 'scroll',
@@ -62,17 +66,14 @@ export default {
     marginBottom: 10,
     position: 'relative',
     width: 'calc(50% - 5px)',
+    '@media (max-width: 991px)': {
+      display: 'block',
+      maxWidth: 500,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
     display: 'inline-block',
     borderRadius: 5,
-  },
-  searchResultHovered: {
-    background: 'white',
-    marginBottom: 10,
-    position: 'relative',
-    width: 'calc(50% - 5px)',
-    display: 'inline-block',
-    borderRadius: 5,
-    boxShadow: '5px 5px 12px 0 rgba(0,0,0,0.15)',
   },
   searchResultCarouselImg: {
     backgroundSize: 'cover',
@@ -108,6 +109,13 @@ export default {
     right: 10,
     top: 120,
     borderRadius: 5,
+  },
+  searchResultRating: {
+    position: 'absolute',
+    right: 10,
+    top: 213,
+    fontSize: 12,
+    color: headerBluePurple,
   },
   searchResultText: {
     padding: 10,
