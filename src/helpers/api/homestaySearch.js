@@ -134,7 +134,8 @@ export default (app) => {
       'mealPlan',
       'mealPref',
       'dietRestrictions',
-      'amenities'
+      'amenities',
+      'filters' // Override for general category
     ]
 
     for (var i=0; i < filterSections.length; i++) {

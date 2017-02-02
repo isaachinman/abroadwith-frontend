@@ -7,6 +7,7 @@ export default urlObject => {
     mapData: {
       bounds: {},
     },
+    filters: [],
   }
 
   Object.keys(urlObject).map(param => {

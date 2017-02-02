@@ -110,6 +110,7 @@
 .ant-checkbox-wrapper {
   cursor: pointer;
   font-size: 12px;
+  user-select: none;
   display: inline-block;
 }
 .ant-checkbox-wrapper:not(:last-child) {

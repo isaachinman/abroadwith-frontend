@@ -22,6 +22,7 @@ const initialState = {
     departure: null,
     guests: 1,
     mapData: {},
+    filters: [],
   },
   data: {
     results: [],

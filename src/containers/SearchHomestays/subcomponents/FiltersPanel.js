@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Checkbox from 'antd/lib/checkbox'
 import { Button, Col, Fade, Grid, Row } from 'react-bootstrap'
 import HomeData from 'data/constants/HomeData'
+import { performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
 import Radium from 'radium'
 import Slider from 'rc-slider'
 import { translate } from 'react-i18next'
@@ -60,16 +61,75 @@ const styles = {
 
 @connect(
   state => ({
-    roomHovered: state.ui.hoverables.roomHovered,
+    homestaySearch: state.uiPersist.homestaySearch,
   })
 )
 @translate()
 @Radium
 export default class FiltersPanel extends Component {
 
+  state = {
+    filters: this.props.homestaySearch.params.filters || [],
+  }
+
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.homestaySearch.params.filters) {
+      this.setState({ filters: nextProps.homestaySearch.params.filters })
+    }
+  }
+
+  handleSearch = () => {
+    const { dispatch, homestaySearch } = this.props
+    dispatch(performRoomSearch(Object.assign({}, homestaySearch.params, {
+      filters: this.state.filters,
+    })))
+    this.props.handleClose()
+  }
+
+  handleChange = (value) => {
+
+    console.log('change value: ', value)
+
+    if (Number.isInteger(value) && value >= 50) {
+
+      // Special case for weird meal plan slider thing
+      let newFilters = this.state.filters.filter(filter => filter !== 'FULL_BOARD' && filter !== 'HALF_BOARD')
+      if (value === 50) {
+        newFilters = newFilters.concat(['HALF_BOARD'])
+      } else if (value === 100) {
+        newFilters = newFilters.concat(['FULL_BOARD'])
+      }
+      this.setState({ filters: newFilters })
+
+    } else if (Number.isInteger(value) && value === 0) {
+
+      this.setState({ filters: this.state.filters.filter(filter => filter !== 'HALF_BOARD' && filter !== 'FULL_BOARD') })
+
+    } else if (value.constructor === Array) {
+
+      // Checkboxes all share one array of values
+      this.setState({
+        filters: value,
+      })
+
+    }
+
+  }
+
   render() {
 
+    const { filters } = this.state
     const { handleClose, open, t } = this.props
+
+    console.log(filters)
+    console.log(this)
+
+    let mealPlanValue = 0
+    if (filters.includes('HALF_BOARD')) {
+      mealPlanValue = 50
+    } else if (filters.includes('FULL_BOARD')) {
+      mealPlanValue = 100
+    }
 
     return (
       <div style={open ? Object.assign({}, styles.filtersPanelContainer, { pointerEvents: 'all' }) : styles.filtersPanelContainer}>
@@ -100,10 +160,11 @@ export default class FiltersPanel extends Component {
                   </Col>
                   <Col xs={10} sm={12} md={6} style={{ paddingBottom: 20 }}>
                     <Slider
+                      onChange={this.handleChange}
                       min={-10}
                       marks={{ 0: 'Breakfast', 50: 'Breakfast & Dinner', 100: 'Breakfast, Lunch, & Dinner' }}
                       step={null}
-                      defaultValue={20}
+                      value={mealPlanValue}
                     />
                   </Col>
                   <div style={styles.borderBottom} />
@@ -115,6 +176,8 @@ export default class FiltersPanel extends Component {
                   </Col>
                   <Col xs={12}>
                     <Checkbox.Group
+                      value={filters}
+                      onChange={this.handleChange}
                       options={HomeData.homeTypes.map(homeType => ({
                         value: homeType,
                         label: t(`homes.home_types.${homeType}`),
@@ -130,6 +193,8 @@ export default class FiltersPanel extends Component {
                   </Col>
                   <Col xs={12}>
                     <Checkbox.Group
+                      value={filters}
+                      onChange={this.handleChange}
                       options={HomeData.homeSettings.AMENITIES.map(amenity => ({
                         value: amenity,
                         label: t(`homes.amenities.${amenity}`),
@@ -145,6 +210,8 @@ export default class FiltersPanel extends Component {
                   </Col>
                   <Col xs={12}>
                     <Checkbox.Group
+                      value={filters}
+                      onChange={this.handleChange}
                       options={HomeData.homeSettings.PREFERENCES.map(preference => ({
                         value: preference,
                         label: t(`homes.preferences.${preference}`),
@@ -160,6 +227,8 @@ export default class FiltersPanel extends Component {
                   </Col>
                   <Col xs={12}>
                     <Checkbox.Group
+                      value={filters}
+                      onChange={this.handleChange}
                       options={HomeData.homeServices.FOOD_OPTION.map(foodOption => ({
                         value: foodOption,
                         label: t(`homes.diets_offered.${foodOption}`),
@@ -171,7 +240,7 @@ export default class FiltersPanel extends Component {
 
                 <Row style={styles.bottomRow}>
                   <Col xs={12}>
-                    <Button bsSize='large' bsStyle='primary'>Search</Button>
+                    <Button onClick={this.handleSearch} bsSize='large' bsStyle='primary'>Search</Button>
                   </Col>
                 </Row>
               </div>
@@ -187,6 +256,7 @@ export default class FiltersPanel extends Component {
 FiltersPanel.propTypes = {
   dispatch: PropTypes.func,
   handleClose: PropTypes.func,
+  homestaySearch: PropTypes.object,
   open: PropTypes.bool,
   t: PropTypes.func,
 }
