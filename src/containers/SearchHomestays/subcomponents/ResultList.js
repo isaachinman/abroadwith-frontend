@@ -32,7 +32,9 @@ export default class ResultList extends Component {
             <Pagination />
           </div>
         </div>
-        <Footer compact />
+        <div style={{ marginRight: -10 }}>
+          <Footer compact />
+        </div>
       </div>
     )
   }
