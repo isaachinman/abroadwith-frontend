@@ -29,6 +29,7 @@ export default {
     backgroundColor: 'transparent',
     borderRadius: 0,
     WebkitAppearance: 'none',
+    MozAppearance: 'none',
     padding: 0,
     borderTop: 'none',
     borderRight: 'none',

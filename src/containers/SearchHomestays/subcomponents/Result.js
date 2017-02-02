@@ -9,23 +9,16 @@ import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import parsePhotoOrder from 'utils/homes/parsePhotoOrder'
 import Radium from 'radium'
+import Rate from 'antd/lib/rate'
 import shortid from 'shortid'
 
 // Relative imports
 import styles from '../SearchHomestays.styles'
 
-@connect(
-  state => ({
-    roomHovered: state.ui.hoverables.roomHovered,
-  })
-)
+@connect()
 @translate()
 @Radium
 export default class Result extends Component {
-
-  shouldComponentUpdate = nextProps => {
-    return (this.props.result.roomId === nextProps.roomHovered || (this.props.result.roomId === this.props.roomHovered && this.props.result.roomId !== nextProps.roomHovered))
-  }
 
   handleMouseEnter = () => {
     const { dispatch, result } = this.props
@@ -39,12 +32,20 @@ export default class Result extends Component {
 
   render() {
 
-    const { currency, t, result, roomHovered } = this.props
+    const { currency, t, result } = this.props
+
+    let averageRating = null
+
+    if (result.reviewCount > 0) {
+      averageRating = (result.avgCleanRating + result.avgFoodRating + result.avgLangCultLearRating + result.avgLocationRating + result.avgRoomRating) / 5
+    }
+    console.log(this)
+    console.log(averageRating)
 
     return (
       <div
         key={result.roomId}
-        style={result.roomId === roomHovered ? styles.searchResultHovered : styles.searchResult}
+        style={styles.searchResult}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         className='result-second-child-margin'
@@ -80,8 +81,27 @@ export default class Result extends Component {
               <div style={styles.searchResultSubtitle}>
                 {t(`homes.home_types.${result.homeType}`)} > {result.homeCity} {result.homeNeighbourhood && <span>({result.homeNeighbourhood})</span>}
               </div>
+              <div style={{ opacity: 0.75 }}>
+                {result.immersions.includes('stay') &&
+                  <span className='immersion-tag stay'>{t('immersions.stay')}</span>
+                }
+                {result.immersions.includes('tandem') &&
+                  <span className='immersion-tag tandem'>{t('immersions.tandem')}</span>
+                }
+                {result.immersions.includes('teacher') &&
+                  <span className='immersion-tag teacher'>{t('immersions.teachers_stay')}</span>
+                }
+              </div>
             </div>
+
             <div style={Object.assign({}, styles.searchResultHostImg, { backgroundImage: `url(${config.img}${result.hostPhoto})` })} />
+
+            {result.reviewCount > 0 &&
+              <div style={styles.searchResultRating} className='small-rating-wrapper'>
+                ({result.reviewCount}) <Rate disabled defaultValue={averageRating} />
+              </div>
+            }
+
           </div>
         </div>
       </div>
