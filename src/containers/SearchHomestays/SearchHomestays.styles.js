@@ -39,7 +39,7 @@ export default {
     padding: '9px 10px',
   },
   resultScrollList: {
-    height: 'calc(100vh - 205px)',
+    height: 'calc(100vh - 195px)',
     width: '60%',
     display: 'inline-block',
     verticalAlign: 'top',
@@ -133,7 +133,7 @@ export default {
     padding: 40,
   },
   resultListMinHeight: {
-    minHeight: 'calc(100vh - 190px)',
+    minHeight: 'calc(100vh - 280px)',
   },
   pagination: {
     textAlign: 'center',

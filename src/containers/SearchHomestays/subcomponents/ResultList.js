@@ -28,9 +28,9 @@ export default class ResultList extends Component {
               <h6 className='header-green'>{t('search.no_results_found')}</h6>
             </div>
           }
-          <div style={styles.pagination}>
-            <Pagination />
-          </div>
+        </div>
+        <div style={styles.pagination}>
+          <Pagination />
         </div>
         <div style={{ marginRight: -10 }}>
           <Footer compact />
