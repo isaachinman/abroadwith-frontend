@@ -217,6 +217,10 @@ Dimensions:
     color: white;
     font-size: 16px;
     padding: 0 10px;
+    &:disabled {
+      opacity: 1;
+      cursor: not-allowed !important;
+    }
   }
 
   // ---------------------------------------------------------------------------

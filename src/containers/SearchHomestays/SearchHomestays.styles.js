@@ -6,18 +6,31 @@ export default {
     position: 'relative',
   },
   controls: {
-    zIndex: 99,
+    zIndex: 98,
     position: 'absolute',
     top: 0,
     left: 0,
     width: '60%',
     '@media (max-width: 1199px)': {
       width: '100%',
-      zIndex: 2999,
     },
   },
   header: {
     margin: 0,
+    display: 'inline-block',
+    width: 'calc(100% - 100px)',
+  },
+  filtersBtn: {
+    display: 'inline-block',
+    fontSize: 14,
+    verticalAlign: 'baseline',
+    width: '100px',
+    textAlign: 'right',
+    opacity: 0.8,
+    cursor: 'pointer',
+    ':hover': {
+      opacity: 1,
+    },
   },
   headerBg: {
     background: babyBlue,
@@ -67,7 +80,7 @@ export default {
     height: 160,
   },
   searchResultPrice: {
-    zIndex: 99,
+    zIndex: 9,
     background: headerBluePurple,
     color: 'white',
     position: 'absolute',
@@ -111,7 +124,7 @@ export default {
     width: '100%',
     height: '100%',
   },
-  filters: {
+  inlineSearchUnit: {
     width: '100%',
     background: '#fafafa',
   },

@@ -4,6 +4,7 @@ import Helmet from 'react-helmet'
 import abroadwithBoundsToGMAPBounds from 'utils/search/abroadwithBoundsToGMAPBounds'
 import gmapBoundsToAbroadwithBounds from 'utils/search/gmapBoundsToAbroadwithBounds'
 import { connect } from 'react-redux'
+import FontAwesome from 'react-fontawesome'
 import { InlineSearchUnit } from 'components'
 import { Grid } from 'react-bootstrap'
 import homestaySearchUrlToParams from 'utils/search/homestaySearchUrlToParams'
@@ -16,9 +17,9 @@ import Radium from 'radium'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
 
 // Relative imports
+import FiltersPanel from './subcomponents/FiltersPanel'
 import Map from './subcomponents/Map'
 import ResultList from './subcomponents/ResultList'
-// import SearchBox from './subcomponents/Searchbox'
 import styles from './SearchHomestays.styles'
 
 @connect(
@@ -35,6 +36,7 @@ import styles from './SearchHomestays.styles'
 export default class SearchHomestays extends Component {
 
   state = {
+    filtersPanelOpen: false,
     initialSearchPerformed: false,
   }
 
@@ -71,12 +73,12 @@ export default class SearchHomestays extends Component {
           })))
 
         }
-
       }
-
     }
-
   }
+
+  closeFiltersPanel = () => this.setState({ filtersPanelOpen: false })
+  openFiltersPanel = () => this.setState({ filtersPanelOpen: true })
 
   handleMapChange = newGeometry => {
 
@@ -110,6 +112,7 @@ export default class SearchHomestays extends Component {
 
   render() {
 
+    const { filtersPanelOpen } = this.state
     const { uiCurrency, t, search } = this.props
 
     const currency = search.data && search.data.params ? search.data.params.currency : uiCurrency
@@ -135,12 +138,19 @@ export default class SearchHomestays extends Component {
           <div style={styles.controls}>
             <div style={styles.headerBg}>
               <h5 style={styles.header}>Find a place to stay.</h5>
+              <div style={styles.filtersBtn} onClick={this.openFiltersPanel}>
+                Filters <FontAwesome name='sliders' />
+              </div>
             </div>
-            <div style={styles.filters}>
+            <div style={styles.inlineSearchUnit}>
               <InlineSearchUnit integrated />
             </div>
           </div>
           <div style={styles.resultScrollList}>
+            <FiltersPanel
+              handleClose={this.closeFiltersPanel}
+              open={filtersPanelOpen}
+            />
             <SpinLoader light noLoader show={search.loading}>
               <div>
                 <ResultList
