@@ -5,6 +5,7 @@ import { match } from 'react-router'
 import { Provider } from 'react-redux'
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect'
 import { syncHistoryWithStore } from 'react-router-redux'
+import bodyParser from 'body-parser'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import createHistory from 'react-router/lib/createMemoryHistory'
@@ -21,6 +22,7 @@ import imageUploadInstaller from 'utils/upload/ImageUploadInstaller'
 import UILanguages from 'data/constants/UILanguages'
 
 // Custom API imports
+import contactForm from 'helpers/api/contactForm'
 import getRoomCalendar from 'helpers/api/getRoomCalendar'
 import logout from 'helpers/api/logout'
 import homestaySearch from 'helpers/api/homestaySearch'
@@ -47,8 +49,12 @@ const proxy = httpProxy.createProxyServer({
   secure: !(__DEVELOPMENT__),
 })
 
+// Use bodyParser
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 // Install custom API endpoints
-const customApiEndpoints = [getRoomCalendar, logout, homestaySearch]
+const customApiEndpoints = [contactForm, getRoomCalendar, logout, homestaySearch]
 customApiEndpoints.map(endpoint => {
   endpoint(app)
 })

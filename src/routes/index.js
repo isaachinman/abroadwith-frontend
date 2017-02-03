@@ -200,7 +200,7 @@ export default (store) => {
 
             <IndexRoute component={Main} />
 
-            <Route path='contact' component={ContactUs} />
+            <Route path='contact-us' component={ContactUs} />
 
             <Route path='faq' getComponent={getFAQ} />
 

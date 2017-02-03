@@ -9,8 +9,8 @@ export default {
   },
   bigNumber: {
     position: 'absolute',
-    top: 1,
-    left: 16,
+    top: 0,
+    left: 15,
     marginTop: 0,
     padding: '10px 15px 5px 15px',
     borderRadius: '0 0 5px 0',
@@ -20,7 +20,7 @@ export default {
     background: 'white',
   },
   howItWorksBox: {
-    marginBottom: 30,
+    marginBottom: 20,
     position: 'relative',
   },
 }

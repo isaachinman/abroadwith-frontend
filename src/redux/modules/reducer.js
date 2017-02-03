@@ -6,6 +6,7 @@ import { routerReducer } from 'react-router-redux'
 // Relative imports
 import auth from './auth'
 import clientToken from './payments/client-token'
+import contactUs from './publicData/users/contactUs'
 import currency from './ui/currency'
 import educators from './publicData/educators/loadEducator'
 import footer from './ui/footer'
@@ -24,6 +25,7 @@ import verifications from './privateData/users/verifications'
 
 export default combineReducers({
   auth,
+  contactUs,
   messaging,
   routing: routerReducer,
   reduxAsyncConnect,
