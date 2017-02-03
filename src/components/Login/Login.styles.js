@@ -1,4 +1,4 @@
-import { accentGrey1, accentGrey3 } from 'styles/colors'
+import { accentGrey3 } from 'styles/colors'
 
 export default {
   loginPanel: {
@@ -10,7 +10,7 @@ export default {
   },
   divider: {
     height: 20,
-    borderBottom: `1px solid ${accentGrey1}`,
+    borderBottom: '1px solid #ddd',
     textAlign: 'center',
   },
   dividerText: {

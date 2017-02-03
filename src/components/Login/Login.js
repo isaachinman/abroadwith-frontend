@@ -126,9 +126,6 @@ export default class Login extends Component {
                   icon='fa-facebook-square'
                 />
               </Col>
-            </Row>
-
-            <Row>
               <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
                 <GoogleLogin
                   onFailure={this.handleGoogleLoginFailure}

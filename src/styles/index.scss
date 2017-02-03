@@ -302,12 +302,26 @@ span.input-group-addon .fa {
   }
 }
 
-.btn-facebook-login .fa {
-color: lighten(#3b5998, 10%);
+.btn-facebook-login {
+  font-size: 16px;
+  text-align: left;
+  text-indent: 40px;
+  margin-bottom: 15px;
+  .fa {
+    text-indent: 0;
+    color: lighten(#3b5998, 10%);
+  }
+
 }
 
-.btn-google-login .fa {
-color: lighten(#dd4b39, 5%);
+.btn-google-login {
+  font-size: 16px;
+  text-align: left;
+  text-indent: 40px;
+  .fa {
+    text-indent: 0;
+    color: lighten(#dd4b39, 5%);
+  }
 }
 
 .panel-heading {
@@ -513,4 +527,11 @@ $popover-arrow-color: $darkBlue;
   .ant-rate-star:before, .ant-rate-star-content:before {
     font-size: 12px;
   }
+}
+
+// Form control static overflow
+.form-control-static {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

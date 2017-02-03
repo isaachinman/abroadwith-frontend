@@ -1,7 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import shortid from 'shortid'
-import { Accordion, Button, Col, Collapse, FormGroup, FormControl, OverlayTrigger, Panel, Tooltip, Row } from 'react-bootstrap'
+import { Button, Col, FormGroup, FormControl, OverlayTrigger, Panel, Tooltip, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { ManageLanguages } from 'components'
@@ -149,6 +149,7 @@ export default class Signup extends Component {
     // These properties are used regardless of signup type
     let signupObject = {
       type: this.props.type,
+      feUserType: this.props.type,
       referralUserId: typeof referral_user === 'string' && validator.isInt(referral_user) ? referral_user : null,
       userKnownLanguages: filterLanguageArray(this.state.knownLanguages),
       userLearningLanguages: filterLanguageArray(this.state.learningLanguages),
@@ -254,48 +255,53 @@ export default class Signup extends Component {
 
           <span>
 
-            <Collapse in={this.state.page === 1}>
+            {this.state.page === 1 &&
               <div>
-                <Row>
-                  <Col xs={12}>
-                    <h2>{t('common.language_modal_hello')}</h2>
-                    <h6 className='text-muted'>{t('common.language_modal_title')}</h6>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs={12} sm={10} smOffset={1}>
-                    <ManageLanguages
-                      addLanguage={this.addLanguage}
-                      availableLanguages={availableLanguages}
-                      knownLanguages={knownLanguages}
-                      learningLanguages={learningLanguages}
-                      removeLanguage={this.removeLanguage}
-                      updateLanguage={this.updateLanguage}
-                      updateLanguageLevel={this.updateLanguageLevel}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs={12}>
-                    {!languagesAreValid &&
-                      <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('common.languages_choose_at_least_one')}</Tooltip>}>
-                        <Button>{t('common.next')}</Button>
-                      </OverlayTrigger>
-                    }
-                    {languagesAreValid &&
-                      <Button bsStyle='success' onClick={() => this.changePage(2)}>{t('common.next')}</Button>
-                    }
-                  </Col>
-                </Row>
+                <div>
+                  {this.state.page === 1 &&
+                    <div style={styles.splashOfColour} />
+                  }
+                  <Row>
+                    <Col xs={12}>
+                      <h2 style={{ color: '#32325D' }}>{t('common.language_modal_hello')}</h2>
+                      <h6 className='text-muted'>{t('common.language_modal_title')}</h6>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs={12} sm={10} smOffset={1}>
+                      <ManageLanguages
+                        addLanguage={this.addLanguage}
+                        availableLanguages={availableLanguages}
+                        knownLanguages={knownLanguages}
+                        learningLanguages={learningLanguages}
+                        removeLanguage={this.removeLanguage}
+                        updateLanguage={this.updateLanguage}
+                        updateLanguageLevel={this.updateLanguageLevel}
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs={12}>
+                      {!languagesAreValid &&
+                        <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('common.languages_choose_at_least_one')}</Tooltip>}>
+                          <Button style={styles.nextBtn} className='disabled'>{t('common.next')}</Button>
+                        </OverlayTrigger>
+                      }
+                      {languagesAreValid &&
+                        <Button style={styles.nextBtn} bsStyle='success' onClick={() => this.changePage(2)}>{t('common.next')}</Button>
+                      }
+                    </Col>
+                  </Row>
+                </div>
               </div>
-            </Collapse>
+            }
 
-            <Collapse in={this.state.page === 2}>
-              <div style={styles.signupMenu}>
-                <Row>
-                  <Col xs={12}>
-                    <Accordion style={styles.emailSignupBtn}>
-                      <Panel header={t('common.sign_up_email')} eventKey='1'>
+            {this.state.page === 2 &&
+              <div>
+                <div style={styles.signupMenu}>
+                  <Row>
+                    <Col xs={12}>
+                      <Panel header={<h4>{t('common.sign_up_email')}</h4>} style={{ boxShadow: 'none' }}>
                         <form onSubmit={event => {
                           event.preventDefault()
                           this.signup('email')
@@ -357,39 +363,36 @@ export default class Signup extends Component {
                           </Button>
                         </form>
                       </Panel>
-                    </Accordion>
-                  </Col>
-                </Row>
+                    </Col>
+                  </Row>
 
-                <Row>
-                  <Col xs={12}>
-                    <FacebookLogin
-                      appId='144997212531478'
-                      callback={response => this.signup('facebook', response)}
-                      cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-facebook-login'
-                      fields='first_name,last_name,email,birthday'
-                      textButton={t('common.sign_up_facebook')}
-                      icon='fa-facebook-square'
-                    />
-                  </Col>
-                </Row>
-
-                <Row>
-                  <Col xs={12}>
-                    <GoogleLogin
-                      onFailure={() => {}}
-                      onSuccess={response => this.signup('google', response)}
-                      clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
-                      className='btn btn-block btn-lg btn-default btn-with-icon btn-google-login'
-                    >
-                      <FontAwesome name='google' /> {t('common.sign_up_google')}
-                    </GoogleLogin>
-                  </Col>
-                </Row>
+                  <Row>
+                    <Col xs={12}>
+                      <FacebookLogin
+                        appId='144997212531478'
+                        callback={response => this.signup('facebook', response)}
+                        cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-facebook-login'
+                        fields='first_name,last_name,email,birthday'
+                        textButton={t('common.sign_up_facebook')}
+                        icon='fa-facebook-square'
+                      />
+                    </Col>
+                    <Col xs={12}>
+                      <GoogleLogin
+                        onFailure={() => {}}
+                        onSuccess={response => this.signup('google', response)}
+                        clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
+                        className='btn btn-block btn-lg btn-default btn-with-icon btn-google-login'
+                      >
+                        <FontAwesome name='google' /> {t('common.sign_up_google')}
+                      </GoogleLogin>
+                    </Col>
+                  </Row>
 
 
+                </div>
               </div>
-            </Collapse>
+            }
 
           </span>
         }

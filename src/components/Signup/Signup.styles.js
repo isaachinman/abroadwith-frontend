@@ -1,4 +1,4 @@
-import { accentGrey1, accentGrey3 } from 'styles/colors'
+import { accentGrey1, accentGrey3, warmPurple } from 'styles/colors'
 
 export default {
   signupPanel: {
@@ -31,5 +31,17 @@ export default {
     backgroundColor: 'white',
     padding: '0 10px',
     lineHeight: '35px',
+  },
+  nextBtn: {
+    marginBottom: 20,
+  },
+  splashOfColour: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: 165,
+    background: warmPurple,
+    borderRadius: '0 0 4px 4px',
   },
 }

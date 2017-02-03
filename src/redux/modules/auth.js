@@ -46,6 +46,7 @@ export default function reducer(state = initialState, action = {}) {
         loaded: true,
         jwt: jwtDecode(action.jwt),
         token: action.jwt,
+        error: false,
       }
     case LOAD_FAIL:
       return {

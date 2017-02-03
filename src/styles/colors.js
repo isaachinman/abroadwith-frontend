@@ -12,6 +12,7 @@ export const sunsetOrange = '#FC5050'
 // Background colours
 export const backgroundGreyLight = '#fafafa'
 export const babyBlue = '#6FA8EF'
+export const mintGreen = '#A6FFCB'
 
 // Immersion colours
 export const stayColor = '#F7A4EC'
