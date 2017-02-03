@@ -8,3 +8,7 @@
 - Integrate immersion colours more clearly
 - Immersions should be visible without any clicking
 ---- Add filters, pageSize, pageOffset into url rehydration
+
+// Home profile pages
+1. Keep the same order as we have now
+2. Add user profile information to the first section

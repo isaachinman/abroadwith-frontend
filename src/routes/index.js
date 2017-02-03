@@ -132,6 +132,11 @@ export default (store) => {
       cb(null, require('../containers/TermsAndConditions/TermsAndConditions'))
     }, 'terms')
   }
+  const getThread = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../components/Thread/Thread'))
+    }, 'inbox')
+  }
   const getReceipt = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/Receipt/Receipt'))
@@ -223,6 +228,7 @@ export default (store) => {
                 <Route path='user/:userID' getComponent={getReviewUser} />
               </Route>
               <Route path='settings' getComponent={getSettings} />
+              <Route path='thread/:threadID' getComponent={getThread} />
             </Route>
 
             <Route

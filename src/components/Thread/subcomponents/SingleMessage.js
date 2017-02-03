@@ -5,7 +5,7 @@ import { translate } from 'react-i18next'
 import FontAwesome from 'react-fontawesome'
 
 // Relative imports
-import styles from '../Inbox.styles.js'
+import styles from '../Thread.styles.js'
 
 @translate()
 export default class SingleMessage extends Component {
