@@ -111,4 +111,7 @@ export default {
     textAlign: 'left',
     width: '50%',
   },
+  helpMeBtn: {
+    cursor: 'pointer',
+  },
 }

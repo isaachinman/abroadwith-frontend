@@ -1,7 +1,8 @@
 // Absolute imports
-import { Grid, FormControl } from 'react-bootstrap'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { ContactUsForm } from 'components'
+import { Grid, Modal, FormControl } from 'react-bootstrap'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import { changeCurrency } from 'redux/modules/ui/currency'
@@ -23,6 +24,13 @@ import styles from './Footer.styles'
 @translate()
 @Radium
 export default class Footer extends Component {
+
+  state = {
+    contactModalOpen: false,
+  }
+
+  openContactModal = () => this.setState({ contactModalOpen: true })
+  closeContactModal = () => this.setState({ contactModalOpen: false })
 
   changeUICurrency = e => {
     this.props.dispatch(changeCurrency(e.target.value, true))
@@ -90,7 +98,9 @@ export default class Footer extends Component {
               </div>
             </div>
             <div style={compact ? styles.flexChildCompact : styles.flexChild}>
-              {t('common.footer_help_me')} <FontAwesome name='comments' size='2x' style={styles.helpMeIcon} />
+              <div onClick={this.openContactModal} style={styles.helpMeBtn}>
+                {t('common.footer_help_me')} <FontAwesome name='comments' size='2x' style={styles.helpMeIcon} />
+              </div>
             </div>
             <div style={compact ? styles.flexChildCompact : styles.flexChild} className='hidden-md hidden-lg'>
               <h6>{t('common.company')}</h6>
@@ -127,6 +137,11 @@ export default class Footer extends Component {
             &copy; {moment().year()} Abroadwith
           </Grid>
         </div>
+        <Modal show={this.state.contactModalOpen} onHide={this.closeContactModal}>
+          <Modal.Body style={{ padding: 0, marginBottom: -22 }}>
+            <ContactUsForm />
+          </Modal.Body>
+        </Modal>
       </footer>
     )
   }

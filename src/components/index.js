@@ -4,6 +4,7 @@
 // --------------------------------------------------------------------------------
 
 export BackgroundColorBlock from './BackgroundColorBlock/BackgroundColorBlock'
+export ContactUsForm from './ContactUsForm/ContactUsForm'
 export DateRangePicker from './DateRangePicker/DateRangePicker'
 export FeaturedHomes from './FeaturedHomes/FeaturedHomes'
 export Footer from './Footer/Footer'
