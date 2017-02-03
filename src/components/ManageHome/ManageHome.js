@@ -1,5 +1,6 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import { BackgroundColorBlock } from 'components'
 import Radium from 'radium'
 import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
@@ -128,184 +129,187 @@ export default class ManageHome extends Component {
     const activeStep = inProgress ? this.determineHomeCreationStep() : { stepName: 'calendar', stepNum: 8 }
 
     return (
-      <Grid>
-        <Helmet title={t('manage_home.title')} />
-        {home && home.data && home.data.homeActivationResponse.code !== 'PHONE_NOT_VERIFIED' &&
-          <span>
-            <Tab.Container id='manage-home' onSelect={this.handleTabChange} activeKey={tab || activeStep.stepName}>
-              <Row style={styles.mainRow}>
+      <span>
+        <BackgroundColorBlock top color='#6FA8EF' minHeight={260} />
+        <Grid>
+          <Helmet title={t('manage_home.title')} />
+          {home && home.data && home.data.homeActivationResponse.code !== 'PHONE_NOT_VERIFIED' &&
+            <span>
+              <Tab.Container id='manage-home' onSelect={this.handleTabChange} activeKey={tab || activeStep.stepName}>
+                <Row style={styles.mainRow}>
 
-                <Col style={styles.sidebar} xs={12} sm={3} md={2}>
-                  <Nav bsStyle='pills' stacked>
-                    <NavItem
-                      disabled={inProgress && activeStep.stepNum < 1}
-                      eventKey='location'
-                      style={styles.tabItem}
-                    >
-                      {t('manage_home.location_tabname')}
-                    </NavItem>
-                    <NavItem
-                      disabled={inProgress && activeStep.stepNum < 2}
-                      eventKey='basics'
-                      style={styles.tabItem}
-                    >
-                      {t('manage_home.basics_tabname')}
-                    </NavItem>
-                    <NavItem
-                      disabled={inProgress && activeStep.stepNum < 3}
-                      eventKey='description'
-                      style={styles.tabItem}
-                    >
-                      {t('manage_home.description_tabname')}
-                    </NavItem>
-                    <NavItem
-                      disabled={inProgress && activeStep.stepNum < 4}
-                      eventKey='immersions'
-                      style={styles.tabItem}
-                    >
-                      {t('manage_home.immersions_tabname')}
-                    </NavItem>
-                    <NavItem
-                      disabled={inProgress && activeStep.stepNum < 5}
-                      eventKey='rooms'
-                      style={styles.tabItem}
-                    >
-                      {t('manage_home.rooms_tabname')}
-                    </NavItem>
-                    <NavItem
-                      disabled={inProgress && activeStep.stepNum < 6}
-                      eventKey='photos'
-                      style={styles.tabItem}
-                    >
-                      {t('manage_home.photos_tabname')}
-                    </NavItem>
-                    <NavItem
-                      disabled={inProgress && activeStep.stepNum < 7}
-                      eventKey='pricing'
-                      style={styles.tabItem}
-                    >
-                      {t('manage_home.pricing_tabname')}
-                    </NavItem>
-                    <NavItem
-                      disabled={inProgress}
-                      eventKey='calendar'
-                      style={styles.tabItem}
-                    >
-                      {t('common.navbar_calendar')}
-                    </NavItem>
-                  </Nav>
-                </Col>
+                  <Col style={styles.sidebar} xs={12} sm={3} md={2}>
+                    <Nav bsStyle='pills' stacked>
+                      <NavItem
+                        disabled={inProgress && activeStep.stepNum < 1}
+                        eventKey='location'
+                        style={styles.tabItem}
+                      >
+                        {t('manage_home.location_tabname')}
+                      </NavItem>
+                      <NavItem
+                        disabled={inProgress && activeStep.stepNum < 2}
+                        eventKey='basics'
+                        style={styles.tabItem}
+                      >
+                        {t('manage_home.basics_tabname')}
+                      </NavItem>
+                      <NavItem
+                        disabled={inProgress && activeStep.stepNum < 3}
+                        eventKey='description'
+                        style={styles.tabItem}
+                      >
+                        {t('manage_home.description_tabname')}
+                      </NavItem>
+                      <NavItem
+                        disabled={inProgress && activeStep.stepNum < 4}
+                        eventKey='immersions'
+                        style={styles.tabItem}
+                      >
+                        {t('manage_home.immersions_tabname')}
+                      </NavItem>
+                      <NavItem
+                        disabled={inProgress && activeStep.stepNum < 5}
+                        eventKey='rooms'
+                        style={styles.tabItem}
+                      >
+                        {t('manage_home.rooms_tabname')}
+                      </NavItem>
+                      <NavItem
+                        disabled={inProgress && activeStep.stepNum < 6}
+                        eventKey='photos'
+                        style={styles.tabItem}
+                      >
+                        {t('manage_home.photos_tabname')}
+                      </NavItem>
+                      <NavItem
+                        disabled={inProgress && activeStep.stepNum < 7}
+                        eventKey='pricing'
+                        style={styles.tabItem}
+                      >
+                        {t('manage_home.pricing_tabname')}
+                      </NavItem>
+                      <NavItem
+                        disabled={inProgress}
+                        eventKey='calendar'
+                        style={styles.tabItem}
+                      >
+                        {t('common.navbar_calendar')}
+                      </NavItem>
+                    </Nav>
+                  </Col>
 
-                <Col style={styles.mainCol} xs={12} sm={9} md={10}>
-                  <div style={styles.mainPanel}>
-                    <Tab.Content animation>
+                  <Col style={styles.mainCol} xs={12} sm={9} md={10}>
+                    <div style={styles.mainPanel}>
+                      <Tab.Content animation>
 
-                      <Tab.Pane eventKey='location'>
-                        <h2>{t('manage_home.location_title')}</h2>
-                        <HomeLocation
-                          {...this.props}
-                          activeStep={activeStep}
-                          inProgress={inProgress}
-                          updateHome={this.updateHome}
-                          activeTab={tab || activeStep.stepName}
-                        />
-                      </Tab.Pane>
+                        <Tab.Pane eventKey='location'>
+                          <h2>{t('manage_home.location_title')}</h2>
+                          <HomeLocation
+                            {...this.props}
+                            activeStep={activeStep}
+                            inProgress={inProgress}
+                            updateHome={this.updateHome}
+                            activeTab={tab || activeStep.stepName}
+                          />
+                        </Tab.Pane>
 
-                      <Tab.Pane unmountOnExit eventKey='basics'>
-                        <h2>{t('manage_home.basics_title')}</h2>
-                        <HomeBasics
-                          {...this.props}
-                          activeStep={activeStep}
-                          inProgress={inProgress}
-                          updateHome={this.updateHome}
-                        />
-                      </Tab.Pane>
+                        <Tab.Pane unmountOnExit eventKey='basics'>
+                          <h2>{t('manage_home.basics_title')}</h2>
+                          <HomeBasics
+                            {...this.props}
+                            activeStep={activeStep}
+                            inProgress={inProgress}
+                            updateHome={this.updateHome}
+                          />
+                        </Tab.Pane>
 
-                      <Tab.Pane unmountOnExit eventKey='description'>
-                        <h2>{t('manage_home.description_title')}</h2>
-                        <HomeDescription
-                          {...this.props}
-                          inProgress={inProgress}
-                          updateHome={this.updateHome}
-                        />
-                      </Tab.Pane>
+                        <Tab.Pane unmountOnExit eventKey='description'>
+                          <h2>{t('manage_home.description_title')}</h2>
+                          <HomeDescription
+                            {...this.props}
+                            inProgress={inProgress}
+                            updateHome={this.updateHome}
+                          />
+                        </Tab.Pane>
 
-                      <Tab.Pane unmountOnExit eventKey='immersions'>
-                        <h2>{t('manage_home.immersions_title')}</h2>
-                        <HomeImmersions
-                          {...this.props}
-                          inProgress={inProgress}
-                          updateHome={this.updateHome}
-                        />
-                      </Tab.Pane>
+                        <Tab.Pane unmountOnExit eventKey='immersions'>
+                          <h2>{t('manage_home.immersions_title')}</h2>
+                          <HomeImmersions
+                            {...this.props}
+                            inProgress={inProgress}
+                            updateHome={this.updateHome}
+                          />
+                        </Tab.Pane>
 
-                      <Tab.Pane unmountOnExit eventKey='rooms'>
-                        <h2>{t('manage_home.rooms_title')}</h2>
-                        <HomeRooms
-                          {...this.props}
-                          tabOverride={this.tabOverride}
-                          inProgress={inProgress}
-                          updateHome={this.updateHome}
-                        />
-                      </Tab.Pane>
+                        <Tab.Pane unmountOnExit eventKey='rooms'>
+                          <h2>{t('manage_home.rooms_title')}</h2>
+                          <HomeRooms
+                            {...this.props}
+                            tabOverride={this.tabOverride}
+                            inProgress={inProgress}
+                            updateHome={this.updateHome}
+                          />
+                        </Tab.Pane>
 
-                      <Tab.Pane unmountOnExit eventKey='photos'>
-                        <h2>{t('manage_home.photos_title')}</h2>
-                        <HomePhotos
-                          {...this.props}
-                          tabOverride={this.tabOverride}
-                          inProgress={inProgress}
-                          updateHome={this.updateHome}
-                        />
-                      </Tab.Pane>
+                        <Tab.Pane unmountOnExit eventKey='photos'>
+                          <h2>{t('manage_home.photos_title')}</h2>
+                          <HomePhotos
+                            {...this.props}
+                            tabOverride={this.tabOverride}
+                            inProgress={inProgress}
+                            updateHome={this.updateHome}
+                          />
+                        </Tab.Pane>
 
-                      <Tab.Pane unmountOnExit eventKey='pricing'>
-                        <h2>{t('manage_home.pricing_title')}</h2>
-                        <HomePricing
-                          {...this.props}
-                          inProgress={inProgress}
-                          updateHome={this.updateHome}
-                        />
-                      </Tab.Pane>
+                        <Tab.Pane unmountOnExit eventKey='pricing'>
+                          <h2>{t('manage_home.pricing_title')}</h2>
+                          <HomePricing
+                            {...this.props}
+                            inProgress={inProgress}
+                            updateHome={this.updateHome}
+                          />
+                        </Tab.Pane>
 
-                      <Tab.Pane unmountOnExit eventKey='calendar'>
-                        <h2>{t('home_calendar.title')}</h2>
-                        {!inProgress && <HomeCalendar homeID={parseInt(routeParams.homeID)} />}
-                      </Tab.Pane>
+                        <Tab.Pane unmountOnExit eventKey='calendar'>
+                          <h2>{t('home_calendar.title')}</h2>
+                          {!inProgress && <HomeCalendar homeID={parseInt(routeParams.homeID)} />}
+                        </Tab.Pane>
 
-                    </Tab.Content>
-                  </div>
-                </Col>
-
-              </Row>
-            </Tab.Container>
-            <Modal
-              bsSize='small'
-              show={successModalOpen}
-              onHide={this.closeSuccessModal}
-            >
-              <Modal.Header closeButton>
-                <Modal.Title>{t('manage_home.success_subtitle')}</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Row>
-                  <Col xs={12}>
-                    <Image src={home.data.images.length > 0 ? `${config.img}${home.data.images[0].imagePath}` : ''} responsive rounded />
-                    <div style={styles.successModalBody}>
-                      <p>{t('manage_home.now_accepting_guests')}</p>
-                      <Link to={`/home/${routeParams.homeID}`}>
-                        <Button bsStyle='primary' block>{t('manage_home.view_your_home')}</Button>
-                      </Link>
-                      <div style={styles.successModalOr}>{t('common.words.or')}</div>
-                      <Button onClick={this.closeSuccessModal} block>{t('home_calendar.manage_your_calendar')}</Button>
+                      </Tab.Content>
                     </div>
                   </Col>
+
                 </Row>
-              </Modal.Body>
-            </Modal>
-          </span>
-        }
-      </Grid>
+              </Tab.Container>
+              <Modal
+                bsSize='small'
+                show={successModalOpen}
+                onHide={this.closeSuccessModal}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>{t('manage_home.success_subtitle')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Row>
+                    <Col xs={12}>
+                      <Image src={home.data.images.length > 0 ? `${config.img}${home.data.images[0].imagePath}` : ''} responsive rounded />
+                      <div style={styles.successModalBody}>
+                        <p>{t('manage_home.now_accepting_guests')}</p>
+                        <Link to={`/home/${routeParams.homeID}`}>
+                          <Button bsStyle='primary' block>{t('manage_home.view_your_home')}</Button>
+                        </Link>
+                        <div style={styles.successModalOr}>{t('common.words.or')}</div>
+                        <Button onClick={this.closeSuccessModal} block>{t('home_calendar.manage_your_calendar')}</Button>
+                      </div>
+                    </Col>
+                  </Row>
+                </Modal.Body>
+              </Modal>
+            </span>
+          }
+        </Grid>
+      </span>
     )
   }
 }

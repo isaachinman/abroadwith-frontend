@@ -2,9 +2,11 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
+import { BackgroundColorBlock } from 'components'
 import { Button, Col, Grid, Row, Nav, NavItem, Tab } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import i18n from 'i18n/i18n-client'
+import { mintGreen } from 'styles/colors'
 import { update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
 import shortid from 'shortid'
 import debounce from 'debounce'
@@ -126,6 +128,7 @@ export default class Settings extends Component {
       <div>
 
         <Helmet title={t('admin.title')} />
+        <BackgroundColorBlock top color={mintGreen} minHeight={320} />
 
         <Grid>
           <Row style={styles.h1Row}>

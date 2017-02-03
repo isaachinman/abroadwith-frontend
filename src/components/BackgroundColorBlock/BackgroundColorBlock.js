@@ -15,9 +15,23 @@ const styles = {
 export default class BackgroundColorBlock extends Component {
 
   render() {
-    const { color, minHeight } = this.props
+    const { color, minHeight, zIndex, style, top } = this.props
+
+    let baseStyle = zIndex ? Object.assign({}, styles.baseStyle, { zIndex }) : styles.baseStyle
+
+    console.log(this)
+
+    if (top) {
+      baseStyle.top = 0
+      baseStyle.bottom = 'auto'
+    }
+
+    if (style) {
+      baseStyle = Object.assign({}, baseStyle, style)
+    }
+
     return (
-      <div style={Object.assign({}, styles.baseStyle, { background: color, minHeight })} />
+      <div style={Object.assign({}, baseStyle, { background: color, minHeight })} />
     )
   }
 
@@ -26,4 +40,7 @@ export default class BackgroundColorBlock extends Component {
 BackgroundColorBlock.propTypes = {
   color: PropTypes.string.isRequired,
   minHeight: PropTypes.number.isRequired,
+  style: PropTypes.object,
+  top: PropTypes.bool,
+  zIndex: PropTypes.number,
 }

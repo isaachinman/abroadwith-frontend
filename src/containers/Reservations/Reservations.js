@@ -1,6 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { Alert, Button, Col, Grid, Row, Panel } from 'react-bootstrap'
+import { BackgroundColorBlock } from 'components'
 import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
@@ -63,6 +64,7 @@ export default class Reservations extends Component {
 
       <div>
         <Helmet title={t('reservations.title')} />
+        <BackgroundColorBlock style={{ marginBottom: -20 }} color='#6FA8EF' minHeight={320} />
         <Grid>
           <Row style={styles.h1Row}>
             <Col xs={12}>
