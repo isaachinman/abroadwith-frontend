@@ -130,7 +130,7 @@ export default class ManageHome extends Component {
 
     return (
       <span>
-        <BackgroundColorBlock top color='#6FA8EF' minHeight={260} />
+        <BackgroundColorBlock top color='rgba(0,0,0,.03)' minHeight={330} />
         <Grid>
           <Helmet title={t('manage_home.title')} />
           {home && home.data && home.data.homeActivationResponse.code !== 'PHONE_NOT_VERIFIED' &&

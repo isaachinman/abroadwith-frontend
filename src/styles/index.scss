@@ -51,6 +51,11 @@
 .panel {
   box-shadow: 5px 5px 13px 0 rgba(0,0,0,0.15);
 }
+.panel-group[role=tablist] {
+  .panel {
+    box-shadow: none;
+  }
+}
 
 // React Bootstrap Character Counter
 @import "../react-bootstrap-character-counter/react-bootstrap-character-counter.scss";
