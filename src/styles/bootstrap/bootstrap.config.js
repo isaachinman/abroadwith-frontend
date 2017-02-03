@@ -38,7 +38,7 @@ module.exports = {
     type: true,
     code: false,
     grid: true,
-    tables: false,
+    tables: true,
     forms: true,
     buttons: true,
     'component-animations': true,

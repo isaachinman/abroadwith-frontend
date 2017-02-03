@@ -62,9 +62,9 @@ export default class Reservations extends Component {
 
     return (
 
-      <div>
+      <div style={{ position: 'relative' }}>
         <Helmet title={t('reservations.title')} />
-        <BackgroundColorBlock style={{ marginBottom: -20 }} color='#6FA8EF' minHeight={320} />
+        <BackgroundColorBlock style={{ marginBottom: -100 }} color='#6FA8EF' minHeight={380} />
         <Grid>
           <Row style={styles.h1Row}>
             <Col xs={12}>

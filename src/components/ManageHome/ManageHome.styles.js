@@ -1,6 +1,6 @@
 export default {
   mainRow: {
-    margin: '20px 0 0 0',
+    margin: '30px 0 0 0',
   },
   sidebar: {
     padding: '5px 10px',
