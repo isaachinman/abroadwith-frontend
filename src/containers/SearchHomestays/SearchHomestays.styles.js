@@ -26,11 +26,7 @@ export default {
     verticalAlign: 'baseline',
     width: '100px',
     textAlign: 'right',
-    opacity: 0.8,
     cursor: 'pointer',
-    ':hover': {
-      opacity: 1,
-    },
   },
   headerBg: {
     background: babyBlue,
@@ -68,7 +64,8 @@ export default {
     width: 'calc(50% - 5px)',
     '@media (max-width: 991px)': {
       display: 'block',
-      maxWidth: 500,
+      width: '100%',
+      maxWidth: 400,
       marginLeft: 'auto',
       marginRight: 'auto',
     },

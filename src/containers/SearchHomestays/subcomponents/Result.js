@@ -39,8 +39,6 @@ export default class Result extends Component {
     if (result.reviewCount > 0) {
       averageRating = (result.avgCleanRating + result.avgFoodRating + result.avgLangCultLearRating + result.avgLocationRating + result.avgRoomRating) / 5
     }
-    console.log(this)
-    console.log(averageRating)
 
     return (
       <div

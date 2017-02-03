@@ -54,7 +54,6 @@ export default class SearchHomestays extends Component {
         // If there are bounds in the query, hydrate the entire query
         if (routing.query.maxLat && routing.query.maxLng && routing.query.minLat && routing.query.minLng) {
 
-          console.log('search being called from mount function')
           dispatch(performRoomSearch(homestaySearchUrlToParams(this.props.routing.query)))
 
         } else {
@@ -84,10 +83,7 @@ export default class SearchHomestays extends Component {
 
     const { dispatch, search } = this.props
 
-    console.log(newGeometry)
-
     if (this.state.initialSearchPerformed && !search.loading) {
-      console.log('search being called from map function')
       dispatch(performRoomSearch(Object.assign({}, search.params, {
         mapData: {
           bounds: gmapBoundsToAbroadwithBounds(newGeometry.bounds),
@@ -116,6 +112,12 @@ export default class SearchHomestays extends Component {
     const { uiCurrency, t, search } = this.props
 
     const currency = search.data && search.data.params ? search.data.params.currency : uiCurrency
+
+    // Determine whether to render the map (essentially a media query, but for rendering, not styles)
+    let renderMap = true
+    if (__CLIENT__ && typeof window !== 'undefined' && window.innerWidth <= 767) {
+      renderMap = false
+    }
 
     // Default settings
     let center = false
@@ -161,14 +163,15 @@ export default class SearchHomestays extends Component {
               </div>
             </SpinLoader>
           </div>
-          <Measure
-            onMeasure={dimensions => {
-              this.props.dispatch(defineHomestayMapSize(dimensions))
-            }}
-          >
-            <span>
-              {center && zoom && typeof window !== 'undefined' && window.innerWidth > 767 &&
-                <div style={styles.mapPanel}>
+          {renderMap &&
+            <Measure
+              onMeasure={dimensions => {
+                this.props.dispatch(defineHomestayMapSize(dimensions))
+              }}
+            >
+              <div style={styles.mapPanel}>
+                {center && zoom &&
+
                   <Map
                     center={center}
                     currency={currency}
@@ -177,10 +180,11 @@ export default class SearchHomestays extends Component {
                     zoom={zoom}
                     results={search.data.results}
                   />
-                </div>
-              }
-            </span>
-          </Measure>
+
+                }
+              </div>
+            </Measure>
+          }
         </Grid>
       </div>
     )
