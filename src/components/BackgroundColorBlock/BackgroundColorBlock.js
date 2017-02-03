@@ -17,9 +17,7 @@ export default class BackgroundColorBlock extends Component {
   render() {
     const { color, minHeight, zIndex, style, top } = this.props
 
-    let baseStyle = zIndex ? Object.assign({}, styles.baseStyle, { zIndex }) : styles.baseStyle
-
-    console.log(this)
+    let baseStyle = zIndex ? Object.assign({}, styles.baseStyle, { zIndex }) : Object.assign({}, styles.baseStyle)
 
     if (top) {
       baseStyle.top = 0

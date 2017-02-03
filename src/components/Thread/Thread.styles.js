@@ -1,27 +1,8 @@
 import { headerBluePurple } from 'styles/colors'
 
 export default {
-  h1Row: {
-    marginTop: 20,
-  },
-  floatLeft: {
-    float: 'left',
-  },
-  inboxContainer: {
-    height: 'calc(100vh - 100px)',
-    overflow: 'scroll',
-  },
-  sidebar: {
-    paddingRight: 0,
-    borderRight: '1px solid #ddd',
-  },
-  sidebarCopy: {
-    padding: '0 10px',
-    display: 'inline-block',
-    verticalAlign: 'middle',
-  },
-  sidebarDates: {
-    fontSize: 12,
+  mainRow: {
+    marginTop: 40,
   },
   messageContainer: {
     width: 'calc(100% - 30px)',
@@ -59,22 +40,24 @@ export default {
     float: 'left',
   },
   thread: {
+    position: 'relative',
+  },
+  scrollMessages: {
     width: '100%',
-    height: 'calc(100% - 70px)',
-    float: 'left',
+    height: 'calc(100vh - 300px)',
     overflow: 'scroll',
   },
   messageForm: {
-    position: 'absolute',
-    width: 'calc(100% - 15px)',
+    width: 'calc(100% + 30px)',
     padding: 15,
-    bottom: 0,
-    left: 0,
+    marginBottom: -15,
+    marginLeft: -15,
     background: '#eee',
+    borderRadius: '0 0 4px 4px',
   },
   messageInput: {
     width: 'calc(100% - 100px)',
-    height: 46,
+    height: 49,
   },
   sendBtn: {
     marginLeft: 5,

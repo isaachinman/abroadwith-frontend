@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
+import { BackgroundColorBlock } from 'components'
 import { Button, Col, Grid, Row, Nav, NavItem, Tab } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import i18n from 'i18n/i18n-client'
@@ -125,6 +126,7 @@ export default class Settings extends Component {
     return (
       <div>
         <Helmet title={t('admin.title')} />
+        <BackgroundColorBlock top color='rgba(0,0,0,.02)' minHeight={360} />
         <Grid>
           <Row style={styles.h1Row}>
             <Col xs={12}>

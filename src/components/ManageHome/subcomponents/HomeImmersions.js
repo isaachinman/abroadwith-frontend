@@ -270,7 +270,7 @@ export default class HomeImmersions extends Component {
             </Collapse>
             <Collapse in={!immersions.stay.isActive}>
               <div>
-                <Panel footer={<Button bsStyle='primary' onClick={() => this.toggleImmersion('stay')}>{t('manage_home.enable')}</Button>}>
+                <Panel footer={<Button bsStyle='success' onClick={() => this.toggleImmersion('stay')}>{t('manage_home.enable')}</Button>}>
                   <h3>{t('common.Stay')}</h3>
                   <p style={styles.descriptionParagraph}>{t('manage_home.stay_description')}</p>
                 </Panel>
@@ -355,7 +355,7 @@ export default class HomeImmersions extends Component {
             </Collapse>
             <Collapse in={!immersions.tandem.isActive}>
               <div>
-                <Panel footer={<Button bsStyle='primary' onClick={() => this.toggleImmersion('tandem')}>{t('manage_home.enable')}</Button>} >
+                <Panel footer={<Button bsStyle='success' onClick={() => this.toggleImmersion('tandem')}>{t('manage_home.enable')}</Button>} >
                   <h3>{t('common.Tandem')}</h3>
                   <p style={styles.descriptionParagraph}>{t('manage_home.stay_description')}</p>
                 </Panel>
@@ -452,7 +452,7 @@ export default class HomeImmersions extends Component {
             </Collapse>
             <Collapse in={!immersions.teacher.isActive}>
               <div>
-                <Panel footer={<Button bsStyle='primary' onClick={() => this.toggleImmersion('teacher')}>{t('manage_home.enable')}</Button>}>
+                <Panel footer={<Button bsStyle='success' onClick={() => this.toggleImmersion('teacher')}>{t('manage_home.enable')}</Button>}>
                   <h3>{t('common.Teachers_stay')}</h3>
                   <p style={styles.descriptionParagraph}>{t('manage_home.stay_description')}</p>
                 </Panel>

@@ -1,8 +1,10 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
+import { BackgroundColorBlock } from 'components'
 import { connect } from 'react-redux'
 import { Grid, Row, Col, Nav, NavItem, Tab, Panel } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 import { translate } from 'react-i18next'
 import Helmet from 'react-helmet'
 import { loadMessages } from 'redux/modules/privateData/messaging/messaging'
@@ -11,7 +13,6 @@ import config from 'config'
 
 // Relative imports
 import styles from './Inbox.styles.js'
-import Thread from './subcomponents/Thread'
 
 @asyncConnect([{
   promise: state => {
@@ -24,8 +25,6 @@ import Thread from './subcomponents/Thread'
 @connect(
   state => ({
     messages: state.messaging.allThreads,
-    token: state.auth.token,
-    jwt: state.auth.jwt,
   })
 )
 @translate()
@@ -41,42 +40,41 @@ export default class Inbox extends Component {
 
   render() {
 
-    const { t, token, messages, jwt } = this.props
-    const { activeThread } = this.state
+    const { t, messages } = this.props
 
     return (
       <span>
         <Helmet title={t('inbox.title')} />
+        <BackgroundColorBlock top color='rgba(0,0,0,.02)' minHeight={360} />
         {messages.length > 0 &&
           <Grid style={styles.grid}>
-
-            <Tab.Container id='inbox' activeKey={this.state.activeThread} onSelect={this.handleSelect}>
+            <Row style={styles.h1Row}>
+              <Col xs={12} sm={10} smOffset={1} md={8} mdOffset={2}>
+                <h1>{t('inbox.title')}</h1>
+              </Col>
+            </Row>
+            <Tab.Container id='inbox' activeKey={null} onSelect={this.handleSelect}>
               <Row>
-                <Col xs={4} style={Object.assign({}, styles.inboxContainer, styles.sidebar)}>
-                  <Nav bsStyle='pills' stacked>
-                    {messages.map(message => {
-                      return (
-                        <NavItem key={`sidebar-tab-${message.id}`} eventKey={message.id}>
-                          <img src={`${config.img}${message.with.photo}`} alt={`Other person: ${message.id}`} />
-                          <div style={styles.sidebarCopy}>
-                            <div style={styles.floatLeft}>
-                              <div>{t('inbox.conversation_with')} <strong>{message.with.firstName ? message.with.firstName : null}</strong></div>
-                              <div style={styles.sidebarDates}>{uiDate(message.arrival)} {t('common.words.to')} {uiDate(message.departure)}</div>
-                            </div>
-                          </div>
-                        </NavItem>
-                        )
-                    })}
-                  </Nav>
-                </Col>
-                <Col xs={8} style={styles.inboxContainer}>
-                  <Tab.Content animation={false} style={styles.threadContainer}>
-                    {messages.filter(message => message.id === activeThread).map(message => {
-                      return (
-                        <Thread key={`thread-${message.id}`} thread={message} jwt={jwt} token={token} />
-                        )
-                    })}
-                  </Tab.Content>
+                <Col xs={12} sm={10} smOffset={1} md={8} mdOffset={2}>
+                  <Panel>
+                    <Nav bsStyle='pills' stacked>
+                      {messages.map(message => {
+                        return (
+                          <LinkContainer to={`/thread/${message.id}`} key={`thread-link-${message.id}`}>
+                            <NavItem href='somewhere'>
+                              <img src={`${config.img}${message.with.photo}`} alt={`Other person: ${message.id}`} />
+                              <div style={styles.sidebarCopy}>
+                                <div style={styles.floatLeft}>
+                                  <div>{t('inbox.conversation_with')} <strong>{message.with.firstName ? message.with.firstName : null}</strong></div>
+                                  <div style={styles.sidebarDates}>{uiDate(message.arrival)} {t('common.words.to')} {uiDate(message.departure)}</div>
+                                </div>
+                              </div>
+                            </NavItem>
+                          </LinkContainer>
+                          )
+                      })}
+                    </Nav>
+                  </Panel>
                 </Col>
               </Row>
             </Tab.Container>
@@ -101,7 +99,5 @@ export default class Inbox extends Component {
 
 Inbox.propTypes = {
   messages: PropTypes.array,
-  jwt: PropTypes.object,
   t: PropTypes.func,
-  token: PropTypes.string,
 }
