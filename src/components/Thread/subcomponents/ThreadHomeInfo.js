@@ -60,22 +60,24 @@ export default class ThreadHomeInfo extends Component {
             <Row>
               <Col xs={12}>
                 <table style={{ width: '100%' }}>
-                  <tr style={styles.tr}>
-                    <th>{t('inbox.host')}:</th>
-                    <th style={styles.rightAlign}>{!userIsGuest ? <span>{t('inbox.You')}</span> : <span>{theirName}</span>}</th>
-                  </tr>
-                  <tr style={styles.tr}>
-                    <th>{t('inbox.guest')}:</th>
-                    <th style={styles.rightAlign}>{userIsGuest ? <span>{t('inbox.You')}</span> : <span>{theirName}</span>}</th>
-                  </tr>
-                  <tr style={styles.tr}>
-                    <th>{t('common.Arrival')}:</th>
-                    <th style={styles.rightAlign}>{uiDate(thread.arrival)}</th>
-                  </tr>
-                  <tr style={styles.tr}>
-                    <th>{t('common.Departure')}:</th>
-                    <th style={styles.rightAlign}>{uiDate(thread.departure)}</th>
-                  </tr>
+                  <tbody>
+                    <tr style={styles.tr}>
+                      <th>{t('inbox.host')}:</th>
+                      <th style={styles.rightAlign}>{!userIsGuest ? <span>{t('inbox.You')}</span> : <span>{theirName}</span>}</th>
+                    </tr>
+                    <tr style={styles.tr}>
+                      <th>{t('inbox.guest')}:</th>
+                      <th style={styles.rightAlign}>{userIsGuest ? <span>{t('inbox.You')}</span> : <span>{theirName}</span>}</th>
+                    </tr>
+                    <tr style={styles.tr}>
+                      <th>{t('common.Arrival')}:</th>
+                      <th style={styles.rightAlign}>{uiDate(thread.arrival)}</th>
+                    </tr>
+                    <tr style={styles.tr}>
+                      <th>{t('common.Departure')}:</th>
+                      <th style={styles.rightAlign}>{uiDate(thread.departure)}</th>
+                    </tr>
+                  </tbody>
                 </table>
               </Col>
             </Row>

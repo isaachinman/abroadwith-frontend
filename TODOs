@@ -8,6 +8,10 @@
 - Integrate immersion colours more clearly
 - Immersions should be visible without any clicking
 ---- Add filters, pageSize, pageOffset into url rehydration
+---- Hitting "Search" with no params causes the map to not render
+
+// Inbox
+1. Thread pages don't hard load, something is breaking with SSR
 
 // Home profile pages
 1. Keep the same order as we have now
