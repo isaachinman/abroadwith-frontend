@@ -54,13 +54,14 @@ export default {
     marginLeft: -15,
     background: '#eee',
     borderRadius: '0 0 4px 4px',
+    textAlign: 'right',
   },
   messageInput: {
-    width: 'calc(100% - 100px)',
-    height: 49,
+    width: '100%',
+    height: 60,
   },
   sendBtn: {
-    marginLeft: 5,
+    marginTop: 5,
   },
   loadMoreLink: {
     float: 'left',
