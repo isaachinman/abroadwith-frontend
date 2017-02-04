@@ -11,7 +11,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var strip = require('strip-loader')
 
 var projectRootPath = path.resolve(__dirname, '../')
-var assetsPath = path.resolve(projectRootPath, './build/dist')
+var assetsPath = path.resolve(projectRootPath, './build/dist-new')
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
@@ -33,7 +33,7 @@ module.exports = {
     path: assetsPath,
     filename: '[name]-[chunkhash].js',
     chunkFilename: '[name]-[chunkhash].js',
-    publicPath: '/dist/'
+    publicPath: '/dist-new/'
   },
   module: {
     noParse: [/braintree-web/],

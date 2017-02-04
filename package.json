@@ -74,7 +74,7 @@
       }
     },
     "build": {
-      "command": "webpack --json > build/stats.json --verbose --colors --display-error-details --config config/prod.config.js",
+      "command": "webpack --json > build/stats.json --verbose --colors --display-error-details --config config/prod.config.js && rm -rf build/dist && mv build/dist-new build/dist",
       "env": {
         "NODE_ENV": "production"
       }
