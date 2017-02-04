@@ -7,7 +7,7 @@ export default params => {
   Object.keys(params).map(param => {
 
     // General truthy check
-    if (params[param]) {
+    if (params[param] || params[param] === 0) {
 
       if (param === 'mapData') {
 

@@ -91,7 +91,7 @@ export default class SearchHomestays extends Component {
         mapData: {
           bounds: gmapBoundsToAbroadwithBounds(newGeometry.bounds),
         },
-      })))
+      }), push))
     } else if (!this.state.initialSearchPerformed) {
       this.setState({ initialSearchPerformed: true })
     }
@@ -114,7 +114,7 @@ export default class SearchHomestays extends Component {
     dispatch(performRoomSearch(Object.assign({}, search.params, {
       minPrice,
       maxPrice,
-    })))
+    }), push))
   }
 
   render() {
@@ -160,8 +160,8 @@ export default class SearchHomestays extends Component {
                     <PriceSlider
                       currency={currency}
                       handlePriceChange={this.handlePriceChange}
-                      maxPrice={search.params.maxPrice}
-                      minPrice={search.params.minPrice}
+                      maxPrice={parseInt(search.params.maxPrice)}
+                      minPrice={parseInt(search.params.minPrice)}
                     />
                   )}
                   rootClose
@@ -186,6 +186,7 @@ export default class SearchHomestays extends Component {
                   loaded={search.loaded}
                   currency={currency}
                   results={search.data.results}
+                  numberOfResults={search.data.resultDetails.numberOfResults}
                 />
               </div>
             </SpinLoader>

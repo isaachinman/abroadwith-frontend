@@ -13,7 +13,7 @@ import styles from '../SearchHomestays.styles'
 export default class ResultList extends Component {
   render() {
 
-    const { currency, loaded, t, results } = this.props
+    const { currency, loaded, t, numberOfResults, results } = this.props
 
     return (
       <div>
@@ -29,9 +29,10 @@ export default class ResultList extends Component {
             </div>
           }
         </div>
-        <div style={styles.pagination}>
+        <div>
           <Pagination />
         </div>
+        <div className='text-muted'><small>{t('search.number_of_results_found', { number: numberOfResults })}</small></div>
         <div style={{ marginRight: -10 }}>
           <Footer compact />
         </div>
@@ -44,5 +45,6 @@ ResultList.propTypes = {
   currency: PropTypes.string,
   loaded: PropTypes.bool,
   t: PropTypes.func,
+  numberOfResults: PropTypes.number,
   results: PropTypes.array,
 }
