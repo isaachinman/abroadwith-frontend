@@ -2,9 +2,6 @@ import superagent from 'superagent'
 import homestaySearchParamsToUrl from 'utils/search/homestaySearchParamsToUrl'
 import { REHYDRATE } from 'redux-persist/constants'
 
-// Define homestay map size
-const DEFINE_HOMESTAY_MAP_SIZE = 'abroadwith/DEFINE_HOMESTAY_MAP_SIZE'
-
 // Perform search
 const PERFORM_ROOM_SEARCH = 'abroadwith/PERFORM_ROOM_SEARCH'
 const PERFORM_ROOM_SEARCH_SUCCESS = 'abroadwith/PERFORM_ROOM_SEARCH_SUCCESS'
@@ -13,10 +10,14 @@ const PERFORM_ROOM_SEARCH_FAIL = 'abroadwith/PERFORM_ROOM_SEARCH_FAIL'
 // Update search params
 const UPDATE_ROOM_SEARCH_PARAMS = 'abroadwith/UPDATE_ROOM_SEARCH_PARAMS'
 
+// Erase history
+const ERASE_HOMESTAY_SEARCH_HISTORY = 'abroadwith/ERASE_HOMESTAY_SEARCH_HISTORY'
+
 const initialState = {
   loaded: false,
   loading: false,
   mapDimensions: {},
+  rehydrate: true,
   params: {
     arrival: null,
     departure: null,
@@ -36,14 +37,16 @@ export default function reducer(state = initialState, action = {}) {
     // This is a rehydration (from localstore) case
     case REHYDRATE: {
       const incoming = action.payload.uiPersist
-      if (incoming) return Object.assign({}, state, incoming.homestaySearch)
+      if (incoming && incoming.homestaySearch && incoming.homestaySearch.rehydrate) {
+        return Object.assign({}, state, incoming.homestaySearch)
+      }
       return state
     }
-    case DEFINE_HOMESTAY_MAP_SIZE:
-      return {
-        ...state,
-        mapDimensions: action.dimensions,
-      }
+    // Used to erase history when it (because of rehydration),
+    // would cause weird behaviour
+    case ERASE_HOMESTAY_SEARCH_HISTORY: {
+      return Object.assign({}, initialState, { rehydrate: false })
+    }
     case UPDATE_ROOM_SEARCH_PARAMS:
       return {
         ...state,
@@ -73,15 +76,17 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
+export function eraseHomestaySearchHistory() {
+  return async dispatch => dispatch({ type: ERASE_HOMESTAY_SEARCH_HISTORY })
+}
+
 export function updateRoomSearchParams(params) {
   return async dispatch => dispatch({ type: UPDATE_ROOM_SEARCH_PARAMS, params })
 }
 
-export function defineHomestayMapSize(dimensions) {
-  return async dispatch => dispatch({ type: DEFINE_HOMESTAY_MAP_SIZE, dimensions })
-}
-
 export function performRoomSearch(params, push) {
+
+  console.log('perform room search action: ', params)
 
   return async dispatch => {
 
