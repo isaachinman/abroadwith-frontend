@@ -20,12 +20,21 @@ export default {
     display: 'inline-block',
     width: 'calc(100% - 100px)',
   },
-  filtersBtn: {
+  extrasContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    height: 50,
+  },
+  extra: {
+    userSelect: 'none',
+    position: 'relative', // For popover positioning
     display: 'inline-block',
-    fontSize: 22,
-    verticalAlign: 'baseline',
-    width: '100px',
-    textAlign: 'right',
+    height: 50,
+    lineHeight: '50px',
+    borderLeft: '1px solid rgba(250,250,250,.3)',
+    padding: '0 10px',
+    fontSize: 12,
     cursor: 'pointer',
   },
   headerBg: {
