@@ -33,7 +33,7 @@ module.exports = {
     path: assetsPath,
     filename: '[name]-[chunkhash].js',
     chunkFilename: '[name]-[chunkhash].js',
-    publicPath: '/dist-new/'
+    publicPath: '/dist/'
   },
   module: {
     noParse: [/braintree-web/],
