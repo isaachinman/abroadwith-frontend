@@ -12,7 +12,7 @@ import Measure from 'react-measure'
 import { translate } from 'react-i18next'
 import { fitBounds } from 'google-map-react/utils'
 import { roomPopoverClose, roomResultMouseLeave } from 'redux/modules/ui/search/hoverables'
-import { performRoomSearch, defineHomestayMapSize } from 'redux/modules/ui/search/homestaySearch'
+import { eraseHomestaySearchHistory, performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
 import Radium from 'radium'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
 
@@ -38,14 +38,15 @@ export default class SearchHomestays extends Component {
   state = {
     filtersPanelOpen: false,
     initialSearchPerformed: false,
+    mapDimensions: {},
   }
 
-  componentWillReceiveProps = nextProps => {
+  componentWillUpdate = (nextProps, nextState) => {
 
     const { dispatch, routing, search } = this.props
 
     // This is our initialisation step
-    if (!search.mapDimensions.width && nextProps.search.mapDimensions.width) {
+    if (!this.state.mapDimensions.width && nextState.mapDimensions.width) {
 
       // We will assume that if there aren't bounds in the store, and no data has been loaded,
       // the user isn't already inside a search process
@@ -60,6 +61,8 @@ export default class SearchHomestays extends Component {
 
           // If there are no bounds in the query, hydrate any remaining query params,
           // and append some default location variables
+          console.log('inside no bounds condition')
+          dispatch(eraseHomestaySearchHistory()) // Prevent side effects of rehydration
           dispatch(performRoomSearch(Object.assign({}, homestaySearchUrlToParams(this.props.routing.query), {
             mapData: {
               bounds: {
@@ -108,7 +111,7 @@ export default class SearchHomestays extends Component {
 
   render() {
 
-    const { filtersPanelOpen } = this.state
+    const { filtersPanelOpen, mapDimensions } = this.state
     const { uiCurrency, t, search } = this.props
 
     const currency = search.data && search.data.params ? search.data.params.currency : uiCurrency
@@ -124,10 +127,11 @@ export default class SearchHomestays extends Component {
     let zoom = false
 
     // The map must be measured before it can be rendered
-    if (search.mapDimensions.width && search.mapDimensions.height && search.params.mapData.bounds && search.params.mapData.bounds.maxLat) {
+    console.log(search)
+    if (mapDimensions.width && mapDimensions.height && search.params.mapData.bounds && search.params.mapData.bounds.maxLat) {
       const fittedBounds = fitBounds(
         abroadwithBoundsToGMAPBounds(search.params.mapData.bounds),
-        { width: search.mapDimensions.width || 0, height: search.mapDimensions.height || 0 }
+        { width: mapDimensions.width || 0, height: mapDimensions.height || 0 }
       )
       center = fittedBounds.center
       zoom = fittedBounds.zoom
@@ -166,7 +170,7 @@ export default class SearchHomestays extends Component {
           {renderMap &&
             <Measure
               onMeasure={dimensions => {
-                this.props.dispatch(defineHomestayMapSize(dimensions))
+                this.setState({ mapDimensions: dimensions })
               }}
             >
               <div style={styles.mapPanel}>
