@@ -4,21 +4,22 @@ import Helmet from 'react-helmet'
 import abroadwithBoundsToGMAPBounds from 'utils/search/abroadwithBoundsToGMAPBounds'
 import gmapBoundsToAbroadwithBounds from 'utils/search/gmapBoundsToAbroadwithBounds'
 import { connect } from 'react-redux'
-import FontAwesome from 'react-fontawesome'
 import { InlineSearchUnit } from 'components'
-import { Grid } from 'react-bootstrap'
+import { Grid, OverlayTrigger } from 'react-bootstrap'
 import homestaySearchUrlToParams from 'utils/search/homestaySearchUrlToParams'
 import Measure from 'react-measure'
 import { translate } from 'react-i18next'
 import { fitBounds } from 'google-map-react/utils'
 import { roomPopoverClose, roomResultMouseLeave } from 'redux/modules/ui/search/hoverables'
 import { eraseHomestaySearchHistory, performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
+import { push } from 'react-router-redux'
 import Radium from 'radium'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
 
 // Relative imports
 import FiltersPanel from './subcomponents/FiltersPanel'
 import Map from './subcomponents/Map'
+import PriceSlider from './subcomponents/PriceSlider'
 import ResultList from './subcomponents/ResultList'
 import styles from './SearchHomestays.styles'
 
@@ -61,7 +62,6 @@ export default class SearchHomestays extends Component {
 
           // If there are no bounds in the query, hydrate any remaining query params,
           // and append some default location variables
-          console.log('inside no bounds condition')
           dispatch(eraseHomestaySearchHistory()) // Prevent side effects of rehydration
           dispatch(performRoomSearch(Object.assign({}, homestaySearchUrlToParams(this.props.routing.query), {
             mapData: {
@@ -72,7 +72,7 @@ export default class SearchHomestays extends Component {
                 minLng: 63.1,
               },
             },
-          })))
+          }), push))
 
         }
       }
@@ -109,8 +109,17 @@ export default class SearchHomestays extends Component {
 
   }
 
+  handlePriceChange = (minPrice, maxPrice) => {
+    const { dispatch, search } = this.props
+    dispatch(performRoomSearch(Object.assign({}, search.params, {
+      minPrice,
+      maxPrice,
+    })))
+  }
+
   render() {
 
+    console.log(this)
     const { filtersPanelOpen, mapDimensions } = this.state
     const { uiCurrency, t, search } = this.props
 
@@ -127,7 +136,6 @@ export default class SearchHomestays extends Component {
     let zoom = false
 
     // The map must be measured before it can be rendered
-    console.log(search)
     if (mapDimensions.width && mapDimensions.height && search.params.mapData.bounds && search.params.mapData.bounds.maxLat) {
       const fittedBounds = fitBounds(
         abroadwithBoundsToGMAPBounds(search.params.mapData.bounds),
@@ -144,8 +152,23 @@ export default class SearchHomestays extends Component {
           <div style={styles.controls}>
             <div style={styles.headerBg}>
               <h5 style={styles.header}>{t('search.homestay_search_title')}</h5>
-              <div style={styles.filtersBtn} onClick={this.openFiltersPanel}>
-                <FontAwesome name='sliders' />
+              <div style={styles.extrasContainer}>
+                <OverlayTrigger
+                  trigger='click'
+                  placement='bottom'
+                  overlay={(
+                    <PriceSlider
+                      currency={currency}
+                      handlePriceChange={this.handlePriceChange}
+                      maxPrice={search.params.maxPrice}
+                      minPrice={search.params.minPrice}
+                    />
+                  )}
+                  rootClose
+                >
+                  <div style={styles.extra}>{t('search.price_range')}</div>
+                </OverlayTrigger>
+                <div style={styles.extra} onClick={this.openFiltersPanel}>{t('search.more_filters')}</div>
               </div>
             </div>
             <div style={styles.inlineSearchUnit}>

@@ -95,11 +95,11 @@ app.use((req, res) => {
 
   // Uncomment these lines to set a test token
   /* eslint-disable */
-  const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiRzJueTBNbXJOZjNWWGtrMkgtR2o5USIsImlhdCI6MTQ4NjE0MTgwNCwiZXhwIjoxNDg2NzQ2NjA0LCJuYmYiOjE0ODYxNDE2ODQsInN1YiI6IlVTRVIiLCJlbWFpbCI6Im1hdGhldXNAYWJyb2Fkd2l0aC5jb20iLCJuYW1lIjoiSGVsbG8gd29ybGQiLCJyaWQiOjM4OSwiY2JrIjowLCJ3aG9zdCI6dHJ1ZSwiaW1nIjoiL3VzZXJzLzM4OS8xNDc4NzgzODI3NTcxLmpwZyIsImhpZCI6MTMyfQ.tcvzNBEoq0SLzzvfYnmCh7TxOw91Y9gg4uypm3omEsJ26wYQchnBmP2BRaolUMOP9kmyvR2i9PgTj7xUAjg46oyzv1wAos2jiVzUt5dPfpylYTyN4GHP3R_anQV9GAiDmi2Ich0Fj_8DkShlmI9es9ixujeOavKUAqswwXmz9UdTsEAywKqMqG_iH4bQjEPk7hU8R8l-rozzNjhVNpKn3vecKuRQ6pO9d6GYbsVR3thr5rO8VBwn8eihEqMUhMu3mS38HJ_Y6u05ReG-lMH_874dVDentKeo-a-4E1ss8yP119LZyTot2X5227dkJwY178u0PiVFgsKlhO58cba4nw'
-  const expiryDate = new Date()
-  expiryDate.setDate(expiryDate.getDate() + 7)
-  res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
-  // res.cookie('ui_currency', 'EUR')
+  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiRzJueTBNbXJOZjNWWGtrMkgtR2o5USIsImlhdCI6MTQ4NjE0MTgwNCwiZXhwIjoxNDg2NzQ2NjA0LCJuYmYiOjE0ODYxNDE2ODQsInN1YiI6IlVTRVIiLCJlbWFpbCI6Im1hdGhldXNAYWJyb2Fkd2l0aC5jb20iLCJuYW1lIjoiSGVsbG8gd29ybGQiLCJyaWQiOjM4OSwiY2JrIjowLCJ3aG9zdCI6dHJ1ZSwiaW1nIjoiL3VzZXJzLzM4OS8xNDc4NzgzODI3NTcxLmpwZyIsImhpZCI6MTMyfQ.tcvzNBEoq0SLzzvfYnmCh7TxOw91Y9gg4uypm3omEsJ26wYQchnBmP2BRaolUMOP9kmyvR2i9PgTj7xUAjg46oyzv1wAos2jiVzUt5dPfpylYTyN4GHP3R_anQV9GAiDmi2Ich0Fj_8DkShlmI9es9ixujeOavKUAqswwXmz9UdTsEAywKqMqG_iH4bQjEPk7hU8R8l-rozzNjhVNpKn3vecKuRQ6pO9d6GYbsVR3thr5rO8VBwn8eihEqMUhMu3mS38HJ_Y6u05ReG-lMH_874dVDentKeo-a-4E1ss8yP119LZyTot2X5227dkJwY178u0PiVFgsKlhO58cba4nw'
+  // const expiryDate = new Date()
+  // expiryDate.setDate(expiryDate.getDate() + 7)
+  // res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
+  res.cookie('ui_currency', 'EUR')
   /* eslint-enable */
 
   if (__DEVELOPMENT__) {
@@ -132,6 +132,8 @@ app.use((req, res) => {
   let currencyDispatch = cb => cb()
   if (!req.cookies.ui_currency) {
     currencyDispatch = cb => dispatch(changeCurrency('EUR', null, cb))
+  } else {
+    currencyDispatch = cb => dispatch(changeCurrency(req.cookies.ui_currency, null, cb))
   }
 
   // If user has a language cookie, set their appropriate language.

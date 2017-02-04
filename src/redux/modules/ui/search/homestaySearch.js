@@ -16,13 +16,14 @@ const ERASE_HOMESTAY_SEARCH_HISTORY = 'abroadwith/ERASE_HOMESTAY_SEARCH_HISTORY'
 const initialState = {
   loaded: false,
   loading: false,
-  mapDimensions: {},
   rehydrate: true,
   params: {
     arrival: null,
     departure: null,
     guests: 1,
     mapData: {},
+    minPrice: 0,
+    maxPrice: 600,
     filters: [],
     pageOffset: 0,
     pageSize: 10,
