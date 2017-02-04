@@ -3,10 +3,7 @@
 
 // Homestay search page
 - Immersion selection needs to be a central focus of the dashboard
-- Integrate immersion colours more clearly
 - Immersions should be visible without any clicking
----- Add filters, pageSize, pageOffset into url rehydration
----- Hitting "Search" with no params causes the map to not render
 
 // Home profile pages
 1. Keep the same order as we have now

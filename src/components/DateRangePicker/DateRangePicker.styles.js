@@ -1,6 +1,7 @@
 export default {
   base: {
     textAlign: 'left',
+    position: 'relative',
   },
   inlineBlock: {
     display: 'inline-block',
@@ -10,5 +11,9 @@ export default {
   },
   large: {
     height: 46,
+  },
+  scrollAnchor: {
+    position: 'absolute',
+    bottom: 0,
   },
 }

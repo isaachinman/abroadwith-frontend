@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { DateRangePicker as DateRangePickerCore } from 'react-dates'
+import scrollIntoView from 'scroll-into-view'
 
 import styles from './DateRangePicker.styles.js'
 
@@ -12,7 +13,19 @@ export default class DateRangePicker extends Component {
   }
 
   onFocusChange= (focusedInput) => {
-    this.setState({ focusedInput })
+    this.setState({ focusedInput }, () => {
+
+      // Scroll datepicker into view if necessary
+      if (focusedInput) {
+        const node = document.querySelectorAll('.DateRangePicker__picker--show')[0]
+        console.log(node)
+
+        scrollIntoView(node, {
+          time: 150,
+        })
+      }
+
+    })
   }
 
   render() {
@@ -44,10 +57,19 @@ export default class DateRangePicker extends Component {
       }
     })
 
+    // Media queries for render method
+    let withPortal = false
+    if (typeof window !== 'undefined' && window.innerWidth < 800) {
+      withPortal = true
+    }
+
+    console.log(this)
+
     return (
       <div style={combinedStyles} className={large ? 'daterangepicker-large' : ''}>
         <DateRangePickerCore
           {...this.props}
+          withPortal={withPortal}
           orientation={this.props.orientation}
           onDatesChange={onDatesChange}
           onFocusChange={this.onFocusChange}

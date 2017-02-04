@@ -151,6 +151,7 @@
     "redux": "^3.5.2",
     "redux-connect": "^4.0.2",
     "redux-persist": "^4.1.0",
+    "scroll-into-view": "^1.7.1",
     "seamless-immutable": "^6.1.1",
     "sendgrid": "^4.7.1",
     "serialize-javascript": "^1.1.2",

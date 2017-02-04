@@ -149,7 +149,4 @@ export default {
   resultListMinHeight: {
     minHeight: 'calc(100vh - 280px)',
   },
-  pagination: {
-    textAlign: 'center',
-  },
 }
