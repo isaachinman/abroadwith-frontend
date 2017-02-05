@@ -21,6 +21,12 @@ const initialState = {
     arrival: null,
     departure: null,
     guests: 1,
+    immersions: {
+      stay: true,
+      tandem: true,
+      teacher: true,
+    },
+    tandemLanguage: null,
     mapData: {},
     minPrice: 0,
     maxPrice: 600,
@@ -49,6 +55,7 @@ export default function reducer(state = initialState, action = {}) {
       return Object.assign({}, initialState, { rehydrate: false })
     }
     case UPDATE_ROOM_SEARCH_PARAMS:
+      console.log('params updated: ', action.params.immersions.stay)
       return {
         ...state,
         params: Object.assign({}, state.params, action.params),

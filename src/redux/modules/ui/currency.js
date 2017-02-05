@@ -10,7 +10,6 @@ const initialState = {
 }
 
 export default function reducer(state = initialState, action = {}) {
-  console.log(action)
   switch (action.type) {
     case CHANGE_CURRENCY:
       return {
@@ -37,8 +36,6 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 export function changeCurrency(currency, setCookie, callback) {
-
-  console.log('inside change currency', currency)
 
   const cb = typeof callback === 'function' ? callback : () => {}
 

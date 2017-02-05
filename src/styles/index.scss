@@ -540,3 +540,10 @@ $popover-arrow-color: $darkBlue;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+// Immersion select homestay search
+#immersion-selection-homestay-search {
+  .popover-content {
+    padding: 0;
+  }
+}

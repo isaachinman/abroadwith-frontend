@@ -4,6 +4,7 @@ export default urlObject => {
   console.log('url object: ', urlObject)
 
   const params = {
+    immersions: {},
     mapData: {
       bounds: {},
     },
@@ -15,10 +16,24 @@ export default urlObject => {
     // General truthy check
     if (urlObject[param]) {
 
-      if (!['maxLat', 'maxLng', 'minLat', 'minLng'].includes(param)) {
-        params[param] = urlObject[param]
-      } else {
+      if (['maxLat', 'maxLng', 'minLat', 'minLng'].includes(param)) {
+
         params.mapData.bounds[param] = urlObject[param]
+
+      } else if (param === 'immersions') {
+
+        const immersionArray = urlObject[param].replace(/,\s*$/, '').split(',')
+        params.immersions = {
+          stay: immersionArray.indexOf('SI') > -1,
+          tandem: immersionArray.indexOf('TA') > -1,
+          teacher: immersionArray.indexOf('TE') > -1,
+        }
+        console.log('immersionArray: ', immersionArray)
+
+      } else {
+
+        params[param] = urlObject[param]
+
       }
 
     }

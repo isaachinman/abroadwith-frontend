@@ -1,5 +1,6 @@
 // General
-1. Swap react-google-maps in homestay creation for google-map-react
+1. Swap react-google-maps in homestay creation for google-map-react, thus eliminating react-google-maps dep
+2. Attempt to upgrade to webpack 2 for tree-shaking benefits
 
 // Homestay search page
 - Immersion selection needs to be a central focus of the dashboard

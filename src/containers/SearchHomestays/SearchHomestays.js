@@ -19,12 +19,11 @@ import SpinLoader from 'components/SpinLoader/SpinLoader'
 
 // Relative imports
 import FiltersPanel from './subcomponents/FiltersPanel'
+import ImmersionSelection from './subcomponents/ImmersionSelection'
 import Map from './subcomponents/Map'
 import PriceSlider from './subcomponents/PriceSlider'
 import ResultList from './subcomponents/ResultList'
 import styles from './SearchHomestays.styles'
-
-console.log(MapBounds.europe)
 
 @connect(
   state => ({
@@ -63,8 +62,6 @@ export default class SearchHomestays extends Component {
 
         } else {
 
-          console.log('inside else case')
-
           // If there are no bounds in the query, hydrate any remaining query params,
           // and append some default location variables
           dispatch(eraseHomestaySearchHistory()) // Prevent side effects of rehydration
@@ -88,8 +85,6 @@ export default class SearchHomestays extends Component {
   openFiltersPanel = () => this.setState({ filtersPanelOpen: true })
 
   handleMapChange = newGeometry => {
-
-    console.log(newGeometry)
 
     const { dispatch, search } = this.props
 
@@ -116,6 +111,20 @@ export default class SearchHomestays extends Component {
 
   }
 
+  handleImmersionToggle = (immersion, value) => {
+    const { dispatch, search } = this.props
+    const newParams = Object.assign({}, search.params)
+    newParams.immersions[immersion] = value
+    dispatch(performRoomSearch(newParams, push))
+  }
+
+  handleTandemLanguageChange = value => {
+    const { dispatch, search } = this.props
+    dispatch(performRoomSearch(Object.assign({}, search.params, {
+      tandemLanguage: value,
+    }), push))
+  }
+
   handlePriceChange = (minPrice, maxPrice) => {
     const { dispatch, search } = this.props
     dispatch(performRoomSearch(Object.assign({}, search.params, {
@@ -126,9 +135,8 @@ export default class SearchHomestays extends Component {
 
   render() {
 
-    console.log(this)
     const { filtersPanelOpen, mapDimensions } = this.state
-    const { uiCurrency, t, search } = this.props
+    const { uiCurrency, uiLanguage, t, search } = this.props
 
     const currency = search.data && search.data.params ? search.data.params.currency : uiCurrency
 
@@ -160,6 +168,22 @@ export default class SearchHomestays extends Component {
             <div style={styles.headerBg}>
               <h5 style={styles.header}>{t('search.homestay_search_title')}</h5>
               <div style={styles.extrasContainer}>
+                <OverlayTrigger
+                  trigger='click'
+                  placement='bottom'
+                  overlay={(
+                    <ImmersionSelection
+                      toggleImmersion={this.handleImmersionToggle}
+                      handleTandemLanguageChange={this.handleTandemLanguageChange}
+                      tandemLanguage={search.params.tandemLanguage}
+                      immersions={search.params.immersions}
+                      uiLanguage={uiLanguage}
+                    />
+                  )}
+                  rootClose
+                >
+                  <div style={styles.extra}>{t('common.immersions')}</div>
+                </OverlayTrigger>
                 <OverlayTrigger
                   trigger='click'
                   placement='bottom'
@@ -206,7 +230,6 @@ export default class SearchHomestays extends Component {
             >
               <div style={styles.mapPanel}>
                 {center && zoom &&
-
                   <Map
                     center={center}
                     currency={currency}
@@ -215,7 +238,6 @@ export default class SearchHomestays extends Component {
                     zoom={zoom}
                     results={search.data.results}
                   />
-
                 }
               </div>
             </Measure>
