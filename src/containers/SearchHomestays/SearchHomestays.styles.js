@@ -25,6 +25,9 @@ export default {
     top: 0,
     right: 0,
     height: 50,
+    '@media (max-width: 500px)': {
+      display: 'none',
+    },
   },
   extra: {
     userSelect: 'none',
@@ -131,6 +134,9 @@ export default {
   },
   searchResultSubtitle: {
     fontSize: 12,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   overlayLink: {
     position: 'absolute',

@@ -61,6 +61,8 @@ if (__DEVTOOLS__ && !window.devToolsExtension) {
   // DevTools must be required in so as to not include it in production
   const DevTools = require('./containers/DevTools/DevTools') // eslint-disable-line
 
+  window.Perf = require('react-addons-perf') // eslint-disable-line
+
   match({ routes: getRoutes(store), history: browserHistory }, (error, redirectLocation, renderProps) => {
     ReactDOM.render(
       <I18nextProvider i18n={i18n}>

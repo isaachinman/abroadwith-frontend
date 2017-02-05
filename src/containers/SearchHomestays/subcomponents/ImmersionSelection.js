@@ -1,5 +1,6 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import shallowCompare from 'react-addons-shallow-compare'
 import FontAwesome from 'react-fontawesome'
 import i18n from 'i18n/i18n-client'
 import Switch from 'antd/lib/switch'
@@ -47,6 +48,10 @@ const styles = {
 @translate()
 export default class ImmersionSelection extends Component {
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
+  }
+
   render() {
 
     const { handleTandemLanguageChange, immersions, uiLanguage, t, tandemLanguage, toggleImmersion } = this.props
@@ -81,7 +86,7 @@ export default class ImmersionSelection extends Component {
             <div style={styles.immersionSwitch}>
               <Switch
                 defaultChecked={immersions.stay}
-                onChange={value => toggleImmersion('stay', value)}
+                onChange={value => setTimeout(() => toggleImmersion('stay', value), 250)}
               />
             </div>
           </div>
@@ -98,7 +103,7 @@ export default class ImmersionSelection extends Component {
             <div style={styles.immersionSwitch}>
               <Switch
                 defaultChecked={immersions.tandem}
-                onChange={value => toggleImmersion('tandem', value)}
+                onChange={value => setTimeout(() => toggleImmersion('tandem', value), 250)}
               />
             </div>
             {immersions.tandem &&
@@ -127,7 +132,7 @@ export default class ImmersionSelection extends Component {
             <div style={styles.immersionSwitch}>
               <Switch
                 defaultChecked={immersions.teacher}
-                onChange={value => toggleImmersion('teacher', value)}
+                onChange={value => setTimeout(() => toggleImmersion('teacher', value), 250)}
               />
             </div>
           </div>

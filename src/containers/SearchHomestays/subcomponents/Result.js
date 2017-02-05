@@ -1,5 +1,6 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import shallowCompare from 'react-addons-shallow-compare'
 import { connect } from 'react-redux'
 import { Carousel } from 'react-bootstrap'
 import { roomResultMouseEnter, roomResultMouseLeave } from 'redux/modules/ui/search/hoverables'
@@ -19,6 +20,10 @@ import styles from '../SearchHomestays.styles'
 @translate()
 @Radium
 export default class Result extends Component {
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
+  }
 
   handleMouseEnter = () => {
     const { dispatch, result } = this.props
