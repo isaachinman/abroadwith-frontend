@@ -11,6 +11,7 @@ import { Button } from 'react-bootstrap'
 import { DateRangePicker } from 'components'
 import i18n from 'i18n/i18n-client'
 import { SimpleSelect as Select } from 'react-selectize'
+import MapBounds from 'data/constants/MapBounds'
 import moment from 'moment'
 import { translate } from 'react-i18next'
 import { Typeahead } from 'react-bootstrap-typeahead'
@@ -103,8 +104,16 @@ export default class InlineSearchUnit extends Component {
   }
 
   handleGoToSearchPage = () => {
+
     const { dispatch, homestaySearch } = this.props
-    dispatch(performRoomSearch(homestaySearch.params, push))
+    const params = Object.assign({}, homestaySearch.params)
+
+    // If there's no location data, set it to default
+    if (!params.mapData.bounds) {
+      params.mapData.bounds = MapBounds.europe
+    }
+
+    dispatch(performRoomSearch(params, push))
   }
 
   render() {

@@ -116,6 +116,7 @@ export function performRoomSearch(params, push) {
           // By dispatching the push after results are already loaded, users will hit
           // the search page with results already populated
           if (typeof push === 'function') {
+            console.log('about to push')
             dispatch(push(`/language-homestay/search${query}`))
           }
 

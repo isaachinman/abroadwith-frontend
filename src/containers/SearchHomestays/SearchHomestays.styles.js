@@ -147,6 +147,6 @@ export default {
     padding: 40,
   },
   resultListMinHeight: {
-    minHeight: 'calc(100vh - 280px)',
+    minHeight: 'calc(100vh - 245px)',
   },
 }

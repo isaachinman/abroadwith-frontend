@@ -57,19 +57,12 @@ export default class DateRangePicker extends Component {
       }
     })
 
-    // Media queries for render method
-    let withPortal = false
-    if (typeof window !== 'undefined' && window.innerWidth < 800) {
-      withPortal = true
-    }
-
     console.log(this)
 
     return (
       <div style={combinedStyles} className={large ? 'daterangepicker-large' : ''}>
         <DateRangePickerCore
           {...this.props}
-          withPortal={withPortal}
           orientation={this.props.orientation}
           onDatesChange={onDatesChange}
           onFocusChange={this.onFocusChange}
