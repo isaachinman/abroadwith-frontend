@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { InlineSearchUnit } from 'components'
 import { Grid, OverlayTrigger } from 'react-bootstrap'
 import homestaySearchUrlToParams from 'utils/search/homestaySearchUrlToParams'
+import MapBounds from 'data/constants/MapBounds'
 import Measure from 'react-measure'
 import { translate } from 'react-i18next'
 import { fitBounds } from 'google-map-react/utils'
@@ -22,6 +23,8 @@ import Map from './subcomponents/Map'
 import PriceSlider from './subcomponents/PriceSlider'
 import ResultList from './subcomponents/ResultList'
 import styles from './SearchHomestays.styles'
+
+console.log(MapBounds.europe)
 
 @connect(
   state => ({
@@ -47,7 +50,7 @@ export default class SearchHomestays extends Component {
     const { dispatch, routing, search } = this.props
 
     // This is our initialisation step
-    if (!this.state.mapDimensions.width && nextState.mapDimensions.width) {
+    if (!this.state.mapDimensions.width && nextState.mapDimensions.width && !this.state.initialSearchPerformed) {
 
       // We will assume that if there aren't bounds in the store, and no data has been loaded,
       // the user isn't already inside a search process
@@ -60,22 +63,24 @@ export default class SearchHomestays extends Component {
 
         } else {
 
+          console.log('inside else case')
+
           // If there are no bounds in the query, hydrate any remaining query params,
           // and append some default location variables
           dispatch(eraseHomestaySearchHistory()) // Prevent side effects of rehydration
           dispatch(performRoomSearch(Object.assign({}, homestaySearchUrlToParams(this.props.routing.query), {
             mapData: {
-              bounds: {
-                maxLat: -15.5,
-                maxLng: -19.1,
-                minLat: 79.8,
-                minLng: 63.1,
-              },
+              bounds: MapBounds.europe,
             },
-          }), push))
+          })))
 
         }
+
+        this.setState({ initialSearchPerformed: true })
+
       }
+
+
     }
   }
 
@@ -83,6 +88,8 @@ export default class SearchHomestays extends Component {
   openFiltersPanel = () => this.setState({ filtersPanelOpen: true })
 
   handleMapChange = newGeometry => {
+
+    console.log(newGeometry)
 
     const { dispatch, search } = this.props
 
@@ -186,7 +193,7 @@ export default class SearchHomestays extends Component {
                   loaded={search.loaded}
                   currency={currency}
                   results={search.data.results}
-                  numberOfResults={search.data.resultDetails.numberOfResults}
+                  numberOfResults={search.data && search.data.resultDetails ? search.data.resultDetails.numberOfResults : 0}
                 />
               </div>
             </SpinLoader>
