@@ -201,7 +201,8 @@ export default (app) => {
     if (req.query.immersions) {
 
       // Split immersions into an array so it's easier to handle
-      GLOBAL.immersions = req.query.immersions.split(',')
+      GLOBAL.immersions = req.query.immersions.replace(/,\s*$/, '')
+      GLOBAL.immersions = immersions.split(',')
 
     // If the user hasn't specified an immersion, search for all three
     } else {

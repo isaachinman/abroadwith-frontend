@@ -57,6 +57,7 @@ export default {
     padding: '10px 10px 0 1px',
   },
   mapPanel: {
+    position: 'relative',
     display: 'inline-block',
     verticalAlign: 'top',
     width: '40%',

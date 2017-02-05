@@ -9,6 +9,8 @@ export default params => {
     // General truthy check
     if (params[param] || params[param] === 0) {
 
+      // What follows is a very rudimentary daisy chain parser
+
       if (param === 'mapData') {
 
         if (typeof params[param].bounds === 'object') {
@@ -22,6 +24,10 @@ export default params => {
       } else if (param === 'departure') {
 
         query += `&departure=${apiDate(params[param])}`
+
+      } else if (param === 'immersions') {
+
+        query += `&immersions=${params[param].stay ? 'SI,' : ''}${params[param].tandem ? 'TA,' : ''}${params[param].teacher ? 'TE,' : ''}`
 
       } else {
 
