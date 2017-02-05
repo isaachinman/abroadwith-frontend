@@ -120,6 +120,9 @@ export default class SearchHomestays extends Component {
     const { dispatch, search } = this.props
     const newParams = Object.assign({}, search.params)
     newParams.immersions[immersion] = value
+    if (immersion === 'tandem' && value === false) {
+      newParams.tandemLanguage = null
+    }
     dispatch(performRoomSearch(newParams, push))
   }
 
