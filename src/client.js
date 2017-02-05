@@ -18,7 +18,6 @@ import i18n from './i18n/i18n-client'
 // Relative imports
 import ApiClient from './helpers/ApiClient'
 import createStore from './redux/create'
-import DevTools from './containers/DevTools/DevTools'
 import getRoutes from './routes'
 
 const client = new ApiClient()
@@ -58,6 +57,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 if (__DEVTOOLS__ && !window.devToolsExtension) {
+
+  // DevTools must be required in so as to not include it in production
+  const DevTools = require('./containers/DevTools/DevTools') // eslint-disable-line
+
   match({ routes: getRoutes(store), history: browserHistory }, (error, redirectLocation, renderProps) => {
     ReactDOM.render(
       <I18nextProvider i18n={i18n}>
