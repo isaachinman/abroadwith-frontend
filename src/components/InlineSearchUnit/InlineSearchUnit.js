@@ -5,6 +5,7 @@
 
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import shallowCompare from 'react-addons-shallow-compare'
 import { apiDate } from 'utils/dates'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
@@ -27,6 +28,10 @@ import LocationSearch from './subcomponents/LocationSearch'
 }))
 @translate()
 export default class InlineSearchUnit extends Component {
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
+  }
 
   handleValueChange = (field, value) => {
 

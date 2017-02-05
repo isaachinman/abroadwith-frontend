@@ -1,5 +1,6 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import shallowCompare from 'react-addons-shallow-compare'
 import Helmet from 'react-helmet'
 import abroadwithBoundsToGMAPBounds from 'utils/search/abroadwithBoundsToGMAPBounds'
 import gmapBoundsToAbroadwithBounds from 'utils/search/gmapBoundsToAbroadwithBounds'
@@ -42,6 +43,10 @@ export default class SearchHomestays extends Component {
     filtersPanelOpen: false,
     initialSearchPerformed: false,
     mapDimensions: {},
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
   }
 
   componentWillUpdate = (nextProps, nextState) => {
