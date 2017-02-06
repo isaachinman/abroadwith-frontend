@@ -164,6 +164,7 @@ export default class InlineSearchUnit extends Component {
           startDatePlaceholderText={t('common.Arrival')}
           endDatePlaceholderText={t('common.Departure')}
           onDatesChange={datesObject => this.handleValueChange('dates', datesObject)}
+          scrollToPosition={standalone}
         />
         <Select
           theme='bootstrap3'

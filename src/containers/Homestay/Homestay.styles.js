@@ -17,7 +17,7 @@ export default {
     position: 'absolute',
     top: 460,
     left: 15,
-    width: 300,
+    width: 280,
     height: 0,
     borderBottom: '40px solid #F5F5F5',
     borderRight: '60px solid transparent',
@@ -50,8 +50,7 @@ export default {
   panel: {
     display: 'inline-block',
     verticalAlign: 'top',
-    width: 240,
-    height: 300,
+    width: 260,
   },
   contentContainer: {
     width: 'calc(100% - 270px)',
@@ -64,5 +63,29 @@ export default {
   borderBottomPadded: {
     borderBottom: '1px solid #ddd',
     paddingBottom: 15,
+  },
+  bookNowBorderBottom: {
+    borderBottom: '1px solid #eee',
+    paddingBottom: 10,
+  },
+  mapContainer: {
+    height: 300,
+    paddingBottom: 15,
+  },
+  homeCircle: {
+    width: 80,
+    height: 80,
+    background: 'rgba(85, 51, 255, .15)',
+    borderRadius: '50%',
+    border: '2px solid rgba(85, 51, 255, .4)',
+    position: 'absolute',
+    left: -40,
+    top: -40,
+  },
+  bookNowContainer: {
+    textAlign: 'center',
+  },
+  bookNowButton: {
+    marginBottom: 5,
   },
 }

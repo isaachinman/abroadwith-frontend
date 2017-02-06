@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { DateRangePicker as DateRangePickerCore } from 'react-dates'
 import scrollIntoView from 'scroll-into-view'
 
@@ -20,9 +20,12 @@ export default class DateRangePicker extends Component {
         const node = document.querySelectorAll('.DateRangePicker__picker--show')[0]
         console.log(node)
 
-        scrollIntoView(node, {
-          time: 150,
-        })
+        if (this.props.scrollToPosition) {
+          scrollIntoView(node, {
+            time: 150,
+          })
+        }
+
       }
 
     })
@@ -32,6 +35,7 @@ export default class DateRangePicker extends Component {
 
     const {
       inlineBlock,
+      isDayBlocked,
       large,
       endDatePlaceholderText,
       startDatePlaceholderText,
@@ -63,6 +67,7 @@ export default class DateRangePicker extends Component {
       <div style={combinedStyles} className={large ? 'daterangepicker-large' : ''}>
         <DateRangePickerCore
           {...this.props}
+          isDayBlocked={isDayBlocked}
           orientation={this.props.orientation}
           onDatesChange={onDatesChange}
           onFocusChange={this.onFocusChange}
@@ -78,12 +83,14 @@ export default class DateRangePicker extends Component {
 }
 
 DateRangePicker.propTypes = {
-  endDate: React.PropTypes.object,
-  orientation: React.PropTypes.string,
-  onDatesChange: React.PropTypes.func,
-  startDate: React.PropTypes.object,
-  startDatePlaceholderText: React.PropTypes.string,
-  endDatePlaceholderText: React.PropTypes.string,
-  inlineBlock: React.PropTypes.bool,
-  large: React.PropTypes.bool,
+  endDate: PropTypes.object,
+  orientation: PropTypes.string,
+  onDatesChange: PropTypes.func,
+  startDate: PropTypes.object,
+  startDatePlaceholderText: PropTypes.string,
+  endDatePlaceholderText: PropTypes.string,
+  inlineBlock: PropTypes.bool,
+  isDayBlocked: PropTypes.func,
+  large: PropTypes.bool,
+  scrollToPosition: PropTypes.bool,
 }
