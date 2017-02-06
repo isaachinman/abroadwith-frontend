@@ -8,6 +8,7 @@ import Currencies from 'data/constants/Currencies'
 import config from 'config'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
+import { updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
 import parsePhotoOrder from 'utils/homes/parsePhotoOrder'
 import Radium from 'radium'
 import Rate from 'antd/lib/rate'
@@ -24,6 +25,8 @@ export default class Result extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
   }
+
+  handleClick = () => this.props.dispatch(updateActiveRoom(this.props.result.roomId))
 
   handleMouseEnter = () => {
     const { dispatch, result } = this.props
@@ -53,7 +56,7 @@ export default class Result extends Component {
         onMouseLeave={this.handleMouseLeave}
         className='result-second-child-margin'
       >
-        <Link to={`/homestay/${result.homeId}`} style={styles.overlayLink} />
+        <Link onClick={this.handleClick} to={`/homestay/${result.homeId}`} style={styles.overlayLink} />
         <div style={styles.searchResultPrice}>{Currencies[currency]}{Math.ceil(result.price)}<span style={styles.perWeek}>{t('search.per_week')}</span></div>
         <Carousel
           indicators={false}

@@ -2,6 +2,9 @@ export default {
   grid: {
     position: 'relative',
   },
+  alignLeft: {
+    textAlign: 'left',
+  },
   bg: {
     background: 'rgba(0,0,0,.02)',
     position: 'absolute',
@@ -83,9 +86,26 @@ export default {
     top: -40,
   },
   bookNowContainer: {
-    textAlign: 'center',
+    textAlign: 'left',
   },
   bookNowButton: {
     marginBottom: 5,
+  },
+  roomImageContainer: {
+    height: 200,
+    lineHeight: '200px',
+    textAlign: 'center',
+    border: '1px solid #ddd',
+  },
+  roomImage: {
+    height: '100%',
+    width: '100%',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+  },
+  bedIcon: {
+    fontSize: 80,
+    lineHeight: '200px',
+    color: '#ddd',
   },
 }

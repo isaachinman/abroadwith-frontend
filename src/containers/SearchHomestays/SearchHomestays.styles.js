@@ -139,6 +139,7 @@ export default {
     textOverflow: 'ellipsis',
   },
   overlayLink: {
+    cursor: 'pointer',
     position: 'absolute',
     top: 0,
     left: 0,

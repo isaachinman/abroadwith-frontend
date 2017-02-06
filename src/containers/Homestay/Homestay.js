@@ -4,6 +4,8 @@ import { asyncConnect } from 'redux-connect'
 import config from 'config'
 import { connect } from 'react-redux'
 import { Col, Grid, Panel, Row } from 'react-bootstrap'
+import Currencies from 'data/constants/Currencies'
+import FontAwesome from 'react-fontawesome'
 import GoogleMap from 'google-map-react'
 import Helmet from 'react-helmet'
 import { isLoaded, load as loadHomestay, loadRoomCalendar } from 'redux/modules/publicData/homes/loadHome'
@@ -12,6 +14,7 @@ import LightboxTheme from 'data/constants/LightboxTheme'
 import { Link } from 'react-router'
 import MapStyles from 'data/constants/MapStyles'
 import { StickyContainer, Sticky } from 'react-sticky'
+import { updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
 import { translate } from 'react-i18next'
 
 // Relative imports
@@ -29,37 +32,48 @@ import MapCircle from './subcomponents/MapCircle'
 }])
 @connect(
   (state, ownProps) => ({
+    activeRoom: state.uiPersist.homestaySearch.activeRoom,
     debug: ownProps,
     homestay: state.publicData.homestays[ownProps.params.homeID],
     error: state.publicData.homestays.error,
     loading: state.publicData.homestays.loading,
+    uiCurrency: state.ui.currency.value,
   })
 )
 @translate()
 export default class Homestay extends Component {
 
   state = {
-    activeRoom: null,
+    activeRoom: {},
     lightboxOpen: false,
     lightboxImage: 0,
+    roomSelectionOpen: false,
   }
 
-  componentWillReceiveProps = nextProps => {
+  componentDidUpdate = () => {
 
-    // Initialisation step
-    if (nextProps.homestay.data && !this.state.activeRoom && !nextProps.homestay.roomCalendars.loading) {
-      this.setState({
-        activeRoom: nextProps.homestay.data.rooms[0],
-      }, this.fetchRoomCalendar)
+    // Initialisation steps
+    const { activeRoom, dispatch, homestay } = this.props
+
+    if (homestay.loaded && !homestay.roomCalendars[activeRoom] && !homestay.roomCalendars.loading) {
+      // If there is no activeRoom, or if activeRoom belongs to another home, set new one
+      if (!activeRoom || homestay.data.rooms.filter(room => room.id === activeRoom).length === 0) {
+        dispatch(updateActiveRoom(homestay.data.rooms[0].id))
+        this.fetchRoomCalendar(homestay.data.rooms[0].id)
+      } else {
+        this.fetchRoomCalendar(activeRoom)
+      }
     }
 
+
   }
 
-  fetchRoomCalendar = () => {
-    const { activeRoom } = this.state
+  fetchRoomCalendar = roomID => {
     const { dispatch, homestay } = this.props
-    dispatch(loadRoomCalendar(homestay.data.id, activeRoom.id))
+    dispatch(loadRoomCalendar(homestay.data.id, roomID))
   }
+
+  handleRoomDropdownChange = value => this.setState({ roomSelectionOpen: value })
 
   // Lightbox functions
   openLightbox = () => this.setState({ lightboxOpen: true })
@@ -71,29 +85,14 @@ export default class Homestay extends Component {
   render() {
 
     const { lightboxOpen, lightboxImage } = this.state
-    const { error, homestay, loading, t } = this.props
+    const { activeRoom, error, homestay, loading, uiCurrency, t } = this.props
 
-    /* eslint-disable */
-    const {
-      basics,
-      description,
-      host,
-      id,
-      immersions,
-      isActive,
-      location,
-      pricing,
-      rooms,
-      stayAvailableLanguages,
-      tandemAvailableLanguages,
-      teacherAvailableLanguages,
-    } = homestay && homestay.data ? homestay.data : {}
-    /* eslint-enable */
-
-    console.log(this)
+    const activeRoomObj = homestay.data && activeRoom ? homestay.data.rooms.filter(room => room.id === activeRoom)[0] : {}
+    const currencySymbol = Currencies[uiCurrency]
+    console.log('activeRoomObj: ', activeRoomObj)
 
     return (
-      <div>
+      <div style={{ marginBottom: -20 }}>
 
         {!error && !loading && homestay && homestay.data &&
 
@@ -174,7 +173,7 @@ export default class Homestay extends Component {
                       {homestay.data.host.languagesKnown.map(language => <span key={`speak-${language.language}`}>{t(`languages.${language.language}`)} ({t(`common.${language.level}`)}){homestay.data.host.languagesKnown.indexOf(language) !== homestay.data.host.languagesKnown.length - 1 ?
                         <span>,&nbsp;</span> : null}</span>)}
                     </p>
-                    {homestay.data.immersions.teacher.isActive &&
+                    {homestay.data.immersions.teacher && homestay.data.immersions.teacher.isActive &&
                       <p>
                         <strong>{t('homes.teaches')}: </strong>
                         {homestay.data.immersions.teacher.languagesOffered.map(language => <span key={`teach-${language}`}>{t(`languages.${language}`)}{homestay.data.immersions.teacher.languagesOffered.indexOf(language) !== homestay.data.immersions.teacher.languagesOffered.length - 1 ?
@@ -183,19 +182,56 @@ export default class Homestay extends Component {
                     }
                   </Col>
                   <Col xs={12} md={6}>
-                    <h5>{t('common.Details')}</h5>
+                    <h5>{t('common.host')}</h5>
                     <p>
                       <strong>{t('common.age')}: </strong>{homestay.data.host.age} {homestay.data.host.gender ? <span>({t(`users.genders.${homestay.data.host.gender}`)})</span> : null}
                     </p>
                     <p>
                       <strong>{t('common.Location')}: </strong>{homestay.data.location.city}, {t(`countries.${homestay.data.location.country}`)}
                     </p>
+                    <p>
+                      <a>{t('common.words.more')}</a>
+                    </p>
                   </Col>
                 </Row>
                 <Row style={styles.borderBottomPadded}>
                   <Col xs={12}>
                     <h5>{t('common.the_room')}</h5>
+                    {activeRoom &&
+                      <Panel header={activeRoomObj.name} style={{ boxShadow: 'none' }}>
+                        <Row>
+                          <Col xs={12} md={4}>
+                            <div style={styles.roomImageContainer}>
+                              {activeRoomObj.image ?
+                                <div style={Object.assign({}, styles.roomImage, { backgroundImage: `url(${config.img}${activeRoomObj.image})` })} />
+                                :
+                                <FontAwesome name='bed' style={styles.bedIcon} />
+                              }
+                            </div>
+                          </Col>
+                          <Col xs={12} md={8}>
+                            <p>
+                              <strong>{t('manage_home.pricing_room_rates')}: </strong>
+                              {homestay.data.immersions.stay && homestay.data.immersions.stay.isActive &&
+                                <span className='immersion-tag large'>{t('immersions.stay')}: {currencySymbol}{activeRoomObj.price}</span>
+                              }
+                              {homestay.data.immersions.tandem && homestay.data.immersions.tandem.isActive &&
+                                <span className='immersion-tag large'>{t('immersions.tandem')}: {currencySymbol}{Math.ceil(activeRoomObj.price * ((100 - homestay.data.immersions.tandem.languagesInterested[0].discount) / 100))}</span>
+                              }
+                              {homestay.data.immersions.teacher && homestay.data.immersions.teacher.isActive &&
+                                <span className='immersion-tag large'>{t('immersions.teachers_stay')}: {currencySymbol}{Math.ceil((activeRoomObj.price + (homestay.data.immersions.teacher.hourly * homestay.data.immersions.teacher.packages[0])))}</span>
+                              }
+                            </p>
+                          </Col>
+                        </Row>
+                      </Panel>
+                    }
                   </Col>
+                  {homestay.data.rooms.length > 1 &&
+                    <Col xs={12}>
+                      <a onClick={() => this.handleRoomDropdownChange(true)}><small>More rooms</small></a>
+                    </Col>
+                  }
                 </Row>
                 <Row style={styles.borderBottomPadded}>
                   <Col xs={12}>
@@ -229,7 +265,8 @@ export default class Homestay extends Component {
                 >
                   <Panel style={styles.panel}>
                     <BookNow
-                      activeRoom={this.state.activeRoom ? this.state.activeRoom.id : null}
+                      handleRoomDropdownChange={this.handleRoomDropdownChange}
+                      roomSelectionOpen={this.state.roomSelectionOpen}
                       rooms={homestay.data.rooms}
                       roomCalendars={homestay.roomCalendars || null}
                     />
@@ -247,9 +284,11 @@ export default class Homestay extends Component {
 }
 
 Homestay.propTypes = {
+  activeRoom: PropTypes.number,
   dispatch: PropTypes.func,
   error: PropTypes.object,
   homestay: PropTypes.object,
   loading: PropTypes.bool,
+  uiCurrency: PropTypes.string,
   t: PropTypes.func,
 }

@@ -10,10 +10,14 @@ const PERFORM_ROOM_SEARCH_FAIL = 'abroadwith/PERFORM_ROOM_SEARCH_FAIL'
 // Update search params
 const UPDATE_ROOM_SEARCH_PARAMS = 'abroadwith/UPDATE_ROOM_SEARCH_PARAMS'
 
+// Update activeRoom
+const UPDATE_ACTIVE_ROOM = 'abroadwith/UPDATE_ACTIVE_ROOM'
+
 // Erase history
 const ERASE_HOMESTAY_SEARCH_HISTORY = 'abroadwith/ERASE_HOMESTAY_SEARCH_HISTORY'
 
 const initialState = {
+  activeRoom: null,
   loaded: false,
   loading: false,
   rehydrate: true,
@@ -55,10 +59,14 @@ export default function reducer(state = initialState, action = {}) {
       return Object.assign({}, initialState, { rehydrate: false })
     }
     case UPDATE_ROOM_SEARCH_PARAMS:
-      console.log('params updated: ', action.params.immersions.stay)
       return {
         ...state,
         params: Object.assign({}, state.params, action.params),
+      }
+    case UPDATE_ACTIVE_ROOM:
+      return {
+        ...state,
+        activeRoom: action.roomID,
       }
     case PERFORM_ROOM_SEARCH:
       return {
@@ -90,6 +98,10 @@ export function eraseHomestaySearchHistory() {
 
 export function updateRoomSearchParams(params) {
   return async dispatch => dispatch({ type: UPDATE_ROOM_SEARCH_PARAMS, params })
+}
+
+export function updateActiveRoom(roomID) {
+  return async dispatch => dispatch({ type: UPDATE_ACTIVE_ROOM, roomID })
 }
 
 export function performRoomSearch(params, push) {

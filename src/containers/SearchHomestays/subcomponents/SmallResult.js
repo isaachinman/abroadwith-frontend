@@ -5,6 +5,7 @@ import { Carousel } from 'react-bootstrap'
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
 import { Link } from 'react-router'
+import { updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
 import { translate } from 'react-i18next'
 import parsePhotoOrder from 'utils/homes/parsePhotoOrder'
 import Radium from 'radium'
@@ -22,6 +23,8 @@ import styles from '../SearchHomestays.styles'
 @Radium
 export default class SmallResult extends Component {
 
+  handleClick = () => this.props.dispatch(updateActiveRoom(this.props.result.roomId))
+
   render() {
 
     const { currency, t, result } = this.props
@@ -31,7 +34,7 @@ export default class SmallResult extends Component {
         key={result.roomId}
         style={styles.smallResult}
       >
-        <Link to={`/homestay/${result.homeId}`} style={styles.overlayLink} />
+        <Link onClick={this.handleClick} to={`/homestay/${result.homeId}`} style={styles.overlayLink} />
         <div style={styles.searchResultPrice}>{Currencies[currency]}{Math.ceil(result.price)}<span style={styles.perWeek}>{t('search.per_week')}</span></div>
         <Carousel
           indicators={false}

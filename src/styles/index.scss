@@ -515,6 +515,9 @@ $popover-arrow-color: $darkBlue;
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: .25em;
+  &.large {
+    font-size: 12px;
+  }
 }
 
 // Search result rating

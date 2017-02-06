@@ -8,7 +8,7 @@ import Moment from 'moment'
 import { extendMoment } from 'moment-range'
 import { SimpleSelect as Select } from 'react-selectize'
 import { translate } from 'react-i18next'
-import { updateRoomSearchParams } from 'redux/modules/ui/search/homestaySearch'
+import { updateRoomSearchParams, updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
 
 // Relative imports
 import styles from '../Homestay.styles'
@@ -18,7 +18,8 @@ const moment = extendMoment(Moment)
 
 @connect(
   state => ({
-    homestaySearch: state.uiPersist.homestaySearch.params,
+    auth: state.auth,
+    homestaySearch: state.uiPersist.homestaySearch,
   })
 )
 @translate()
@@ -38,9 +39,14 @@ export default class BookNow extends Component {
 
   }
 
+  handleRoomChange = roomID => {
+    this.props.dispatch(updateActiveRoom(roomID))
+    this.props.handleRoomDropdownChange(false)
+  }
+
   determineBlockedStatus = day => {
 
-    return this.props.roomCalendars[this.props.activeRoom].data.unavailabilities.some(blockedRange => {
+    return this.props.roomCalendars[this.props.homestaySearch.activeRoom].data.unavailabilities.some(blockedRange => {
 
       return moment.range(moment(blockedRange.start), moment(blockedRange.end)).contains(day)
 
@@ -50,20 +56,24 @@ export default class BookNow extends Component {
 
   render() {
 
-    const { activeRoom, homestaySearch, t, rooms, roomCalendars } = this.props
+    const { auth, handleRoomDropdownChange, homestaySearch, t, rooms, roomSelectionOpen, roomCalendars } = this.props
 
-    const determineBlockedStatus = this.props.roomCalendars[this.props.activeRoom] && this.props.roomCalendars[this.props.activeRoom].data ? this.determineBlockedStatus : () => false
+    const determineBlockedStatus = this.props.roomCalendars[homestaySearch.activeRoom] && this.props.roomCalendars[homestaySearch.activeRoom].data && this.props.roomCalendars[homestaySearch.activeRoom].data.unavailabilities ? this.determineBlockedStatus : () => false
 
-    console.log('roomCalendars: ', roomCalendars)
+    const alphabeticalRooms = rooms.sort((a, b) => {
+      const x = a.name.toLowerCase()
+      const y = b.name.toLowerCase()
+      return x < y ? -1 : x > y ? 1 : 0 // eslint-disable-line
+    })
 
     return (
-      <SpinLoader show={roomCalendars && activeRoom && roomCalendars[activeRoom] ? roomCalendars[activeRoom].loading : true}>
-        <span style={styles.bookNowContainer}>
+      <SpinLoader show={roomCalendars.loading}>
+        <span style={styles.bookNowContainer} className='book-now-panel'>
           <Row style={styles.bookNowBorderBottom}>
             <Col xs={12}>
               <DateRangePicker
-                startDate={homestaySearch.arrival ? moment(homestaySearch.arrival) : null}
-                endDate={homestaySearch.departure ? moment(homestaySearch.departure) : null}
+                startDate={homestaySearch.params.arrival ? moment(homestaySearch.params.arrival) : null}
+                endDate={homestaySearch.params.departure ? moment(homestaySearch.params.departure) : null}
                 inlineBlock
                 large
                 startDatePlaceholderText={t('common.Arrival')}
@@ -75,14 +85,33 @@ export default class BookNow extends Component {
             </Col>
           </Row>
           <Row style={styles.bookNowBorderBottom}>
-            <Col xs={12}>
+            <Col xs={12} style={styles.alignLeft}>
               <Select
                 theme='bootstrap3'
                 className='book-now-room-select'
-                value={rooms.filter(room => room.id === activeRoom)[0] ? { value: activeRoom, label: rooms.filter(room => room.id === activeRoom)[0].name } : {}}
+                value={rooms.filter(room => room.id === homestaySearch.activeRoom)[0] ? { value: homestaySearch.activeRoom, label: rooms.filter(room => room.id === homestaySearch.activeRoom)[0].name } : {}}
+                onValueChange={event => this.handleRoomChange(event ? event.value : null)}
+                open={roomSelectionOpen}
+                onBlur={() => handleRoomDropdownChange(false)}
+                onFocus={() => handleRoomDropdownChange(true)}
               >
-                {rooms.map(room => <option key={`room-${room.id}-${room.name}`} value={room.id}>{room.name}</option>)}
+                {alphabeticalRooms.map(room => <option key={`room-${room.id}-${room.name}`} value={room.id}>{room.name}</option>)}
               </Select>
+            </Col>
+          </Row>
+          <Row style={styles.bookNowBorderBottom}>
+            <Col xs={12} style={styles.alignLeft}>
+              <p>
+                <strong className='header-green'>{t('common.Price')}:</strong>
+                <span className='pull-right'>
+                  {homestaySearch.params.arrival && homestaySearch.params.departure && !auth.loaded &&
+                    <a>{t('common.log_in_to_see_prices')}</a>
+                  }
+                  {(!homestaySearch.params.arrival || !homestaySearch.params.departure) &&
+                    <span>per week</span>
+                  }
+                </span>
+              </p>
             </Col>
           </Row>
           <Row>
@@ -97,10 +126,12 @@ export default class BookNow extends Component {
 }
 
 BookNow.propTypes = {
-  activeRoom: PropTypes.number,
+  auth: PropTypes.object,
   dispatch: PropTypes.func,
+  handleRoomDropdownChange: PropTypes.func,
   homestaySearch: PropTypes.object,
   rooms: PropTypes.array,
+  roomSelectionOpen: PropTypes.bool,
   roomCalendars: PropTypes.object,
   t: PropTypes.func,
 }
