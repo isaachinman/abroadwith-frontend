@@ -423,7 +423,25 @@ Dimensions:
   }
 }
 
-// Guest count picker
+// Datepicker for book now
+.book-now-panel {
+  .daterangepicker-large {
+    .DateInput {
+      padding: 18px 0;
+      .DateInput__display-text {
+        font-size: 16px;
+      }
+      &:first-child {
+        padding-right: 5px
+      }
+      &:last-child {
+        padding-left: 5px;
+      }
+    }
+  }
+}
+
+// Guest count picker for book now
 .react-selectize.book-now-room-select {
   background: white;
   vertical-align: top;

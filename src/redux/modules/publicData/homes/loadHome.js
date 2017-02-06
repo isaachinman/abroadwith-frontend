@@ -22,7 +22,9 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         [action.homeID]: Object.assign({}, state[action.homeID], {
           loading: true,
-          roomCalendars: {},
+          roomCalendars: {
+            loading: false,
+          },
         }),
       }
     case LOAD_HOMESTAY_SUCCESS:
@@ -49,9 +51,7 @@ export default function reducer(state = initialState, action = {}) {
         [action.homeID]: Object.assign({}, state[action.homeID], {
           roomCalendars: Object.assign({}, state[action.homeID].roomCalendars, {
             loading: true,
-            [action.roomID]: Object.assign({}, state[action.homeID].roomCalendars[action.roomID], {
-              loading: true,
-            }),
+            [action.roomID]: Object.assign({}, state[action.homeID].roomCalendars[action.roomID]),
           }),
         }),
       }
@@ -62,8 +62,6 @@ export default function reducer(state = initialState, action = {}) {
           roomCalendars: Object.assign({}, state[action.homeID].roomCalendars, {
             loading: false,
             [action.roomID]: Object.assign({}, state[action.homeID].roomCalendars[action.roomID], {
-              loading: false,
-              loaded: true,
               data: action.result,
             }),
           }),
@@ -88,7 +86,6 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 export function isLoaded(globalState, homeID) {
-  console.log('inside check loaded: ', typeof globalState.publicData.homestays[homeID] === 'object' && globalState.publicData.homestays[homeID].loaded)
   return typeof globalState.publicData.homestays[homeID] === 'object' && globalState.publicData.homestays[homeID].loaded
 }
 

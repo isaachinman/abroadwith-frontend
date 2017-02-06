@@ -9,4 +9,6 @@
 // Home profile pages
 1. Keep the same order as we have now
 2. Add user profile information to the first section
-3. Maybe use diagonal lines to separate hero image
+3. Create price calculation functionality
+4. Start managing signup/login modals via redux (trigger modal open on "Log in to see prices")
+5. Create "fetch more" host details functionality
