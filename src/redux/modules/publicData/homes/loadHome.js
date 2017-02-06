@@ -48,6 +48,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         [action.homeID]: Object.assign({}, state[action.homeID], {
           roomCalendars: Object.assign({}, state[action.homeID].roomCalendars, {
+            loading: true,
             [action.roomID]: Object.assign({}, state[action.homeID].roomCalendars[action.roomID], {
               loading: true,
             }),
@@ -59,6 +60,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         [action.homeID]: Object.assign({}, state[action.homeID], {
           roomCalendars: Object.assign({}, state[action.homeID].roomCalendars, {
+            loading: false,
             [action.roomID]: Object.assign({}, state[action.homeID].roomCalendars[action.roomID], {
               loading: false,
               loaded: true,

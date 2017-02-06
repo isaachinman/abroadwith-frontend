@@ -4,16 +4,20 @@ import { asyncConnect } from 'redux-connect'
 import config from 'config'
 import { connect } from 'react-redux'
 import { Col, Grid, Panel, Row } from 'react-bootstrap'
+import GoogleMap from 'google-map-react'
 import Helmet from 'react-helmet'
 import { isLoaded, load as loadHomestay, loadRoomCalendar } from 'redux/modules/publicData/homes/loadHome'
 import Lightbox from 'react-images'
 import LightboxTheme from 'data/constants/LightboxTheme'
 import { Link } from 'react-router'
+import MapStyles from 'data/constants/MapStyles'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { translate } from 'react-i18next'
 
 // Relative imports
+import BookNow from './subcomponents/BookNow'
 import styles from './Homestay.styles'
+import MapCircle from './subcomponents/MapCircle'
 
 @asyncConnect([{
   promise: ({ params, store: { dispatch, getState } }) => {
@@ -35,16 +39,20 @@ import styles from './Homestay.styles'
 export default class Homestay extends Component {
 
   state = {
+    activeRoom: null,
     lightboxOpen: false,
     lightboxImage: 0,
   }
 
-  componentDidMount = () => {
-    if (this.props.homestay.data) {
+  componentWillReceiveProps = nextProps => {
+
+    // Initialisation step
+    if (nextProps.homestay.data && !this.state.activeRoom && !nextProps.homestay.roomCalendars.loading) {
       this.setState({
-        activeRoom: this.props.homestay.data.rooms[0],
+        activeRoom: nextProps.homestay.data.rooms[0],
       }, this.fetchRoomCalendar)
     }
+
   }
 
   fetchRoomCalendar = () => {
@@ -86,12 +94,19 @@ export default class Homestay extends Component {
 
     return (
       <div>
-        <Helmet title='Homestay' />
 
         {!error && !loading && homestay && homestay.data &&
 
           <Grid style={styles.grid}>
+
+            {homestay.data.basics.family ?
+              <Helmet title={t('homes.family_home_title', { host: homestay.data.host.firstName })} />
+              :
+              <Helmet title={t('homes.non_family_home_title', { host: homestay.data.host.firstName })} />
+            }
+
             <div style={styles.bg} />
+
             <StickyContainer>
               <Row>
                 <Col xs={12} style={styles.heroContainer}>
@@ -150,19 +165,19 @@ export default class Homestay extends Component {
                     {homestay.data.host.languagesLearning.length > 0 &&
                       <p>
                         <strong>{t('common.Learning')}: </strong>
-                        {homestay.data.host.languagesLearning.map(language => <span>{t(`languages.${language.language}`)} ({t(`common.${language.level}`)}){homestay.data.host.languagesLearning.indexOf(language) !== homestay.data.host.languagesLearning.length - 1 ?
+                        {homestay.data.host.languagesLearning.map(language => <span key={`learn-${language.language}`}>{t(`languages.${language.language}`)} ({t(`common.${language.level}`)}){homestay.data.host.languagesLearning.indexOf(language) !== homestay.data.host.languagesLearning.length - 1 ?
                           <span>,&nbsp;</span> : null}</span>)}
                       </p>
                     }
                     <p>
                       <strong>{t('common.Speaks')}: </strong>
-                      {homestay.data.host.languagesKnown.map(language => <span>{t(`languages.${language.language}`)} ({t(`common.${language.level}`)}){homestay.data.host.languagesKnown.indexOf(language) !== homestay.data.host.languagesKnown.length - 1 ?
+                      {homestay.data.host.languagesKnown.map(language => <span key={`speak-${language.language}`}>{t(`languages.${language.language}`)} ({t(`common.${language.level}`)}){homestay.data.host.languagesKnown.indexOf(language) !== homestay.data.host.languagesKnown.length - 1 ?
                         <span>,&nbsp;</span> : null}</span>)}
                     </p>
                     {homestay.data.immersions.teacher.isActive &&
                       <p>
                         <strong>{t('homes.teaches')}: </strong>
-                        {homestay.data.immersions.teacher.languagesOffered.map(language => <span>{t(`languages.${language}`)}{homestay.data.immersions.teacher.languagesOffered.indexOf(language) !== homestay.data.immersions.teacher.languagesOffered.length - 1 ?
+                        {homestay.data.immersions.teacher.languagesOffered.map(language => <span key={`teach-${language}`}>{t(`languages.${language}`)}{homestay.data.immersions.teacher.languagesOffered.indexOf(language) !== homestay.data.immersions.teacher.languagesOffered.length - 1 ?
                           <span>,&nbsp;</span> : null}</span>)}
                       </p>
                     }
@@ -177,6 +192,35 @@ export default class Homestay extends Component {
                     </p>
                   </Col>
                 </Row>
+                <Row style={styles.borderBottomPadded}>
+                  <Col xs={12}>
+                    <h5>{t('common.the_room')}</h5>
+                  </Col>
+                </Row>
+                <Row style={styles.borderBottomPadded}>
+                  <Col xs={12}>
+                    <h5>{t('common.Reviews')}</h5>
+                  </Col>
+                </Row>
+                <Row style={styles.borderBottomPadded}>
+                  <Col xs={12}>
+                    <h5>{t('common.Location')}</h5>
+                    <div style={styles.mapContainer}>
+                      <GoogleMap
+                        center={[homestay.data.location.lat, homestay.data.location.lng]}
+                        zoom={14}
+                        options={() => ({
+                          panControl: false,
+                          mapTypeControl: false,
+                          scrollwheel: false,
+                          styles: MapStyles,
+                        })}
+                      >
+                        <MapCircle lat={homestay.data.location.lat} lng={homestay.data.location.lng} />
+                      </GoogleMap>
+                    </div>
+                  </Col>
+                </Row>
               </div>
               <div style={styles.stickyContainer}>
                 <Sticky
@@ -184,8 +228,12 @@ export default class Homestay extends Component {
                   stickyStyle={{ paddingTop: 100 }}
                 >
                   <Panel style={styles.panel}>
-                  Sticky panel
-                </Panel>
+                    <BookNow
+                      activeRoom={this.state.activeRoom ? this.state.activeRoom.id : null}
+                      rooms={homestay.data.rooms}
+                      roomCalendars={homestay.roomCalendars || null}
+                    />
+                  </Panel>
                 </Sticky>
               </div>
             </StickyContainer>
