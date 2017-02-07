@@ -20,4 +20,8 @@ export default {
     padding: '0 10px',
     lineHeight: '35px',
   },
+  signUp: {
+    fontSize: 12,
+    marginTop: 20,
+  },
 }
