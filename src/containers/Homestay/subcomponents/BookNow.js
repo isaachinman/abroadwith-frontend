@@ -19,8 +19,9 @@ import styles from '../Homestay.styles'
 const moment = extendMoment(Moment)
 
 @connect(
-  state => ({
+  (state, ownProps) => ({
     auth: state.auth,
+    homestay: state.publicData.homestays[ownProps.homeID],
     homestaySearch: state.uiPersist.homestaySearch,
   })
 )
@@ -41,6 +42,18 @@ export default class BookNow extends Component {
 
   }
 
+  handleImmersionChange = immersion => {
+    const { dispatch, homestaySearch } = this.props
+    const newParams = Object.assign({}, homestaySearch.params, {
+      immersions: {
+        stay: immersion.value === 'stay',
+        tandem: immersion.value === 'tandem',
+        teacher: immersion.value === 'teacher',
+      },
+    })
+    dispatch(updateRoomSearchParams(newParams))
+  }
+
   handleRoomChange = roomID => {
 
     // Clear memoized cache
@@ -54,7 +67,7 @@ export default class BookNow extends Component {
 
   determineBlockedStatus = moize(day => {
 
-    return this.props.roomCalendars[this.props.homestaySearch.activeRoom].data.unavailabilities.some(blockedRange => {
+    return this.props.homestay.roomCalendars[this.props.homestaySearch.activeRoom].data.unavailabilities.some(blockedRange => {
 
       return moment.range(moment(blockedRange.start), moment(blockedRange.end)).contains(day)
 
@@ -64,18 +77,45 @@ export default class BookNow extends Component {
 
   render() {
 
-    const { auth, cheapestWeeklyRate, currencySymbol, handleRoomDropdownChange, homestaySearch, t, rooms, roomSelectionOpen, roomCalendars } = this.props
+    const {
+      auth,
+      currencySymbol,
+      handleRoomDropdownChange,
+      homestay,
+      homestaySearch,
+      immersionRates,
+      t,
+      roomSelectionOpen,
+    } = this.props
 
-    const determineBlockedStatus = this.props.roomCalendars[homestaySearch.activeRoom] && this.props.roomCalendars[homestaySearch.activeRoom].data && this.props.roomCalendars[homestaySearch.activeRoom].data.unavailabilities ? this.determineBlockedStatus : () => false
+    const determineBlockedStatus = homestay.roomCalendars[homestaySearch.activeRoom] && homestay.roomCalendars[homestaySearch.activeRoom].data && homestay.roomCalendars[homestaySearch.activeRoom].data.unavailabilities ? this.determineBlockedStatus : () => false
 
-    const alphabeticalRooms = rooms.sort((a, b) => {
+    const alphabeticalRooms = homestay.data.rooms.sort((a, b) => {
       const x = a.name.toLowerCase()
       const y = b.name.toLowerCase()
       return x < y ? -1 : x > y ? 1 : 0 // eslint-disable-line
     })
 
+    let selectedImmersion = null
+
+    const immersionsAvailable = {
+      stay: homestay.data.immersions.stay && homestay.data.immersions.stay.isActive,
+      tandem: homestay.data.immersions.tandem && homestay.data.immersions.tandem.isActive,
+      teacher: homestay.data.immersions.teacher && homestay.data.immersions.teacher.isActive,
+    }
+
+    if (homestaySearch.params.immersions.stay && immersionsAvailable.stay) {
+      selectedImmersion = 'stay'
+    } else if (homestaySearch.params.immersions.tandem && immersionsAvailable.tandem) {
+      selectedImmersion = 'tandem'
+    } else if (homestaySearch.params.immersions.teacher && immersionsAvailable.teacher) {
+      selectedImmersion = 'teacher'
+    }
+
+    const weeklyPriceBasedOnSelectedImmersion = immersionRates[`${selectedImmersion}Rate`]
+
     return (
-      <SpinLoader show={roomCalendars.loading}>
+      <SpinLoader show={homestay.roomCalendars.loading}>
         <span style={styles.bookNowContainer} className='book-now-panel'>
           <Row style={styles.bookNowBorderBottom}>
             <Col xs={12}>
@@ -97,13 +137,27 @@ export default class BookNow extends Component {
               <Select
                 theme='bootstrap3'
                 className='book-now-room-select'
-                value={rooms.filter(room => room.id === homestaySearch.activeRoom)[0] ? { value: homestaySearch.activeRoom, label: rooms.filter(room => room.id === homestaySearch.activeRoom)[0].name } : {}}
+                value={homestay.data.rooms.filter(room => room.id === homestaySearch.activeRoom)[0] ? { value: homestaySearch.activeRoom, label: homestay.data.rooms.filter(room => room.id === homestaySearch.activeRoom)[0].name } : {}}
                 onValueChange={event => this.handleRoomChange(event ? event.value : null)}
                 open={roomSelectionOpen}
                 onBlur={() => handleRoomDropdownChange(false)}
                 onFocus={() => handleRoomDropdownChange(true)}
               >
                 {alphabeticalRooms.map(room => <option key={`room-${room.id}-${room.name}`} value={room.id}>{room.name}</option>)}
+              </Select>
+            </Col>
+            <Col xs={12} style={styles.alignLeft}>
+              <Select
+                theme='bootstrap3'
+                className='book-now-room-select'
+                onValueChange={this.handleImmersionChange}
+                value={typeof selectedImmersion === 'string' ? { value: selectedImmersion, label: t(`homes.${selectedImmersion}_immersion`) } : null}
+              >
+                {Object.keys(immersionsAvailable).filter(immersion => immersionsAvailable[immersion]).map(immersion => {
+                  return (
+                    <option key={`book-now-immersion-${immersion}`} value={immersion}>{t(`homes.${immersion}_immersion`)}</option>
+                  )
+                })}
               </Select>
             </Col>
           </Row>
@@ -116,7 +170,7 @@ export default class BookNow extends Component {
                     <a onClick={() => this.props.dispatch(openLoginModal())}>{t('common.log_in_to_see_prices')}</a>
                   }
                   {(!homestaySearch.params.arrival || !homestaySearch.params.departure) &&
-                    <span>{currencySymbol}{cheapestWeeklyRate}/{t('common.week')}</span>
+                    <span>{currencySymbol}{weeklyPriceBasedOnSelectedImmersion}/{t('common.week')}</span>
                   }
                 </span>
               </p>
@@ -135,13 +189,12 @@ export default class BookNow extends Component {
 
 BookNow.propTypes = {
   auth: PropTypes.object,
-  cheapestWeeklyRate: PropTypes.number,
   currencySymbol: PropTypes.string,
   dispatch: PropTypes.func,
   handleRoomDropdownChange: PropTypes.func,
+  homestay: PropTypes.object,
   homestaySearch: PropTypes.object,
-  rooms: PropTypes.array,
+  immersionRates: PropTypes.object,
   roomSelectionOpen: PropTypes.bool,
-  roomCalendars: PropTypes.object,
   t: PropTypes.func,
 }
