@@ -537,6 +537,23 @@ $popover-arrow-color: $darkBlue;
   }
 }
 
+// Homestay review section rate
+.homestay-review-display-section {
+  .ant-rate {
+    font-size: 16px;
+  }
+  .ant-rate-star {
+    margin-right: 1px;
+  }
+  .ant-rate-star-half .ant-rate-star-content:before, .ant-rate-star-full:before {
+    font-size: 16px;
+    color: $freshGreen;
+  }
+  .ant-rate-star:before, .ant-rate-star-content:before {
+    font-size: 16px;
+  }
+}
+
 // Form control static overflow
 .form-control-static {
   overflow: hidden;

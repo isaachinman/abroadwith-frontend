@@ -4,8 +4,6 @@ Feedback from TheKids
 
 7) Do not show upsell step if there are no upsell options available (course search returns zero)
 
-8) Couldn't add Dutch credit card to Braintree client drop-in UI
-
 9) Consider setting up email campaigns (workflows) for users who did not convert on the upsell
   -Send an email one week after purchase for upsell resell-value
   -Consider offering discount code on upsell reoffer

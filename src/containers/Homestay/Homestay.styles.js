@@ -2,8 +2,14 @@ export default {
   grid: {
     position: 'relative',
   },
+  pageSubtitle: {
+    fontSize: 18,
+  },
   alignLeft: {
     textAlign: 'left',
+  },
+  alignRight: {
+    textAlign: 'right',
   },
   bg: {
     background: 'rgba(0,0,0,.02)',
@@ -67,6 +73,10 @@ export default {
     borderBottom: '1px solid #ddd',
     paddingBottom: 15,
   },
+  borderBottomPaddedTop: {
+    borderBottom: '1px solid #ddd',
+    paddingTop: 15,
+  },
   bookNowBorderBottom: {
     borderBottom: '1px solid #eee',
     paddingBottom: 10,
@@ -96,6 +106,7 @@ export default {
     lineHeight: '200px',
     textAlign: 'center',
     border: '1px solid #ddd',
+    marginBottom: 15,
   },
   roomImage: {
     height: '100%',
@@ -107,5 +118,40 @@ export default {
     fontSize: 80,
     lineHeight: '200px',
     color: '#ddd',
+  },
+  reviewCategory: {
+    marginBottom: 15,
+  },
+  reviewContent: {
+    minHeight: 60,
+  },
+  reviewerImage: {
+    width: 50,
+    height: 50,
+    margin: '0 auto',
+    borderRadius: '50%',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+  },
+  reviewPanel: {
+    width: 'calc(100% - 65px)',
+    marginLeft: 65,
+    marginBottom: 30,
+    position: 'relative',
+    border: '1px solid #ddd',
+    padding: 15,
+    borderRadius: 5,
+  },
+  reviewerInfo: {
+    textAlign: 'center',
+    position: 'absolute',
+    top: 0,
+    left: -65,
+  },
+  centerAlign: {
+    textAlign: 'center',
+  },
+  noBoxShadow: {
+    boxShadow: 'none',
   },
 }
