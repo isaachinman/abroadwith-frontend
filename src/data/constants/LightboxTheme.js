@@ -1,10 +1,12 @@
+import { sunsetOrange, saturatedPurple } from 'styles/colors'
+
 export default {
 	// container
-  container: { background: 'rgba(255, 255, 255, 0.9)' },
+  container: { background: 'rgba(255, 255, 255, 1)' },
 
 	// arrows
   arrow: {
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: 'rgba(235, 235, 235, 0.8)',
     fill: '#222',
     opacity: 0.6,
     transition: 'opacity 200ms',
@@ -26,7 +28,7 @@ export default {
 
 	// header
   close: {
-    fill: '#D40000',
+    fill: sunsetOrange,
     opacity: 0.6,
     transition: 'all 200ms',
     ':hover': {
@@ -46,6 +48,6 @@ export default {
   thumbnail: {
   },
   thumbnail__active: {
-    boxShadow: '0 0 0 2px #00D8FF',
+    boxShadow: `0 0 0 2px ${saturatedPurple}`,
   },
 }
