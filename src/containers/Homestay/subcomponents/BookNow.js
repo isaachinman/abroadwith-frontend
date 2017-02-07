@@ -5,6 +5,7 @@ import { Button, Col, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { DateRangePicker, SpinLoader } from 'components'
 import Moment from 'moment'
+import moize from 'moize'
 import { extendMoment } from 'moment-range'
 import { openLoginModal } from 'redux/modules/ui/modals'
 import { SimpleSelect as Select } from 'react-selectize'
@@ -42,13 +43,16 @@ export default class BookNow extends Component {
 
   handleRoomChange = roomID => {
 
+    // Clear memoized cache
+    this.determineBlockedStatus.clear()
+
     const { dispatch, handleRoomDropdownChange } = this.props
 
     dispatch(updateActiveRoom(roomID))
     handleRoomDropdownChange(false)
   }
 
-  determineBlockedStatus = day => {
+  determineBlockedStatus = moize(day => {
 
     return this.props.roomCalendars[this.props.homestaySearch.activeRoom].data.unavailabilities.some(blockedRange => {
 
@@ -56,7 +60,7 @@ export default class BookNow extends Component {
 
     })
 
-  }
+  })
 
   render() {
 

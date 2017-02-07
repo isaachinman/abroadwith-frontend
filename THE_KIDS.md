@@ -1,10 +1,5 @@
 Feedback from TheKids
 
-3) Need in-depth explanation of immersion types on search page itself
-
-4) Consider adding room-availability calendars on the home profile
-  -Would need to make room availability calendars public
-
 6) Consider moving message to host into first step of booking process
 
 7) Do not show upsell step if there are no upsell options available (course search returns zero)
