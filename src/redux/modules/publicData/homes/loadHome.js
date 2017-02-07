@@ -121,7 +121,9 @@ export function load(homeID) {
   }
 }
 
-export function loadRoomCalendar(homeID, roomID) {
+export function loadRoomCalendar(homeID, roomID, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
 
   return async dispatch => {
 
@@ -140,6 +142,7 @@ export function loadRoomCalendar(homeID, roomID) {
 
           // GET was successful
           dispatch({ type: LOAD_ROOM_CALENDAR_SUCCESS, homeID, roomID, result: JSON.parse(res.text) })
+          cb()
 
         }
 

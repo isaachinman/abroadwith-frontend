@@ -257,42 +257,37 @@ export default class Signup extends Component {
 
             {this.state.page === 1 &&
               <div>
-                <div>
-                  {this.state.page === 1 &&
-                    <div style={styles.splashOfColour} />
-                  }
-                  <Row>
-                    <Col xs={12}>
-                      <h2 style={{ color: '#32325D' }}>{t('common.language_modal_hello')}</h2>
-                      <h6 className='text-muted'>{t('common.language_modal_title')}</h6>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={12} sm={10} smOffset={1}>
-                      <ManageLanguages
-                        addLanguage={this.addLanguage}
-                        availableLanguages={availableLanguages}
-                        knownLanguages={knownLanguages}
-                        learningLanguages={learningLanguages}
-                        removeLanguage={this.removeLanguage}
-                        updateLanguage={this.updateLanguage}
-                        updateLanguageLevel={this.updateLanguageLevel}
-                      />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={12}>
-                      {!languagesAreValid &&
-                        <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('common.languages_choose_at_least_one')}</Tooltip>}>
-                          <Button style={styles.nextBtn} className='disabled'>{t('common.next')}</Button>
-                        </OverlayTrigger>
+                <Row>
+                  <Col xs={12}>
+                    <h2 style={{ color: '#32325D' }}>{t('common.language_modal_hello')}</h2>
+                    <h6 className='text-muted'>{t('common.language_modal_title')}</h6>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12} sm={10} smOffset={1}>
+                    <ManageLanguages
+                      addLanguage={this.addLanguage}
+                      availableLanguages={availableLanguages}
+                      knownLanguages={knownLanguages}
+                      learningLanguages={learningLanguages}
+                      removeLanguage={this.removeLanguage}
+                      updateLanguage={this.updateLanguage}
+                      updateLanguageLevel={this.updateLanguageLevel}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    {!languagesAreValid &&
+                    <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('common.languages_choose_at_least_one')}</Tooltip>}>
+                      <Button style={styles.nextBtn} className='disabled'>{t('common.next')}</Button>
+                    </OverlayTrigger>
                       }
-                      {languagesAreValid &&
-                        <Button style={styles.nextBtn} bsStyle='success' onClick={() => this.changePage(2)}>{t('common.next')}</Button>
+                    {languagesAreValid &&
+                    <Button style={styles.nextBtn} bsStyle='success' onClick={() => this.changePage(2)}>{t('common.next')}</Button>
                       }
-                    </Col>
-                  </Row>
-                </div>
+                  </Col>
+                </Row>
               </div>
             }
 

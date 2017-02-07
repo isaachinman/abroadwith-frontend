@@ -9,7 +9,7 @@ import { logout } from 'redux/modules/auth'
 import FontAwesome from 'react-fontawesome'
 import Radium from 'radium'
 import { createHomestay } from 'redux/modules/privateData/homes/homeManagement'
-import memobind from 'memobind'
+import { openLoginModal, closeLoginModal, openStudentSignupModal, closeStudentSignupModal, openHostSignupModal, closeHostSignupModal } from 'redux/modules/ui/modals'
 import { translate } from 'react-i18next'
 
 // Relative imports
@@ -18,44 +18,19 @@ import styles from './Navbar.styles'
 @connect(state => ({
   jwt: state.auth.jwt,
   token: state.auth.token,
+  modals: state.ui.modals,
 }))
 @translate()
 @Radium
 export default class Navbar extends Component {
 
-  state = {
-    modals: {
-      login: {
-        open: false,
-      },
-      hostSignup: {
-        open: false,
-      },
-      studentSignup: {
-        open: false,
-      },
-    },
-  }
-
   handleLogout = () => {
     this.props.dispatch(logout())
   }
 
-  openModal = (modalName) => {
-    let newState = this.state // eslint-disable-line
-    newState.modals[modalName].open = true
-    this.setState(newState)
-  }
-
-  closeModal = (modalName) => {
-    let newState = this.state // eslint-disable-line
-    newState.modals[modalName].open = false
-    this.setState(newState)
-  }
-
   render() {
 
-    const { dispatch, jwt, user, t, token } = this.props
+    const { dispatch, jwt, modals, user, t, token } = this.props
 
     const hostUI = jwt && user && user.data && user.data.homeIds.length > 0
     const guestUI = jwt ? !hostUI : false
@@ -88,9 +63,9 @@ export default class Navbar extends Component {
             {!jwt &&
               <span style={styles.desktopNavbar}>
                 <Nav navbar pullRight>
-                  <NavItem onClick={memobind(this, 'openModal', 'hostSignup')}>{t('common.navbar_become_host')}</NavItem>
-                  <NavItem onClick={memobind(this, 'openModal', 'studentSignup')}>{t('common.navbar_sign_up')}</NavItem>
-                  <NavItem onClick={memobind(this, 'openModal', 'login')}>{t('common.navbar_login')}</NavItem>
+                  <NavItem onClick={() => this.props.dispatch(openHostSignupModal())}>{t('common.navbar_become_host')}</NavItem>
+                  <NavItem onClick={() => this.props.dispatch(openStudentSignupModal())}>{t('common.navbar_sign_up')}</NavItem>
+                  <NavItem onClick={() => this.props.dispatch(openLoginModal())}>{t('common.navbar_login')}</NavItem>
                 </Nav>
               </span>
             }
@@ -145,9 +120,9 @@ export default class Navbar extends Component {
             {!jwt &&
               <span style={styles.mobileNavbar}>
                 <Nav>
-                  <NavItem onClick={memobind(this, 'openModal', 'hostSignup')}>{t('common.navbar_become_host')}</NavItem>
-                  <NavItem onClick={memobind(this, 'openModal', 'studentSignup')}>{t('common.navbar_sign_up')}</NavItem>
-                  <NavItem onClick={memobind(this, 'openModal', 'login')}>{t('common.navbar_login')}</NavItem>
+                  <NavItem onClick={() => this.props.dispatch(openHostSignupModal())}>{t('common.navbar_become_host')}</NavItem>
+                  <NavItem onClick={() => this.props.dispatch(openStudentSignupModal())}>{t('common.navbar_sign_up')}</NavItem>
+                  <NavItem onClick={() => this.props.dispatch(openLoginModal())}>{t('common.navbar_login')}</NavItem>
                 </Nav>
               </span>
             }
@@ -200,22 +175,22 @@ export default class Navbar extends Component {
 
         <Modal
           bsSize='small'
-          onHide={memobind(this, 'closeModal', 'login')}
-          show={this.state.modals.login.open}
+          onHide={() => this.props.dispatch(closeLoginModal())}
+          show={modals.loginModal.open}
         >
           <Login compact />
         </Modal>
 
         <Modal
-          onHide={memobind(this, 'closeModal', 'studentSignup')}
-          show={this.state.modals.studentSignup.open}
+          onHide={() => this.props.dispatch(closeStudentSignupModal())}
+          show={modals.studentSignupModal.open}
         >
           <Signup type={'STUDENT'} />
         </Modal>
 
         <Modal
-          onHide={memobind(this, 'closeModal', 'hostSignup')}
-          show={this.state.modals.hostSignup.open}
+          onHide={() => this.props.dispatch(closeHostSignupModal())}
+          show={modals.hostSignupModal.open}
         >
           <Signup type={'HOST'} />
         </Modal>
@@ -233,6 +208,7 @@ Navbar.propTypes = {
   token: PropTypes.string,
   logout: PropTypes.func,
   dispatch: PropTypes.func,
+  modals: PropTypes.object,
   user: PropTypes.object,
   t: PropTypes.func,
 }
