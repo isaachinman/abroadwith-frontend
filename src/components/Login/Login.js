@@ -1,6 +1,7 @@
 // Absolute imports
 import { Alert, Button, Col, Form, FormGroup, FormControl, InputGroup, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { closeLoginModal, openStudentSignupModal } from 'redux/modules/ui/modals'
 import { validateExists, validatePassword } from 'utils/validation'
 import * as authActions from 'redux/modules/auth'
 import FacebookLogin from 'react-facebook-login'
@@ -12,7 +13,11 @@ import { translate } from 'react-i18next'
 // Relative imports
 import styles from './Login.styles'
 
-@connect(state => ({ jwt: state.auth.jwt, loginStatus: state.auth }), authActions)
+@connect(state => ({
+  jwt: state.auth.jwt,
+  loginStatus: state.auth,
+  authActions,
+}))
 @translate()
 export default class Login extends Component {
 
@@ -25,6 +30,12 @@ export default class Login extends Component {
         uiState: null,
       },
     },
+  }
+
+  handleGoToSignup = () => {
+    const { dispatch } = this.props
+    dispatch(closeLoginModal())
+    dispatch(openStudentSignupModal())
   }
 
   handleEmailChange = (newValue) => {
@@ -107,6 +118,8 @@ export default class Login extends Component {
       email,
       password,
     } = this.state.validatedFields
+
+    console.log(this)
 
     return (
       <div style={styles.loginPanel}>
@@ -191,6 +204,12 @@ export default class Login extends Component {
 
             </Form>
 
+            <Row>
+              <Col xs={12} style={styles.signUp} className='text-muted'>
+                {t('common.Dont_have_account')} <a onClick={this.handleGoToSignup}>{t('common.Sign_up')}</a>
+              </Col>
+            </Row>
+
           </span>
 
         }
@@ -212,6 +231,7 @@ export default class Login extends Component {
 
 Login.propTypes = {
   compact: PropTypes.bool,
+  dispatch: PropTypes.func,
   jwt: PropTypes.object,
   t: PropTypes.func,
   login: PropTypes.func,

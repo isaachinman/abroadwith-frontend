@@ -9,6 +9,7 @@ import FontAwesome from 'react-fontawesome'
 import GoogleMap from 'google-map-react'
 import Helmet from 'react-helmet'
 import { isLoaded, load as loadHomestay, loadRoomCalendar } from 'redux/modules/publicData/homes/loadHome'
+import { load as loadUser } from 'redux/modules/publicData/users/loadUser'
 import Lightbox from 'react-images'
 import LightboxTheme from 'data/constants/LightboxTheme'
 import { Link } from 'react-router'
@@ -37,6 +38,7 @@ import MapCircle from './subcomponents/MapCircle'
     debug: ownProps,
     homestay: state.publicData.homestays[ownProps.params.homeID],
     homestaySearch: state.uiPersist.homestaySearch,
+    host: state.publicData.homestays[ownProps.params.homeID] && state.publicData.homestays[ownProps.params.homeID].data && state.publicData.users[state.publicData.homestays[ownProps.params.homeID].data.host.userId] ? state.publicData.users[state.publicData.homestays[ownProps.params.homeID].data.host.userId] : null, // eslint-disable-line
     error: state.publicData.homestays.error,
     loading: state.publicData.homestays.loading,
     uiCurrency: state.ui.currency.value,
@@ -67,12 +69,12 @@ export default class Homestay extends Component {
         this.fetchRoomCalendar(activeRoom, this.determineCalendarConflict)
       }
 
-    } else {
+    } else if (homestay.roomCalendars[activeRoom] && !homestay.roomCalendars.loading) {
 
       try {
         this.determineCalendarConflict()
       } catch (err) {
-        console.log('failed', err)
+        console.log('Unable to determine conflicts', err)
       }
 
     }
@@ -84,8 +86,6 @@ export default class Homestay extends Component {
 
     // Check for conflicts (possible to select dates with one room, and then switch
     // to a room who has those dates blocked)
-    console.log(this)
-
     const { activeRoom, dispatch, homestay, homestaySearch } = this.props
 
     if (homestaySearch.params.arrival && homestaySearch.params.departure) {
@@ -107,6 +107,8 @@ export default class Homestay extends Component {
 
   }
 
+  fetchHostInfo = () => this.props.dispatch(loadUser(this.props.homestay.data.host.userId))
+
   fetchRoomCalendar = (roomID, callback) => {
     const { dispatch, homestay } = this.props
     dispatch(loadRoomCalendar(homestay.data.id, roomID, callback))
@@ -124,7 +126,7 @@ export default class Homestay extends Component {
   render() {
 
     const { lightboxOpen, lightboxImage } = this.state
-    const { activeRoom, error, homestay, loading, uiCurrency, t } = this.props
+    const { activeRoom, error, homestay, host, loading, uiCurrency, t } = this.props
 
     const activeRoomObj = homestay.data && activeRoom ? homestay.data.rooms.filter(room => room.id === activeRoom)[0] : {}
     const currencySymbol = Currencies[uiCurrency]
@@ -151,6 +153,7 @@ export default class Homestay extends Component {
     // Determine cheapest weekly rate
     const cheapestWeeklyRate = Math.min.apply(null, [stayRate, tandemRate, teacherRate].filter(rate => rate))
 
+    console.log(this)
 
     return (
       <div style={{ marginBottom: -20 }}>
@@ -212,11 +215,6 @@ export default class Homestay extends Component {
                   <Col xs={12}>
                     <h5>{t('common.About')}</h5>
                     <p>{homestay.data.description.summary}</p>
-                    <p>
-                      <Link to={`/user/${homestay.data.host.userId}`}>
-                        {t('homes.more_about_host', { host: homestay.data.host.firstName })}
-                      </Link>
-                    </p>
                   </Col>
                 </Row>
                 <Row style={styles.borderBottomPadded}>
@@ -250,9 +248,43 @@ export default class Homestay extends Component {
                     <p>
                       <strong>{t('common.Location')}: </strong>{homestay.data.location.city}, {t(`countries.${homestay.data.location.country}`)}
                     </p>
-                    <p>
-                      <a>{t('common.words.more')}</a>
-                    </p>
+                    {!host &&
+                      <p>
+                        <a onClick={this.fetchHostInfo}>{t('common.words.more')}</a>
+                      </p>
+                    }
+                    {host && host.interests.length > 0 &&
+                      <p>
+                        <strong>{t('common.Interests')}:</strong> {host.interests.map(interest => <span key={`host-interest-${interest}`}>{t(`interests.${interest}`)}{host.interests.indexOf(interest) !== host.interests.length - 1 ? <span>, &nbsp;</span> : null}</span>)}
+                      </p>
+                    }
+                    {host && host.education &&
+                      <p>
+                        <strong>{t('common.Education')}:</strong> {host.education}
+                      </p>
+                    }
+                    {host && host.favouriteBooks &&
+                      <p>
+                        <strong>{t('common.Favourite_book')}:</strong> {host.favouriteBooks}
+                      </p>
+                    }
+                    {host && host.favouriteFilms &&
+                      <p>
+                        <strong>{t('common.Favourite_film')}:</strong> {host.favouriteFilms}
+                      </p>
+                    }
+                    {host &&
+                      <p>
+                        <strong>Joined:</strong> {t(`common.months.m${host.joinedMonth}`)}, {host.joinedYear}
+                      </p>
+                    }
+                    {host &&
+                      <p>
+                        <Link to={`/user/${homestay.data.host.userId}`}>
+                          {t('homes.more_about_host', { host: homestay.data.host.firstName })}
+                        </Link>
+                      </p>
+                    }
                   </Col>
                 </Row>
                 <Row style={styles.borderBottomPadded}>
@@ -353,6 +385,7 @@ Homestay.propTypes = {
   error: PropTypes.object,
   homestay: PropTypes.object,
   homestaySearch: PropTypes.object,
+  host: PropTypes.object,
   loading: PropTypes.bool,
   uiCurrency: PropTypes.string,
   t: PropTypes.func,

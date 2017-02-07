@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { DateRangePicker, SpinLoader } from 'components'
 import Moment from 'moment'
 import { extendMoment } from 'moment-range'
+import { openLoginModal } from 'redux/modules/ui/modals'
 import { SimpleSelect as Select } from 'react-selectize'
 import { translate } from 'react-i18next'
 import { updateRoomSearchParams, updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
@@ -108,7 +109,7 @@ export default class BookNow extends Component {
                 <strong className='header-green'>{t('common.Price')}:</strong>
                 <span className='pull-right'>
                   {homestaySearch.params.arrival && homestaySearch.params.departure && !auth.loaded &&
-                    <a>{t('common.log_in_to_see_prices')}</a>
+                    <a onClick={() => this.props.dispatch(openLoginModal())}>{t('common.log_in_to_see_prices')}</a>
                   }
                   {(!homestaySearch.params.arrival || !homestaySearch.params.departure) &&
                     <span>{currencySymbol}{cheapestWeeklyRate}/{t('common.week')}</span>
