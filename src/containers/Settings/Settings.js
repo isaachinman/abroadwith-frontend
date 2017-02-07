@@ -112,7 +112,7 @@ export default class Settings extends Component {
 
   render() {
 
-    const { uiLanguage, jwt, t } = this.props
+    const { uiLanguage, t } = this.props
     const { knownLanguages, learningLanguages } = this.state
 
     // Debounce autosave functionality to a reasonable rate
