@@ -55,6 +55,9 @@ export default {
     textAlign: 'right',
     marginTop: -70,
     paddingRight: 15,
+    '@media (max-width: 767px)': {
+      margin: '0 auto',
+    },
   },
   panel: {
     display: 'inline-block',
@@ -63,6 +66,9 @@ export default {
   },
   contentContainer: {
     width: 'calc(100% - 270px)',
+    '@media (max-width: 767px)': {
+      width: '100%',
+    },
     display: 'inline-block',
     padding: '50px 30px',
   },
@@ -147,6 +153,28 @@ export default {
     position: 'absolute',
     top: 0,
     left: -65,
+  },
+  reviewCaretLeftInner: {
+    position: 'absolute',
+    zIndex: 2,
+    top: 7,
+    left: -9,
+    width: 0,
+    height: 0,
+    borderTop: '8px solid transparent',
+    borderRight: '9px solid #F5F5F5',
+    borderBottom: '8px solid transparent',
+  },
+  reviewCaretLeftOuter: {
+    position: 'absolute',
+    zIndex: 1,
+    top: 5,
+    left: -11,
+    width: 0,
+    height: 0,
+    borderTop: '10.5px solid transparent',
+    borderRight: '11px solid #ddd',
+    borderBottom: '10.5px solid transparent',
   },
   centerAlign: {
     textAlign: 'center',
