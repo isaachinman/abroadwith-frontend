@@ -40,8 +40,11 @@ export default class BookNow extends Component {
   }
 
   handleRoomChange = roomID => {
-    this.props.dispatch(updateActiveRoom(roomID))
-    this.props.handleRoomDropdownChange(false)
+
+    const { dispatch, handleRoomDropdownChange } = this.props
+
+    dispatch(updateActiveRoom(roomID))
+    handleRoomDropdownChange(false)
   }
 
   determineBlockedStatus = day => {
@@ -56,7 +59,7 @@ export default class BookNow extends Component {
 
   render() {
 
-    const { auth, handleRoomDropdownChange, homestaySearch, t, rooms, roomSelectionOpen, roomCalendars } = this.props
+    const { auth, cheapestWeeklyRate, currencySymbol, handleRoomDropdownChange, homestaySearch, t, rooms, roomSelectionOpen, roomCalendars } = this.props
 
     const determineBlockedStatus = this.props.roomCalendars[homestaySearch.activeRoom] && this.props.roomCalendars[homestaySearch.activeRoom].data && this.props.roomCalendars[homestaySearch.activeRoom].data.unavailabilities ? this.determineBlockedStatus : () => false
 
@@ -85,7 +88,7 @@ export default class BookNow extends Component {
             </Col>
           </Row>
           <Row style={styles.bookNowBorderBottom}>
-            <Col xs={12} style={styles.alignLeft}>
+            <Col xs={12} style={styles.alignLeft} onClick={() => handleRoomDropdownChange(true)}>
               <Select
                 theme='bootstrap3'
                 className='book-now-room-select'
@@ -108,7 +111,7 @@ export default class BookNow extends Component {
                     <a>{t('common.log_in_to_see_prices')}</a>
                   }
                   {(!homestaySearch.params.arrival || !homestaySearch.params.departure) &&
-                    <span>per week</span>
+                    <span>{currencySymbol}{cheapestWeeklyRate}/{t('common.week')}</span>
                   }
                 </span>
               </p>
@@ -127,6 +130,8 @@ export default class BookNow extends Component {
 
 BookNow.propTypes = {
   auth: PropTypes.object,
+  cheapestWeeklyRate: PropTypes.number,
+  currencySymbol: PropTypes.string,
   dispatch: PropTypes.func,
   handleRoomDropdownChange: PropTypes.func,
   homestaySearch: PropTypes.object,

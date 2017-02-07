@@ -13,8 +13,9 @@ import Lightbox from 'react-images'
 import LightboxTheme from 'data/constants/LightboxTheme'
 import { Link } from 'react-router'
 import MapStyles from 'data/constants/MapStyles'
+import moment from 'moment'
 import { StickyContainer, Sticky } from 'react-sticky'
-import { updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
+import { updateRoomSearchParams, updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
 import { translate } from 'react-i18next'
 
 // Relative imports
@@ -35,6 +36,7 @@ import MapCircle from './subcomponents/MapCircle'
     activeRoom: state.uiPersist.homestaySearch.activeRoom,
     debug: ownProps,
     homestay: state.publicData.homestays[ownProps.params.homeID],
+    homestaySearch: state.uiPersist.homestaySearch,
     error: state.publicData.homestays.error,
     loading: state.publicData.homestays.loading,
     uiCurrency: state.ui.currency.value,
@@ -56,21 +58,58 @@ export default class Homestay extends Component {
     const { activeRoom, dispatch, homestay } = this.props
 
     if (homestay.loaded && !homestay.roomCalendars[activeRoom] && !homestay.roomCalendars.loading) {
+
       // If there is no activeRoom, or if activeRoom belongs to another home, set new one
       if (!activeRoom || homestay.data.rooms.filter(room => room.id === activeRoom).length === 0) {
         dispatch(updateActiveRoom(homestay.data.rooms[0].id))
-        this.fetchRoomCalendar(homestay.data.rooms[0].id)
+        this.fetchRoomCalendar(homestay.data.rooms[0].id, this.determineCalendarConflict)
       } else {
-        this.fetchRoomCalendar(activeRoom)
+        this.fetchRoomCalendar(activeRoom, this.determineCalendarConflict)
       }
+
+    } else {
+
+      try {
+        this.determineCalendarConflict()
+      } catch (err) {
+        console.log('failed', err)
+      }
+
     }
 
 
   }
 
-  fetchRoomCalendar = roomID => {
+  determineCalendarConflict = () => {
+
+    // Check for conflicts (possible to select dates with one room, and then switch
+    // to a room who has those dates blocked)
+    console.log(this)
+
+    const { activeRoom, dispatch, homestay, homestaySearch } = this.props
+
+    if (homestaySearch.params.arrival && homestaySearch.params.departure) {
+
+      homestay.roomCalendars[activeRoom].data.unavailabilities.some(blocked => {
+
+        const blockedRange = moment.range(blocked.start, blocked.end)
+        const dateRage = moment.range(homestaySearch.params.arrival, homestaySearch.params.departure)
+
+        if (dateRage.overlaps(blockedRange)) {
+          dispatch(updateRoomSearchParams(Object.assign({}, homestaySearch.params, {
+            arrival: null,
+            departure: null,
+          })))
+        }
+
+      })
+    }
+
+  }
+
+  fetchRoomCalendar = (roomID, callback) => {
     const { dispatch, homestay } = this.props
-    dispatch(loadRoomCalendar(homestay.data.id, roomID))
+    dispatch(loadRoomCalendar(homestay.data.id, roomID, callback))
   }
 
   handleRoomDropdownChange = value => this.setState({ roomSelectionOpen: value })
@@ -89,7 +128,29 @@ export default class Homestay extends Component {
 
     const activeRoomObj = homestay.data && activeRoom ? homestay.data.rooms.filter(room => room.id === activeRoom)[0] : {}
     const currencySymbol = Currencies[uiCurrency]
-    console.log('activeRoomObj: ', activeRoomObj)
+
+    // Determine weekly rates
+    let stayRate = null
+    let tandemRate = null
+    let teacherRate = null
+
+    if (homestay.data) {
+      if (homestay.data.immersions.stay && homestay.data.immersions.stay.isActive) {
+        stayRate = activeRoomObj.price
+      }
+
+      if (homestay.data.immersions.tandem && homestay.data.immersions.tandem.isActive) {
+        tandemRate = Math.ceil(activeRoomObj.price * ((100 - homestay.data.immersions.tandem.languagesInterested[0].discount) / 100))
+      }
+
+      if (homestay.data.immersions.teacher && homestay.data.immersions.teacher.isActive) {
+        teacherRate = Math.ceil((activeRoomObj.price + (homestay.data.immersions.teacher.hourly * homestay.data.immersions.teacher.packages[0])))
+      }
+    }
+
+    // Determine cheapest weekly rate
+    const cheapestWeeklyRate = Math.min.apply(null, [stayRate, tandemRate, teacherRate].filter(rate => rate))
+
 
     return (
       <div style={{ marginBottom: -20 }}>
@@ -212,14 +273,14 @@ export default class Homestay extends Component {
                           <Col xs={12} md={8}>
                             <p>
                               <strong>{t('manage_home.pricing_room_rates')}: </strong>
-                              {homestay.data.immersions.stay && homestay.data.immersions.stay.isActive &&
-                                <span className='immersion-tag large'>{t('immersions.stay')}: {currencySymbol}{activeRoomObj.price}</span>
+                              {stayRate &&
+                                <span className='immersion-tag large'>{t('immersions.stay')}: {currencySymbol}{stayRate}</span>
                               }
-                              {homestay.data.immersions.tandem && homestay.data.immersions.tandem.isActive &&
-                                <span className='immersion-tag large'>{t('immersions.tandem')}: {currencySymbol}{Math.ceil(activeRoomObj.price * ((100 - homestay.data.immersions.tandem.languagesInterested[0].discount) / 100))}</span>
+                              {tandemRate &&
+                                <span className='immersion-tag large'>{t('immersions.tandem')}: {currencySymbol}{tandemRate}</span>
                               }
-                              {homestay.data.immersions.teacher && homestay.data.immersions.teacher.isActive &&
-                                <span className='immersion-tag large'>{t('immersions.teachers_stay')}: {currencySymbol}{Math.ceil((activeRoomObj.price + (homestay.data.immersions.teacher.hourly * homestay.data.immersions.teacher.packages[0])))}</span>
+                              {teacherRate &&
+                                <span className='immersion-tag large'>{t('immersions.teachers_stay')}: {currencySymbol}{teacherRate}</span>
                               }
                             </p>
                           </Col>
@@ -265,6 +326,9 @@ export default class Homestay extends Component {
                 >
                   <Panel style={styles.panel}>
                     <BookNow
+                      cheapestWeeklyRate={cheapestWeeklyRate}
+                      currencySymbol={currencySymbol}
+                      determineCalendarConflict={this.determineCalendarConflict}
                       handleRoomDropdownChange={this.handleRoomDropdownChange}
                       roomSelectionOpen={this.state.roomSelectionOpen}
                       rooms={homestay.data.rooms}
@@ -288,6 +352,7 @@ Homestay.propTypes = {
   dispatch: PropTypes.func,
   error: PropTypes.object,
   homestay: PropTypes.object,
+  homestaySearch: PropTypes.object,
   loading: PropTypes.bool,
   uiCurrency: PropTypes.string,
   t: PropTypes.func,
