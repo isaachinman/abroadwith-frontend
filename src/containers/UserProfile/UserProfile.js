@@ -1,9 +1,14 @@
 // Absolute imports
+import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
 import { connect } from 'react-redux'
+import { Col, Grid, Row } from 'react-bootstrap'
 import { isLoaded, load as loadUser } from 'redux/modules/publicData/users/loadUser'
 import Helmet from 'react-helmet'
-import React, { Component } from 'react'
+import { translate } from 'react-i18next'
+
+// Relative imports
+import styles from './UserProfile.styles'
 
 @asyncConnect([{
   promise: ({ params, store: { dispatch, getState } }) => {
@@ -15,58 +20,39 @@ import React, { Component } from 'react'
 }])
 @connect(
   (state, ownProps) => ({
-    debug: ownProps,
     user: state.publicData.users[ownProps.params.userID],
     error: state.publicData.users.error,
     loading: state.publicData.users.loading,
   })
 )
+@translate()
 export default class UserProfile extends Component {
   render() {
 
-    const { error, loading, user } = this.props
-
-    /* eslint-disable */
-    const {
-      aboutMe,
-      age,
-      amazingFeat,
-      canShare,
-      education,
-      emailVerified,
-      favouriteBooks,
-      favouriteFilms,
-      firstName,
-      gender,
-      grewUp,
-      hasLived,
-      hasVisited,
-      home,
-      homeCity,
-      homeCountry,
-      idVerified,
-      interests,
-      joinedMonth,
-      joinedYear,
-      languagesKnown,
-      languagesLearning,
-      occupation,
-      phoneVerified,
-      photo,
-    } = user ? user : {}
-    /* eslint-enable */
+    const { error, loading, t, user } = this.props
+    console.log(this)
 
     return (
       <div>
 
-        <Helmet title='User Profile' />
-
         {!error && !loading && user &&
 
-          <div className='container'>
-            <h1>User: {firstName}</h1>
-            <h2>Location: {homeCity}, {homeCountry}</h2>
-          </div>
+          <span>
+            <Helmet title={`${user.firstName}'s ${t('users.title')}`} />
+
+            <Grid style={styles.grid}>
+              <div style={styles.bg} />
+
+              <div style={styles.contentContainer}>
+                <Row>
+                  <Col xs={12} style={styles.borderBottom}>
+                    <h1>{user.firstName} <small>USERTYPE</small></h1>
+                  </Col>
+                </Row>
+              </div>
+
+            </Grid>
+          </span>
 
         }
 
@@ -76,7 +62,8 @@ export default class UserProfile extends Component {
 }
 
 UserProfile.propTypes = {
-  loading: React.PropTypes.bool,
-  user: React.PropTypes.object,
-  error: React.PropTypes.object,
+  error: PropTypes.object,
+  loading: PropTypes.bool,
+  user: PropTypes.object,
+  t: PropTypes.func,
 }

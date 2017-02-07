@@ -141,7 +141,7 @@ export default class Homestay extends Component {
 
     if (homestay.data) {
       if (homestay.data.immersions.stay && homestay.data.immersions.stay.isActive) {
-        stayRate = activeRoomObj.price
+        stayRate = Math.ceil(activeRoomObj.price)
       }
 
       if (homestay.data.immersions.tandem && homestay.data.immersions.tandem.isActive) {
@@ -154,9 +154,6 @@ export default class Homestay extends Component {
     }
 
     console.log(this)
-
-    // Determine cheapest weekly rate
-    const cheapestWeeklyRate = Math.min.apply(null, [stayRate, tandemRate, teacherRate].filter(rate => rate))
 
     return (
       <div style={{ marginBottom: -20 }}>
@@ -415,7 +412,11 @@ export default class Homestay extends Component {
                       </Col>
                       <Col sm={12} md={9}>
                         <p>
-                          {homestay.data.pricing.extras.map(extra => <span key={`home-extra-cost-${extra.service}`}>{t(`homes.services.${extra.service}`)}&nbsp;({currencySymbol}{extra.cost}){homestay.data.pricing.extras.indexOf(extra) !== homestay.data.pricing.extras.length - 1 ? <span>,&nbsp;</span> : null}</span>)}
+                          {homestay.data.pricing.extras.map(extra => {
+                            return (
+                              <span key={`home-extra-cost-${extra.service}`}>{t(`homes.services.${extra.service}`)}&nbsp;({currencySymbol}{extra.cost}){homestay.data.pricing.extras.indexOf(extra) !== homestay.data.pricing.extras.length - 1 ? <span>,&nbsp;</span> : null}</span>) }
+                            )
+                          }
                         </p>
                       </Col>
                     </span>
@@ -454,13 +455,12 @@ export default class Homestay extends Component {
                 >
                   <Panel style={styles.panel}>
                     <BookNow
-                      cheapestWeeklyRate={cheapestWeeklyRate}
+                      immersionRates={{ stayRate, tandemRate, teacherRate }}
                       currencySymbol={currencySymbol}
                       determineCalendarConflict={this.determineCalendarConflict}
                       handleRoomDropdownChange={this.handleRoomDropdownChange}
+                      homeID={this.props.params.homeID}
                       roomSelectionOpen={this.state.roomSelectionOpen}
-                      rooms={homestay.data.rooms}
-                      roomCalendars={homestay.roomCalendars || null}
                     />
                   </Panel>
                 </Sticky>
@@ -484,5 +484,6 @@ Homestay.propTypes = {
   host: PropTypes.object,
   loading: PropTypes.bool,
   uiCurrency: PropTypes.string,
+  params: PropTypes.object,
   t: PropTypes.func,
 }
