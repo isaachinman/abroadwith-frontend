@@ -21,6 +21,7 @@ import { translate } from 'react-i18next'
 
 // Relative imports
 import BookNow from './subcomponents/BookNow'
+import HomestayReviews from './subcomponents/HomestayReviews'
 import styles from './Homestay.styles'
 import MapCircle from './subcomponents/MapCircle'
 
@@ -150,10 +151,10 @@ export default class Homestay extends Component {
       }
     }
 
+    console.log(this)
+
     // Determine cheapest weekly rate
     const cheapestWeeklyRate = Math.min.apply(null, [stayRate, tandemRate, teacherRate].filter(rate => rate))
-
-    console.log(this)
 
     return (
       <div style={{ marginBottom: -20 }}>
@@ -205,21 +206,21 @@ export default class Homestay extends Component {
                         <span>{t('homes.non_family_home_title', { host: homestay.data.host.firstName })}</span>
                       }
                       <br />
-                      <small>
+                      <span style={styles.pageSubtitle} className='text-muted'>
                         {t(`homes.home_types.${homestay.data.basics.homeType}`)} / {homestay.data.location.city}
-                      </small>
+                      </span>
                     </h1>
                   </Col>
                 </Row>
                 <Row style={styles.borderBottomPadded}>
                   <Col xs={12}>
-                    <h5>{t('common.About')}</h5>
+                    <h4>{t('common.About')}</h4>
                     <p>{homestay.data.description.summary}</p>
                   </Col>
                 </Row>
                 <Row style={styles.borderBottomPadded}>
                   <Col xs={12} md={6}>
-                    <h5>{t('common.Languages')}</h5>
+                    <h4>{t('common.Languages')}</h4>
                     {homestay.data.host.languagesLearning.length > 0 &&
                       <p>
                         <strong>{t('common.Learning')}: </strong>
@@ -241,7 +242,10 @@ export default class Homestay extends Component {
                     }
                   </Col>
                   <Col xs={12} md={6}>
-                    <h5>{t('common.host')}</h5>
+                    <h4>{t('common.host')}</h4>
+                    <p>
+                      <strong>{t('common.First_name')}: </strong>{homestay.data.host.firstName}
+                    </p>
                     <p>
                       <strong>{t('common.age')}: </strong>{homestay.data.host.age} {homestay.data.host.gender ? <span>({t(`users.genders.${homestay.data.host.gender}`)})</span> : null}
                     </p>
@@ -289,9 +293,9 @@ export default class Homestay extends Component {
                 </Row>
                 <Row style={styles.borderBottomPadded}>
                   <Col xs={12}>
-                    <h5>{t('common.the_room')}</h5>
+                    <h4>{t('common.the_room')}</h4>
                     {activeRoom &&
-                      <Panel header={activeRoomObj.name} style={{ boxShadow: 'none' }}>
+                      <Panel header={<h6 className='header-green'>{activeRoomObj.name}</h6>} style={styles.noBoxShadow}>
                         <Row>
                           <Col xs={12} md={4}>
                             <div style={styles.roomImageContainer}>
@@ -316,24 +320,82 @@ export default class Homestay extends Component {
                               }
                             </p>
                           </Col>
+                          <Col xs={12} md={8}>
+                            <p>
+                              <strong>{t('common.Bed_type')}:</strong> {t(`homes.bed_types.${activeRoomObj.bedType}`)}
+                            </p>
+                          </Col>
+                          <Col xs={12} md={8}>
+                            <p>
+                              <strong>{t('common.Sleeps')}:</strong> {activeRoomObj.vacancies}
+                            </p>
+                          </Col>
+                          <Col xs={12} md={8}>
+                            <p>
+                              <strong>{t('common.Shared')}:</strong> {activeRoomObj.isShared ? <span>{t('common.words.Yes')}</span> : <span>{t('common.words.No')}</span>}
+                            </p>
+                          </Col>
+                          {activeRoomObj.roomFacilities.length > 0 &&
+                            <Col xs={12} md={8}>
+                              <p>
+                                <strong>{t('common.Facilities')}:</strong>&nbsp;
+                                {activeRoomObj.roomFacilities.map(facility => <span key={`room-fac-${facility}`}>{t(`homes.facilities.${facility}`)}{activeRoomObj.roomFacilities.indexOf(facility) !== activeRoomObj.roomFacilities.length - 1 ? <span>,&nbsp;</span> : null}</span>)}
+                              </p>
+                            </Col>
+                          }
+                          <Col xs={12} md={8}>
+                            <p>
+                              <strong>{t('common.Room_description')}:</strong> {activeRoomObj.description ? <span>{activeRoomObj.description}</span> : <span>{t('homes.no_description')}</span>}
+                            </p>
+                          </Col>
                         </Row>
                       </Panel>
                     }
                   </Col>
                   {homestay.data.rooms.length > 1 &&
                     <Col xs={12}>
-                      <a onClick={() => this.handleRoomDropdownChange(true)}><small>More rooms</small></a>
+                      <a onClick={() => this.handleRoomDropdownChange(true)}><small>{t('homes.more_rooms')}</small></a>
                     </Col>
                   }
                 </Row>
                 <Row style={styles.borderBottomPadded}>
                   <Col xs={12}>
-                    <h5>{t('common.Reviews')}</h5>
+                    <h4>{t('common.Home_info')}</h4>
+                  </Col>
+                  {homestay.data.basics.AMENITIES.length > 0 &&
+                    <Col xs={12}>
+                      <p>
+                        <strong>{t('common.Amenities')}: </strong>
+                        {homestay.data.basics.AMENITIES.map(amenity => <span key={`home-amenity-${amenity}`}>{t(`homes.amenities.${amenity}`)}{homestay.data.basics.AMENITIES.indexOf(amenity) !== homestay.data.basics.AMENITIES.length - 1 ? <span>, &nbsp;</span> : null}</span>)}
+                      </p>
+                    </Col>
+                  }
+                  {homestay.data.basics.EXTRAS.length > 0 &&
+                    <Col xs={12}>
+                      <p>
+                        <strong>{t('homes.extras_label')}: </strong>
+                        {homestay.data.basics.EXTRAS.map(extra => <span key={`home-extra-${extra}`}>{t(`homes.extras.${extra}`)}{homestay.data.basics.EXTRAS.indexOf(extra) !== homestay.data.basics.EXTRAS.length - 1 ? <span>, &nbsp;</span> : null}</span>)}
+                      </p>
+                    </Col>
+                  }
+                  {homestay.data.basics.FOOD_OPTION.length > 0 &&
+                    <Col xs={12}>
+                      <p>
+                        <strong>{t('homes.diets_offered_label')}: </strong>
+                        {homestay.data.basics.FOOD_OPTION.map(foodOption => <span key={`home-food-${foodOption}`}>{t(`homes.diets_offered.${foodOption}`)}{homestay.data.basics.FOOD_OPTION.indexOf(foodOption) !== homestay.data.basics.FOOD_OPTION.length - 1 ? <span>, &nbsp;</span> : null}</span>)}
+                      </p>
+                    </Col>
+                  }
+                </Row>
+                <Row style={styles.borderBottomPadded}>
+                  <Col xs={12}>
+                    <h4>{t('common.Reviews')}</h4>
+                    <HomestayReviews reviewInfo={homestay.data.reviewInfo} />
                   </Col>
                 </Row>
                 <Row style={styles.borderBottomPadded}>
                   <Col xs={12}>
-                    <h5>{t('common.Location')}</h5>
+                    <h4>{t('common.Location')}</h4>
                     <div style={styles.mapContainer}>
                       <GoogleMap
                         center={[homestay.data.location.lat, homestay.data.location.lng]}

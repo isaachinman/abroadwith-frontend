@@ -2,10 +2,9 @@
 1. Swap react-google-maps in homestay creation for google-map-react, thus eliminating react-google-maps dep
 2. Attempt to upgrade to webpack 2 for tree-shaking benefits
 
-// Homestay search page
-- Immersion selection needs to be a central focus of the dashboard
-- Immersions should be visible without any clicking
-
 // Home profile pages
 1. Keep the same order as we have now
 2. Create price calculation functionality
+
+// Thread page
+1. Add user images to sent/received messages
