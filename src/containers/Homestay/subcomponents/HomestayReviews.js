@@ -50,6 +50,8 @@ export default class HomestayReviews extends Component {
               {reviewInfo.reviews.map(review => {
                 return (
                   <div style={styles.reviewPanel} key={`home-review-${review.reviewerId}`}>
+                    <div style={styles.reviewCaretLeftInner} />
+                    <div style={styles.reviewCaretLeftOuter} />
                     <Row>
                       <div style={styles.reviewerInfo}>
                         {!review.reviewerPicture &&
