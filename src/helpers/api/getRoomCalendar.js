@@ -23,8 +23,21 @@ export default (app) => {
           unavailabilities: [],
         }
 
-        if (response.numFound === 1 && response.docs[0].bookingDateRanges && response.docs[0].roomUnavailableDateRanges) {
-          const combinedUnavailabilities = response.docs[0].bookingDateRanges.concat(response.docs[0].roomUnavailableDateRanges)
+        console.log('roomUnavailableDateRanges: ', response.docs[0].roomUnavailableDateRanges)
+
+        if (response.numFound === 1 && (response.docs[0].bookingDateRanges || response.docs[0].roomUnavailableDateRanges)) {
+
+          let combinedUnavailabilities = []
+
+          if (response.docs[0].bookingDateRanges) {
+            combinedUnavailabilities = combinedUnavailabilities.concat(response.docs[0].bookingDateRanges)
+          }
+
+          if (response.docs[0].roomUnavailableDateRanges) {
+            combinedUnavailabilities = combinedUnavailabilities.concat(response.docs[0].roomUnavailableDateRanges)
+          }
+
+          console.log('combinedUnavailabilities: ', combinedUnavailabilities)
           roomCalendar.unavailabilities = combinedUnavailabilities.map(timespan => {
             const parsedDates = ((timespan.replace(/[\[\]']/g, '')).split(' TO '))
             return {
@@ -33,6 +46,8 @@ export default (app) => {
             }
           })
         }
+
+        console.log('roomCalendar: ', roomCalendar)
 
         return res.send(JSON.stringify(roomCalendar))
 

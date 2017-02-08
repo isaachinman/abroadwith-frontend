@@ -492,6 +492,17 @@ $popover-arrow-color: $darkBlue;
       margin-left: 10px;
     }
   }
+  .carousel-control {
+    z-index: 101;
+  }
+  &:hover {
+    .hover-stripe {
+      background: $freshGreen;
+    }
+  }
+  .hover-stripe {
+    height: 5px;
+  }
 }
 
 // Featured homestay hover effect

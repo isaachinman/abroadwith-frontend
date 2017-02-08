@@ -182,4 +182,11 @@ export default {
   noBoxShadow: {
     boxShadow: 'none',
   },
+  pricingDisclaimer: {
+    opacity: 0.5,
+    padding: '0 20px',
+    textAlign: 'center',
+    fontSize: 10,
+    lineHeight: '12px',
+  },
 }

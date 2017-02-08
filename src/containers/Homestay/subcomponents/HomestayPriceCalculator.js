@@ -1,24 +1,78 @@
 // Absolute imports
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { calculateHomestayPrice } from 'redux/modules/ui/search/homestaySearch'
 import { connect } from 'react-redux'
+import Currencies from 'data/constants/Currencies'
+import equal from 'deep-is'
+import { SpinLoader } from 'components'
 
 @connect(
   (state, ownProps) => ({
     auth: state.auth,
     homestay: state.publicData.homestays[ownProps.homeID],
     homestaySearch: state.uiPersist.homestaySearch,
+    uiCurrency: state.ui.currency.value,
+    token: state.auth.token,
   })
 )
 export default class HomestayPriceCalculator extends Component {
 
+  componentDidMount = () => this.calculatePrice(this.props.immersionForPriceCalculation)
+
+  componentDidUpdate = prevProps => {
+
+    const { homestaySearch, immersionForPriceCalculation } = this.props
+
+    if (!equal(homestaySearch.params, prevProps.homestaySearch.params) || homestaySearch.activeRoom !== prevProps.homestaySearch.activeRoom || immersionForPriceCalculation !== prevProps.immersionForPriceCalculation) {
+      this.calculatePrice()
+    }
+
+  }
+
+  calculatePrice = () => {
+
+    const { dispatch, homestay, homestaySearch, immersionForPriceCalculation, token, uiCurrency } = this.props
+
+    const calculationObject = {
+      arrivalDate: homestaySearch.params.arrival,
+      departureDate: homestaySearch.params.departure,
+      guestCount: homestaySearch.params.guests,
+      roomId: homestaySearch.activeRoom,
+      stayId: homestay.data.immersions[immersionForPriceCalculation].id,
+      currency: uiCurrency,
+      serviceNames: [],
+      settingNames: [],
+      languageHostWillTeach: homestaySearch.params.language || homestay.data.stayAvailableLanguages[0],
+      languageGuestWillTeach: immersionForPriceCalculation === 'tandem' ? homestay.data.immersions.tandem.languagesInterested[0].lang : null,
+      weeklyHours: immersionForPriceCalculation === 'teacher' ? homestay.data.immersions.teacher.packages[0] : null,
+    }
+
+    dispatch(calculateHomestayPrice(token, calculationObject))
+
+  }
+
   render() {
 
-    console.log(this)
+    const { homestaySearch, uiCurrency } = this.props
 
     return (
-      <div>
-        Price
-      </div>
+      <SpinLoader show={homestaySearch.price.loading}>
+        <div onClick={this.calculatePrice}>
+          {homestaySearch.price.loaded &&
+            <span>{Currencies[uiCurrency]}{Math.ceil(homestaySearch.price.data)}*</span>
+          }
+        </div>
+      </SpinLoader>
+
     )
   }
+}
+
+HomestayPriceCalculator.propTypes = {
+  dispatch: PropTypes.func,
+  homestay: PropTypes.object,
+  homestaySearch: PropTypes.object,
+  immersionForPriceCalculation: PropTypes.string,
+  uiCurrency: PropTypes.string,
+  token: PropTypes.string,
 }

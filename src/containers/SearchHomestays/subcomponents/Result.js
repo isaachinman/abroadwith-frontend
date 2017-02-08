@@ -78,7 +78,7 @@ export default class Result extends Component {
               })
             }
         </Carousel>
-        <div style={styles.searchResultBottomHalf}>
+        <div style={styles.searchResultBottomHalf} className='bottom-half'>
           <div style={styles.searchResultInfo}>
             <div style={styles.searchResultText}>
               <div style={styles.searchResultTitle}>
@@ -109,6 +109,7 @@ export default class Result extends Component {
             }
 
           </div>
+          <div className='hover-stripe' />
         </div>
       </div>
     )

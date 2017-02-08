@@ -46,12 +46,19 @@ export default {
     width: '100%',
     padding: '9px 10px',
     maxHeight: 50,
+    '@media (max-width: 500px)': {
+      display: 'none',
+    },
   },
   resultScrollList: {
     height: 'calc(100vh - 195px)',
     width: '60%',
     '@media (max-width: 767px)': {
       width: '100%',
+    },
+    '@media (max-width: 500px)': {
+      marginTop: 70,
+      height: 'calc(100vh - 150px)',
     },
     display: 'inline-block',
     verticalAlign: 'top',
@@ -91,7 +98,7 @@ export default {
     height: 160,
   },
   searchResultPrice: {
-    zIndex: 9,
+    zIndex: 102,
     background: headerBluePurple,
     color: 'white',
     position: 'absolute',
@@ -128,7 +135,7 @@ export default {
     color: headerBluePurple,
   },
   searchResultText: {
-    padding: 10,
+    padding: '10px 10px 5px 10px',
     maxWidth: 'calc(100% - 80px)',
     color: darkBlue,
   },
@@ -143,6 +150,7 @@ export default {
     position: 'absolute',
     top: 0,
     left: 0,
+    zIndex: 99,
     width: '100%',
     height: '100%',
   },
