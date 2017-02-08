@@ -153,8 +153,6 @@ export default class Homestay extends Component {
       }
     }
 
-    console.log(this)
-
     return (
       <div style={{ marginBottom: -20 }}>
 
@@ -453,16 +451,23 @@ export default class Homestay extends Component {
                   topOffset={-100}
                   stickyStyle={{ paddingTop: 100 }}
                 >
-                  <Panel style={styles.panel}>
-                    <BookNow
-                      immersionRates={{ stayRate, tandemRate, teacherRate }}
-                      currencySymbol={currencySymbol}
-                      determineCalendarConflict={this.determineCalendarConflict}
-                      handleRoomDropdownChange={this.handleRoomDropdownChange}
-                      homeID={this.props.params.homeID}
-                      roomSelectionOpen={this.state.roomSelectionOpen}
-                    />
-                  </Panel>
+                  <div>
+                    <Panel style={styles.panel}>
+                      <BookNow
+                        immersionRates={{ stayRate, tandemRate, teacherRate }}
+                        currencySymbol={currencySymbol}
+                        determineCalendarConflict={this.determineCalendarConflict}
+                        handleRoomDropdownChange={this.handleRoomDropdownChange}
+                        homeID={parseInt(this.props.params.homeID)}
+                        roomSelectionOpen={this.state.roomSelectionOpen}
+                      />
+                    </Panel>
+                    <Row style={{ marginBottom: 40 }}>
+                      <Col xs={12}>
+                        <div style={styles.pricingDisclaimer}>*{t('common.homestay_pricing_disclaimer')}</div>
+                      </Col>
+                    </Row>
+                  </div>
                 </Sticky>
               </div>
             </StickyContainer>

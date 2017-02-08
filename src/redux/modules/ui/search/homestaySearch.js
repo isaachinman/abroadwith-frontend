@@ -1,5 +1,7 @@
+import config from 'config'
 import superagent from 'superagent'
 import homestaySearchParamsToUrl from 'utils/search/homestaySearchParamsToUrl'
+import jwtDecode from 'jwt-decode'
 import { REHYDRATE } from 'redux-persist/constants'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
@@ -7,6 +9,11 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar'
 const PERFORM_ROOM_SEARCH = 'abroadwith/PERFORM_ROOM_SEARCH'
 const PERFORM_ROOM_SEARCH_SUCCESS = 'abroadwith/PERFORM_ROOM_SEARCH_SUCCESS'
 const PERFORM_ROOM_SEARCH_FAIL = 'abroadwith/PERFORM_ROOM_SEARCH_FAIL'
+
+// Calculate homestay price
+const CALCULATE_HOMESTAY_PRICE = 'abroadwith/CALCULATE_HOMESTAY_PRICE'
+const CALCULATE_HOMESTAY_PRICE_SUCCESS = 'abroadwith/CALCULATE_HOMESTAY_PRICE_SUCCESS'
+const CALCULATE_HOMESTAY_PRICE_FAIL = 'abroadwith/CALCULATE_HOMESTAY_PRICE_FAIL'
 
 // Update search params
 const UPDATE_ROOM_SEARCH_PARAMS = 'abroadwith/UPDATE_ROOM_SEARCH_PARAMS'
@@ -31,6 +38,7 @@ const initialState = {
       tandem: true,
       teacher: true,
     },
+    language: null,
     tandemLanguage: null,
     mapData: {},
     minPrice: 0,
@@ -40,6 +48,7 @@ const initialState = {
     pageSize: 10,
   },
   price: {
+    loading: false,
     loaded: false,
   },
   data: {
@@ -53,7 +62,12 @@ export default function reducer(state = initialState, action = {}) {
     case REHYDRATE: {
       const incoming = action.payload.uiPersist
       if (incoming && incoming.homestaySearch && incoming.homestaySearch.rehydrate) {
-        return Object.assign({}, state, incoming.homestaySearch)
+        return Object.assign({}, state, incoming.homestaySearch, {
+          price: {
+            loading: false,
+            loaded: false, // Do not rehydrate pricing info
+          },
+        })
       }
       return state
     }
@@ -71,6 +85,31 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         activeRoom: action.roomID,
+      }
+    case CALCULATE_HOMESTAY_PRICE:
+      return {
+        ...state,
+        price: {
+          loading: true,
+        },
+      }
+    case CALCULATE_HOMESTAY_PRICE_SUCCESS:
+      return {
+        ...state,
+        price: {
+          loading: false,
+          loaded: true,
+          data: action.result,
+        },
+      }
+    case CALCULATE_HOMESTAY_PRICE_FAIL:
+      return {
+        ...state,
+        price: {
+          loading: false,
+          loaded: false,
+          error: action.error,
+        },
       }
     case PERFORM_ROOM_SEARCH:
       return {
@@ -154,4 +193,38 @@ export function performRoomSearch(params, push) {
       dispatch(hideLoading())
     }
   }
+}
+
+export function calculateHomestayPrice(jwt, params) {
+
+  return async dispatch => {
+
+    dispatch({ type: CALCULATE_HOMESTAY_PRICE })
+
+    try {
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/bookings/price`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+      request.send(params)
+
+      request.end((err, res) => {
+
+        if (err) {
+
+          dispatch({ type: CALCULATE_HOMESTAY_PRICE_FAIL, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: CALCULATE_HOMESTAY_PRICE_SUCCESS, result: JSON.parse(res.text) })
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: CALCULATE_HOMESTAY_PRICE_FAIL, err })
+    }
+  }
+
 }
