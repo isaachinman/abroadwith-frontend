@@ -197,7 +197,7 @@ export default class BookNow extends Component {
                 {(!homestaySearch.params.arrival || !homestaySearch.params.departure) &&
                   <span>{currencySymbol}{weeklyPriceBasedOnSelectedImmersion}/{t('common.week')}</span>
                 }
-                {homestaySearch.params.arrival && homestaySearch.params.departure && auth.loaded && immersionForPriceCalculation &&
+                {homestaySearch.params.arrival && homestaySearch.params.departure && auth.loaded && homestaySearch.activeRoom && immersionForPriceCalculation &&
                   <HomestayPriceCalculator
                     homeID={this.props.homeID}
                     immersionForPriceCalculation={immersionForPriceCalculation}

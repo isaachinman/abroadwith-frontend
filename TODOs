@@ -4,6 +4,8 @@
 
 // Search
 1. Hide "Find a place to stay" banner on mobile, takes up too much height
+2. Change image carousels to slide={false} once the react-bootstrap guys merge PR
+3. Add arrow icons to image carousels
 
 // Home profile pages
 1. Keep the same order as we have now
