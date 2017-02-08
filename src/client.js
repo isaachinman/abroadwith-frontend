@@ -5,7 +5,6 @@
 // Absolute imports
 import 'babel-polyfill'
 import { browserHistory, Router, match } from 'react-router'
-import { LoadingBar } from 'components'
 import { Provider } from 'react-redux'
 import { ReduxAsyncConnect } from 'redux-connect'
 import { syncHistoryWithStore } from 'react-router-redux'
@@ -69,7 +68,6 @@ if (__DEVTOOLS__ && !window.devToolsExtension) {
       <I18nextProvider i18n={i18n}>
         <Provider store={store} key='provider'>
           <div>
-            <LoadingBar history={history} />
             <Router
               {...renderProps}
               render={(props) => <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />}
