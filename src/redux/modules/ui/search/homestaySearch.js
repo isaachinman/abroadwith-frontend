@@ -1,6 +1,7 @@
 import superagent from 'superagent'
 import homestaySearchParamsToUrl from 'utils/search/homestaySearchParamsToUrl'
 import { REHYDRATE } from 'redux-persist/constants'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 // Perform search
 const PERFORM_ROOM_SEARCH = 'abroadwith/PERFORM_ROOM_SEARCH'
@@ -47,7 +48,6 @@ const initialState = {
 }
 
 export default function reducer(state = initialState, action = {}) {
-  console.log(action)
   switch (action.type) {
     // This is a rehydration (from localstore) case
     case REHYDRATE: {
@@ -114,6 +114,7 @@ export function performRoomSearch(params, push) {
 
   return async dispatch => {
 
+    dispatch(showLoading())
     dispatch({ type: PERFORM_ROOM_SEARCH })
 
     // It's important to dispatch param update _after_ search.loading has been set
@@ -130,11 +131,13 @@ export function performRoomSearch(params, push) {
         if (err) {
 
           dispatch({ type: PERFORM_ROOM_SEARCH_FAIL, err })
+          dispatch(hideLoading())
 
         } else {
 
           // GET was successful
           dispatch({ type: PERFORM_ROOM_SEARCH_SUCCESS, result: JSON.parse(res.text) })
+          dispatch(hideLoading())
 
           // By dispatching the push after results are already loaded, users will hit
           // the search page with results already populated
@@ -148,6 +151,7 @@ export function performRoomSearch(params, push) {
 
     } catch (err) {
       dispatch({ type: PERFORM_ROOM_SEARCH_FAIL, err })
+      dispatch(hideLoading())
     }
   }
 }

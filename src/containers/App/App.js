@@ -1,7 +1,7 @@
 // Absolute imports
 import { asyncConnect } from 'redux-connect'
 import { connect } from 'react-redux'
-import { Footer, Navbar } from 'components'
+import { Footer, LoadingBar, Navbar } from 'components'
 import { isLoaded as isAuthLoaded, logout } from 'redux/modules/auth'
 import { push } from 'react-router-redux'
 import { StyleRoot } from 'radium'
@@ -107,6 +107,7 @@ export default class App extends Component {
 
           <Helmet {...config.app.head} />
 
+          <LoadingBar />
           <Navbar jwt={jwt} user={user} title={config.app.title} />
 
           <main style={styles.appContent}>
