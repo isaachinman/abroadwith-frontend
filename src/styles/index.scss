@@ -224,6 +224,9 @@ a {
 }
 p {
   line-height: 22px;
+  span {
+    display: inline-block; // Necessary for react-generated markup
+  }
 }
 .header-pink {
   color: $headerPink;

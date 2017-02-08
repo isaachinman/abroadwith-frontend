@@ -19,7 +19,9 @@ export default (app) => {
 
         // Success
         const response = JSON.parse(solrRes.text).response
-        const roomCalendar = {}
+        const roomCalendar = {
+          unavailabilities: [],
+        }
 
         if (response.numFound === 1 && response.docs[0].bookingDateRanges && response.docs[0].roomUnavailableDateRanges) {
           const combinedUnavailabilities = response.docs[0].bookingDateRanges.concat(response.docs[0].roomUnavailableDateRanges)

@@ -2,6 +2,7 @@
 import { combineReducers } from 'redux'
 import { reducer as reduxAsyncConnect } from 'redux-connect'
 import { routerReducer } from 'react-router-redux'
+import { loadingBarReducer } from 'react-redux-loading-bar'
 
 // Relative imports
 import auth from './auth'
@@ -26,6 +27,7 @@ import verifications from './privateData/users/verifications'
 export default combineReducers({
   auth,
   contactUs,
+  loadingBar: loadingBarReducer,
   messaging,
   routing: routerReducer,
   reduxAsyncConnect,
