@@ -35,4 +35,8 @@ export default {
   nextBtn: {
     marginBottom: 20,
   },
+  logIn: {
+    fontSize: 12,
+    marginTop: 20,
+  },
 }

@@ -10,6 +10,7 @@ import FacebookLogin from 'react-facebook-login'
 import FontAwesome from 'react-fontawesome'
 import GoogleLogin from 'react-google-login'
 import i18n from 'i18n/i18n-client'
+import { openLoginModal, closeStudentSignupModal, closeHostSignupModal } from 'redux/modules/ui/modals'
 import { validateEighteenYearsOld, validatePassword } from 'utils/validation'
 import validator from 'validator'
 import filterLanguageArray from 'utils/languages/filter-language-array'
@@ -22,7 +23,7 @@ import styles from './Signup.styles.js'
   loginStatus: state.auth,
   query: state.routing.locationBeforeTransitions.query,
   signupStatus: state.signupStatus,
-}), signupActions)
+}))
 @translate()
 export default class Signup extends Component {
 
@@ -59,6 +60,18 @@ export default class Signup extends Component {
         level: null,
       },
     ],
+  }
+
+  handleGoToLogin = () => {
+    const { dispatch, type } = this.props
+
+    if (type === 'STUDENT') {
+      dispatch(closeStudentSignupModal())
+    } else if (type === 'HOST') {
+      dispatch(closeHostSignupModal())
+    }
+
+    dispatch(openLoginModal())
   }
 
   addLanguage = type => {
@@ -201,7 +214,7 @@ export default class Signup extends Component {
     const googleToken = type === 'google' ? data.getAuthResponse().id_token : null
 
     // Dispatch signup action
-    this.props.signup(type, signupObject, googleToken)
+    this.props.dispatch(signupActions.signup(type, signupObject, googleToken))
 
   }
 
@@ -389,6 +402,12 @@ export default class Signup extends Component {
               </div>
             }
 
+            <Row>
+              <Col xs={12} style={styles.logIn} className='text-muted'>
+                {t('common.Already_have_account')} <a onClick={this.handleGoToLogin}>{t('common.Log_in')}</a>
+              </Col>
+            </Row>
+
           </span>
         }
 
@@ -409,6 +428,7 @@ export default class Signup extends Component {
 
 Signup.propTypes = {
   compact: PropTypes.bool,
+  dispatch: PropTypes.func,
   jwt: PropTypes.object,
   loginStatus: PropTypes.object,
   logout: PropTypes.func,

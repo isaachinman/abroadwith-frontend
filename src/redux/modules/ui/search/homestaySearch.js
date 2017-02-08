@@ -38,12 +38,16 @@ const initialState = {
     pageOffset: 0,
     pageSize: 10,
   },
+  price: {
+    loaded: false,
+  },
   data: {
     results: [],
   },
 }
 
 export default function reducer(state = initialState, action = {}) {
+  console.log(action)
   switch (action.type) {
     // This is a rehydration (from localstore) case
     case REHYDRATE: {

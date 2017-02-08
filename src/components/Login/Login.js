@@ -16,7 +16,6 @@ import styles from './Login.styles'
 @connect(state => ({
   jwt: state.auth.jwt,
   loginStatus: state.auth,
-  authActions,
 }))
 @translate()
 export default class Login extends Component {
@@ -53,12 +52,12 @@ export default class Login extends Component {
   handleFacebookLogin = (response) => {
     console.log(response)
     if (response.accessToken && response.status !== 'unknown') {
-      this.props.facebookLogin(response.email, response.accessToken)
+      this.props.dispatch(authActions.facebookLogin(response.email, response.accessToken))
     }
   }
 
   handleGoogleLogin = (response) => {
-    this.props.googleLogin(response.getBasicProfile().getEmail(), response.getAuthResponse().id_token)
+    this.props.dispatch(authActions.googleLogin(response.getBasicProfile().getEmail(), response.getAuthResponse().id_token))
   }
 
   handleGoogleLoginFailure = () => {
@@ -97,7 +96,8 @@ export default class Login extends Component {
     this.setState({ validatedFields: modifiedValidation })
 
     if (formIsValid) {
-      this.props.login(email.value, password.value)
+      const { dispatch } = this.props
+      dispatch(authActions.login(email.value, password.value))
     } else {
       return false
     }

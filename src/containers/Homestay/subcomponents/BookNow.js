@@ -13,6 +13,7 @@ import { translate } from 'react-i18next'
 import { updateRoomSearchParams, updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
 
 // Relative imports
+import HomestayPriceCalculator from './HomestayPriceCalculator'
 import styles from '../Homestay.styles'
 
 // Extend moment
@@ -162,18 +163,21 @@ export default class BookNow extends Component {
             </Col>
           </Row>
           <Row style={styles.bookNowBorderBottom}>
-            <Col xs={12} style={styles.alignLeft}>
-              <p>
-                <strong className='header-green'>{t('common.Price')}:</strong>
-                <span className='pull-right'>
-                  {homestaySearch.params.arrival && homestaySearch.params.departure && !auth.loaded &&
-                    <a onClick={() => this.props.dispatch(openLoginModal())}>{t('common.log_in_to_see_prices')}</a>
+            <Col xs={12} style={Object.assign({}, styles.alignLeft, { paddingBottom: 10 })}>
+              <strong className='header-green'>{t('common.Price')}:</strong>
+
+              <span className='pull-right'>
+                {homestaySearch.params.arrival && homestaySearch.params.departure && !auth.loaded &&
+                <a onClick={() => this.props.dispatch(openLoginModal())}>{t('common.log_in_to_see_prices')}</a>
                   }
-                  {(!homestaySearch.params.arrival || !homestaySearch.params.departure) &&
-                    <span>{currencySymbol}{weeklyPriceBasedOnSelectedImmersion}/{t('common.week')}</span>
+                {(!homestaySearch.params.arrival || !homestaySearch.params.departure) &&
+                <span>{currencySymbol}{weeklyPriceBasedOnSelectedImmersion}/{t('common.week')}</span>
                   }
-                </span>
-              </p>
+                {homestaySearch.params.arrival && homestaySearch.params.departure && auth.loaded &&
+                <HomestayPriceCalculator />
+                  }
+              </span>
+
             </Col>
           </Row>
           <Row>
