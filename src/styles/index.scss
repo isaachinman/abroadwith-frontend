@@ -489,7 +489,7 @@ $popover-arrow-color: $darkBlue;
 .result-second-child-margin {
   @media (min-width: 992px) {
     &:nth-child(even) {
-      margin-left: 10px;
+      margin-left: 20px;
     }
   }
   .carousel-control {
