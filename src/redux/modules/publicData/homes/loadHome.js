@@ -1,5 +1,6 @@
 import config from 'config'
 import superagent from 'superagent'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 // Load public homestay
 const LOAD_HOMESTAY = 'abroadwith/LOAD_HOMESTAY'
@@ -93,6 +94,7 @@ export function load(homeID) {
 
   return async dispatch => {
 
+    dispatch(showLoading())
     dispatch({ type: LOAD_HOMESTAY, homeID })
 
     try {
@@ -104,11 +106,13 @@ export function load(homeID) {
           if (err) {
 
             resolve(dispatch({ type: LOAD_HOMESTAY_FAIL, homeID, err }))
+            dispatch(hideLoading())
 
           } else {
 
             // Load was successful
             resolve(dispatch({ type: LOAD_HOMESTAY_SUCCESS, homeID, result: body }))
+            dispatch(hideLoading())
 
           }
 
@@ -117,6 +121,7 @@ export function load(homeID) {
 
     } catch (err) {
       dispatch({ type: LOAD_HOMESTAY_FAIL, homeID, err })
+      dispatch(hideLoading())
     }
   }
 }
