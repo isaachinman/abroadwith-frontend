@@ -126,6 +126,7 @@ export default {
     right: 10,
     top: 120,
     borderRadius: 5,
+    zIndex: 103,
   },
   searchResultRating: {
     position: 'absolute',
@@ -169,5 +170,8 @@ export default {
   },
   resultListMinHeight: {
     minHeight: 'calc(100vh - 245px)',
+  },
+  carouselIcon: {
+    marginTop: 80,
   },
 }

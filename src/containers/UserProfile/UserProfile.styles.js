@@ -9,6 +9,9 @@ export default {
   },
   contentContainer: {
     padding: '50px 30px',
+    '@media (max-width: 767px)': {
+      padding: 15,
+    },
   },
   bg: {
     background: 'rgba(0,0,0,.02)',
@@ -32,6 +35,9 @@ export default {
     display: 'inline-block',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+    '@media (max-width: 767px)': {
+      display: 'none',
+    },
   },
   aboutMeParagraph: {
     marginTop: 10,
@@ -44,5 +50,12 @@ export default {
   },
   redTimes: {
     color: sunsetOrange,
+  },
+  languageMinWidth: {
+    display: 'inline-block',
+    minWidth: 120,
+    '@media (max-width: 767px)': {
+      width: '100%',
+    },
   },
 }

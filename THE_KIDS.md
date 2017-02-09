@@ -8,9 +8,6 @@ Feedback from TheKids
   -Send an email one week after purchase for upsell resell-value
   -Consider offering discount code on upsell reoffer
 
-11) Look at Lianne's PDF for home profile page layout, adopt AirBnb style price/datepicker with room picker inline as well
-  -Consider keeping this price/datepicker sticky on desktop
-
 12) Look at navbar from Lianne's PDF, has "Homestay" and "Courses"
 
 14) Consider building educator profile page the same as homestay profile page, but with "Course" dropdown instead of rooms

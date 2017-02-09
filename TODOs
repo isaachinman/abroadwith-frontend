@@ -1,16 +1,18 @@
 // General
 1. Swap react-google-maps in homestay creation for google-map-react, thus eliminating react-google-maps dep
 2. Attempt to upgrade to webpack 2 for tree-shaking benefits
+3. Bounce new favicon
 
 // Search
-1. Hide "Find a place to stay" banner on mobile, takes up too much height
-2. Change image carousels to slide={false} once the react-bootstrap guys merge PR
-3. Add arrow icons to image carousels
-4. Research some search UI and see if there's some way to add whitespace to current implementation
+1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
+2. Research some search UI and see if there's some way to add whitespace to current implementation
 
-// Home profile pages
-1. Keep the same order as we have now
-2. Create price calculation functionality
+// User profile
+1. Build edit profile page
+
+// Navbar
+1. Add "Homestays" link to homestay search page
+2. Add unread count badge to inbox icon
 
 // Thread page
 1. Add user images to sent/received messages

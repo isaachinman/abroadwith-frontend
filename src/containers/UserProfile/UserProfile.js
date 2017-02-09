@@ -7,6 +7,7 @@ import { Badge, Col, Grid, Panel, Row } from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
 import { isLoaded, load as loadUser } from 'redux/modules/publicData/users/loadUser'
 import Helmet from 'react-helmet'
+import Radium from 'radium'
 import { translate } from 'react-i18next'
 
 // Relative imports
@@ -28,12 +29,13 @@ import styles from './UserProfile.styles'
   })
 )
 @translate()
+@Radium
 export default class UserProfile extends Component {
   render() {
 
     const { error, loading, t, user } = this.props
-    const hasLived = user.hasLived ? ((user.hasLived.replace(/['"]+/g, '')).replace(/[\[\]']/g, '')).split(',') : null
-    const hasVisited = user.hasVisited ? ((user.hasVisited.replace(/['"]+/g, '')).replace(/[\[\]']/g, '')).split(',') : null
+    const hasLived = user && user.hasLived ? ((user.hasLived.replace(/['"]+/g, '')).replace(/[\[\]']/g, '')).split(',') : null
+    const hasVisited = user && user.hasVisited ? ((user.hasVisited.replace(/['"]+/g, '')).replace(/[\[\]']/g, '')).split(',') : null
 
     console.log(this)
 
@@ -67,7 +69,7 @@ export default class UserProfile extends Component {
                       {user.aboutMe || t('users.no_about_me')}
                     </p>
                   </Col>
-                  <Col xs={12} sm={4} lg={3}>
+                  <Col xs={12} sm={4} lg={3} lgOffset={1}>
                     <Panel header={<h6>{t('admin.verifications_tabname')}</h6>} style={styles.noBoxShadow}>
                       <Row>
                         <Col xs={12}>
@@ -180,11 +182,11 @@ export default class UserProfile extends Component {
                   <Col xs={12} md={6}>
                     <h4>{t('common.Languages')}</h4>
                     <p>
-                      <strong>{t('common.Speaks')}: </strong>{user.languagesKnown.map(lang => <Badge key={`speak-${lang.language}`}>{t(`languages.${lang.language}`)}</Badge>)}
+                      <strong style={styles.languageMinWidth}>{t('common.Speaks')}:</strong>{user.languagesKnown.map(lang => <Badge key={`speak-${lang.language}`}>{t(`languages.${lang.language}`)}</Badge>)}
                     </p>
                     {user.languagesLearning.length > 0 &&
                       <p>
-                        <strong>{t('common.Learning')}: </strong>{user.languagesLearning.map(lang => <Badge key={`learn-${lang.language}`}>{t(`languages.${lang.language}`)}</Badge>)}
+                        <strong style={styles.languageMinWidth}>{t('common.Learning')}:</strong>{user.languagesLearning.map(lang => <Badge key={`learn-${lang.language}`}>{t(`languages.${lang.language}`)}</Badge>)}
                       </p>
                     }
                   </Col>
