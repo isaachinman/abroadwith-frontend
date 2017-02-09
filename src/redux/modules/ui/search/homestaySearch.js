@@ -63,11 +63,16 @@ export default function reducer(state = initialState, action = {}) {
       const incoming = action.payload.uiPersist
       if (incoming && incoming.homestaySearch && incoming.homestaySearch.rehydrate) {
         return Object.assign({}, state, incoming.homestaySearch, {
+
+          // Do not rehydrate these things
           activeRoom: null,
+          loaded: false,
+          loading: false,
           price: {
             loading: false,
-            loaded: false, // Do not rehydrate pricing info
+            loaded: false,
           },
+
         })
       }
       return state
