@@ -8,6 +8,8 @@
 
 // User profile
 1. Build edit profile page
+  - On hover verifications panel, show message with blurred background saying "Manage verifications" that links to settings > verifications
+
 
 // Navbar
 1. Add "Homestays" link to homestay search page

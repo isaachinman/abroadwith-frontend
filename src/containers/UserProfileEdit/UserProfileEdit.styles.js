@@ -1,4 +1,4 @@
-import { darkBlue, headerGreen, sunsetOrange } from 'styles/colors'
+import { headerGreen, sunsetOrange } from 'styles/colors'
 
 export default {
   grid: {
@@ -57,13 +57,5 @@ export default {
     '@media (max-width: 767px)': {
       width: '100%',
     },
-  },
-  navbar: {
-    zIndex: 1,
-    borderTop: 'none',
-    borderRadius: 0,
-    background: darkBlue,
-    padding: '0 15px',
-    textAlign: 'right',
   },
 }

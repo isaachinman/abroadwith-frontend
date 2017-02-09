@@ -182,6 +182,11 @@ export default (store) => {
       cb(null, require('../containers/PrivacyPolicy/PrivacyPolicy'))
     }, 'privacy-policy')
   }
+  const getUserProfileEdit = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/UserProfileEdit/UserProfileEdit'))
+    }, 'edit-profile')
+  }
 
   // --------------------------------------------------------------------------------
   // Please keep routes in alphabetical order
@@ -206,13 +211,11 @@ export default (store) => {
             <IndexRoute component={Main} />
 
             <Route path='contact-us' component={ContactUs} />
-
             <Route path='faq' getComponent={getFAQ} />
-
             <Route path='homestay/:homeID' component={Homestay} />
 
             <Route onEnter={requireLogin}>
-              <Route path='verify/email' getComponent={getEmailVerification} />
+              <Route path='edit-profile' getComponent={getUserProfileEdit} />
               <Route path='inbox' getComponent={getInbox} />
               <Route path='invite' getComponent={getInvite} />
               <Route path='login-success' component={LoginSuccess} />
@@ -229,6 +232,7 @@ export default (store) => {
               </Route>
               <Route path='settings' getComponent={getSettings} />
               <Route path='thread/:threadID' getComponent={getThread} />
+              <Route path='verify/email' getComponent={getEmailVerification} />
             </Route>
 
             <Route
@@ -239,13 +243,9 @@ export default (store) => {
             />
 
             <Route path='login' component={LoginPage} />
-
             <Route path='privacy' getComponent={getPrivacyPolicy} />
-
             <Route path='signup' component={SignupPage} />
-
             <Route path='terms' getComponent={getTermsAndConditions} />
-
             <Route path='user/:userID' component={UserProfile} />
 
           </Route>
