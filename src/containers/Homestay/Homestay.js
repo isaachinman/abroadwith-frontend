@@ -357,7 +357,7 @@ export default class Homestay extends Component {
                 </Row>
                 <Row style={styles.borderBottomPadded}>
                   <Col xs={12}>
-                    <h4>{t('common.Home_info')}</h4>
+                    <h4 style={{ textTransform: 'capitalize' }}>{t('common.Home_info')}</h4>
                   </Col>
                   {homestay.data.basics.AMENITIES.length > 0 &&
                     <span>

@@ -139,6 +139,11 @@ export default {
     maxWidth: 'calc(100% - 80px)',
     color: darkBlue,
   },
+  searchResultTitle: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
   searchResultSubtitle: {
     fontSize: 12,
     whiteSpace: 'nowrap',

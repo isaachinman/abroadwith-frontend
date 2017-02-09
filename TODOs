@@ -6,6 +6,7 @@
 1. Hide "Find a place to stay" banner on mobile, takes up too much height
 2. Change image carousels to slide={false} once the react-bootstrap guys merge PR
 3. Add arrow icons to image carousels
+4. Research some search UI and see if there's some way to add whitespace to current implementation
 
 // Home profile pages
 1. Keep the same order as we have now
