@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Carousel } from 'react-bootstrap'
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
+import FontAwesome from 'react-fontawesome'
 import { Link } from 'react-router'
 import { updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
 import { translate } from 'react-i18next'
@@ -33,6 +34,7 @@ export default class SmallResult extends Component {
       <div
         key={result.roomId}
         style={styles.smallResult}
+        className='small-result'
       >
         <Link onClick={this.handleClick} to={`/homestay/${result.homeId}`} style={styles.overlayLink} />
         <div style={styles.searchResultPrice}>{Currencies[currency]}{Math.ceil(result.price)}<span style={styles.perWeek}>{t('search.per_week')}</span></div>
@@ -40,6 +42,8 @@ export default class SmallResult extends Component {
           indicators={false}
           interval={0}
           style={styles.searchResultCarousel}
+          prevIcon={<FontAwesome style={styles.carouselIcon} name='angle-left' />}
+          nextIcon={<FontAwesome style={styles.carouselIcon} name='angle-right' />}
         >
           {result.roomPhoto &&
           <Carousel.Item>

@@ -6,6 +6,7 @@ import { Carousel } from 'react-bootstrap'
 import { roomResultMouseEnter, roomResultMouseLeave } from 'redux/modules/ui/search/hoverables'
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
+import FontAwesome from 'react-fontawesome'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import { updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
@@ -62,6 +63,8 @@ export default class Result extends Component {
           indicators={false}
           interval={0}
           style={styles.searchResultCarousel}
+          prevIcon={<FontAwesome style={styles.carouselIcon} name='angle-left' />}
+          nextIcon={<FontAwesome style={styles.carouselIcon} name='angle-right' />}
         >
           {result.roomPhoto &&
           <Carousel.Item>

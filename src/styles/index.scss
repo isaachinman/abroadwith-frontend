@@ -499,9 +499,17 @@ $popover-arrow-color: $darkBlue;
     .hover-stripe {
       background: $freshGreen;
     }
+    .bottom-half {
+      border-bottom: 1px solid $freshGreen;
+    }
   }
   .hover-stripe {
     height: 5px;
+  }
+}
+.small-result {
+  .carousel-control {
+    z-index: 101;
   }
 }
 
