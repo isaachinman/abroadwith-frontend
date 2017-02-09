@@ -3,10 +3,11 @@ import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
 import config from 'config'
 import { connect } from 'react-redux'
-import { Badge, Col, Grid, Panel, Row } from 'react-bootstrap'
+import { Button, Badge, Col, Grid, Navbar, Panel, Row } from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
 import { isLoaded, load as loadUser } from 'redux/modules/publicData/users/loadUser'
 import Helmet from 'react-helmet'
+import { Link } from 'react-router'
 import Radium from 'radium'
 import { translate } from 'react-i18next'
 
@@ -23,9 +24,10 @@ import styles from './UserProfile.styles'
 }])
 @connect(
   (state, ownProps) => ({
-    user: state.publicData.users[ownProps.params.userID],
+    auth: state.auth,
     error: state.publicData.users.error,
     loading: state.publicData.users.loading,
+    user: state.publicData.users[ownProps.params.userID],
   })
 )
 @translate()
@@ -33,7 +35,7 @@ import styles from './UserProfile.styles'
 export default class UserProfile extends Component {
   render() {
 
-    const { error, loading, t, user } = this.props
+    const { auth, error, loading, t, user } = this.props
     const hasLived = user && user.hasLived ? ((user.hasLived.replace(/['"]+/g, '')).replace(/[\[\]']/g, '')).split(',') : null
     const hasVisited = user && user.hasVisited ? ((user.hasVisited.replace(/['"]+/g, '')).replace(/[\[\]']/g, '')).split(',') : null
 
@@ -48,6 +50,17 @@ export default class UserProfile extends Component {
             <Helmet title={`${user.firstName}'s ${t('users.title')}`} />
 
             <Grid style={styles.grid}>
+
+              {auth && auth.loaded && auth.jwt.rid === user.id &&
+                <Navbar fluid style={styles.navbar}>
+                  <Navbar.Text pullRight>
+                    <Link to='/edit-profile'>
+                      <Button bsSize='small' bsStyle='success'>{t('users.edit_header')}</Button>
+                    </Link>
+                  </Navbar.Text>
+                </Navbar>
+              }
+
               <div style={styles.bg} />
 
               <div style={styles.contentContainer}>
@@ -257,6 +270,7 @@ export default class UserProfile extends Component {
 }
 
 UserProfile.propTypes = {
+  auth: PropTypes.object,
   error: PropTypes.object,
   loading: PropTypes.bool,
   user: PropTypes.object,
