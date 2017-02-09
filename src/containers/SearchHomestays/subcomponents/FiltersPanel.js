@@ -17,7 +17,7 @@ const styles = {
     left: 0,
     height: 'calc(100vh - 80px)',
     overflow: 'scroll',
-    zIndex: 99,
+    zIndex: 105,
     pointerEvents: 'none',
   },
   moreFiltersPanel: {

@@ -33,7 +33,7 @@ export default class ResultList extends Component {
           <Pagination />
         </div>
         <div className='text-muted'><small>{t('search.number_of_results_found', { number: numberOfResults })}</small></div>
-        <div style={{ marginRight: -10 }}>
+        <div style={{ marginRight: -20 }}>
           <Footer compact />
         </div>
       </div>

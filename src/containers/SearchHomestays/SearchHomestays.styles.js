@@ -51,7 +51,7 @@ export default {
     },
   },
   resultScrollList: {
-    height: 'calc(100vh - 195px)',
+    height: 'calc(100vh - 205px)',
     width: '60%',
     '@media (max-width: 767px)': {
       width: '100%',
@@ -64,7 +64,7 @@ export default {
     verticalAlign: 'top',
     overflow: 'scroll',
     marginTop: 115,
-    padding: '10px 10px 0 1px',
+    padding: '20px 20px 0 1px',
   },
   mapPanel: {
     position: 'relative',
@@ -79,9 +79,9 @@ export default {
   },
   searchResult: {
     background: 'white',
-    marginBottom: 10,
+    marginBottom: 20,
     position: 'relative',
-    width: 'calc(50% - 5px)',
+    width: 'calc(50% - 10px)',
     '@media (max-width: 991px)': {
       display: 'block',
       width: '100%',
@@ -90,7 +90,6 @@ export default {
       marginRight: 'auto',
     },
     display: 'inline-block',
-    borderRadius: 5,
   },
   searchResultCarouselImg: {
     backgroundSize: 'cover',

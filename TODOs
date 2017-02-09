@@ -5,7 +5,6 @@
 
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
-2. Research some search UI and see if there's some way to add whitespace to current implementation
 
 // User profile
 1. Build edit profile page
