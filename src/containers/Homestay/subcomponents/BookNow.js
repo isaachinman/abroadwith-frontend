@@ -8,6 +8,7 @@ import Moment from 'moment'
 import moize from 'moize'
 import { extendMoment } from 'moment-range'
 import { openLoginModal } from 'redux/modules/ui/modals'
+import { push } from 'react-router-redux'
 import { SimpleSelect as Select } from 'react-selectize'
 import { translate } from 'react-i18next'
 import { updateRoomSearchParams, updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
@@ -61,6 +62,11 @@ export default class BookNow extends Component {
       immersionsAvailable,
       immersionForPriceCalculation: selectedImmersion,
     })
+  }
+
+  handleBookNowClick = () => {
+    const { dispatch } = this.props
+    dispatch(push('/book-homestay'))
   }
 
   handleDatesChange = value => {
@@ -129,6 +135,7 @@ export default class BookNow extends Component {
       roomSelectionOpen,
     } = this.props
 
+    const hasDateRange = homestaySearch.params.arrival && homestaySearch.params.departure
     const determineBlockedStatus = homestay.roomCalendars[homestaySearch.activeRoom] && homestay.roomCalendars[homestaySearch.activeRoom].data && homestay.roomCalendars[homestaySearch.activeRoom].data.unavailabilities ? this.determineBlockedStatus : () => false
 
     const alphabeticalRooms = homestay.data.rooms.sort((a, b) => {
@@ -191,13 +198,13 @@ export default class BookNow extends Component {
               <strong className='header-green'>{t('common.Price')}:</strong>
 
               <span className='pull-right'>
-                {homestaySearch.params.arrival && homestaySearch.params.departure && !auth.loaded &&
+                {hasDateRange && !auth.loaded &&
                   <a onClick={() => this.props.dispatch(openLoginModal())}>{t('common.log_in_to_see_prices')}</a>
                 }
                 {(!homestaySearch.params.arrival || !homestaySearch.params.departure) &&
                   <span>{currencySymbol}{weeklyPriceBasedOnSelectedImmersion}/{t('common.week')}</span>
                 }
-                {homestaySearch.params.arrival && homestaySearch.params.departure && auth.loaded && homestaySearch.activeRoom && immersionForPriceCalculation &&
+                {hasDateRange && auth.loaded && homestaySearch.activeRoom && immersionForPriceCalculation &&
                   <HomestayPriceCalculator
                     homeID={this.props.homeID}
                     immersionForPriceCalculation={immersionForPriceCalculation}
@@ -209,7 +216,7 @@ export default class BookNow extends Component {
           </Row>
           <Row>
             <Col xs={12}>
-              <Button style={styles.bookNowButton} block bsStyle='success' bsSize='large'>Book now</Button>
+              <Button onClick={this.handleBookNowClick} className={hasDateRange ? '' : 'disabled'} style={styles.bookNowButton} block bsStyle='success' bsSize='large'>Book now</Button>
             </Col>
           </Row>
         </span>

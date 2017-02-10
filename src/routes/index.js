@@ -92,6 +92,11 @@ export default (store) => {
   // Lazy loaded routes: some routes should only be loaded if needed
   // The third argument require.ensure takes is the name of the chunk
   // --------------------------------------------------------------------------------
+  const getBookingHomestay = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/BookingHomestay/BookingHomestay'))
+    }, 'booking')
+  }
   const getEmailVerification = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/EmailVerification/EmailVerification'))
@@ -215,6 +220,7 @@ export default (store) => {
             <Route path='homestay/:homeID' component={Homestay} />
 
             <Route onEnter={requireLogin}>
+              <Route path='book-homestay' getComponent={getBookingHomestay} />
               <Route path='edit-profile' getComponent={getUserProfileEdit} />
               <Route path='inbox' getComponent={getInbox} />
               <Route path='invite' getComponent={getInvite} />
