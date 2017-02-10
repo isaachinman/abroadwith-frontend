@@ -13,6 +13,7 @@ import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUs
 import VerifyEmailModal from 'components/Modals/VerifyEmailModal'
 import VerifyPhoneModal from 'components/Modals/VerifyPhoneModal'
 import config from 'config'
+import FadeProps from 'fade-props'
 
 // Relative imports
 import styles from './App.styles'
@@ -99,7 +100,9 @@ export default class App extends Component {
 
   render() {
 
-    const { footer, jwt, user, route } = this.props
+    const { footer, jwt, user, route, routing } = this.props
+
+    console.log('KEY: ', routing.pathname)
 
     return (
       <StyleRoot>
@@ -110,10 +113,13 @@ export default class App extends Component {
           <LoadingBar />
           <Navbar jwt={jwt} user={user} title={config.app.title} />
 
-          <main style={styles.appContent}>
-            {route.status === 200 && this.props.children}
-            {route.status === 404 && <NotFound />}
-          </main>
+          <FadeProps animationLength={100}>
+            <main style={styles.appContent} key={routing.pathname}>
+              {route.status === 200 && this.props.children}
+              {route.status === 404 && <NotFound />}
+            </main>
+          </FadeProps>
+
 
           {user && user.data && user.data.verifications && !user.data.verifications.email &&
             <VerifyEmailModal />
