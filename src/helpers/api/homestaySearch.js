@@ -218,8 +218,8 @@ export default (app) => {
     // it to see if the immersion qualifies for a time discount
     if (req.query.arrival && req.query.departure) {
 
-      var arrival = moment(req.query.arrival, 'DD-MM-YYYY')
-      var departure = moment(req.query.departure, 'DD-MM-YYYY')
+      var arrival = moment(req.query.arrival, 'YYYY-MM-DD')
+      var departure = moment(req.query.departure, 'YYYY-MM-DD')
       var lengthOfImmersion = departure.diff(arrival, 'days')
 
       // If the immersion is at least 30 days long,
@@ -285,8 +285,6 @@ export default (app) => {
       resp.on('end', function() {
 
         var solr_result = JSON.parse(body)
-
-        console.log('SOLR RESULT: ', solr_result)
 
         search_response.resultDetails = {
           numberOfResults: 0,
@@ -376,6 +374,7 @@ var processResults = function(search_response) {
         immersionToUse = 'TE'
       }
 
+      console.log(results[i].roomId, 'immersionToUse: ', immersionToUse)
       correctPriceType = priceSchema[immersionToUse].regular
 
       // Now just run back down that time discount tree
@@ -388,6 +387,9 @@ var processResults = function(search_response) {
       } else if (priceTypes.indexOf(priceSchema[immersions[0]].regular) > -1 && results[i][priceSchema[immersionToUse].regular] > 0) {
         correctPriceType = priceSchema[immersionToUse].regular
       }
+
+      console.log('correctPriceType: ', correctPriceType)
+      console.log('the price itself: ', results[i][correctPriceType])
 
     }
 
