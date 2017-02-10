@@ -1,3 +1,44 @@
+/* Token */
+.bootstrap-tokenizer {
+  padding: 4.5px 12px !important;
+  min-height: 36px;
+}
+.bootstrap-tokenizer .token {
+  background-color: #e7f4ff;
+  border: 0;
+  border-radius: 2px;
+  color: #1f8dd6;
+  display: inline-block;
+  line-height: 1em;
+  margin: 1.5px 3px 1.5px 0;
+  padding: 3px 7px;
+  position: relative;
+}
+.bootstrap-tokenizer .token-disabled {
+  background-color: #ddd;
+  color: #888;
+  pointer-events: none;
+}
+.bootstrap-tokenizer .token-removeable {
+  cursor: pointer;
+  padding-right: 21px;
+}
+.bootstrap-tokenizer .token-selected {
+  background-color: #1f8dd6;
+  color: #fff;
+  outline: none;
+  text-decoration: none;
+}
+
+.bootstrap-tokenizer .token .close-button {
+  bottom: 0;
+  padding: 3px 7px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+
 .react-selectize {
   color: #000;
   font-family: "Karla" !important;

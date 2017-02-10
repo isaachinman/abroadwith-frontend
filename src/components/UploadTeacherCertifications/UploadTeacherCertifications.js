@@ -77,7 +77,10 @@ export default class UploadTeacherCertifications extends Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <Dropzone onDrop={this.onDrop}>
+            <Dropzone
+              className='basic-dropzone'
+              onDrop={this.onDrop}
+            >
               <div>{t('common.drop_files_here')}</div>
               {newCertificateImg &&
                 <img src={newCertificateImg.preview} className='dropzone-img' alt='New room' />

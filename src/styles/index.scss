@@ -593,3 +593,14 @@ $popover-arrow-color: $darkBlue;
 .badge {
   margin-right: 4px;
 }
+
+// Dropzone
+.basic-dropzone {
+  cursor: pointer;
+  width: 100%;
+  min-height: 140px;
+  border: 2px dashed lighten($babyBlue, 10%);
+  border-radius: 5px;
+  padding: 15px;
+  background: repeating-linear-gradient(135deg, #fafafa, #fafafa 10px, #EDEDED 10px, #EDEDED 20px);
+}

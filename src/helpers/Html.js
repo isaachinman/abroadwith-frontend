@@ -49,7 +49,8 @@ export default function Html(props) {
         <link rel='alternate' href={`https://www.abroadwith.com/${basePath}`} hrefLang='en' />
         <link rel='alternate' href={`https://www.abroadwith.com/${basePath}`} hrefLang='x-default' />
 
-        <link rel='icon' type='image/png' sizes='32x32' href='https://abroadwith.imgix.net/app/favicon/favicon.png' />
+        <link rel='icon' type='image/png' sizes='32x32' href='https://abroadwith.imgix.net/app/favicon/favicon_v2.png' />
+
         <link href='https://fonts.googleapis.com/css?family=Heebo:500|Karla:400,700' rel='stylesheet' />
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' type='text/css' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
