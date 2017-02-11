@@ -390,6 +390,7 @@ var processResults = function(search_response) {
 
       console.log('correctPriceType: ', correctPriceType)
       console.log('the price itself: ', results[i][correctPriceType])
+      console.log('full result: ', results[i])
 
     }
 

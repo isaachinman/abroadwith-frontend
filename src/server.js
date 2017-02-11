@@ -35,7 +35,7 @@ import getRoutes from './routes'
 import Html from './helpers/Html'
 import { load as loadAuth } from './redux/modules/auth'
 import { load as loadUserWithAuth } from './redux/modules/privateData/users/loadUserWithAuth'
-import { changeCurrency } from './redux/modules/ui/currency'
+import { changeCurrency, loadCurrencyRates } from './redux/modules/ui/currency'
 import { changeLocale } from './redux/modules/ui/locale'
 import i18n from './i18n/i18n-server'
 
@@ -123,17 +123,18 @@ app.use((req, res) => {
     return
   }
 
-  // --------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------
   // This is where we will do all the custom rendering and external calls necessary
-  // --------------------------------------------------------------------------------
+  // It's messy, it needs refactoring with some specific methodology, thunks or something similar
+  // ---------------------------------------------------------------------------------------------
   const { dispatch } = store
 
   // If user has a currency cookie, set their appropriate language.
   let currencyDispatch = cb => cb()
   if (!req.cookies.ui_currency) {
-    currencyDispatch = cb => dispatch(changeCurrency('EUR', null, cb))
+    currencyDispatch = cb => dispatch(loadCurrencyRates(() => dispatch(changeCurrency('EUR', null, cb))))
   } else {
-    currencyDispatch = cb => dispatch(changeCurrency(req.cookies.ui_currency, null, cb))
+    currencyDispatch = cb => dispatch(loadCurrencyRates(() => dispatch(changeCurrency(req.cookies.ui_currency, null, cb))))
   }
 
   // If user has a language cookie, set their appropriate language.

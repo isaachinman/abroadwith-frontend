@@ -5,6 +5,7 @@ import config from 'config'
 import { connect } from 'react-redux'
 import { Col, Grid, Panel, Row } from 'react-bootstrap'
 import Currencies from 'data/constants/Currencies'
+import { convertCurrency } from 'utils/currencies'
 import FontAwesome from 'react-fontawesome'
 import GoogleMap from 'google-map-react'
 import Helmet from 'react-helmet'
@@ -44,6 +45,7 @@ import MapCircle from './subcomponents/MapCircle'
     error: state.publicData.homestays.error,
     loading: state.publicData.homestays.loading,
     uiCurrency: state.ui.currency.value,
+    currencyRates: state.ui.currency.exchangeRates.data.rates,
   })
 )
 @translate()
@@ -129,7 +131,7 @@ export default class Homestay extends Component {
   render() {
 
     const { lightboxOpen, lightboxImage } = this.state
-    const { activeRoom, error, homestay, host, loading, uiCurrency, t } = this.props
+    const { activeRoom, currencyRates, error, homestay, host, loading, uiCurrency, t } = this.props
 
     const activeRoomObj = homestay.data && activeRoom ? homestay.data.rooms.filter(room => room.id === activeRoom)[0] : {}
     const currencySymbol = Currencies[uiCurrency]
@@ -139,7 +141,9 @@ export default class Homestay extends Component {
     let tandemRate = null
     let teacherRate = null
 
+    // Generating immersion prices is a bit tedious
     if (homestay.data) {
+
       if (homestay.data.immersions.stay && homestay.data.immersions.stay.isActive) {
         stayRate = Math.ceil(activeRoomObj.price)
       }
@@ -151,7 +155,16 @@ export default class Homestay extends Component {
       if (homestay.data.immersions.teacher && homestay.data.immersions.teacher.isActive) {
         teacherRate = Math.ceil((activeRoomObj.price + (homestay.data.immersions.teacher.hourly * homestay.data.immersions.teacher.packages[0])))
       }
+
+      // Convert prices if necessary
+      if (homestay.data.pricing.currency !== uiCurrency) {
+        if (stayRate) stayRate = convertCurrency(currencyRates, homestay.data.pricing.currency, uiCurrency, stayRate)
+        if (tandemRate) tandemRate = convertCurrency(currencyRates, homestay.data.pricing.currency, uiCurrency, tandemRate)
+        if (teacherRate) teacherRate = convertCurrency(currencyRates, homestay.data.pricing.currency, uiCurrency, teacherRate)
+      }
+
     }
+
 
     return (
       <div style={{ marginBottom: -20 }}>
@@ -482,6 +495,7 @@ export default class Homestay extends Component {
 
 Homestay.propTypes = {
   activeRoom: PropTypes.number,
+  currencyRates: PropTypes.object,
   dispatch: PropTypes.func,
   error: PropTypes.object,
   homestay: PropTypes.object,
