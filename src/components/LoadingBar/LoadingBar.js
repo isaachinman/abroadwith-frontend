@@ -9,8 +9,6 @@ export default class Loader extends Component {
 
   render() {
 
-    console.log(this)
-
     return (
       <LoadingBar
         updateTime={50} maxProgress={95} progressIncrease={20}
