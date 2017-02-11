@@ -97,7 +97,7 @@ export default {
     height: 160,
   },
   searchResultPrice: {
-    zIndex: 102,
+    zIndex: 57,
     background: headerBluePurple,
     color: 'white',
     position: 'absolute',
@@ -125,7 +125,7 @@ export default {
     right: 10,
     top: 120,
     borderRadius: 5,
-    zIndex: 103,
+    zIndex: 57,
   },
   searchResultRating: {
     position: 'absolute',
@@ -155,7 +155,7 @@ export default {
     position: 'absolute',
     top: 0,
     left: 0,
-    zIndex: 99,
+    zIndex: 55,
     width: '100%',
     height: '100%',
   },

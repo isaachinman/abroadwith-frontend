@@ -4,6 +4,7 @@ export default {
   },
   contentContainer: {
     padding: '50px 30px',
+    minHeight: '100vh',
     '@media (max-width: 767px)': {
       padding: 15,
     },

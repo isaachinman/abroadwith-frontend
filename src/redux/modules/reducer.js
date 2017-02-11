@@ -8,9 +8,11 @@ import { loadingBarReducer } from 'react-redux-loading-bar'
 import auth from './auth'
 import clientToken from './payments/client-token'
 import contactUs from './publicData/users/contactUs'
+import courseSearch from './ui/search/courseSearch'
 import currency from './ui/currency'
 import educators from './publicData/educators/loadEducator'
 import footer from './ui/footer'
+import homestayBookings from './privateData/bookings/homestayBookings'
 import homestaySearch from './ui/search/homestaySearch'
 import hoverables from './ui/search/hoverables'
 import invoices from './privateData/invoices/invoices'
@@ -26,6 +28,9 @@ import verifications from './privateData/users/verifications'
 
 export default combineReducers({
   auth,
+  bookings: combineReducers({
+    homestayBookings,
+  }),
   contactUs,
   loadingBar: loadingBarReducer,
   messaging,
@@ -52,6 +57,7 @@ export default combineReducers({
     modals,
   }),
   uiPersist: combineReducers({
+    courseSearch,
     homestaySearch,
   }),
   payments: combineReducers({
