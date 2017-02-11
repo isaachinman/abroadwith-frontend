@@ -1,7 +1,8 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { apiDate } from 'utils/dates'
-import { Button, Col, Row } from 'react-bootstrap'
+import { Button, Col, OverlayTrigger, Tooltip, Row } from 'react-bootstrap'
+import { createPotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import { connect } from 'react-redux'
 import { DateRangePicker, SpinLoader } from 'components'
 import Moment from 'moment'
@@ -65,8 +66,21 @@ export default class BookNow extends Component {
   }
 
   handleBookNowClick = () => {
-    const { dispatch } = this.props
-    dispatch(push('/book-homestay'))
+    const { auth, dispatch } = this.props
+
+    if (auth.loaded && auth.jwt) {
+
+      // Create potential booking object and redirect into homestay booking flow
+      dispatch(createPotentialHomestayBooking({}))
+      dispatch(push('/book-homestay'))
+
+    } else {
+
+      // If the user is not logged in, open the login modal
+      dispatch(openLoginModal())
+
+    }
+
   }
 
   handleDatesChange = value => {
@@ -121,8 +135,6 @@ export default class BookNow extends Component {
   render() {
 
     const { immersionsAvailable, immersionForPriceCalculation } = this.state
-
-    console.log('immersionForPriceCalculation BOOKNOW: ', immersionForPriceCalculation)
 
     const {
       auth,
@@ -216,7 +228,31 @@ export default class BookNow extends Component {
           </Row>
           <Row>
             <Col xs={12}>
-              <Button onClick={this.handleBookNowClick} className={hasDateRange ? '' : 'disabled'} style={styles.bookNowButton} block bsStyle='success' bsSize='large'>Book now</Button>
+              {!hasDateRange ?
+                <OverlayTrigger placement='top' overlay={<Tooltip id='tooltip'>{t('homes.pick_dates_tooltip')}</Tooltip>}>
+                  <Button
+                    className='disabled'
+                    style={styles.bookNowButton}
+                    block
+                    bsStyle='success'
+                    bsSize='large'
+                  >
+                    {t('common.Book_now')}
+                  </Button>
+                </OverlayTrigger>
+                :
+                <Button
+                  onClick={this.handleBookNowClick}
+                  style={styles.bookNowButton}
+                  block
+                  bsStyle='success'
+                  bsSize='large'
+                >
+                  {t('common.Book_now')}
+                </Button>
+              }
+
+
             </Col>
           </Row>
         </span>

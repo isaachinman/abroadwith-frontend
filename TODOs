@@ -11,3 +11,7 @@
 
 // Thread page
 1. Add user images to sent/received messages
+
+// Currency
+1. Double check that FE and Solr are now in sync with conversion
+  - Use room 877 in integration as benchmark
