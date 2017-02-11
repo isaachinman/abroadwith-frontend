@@ -119,7 +119,7 @@ export default class App extends Component {
           <LoadingBar />
           <Navbar jwt={jwt} user={user} title={config.app.title} />
 
-          <FadeProps animationLength={200}>
+          <FadeProps animationLength={40}>
             <main style={styles.appContent} key={routing.pathname}>
               {route.status === 200 && this.props.children}
               {route.status === 404 && <NotFound />}

@@ -224,7 +224,6 @@ export default class Homestay extends Component {
                 </Row>
                 <Row style={styles.borderBottomPadded}>
                   <Col xs={12}>
-                    <h4>{t('common.About')}</h4>
                     <p>{homestay.data.description.summary}</p>
                   </Col>
                 </Row>

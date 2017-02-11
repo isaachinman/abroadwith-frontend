@@ -26,6 +26,7 @@ const moment = extendMoment(Moment)
     auth: state.auth,
     homestay: state.publicData.homestays[ownProps.homeID],
     homestaySearch: state.uiPersist.homestaySearch,
+    uiCurrency: state.ui.currency.value,
   })
 )
 @translate()
@@ -66,12 +67,36 @@ export default class BookNow extends Component {
   }
 
   handleBookNowClick = () => {
-    const { auth, dispatch } = this.props
+
+    const { immersionForPriceCalculation } = this.state
+    const { auth, dispatch, homestay, homestaySearch, uiCurrency } = this.props
 
     if (auth.loaded && auth.jwt) {
 
+      // ------------------------------------------------------------------------------------
       // Create potential booking object and redirect into homestay booking flow
-      dispatch(createPotentialHomestayBooking({}))
+      // First object is an actual booking object which will eventually be used in a POST
+      // Second object is a helper object
+      // ------------------------------------------------------------------------------------
+      dispatch(createPotentialHomestayBooking({
+        arrivalDate: homestaySearch.params.arrival,
+        departureDate: homestaySearch.params.departure,
+        guestCount: homestaySearch.params.guests,
+        roomId: homestaySearch.activeRoom,
+        stayId: homestay.data.immersions[immersionForPriceCalculation].id,
+        languageHostWillTeach: homestaySearch.params.language || homestay.data.stayAvailableLanguages[0],
+        languageGuestWillTeach: immersionForPriceCalculation === 'tandem' ? homestay.data.immersions.tandem.languagesInterested[0].lang : null,
+        currency: uiCurrency,
+        serviceNames: [],
+        settingNames: [],
+        paymentMethodId: null,
+      }, {
+        completionStep: 1,
+        homeId: homestay.data.id,
+        homeLat: homestay.data.location.lat,
+        homeLng: homestay.data.location.lng,
+        immersionType: immersionForPriceCalculation,
+      }))
       dispatch(push('/book-homestay'))
 
     } else {
@@ -271,5 +296,6 @@ BookNow.propTypes = {
   homestaySearch: PropTypes.object,
   immersionRates: PropTypes.object,
   roomSelectionOpen: PropTypes.bool,
+  uiCurrency: PropTypes.string,
   t: PropTypes.func,
 }
