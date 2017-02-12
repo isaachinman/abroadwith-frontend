@@ -1,5 +1,6 @@
 // Absolute imports
 import { asyncConnect } from 'redux-connect'
+import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Footer, LoadingBar, Navbar } from 'components'
 import { isLoaded as isAuthLoaded, logout } from 'redux/modules/auth'
@@ -7,7 +8,9 @@ import { push } from 'react-router-redux'
 import { StyleRoot } from 'radium'
 import Helmet from 'react-helmet'
 import React, { Component, PropTypes } from 'react'
+import { translate } from 'react-i18next'
 import NotFound from 'components/NotFound/NotFound'
+import notification from 'antd/lib/notification'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { loadCurrencyRates } from 'redux/modules/ui/currency'
@@ -18,6 +21,9 @@ import FadeProps from 'fade-props'
 
 // Relative imports
 import styles from './App.styles'
+
+// Config for notification system
+notification.config({ top: 100 })
 
 @asyncConnect([{
   promise: ({ store: { dispatch, getState } }) => { // eslint-disable-line
@@ -33,6 +39,7 @@ import styles from './App.styles'
 }])
 @connect(
   state => ({
+    bookings: state.bookings,
     currency: state.ui.currency,
     footer: state.ui.footer,
     jwt: state.auth.jwt,
@@ -44,10 +51,16 @@ import styles from './App.styles'
   }),
   { logout, pushState: push }
 )
+@translate()
 export default class App extends Component {
 
   static contextTypes = {
     store: PropTypes.object.isRequired,
+  }
+
+  // Mostly used to keep track of notifications etc
+  state = {
+    potentialBookingReminderSent: false,
   }
 
   // -------------------------------------------------------------------/
@@ -89,6 +102,34 @@ export default class App extends Component {
       this.props.pushState('/')
 
     }
+
+    // Remind user about potential bookings
+    const { t } = this.props
+    const { bookings, location } = nextProps
+    if (!this.state.potentialBookingReminderSent && bookings.homestayBookings.potentialBooking.stayId && location.pathname.indexOf('book-homestay') === -1) {
+
+      this.setState({ potentialBookingReminderSent: true })
+
+      // Trigger notification on timeout after a few seconds
+      console.log('inside condition')
+      setTimeout(() => {
+
+        const toBooking = () => {
+          this.props.dispatch(push('/book-homestay'))
+          notification.close('potentialBookingReminder')
+        }
+
+        notification.warning({
+          key: 'potentialBookingReminder',
+          duration: 0,
+          message: t('common.notifications.incomplete_homestay_booking.title'),
+          description: t('common.notifications.incomplete_homestay_booking.description'),
+          btn: <Button onClick={toBooking} bsSize='xsmall' bsStyle='success' style={{ fontSize: 12 }}>{t('common.notifications.incomplete_homestay_booking.button')}</Button>,
+        })
+
+      }, 3000)
+    }
+
   }
 
   componentDidUpdate = () => {
@@ -145,12 +186,14 @@ export default class App extends Component {
 }
 
 App.propTypes = {
+  bookings: PropTypes.object,
   children: PropTypes.object,
   currency: PropTypes.object,
   dispatch: PropTypes.func,
   footer: PropTypes.object,
   homes: PropTypes.object,
   jwt: PropTypes.object,
+  location: PropTypes.object,
   user: PropTypes.object,
   locale: PropTypes.object,
   logout: PropTypes.func,
@@ -158,5 +201,6 @@ App.propTypes = {
   pushState: PropTypes.func,
   route: PropTypes.object,
   routing: PropTypes.object,
+  t: PropTypes.func,
   token: PropTypes.string,
 }

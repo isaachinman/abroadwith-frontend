@@ -71,6 +71,15 @@ export default (store) => {
     }
   }
 
+  const requirePotentialHomestayBooking = (nextState, replace) => {
+
+    if (!store.getState().bookings.homestayBookings.potentialBooking.stayId) {
+      // User doesn't have a potential homestay booking
+      replace('/')
+    }
+
+  }
+
   const requireLogin = (nextState, replace) => {
 
     function checkAuth() {
@@ -220,7 +229,7 @@ export default (store) => {
             <Route path='homestay/:homeID' component={Homestay} />
 
             <Route onEnter={requireLogin}>
-              <Route path='book-homestay' getComponent={getBookingHomestay} />
+              <Route path='book-homestay' onEnter={requirePotentialHomestayBooking} getComponent={getBookingHomestay} />
               <Route path='edit-profile' getComponent={getUserProfileEdit} />
               <Route path='inbox' getComponent={getInbox} />
               <Route path='invite' getComponent={getInvite} />
