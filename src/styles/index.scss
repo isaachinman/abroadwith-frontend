@@ -609,3 +609,10 @@ $popover-arrow-color: $darkBlue;
 .pager {
   user-select: none;
 }
+#homestay-booking-flow-container {
+  ul.pager li.next a {
+    background: $freshGreen;
+    border-color: $headerGreen;
+    color: white;
+  }
+}

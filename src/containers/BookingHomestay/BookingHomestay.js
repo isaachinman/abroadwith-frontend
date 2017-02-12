@@ -28,6 +28,7 @@ export default class ContactUs extends Component {
 
   state = {
     activeStep: this.props.potentialBookingHelpers.completionStep,
+    upsellSearchInitialised: false,
   }
 
   componentDidMount = () => {
@@ -51,95 +52,116 @@ export default class ContactUs extends Component {
 
   }
 
+  componentWillReceiveProps = nextProps => {
+    if (!this.state.upsellSearchInitialised && this.props.upsellSearch.loading && nextProps.upsellSearch.loaded) {
+      this.setState({ upsellSearchInitialised: true })
+    }
+  }
+
   changeStep = stepNum => this.setState({ activeStep: stepNum })
 
   render() {
 
-    const { activeStep } = this.state
-    const { upsellSearch, t, potentialBookingHelpers } = this.props
+    const { activeStep, upsellSearchInitialised } = this.state
+    const { upsellSearch, t, potentialBooking } = this.props
 
-    const { completionStep } = potentialBookingHelpers
-
-    const showUpsell = potentialBookingHelpers.immersionType !== 'teacher' && upsellSearch.loaded && upsellSearch.data && upsellSearch.data.results && upsellSearch.data.results.length > 0
+    const showUpsell = upsellSearch.loaded && upsellSearch.data && upsellSearch.data.results && upsellSearch.data.results.length > 0
 
     return (
-      <Grid style={styles.grid} ref={node => this.containerNode = node}>
+      <Grid style={styles.grid} ref={node => this.containerNode = node} id='homestay-booking-flow-container'>
 
         <Helmet title={t('booking.homestay_booking.title')} />
 
-        <div style={styles.bg} />
-
         <div style={styles.contentContainer}>
-          <Row>
+
+          <Row style={styles.h1Row}>
             <Col xs={12}>
-              <h1>{t('booking.homestay_booking.title')}</h1>
+              <h3 className='header-green'>{t('booking.homestay_booking.title')}</h3>
             </Col>
           </Row>
-          <SpinLoader show={upsellSearch.loading}>
-            <span>
-              <Row>
-                <Col xs={12}>
-                  <Steps current={activeStep - 1/* No idea why, but antdesign zero indexed this component */}>
-                    <Steps.Step title={t('booking.homestay_booking.step_1.title')} description={t('booking.homestay_booking.step_1.subtitle')} />
-                    {showUpsell && <Steps.Step title={t('booking.homestay_booking.step_2.title')} description={t('booking.homestay_booking.step_2.subtitle')} />}
-                    <Steps.Step title={t('booking.homestay_booking.step_3.title')} description={t('booking.homestay_booking.step_3.subtitle')} />
-                    <Steps.Step title={t('booking.homestay_booking.step_4.title')} description={t('booking.homestay_booking.step_4.subtitle')} />
-                  </Steps>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={12}>
-                  <Well>
-                    <Row>
-                      <Col xs={12}>
-                        <Tab.Container id='homestay-booking-flow' activeKey={activeStep} onSelect={() => {}}>
-                          <Tab.Content>
+          <SpinLoader show={upsellSearch.loading || !upsellSearchInitialised}>
+            <div style={styles.minHeightContainer}>
+              {upsellSearchInitialised &&
+                <div>
+                  <Row>
+                    <Col xs={12}>
+                      <div style={styles.stepContainer}>
+                        <Steps current={activeStep - 1/* No idea why, but antdesign zero indexed this component */}>
+                          <Steps.Step title={t('booking.homestay_booking.step_1.title')} description={t('booking.homestay_booking.step_1.subtitle')} />
+                          {showUpsell && <Steps.Step title={t('booking.homestay_booking.step_2.title')} description={t('booking.homestay_booking.step_2.subtitle', { language: t(`languages.${potentialBooking.languageHostWillTeach}`) })} />}
+                          <Steps.Step title={t('booking.homestay_booking.step_3.title')} description={t('booking.homestay_booking.step_3.subtitle')} />
+                          <Steps.Step title={t('booking.homestay_booking.step_4.title')} description={t('booking.homestay_booking.step_4.subtitle')} />
+                        </Steps>
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs={12}>
+                      <Well bsSize='large'>
+                        <Row>
+                          <Col xs={12}>
+                            <Tab.Container id='homestay-booking-flow' activeKey={activeStep} onSelect={() => {}}>
+                              <Tab.Content>
 
-                            <Tab.Pane eventKey={1}>
-                              Not editable: dates
+                                <Tab.Pane eventKey={1}>
 
-                              Editable: meal plan, diet restrictions, hours per week, teacher package, extra services
-                            </Tab.Pane>
+                                  <div>
+                                    <h6>Immersion</h6>
+                                    <div>Dates</div>
+                                    <div>Immersion type / Learning Language / Tandem Language (if applicable)</div>
+                                    <div>Number of guests</div>
+                                  </div>
 
-                            {showUpsell &&
-                              <Tab.Pane eventKey={2}>
-                                Shows language course results within 10 kilometers
-                                This step should be hidden if there are no results
-                                Should be an optional "Skip" button at the bottom
-                              </Tab.Pane>
-                            }
+                                  <div>
+                                    <h6>Meal Plan</h6>
+                                    <div>Breakfast, Breakfast + Dinner, Breakfast + Lunch + Dinner</div>
+                                    <div>Special Diet</div>
+                                  </div>
 
-                            <Tab.Pane eventKey={3}>
-                              Displays payment methods, allowing adding new payment methods
+                                  <div>
+                                    <h6>Extras</h6>
+                                    <div>Laundry, cleaning, airport pickup, etc</div>
+                                  </div>
 
-                              "You'll only be charged if your request is accepted by the host. They'll have 48 hours to accept or decline."
-                            </Tab.Pane>
+                                </Tab.Pane>
 
-                            <Tab.Pane eventKey={4}>
-                              General overview, all selected options, total cost
-                              Final "Book now" button
-                            </Tab.Pane>
+                                {showUpsell &&
+                                <Tab.Pane eventKey={2}>
+                                      Shows language course results within 10 kilometers
+                                      This step should be hidden if there are no results
+                                      Should be an optional "Skip" button at the bottom
+                                    </Tab.Pane>
+                                  }
 
-                          </Tab.Content>
-                        </Tab.Container>
-                      </Col>
-                    </Row>
-                  </Well>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={12}>
+                                <Tab.Pane eventKey={3}>
+                                    Displays payment methods, allowing adding new payment methods
+
+                                    "You'll only be charged if your request is accepted by the host. They'll have 48 hours to accept or decline."
+                                  </Tab.Pane>
+
+                                <Tab.Pane eventKey={4}>
+                                    General overview, all selected options, total cost
+                                    Final "Book now" button
+                                  </Tab.Pane>
+
+                              </Tab.Content>
+                            </Tab.Container>
+                          </Col>
+                        </Row>
+                      </Well>
+                    </Col>
+                  </Row>
                   <Pager onSelect={this.changeStep}>
-                    {activeStep > 1 && completionStep > activeStep &&
-                      <Pager.Item eventKey={activeStep - 1} previous href='#'>&larr; {t('common.previous')}</Pager.Item>
-                    }
-                    {activeStep < 4 && completionStep > activeStep &&
-                      <Pager.Item disabled={activeStep >= 4} eventKey={activeStep + 1} next href='#'>{t('common.next')} &rarr;</Pager.Item>
-                    }
+                    {activeStep > 1 &&
+                    <Pager.Item eventKey={activeStep - 1} previous href='#'>&larr; {t(`booking.homestay_booking.step_${activeStep - 1}.title`)}</Pager.Item>
+                      }
+                    {activeStep !== 4 &&
+                    <Pager.Item eventKey={activeStep + 1} next href='#'>{t(`booking.homestay_booking.step_${activeStep + 1}.title`)} &rarr;</Pager.Item>
+                      }
                   </Pager>
-                </Col>
-              </Row>
-            </span>
+                </div>
+              }
+            </div>
           </SpinLoader>
         </div>
 
