@@ -1,20 +1,28 @@
 export default {
   grid: {
     position: 'relative',
+    marginBottom: -20,
   },
   contentContainer: {
-    padding: '50px 30px',
+    background: 'rgba(255,255,255,.65)',
+    padding: 30,
     minHeight: '100vh',
+    borderLeft: '1px solid #eee',
+    borderRight: '1px solid #eee',
     '@media (max-width: 767px)': {
       padding: 15,
     },
   },
-  bg: {
-    background: 'rgba(0,0,0,.02)',
-    position: 'absolute',
-    top: 0,
-    left: 15,
-    width: 'calc(100% - 30px)',
-    height: '100%',
+  minHeightContainer: {
+    minHeight: 400,
+  },
+  stepContainer: {
+    marginBottom: 10,
+    '@media (max-width: 991px)': {
+      display: 'none',
+    },
+  },
+  h1Row: {
+    marginBottom: 30,
   },
 }
