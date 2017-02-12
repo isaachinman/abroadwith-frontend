@@ -12,7 +12,7 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     // This is a rehydration (from localstore) case
     case REHYDRATE: {
-      const incoming = action.payload.uiPersist
+      const incoming = action.payload.bookings
       if (incoming && incoming.homestayBookings) {
         return Object.assign({}, state, {
           potentialBooking: incoming.homestayBookings.potentialBooking,

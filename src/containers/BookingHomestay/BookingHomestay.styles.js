@@ -14,7 +14,7 @@ export default {
     },
   },
   minHeightContainer: {
-    minHeight: 400,
+    minHeight: 500,
   },
   stepContainer: {
     marginBottom: 10,
@@ -23,6 +23,6 @@ export default {
     },
   },
   h1Row: {
-    marginBottom: 30,
+    marginBottom: 50,
   },
 }

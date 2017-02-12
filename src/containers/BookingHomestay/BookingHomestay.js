@@ -6,6 +6,7 @@ import Helmet from 'react-helmet'
 import Steps from 'antd/lib/steps'
 import Radium from 'radium'
 import { performCourseUpsellSearch } from 'redux/modules/ui/search/courseSearch'
+import PaymentMethods from 'components/PaymentMethods/PaymentMethods'
 import { SpinLoader } from 'components'
 import { translate } from 'react-i18next'
 
@@ -17,6 +18,7 @@ import styles from './BookingHomestay.styles'
   state => ({
     upsellSearch: state.uiPersist.courseSearch.upsellSearch,
     homestays: state.publicData.homestays,
+    user: state.privateData.user.data,
     token: state.auth.token,
     potentialBooking: state.bookings.homestayBookings.potentialBooking,
     potentialBookingHelpers: state.bookings.homestayBookings.potentialBookingHelpers,
@@ -63,7 +65,7 @@ export default class ContactUs extends Component {
   render() {
 
     const { activeStep, upsellSearchInitialised } = this.state
-    const { upsellSearch, t, potentialBooking } = this.props
+    const { user, upsellSearch, t, token, potentialBooking } = this.props
 
     const showUpsell = upsellSearch.loaded && upsellSearch.data && upsellSearch.data.results && upsellSearch.data.results.length > 0
 
@@ -76,7 +78,7 @@ export default class ContactUs extends Component {
 
           <Row style={styles.h1Row}>
             <Col xs={12}>
-              <h3 className='header-green'>{t('booking.homestay_booking.title')}</h3>
+              <h1 style={{ textAlign: 'center' }} className='header-green'>{t('booking.homestay_booking.title')}</h1>
             </Col>
           </Row>
           <SpinLoader show={upsellSearch.loading || !upsellSearchInitialised}>
@@ -105,6 +107,12 @@ export default class ContactUs extends Component {
 
                                 <Tab.Pane eventKey={1}>
 
+                                  <Row>
+                                    <Col xs={12}>
+                                      <h4>{t('booking.homestay_booking.step_1.title')}</h4>
+                                    </Col>
+                                  </Row>
+
                                   <div>
                                     <h6>Immersion</h6>
                                     <div>Dates</div>
@@ -126,18 +134,45 @@ export default class ContactUs extends Component {
                                 </Tab.Pane>
 
                                 {showUpsell &&
-                                <Tab.Pane eventKey={2}>
-                                      Shows language course results within 10 kilometers
-                                      This step should be hidden if there are no results
-                                      Should be an optional "Skip" button at the bottom
-                                    </Tab.Pane>
-                                  }
+                                  <Tab.Pane eventKey={2}>
+
+                                    <Row>
+                                      <Col xs={12}>
+                                        <h4>{t('booking.homestay_booking.step_2.title')}</h4>
+                                      </Col>
+                                    </Row>
+
+                                    Shows language course results within 10 kilometers
+                                    This step should be hidden if there are no results
+                                    Should be an optional "Skip" button at the bottom
+                                  </Tab.Pane>
+                                }
 
                                 <Tab.Pane eventKey={3}>
+                                  <Row>
+                                    <Col xs={12}>
+                                      <h4>{t('booking.homestay_booking.step_3.title')}</h4>
+                                    </Col>
+                                  </Row>
+
+                                  <Row>
+                                    <Col xs={12}>
+                                      <PaymentMethods
+                                        user={user}
+                                        token={token}
+                                      />
+                                    </Col>
+                                  </Row>
+
+                                  <Row>
+                                    <Col xs={12}>
+                                      <p>{t('booking.charged_notification')}</p>
+                                    </Col>
+                                  </Row>
+
                                     Displays payment methods, allowing adding new payment methods
 
-                                    "You'll only be charged if your request is accepted by the host. They'll have 48 hours to accept or decline."
-                                  </Tab.Pane>
+                                </Tab.Pane>
 
                                 <Tab.Pane eventKey={4}>
                                     General overview, all selected options, total cost
@@ -172,6 +207,7 @@ export default class ContactUs extends Component {
 
 ContactUs.propTypes = {
   dispatch: PropTypes.func,
+  user: PropTypes.object,
   upsellSearch: PropTypes.object,
   t: PropTypes.func,
   token: PropTypes.string,
