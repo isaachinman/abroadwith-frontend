@@ -4,6 +4,9 @@
   z-index: 1010;
   width: 335px;
   margin-right: 24px;
+  @media (min-width: 1170px) {
+    margin-right: calc((100vw - 1170px) / 2);
+  }
 }
 .ant-notification-topLeft,
 .ant-notification-bottomLeft {
