@@ -3,6 +3,7 @@ import superagent from 'superagent'
 import homestaySearchParamsToUrl from 'utils/search/homestaySearchParamsToUrl'
 import jwtDecode from 'jwt-decode'
 import { REHYDRATE } from 'redux-persist/constants'
+import roundTo from 'round-to'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 // Perform search
@@ -222,7 +223,7 @@ export function calculateHomestayPrice(jwt, params) {
         } else {
 
           // Request was successful
-          dispatch({ type: CALCULATE_HOMESTAY_PRICE_SUCCESS, result: JSON.parse(res.text) })
+          dispatch({ type: CALCULATE_HOMESTAY_PRICE_SUCCESS, result: (roundTo(JSON.parse(res.text), 2)).toFixed(2) })
 
         }
 

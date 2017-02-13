@@ -7,7 +7,7 @@ import { translate } from 'react-i18next'
 
 @connect(state => ({
   contactUs: state.contactUs,
-  loggedIn: state.auth.loaded,
+  loggedIn: typeof state.auth.jwt === 'object',
   user: state.privateData.user,
 }))
 @translate()

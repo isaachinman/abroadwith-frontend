@@ -49,7 +49,8 @@
   width: 39px;
   height: 38px; }
   .CalendarMonth__day:active {
-    background: #f2f2f2; }
+    background: $headerPink;
+    border: 1px double darken($headerPink, 2%); }
 
 .CalendarMonth__day--highlighted-calendar {
   background: #ffe8bc;

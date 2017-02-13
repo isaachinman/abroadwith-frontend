@@ -45,7 +45,7 @@ export default class Navbar extends Component {
           <BootstrapNavbar.Header>
             <BootstrapNavbar.Brand>
               <div style={styles.brand}>
-                <IndexLink to='/'>
+                <IndexLink to='/' tabIndex={-1}>
                   <Logo size={148} color='blue' />
                 </IndexLink>
               </div>

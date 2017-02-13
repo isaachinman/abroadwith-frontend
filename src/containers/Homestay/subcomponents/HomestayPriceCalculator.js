@@ -21,9 +21,13 @@ export default class HomestayPriceCalculator extends Component {
 
   componentDidUpdate = prevProps => {
 
-    const { homestaySearch, immersionForPriceCalculation } = this.props
+    const { homestaySearch, immersionForPriceCalculation, uiCurrency } = this.props
 
-    if (!equal(homestaySearch.params, prevProps.homestaySearch.params) || homestaySearch.activeRoom !== prevProps.homestaySearch.activeRoom || immersionForPriceCalculation !== prevProps.immersionForPriceCalculation) {
+    if (!equal(homestaySearch.params, prevProps.homestaySearch.params) ||
+        homestaySearch.activeRoom !== prevProps.homestaySearch.activeRoom ||
+        immersionForPriceCalculation !== prevProps.immersionForPriceCalculation ||
+        uiCurrency !== prevProps.uiCurrency
+      ) {
       this.calculatePrice()
     }
 
@@ -59,7 +63,7 @@ export default class HomestayPriceCalculator extends Component {
       <SpinLoader show={homestaySearch.price.loading}>
         <div onClick={this.calculatePrice}>
           {homestaySearch.price.loaded &&
-            <span>{Currencies[uiCurrency]}{Math.ceil(homestaySearch.price.data)}*</span>
+            <span>{Currencies[uiCurrency]}{homestaySearch.price.data}*</span>
           }
         </div>
       </SpinLoader>

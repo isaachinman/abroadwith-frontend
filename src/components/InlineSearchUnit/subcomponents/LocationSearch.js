@@ -28,9 +28,16 @@ export default class LocationSearch extends Component {
     }
   }
 
-  onPlacesChanged = () => {
+  onPlacesChanged = emptyOverride => {
     console.log('places change called')
-    this.props.handleValueChange('location', this.searchBox.getPlaces()[0])
+    this.props.handleValueChange('location', emptyOverride ? null : this.searchBox.getPlaces()[0])
+  }
+
+  handleChange = value => {
+    this.setState({ value })
+    if (value === '') {
+      this.onPlacesChanged(true)
+    }
   }
 
   /* eslint-disable */
@@ -40,7 +47,7 @@ export default class LocationSearch extends Component {
 
     return (
       <input
-        onChange={event => this.setState({ value: event.target.value })}
+        onChange={event => this.handleChange(event.target.value)}
         value={this.state.value || ''}
         placeholder={integrated ? t('common.where_mobile') : t('common.where')}
         ref='input'

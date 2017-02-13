@@ -49,39 +49,48 @@ export default class InlineSearchUnit extends Component {
 
     } else if (field === 'location') {
 
-      // The location input returns complex data
-      const { viewport, location } = value.geometry
+      if (value !== null) {
 
-      let mapData = {}
+        // The location input returns complex data
+        const { viewport, location } = value.geometry
 
-      // Larger places come with a viewport object from Google
-      if (viewport) {
+        let mapData = {}
 
-        mapData.bounds = {
-          maxLat: viewport.f.f,
-          maxLng: viewport.b.b,
-          minLat: viewport.f.b,
-          minLng: viewport.b.f,
+        // Larger places come with a viewport object from Google
+        if (viewport) {
+
+          mapData.bounds = {
+            maxLat: viewport.f.f,
+            maxLng: viewport.b.b,
+            minLat: viewport.f.b,
+            minLng: viewport.b.f,
+          }
+
+        } else {
+
+          // Smaller places, like specific addresses, do not
+          mapData = {
+            bounds: null,
+            center: {
+              lat: location.lat(),
+              lng: location.lng(),
+            },
+            zoom: 15,
+          }
+
         }
+
+        newParams = Object.assign({}, params, {
+          mapData,
+          locationString: value.formatted_address,
+        })
 
       } else {
-
-        // Smaller places, like specific addresses, do not
-        mapData = {
-          bounds: null,
-          center: {
-            lat: location.lat(),
-            lng: location.lng(),
-          },
-          zoom: 15,
-        }
-
+        newParams = Object.assign({}, params, {
+          mapData: {},
+          locationString: null,
+        })
       }
-
-      newParams = Object.assign({}, params, {
-        mapData,
-        locationString: value.formatted_address,
-      })
 
     } else {
 
@@ -144,6 +153,7 @@ export default class InlineSearchUnit extends Component {
     return (
       <div className={topLevelClassName}>
         <Typeahead
+          tabIndex={1}
           selected={homestaySearch.params.language ? [{ label: t(`languages.${homestaySearch.params.language}`), id: homestaySearch.params.language }] : []}
           placeholder={integrated ? t('search.language_to_learn_mobile') : t('search.language_to_learn')}
           options={allLanguages}
