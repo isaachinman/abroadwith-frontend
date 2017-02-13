@@ -176,7 +176,7 @@ $bodyTextColor: #404041;
 @import 'src/styles/react-geosuggest/react-geosuggest.scss';
 
 // React dates imports
-@import '../react-dates/react-dates.css';
+@import '../react-dates/react-dates.scss';
 
 // Braintree imports
 @import 'src/styles/braintree/braintree.scss';
@@ -610,9 +610,42 @@ $popover-arrow-color: $darkBlue;
   user-select: none;
 }
 #homestay-booking-flow-container {
-  ul.pager li.next a {
-    background: $freshGreen;
-    border-color: $headerGreen;
-    color: white;
+  ul.pager li.next {
+    float: right;
+    background: white;
+    padding: 15px 0 0 15px;
+    margin: 0 -1px -1px 0;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-radius: 20px 0 0 0;
+    a {
+      background: $freshGreen;
+      border-color: $headerGreen;
+      color: white;
+    }
+  }
+  ul.pager li.previous {
+    float: left;
+    background: white;
+    padding: 15px 15px 0 0;
+    margin: 0 0 -1px -1px;
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-radius: 0 20px 0 0;
+  }
+  .react-selectize.bootstrap3 {
+    .react-selectize-control {
+      border-color: #ddd !important;
+    }
+  }
+}
+
+// React Selectize placeholder
+.react-selectize {
+  .simple-value {
+    color: $bodyTextColor !important;
+  }
+  .react-selectize-placeholder {
+    color: $bodyTextColor !important;
   }
 }
