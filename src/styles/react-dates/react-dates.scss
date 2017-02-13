@@ -65,8 +65,8 @@
     background: #fff; }
 
 .CalendarMonth__day--hovered {
-  background: #e4e7e7;
-  border: 1px double #d4d9d9;
+  background: lighten($freshGreen, 10%);
+  border: 1px double lighten($freshGreen, 3%);
   color: inherit; }
 
 .CalendarMonth__day--blocked-minimum-nights {
@@ -78,8 +78,8 @@
     background: #fff; }
 
 .CalendarMonth__day--selected-span {
-  background: #66e2da;
-  border: 1px double #33dacd;
+  background: $babyBlue;
+  border: 1px double darken($babyBlue, 7%);
   color: #fff; }
   .CalendarMonth__day--selected-span.CalendarMonth__day--hovered, .CalendarMonth__day--selected-span:active {
     background: #33dacd;
@@ -89,20 +89,22 @@
 
 .CalendarMonth__day--hovered-span,
 .CalendarMonth__day--after-hovered-start {
-  background: #b2f1ec;
-  border: 1px double #80e8e0;
+  background: lighten($freshGreen, 35%);
+  border: 1px double lighten($freshGreen, 25%);
   color: #007a87; }
 
 .CalendarMonth__day--selected-start,
 .CalendarMonth__day--selected-end,
 .CalendarMonth__day--selected {
-  background: #00a699;
-  border: 1px double #00a699;
+  background: $headerBluePurple;
+  border: 1px double darken($headerBluePurple, 4%);
   color: #fff; }
   .CalendarMonth__day--selected-start:active,
   .CalendarMonth__day--selected-end:active,
   .CalendarMonth__day--selected:active {
-    background: #00a699; }
+    background: $headerBluePurple;
+    border: 1px double darken($headerBluePurple, 4%);
+  }
 
 .CalendarMonth__day--blocked-calendar {
   background: #cacccd;
