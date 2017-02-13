@@ -17,12 +17,39 @@ export default {
     minHeight: 500,
   },
   stepContainer: {
-    marginBottom: 10,
+    padding: '0 10px',
     '@media (max-width: 991px)': {
       display: 'none',
     },
   },
   h1Row: {
-    marginBottom: 50,
+    marginBottom: 40,
+  },
+  pager: {
+    marginLeft: -24,
+    marginBottom: -24,
+    width: 'calc(100% + 48px)',
+  },
+  homeImage: {
+    minHeight: 200,
+    margin: '-15px 0 15px -15px',
+    width: 'calc(100% + 30px)',
+    borderRadius: '4px 4px 0 0',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+  },
+  overviewPanel: {
+    boxShadow: 'none',
+  },
+  borderBottom: {
+    borderBottom: '1px solid #ddd',
+  },
+  totalPrice: {
+    fontSize: 22,
+  },
+  servicesListContainer: {
+    maxWidth: 'calc(100% - 80px)',
+    display: 'inline-block',
+    textAlign: 'right',
   },
 }

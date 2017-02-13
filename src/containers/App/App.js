@@ -2,6 +2,7 @@
 import { asyncConnect } from 'redux-connect'
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { deletePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import { Footer, LoadingBar, Navbar } from 'components'
 import { isLoaded as isAuthLoaded, logout } from 'redux/modules/auth'
 import { push } from 'react-router-redux'
@@ -9,6 +10,7 @@ import { StyleRoot } from 'radium'
 import Helmet from 'react-helmet'
 import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
+import moment from 'moment'
 import NotFound from 'components/NotFound/NotFound'
 import notification from 'antd/lib/notification'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
@@ -103,33 +105,6 @@ export default class App extends Component {
 
     }
 
-    // Remind user about potential bookings
-    const { t } = this.props
-    const { bookings, location } = nextProps
-    if (!this.state.potentialBookingReminderSent && bookings.homestayBookings.potentialBooking.stayId && location.pathname.indexOf('book-homestay') === -1) {
-
-      this.setState({ potentialBookingReminderSent: true })
-
-      // Trigger notification on timeout after a few seconds
-      console.log('inside condition')
-      setTimeout(() => {
-
-        const toBooking = () => {
-          this.props.dispatch(push('/book-homestay'))
-          notification.close('potentialBookingReminder')
-        }
-
-        notification.warning({
-          key: 'potentialBookingReminder',
-          duration: 0,
-          message: t('common.notifications.incomplete_homestay_booking.title'),
-          description: t('common.notifications.incomplete_homestay_booking.description'),
-          btn: <Button onClick={toBooking} bsSize='xsmall' bsStyle='success' style={{ fontSize: 12 }}>{t('common.notifications.incomplete_homestay_booking.button')}</Button>,
-        })
-
-      }, 3000)
-    }
-
   }
 
   componentDidUpdate = () => {
@@ -140,6 +115,54 @@ export default class App extends Component {
     if (token && !user.loaded && !user.loading && !user.error) {
       dispatch(loadUserWithAuth(token))
     }
+
+    // Remind user about potential bookings
+    const { bookings, router, t } = this.props
+
+    if (!this.state.potentialBookingReminderSent &&
+        bookings.homestayBookings.potentialBooking.stayId &&
+        moment().subtract(1, 'hours') > moment(bookings.homestayBookings.potentialBookingHelpers.createdAt) &&
+        !router.getCurrentLocation().pathname.includes('book-homestay')
+      ) {
+
+      this.setState({ potentialBookingReminderSent: true })
+
+      // Trigger notification on timeout after a few seconds
+      console.log('inside condition', this)
+      console.log('pathname: ', router.getCurrentLocation())
+      console.log('location: ', location.pathname.includes('book-homestay'))
+      setTimeout(() => {
+
+        const toBooking = () => {
+          dispatch(push('/book-homestay'))
+          notification.close('potentialBookingReminder')
+        }
+
+        const deleteBooking = () => {
+          dispatch(deletePotentialHomestayBooking())
+          notification.close('potentialBookingReminder')
+        }
+
+        const btn = (
+          <div style={{ textAlign: 'right', marginBottom: -10 }}>
+            <Button onClick={toBooking} bsSize='xsmall' bsStyle='success' style={{ fontSize: 12 }}>{t('common.notifications.incomplete_homestay_booking.button')}</Button>
+            <div>
+              <a onClick={deleteBooking} style={{ fontSize: 10 }}>Delete booking</a>
+            </div>
+          </div>
+        )
+
+        notification.warning({
+          key: 'potentialBookingReminder',
+          duration: 0,
+          message: <strong>{t('common.notifications.incomplete_homestay_booking.title')}</strong>,
+          description: t('common.notifications.incomplete_homestay_booking.description'),
+          btn,
+        })
+
+      }, 3000)
+    }
+
   }
 
   handleLogout = (event) => {
@@ -193,13 +216,13 @@ App.propTypes = {
   footer: PropTypes.object,
   homes: PropTypes.object,
   jwt: PropTypes.object,
-  location: PropTypes.object,
   user: PropTypes.object,
   locale: PropTypes.object,
   logout: PropTypes.func,
   params: PropTypes.object,
   pushState: PropTypes.func,
   route: PropTypes.object,
+  router: PropTypes.object,
   routing: PropTypes.object,
   t: PropTypes.func,
   token: PropTypes.string,

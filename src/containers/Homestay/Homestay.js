@@ -19,6 +19,7 @@ import moment from 'moment'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { updateRoomSearchParams, updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
 import Radium from 'radium'
+import roundTo from 'round-to'
 import { translate } from 'react-i18next'
 
 // Relative imports
@@ -145,15 +146,15 @@ export default class Homestay extends Component {
     if (homestay.data) {
 
       if (homestay.data.immersions.stay && homestay.data.immersions.stay.isActive) {
-        stayRate = Math.ceil(activeRoomObj.price)
+        stayRate = activeRoomObj.price
       }
 
       if (homestay.data.immersions.tandem && homestay.data.immersions.tandem.isActive) {
-        tandemRate = Math.ceil(activeRoomObj.price * ((100 - homestay.data.immersions.tandem.languagesInterested[0].discount) / 100))
+        tandemRate = roundTo(activeRoomObj.price * ((100 - homestay.data.immersions.tandem.languagesInterested[0].discount) / 100), 2)
       }
 
       if (homestay.data.immersions.teacher && homestay.data.immersions.teacher.isActive) {
-        teacherRate = Math.ceil((activeRoomObj.price + (homestay.data.immersions.teacher.hourly * homestay.data.immersions.teacher.packages[0])))
+        teacherRate = roundTo((activeRoomObj.price + (homestay.data.immersions.teacher.hourly * homestay.data.immersions.teacher.packages[0])), 2)
       }
 
       // Convert prices if necessary

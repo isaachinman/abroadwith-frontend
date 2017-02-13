@@ -6,6 +6,7 @@ import { Button, Col, Fade, Grid, Row } from 'react-bootstrap'
 import HomeData from 'data/constants/HomeData'
 import { performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
 import Radium from 'radium'
+import { push } from 'react-router-redux'
 import Slider from 'rc-slider'
 import { translate } from 'react-i18next'
 
@@ -82,7 +83,7 @@ export default class FiltersPanel extends Component {
     const { dispatch, homestaySearch } = this.props
     dispatch(performRoomSearch(Object.assign({}, homestaySearch.params, {
       filters: this.state.filters,
-    })))
+    }), push))
     this.props.handleClose()
   }
 
@@ -125,6 +126,8 @@ export default class FiltersPanel extends Component {
     } else if (filters.includes('FULL_BOARD')) {
       mealPlanValue = 100
     }
+
+    console.log(filters)
 
     return (
       <div style={open ? Object.assign({}, styles.filtersPanelContainer, { pointerEvents: 'all' }) : styles.filtersPanelContainer}>
@@ -227,6 +230,23 @@ export default class FiltersPanel extends Component {
                       options={HomeData.homeServices.FOOD_OPTION.map(foodOption => ({
                         value: foodOption,
                         label: t(`homes.diets_offered.${foodOption}`),
+                      }))}
+                    />
+                  </Col>
+                  <div style={styles.borderBottom} />
+                </Row>
+
+                <Row style={styles.categoryRow}>
+                  <Col xs={12}>
+                    <h5>{t('homes.extras_label')}</h5>
+                  </Col>
+                  <Col xs={12}>
+                    <Checkbox.Group
+                      value={filters}
+                      onChange={this.handleChange}
+                      options={HomeData.homeServices.GENERAL.filter(service => service !== 'EXTRA_GUEST').map(service => ({
+                        value: service,
+                        label: t(`homes.extras.${service}`),
                       }))}
                     />
                   </Col>
