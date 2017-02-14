@@ -345,10 +345,6 @@ var processResults = function(search_response) {
 
     GLOBAL.correctPriceType = 'stayPrice'
 
-    if (result[i].roomId === 789) {
-      console.log(result)
-    }
-
     if (immersions.length === 1) {
 
       // If only one immersion type is being searched for,
