@@ -87,7 +87,7 @@ export default class BookNow extends Component {
         guestCount: homestaySearch.params.guests,
         roomId: homestaySearch.activeRoom,
         stayId: homestay.data.immersions[immersionForPriceCalculation].id,
-        languageHostWillTeach: homestaySearch.params.language || homestay.data.stayAvailableLanguages[0],
+        languageHostWillTeach: homestaySearch.params.language && homestay.data.immersions[immersionForPriceCalculation].languagesOffered.indexOf(homestaySearch.params.language) > -1 ? homestaySearch.params.language : homestay.data.immersions[immersionForPriceCalculation].languagesOffered[0],
         languageGuestWillTeach: immersionForPriceCalculation === 'tandem' ? homestay.data.immersions.tandem.languagesInterested[0].lang : null,
         currency: uiCurrency,
         serviceNames,
