@@ -44,6 +44,9 @@ export default {
   borderBottom: {
     borderBottom: '1px solid #ddd',
   },
+  totalPriceLabel: {
+    lineHeight: '32px',
+  },
   totalPrice: {
     fontSize: 22,
   },

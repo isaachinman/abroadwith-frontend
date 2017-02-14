@@ -4,7 +4,7 @@ import { calculateHomestayPriceWithinBooking, updatePotentialHomestayBooking } f
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
 import { connect } from 'react-redux'
-import { Col, ControlLabel, FormGroup, Grid, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
+import { Col, Collapse, ControlLabel, FormGroup, Grid, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import HomeData from 'data/constants/HomeData'
 import moment from 'moment'
@@ -78,6 +78,12 @@ export default class BookingHomestay extends Component {
     }
   }
 
+  handleDietChange = diet => {
+    const newSettings = this.props.potentialBooking.settingNames.filter(setting => !HomeData.homeServices.FOOD_OPTION.includes(setting))
+    diet.map(dietaryOption => newSettings.push(dietaryOption.value))
+    this.updatePotentialHomestayBooking('settingNames', newSettings)
+  }
+
   handleMealPlanChange = mealPlan => {
     const newServices = this.props.potentialBooking.serviceNames.filter(service => !HomeData.homeServices.MEAL_PLAN.includes(service))
     if (mealPlan.value === 'Half_board') newServices.push('HALF_BOARD')
@@ -95,13 +101,7 @@ export default class BookingHomestay extends Component {
 
   handleGuestCountChange = value => {
     this.updatePotentialHomestayBooking('guestCount', value)
-
-    // if (value > 1) {
-    //   let newServices = this.props.potentialBooking.serviceNames.filter(service => service !== 'EXTRA_GUEST')
-    //   newServices = newServices.push('EXTRA_GUEST')
-    //   this.updatePotentialHomestayBooking('serviceNames', newServices)
-    // }
-
+    this.calculatePrice()
   }
 
   updatePotentialHomestayBooking = (field, value) => {
@@ -151,12 +151,12 @@ export default class BookingHomestay extends Component {
       return cost
     })
 
-    console.log('duration: ', duration)
-    console.log(extraCosts)
-
     // Determine total price
     let totalPrice = potentialBookingHelpers.price.data
     if (potentialBookingHelpers.upsellCourseBooking.totalPrice) totalPrice += potentialBookingHelpers.upsellCourseBooking.totalPrice
+
+    // UI variables
+    const showFullSummary = activeStep === 1 || (showUpsell && activeStep === 4) || (!showUpsell && activeStep === 3)
 
     return (
       <Grid style={styles.grid} ref={node => this.containerNode = node} id='homestay-booking-flow-container'>
@@ -184,7 +184,7 @@ export default class BookingHomestay extends Component {
                     <Col xs={12}>
                       <Well bsSize='large'>
                         <Row>
-                          <Col xs={12} md={7} lg={8}>
+                          <Col xs={12} md={showFullSummary ? 7 : 8} lg={showFullSummary ? 8 : 9}>
                             <Tab.Container id='homestay-booking-flow' activeKey={activeStep} onSelect={() => {}}>
                               <Tab.Content>
 
@@ -236,6 +236,9 @@ export default class BookingHomestay extends Component {
                                       </FormGroup>
                                     </Col>
 
+                                  </Row>
+                                  <Row>
+
                                     <Col xs={12} sm={6}>
                                       <FormGroup>
                                         <ControlLabel>{t('booking.diet_label')}</ControlLabel>
@@ -246,6 +249,7 @@ export default class BookingHomestay extends Component {
                                           values={specialDiet.map(diet => {
                                             return { label: t(`homes.diets_offered.${diet}`), value: diet }
                                           })}
+                                          onValuesChange={this.handleDietChange}
                                         >
                                           {homestay.data.basics.FOOD_OPTION.map(foodOption => {
                                             return (
@@ -270,6 +274,9 @@ export default class BookingHomestay extends Component {
                                         </MultiSelect>
                                       </FormGroup>
                                     </Col>
+
+                                  </Row>
+                                  <Row>
 
                                     <Col xs={12} sm={6}>
                                       <FormGroup>
@@ -328,7 +335,7 @@ export default class BookingHomestay extends Component {
                                   </Tab.Pane>
                                 }
 
-                                <Tab.Pane eventKey={3}>
+                                <Tab.Pane eventKey={showUpsell ? 3 : 2}>
                                   <Row>
                                     <Col xs={12}>
                                       <h4>{t('booking.homestay_booking.step_3.title')}</h4>
@@ -354,7 +361,7 @@ export default class BookingHomestay extends Component {
 
                                 </Tab.Pane>
 
-                                <Tab.Pane eventKey={4}>
+                                <Tab.Pane eventKey={showUpsell ? 4 : 3}>
                                     General overview, all selected options, total cost
                                     Final "Book now" button
                                   </Tab.Pane>
@@ -362,55 +369,59 @@ export default class BookingHomestay extends Component {
                               </Tab.Content>
                             </Tab.Container>
                           </Col>
-                          <Col xs={12} md={5} lg={4}>
+                          <Col xs={12} md={showFullSummary ? 5 : 4} lg={showFullSummary ? 4 : 3}>
                             <Panel style={styles.overviewPanel}>
                               <div style={Object.assign({}, styles.homeImage, { backgroundImage: `url(${config.img}${homestay.data.images[0].imagePath})` })} />
 
-                              <Row>
-                                <Col xs={12}>
-                                  <div style={styles.borderBottom}>
-                                    <p>
-                                      <span>{t('common.Immersion')}</span><span className='pull-right'>{t(`immersions.${potentialBookingHelpers.immersionType}`)}</span>
-                                    </p>
-                                    <p>
-                                      <span>{t('common.Dates')}</span><span className='pull-right'>{uiDate(potentialBooking.arrivalDate)} &rarr; {uiDate(potentialBooking.departureDate)}</span>
-                                    </p>
-                                  </div>
-                                </Col>
-                              </Row>
-                              <Row>
-                                <Col xs={12}>
-                                  <div style={styles.borderBottom}>
-                                    <p>
-                                      <span>{t('booking.room_name')}</span><span className='pull-right'>{homestay.data.rooms.filter(room => room.id === potentialBooking.roomId)[0].name}</span>
-                                    </p>
-                                    <p>
-                                      <span>{t('common.Guests')}</span><span className='pull-right'>{potentialBooking.guestCount}</span>
-                                    </p>
-                                  </div>
-                                </Col>
-                              </Row>
-                              <Row>
-                                <Col xs={12}>
-                                  {extraCosts.length > 0 &&
-                                    <p>
-                                      <span>{t('booking.extras')}</span>
-                                      <div style={styles.servicesListContainer} className='pull-right'>
-                                        {extraCosts.map(cost => {
-                                          return (
-                                            <span key={`extra-cost-${cost.service}`}>{t(`homes.services.${cost.service}`)}{extraCosts.indexOf(cost) !== extraCosts.length - 1 ? <span>,&nbsp;</span> : null}</span>
-                                          )
-                                        })}
+                              <Collapse in={showFullSummary}>
+                                <div style={!showFullSummary ? { color: 'white' } : {}}>
+                                  <Row>
+                                    <Col xs={12}>
+                                      <div style={styles.borderBottom}>
+                                        <p>
+                                          <span>{t('common.Immersion')}</span><span className='pull-right'>{t(`immersions.${potentialBookingHelpers.immersionType}`)}</span>
+                                        </p>
+                                        <p>
+                                          <span>{t('common.Dates')}</span><span className='pull-right'>{uiDate(potentialBooking.arrivalDate)} &rarr; {uiDate(potentialBooking.departureDate)}</span>
+                                        </p>
                                       </div>
-                                    </p>
-                                  }
-                                </Col>
-                              </Row>
+                                    </Col>
+                                  </Row>
+                                  <Row>
+                                    <Col xs={12}>
+                                      <div style={styles.borderBottom}>
+                                        <p>
+                                          <span>{t('booking.room_name')}</span><span className='pull-right'>{homestay.data.rooms.filter(room => room.id === potentialBooking.roomId)[0].name}</span>
+                                        </p>
+                                        <p>
+                                          <span>{t('common.Guests')}</span><span className='pull-right'>{potentialBooking.guestCount}</span>
+                                        </p>
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                  <Row>
+                                    <Col xs={12}>
+                                      {extraCosts.length > 0 &&
+                                        <p>
+                                          <span>{t('booking.extras')}</span>
+                                          <div style={styles.servicesListContainer} className='pull-right'>
+                                            {extraCosts.map(cost => {
+                                              return (
+                                                <span key={`extra-cost-${cost.service}`}>{t(`homes.services.${cost.service}`)}{extraCosts.indexOf(cost) !== extraCosts.length - 1 ? <span>,&nbsp;</span> : null}</span>
+                                              )
+                                            })}
+                                          </div>
+                                        </p>
+                                      }
+                                    </Col>
+                                  </Row>
+                                </div>
+                              </Collapse>
                               <Row>
                                 <Col xs={12}>
-                                  <p>
-                                    <strong>{t('booking.total_price')}</strong>{!potentialBookingHelpers.price.loading && <span className='pull-right'>{currencySymbol}<span style={styles.totalPrice}>{totalPrice}</span></span>}
-                                  </p>
+                                  <div>
+                                    <strong style={styles.totalPriceLabel}>{t('booking.total_price')}</strong>{!potentialBookingHelpers.price.loading && <span className='pull-right'>{currencySymbol}<span style={styles.totalPrice}>{totalPrice}</span></span>}
+                                  </div>
                                 </Col>
                               </Row>
                             </Panel>
@@ -418,11 +429,11 @@ export default class BookingHomestay extends Component {
                         </Row>
                         <Pager style={styles.pager} onSelect={this.changeStep}>
                           {activeStep > 1 &&
-                          <Pager.Item eventKey={activeStep - 1} previous href='#'>&larr; {t(`booking.homestay_booking.step_${activeStep - 1}.title`)}</Pager.Item>
-                            }
+                            <Pager.Item eventKey={activeStep - 1} previous href='#'>&larr; {t(`booking.homestay_booking.step_${activeStep > 2 && !showUpsell ? activeStep : activeStep - 1}.title`)}</Pager.Item>
+                          }
                           {activeStep !== 4 &&
-                          <Pager.Item eventKey={activeStep + 1} next href='#'>{t(`booking.homestay_booking.step_${activeStep + 1}.title`)} &rarr;</Pager.Item>
-                            }
+                            <Pager.Item eventKey={activeStep + 1} next href='#'>{t(`booking.homestay_booking.step_${activeStep === 1 && !showUpsell ? activeStep + 2 : activeStep + 1}.title`)} &rarr;</Pager.Item>
+                          }
                         </Pager>
                       </Well>
                     </Col>
