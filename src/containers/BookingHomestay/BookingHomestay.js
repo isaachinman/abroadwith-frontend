@@ -19,6 +19,7 @@ import { translate } from 'react-i18next'
 
 // Relative imports
 import styles from './BookingHomestay.styles'
+import UpsellCourseSearch from './subcomponents/UpsellCourseSearch'
 
 
 @connect(
@@ -136,6 +137,10 @@ export default class BookingHomestay extends Component {
 
     const currencySymbol = Currencies[potentialBooking.currency]
     const homestay = homestays[potentialBookingHelpers.homeID]
+    const room = homestay.data.rooms.filter(r => r.id === potentialBooking.roomId)[0]
+
+    console.log('room: ', room)
+
     const showUpsell = upsellSearch.loaded && upsellSearch.data && upsellSearch.data.results && upsellSearch.data.results.length > 0
 
     // Determine length of homestay
@@ -219,10 +224,10 @@ export default class BookingHomestay extends Component {
                                           value={{ value: potentialBooking.guestCount, label: potentialBooking.guestCount }}
                                           onValueChange={value => this.handleGuestCountChange(parseInt(value.value))}
                                         >
-                                          <option value='1'>1</option>
-                                          <option value='2'>2</option>
-                                          <option value='3'>3</option>
-                                          <option value='4'>4</option>
+                                          {room.vacancies >= 1 && <option value='1'>1</option>}
+                                          {room.vacancies >= 2 && <option value='2'>2</option>}
+                                          {room.vacancies >= 3 && <option value='3'>3</option>}
+                                          {room.vacancies >= 4 && <option value='4'>4</option>}
                                         </Select>
                                       </FormGroup>
                                     </Col>
@@ -337,9 +342,11 @@ export default class BookingHomestay extends Component {
 
                                     <Row>
                                       <Col xs={12}>
-                                        <h4>{t('booking.homestay_booking.step_2.title')}</h4>
+                                        <h3>{t('booking.homestay_booking.step_2.title')}</h3>
                                       </Col>
                                     </Row>
+
+                                    <UpsellCourseSearch />
 
                                     Shows language course results within 10 kilometers
                                     This step should be hidden if there are no results
@@ -403,7 +410,7 @@ export default class BookingHomestay extends Component {
                                     <Col xs={12}>
                                       <div style={styles.borderBottom}>
                                         <p>
-                                          <span>{t('booking.room_name')}</span><span className='pull-right'>{homestay.data.rooms.filter(room => room.id === potentialBooking.roomId)[0].name}</span>
+                                          <span>{t('booking.room_name')}</span><span className='pull-right'>{room.name}</span>
                                         </p>
                                         <p>
                                           <span>{t('common.Guests')}</span><span className='pull-right'>{potentialBooking.guestCount}</span>
