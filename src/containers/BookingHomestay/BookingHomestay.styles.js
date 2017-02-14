@@ -38,6 +38,9 @@ export default {
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
   },
+  widthTransition: {
+    transition: 'width .5s',
+  },
   overviewPanel: {
     boxShadow: 'none',
   },

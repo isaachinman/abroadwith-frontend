@@ -17,4 +17,7 @@
 
 // Homestay booking page
 1. There's a bug where a user might have preselected a language which isn't actually offered for that immersion
-2. Change currency won't immediately trigger a refresh of the data, need to address this
+2. Guest count select needs to be controlled by room vacancy
+
+// Before deployment to production
+1. npm shrinkwrap

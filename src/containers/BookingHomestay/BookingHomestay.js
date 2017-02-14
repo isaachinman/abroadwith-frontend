@@ -26,6 +26,7 @@ import styles from './BookingHomestay.styles'
     upsellSearch: state.uiPersist.courseSearch.upsellSearch,
     homestays: state.publicData.homestays,
     user: state.privateData.user.data,
+    uiCurrency: state.ui.currency.value,
     token: state.auth.token,
     potentialBooking: state.bookings.homestayBookings.potentialBooking,
     potentialBookingHelpers: state.bookings.homestayBookings.potentialBookingHelpers,
@@ -64,9 +65,19 @@ export default class BookingHomestay extends Component {
   }
 
   componentWillReceiveProps = nextProps => {
+
+    // Initial upsell search
     if (!this.state.upsellSearchInitialised && this.props.upsellSearch.loading && nextProps.upsellSearch.loaded) {
       this.setState({ upsellSearchInitialised: true })
     }
+
+    // Handle uiCurrency change
+    if (this.props.uiCurrency !== nextProps.uiCurrency) {
+      console.log('incoming currency: ', nextProps.uiCurrency)
+      this.updatePotentialHomestayBooking('currency', nextProps.uiCurrency)
+      this.calculatePrice(nextProps.uiCurrency)
+    }
+
   }
 
   componentWillUpdate = (nextProps, nextState) => {
@@ -110,9 +121,10 @@ export default class BookingHomestay extends Component {
     dispatch(updatePotentialHomestayBooking(newPotentialBooking))
   }
 
-  calculatePrice = () => {
+  calculatePrice = overrideCurrency => {
     const { dispatch, token, potentialBooking } = this.props
-    dispatch(calculateHomestayPriceWithinBooking(token, potentialBooking))
+    console.log(potentialBooking.currency)
+    dispatch(calculateHomestayPriceWithinBooking(token, overrideCurrency ? Object.assign({}, potentialBooking, { currency: overrideCurrency }) : potentialBooking))
   }
 
   changeStep = stepNum => this.setState({ activeStep: stepNum })
@@ -184,7 +196,7 @@ export default class BookingHomestay extends Component {
                     <Col xs={12}>
                       <Well bsSize='large'>
                         <Row>
-                          <Col xs={12} md={showFullSummary ? 7 : 8} lg={showFullSummary ? 8 : 9}>
+                          <Col xs={12} md={showFullSummary ? 7 : 8} lg={showFullSummary ? 8 : 9} style={styles.widthTransition}>
                             <Tab.Container id='homestay-booking-flow' activeKey={activeStep} onSelect={() => {}}>
                               <Tab.Content>
 
@@ -369,7 +381,7 @@ export default class BookingHomestay extends Component {
                               </Tab.Content>
                             </Tab.Container>
                           </Col>
-                          <Col xs={12} md={showFullSummary ? 5 : 4} lg={showFullSummary ? 4 : 3}>
+                          <Col xs={12} md={showFullSummary ? 5 : 4} lg={showFullSummary ? 4 : 3} style={styles.widthTransition}>
                             <Panel style={styles.overviewPanel}>
                               <div style={Object.assign({}, styles.homeImage, { backgroundImage: `url(${config.img}${homestay.data.images[0].imagePath})` })} />
 
@@ -451,9 +463,10 @@ export default class BookingHomestay extends Component {
 
 BookingHomestay.propTypes = {
   dispatch: PropTypes.func,
+  homestays: PropTypes.object,
+  uiCurrency: PropTypes.string,
   user: PropTypes.object,
   upsellSearch: PropTypes.object,
-  homestays: PropTypes.object,
   t: PropTypes.func,
   token: PropTypes.string,
   potentialBooking: PropTypes.object,
