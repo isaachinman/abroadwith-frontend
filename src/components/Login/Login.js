@@ -52,12 +52,14 @@ export default class Login extends Component {
   handleFacebookLogin = (response) => {
     console.log(response)
     if (response.accessToken && response.status !== 'unknown') {
-      this.props.dispatch(authActions.facebookLogin(response.email, response.accessToken))
+      const { dispatch } = this.props
+      dispatch(authActions.facebookLogin(response.email, response.accessToken, () => dispatch(closeLoginModal())))
     }
   }
 
   handleGoogleLogin = (response) => {
-    this.props.dispatch(authActions.googleLogin(response.getBasicProfile().getEmail(), response.getAuthResponse().id_token))
+    const { dispatch } = this.props
+    dispatch(authActions.googleLogin(response.getBasicProfile().getEmail(), response.getAuthResponse().id_token, () => dispatch(closeLoginModal())))
   }
 
   handleGoogleLoginFailure = () => {
@@ -97,7 +99,7 @@ export default class Login extends Component {
 
     if (formIsValid) {
       const { dispatch } = this.props
-      dispatch(authActions.login(email.value, password.value))
+      dispatch(authActions.login(email.value, password.value, null, null, () => dispatch(closeLoginModal())))
     } else {
       return false
     }
@@ -108,10 +110,8 @@ export default class Login extends Component {
 
     const {
       compact,
-      jwt,
       t,
       loginStatus,
-      logout,
     } = this.props
 
     const {
@@ -123,107 +123,87 @@ export default class Login extends Component {
 
     return (
       <div style={styles.loginPanel}>
+        <Row>
+          <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
+            <FacebookLogin
+              appId='144997212531478'
+              callback={this.handleFacebookLogin}
+              cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-facebook-login'
+              fields='name,email,birthday'
+              textButton={t('common.login_with_facebook')}
+              icon='fa-facebook-square'
+            />
+          </Col>
+          <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
+            <GoogleLogin
+              onFailure={this.handleGoogleLoginFailure}
+              onSuccess={this.handleGoogleLogin}
+              clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
+              className='btn btn-block btn-lg btn-default btn-with-icon btn-google-login'
+            >
+              <FontAwesome name='google' /> {t('common.login_with_google')}
+            </GoogleLogin>
+          </Col>
+        </Row>
 
-        {!jwt &&
+        <Row>
+          <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2} style={styles.dividerContainer}>
+            <div style={styles.divider}>
+              <span style={styles.dividerText}>
+                {t('common.words.or')}
+              </span>
+            </div>
+          </Col>
+        </Row>
 
-          <span>
-
-            <Row>
-              <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
-                <FacebookLogin
-                  appId='144997212531478'
-                  callback={this.handleFacebookLogin}
-                  cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-facebook-login'
-                  fields='name,email,birthday'
-                  textButton={t('common.login_with_facebook')}
-                  icon='fa-facebook-square'
-                />
-              </Col>
-              <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
-                <GoogleLogin
-                  onFailure={this.handleGoogleLoginFailure}
-                  onSuccess={this.handleGoogleLogin}
-                  clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
-                  className='btn btn-block btn-lg btn-default btn-with-icon btn-google-login'
-                >
-                  <FontAwesome name='google' /> {t('common.login_with_google')}
-                </GoogleLogin>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2} style={styles.dividerContainer}>
-                <div style={styles.divider}>
-                  <span style={styles.dividerText}>
-                    {t('common.words.or')}
-                  </span>
-                </div>
-              </Col>
-            </Row>
-
-            {loginStatus.error &&
-              <Row>
-                <Col sm={compact ? 12 : 4} smOffset={compact ? 0 : 4}>
-                  <Alert bsStyle='danger'>
-                    <h5>LOGIN_FAILED</h5>
-                  </Alert>
-                </Col>
-              </Row>
+        {loginStatus.error &&
+          <Row>
+            <Col sm={compact ? 12 : 4} smOffset={compact ? 0 : 4}>
+              <Alert bsStyle='danger'>
+                <h5>LOGIN_FAILED</h5>
+              </Alert>
+            </Col>
+          </Row>
             }
 
-            <Form horizontal onSubmit={this.handleEmailLogin}>
+        <Form horizontal onSubmit={this.handleEmailLogin}>
 
-              <FormGroup controlId='formHorizontalEmail' validationState={email.uiState}>
-                <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
-                  <InputGroup>
-                    <InputGroup.Addon><FontAwesome name='at' /></InputGroup.Addon>
-                    <FormControl required type='email' placeholder={t('common.Email')} onChange={event => this.handleEmailChange(event.target.value)} />
-                  </InputGroup>
-                </Col>
-              </FormGroup>
+          <FormGroup controlId='formHorizontalEmail' validationState={email.uiState}>
+            <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
+              <InputGroup>
+                <InputGroup.Addon><FontAwesome name='at' /></InputGroup.Addon>
+                <FormControl required type='email' placeholder={t('common.Email')} onChange={event => this.handleEmailChange(event.target.value)} />
+              </InputGroup>
+            </Col>
+          </FormGroup>
 
-              <FormGroup controlId='formHorizontalPassword' validationState={password.uiState}>
-                <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
-                  <InputGroup>
-                    <InputGroup.Addon><FontAwesome name='lock' /></InputGroup.Addon>
-                    <FormControl required type='password' placeholder={t('common.Password')} onChange={event => this.handlePasswordChange(event.target.value)} />
-                  </InputGroup>
-                </Col>
-                <Col sm={12}>
-                  {password.message}
-                </Col>
-              </FormGroup>
+          <FormGroup controlId='formHorizontalPassword' validationState={password.uiState}>
+            <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
+              <InputGroup>
+                <InputGroup.Addon><FontAwesome name='lock' /></InputGroup.Addon>
+                <FormControl required type='password' placeholder={t('common.Password')} onChange={event => this.handlePasswordChange(event.target.value)} />
+              </InputGroup>
+            </Col>
+            <Col sm={12}>
+              {password.message}
+            </Col>
+          </FormGroup>
 
-              <FormGroup>
-                <Col sm={12}>
-                  <Button type='submit' bsStyle='primary' disabled={loginStatus.loggingIn} >
-                    {loginStatus.loggingIn ? <span>{t('common.Loading')}</span> : <span>{t('common.Log_in')}</span>}
-                  </Button>
-                </Col>
-              </FormGroup>
+          <FormGroup>
+            <Col sm={12}>
+              <Button type='submit' bsStyle='primary' disabled={loginStatus.loggingIn} >
+                {loginStatus.loggingIn ? <span>{t('common.Loading')}</span> : <span>{t('common.Log_in')}</span>}
+              </Button>
+            </Col>
+          </FormGroup>
 
-            </Form>
+        </Form>
 
-            <Row>
-              <Col xs={12} style={styles.signUp} className='text-muted'>
-                {t('common.Dont_have_account')} <a onClick={this.handleGoToSignup}>{t('common.Sign_up')}</a>
-              </Col>
-            </Row>
-
-          </span>
-
-        }
-
-        {jwt &&
-          <div>
-            <p>You are currently logged in as {jwt.name}.</p>
-
-            <div>
-              <button className='btn btn-danger' onClick={logout}><i className='fa fa-sign-out' />{' '}Log Out</button>
-            </div>
-          </div>
-        }
-
+        <Row>
+          <Col xs={12} style={styles.signUp} className='text-muted'>
+            {t('common.Dont_have_account')} <a onClick={this.handleGoToSignup}>{t('common.Sign_up')}</a>
+          </Col>
+        </Row>
       </div>
     )
   }
