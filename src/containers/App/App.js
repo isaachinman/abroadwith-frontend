@@ -127,30 +127,27 @@ export default class App extends Component {
 
       this.setState({ potentialBookingReminderSent: true })
 
-      // Trigger notification on timeout after a few seconds
-      console.log('inside condition', this)
-      console.log('pathname: ', router.getCurrentLocation())
-      console.log('location: ', location.pathname.includes('book-homestay'))
-      setTimeout(() => {
+      const toBooking = () => {
+        dispatch(push('/book-homestay'))
+        notification.close('potentialBookingReminder')
+      }
 
-        const toBooking = () => {
-          dispatch(push('/book-homestay'))
-          notification.close('potentialBookingReminder')
-        }
+      const deleteBooking = () => {
+        dispatch(deletePotentialHomestayBooking())
+        notification.close('potentialBookingReminder')
+      }
 
-        const deleteBooking = () => {
-          dispatch(deletePotentialHomestayBooking())
-          notification.close('potentialBookingReminder')
-        }
-
-        const btn = (
-          <div style={{ textAlign: 'right', marginBottom: -10 }}>
-            <Button onClick={toBooking} bsSize='xsmall' bsStyle='success' style={{ fontSize: 12 }}>{t('common.notifications.incomplete_homestay_booking.button')}</Button>
-            <div>
-              <a onClick={deleteBooking} style={{ fontSize: 10 }}>Delete booking</a>
-            </div>
+      const btn = (
+        <div style={{ textAlign: 'right', marginBottom: -10 }}>
+          <Button onClick={toBooking} bsSize='xsmall' bsStyle='success' style={{ fontSize: 12 }}>{t('common.notifications.incomplete_homestay_booking.button')}</Button>
+          <div>
+            <a onClick={deleteBooking} style={{ fontSize: 10 }}>Delete booking</a>
           </div>
-        )
+        </div>
+      )
+
+      // Trigger notification on timeout after a few seconds
+      setTimeout(() => {
 
         notification.warning({
           key: 'potentialBookingReminder',

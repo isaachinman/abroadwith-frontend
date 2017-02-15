@@ -11,13 +11,12 @@ import FontAwesome from 'react-fontawesome'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
 
 // Relative imports
-import EmailAlreadyVerified from './subcomponents/EmailAlreadyVerified'
 import styles from './EmailVerification.styles'
 
 
 @connect(state => ({
   jwt: state.auth.jwt,
-  user: state.privateData.user.data ? state.privateData.user.data : null,
+  user: state.privateData.user.data ? state.privateData.user.data : {},
   token: state.auth.token,
   verifications: state.verifications,
 }))
@@ -50,7 +49,7 @@ export default class EmailVerification extends Component {
 
     const { user, verifications } = this.props
     if (!verifications.email.loaded && nextProps.verifications.email.loaded && !nextProps.verifications.email.error) {
-      if (!user || !user.data) {
+      if (!user.data) {
         this.setState({ whatToRender: 'EmailVerificationSuccessGeneral' })
       } else {
         this.setState({ whatToRender: `EmailVerificationSuccess${user.data.feUserType === 'HOST' ? 'Host' : 'Student'}` })
@@ -85,15 +84,12 @@ export default class EmailVerification extends Component {
           </Row>
           <SpinLoader show={whatToRender === null || verifications.email.loading}>
             <Panel style={styles.panel}>
-              {whatToRender === 'EmailAlreadyVerified' &&
-                <EmailAlreadyVerified {...this.props} />
-              }
               {whatToRender === 'EmailVerificationFailure' &&
                 <Alert bsStyle='danger'>
                   {t('common.email_verification_failed')} <FontAwesome name='times' />
                 </Alert>
               }
-              {whatToRender === 'EmailVerificationSuccessGeneral' &&
+              {(whatToRender === 'EmailAlreadyVerified' || whatToRender === 'EmailVerificationSuccessGeneral') &&
                 <Alert bsStyle='success'>
                   <h5>{t('common.email_verification_succeeded')}</h5>
                   <p>
