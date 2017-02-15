@@ -16,6 +16,7 @@ export default class ManageLanguages extends Component {
     const {
       addLanguage,
       availableLanguages,
+      doNotCenterAlign,
       learningLanguages,
       knownLanguages,
       t,
@@ -30,10 +31,10 @@ export default class ManageLanguages extends Component {
 
     return (
 
-      <div style={styles.moduleContainer} className='manage-language-module'>
+      <div style={doNotCenterAlign ? Object.assign({}, styles.moduleContainer, { marginLeft: 0 }) : styles.moduleContainer} className='manage-language-module'>
         <style>{borderRadiusStyling}</style>
         <Well>
-          <div style={styles.languageSectionHeader}>{t('common.languages_learning')}</div>
+          <h6 className='header-green'>{t('common.languages_learning')}</h6>
           {learningLanguages.map(lang => {
             return (
               <div key={`learning${lang.id}`} style={styles.container}>
@@ -59,7 +60,7 @@ export default class ManageLanguages extends Component {
                   </DropdownButton>
                 </div>
                 {learningLanguages.length > 1 &&
-                  <div onClick={() => removeLanguage('learning', lang.id)} style={styles.removeLanguage}>X</div>
+                  <div onClick={() => removeLanguage('learning', lang.id)} style={styles.removeLanguage}>&times;</div>
                 }
               </div>
             )
@@ -70,7 +71,7 @@ export default class ManageLanguages extends Component {
         </Well>
 
         <Well>
-          <div style={styles.languageSectionHeader}>{t('common.languages_known')}</div>
+          <h6 className='header-green'>{t('common.languages_known')}</h6>
           {knownLanguages.map(lang => {
             return (
               <div key={`known${lang.id}`} style={styles.container}>
@@ -97,7 +98,7 @@ export default class ManageLanguages extends Component {
 
                 </div>
                 {knownLanguages.length > 1 &&
-                  <div onClick={() => removeLanguage('known', lang.id)} style={styles.removeLanguage}>X</div>
+                  <div onClick={() => removeLanguage('known', lang.id)} style={styles.removeLanguage}>&times;</div>
                 }
               </div>
             )
@@ -117,6 +118,7 @@ ManageLanguages.propTypes = {
   addLanguage: PropTypes.func,
   availableLanguages: PropTypes.array,
   controlled: PropTypes.bool,
+  doNotCenterAlign: PropTypes.bool,
   learningLanguages: PropTypes.array,
   knownLanguages: PropTypes.array,
   learningLevels: PropTypes.bool,

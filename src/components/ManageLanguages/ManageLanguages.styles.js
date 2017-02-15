@@ -15,6 +15,8 @@ export default {
     margin: '0 0 10px 0',
   },
   removeLanguage: {
+    color: 'rgba(0,0,0,.5)',
+    cursor: 'pointer',
     position: 'absolute',
     top: 5,
     right: 0,
@@ -36,10 +38,10 @@ export default {
     minWidth: 120,
     borderRadius: '0 3px 3px 0',
     borderLeft: 'none',
-    height: 34,
+    height: 36,
   },
   addLanguage: {
+    marginTop: 10,
     fontSize: 12,
-    textAlign: 'left',
   },
 }

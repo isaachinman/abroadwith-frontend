@@ -16,6 +16,7 @@ import LightboxTheme from 'data/constants/LightboxTheme'
 import { Link } from 'react-router'
 import MapStyles from 'data/constants/MapStyles'
 import moment from 'moment'
+import shallowCompare from 'react-addons-shallow-compare'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { updateRoomSearchParams, updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
 import Radium from 'radium'
@@ -57,6 +58,10 @@ export default class Homestay extends Component {
     lightboxOpen: false,
     lightboxImage: 0,
     roomSelectionOpen: false,
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
   }
 
   componentDidUpdate = () => {
