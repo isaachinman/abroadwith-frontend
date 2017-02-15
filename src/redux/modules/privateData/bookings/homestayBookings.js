@@ -18,6 +18,12 @@ const CALCULATE_HOMESTAY_PRICE_WITHIN_BOOKING = 'abroadwith/CALCULATE_HOMESTAY_P
 const CALCULATE_HOMESTAY_PRICE_WITHIN_BOOKING_SUCCESS = 'abroadwith/CALCULATE_HOMESTAY_PRICE_WITHIN_BOOKING_SUCCESS'
 const CALCULATE_HOMESTAY_PRICE_WITHIN_BOOKING_FAIL = 'abroadwith/CALCULATE_HOMESTAY_PRICE_WITHIN_BOOKING_FAIL'
 
+// Add upsell course booking
+const ADD_UPSELL_COURSE_BOOKING = 'abroadwith/ADD_UPSELL_COURSE_BOOKING'
+
+// Remove upsell course booking
+const REMOVE_UPSELL_COURSE_BOOKING = 'abroadwith/REMOVE_UPSELL_COURSE_BOOKING'
+
 const initialState = {
   potentialBooking: {},
   potentialBookingHelpers: {
@@ -85,6 +91,20 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         potentialBooking: Object.assign({}, state.potentialBooking, action.potentialBookingObject),
       }
+    case ADD_UPSELL_COURSE_BOOKING:
+      return {
+        ...state,
+        potentialBookingHelpers: Object.assign({}, state.potentialBookingHelpers, {
+          upsellCourseBooking: action.courseBookingObject,
+        }),
+      }
+    case REMOVE_UPSELL_COURSE_BOOKING:
+      return {
+        ...state,
+        potentialBookingHelpers: Object.assign({}, state.potentialBookingHelpers, {
+          upsellCourseBooking: {},
+        }),
+      }
     case DELETE_POTENTIAL_HOMESTAY_BOOKING:
       return {
         ...state,
@@ -102,6 +122,14 @@ export function createPotentialHomestayBooking(potentialBookingObject, potential
 
 export function updatePotentialHomestayBooking(potentialBookingObject) {
   return async dispatch => dispatch({ type: UPDATE_POTENTIAL_HOMESTAY_BOOKING, potentialBookingObject })
+}
+
+export function addUpsellCourseBooking(courseBookingObject) {
+  return async dispatch => dispatch({ type: ADD_UPSELL_COURSE_BOOKING, courseBookingObject })
+}
+
+export function removeUpsellCourseBooking() {
+  return async dispatch => dispatch({ type: REMOVE_UPSELL_COURSE_BOOKING })
 }
 
 export function deletePotentialHomestayBooking() {

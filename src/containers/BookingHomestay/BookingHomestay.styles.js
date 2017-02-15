@@ -43,6 +43,7 @@ export default {
   },
   overviewPanel: {
     boxShadow: 'none',
+    margin: '20px 0',
   },
   borderBottom: {
     borderBottom: '1px solid #ddd',
@@ -57,5 +58,8 @@ export default {
     maxWidth: 'calc(100% - 80px)',
     display: 'inline-block',
     textAlign: 'right',
+  },
+  tripDetailsContainer: {
+    maxWidth: 540,
   },
 }

@@ -51,7 +51,7 @@ export default {
     },
   },
   resultScrollList: {
-    height: 'calc(100vh - 205px)',
+    height: 'calc(100vh - 195px)',
     width: '60%',
     '@media (max-width: 767px)': {
       width: '100%',

@@ -13,8 +13,5 @@
 // Thread page
 1. Add user images to sent/received messages
 
-// Homestay profile page
-1. Use month discounts on room pricing if applicable
-
 // Before deployment to production
 1. npm shrinkwrap

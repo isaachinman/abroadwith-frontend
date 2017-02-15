@@ -290,8 +290,8 @@ button {
   }
 }
 .navbar-brand {
-  height: 77px;
-  line-height: 77px;
+  height: 80px;
+  line-height: 80px;
   padding: 0;
   position: relative;
   padding-right: 60px;
@@ -552,6 +552,11 @@ $popover-arrow-color: $darkBlue;
   .ant-rate-star-half .ant-rate-star-content:before, .ant-rate-star-full:before {
     font-size: 12px;
     color: $headerBluePurple;
+  }
+  &.light {
+    .ant-rate-star-half .ant-rate-star-content:before, .ant-rate-star-full:before {
+      color: $babyBlue;
+    }
   }
   .ant-rate-star:before, .ant-rate-star-content:before {
     font-size: 12px;

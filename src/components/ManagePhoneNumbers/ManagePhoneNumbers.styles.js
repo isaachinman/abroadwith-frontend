@@ -1,6 +1,6 @@
 export default {
-  marginTop10: {
-    marginTop: 5,
+  marginTop: {
+    marginTop: 7,
   },
   modal: {
     padding: 20,

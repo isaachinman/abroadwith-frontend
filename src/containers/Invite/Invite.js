@@ -40,6 +40,11 @@ export default class Invite extends Component {
               <Panel>
                 <Row>
                   <Col xs={12}>
+                    <p>{t('invite.explanation')}</p>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
                     <FormControl
                       readOnly
                       type='text'
