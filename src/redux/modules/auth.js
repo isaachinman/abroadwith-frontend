@@ -136,7 +136,10 @@ export function load(jwt, callback) {
 
 }
 
-export function login(email, password, facebookToken, googleToken) {
+export function login(email, password, facebookToken, googleToken, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
+
   return async dispatch => {
 
     dispatch({ type: LOGIN })
@@ -176,6 +179,7 @@ export function login(email, password, facebookToken, googleToken) {
           // Login was successful
           const jwt = body.token
           dispatch({ type: LOGIN_SUCCESS, jwt })
+          cb()
 
           // Now fetch full private info on user
           dispatch(loadUserWithAuth(jwt, response => {
@@ -203,15 +207,15 @@ export function login(email, password, facebookToken, googleToken) {
   }
 }
 
-export function facebookLogin(email, facebookToken) {
+export function facebookLogin(email, facebookToken, callback) {
   return async dispatch => {
-    dispatch(login(email, null, facebookToken, null))
+    dispatch(login(email, null, facebookToken, null, callback))
   }
 }
 
-export function googleLogin(email, googleToken) {
+export function googleLogin(email, googleToken, callback) {
   return async dispatch => {
-    dispatch(login(email, null, null, googleToken))
+    dispatch(login(email, null, null, googleToken, callback))
   }
 }
 
