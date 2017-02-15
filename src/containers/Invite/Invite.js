@@ -28,18 +28,41 @@ export default class Invite extends Component {
 
       <div style={styles.loginPage}>
         <Helmet title={t('invite.title')} />
-        <h1 style={styles.h1}>{t('invite.title')}</h1>
         <Grid>
+          <Row>
+            <Col xs={12}>
+              <h1 className='header-green'>{t('invite.title')}</h1>
+              <h5 className='text-muted'>{t('invite.subtitle')}*</h5>
+            </Col>
+          </Row>
           <Row>
             <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
               <Panel>
-                <FormControl
-                  readOnly
-                  type='text'
-                  value={`https://abroadwith.com/signup?referral_user=${jwt.rid}`}
-                />
-                <Button onClick={this.openFacebookShareWindow}>{t('invite.share_on_facebook_btn')}</Button>
+                <Row>
+                  <Col xs={12}>
+                    <FormControl
+                      readOnly
+                      type='text'
+                      value={`https://abroadwith.com/signup?referral_user=${jwt.rid}`}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <h6 className='text-muted'>{t('common.words.or')}</h6>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <Button onClick={this.openFacebookShareWindow} bsStyle='primary'>{t('invite.share_on_facebook_btn')}</Button>
+                  </Col>
+                </Row>
               </Panel>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <small className='text-muted'>*{t('invite.disclaimer')}</small>
             </Col>
           </Row>
         </Grid>

@@ -8,9 +8,6 @@ export default {
   loginPanel: {
     padding: '20px 20px 10px 20px',
   },
-  h1: {
-    marginBottom: 20,
-  },
   paddedRow: {
     paddingBottom: 15,
   },
