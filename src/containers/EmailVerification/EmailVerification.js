@@ -25,7 +25,6 @@ export default class EmailVerification extends Component {
 
   state = {
     whatToRender: null,
-    userType: null,
   }
 
   componentDidMount = () => {
@@ -39,9 +38,6 @@ export default class EmailVerification extends Component {
 
     } else {
 
-      // Cache user type
-      this.setState({ userType: user.feUserType })
-
       // If they haven't, POST the verification data
       setTimeout(() => dispatch(verifyEmail(token, location.query.secret, location.query.key)), 2000)
 
@@ -51,13 +47,12 @@ export default class EmailVerification extends Component {
 
   componentWillReceiveProps = nextProps => {
 
-    const { userType } = this.state
-    const { verifications } = this.props
+    const { user, verifications } = this.props
     if (!verifications.email.loaded && nextProps.verifications.email.loaded && !nextProps.verifications.email.error) {
-      if (!userType) {
+      if (!user) {
         this.setState({ whatToRender: 'EmailVerificationSuccessGeneral' })
       } else {
-        this.setState({ whatToRender: `EmailVerificationSuccess${userType === 'HOST' ? 'Host' : 'Student'}` })
+        this.setState({ whatToRender: `EmailVerificationSuccess${user.feUserType === 'HOST' ? 'Host' : 'Student'}` })
       }
     }
 
