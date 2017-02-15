@@ -4,7 +4,7 @@ import { calculateHomestayPriceWithinBooking, updatePotentialHomestayBooking } f
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
 import { connect } from 'react-redux'
-import { Col, Collapse, ControlLabel, FormGroup, Grid, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
+import { Col, Collapse, ControlLabel, Fade, FormGroup, Grid, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import HomeData from 'data/constants/HomeData'
 import moment from 'moment'
@@ -128,11 +128,11 @@ export default class BookingHomestay extends Component {
     dispatch(calculateHomestayPriceWithinBooking(token, overrideCurrency ? Object.assign({}, potentialBooking, { currency: overrideCurrency }) : potentialBooking))
   }
 
-  changeStep = stepNum => this.setState({ activeStep: stepNum })
+  changeStep = stepNum => this.setState({ activeStep: stepNum, animationInProgress: true }, () => setTimeout(() => this.setState({ animationInProgress: false }), 300))
 
   render() {
 
-    const { activeStep, upsellSearchInitialised } = this.state
+    const { activeStep, animationInProgress, upsellSearchInitialised } = this.state
     const { user, upsellSearch, homestays, t, token, potentialBooking, potentialBookingHelpers } = this.props
 
     const currencySymbol = Currencies[potentialBooking.currency]
@@ -199,142 +199,144 @@ export default class BookingHomestay extends Component {
                   </Row>
                   <Row>
                     <Col xs={12}>
-                      <Well bsSize='large'>
+                      <Well bsSize='large' style={styles.well}>
                         <Row>
                           <Col xs={12} md={showFullSummary ? 7 : 8} lg={showFullSummary ? 8 : 9} style={styles.widthTransition}>
                             <Tab.Container id='homestay-booking-flow' activeKey={activeStep} onSelect={() => {}}>
                               <Tab.Content>
 
                                 <Tab.Pane eventKey={1}>
-
                                   <Row>
                                     <Col xs={12}>
                                       <h3>{t('booking.homestay_booking.step_1.title')}</h3>
                                     </Col>
                                   </Row>
 
-                                  <Row>
+                                  <Fade in={!animationInProgress}>
+                                    <div style={styles.tripDetailsContainer}>
+                                      <Row>
+                                        <Col xs={12} sm={6}>
+                                          <FormGroup>
+                                            <ControlLabel>{t('common.Guests')}</ControlLabel>
+                                            <Select
+                                              hideResetButton
+                                              theme='bootstrap3'
+                                              value={{ value: potentialBooking.guestCount, label: potentialBooking.guestCount }}
+                                              onValueChange={value => this.handleGuestCountChange(parseInt(value.value))}
+                                            >
+                                              {room.vacancies >= 1 && <option value='1'>1</option>}
+                                              {room.vacancies >= 2 && <option value='2'>2</option>}
+                                              {room.vacancies >= 3 && <option value='3'>3</option>}
+                                              {room.vacancies >= 4 && <option value='4'>4</option>}
+                                            </Select>
+                                          </FormGroup>
+                                        </Col>
 
-                                    <Col xs={12} sm={6}>
-                                      <FormGroup>
-                                        <ControlLabel>{t('common.Guests')}</ControlLabel>
-                                        <Select
-                                          hideResetButton
-                                          theme='bootstrap3'
-                                          value={{ value: potentialBooking.guestCount, label: potentialBooking.guestCount }}
-                                          onValueChange={value => this.handleGuestCountChange(parseInt(value.value))}
-                                        >
-                                          {room.vacancies >= 1 && <option value='1'>1</option>}
-                                          {room.vacancies >= 2 && <option value='2'>2</option>}
-                                          {room.vacancies >= 3 && <option value='3'>3</option>}
-                                          {room.vacancies >= 4 && <option value='4'>4</option>}
-                                        </Select>
-                                      </FormGroup>
-                                    </Col>
+                                        <Col xs={12} sm={6}>
+                                          <FormGroup>
+                                            <ControlLabel>{t('booking.meal_plan')}</ControlLabel>
+                                            <Select
+                                              hideResetButton
+                                              theme='bootstrap3'
+                                              value={{ value: mealPlan, label: t(`common.${mealPlan}`) }}
+                                              onValueChange={this.handleMealPlanChange}
+                                            >
+                                              <option value='Breakfast'>{t('common.Breakfast')}</option>
+                                              {homestay.data.pricing.extras.map(extra => {
+                                                if (extra.service === 'HALF_BOARD') {
+                                                  return <option key='halfb' value='Half_board'>{t('common.Half_board')}</option>
+                                                } else if (extra.service === 'FULL_BOARD') {
+                                                  return <option key='fullb' value='Full_board'>{t('common.Full_board')}</option>
+                                                }
+                                              })}
+                                            </Select>
+                                          </FormGroup>
+                                        </Col>
 
-                                    <Col xs={12} sm={6}>
-                                      <FormGroup>
-                                        <ControlLabel>{t('booking.meal_plan')}</ControlLabel>
-                                        <Select
-                                          hideResetButton
-                                          theme='bootstrap3'
-                                          value={{ value: mealPlan, label: t(`common.${mealPlan}`) }}
-                                          onValueChange={this.handleMealPlanChange}
-                                        >
-                                          <option value='Breakfast'>{t('common.Breakfast')}</option>
-                                          {homestay.data.pricing.extras.map(extra => {
-                                            if (extra.service === 'HALF_BOARD') {
-                                              return <option key='halfb' value='Half_board'>{t('common.Half_board')}</option>
-                                            } else if (extra.service === 'FULL_BOARD') {
-                                              return <option key='fullb' value='Full_board'>{t('common.Full_board')}</option>
-                                            }
-                                          })}
-                                        </Select>
-                                      </FormGroup>
-                                    </Col>
+                                      </Row>
+                                      <Row>
 
-                                  </Row>
-                                  <Row>
+                                        <Col xs={12} sm={6}>
+                                          <FormGroup>
+                                            <ControlLabel>{t('booking.diet_label')}</ControlLabel>
+                                            <MultiSelect
+                                              hideResetButton
+                                              theme='bootstrap3'
+                                              placeholder={t('common.none')}
+                                              values={specialDiet.map(diet => {
+                                                return { label: t(`homes.diets_offered.${diet}`), value: diet }
+                                              })}
+                                              onValuesChange={this.handleDietChange}
+                                            >
+                                              {homestay.data.basics.FOOD_OPTION.map(foodOption => {
+                                                return (
+                                                  <option key={`diet-${foodOption}`} value={foodOption}>{t(`homes.diets_offered.${foodOption}`)}</option>
+                                                )
+                                              })}
+                                            </MultiSelect>
+                                          </FormGroup>
+                                        </Col>
 
-                                    <Col xs={12} sm={6}>
-                                      <FormGroup>
-                                        <ControlLabel>{t('booking.diet_label')}</ControlLabel>
-                                        <MultiSelect
-                                          hideResetButton
-                                          theme='bootstrap3'
-                                          placeholder={t('common.none')}
-                                          values={specialDiet.map(diet => {
-                                            return { label: t(`homes.diets_offered.${diet}`), value: diet }
-                                          })}
-                                          onValuesChange={this.handleDietChange}
-                                        >
-                                          {homestay.data.basics.FOOD_OPTION.map(foodOption => {
-                                            return (
-                                              <option key={`diet-${foodOption}`} value={foodOption}>{t(`homes.diets_offered.${foodOption}`)}</option>
-                                            )
-                                          })}
-                                        </MultiSelect>
-                                      </FormGroup>
-                                    </Col>
+                                        <Col xs={12} sm={6}>
+                                          <FormGroup>
+                                            <ControlLabel>{t('common.Services')}</ControlLabel>
+                                            <MultiSelect
+                                              hideResetButton
+                                              theme='bootstrap3'
+                                              placeholder={t('common.none')}
+                                              values={extrasChosen.map(extra => ({ value: extra, label: t(`homes.extras.${extra}`) }))}
+                                              onValuesChange={this.handleServicesChange}
+                                            >
+                                              {extrasAvailable.map(extra => <option key={`service-${extra.service}`} value={extra.service}>{t(`homes.services.${extra.service}`)}</option>)}
+                                            </MultiSelect>
+                                          </FormGroup>
+                                        </Col>
 
-                                    <Col xs={12} sm={6}>
-                                      <FormGroup>
-                                        <ControlLabel>{t('common.Services')}</ControlLabel>
-                                        <MultiSelect
-                                          hideResetButton
-                                          theme='bootstrap3'
-                                          placeholder={t('common.none')}
-                                          values={extrasChosen.map(extra => ({ value: extra, label: t(`homes.extras.${extra}`) }))}
-                                          onValuesChange={this.handleServicesChange}
-                                        >
-                                          {extrasAvailable.map(extra => <option key={`service-${extra.service}`} value={extra.service}>{t(`homes.services.${extra.service}`)}</option>)}
-                                        </MultiSelect>
-                                      </FormGroup>
-                                    </Col>
+                                      </Row>
+                                      <Row>
 
-                                  </Row>
-                                  <Row>
+                                        <Col xs={12} sm={6}>
+                                          <FormGroup>
+                                            <ControlLabel>{t('common.learning_language_label')}</ControlLabel>
+                                            <Select
+                                              hideResetButton
+                                              theme='bootstrap3'
+                                              value={{ value: potentialBooking.languageHostWillTeach, label: t(`languages.${potentialBooking.languageHostWillTeach}`) }}
+                                              onValueChange={value => this.updatePotentialHomestayBooking('languageHostWillTeach', value.value)}
+                                            >
+                                              {homestay.data.immersions[potentialBookingHelpers.immersionType].languagesOffered.map(lang => {
+                                                return (
+                                                  <option key={`learn-${lang}`} value={lang}>{t(`languages.${lang}`)}</option>
+                                                )
+                                              })}
+                                            </Select>
+                                          </FormGroup>
+                                        </Col>
 
-                                    <Col xs={12} sm={6}>
-                                      <FormGroup>
-                                        <ControlLabel>{t('common.learning_language_label')}</ControlLabel>
-                                        <Select
-                                          hideResetButton
-                                          theme='bootstrap3'
-                                          value={{ value: potentialBooking.languageHostWillTeach, label: t(`languages.${potentialBooking.languageHostWillTeach}`) }}
-                                          onValueChange={value => this.updatePotentialHomestayBooking('languageHostWillTeach', value.value)}
-                                        >
-                                          {homestay.data.immersions[potentialBookingHelpers.immersionType].languagesOffered.map(lang => {
-                                            return (
-                                              <option key={`learn-${lang}`} value={lang}>{t(`languages.${lang}`)}</option>
-                                            )
-                                          })}
-                                        </Select>
-                                      </FormGroup>
-                                    </Col>
+                                        {potentialBookingHelpers.immersionType === 'tandem' &&
+                                          <Col xs={12} sm={6}>
+                                            <FormGroup>
+                                              <ControlLabel>{t('booking.teaching')}</ControlLabel>
+                                              <Select
+                                                hideResetButton
+                                                theme='bootstrap3'
+                                                value={{ value: potentialBooking.languageGuestWillTeach, label: t(`languages.${potentialBooking.languageGuestWillTeach}`) }}
+                                                onValueChange={value => this.updatePotentialHomestayBooking('languageGuestWillTeach', value.value)}
+                                              >
+                                                {homestay.data.immersions.tandem.languagesInterested.map(lang => {
+                                                  return (
+                                                    <option key={`tandem=${lang.lang}`} value={lang.lang}>{t(`languages.${lang.lang}`)}</option>
+                                                      )
+                                                })}
+                                              </Select>
+                                            </FormGroup>
+                                          </Col>
+                                        }
 
-                                    {potentialBookingHelpers.immersionType === 'tandem' &&
-                                      <Col xs={12} sm={6}>
-                                        <FormGroup>
-                                          <ControlLabel>{t('booking.teaching')}</ControlLabel>
-                                          <Select
-                                            hideResetButton
-                                            theme='bootstrap3'
-                                            value={{ value: potentialBooking.languageGuestWillTeach, label: t(`languages.${potentialBooking.languageGuestWillTeach}`) }}
-                                            onValueChange={value => this.updatePotentialHomestayBooking('languageGuestWillTeach', value.value)}
-                                          >
-                                            {homestay.data.immersions.tandem.languagesInterested.map(lang => {
-                                              return (
-                                                <option key={`tandem=${lang.lang}`} value={lang.lang}>{t(`languages.${lang.lang}`)}</option>
-                                                  )
-                                            })}
-                                          </Select>
-                                        </FormGroup>
-                                      </Col>
-                                    }
+                                      </Row>
 
-                                  </Row>
-
+                                    </div>
+                                  </Fade>
                                 </Tab.Pane>
 
                                 {showUpsell &&
@@ -346,11 +348,10 @@ export default class BookingHomestay extends Component {
                                       </Col>
                                     </Row>
 
-                                    <UpsellCourseSearch />
+                                    <UpsellCourseSearch
+                                      animationInProgress={animationInProgress}
+                                    />
 
-                                    Shows language course results within 10 kilometers
-                                    This step should be hidden if there are no results
-                                    Should be an optional "Skip" button at the bottom
                                   </Tab.Pane>
                                 }
 
@@ -393,7 +394,7 @@ export default class BookingHomestay extends Component {
                               <div style={Object.assign({}, styles.homeImage, { backgroundImage: `url(${config.img}${homestay.data.images[0].imagePath})` })} />
 
                               <Collapse in={showFullSummary}>
-                                <div style={!showFullSummary ? { color: 'white' } : {}}>
+                                <div style={animationInProgress ? { color: 'white' } : {}}>
                                   <Row>
                                     <Col xs={12}>
                                       <div style={styles.borderBottom}>

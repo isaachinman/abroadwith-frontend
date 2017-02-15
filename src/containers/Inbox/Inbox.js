@@ -81,10 +81,10 @@ export default class Inbox extends Component {
           </Grid>
         }
         {messages.length === 0 &&
-          <Grid style={Object.assign({}, styles.grid, { background: 'none' })}>
+          <Grid style={styles.grid}>
             <Row>
               <Col xs={12} md={6} mdOffset={3}>
-                <Panel>
+                <Panel style={{ marginTop: 80 }}>
                   <h3>{t('inbox.no_messages_title')}</h3>
                   <p>{t('inbox.thread_will_be_here')}</p>
                 </Panel>

@@ -1,11 +1,11 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import { generateImmersionPricesForRoom } from 'utils/prices'
 import { asyncConnect } from 'redux-connect'
 import config from 'config'
 import { connect } from 'react-redux'
 import { Col, Grid, Panel, Row } from 'react-bootstrap'
 import Currencies from 'data/constants/Currencies'
-import { convertCurrency } from 'utils/currencies'
 import FontAwesome from 'react-fontawesome'
 import GoogleMap from 'google-map-react'
 import Helmet from 'react-helmet'
@@ -19,7 +19,6 @@ import moment from 'moment'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { updateRoomSearchParams, updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
 import Radium from 'radium'
-import roundTo from 'round-to'
 import { translate } from 'react-i18next'
 
 // Relative imports
@@ -132,40 +131,12 @@ export default class Homestay extends Component {
   render() {
 
     const { lightboxOpen, lightboxImage } = this.state
-    const { activeRoom, currencyRates, error, homestay, host, loading, uiCurrency, t } = this.props
+    const { activeRoom, currencyRates, error, homestay, homestaySearch, host, loading, uiCurrency, t } = this.props
 
     const activeRoomObj = homestay.data && activeRoom ? homestay.data.rooms.filter(room => room.id === activeRoom)[0] : {}
     const currencySymbol = Currencies[uiCurrency]
 
-    // Determine weekly rates
-    let stayRate = null
-    let tandemRate = null
-    let teacherRate = null
-
-    // Generating immersion prices is a bit tedious
-    if (homestay.data) {
-
-      if (homestay.data.immersions.stay && homestay.data.immersions.stay.isActive) {
-        stayRate = activeRoomObj.price
-      }
-
-      if (homestay.data.immersions.tandem && homestay.data.immersions.tandem.isActive) {
-        tandemRate = roundTo(activeRoomObj.price * ((100 - homestay.data.immersions.tandem.languagesInterested[0].discount) / 100), 2)
-      }
-
-      if (homestay.data.immersions.teacher && homestay.data.immersions.teacher.isActive) {
-        teacherRate = roundTo((activeRoomObj.price + (homestay.data.immersions.teacher.hourly * homestay.data.immersions.teacher.packages[0])), 2)
-      }
-
-      // Convert prices if necessary
-      if (homestay.data.pricing.currency !== uiCurrency) {
-        if (stayRate) stayRate = convertCurrency(currencyRates, homestay.data.pricing.currency, uiCurrency, stayRate)
-        if (tandemRate) tandemRate = convertCurrency(currencyRates, homestay.data.pricing.currency, uiCurrency, tandemRate)
-        if (teacherRate) teacherRate = convertCurrency(currencyRates, homestay.data.pricing.currency, uiCurrency, teacherRate)
-      }
-
-    }
-
+    const rates = generateImmersionPricesForRoom(homestaySearch, homestay, activeRoom, activeRoomObj, uiCurrency, currencyRates)
 
     return (
       <div style={{ marginBottom: -20 }}>
@@ -319,14 +290,14 @@ export default class Homestay extends Component {
                           <Col xs={12} md={8}>
                             <p>
                               <strong>{t('manage_home.pricing_room_rates')}: </strong>
-                              {stayRate &&
-                                <span className='immersion-tag large'>{t('immersions.stay')}: {currencySymbol}{stayRate}</span>
+                              {rates.stayRate &&
+                                <span className='immersion-tag large'>{t('immersions.stay')}: {currencySymbol}{rates.stayRate}</span>
                               }
-                              {tandemRate &&
-                                <span className='immersion-tag large'>{t('immersions.tandem')}: {currencySymbol}{tandemRate}</span>
+                              {rates.tandemRate &&
+                                <span className='immersion-tag large'>{t('immersions.tandem')}: {currencySymbol}{rates.tandemRate}</span>
                               }
-                              {teacherRate &&
-                                <span className='immersion-tag large'>{t('immersions.teachers_stay')}: {currencySymbol}{teacherRate}</span>
+                              {rates.teacherRate &&
+                                <span className='immersion-tag large'>{t('immersions.teachers_stay')}: {currencySymbol}{rates.teacherRate}</span>
                               }
                             </p>
                           </Col>
@@ -467,7 +438,7 @@ export default class Homestay extends Component {
                   <div>
                     <Panel style={styles.panel}>
                       <BookNow
-                        immersionRates={{ stayRate, tandemRate, teacherRate }}
+                        immersionRates={{ stayRate: rates.stayRate, tandemRate: rates.tandemRate, teacherRate: rates.teacherRate }}
                         currencySymbol={currencySymbol}
                         determineCalendarConflict={this.determineCalendarConflict}
                         handleRoomDropdownChange={this.handleRoomDropdownChange}

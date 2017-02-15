@@ -205,7 +205,7 @@ export default class SearchHomestays extends Component {
                 >
                   <div style={styles.extra}>{t('search.price_range')}</div>
                 </OverlayTrigger>
-                <div style={styles.extra} onClick={this.openFiltersPanel}>{t('search.more_filters')}</div>
+                <div style={styles.extra} onClick={this.openFiltersPanel}>{t('search.more_filters')}{search.params.filters.length > 0 && <span>&nbsp;({search.params.filters.length})</span>}</div>
               </div>
             </div>
             <div style={styles.inlineSearchUnit}>

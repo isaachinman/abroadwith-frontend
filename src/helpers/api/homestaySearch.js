@@ -2,6 +2,7 @@
 // This is an older endpoint, originally written by Matheus, and
 // later modifyed by Isaac to fit a new pricing model. It doesn't
 // look pretty, but it's withstood the test of time
+import { applyAbroadwithFee } from 'utils/prices'
 import config from 'config'
 import moment from 'moment'
 import { apiDate } from 'utils/dates'
@@ -374,8 +375,9 @@ var processResults = function(search_response) {
         immersionToUse = 'TE'
       }
 
-      console.log('result itself: ', results[i])
-      console.log(results[i].roomId, 'immersionToUse: ', immersionToUse)
+      if (results[i].roomId === 830) {
+        console.log(results[i])
+      }
 
       // Immersion to use will still be undefined when all three prices are equal to zero
       if (typeof immersionToUse !== 'undefined') {
@@ -402,6 +404,9 @@ var processResults = function(search_response) {
 
     // Add in the correctPriceType simply as "price"
     results[i].price = results[i][correctPriceType]
+
+    // Apply Abroadwith fee
+    results[i].price = applyAbroadwithFee(results[i].price)
 
     // Now strip out all priceTypes from the final
     // JSON returned to the client

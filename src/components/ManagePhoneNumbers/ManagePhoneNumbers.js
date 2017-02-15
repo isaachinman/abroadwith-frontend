@@ -136,13 +136,13 @@ export default class ManagePhoneNumbers extends Component {
       <div>
 
         {user.phoneNumber && user.verifications.phone &&
-          <div style={styles.marginTop10}>
+          <div style={modalOnly ? {} : styles.marginTop}>
             {user.phoneNumber}
           </div>
         }
 
         {!user.verifications.phone &&
-          <div onClick={this.openModal} style={styles.marginTop10}>
+          <div onClick={this.openModal} style={modalOnly ? {} : styles.marginTop}>
             {!modalOnly && <a>{t('common.add_a_phone')}</a>}
             <Modal
               onHide={dismissable ? closeModal || this.closeModal : () => {}}
