@@ -33,6 +33,9 @@ import styles from './UserProfile.styles'
 @translate()
 @Radium
 export default class UserProfile extends Component {
+
+  componentDidMount = () => document.querySelector('body').scrollTop = 0
+
   render() {
 
     const { auth, error, loading, t, user } = this.props

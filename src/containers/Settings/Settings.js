@@ -162,6 +162,7 @@ export default class Settings extends Component {
                     <ManageLanguages
                       addLanguage={this.addLanguage}
                       availableLanguages={availableLanguages}
+                      doNotCenterAlign
                       knownLanguages={knownLanguages}
                       learningLanguages={learningLanguages}
                       removeLanguage={this.removeLanguage}

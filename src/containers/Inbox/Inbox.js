@@ -24,6 +24,7 @@ import styles from './Inbox.styles.js'
 }])
 @connect(
   state => ({
+    user: state.privateData.user,
     messages: state.messaging.allThreads,
   })
 )
@@ -40,7 +41,9 @@ export default class Inbox extends Component {
 
   render() {
 
-    const { t, messages } = this.props
+    const { user, t, messages } = this.props
+    console.log(user)
+    const multiHomeUser = user && user.data && user.data.homeIds && user.data.homeIds.length > 1
 
     return (
       <span>
@@ -62,10 +65,15 @@ export default class Inbox extends Component {
                         return (
                           <LinkContainer to={`/thread/${message.id}`} key={`thread-link-${message.id}`}>
                             <NavItem href='somewhere'>
-                              <img src={`${config.img}${message.with.photo}`} alt={`Other person: ${message.id}`} />
+                              <img src={`${config.img}${message.with.photo || '/users/default.jpg?w=100'}`} alt={`Other person: ${message.id}`} />
                               <div style={styles.sidebarCopy}>
                                 <div style={styles.floatLeft}>
-                                  <div>{t('inbox.conversation_with')} <strong>{message.with.firstName ? message.with.firstName : null}</strong></div>
+                                  <div>
+                                    {t('inbox.conversation_with')} <strong>{message.with.firstName ? message.with.firstName : null}</strong>
+                                    {multiHomeUser &&
+                                      <span>&nbsp;({message.homeId})</span>
+                                    }
+                                  </div>
                                   <div style={styles.sidebarDates}>{uiDate(message.arrival)} {t('common.words.to')} {uiDate(message.departure)}</div>
                                 </div>
                               </div>
@@ -99,5 +107,6 @@ export default class Inbox extends Component {
 
 Inbox.propTypes = {
   messages: PropTypes.array,
+  user: PropTypes.object,
   t: PropTypes.func,
 }

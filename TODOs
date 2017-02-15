@@ -10,8 +10,5 @@
 1. Add "Homestays" link to homestay search page
 2. Add unread count badge to inbox icon
 
-// Thread page
-1. Add user images to sent/received messages
-
 // Before deployment to production
 1. npm shrinkwrap

@@ -67,4 +67,12 @@ export default {
     float: 'left',
     padding: '0 0 20px 10px',
   },
+  smallProfilePicture: {
+    backgroundSize: 'cover',
+    borderRadius: '50%',
+    width: 45,
+    maxWidth: '100%',
+    height: 45,
+    display: 'inline-block',
+  },
 }
