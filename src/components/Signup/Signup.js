@@ -154,22 +154,23 @@ export default class Signup extends Component {
     this.setState({ validatedFields: modifiedValidation })
   }
 
-  signup = (type, data) => {
+  signup = (signupType, data) => {
 
+    const { dispatch, type } = this.props
     const { birthDate, firstName, lastName, email, password } = this.state.validatedFields
     const { referral_user } = this.props.query
 
     // These properties are used regardless of signup type
     let signupObject = {
-      type: this.props.type,
-      feUserType: this.props.type,
+      type,
+      feUserType: type,
       referralUserId: typeof referral_user === 'string' && validator.isInt(referral_user) ? referral_user : null,
       userKnownLanguages: filterLanguageArray(this.state.knownLanguages),
       userLearningLanguages: filterLanguageArray(this.state.learningLanguages),
     }
 
     // Determine authentication type
-    if (type === 'email') {
+    if (signupType === 'email') {
 
       if (Object.values(this.state.validatedFields).some(field => field.uiState !== 'success')) {
         return
@@ -184,7 +185,7 @@ export default class Signup extends Component {
         email: email.value,
       })
 
-    } else if (type === 'facebook' && data.accessToken && data.status !== 'unknown') {
+    } else if (signupType === 'facebook' && data.accessToken && data.status !== 'unknown') {
 
       // Facebook signup object
       signupObject = Object.assign({}, signupObject, {
@@ -196,7 +197,7 @@ export default class Signup extends Component {
         facebookToken: data.accessToken,
       })
 
-    } else if (type === 'google') {
+    } else if (signupType === 'google') {
 
       // Google signup object
       signupObject = Object.assign({}, signupObject, {
@@ -211,10 +212,10 @@ export default class Signup extends Component {
 
     // Unfortunately this token has to be passed separately
     // in the case of Google signups, as we need it for subsequent login
-    const googleToken = type === 'google' ? data.getAuthResponse().id_token : null
+    const googleToken = signupType === 'google' ? data.getAuthResponse().id_token : null
 
     // Dispatch signup action
-    this.props.dispatch(signupActions.signup(type, signupObject, googleToken))
+    dispatch(signupActions.signup(signupType, signupObject, googleToken, () => type === 'HOST' ? dispatch(closeHostSignupModal()) : dispatch(closeStudentSignupModal())))
 
   }
 
@@ -237,8 +238,6 @@ export default class Signup extends Component {
     }
 
     const {
-      jwt,
-      logout,
       t,
       signupStatus,
     } = this.props
@@ -251,8 +250,6 @@ export default class Signup extends Component {
       birthDate,
     } = this.state.validatedFields
 
-    console.log(this)
-
     // To do: refactor to use array.some method; more performant than array.map in this case
     let languagesAreValid = false
     this.state.knownLanguages.map(language => { if (language.level && language.language) { languagesAreValid = true } })
@@ -264,162 +261,145 @@ export default class Signup extends Component {
     return (
       <div style={styles.signupPanel}>
 
-        {!jwt &&
-
-          <span>
-
-            {this.state.page === 1 &&
-              <div>
-                <Row>
-                  <Col xs={12}>
-                    <h2 style={{ color: '#32325D' }}>{t('common.language_modal_hello')}</h2>
-                    <h6 className='text-muted'>{t('common.language_modal_title')}</h6>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs={12} sm={10} smOffset={1}>
-                    <ManageLanguages
-                      addLanguage={this.addLanguage}
-                      availableLanguages={availableLanguages}
-                      knownLanguages={knownLanguages}
-                      learningLanguages={learningLanguages}
-                      removeLanguage={this.removeLanguage}
-                      updateLanguage={this.updateLanguage}
-                      updateLanguageLevel={this.updateLanguageLevel}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs={12}>
-                    {!languagesAreValid &&
-                    <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('common.languages_choose_at_least_one')}</Tooltip>}>
-                      <Button style={styles.nextBtn} className='disabled'>{t('common.next')}</Button>
-                    </OverlayTrigger>
+        {this.state.page === 1 &&
+        <div>
+          <Row>
+            <Col xs={12}>
+              <h2 style={{ color: '#32325D' }}>{t('common.language_modal_hello')}</h2>
+              <h6 className='text-muted'>{t('common.language_modal_title')}</h6>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} sm={10} smOffset={1}>
+              <ManageLanguages
+                addLanguage={this.addLanguage}
+                availableLanguages={availableLanguages}
+                knownLanguages={knownLanguages}
+                learningLanguages={learningLanguages}
+                removeLanguage={this.removeLanguage}
+                updateLanguage={this.updateLanguage}
+                updateLanguageLevel={this.updateLanguageLevel}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              {!languagesAreValid &&
+              <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('common.languages_choose_at_least_one')}</Tooltip>}>
+                <Button style={styles.nextBtn} className='disabled'>{t('common.next')}</Button>
+              </OverlayTrigger>
                       }
-                    {languagesAreValid &&
-                    <Button style={styles.nextBtn} bsStyle='success' onClick={() => this.changePage(2)}>{t('common.next')}</Button>
+              {languagesAreValid &&
+              <Button style={styles.nextBtn} bsStyle='success' onClick={() => this.changePage(2)}>{t('common.next')}</Button>
                       }
-                  </Col>
-                </Row>
-              </div>
+            </Col>
+          </Row>
+        </div>
             }
 
-            {this.state.page === 2 &&
-              <div>
-                <div style={styles.signupMenu}>
-                  <Row>
-                    <Col xs={12}>
-                      <Panel header={<h4>{t('common.sign_up_email')}</h4>} style={{ boxShadow: 'none' }}>
-                        <form onSubmit={event => {
-                          event.preventDefault()
-                          this.signup('email')
-                        }}
-                        >
-                          <FormGroup validationState={firstName.uiState}>
-                            <FormControl
-                              type='text'
-                              style={styles.emailSignupInput}
-                              placeholder={t('common.First_name')}
-                              onChange={event => this.handleNameChange(event, 'first')}
-                            />
-                            <FormControl.Feedback />
-                          </FormGroup>
-                          <FormGroup validationState={lastName.uiState}>
-                            <FormControl
-                              type='text'
-                              style={styles.emailSignupInput}
-                              placeholder={t('common.Last_name')}
-                              onChange={event => this.handleNameChange(event, 'last')}
-                            />
-                            <FormControl.Feedback />
-                          </FormGroup>
-                          <FormGroup validationState={email.uiState}>
-                            <FormControl
-                              type='email'
-                              style={styles.emailSignupInput}
-                              placeholder={t('common.Email')}
-                              onChange={event => this.handleEmailChange(event)}
-                            />
-                            <FormControl.Feedback />
-                          </FormGroup>
-                          <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('common.password_validation_message')}</Tooltip>}>
-                            <FormGroup validationState={password.uiState}>
-                              <FormControl
-                                type='password'
-                                style={styles.emailSignupInput}
-                                placeholder={t('common.Password')}
-                                onChange={event => this.handlePasswordChange(event)}
-                              />
-                              <FormControl.Feedback />
-                            </FormGroup>
-                          </OverlayTrigger>
-                          <FormGroup validationState={birthDate.uiState}>
-                            <FormControl
-                              type='date'
-                              style={styles.emailSignupInput}
-                              placeholder={t('common.birthDate')}
-                              onChange={event => this.handlebirthDateChange(event)}
-                            />
-                            <FormControl.Feedback />
-                          </FormGroup>
-                          <Button
-                            disabled={!emailFormIsValid || signupStatus.loading}
-                            bsStyle='success'
-                            type='submit'
-                          >
-                            {signupStatus.loading ? <span>{t('common.Loading')}</span> : <span>{t('common.Sign_up')}</span>}
-                          </Button>
-                        </form>
-                      </Panel>
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col xs={12}>
-                      <FacebookLogin
-                        appId='144997212531478'
-                        callback={response => this.signup('facebook', response)}
-                        cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-facebook-login'
-                        fields='first_name,last_name,email,birthday'
-                        textButton={t('common.sign_up_facebook')}
-                        icon='fa-facebook-square'
-                      />
-                    </Col>
-                    <Col xs={12}>
-                      <GoogleLogin
-                        onFailure={() => {}}
-                        onSuccess={response => this.signup('google', response)}
-                        clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
-                        className='btn btn-block btn-lg btn-default btn-with-icon btn-google-login'
-                      >
-                        <FontAwesome name='google' /> {t('common.sign_up_google')}
-                      </GoogleLogin>
-                    </Col>
-                  </Row>
-
-
-                </div>
-              </div>
-            }
-
+        {this.state.page === 2 &&
+        <div>
+          <div style={styles.signupMenu}>
             <Row>
-              <Col xs={12} style={styles.logIn} className='text-muted'>
-                {t('common.Already_have_account')} <a onClick={this.handleGoToLogin}>{t('common.Log_in')}</a>
+              <Col xs={12}>
+                <Panel header={<h4>{t('common.sign_up_email')}</h4>} style={{ boxShadow: 'none' }}>
+                  <form onSubmit={event => {
+                    event.preventDefault()
+                    this.signup('email')
+                  }}
+                  >
+                    <FormGroup validationState={firstName.uiState}>
+                      <FormControl
+                        type='text'
+                        style={styles.emailSignupInput}
+                        placeholder={t('common.First_name')}
+                        onChange={event => this.handleNameChange(event, 'first')}
+                      />
+                      <FormControl.Feedback />
+                    </FormGroup>
+                    <FormGroup validationState={lastName.uiState}>
+                      <FormControl
+                        type='text'
+                        style={styles.emailSignupInput}
+                        placeholder={t('common.Last_name')}
+                        onChange={event => this.handleNameChange(event, 'last')}
+                      />
+                      <FormControl.Feedback />
+                    </FormGroup>
+                    <FormGroup validationState={email.uiState}>
+                      <FormControl
+                        type='email'
+                        style={styles.emailSignupInput}
+                        placeholder={t('common.Email')}
+                        onChange={event => this.handleEmailChange(event)}
+                      />
+                      <FormControl.Feedback />
+                    </FormGroup>
+                    <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('common.password_validation_message')}</Tooltip>}>
+                      <FormGroup validationState={password.uiState}>
+                        <FormControl
+                          type='password'
+                          style={styles.emailSignupInput}
+                          placeholder={t('common.Password')}
+                          onChange={event => this.handlePasswordChange(event)}
+                        />
+                        <FormControl.Feedback />
+                      </FormGroup>
+                    </OverlayTrigger>
+                    <FormGroup validationState={birthDate.uiState}>
+                      <FormControl
+                        type='date'
+                        style={styles.emailSignupInput}
+                        placeholder={t('common.birthDate')}
+                        onChange={event => this.handlebirthDateChange(event)}
+                      />
+                      <FormControl.Feedback />
+                    </FormGroup>
+                    <Button
+                      disabled={!emailFormIsValid || signupStatus.loading}
+                      bsStyle='success'
+                      type='submit'
+                    >
+                      {signupStatus.loading ? <span>{t('common.Loading')}</span> : <span>{t('common.Sign_up')}</span>}
+                    </Button>
+                  </form>
+                </Panel>
               </Col>
             </Row>
 
-          </span>
-        }
+            <Row>
+              <Col xs={12}>
+                <FacebookLogin
+                  appId='144997212531478'
+                  callback={response => this.signup('facebook', response)}
+                  cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-facebook-login'
+                  fields='first_name,last_name,email,birthday'
+                  textButton={t('common.sign_up_facebook')}
+                  icon='fa-facebook-square'
+                />
+              </Col>
+              <Col xs={12}>
+                <GoogleLogin
+                  onFailure={() => {}}
+                  onSuccess={response => this.signup('google', response)}
+                  clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
+                  className='btn btn-block btn-lg btn-default btn-with-icon btn-google-login'
+                >
+                  <FontAwesome name='google' /> {t('common.sign_up_google')}
+                </GoogleLogin>
+              </Col>
+            </Row>
 
-        {jwt &&
-          <div>
-            <p>You are currently logged in as {jwt.name}.</p>
 
-            <div>
-              <button className='btn btn-danger' onClick={logout}><i className='fa fa-sign-out' />{' '}Log Out</button>
-            </div>
           </div>
-        }
+        </div>
+            }
+
+        <Row>
+          <Col xs={12} style={styles.logIn} className='text-muted'>
+            {t('common.Already_have_account')} <a onClick={this.handleGoToLogin}>{t('common.Log_in')}</a>
+          </Col>
+        </Row>
 
       </div>
     )

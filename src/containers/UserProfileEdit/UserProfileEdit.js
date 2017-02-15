@@ -278,7 +278,7 @@ export default class UserProfileEdit extends Component {
                         placeholder={t('users.edit_details_visited_placeholder')}
                         options={Object.entries(i18n.store.data[uiLanguage].translation.countries).map(([id, label]) => ({ id, label }))}
                         onChange={value => this.handleValueChange('countriesVisited', value)}
-                        defaultSelected={hasVisited.map(country => ({ id: country, label: t(`countries.${country}`) }))}
+                        defaultSelected={hasVisited ? hasVisited.map(country => ({ id: country, label: t(`countries.${country}`) })) : []}
                       />
                     </Col>
                   </Row>
@@ -291,7 +291,7 @@ export default class UserProfileEdit extends Component {
                         placeholder={t('users.edit_details_lived_placeholder')}
                         options={Object.entries(i18n.store.data[uiLanguage].translation.countries).map(([id, label]) => ({ id, label }))}
                         onChange={value => this.handleValueChange('countriesLived', value)}
-                        defaultSelected={hasLived.map(country => ({ id: country, label: t(`countries.${country}`) }))}
+                        defaultSelected={hasLived ? hasLived.map(country => ({ id: country, label: t(`countries.${country}`) })) : []}
                       />
                     </Col>
                   </Row>
