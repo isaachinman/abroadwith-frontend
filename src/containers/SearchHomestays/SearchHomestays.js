@@ -81,8 +81,6 @@ export default class SearchHomestays extends Component {
         this.setState({ initialSearchPerformed: true })
 
       }
-
-
     }
   }
 
@@ -214,7 +212,7 @@ export default class SearchHomestays extends Component {
               <InlineSearchUnit integrated />
             </div>
           </div>
-          <div style={styles.resultScrollList}>
+          <div style={styles.resultScrollList} id='homestay-search-result-list'>
             <FiltersPanel
               handleClose={this.closeFiltersPanel}
               open={filtersPanelOpen}
