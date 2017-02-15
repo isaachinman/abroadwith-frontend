@@ -374,23 +374,29 @@ var processResults = function(search_response) {
         immersionToUse = 'TE'
       }
 
+      console.log('result itself: ', results[i])
       console.log(results[i].roomId, 'immersionToUse: ', immersionToUse)
-      correctPriceType = priceSchema[immersionToUse].regular
 
-      // Now just run back down that time discount tree
-      if (priceTypes.indexOf(priceSchema[immersionToUse].sixMonth) > -1 && results[i][priceSchema[immersionToUse].sixMonth] > 0) {
-        correctPriceType = priceSchema[immersionToUse].sixMonth
-      } else if (priceTypes.indexOf(priceSchema[immersions[0]].threeMonth) > -1 && results[i][priceSchema[immersionToUse].threeMonth] > 0) {
-        correctPriceType = priceSchema[immersionToUse].threeMonth
-      } else if (priceTypes.indexOf(priceSchema[immersions[0]].oneMonth) > -1 && results[i][priceSchema[immersionToUse].oneMonth] > 0) {
-        correctPriceType = priceSchema[immersionToUse].oneMonth
-      } else if (priceTypes.indexOf(priceSchema[immersions[0]].regular) > -1 && results[i][priceSchema[immersionToUse].regular] > 0) {
+      // Immersion to use will still be undefined when all three prices are equal to zero
+      if (typeof immersionToUse !== 'undefined') {
+
         correctPriceType = priceSchema[immersionToUse].regular
-      }
 
-      console.log('correctPriceType: ', correctPriceType)
-      console.log('the price itself: ', results[i][correctPriceType])
-      console.log('full result: ', results[i])
+        // Now just run back down that time discount tree
+        if (priceTypes.indexOf(priceSchema[immersionToUse].sixMonth) > -1 && results[i][priceSchema[immersionToUse].sixMonth] > 0) {
+          correctPriceType = priceSchema[immersionToUse].sixMonth
+        } else if (priceTypes.indexOf(priceSchema[immersions[0]].threeMonth) > -1 && results[i][priceSchema[immersionToUse].threeMonth] > 0) {
+          correctPriceType = priceSchema[immersionToUse].threeMonth
+        } else if (priceTypes.indexOf(priceSchema[immersions[0]].oneMonth) > -1 && results[i][priceSchema[immersionToUse].oneMonth] > 0) {
+          correctPriceType = priceSchema[immersionToUse].oneMonth
+        } else if (priceTypes.indexOf(priceSchema[immersions[0]].regular) > -1 && results[i][priceSchema[immersionToUse].regular] > 0) {
+          correctPriceType = priceSchema[immersionToUse].regular
+        }
+      } else {
+
+        correctPriceType = priceSchema.SI.regular
+
+      }
 
     }
 
