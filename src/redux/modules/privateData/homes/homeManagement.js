@@ -1,10 +1,12 @@
 import jwtDecode from 'jwt-decode'
 import config from 'config'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import superagent from 'superagent'
 import { push } from 'react-router-redux'
 import { openVerifyEmailModal } from 'redux/modules/ui/modals'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { load as loadHomeWithAuth } from './loadHomeWithAuth'
+
 
 // Create homestay
 const CREATE_HOMESTAY = 'abroadwith/CREATE_HOMESTAY'
@@ -34,6 +36,7 @@ const DELETE_HOMESTAY_FAIL = 'abroadwith/DELETE_HOMESTAY_FAIL'
 export function createHomestay(jwt, redirectToManageHome) {
   return async dispatch => {
 
+    dispatch(showLoading())
     dispatch({ type: CREATE_HOMESTAY })
 
     try {
@@ -49,11 +52,13 @@ export function createHomestay(jwt, redirectToManageHome) {
             if (err) {
 
               dispatch({ type: CREATE_HOMESTAY_FAIL, err })
+              dispatch(hideLoading())
 
             } else {
 
               // Request was successful
               dispatch({ type: CREATE_HOMESTAY_SUCCESS })
+              dispatch(hideLoading())
               if (redirectToManageHome) {
                 dispatch(loadUserWithAuth(jwt, () => dispatch(push('/manage-home'))))
               }
@@ -64,6 +69,7 @@ export function createHomestay(jwt, redirectToManageHome) {
         } else {
           dispatch({ type: CREATE_HOMESTAY_FAIL, err: 'Email not verified' })
           dispatch(openVerifyEmailModal('CREATE_HOMESTAY'))
+          dispatch(hideLoading())
         }
 
 
@@ -71,6 +77,7 @@ export function createHomestay(jwt, redirectToManageHome) {
 
     } catch (err) {
       dispatch({ type: CREATE_HOMESTAY_FAIL, err })
+      dispatch(hideLoading())
     }
   }
 }
