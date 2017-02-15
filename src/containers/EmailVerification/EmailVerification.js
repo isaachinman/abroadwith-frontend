@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
+import { createHomestay } from 'redux/modules/privateData/homes/homeManagement'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import { Alert, Button, Col, Grid, Panel, Row } from 'react-bootstrap'
@@ -106,19 +107,29 @@ export default class EmailVerification extends Component {
                 </Alert>
               }
               {whatToRender === 'EmailVerificationSuccessStudent' &&
-                <div>thing</div>
+                <Alert bsStyle='success'>
+                  <h5>{t('common.email_verification_succeeded')}</h5>
+                  <p>
+                    {t('common.email_verified_success_student')}
+                  </p>
+                  <div style={styles.btnBottom}>
+                    <Link to={`/user/${this.props.jwt.rid}`}>
+                      <Button bsStyle='primary'>{t('common.navbar_profile')}</Button>
+                    </Link>
+                  </div>
+                </Alert>
               }
-              <Alert bsStyle='success'>
-                <h5>{t('common.email_verification_succeeded')}</h5>
-                <p>
-                  {t('common.email_verified_success_student')}
-                </p>
-                <div style={styles.btnBottom}>
-                  <Link to={`/user/${this.props.jwt.rid}`}>
-                    <Button bsStyle='primary'>{t('common.navbar_profile')}</Button>
-                  </Link>
-                </div>
-              </Alert>
+              {whatToRender === 'EmailVerificationSuccessHost' &&
+                <Alert bsStyle='success'>
+                  <h5>{t('common.email_verification_succeeded')}</h5>
+                  <p>
+                    {t('common.email_verified_success_host')}
+                  </p>
+                  <div style={styles.btnBottom}>
+                    <Button onClick={() => this.props.dispatch(createHomestay(this.props.token, true))} bsStyle='primary'>{t('common.navbar_become_host')}</Button>
+                  </div>
+                </Alert>
+              }
             </Panel>
           </SpinLoader>
         </Grid>
