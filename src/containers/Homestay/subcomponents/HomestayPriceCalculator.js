@@ -4,7 +4,6 @@ import { calculateHomestayPrice } from 'redux/modules/ui/search/homestaySearch'
 import { connect } from 'react-redux'
 import Currencies from 'data/constants/Currencies'
 import equal from 'deep-is'
-import { SpinLoader } from 'components'
 
 @connect(
   (state, ownProps) => ({
@@ -60,14 +59,15 @@ export default class HomestayPriceCalculator extends Component {
     const { homestaySearch, uiCurrency } = this.props
 
     return (
-      <SpinLoader show={homestaySearch.price.loading}>
-        <div onClick={this.calculatePrice}>
-          {homestaySearch.price.loaded &&
-            <span>{Currencies[uiCurrency]}{homestaySearch.price.data}*</span>
-          }
-        </div>
-      </SpinLoader>
-
+      <div>
+        {!homestaySearch.price.loading &&
+          <div>
+            {homestaySearch.price.loaded &&
+              <span>{Currencies[uiCurrency]}{homestaySearch.price.data}*</span>
+            }
+          </div>
+        }
+      </div>
     )
   }
 }
