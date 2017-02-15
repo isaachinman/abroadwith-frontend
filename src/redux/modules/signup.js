@@ -38,7 +38,10 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function signup(type, signupObject, googleToken) {
+export function signup(type, signupObject, googleToken, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
+
   return async dispatch => {
 
     dispatch({ type: SIGNUP })
@@ -59,6 +62,7 @@ export function signup(type, signupObject, googleToken) {
 
           // Signup was success
           dispatch({ type: SIGNUP_SUCCESS })
+          cb()
 
           // Log the user in
           if (type === 'email') {

@@ -39,7 +39,7 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
-        "PORT": 3002,
+        "PORT": 3000,
         "IMG": "S3",
         "SOLR": "DEV",
         "APIHOST": "https://api.test-abroadwith.com",
@@ -152,6 +152,7 @@
     "react-sortable-hoc": "^0.4.5",
     "react-sticky": "^5.0.5",
     "react-telephone-input": "^3.8.6",
+    "react-text-truncate": "^0.8.3",
     "reactable": "^0.14.1",
     "redux": "^3.5.2",
     "redux-connect": "^4.0.2",
