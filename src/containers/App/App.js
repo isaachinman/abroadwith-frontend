@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { deletePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import { Footer, LoadingBar, Navbar } from 'components'
+import { geolocateViaBrowser } from 'utils/locations'
 import { isLoaded as isAuthLoaded, logout } from 'redux/modules/auth'
 import { push } from 'react-router-redux'
 import { StyleRoot } from 'radium'
@@ -102,6 +103,20 @@ export default class App extends Component {
 
       // Logout just happened
       this.props.pushState('/')
+
+    }
+
+    // Private user object was just fetched
+    if (!this.props.user.loaded && nextProps.user.loaded) {
+
+      const { dispatch, token, user } = this.props
+
+      // If the user doesn't have a home country, geolocate them by IP
+      if (!user.data.address || !user.data.address.country) {
+
+        console.log('GEOLOCATION: ', geolocateViaBrowser(dispatch, token, user.data))
+
+      }
 
     }
 
