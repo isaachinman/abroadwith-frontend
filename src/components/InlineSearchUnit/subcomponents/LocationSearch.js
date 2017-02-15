@@ -21,15 +21,12 @@ export default class LocationSearch extends Component {
   }
 
   componentWillUnmount() {
-    console.log('location search unmounting')
     if (typeof this.searchBox.removeListener === 'function') {
-      console.log('removing event listener')
       this.searchBox.removeListener('places_changed', this.onPlacesChanged)
     }
   }
 
   onPlacesChanged = emptyOverride => {
-    console.log('places change called')
     this.props.handleValueChange('location', emptyOverride ? null : this.searchBox.getPlaces()[0])
   }
 

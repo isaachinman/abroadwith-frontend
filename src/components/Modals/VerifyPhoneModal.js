@@ -53,8 +53,6 @@ export default class VerifyPhoneModal extends Component {
       }
     }
 
-    console.log(this)
-
     return (
       <span>
         <Modal show={verifyPhoneModal.open && !verifyProcessStarted} bsSize='small'>
