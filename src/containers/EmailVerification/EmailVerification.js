@@ -2,8 +2,9 @@
 import React, { Component, PropTypes } from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import { translate } from 'react-i18next'
-import { Alert, Col, Grid, Panel, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Grid, Panel, Row } from 'react-bootstrap'
 import { verifyEmail } from 'redux/modules/privateData/users/verifications'
 import FontAwesome from 'react-fontawesome'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
@@ -15,7 +16,7 @@ import styles from './EmailVerification.styles'
 
 @connect(state => ({
   jwt: state.auth.jwt,
-  user: state.privateData.user.data,
+  user: state.privateData.user.data ? state.privateData.user.data : null,
   token: state.auth.token,
   verifications: state.verifications,
 }))
@@ -44,12 +45,28 @@ export default class EmailVerification extends Component {
 
   }
 
+  componentWillReceiveProps = nextProps => {
+
+    const { user, verifications } = this.props
+    if (!verifications.email.loaded && nextProps.verifications.email.loaded && !nextProps.verifications.email.error) {
+      if (!user || !user.data) {
+        this.setState({ whatToRender: 'EmailVerificationSuccessGeneral' })
+      } else {
+        this.setState({ whatToRender: `EmailVerificationSuccess${user.data.feUserType === 'HOST' ? 'Host' : 'Student'}` })
+      }
+    }
+
+  }
+
   componentDidUpdate = () => {
+
     const { whatToRender } = this.state
     const { verifications } = this.props
+
     if (verifications.email.error && whatToRender !== 'EmailVerificationFailure') {
       this.setState({ whatToRender: 'EmailVerificationFailure' })
     }
+
   }
 
   render() {
@@ -75,6 +92,33 @@ export default class EmailVerification extends Component {
                   {t('common.email_verification_failed')} <FontAwesome name='times' />
                 </Alert>
               }
+              {whatToRender === 'EmailVerificationSuccessGeneral' &&
+                <Alert bsStyle='success'>
+                  <h5>{t('common.email_verification_succeeded')}</h5>
+                  <p>
+                    {t('common.email_verified_success_paragraph1')}
+                  </p>
+                  <div style={styles.btnBottom}>
+                    <Link to={`/user/${this.props.jwt.rid}`}>
+                      <Button bsStyle='primary'>{t('common.navbar_profile')}</Button>
+                    </Link>
+                  </div>
+                </Alert>
+              }
+              {whatToRender === 'EmailVerificationSuccessStudent' &&
+                <div>thing</div>
+              }
+              <Alert bsStyle='success'>
+                <h5>{t('common.email_verification_succeeded')}</h5>
+                <p>
+                  {t('common.email_verified_success_student')}
+                </p>
+                <div style={styles.btnBottom}>
+                  <Link to={`/user/${this.props.jwt.rid}`}>
+                    <Button bsStyle='primary'>{t('common.navbar_profile')}</Button>
+                  </Link>
+                </div>
+              </Alert>
             </Panel>
           </SpinLoader>
         </Grid>
@@ -87,6 +131,7 @@ EmailVerification.propTypes = {
   dispatch: PropTypes.func,
   location: PropTypes.object,
   user: PropTypes.object,
+  jwt: PropTypes.object,
   t: PropTypes.func,
   token: PropTypes.string,
   verifications: PropTypes.object,
