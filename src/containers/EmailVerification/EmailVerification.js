@@ -39,7 +39,7 @@ export default class EmailVerification extends Component {
     } else {
 
       // If they haven't, POST the verification data
-      dispatch(verifyEmail(token, location.query.secret, location.query.key))
+      setTimeout(() => dispatch(verifyEmail(token, location.query.secret, location.query.key)), 2000)
 
     }
 
