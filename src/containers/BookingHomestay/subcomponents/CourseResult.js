@@ -21,10 +21,16 @@ const styles = {
     transition: 'opacity .2s',
   },
   educatorImage: {
-    marginLeft: -15,
-    width: 'calc(100% + 15px)',
+    width: '100%',
     minHeight: 178, // Account for border top and bottom of 1px each
     backgroundSize: 'cover',
+  },
+  imageCol: {
+    paddingLeft: 0,
+    transition: 'width .35s',
+  },
+  widthTransition: {
+    transition: 'width .35s',
   },
   resultDetails: {
     padding: '15px 0',
@@ -68,6 +74,7 @@ export default class CourseResult extends Component {
 
   state = {
     expanded: false,
+    localAnimationInProgress: false,
   }
 
   componentWillUpdate = nextProps => {
@@ -91,11 +98,14 @@ export default class CourseResult extends Component {
 
   removeCourse = () => this.props.dispatch(removeUpsellCourseBooking())
 
-  toggleExpanded = () => this.setState({ expanded: !this.state.expanded })
+  toggleExpanded = () => {
+    this.setState({ localAnimationInProgress: true, expanded: !this.state.expanded })
+    setTimeout(() => this.setState({ localAnimationInProgress: false }), 350)
+  }
 
   render() {
 
-    const { expanded } = this.state
+    const { expanded, localAnimationInProgress } = this.state
     const { result, potentialBookingHelpers, t } = this.props
 
     const aResultIsAdded = potentialBookingHelpers.upsellCourseBooking.courseId
@@ -115,10 +125,10 @@ export default class CourseResult extends Component {
 
     return (
       <Row style={resultStyles}>
-        <Col xs={12} md={4}>
+        <Col xs={12} md={4} style={expanded ? Object.assign({}, styles.imageCol, { width: 0, height: 0 }) : styles.imageCol}>
           <div style={Object.assign({}, styles.educatorImage, { backgroundImage: `url(${config.img}${result.educatorImage || '/app/courses/default_course.jpg'})` })} />
         </Col>
-        <Col xs={12} md={8}>
+        <Col xs={12} md={expanded ? 12 : 8} style={styles.widthTransition}>
           <div style={styles.resultDetails}>
             <Row>
               <Col xs={12} sm={8}>
@@ -136,11 +146,13 @@ export default class CourseResult extends Component {
                   </div>
                   :
                   <div style={styles.truncatedDescription}>
-                    <TextTruncate
-                      ref={node => this.truncator = node}
-                      line={2}
-                      text={result.shortDescription}
-                    />
+                    <Collapse in={!localAnimationInProgress}>
+                      <TextTruncate
+                        ref={node => this.truncator = node}
+                        line={2}
+                        text={result.shortDescription}
+                      />
+                    </Collapse>
                   </div>
                 }
               </Col>
