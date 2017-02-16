@@ -39,7 +39,7 @@ export default (app) => {
 
           console.log('combinedUnavailabilities: ', combinedUnavailabilities)
           roomCalendar.unavailabilities = combinedUnavailabilities.map(timespan => {
-            const parsedDates = ((timespan.replace(/[\[\]']/g, '')).split(' TO '))
+            const parsedDates = ((timespan.replace(/[[\]']/g, '')).split(' TO '))
             return {
               start: parsedDates[0],
               end: parsedDates[1],

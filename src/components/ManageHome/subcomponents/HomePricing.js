@@ -213,7 +213,7 @@ export default class HomePricing extends Component {
                           </FormGroup>
                         </div>
                       </ListGroupItem>
-                  )
+                    )
                   })}
                 </ListGroup>
               </Col>

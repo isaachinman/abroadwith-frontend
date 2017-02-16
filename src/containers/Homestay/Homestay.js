@@ -401,7 +401,8 @@ export default class Homestay extends Component {
                         <p>
                           {homestay.data.pricing.extras.map(extra => {
                             return (
-                              <span key={`home-extra-cost-${extra.service}`}>{t(`homes.services.${extra.service}`)}&nbsp;({currencySymbol}{extra.cost}){homestay.data.pricing.extras.indexOf(extra) !== homestay.data.pricing.extras.length - 1 ? <span>,&nbsp;</span> : null}</span>) }
+                              <span key={`home-extra-cost-${extra.service}`}>{t(`homes.services.${extra.service}`)}&nbsp;({currencySymbol}{extra.cost}){homestay.data.pricing.extras.indexOf(extra) !== homestay.data.pricing.extras.length - 1 ? <span>,&nbsp;</span> : null}</span>)
+                          }
                             )
                           }
                         </p>

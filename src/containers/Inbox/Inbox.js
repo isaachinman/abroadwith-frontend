@@ -79,7 +79,7 @@ export default class Inbox extends Component {
                               </div>
                             </NavItem>
                           </LinkContainer>
-                          )
+                        )
                       })}
                     </Nav>
                   </Panel>

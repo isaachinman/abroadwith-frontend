@@ -326,7 +326,7 @@ export default class BookingHomestay extends Component {
                                                 {homestay.data.immersions.tandem.languagesInterested.map(lang => {
                                                   return (
                                                     <option key={`tandem=${lang.lang}`} value={lang.lang}>{t(`languages.${lang.lang}`)}</option>
-                                                      )
+                                                  )
                                                 })}
                                               </Select>
                                             </FormGroup>

@@ -67,7 +67,7 @@ export default class HomeBasics extends Component {
                 {HomeData.homeTypes.map(homeType => {
                   return (
                     <option value={homeType} key={homeType}>{t(`homes.home_types.${homeType}`)}</option>
-                )
+                  )
                 })}
               </FormControl>
             </Col>

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { IndexLink } from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Login, Logo, Signup } from 'components'
-import { Modal, Navbar as BootstrapNavbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Badge, Modal, Navbar as BootstrapNavbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { logout } from 'redux/modules/auth'
 import FontAwesome from 'react-fontawesome'
 import Radium from 'radium'
@@ -17,6 +17,7 @@ import styles from './Navbar.styles'
 
 @connect(state => ({
   jwt: state.auth.jwt,
+  unreadMessageCount: state.unreadMessageCount,
   token: state.auth.token,
   modals: state.ui.modals,
 }))
@@ -30,7 +31,7 @@ export default class Navbar extends Component {
 
   render() {
 
-    const { dispatch, jwt, modals, user, t, token } = this.props
+    const { dispatch, jwt, modals, unreadMessageCount, user, t, token } = this.props
 
     const hostUI = jwt && user && user.data && user.data.homeIds.length > 0
     const guestUI = jwt ? !hostUI : false
@@ -85,6 +86,9 @@ export default class Navbar extends Component {
                   <LinkContainer to='/inbox'>
                     <NavItem>
                       <FontAwesome name='envelope-o' />
+                      {unreadMessageCount.loaded && unreadMessageCount.unreadCount.count > 0 &&
+                        <Badge style={styles.unreadCountBadge}>{unreadMessageCount.unreadCount.count}</Badge>
+                      }
                     </NavItem>
                   </LinkContainer>
                   <NavDropdown title={user.loaded ? user.data.firstName : jwt.name} id='nav-dropdown'>
@@ -209,6 +213,7 @@ Navbar.propTypes = {
   logout: PropTypes.func,
   dispatch: PropTypes.func,
   modals: PropTypes.object,
+  unreadMessageCount: PropTypes.object,
   user: PropTypes.object,
   t: PropTypes.func,
 }
