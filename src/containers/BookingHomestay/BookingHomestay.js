@@ -1,5 +1,6 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import { asyncConnect } from 'redux-connect'
 import { calculateHomestayPriceWithinBooking, updatePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
@@ -7,6 +8,7 @@ import { connect } from 'react-redux'
 import { Col, Collapse, ControlLabel, Fade, FormGroup, Grid, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import HomeData from 'data/constants/HomeData'
+import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/homes/loadHome'
 import moment from 'moment'
 import Steps from 'antd/lib/steps'
 import Radium from 'radium'
@@ -22,7 +24,15 @@ import { translate } from 'react-i18next'
 import styles from './BookingHomestay.styles'
 import UpsellCourseSearch from './subcomponents/UpsellCourseSearch'
 
+@asyncConnect([{
+  promise: ({ store: { dispatch, getState } }) => {
 
+    const state = getState()
+    const homeID = state.bookings.homestayBookings.potentialBookingHelpers.homeID
+    return !isLoaded(state, homeID) ? dispatch(loadHomestay(homeID)) : null
+
+  },
+}])
 @connect(
   state => ({
     upsellSearch: state.uiPersist.courseSearch.upsellSearch,
@@ -138,7 +148,7 @@ export default class BookingHomestay extends Component {
     const { user, upsellSearch, homestays, t, token, potentialBooking, potentialBookingHelpers } = this.props
 
     const currencySymbol = Currencies[potentialBooking.currency]
-    const homestay = homestays[potentialBookingHelpers.homeID]
+    const homestay = homestays[potentialBookingHelpers.homeID] ? homestays[potentialBookingHelpers.homeID] : {}
     const room = homestay.data.rooms.filter(r => r.id === potentialBooking.roomId)[0]
 
     console.log('room: ', room)
