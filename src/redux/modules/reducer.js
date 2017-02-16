@@ -24,6 +24,7 @@ import modals from './ui/modals'
 import receipts from './privateData/receipts/receipts'
 import reviews from './privateData/reviews/reviews'
 import signupStatus from './signup'
+import unreadMessageCount from './privateData/messaging/getUnreadMessageCount'
 import verifications from './privateData/users/verifications'
 
 export default combineReducers({
@@ -34,6 +35,7 @@ export default combineReducers({
   contactUs,
   loadingBar: loadingBarReducer,
   messaging,
+  unreadMessageCount,
   routing: routerReducer,
   reduxAsyncConnect,
   privateData: combineReducers({

@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { deletePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import { Footer, LoadingBar, Navbar } from 'components'
+import { getUnreadMessageCount } from 'redux/modules/privateData/messaging/getUnreadMessageCount'
 import { geolocateViaBrowser } from 'utils/locations'
 import { isLoaded as isAuthLoaded, logout } from 'redux/modules/auth'
 import { push } from 'react-router-redux'
@@ -48,6 +49,7 @@ notification.config({ top: 100 })
     jwt: state.auth.jwt,
     token: state.auth.token,
     user: state.privateData.user,
+    unreadMessageCount: state.unreadMessageCount,
     homes: state.privateData.homes,
     routing: state.routing.locationBeforeTransitions,
     locale: state.ui.locale,
@@ -109,7 +111,7 @@ export default class App extends Component {
     // Private user object was just fetched
     if (!this.props.user.loaded && nextProps.user.loaded) {
 
-      const { dispatch, token, user } = this.props
+      const { dispatch, token, user } = nextProps
 
       // If the user doesn't have a home country, geolocate them by IP
       if (!user.data.address || !user.data.address.country) {
@@ -129,6 +131,11 @@ export default class App extends Component {
     // Load user if necessary (sometimes happens in weird edge cases)
     if (token && !user.loaded && !user.loading && !user.error) {
       dispatch(loadUserWithAuth(token))
+    }
+
+    // Get unread message count
+    if (token && !this.props.unreadMessageCount.loaded && !this.props.unreadMessageCount.loading) {
+      this.props.dispatch(getUnreadMessageCount(token))
     }
 
     // Remind user about potential bookings
@@ -236,6 +243,7 @@ App.propTypes = {
   route: PropTypes.object,
   router: PropTypes.object,
   routing: PropTypes.object,
+  unreadMessageCount: PropTypes.object,
   t: PropTypes.func,
   token: PropTypes.string,
 }

@@ -39,8 +39,8 @@ export default class UserProfile extends Component {
   render() {
 
     const { auth, error, loading, t, user } = this.props
-    const hasLived = user && user.hasLived ? ((user.hasLived.replace(/['"]+/g, '')).replace(/[\[\]']/g, '')).split(',') : null
-    const hasVisited = user && user.hasVisited ? ((user.hasVisited.replace(/['"]+/g, '')).replace(/[\[\]']/g, '')).split(',') : null
+    const hasLived = user && user.hasLived ? ((user.hasLived.replace(/['"]+/g, '')).replace(/[[\]']/g, '')).split(',') : null
+    const hasVisited = user && user.hasVisited ? ((user.hasVisited.replace(/['"]+/g, '')).replace(/[[\]']/g, '')).split(',') : null
 
     console.log(this)
 

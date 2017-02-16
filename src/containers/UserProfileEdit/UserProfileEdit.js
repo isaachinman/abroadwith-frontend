@@ -98,8 +98,8 @@ export default class UserProfileEdit extends Component {
 
     const { uiLanguage, user, t } = this.props
 
-    const hasVisited = user && user.data && user.data.countriesVisited ? ((user.data.countriesVisited.replace(/['"]+/g, '')).replace(/[\[\]']/g, '')).split(',') : null
-    const hasLived = user && user.data && user.data.countriesLived ? ((user.data.countriesLived.replace(/['"]+/g, '')).replace(/[\[\]']/g, '')).split(',') : null
+    const hasVisited = user && user.data && user.data.countriesVisited ? ((user.data.countriesVisited.replace(/['"]+/g, '')).replace(/[[\]']/g, '')).split(',') : null
+    const hasLived = user && user.data && user.data.countriesLived ? ((user.data.countriesLived.replace(/['"]+/g, '')).replace(/[[\]']/g, '')).split(',') : null
 
     console.log(this)
 

@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Button, Col, Grid, Form, FormControl, Panel, Row } from 'react-bootstrap'
+import { getUnreadMessageCount } from 'redux/modules/privateData/messaging/getUnreadMessageCount'
 import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
 import { loadMessages, loadMessageThread, sendMessage } from 'redux/modules/privateData/messaging/messaging'
@@ -47,6 +48,10 @@ export default class Thread extends Component {
       dispatch(loadMessageThread(token, thread.id, { data: [] }, 10))
 
     }
+
+    // Always refresh unread message count
+    dispatch(getUnreadMessageCount(token))
+
   }
 
   componentWillReceiveProps = nextProps => {

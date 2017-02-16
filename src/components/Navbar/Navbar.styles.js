@@ -20,4 +20,10 @@ export default {
       display: 'none',
     },
   },
+  unreadCountBadge: {
+    position: 'absolute',
+    top: 24,
+    right: 0,
+    fontSize: 8,
+  },
 }

@@ -6,9 +6,5 @@
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
 
-// Navbar
-1. Add "Homestays" link to homestay search page
-2. Add unread count badge to inbox icon
-
 // Before deployment to production
 1. npm shrinkwrap
