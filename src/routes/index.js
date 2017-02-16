@@ -74,8 +74,10 @@ export default (store) => {
   const requirePotentialHomestayBooking = (nextState, replace) => {
 
     if (!store.getState().bookings.homestayBookings.potentialBooking.stayId) {
+
       // User doesn't have a potential homestay booking
       replace('/')
+
     }
 
   }

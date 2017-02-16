@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { formatTimeOfDay } from 'utils/times'
 import Rate from 'antd/lib/rate'
 import roundTo from 'round-to'
-import { sortByDayOfWeek } from 'utils/dates'
+import { sortByDayOfWeek, uiDate } from 'utils/dates'
 import { translate } from 'react-i18next'
 import TextTruncate from 'react-text-truncate'
 
@@ -85,7 +85,7 @@ export default class CourseResult extends Component {
     }
 
     // If a result is chosen and additional info is expanded, close it
-    if (nextProps.potentialBookingHelpers.upsellCourseBooking.courseId && this.state.expanded) {
+    if (nextProps.potentialBookingHelpers.upsellCourseBooking.courseId && nextProps.potentialBookingHelpers.upsellCourseBooking.courseId !== this.props.result.courseId && this.state.expanded) {
       this.setState({ expanded: false })
     }
 
@@ -182,9 +182,26 @@ export default class CourseResult extends Component {
                     <Tab eventKey={2} title={t('booking.reviews')} style={styles.courseTabContent}>
                       Reviews
                     </Tab>
-                    <Tab eventKey={3} title={t('booking.school_closures')} style={styles.courseTabContent}>
-                      School closures
-                    </Tab>
+                    {result.schoolClosures && result.schoolClosures.length > 0 &&
+                      <Tab eventKey={3} title={t('booking.school_closures')} style={styles.courseTabContent}>
+                        <Table striped bordered condensed hover>
+                          <thead>
+                            <tr>
+                              <th>{t('booking.school_closures')}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {result.schoolClosures.map(closure => {
+                              return (
+                                <tr key={`closure-${closure.startDate}`}>
+                                  <td>{uiDate(closure.startDate)} {t('common.words.to')} {uiDate(closure.endDate)}</td>
+                                </tr>
+                              )
+                            })}
+                          </tbody>
+                        </Table>
+                      </Tab>
+                    }
                   </Tabs>
                 </Col>
               </Collapse>
