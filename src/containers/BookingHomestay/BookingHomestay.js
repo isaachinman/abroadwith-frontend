@@ -13,6 +13,7 @@ import Radium from 'radium'
 import { performCourseUpsellSearch } from 'redux/modules/ui/search/courseSearch'
 import PaymentMethods from 'components/PaymentMethods/PaymentMethods'
 import { SimpleSelect as Select, MultiSelect } from 'react-selectize'
+import { StickyContainer, Sticky } from 'react-sticky'
 import { SpinLoader } from 'components'
 import { uiDate } from 'utils/dates'
 import { translate } from 'react-i18next'
@@ -38,6 +39,7 @@ import UpsellCourseSearch from './subcomponents/UpsellCourseSearch'
 export default class BookingHomestay extends Component {
 
   state = {
+    animationInProgress: false,
     activeStep: this.props.potentialBookingHelpers.completionStep,
     upsellSearchInitialised: false,
   }
@@ -199,121 +201,122 @@ export default class BookingHomestay extends Component {
                   </Row>
                   <Row>
                     <Col xs={12}>
-                      <Well bsSize='large' style={styles.well}>
-                        <Row>
-                          <Col xs={12} md={showFullSummary ? 7 : 8} lg={showFullSummary ? 8 : 9} style={styles.widthTransition}>
-                            <Tab.Container id='homestay-booking-flow' activeKey={activeStep} onSelect={() => {}}>
-                              <Tab.Content>
+                      <StickyContainer>
+                        <Well bsSize='large' style={styles.well}>
+                          <Row>
+                            <Col xs={12} md={showFullSummary ? 7 : 8} lg={showFullSummary ? 8 : 9} style={styles.widthTransition}>
+                              <Tab.Container id='homestay-booking-flow' activeKey={activeStep} onSelect={() => {}}>
+                                <Tab.Content>
 
-                                <Tab.Pane eventKey={1}>
-                                  <Row>
-                                    <Col xs={12}>
-                                      <h3>{t('booking.homestay_booking.step_1.title')}</h3>
-                                    </Col>
-                                  </Row>
+                                  <Tab.Pane eventKey={1}>
+                                    <Row>
+                                      <Col xs={12}>
+                                        <h3>{t('booking.homestay_booking.step_1.title')}</h3>
+                                      </Col>
+                                    </Row>
 
-                                  <Fade in={!animationInProgress}>
-                                    <div style={styles.tripDetailsContainer}>
-                                      <Row>
-                                        <Col xs={12} sm={6}>
-                                          <FormGroup>
-                                            <ControlLabel>{t('common.Guests')}</ControlLabel>
-                                            <Select
-                                              hideResetButton
-                                              theme='bootstrap3'
-                                              value={{ value: potentialBooking.guestCount, label: potentialBooking.guestCount }}
-                                              onValueChange={value => this.handleGuestCountChange(parseInt(value.value))}
-                                            >
-                                              {room.vacancies >= 1 && <option value='1'>1</option>}
-                                              {room.vacancies >= 2 && <option value='2'>2</option>}
-                                              {room.vacancies >= 3 && <option value='3'>3</option>}
-                                              {room.vacancies >= 4 && <option value='4'>4</option>}
-                                            </Select>
-                                          </FormGroup>
-                                        </Col>
+                                    <Fade in={!animationInProgress}>
+                                      <div style={styles.tripDetailsContainer}>
+                                        <Row>
+                                          <Col xs={12} sm={6}>
+                                            <FormGroup>
+                                              <ControlLabel>{t('common.Guests')}</ControlLabel>
+                                              <Select
+                                                hideResetButton
+                                                theme='bootstrap3'
+                                                value={{ value: potentialBooking.guestCount, label: potentialBooking.guestCount }}
+                                                onValueChange={value => this.handleGuestCountChange(parseInt(value.value))}
+                                              >
+                                                {room.vacancies >= 1 && <option value='1'>1</option>}
+                                                {room.vacancies >= 2 && <option value='2'>2</option>}
+                                                {room.vacancies >= 3 && <option value='3'>3</option>}
+                                                {room.vacancies >= 4 && <option value='4'>4</option>}
+                                              </Select>
+                                            </FormGroup>
+                                          </Col>
 
-                                        <Col xs={12} sm={6}>
-                                          <FormGroup>
-                                            <ControlLabel>{t('booking.meal_plan')}</ControlLabel>
-                                            <Select
-                                              hideResetButton
-                                              theme='bootstrap3'
-                                              value={{ value: mealPlan, label: t(`common.${mealPlan}`) }}
-                                              onValueChange={this.handleMealPlanChange}
-                                            >
-                                              <option value='Breakfast'>{t('common.Breakfast')}</option>
-                                              {homestay.data.pricing.extras.map(extra => {
-                                                if (extra.service === 'HALF_BOARD') {
-                                                  return <option key='halfb' value='Half_board'>{t('common.Half_board')}</option>
-                                                } else if (extra.service === 'FULL_BOARD') {
-                                                  return <option key='fullb' value='Full_board'>{t('common.Full_board')}</option>
-                                                }
-                                              })}
-                                            </Select>
-                                          </FormGroup>
-                                        </Col>
+                                          <Col xs={12} sm={6}>
+                                            <FormGroup>
+                                              <ControlLabel>{t('booking.meal_plan')}</ControlLabel>
+                                              <Select
+                                                hideResetButton
+                                                theme='bootstrap3'
+                                                value={{ value: mealPlan, label: t(`common.${mealPlan}`) }}
+                                                onValueChange={this.handleMealPlanChange}
+                                              >
+                                                <option value='Breakfast'>{t('common.Breakfast')}</option>
+                                                {homestay.data.pricing.extras.map(extra => {
+                                                  if (extra.service === 'HALF_BOARD') {
+                                                    return <option key='halfb' value='Half_board'>{t('common.Half_board')}</option>
+                                                  } else if (extra.service === 'FULL_BOARD') {
+                                                    return <option key='fullb' value='Full_board'>{t('common.Full_board')}</option>
+                                                  }
+                                                })}
+                                              </Select>
+                                            </FormGroup>
+                                          </Col>
 
-                                      </Row>
-                                      <Row>
+                                        </Row>
+                                        <Row>
 
-                                        <Col xs={12} sm={6}>
-                                          <FormGroup>
-                                            <ControlLabel>{t('booking.diet_label')}</ControlLabel>
-                                            <MultiSelect
-                                              hideResetButton
-                                              theme='bootstrap3'
-                                              placeholder={t('common.none')}
-                                              values={specialDiet.map(diet => {
-                                                return { label: t(`homes.diets_offered.${diet}`), value: diet }
-                                              })}
-                                              onValuesChange={this.handleDietChange}
-                                            >
-                                              {homestay.data.basics.FOOD_OPTION.map(foodOption => {
-                                                return (
-                                                  <option key={`diet-${foodOption}`} value={foodOption}>{t(`homes.diets_offered.${foodOption}`)}</option>
-                                                )
-                                              })}
-                                            </MultiSelect>
-                                          </FormGroup>
-                                        </Col>
+                                          <Col xs={12} sm={6}>
+                                            <FormGroup>
+                                              <ControlLabel>{t('booking.diet_label')}</ControlLabel>
+                                              <MultiSelect
+                                                hideResetButton
+                                                theme='bootstrap3'
+                                                placeholder={t('common.none')}
+                                                values={specialDiet.map(diet => {
+                                                  return { label: t(`homes.diets_offered.${diet}`), value: diet }
+                                                })}
+                                                onValuesChange={this.handleDietChange}
+                                              >
+                                                {homestay.data.basics.FOOD_OPTION.map(foodOption => {
+                                                  return (
+                                                    <option key={`diet-${foodOption}`} value={foodOption}>{t(`homes.diets_offered.${foodOption}`)}</option>
+                                                  )
+                                                })}
+                                              </MultiSelect>
+                                            </FormGroup>
+                                          </Col>
 
-                                        <Col xs={12} sm={6}>
-                                          <FormGroup>
-                                            <ControlLabel>{t('common.Services')}</ControlLabel>
-                                            <MultiSelect
-                                              hideResetButton
-                                              theme='bootstrap3'
-                                              placeholder={t('common.none')}
-                                              values={extrasChosen.map(extra => ({ value: extra, label: t(`homes.extras.${extra}`) }))}
-                                              onValuesChange={this.handleServicesChange}
-                                            >
-                                              {extrasAvailable.map(extra => <option key={`service-${extra.service}`} value={extra.service}>{t(`homes.services.${extra.service}`)}</option>)}
-                                            </MultiSelect>
-                                          </FormGroup>
-                                        </Col>
+                                          <Col xs={12} sm={6}>
+                                            <FormGroup>
+                                              <ControlLabel>{t('common.Services')}</ControlLabel>
+                                              <MultiSelect
+                                                hideResetButton
+                                                theme='bootstrap3'
+                                                placeholder={t('common.none')}
+                                                values={extrasChosen.map(extra => ({ value: extra, label: t(`homes.extras.${extra}`) }))}
+                                                onValuesChange={this.handleServicesChange}
+                                              >
+                                                {extrasAvailable.map(extra => <option key={`service-${extra.service}`} value={extra.service}>{t(`homes.services.${extra.service}`)}</option>)}
+                                              </MultiSelect>
+                                            </FormGroup>
+                                          </Col>
 
-                                      </Row>
-                                      <Row>
+                                        </Row>
+                                        <Row>
 
-                                        <Col xs={12} sm={6}>
-                                          <FormGroup>
-                                            <ControlLabel>{t('common.learning_language_label')}</ControlLabel>
-                                            <Select
-                                              hideResetButton
-                                              theme='bootstrap3'
-                                              value={{ value: potentialBooking.languageHostWillTeach, label: t(`languages.${potentialBooking.languageHostWillTeach}`) }}
-                                              onValueChange={value => this.updatePotentialHomestayBooking('languageHostWillTeach', value.value)}
-                                            >
-                                              {homestay.data.immersions[potentialBookingHelpers.immersionType].languagesOffered.map(lang => {
-                                                return (
-                                                  <option key={`learn-${lang}`} value={lang}>{t(`languages.${lang}`)}</option>
-                                                )
-                                              })}
-                                            </Select>
-                                          </FormGroup>
-                                        </Col>
+                                          <Col xs={12} sm={6}>
+                                            <FormGroup>
+                                              <ControlLabel>{t('common.learning_language_label')}</ControlLabel>
+                                              <Select
+                                                hideResetButton
+                                                theme='bootstrap3'
+                                                value={{ value: potentialBooking.languageHostWillTeach, label: t(`languages.${potentialBooking.languageHostWillTeach}`) }}
+                                                onValueChange={value => this.updatePotentialHomestayBooking('languageHostWillTeach', value.value)}
+                                              >
+                                                {homestay.data.immersions[potentialBookingHelpers.immersionType].languagesOffered.map(lang => {
+                                                  return (
+                                                    <option key={`learn-${lang}`} value={lang}>{t(`languages.${lang}`)}</option>
+                                                  )
+                                                })}
+                                              </Select>
+                                            </FormGroup>
+                                          </Col>
 
-                                        {potentialBookingHelpers.immersionType === 'tandem' &&
+                                          {potentialBookingHelpers.immersionType === 'tandem' &&
                                           <Col xs={12} sm={6}>
                                             <FormGroup>
                                               <ControlLabel>{t('booking.teaching')}</ControlLabel>
@@ -333,13 +336,13 @@ export default class BookingHomestay extends Component {
                                           </Col>
                                         }
 
-                                      </Row>
+                                        </Row>
 
-                                    </div>
-                                  </Fade>
-                                </Tab.Pane>
+                                      </div>
+                                    </Fade>
+                                  </Tab.Pane>
 
-                                {showUpsell &&
+                                  {showUpsell &&
                                   <Tab.Pane eventKey={2}>
 
                                     <Row>
@@ -355,109 +358,116 @@ export default class BookingHomestay extends Component {
                                   </Tab.Pane>
                                 }
 
-                                <Tab.Pane eventKey={showUpsell ? 3 : 2}>
-                                  <Row>
-                                    <Col xs={12}>
-                                      <h4>{t('booking.homestay_booking.step_3.title')}</h4>
-                                    </Col>
-                                  </Row>
+                                  <Tab.Pane eventKey={showUpsell ? 3 : 2}>
+                                    <Row>
+                                      <Col xs={12}>
+                                        <h4>{t('booking.homestay_booking.step_3.title')}</h4>
+                                      </Col>
+                                    </Row>
 
-                                  <Row>
-                                    <Col xs={12}>
-                                      <PaymentMethods
-                                        user={user}
-                                        token={token}
-                                      />
-                                    </Col>
-                                  </Row>
+                                    <Row>
+                                      <Col xs={12}>
+                                        <PaymentMethods
+                                          user={user}
+                                          token={token}
+                                        />
+                                      </Col>
+                                    </Row>
 
-                                  <Row>
-                                    <Col xs={12}>
-                                      <p>{t('booking.charged_notification')}</p>
-                                    </Col>
-                                  </Row>
+                                    <Row>
+                                      <Col xs={12}>
+                                        <p>{t('booking.charged_notification')}</p>
+                                      </Col>
+                                    </Row>
 
                                     Displays payment methods, allowing adding new payment methods
 
                                 </Tab.Pane>
 
-                                <Tab.Pane eventKey={showUpsell ? 4 : 3}>
+                                  <Tab.Pane eventKey={showUpsell ? 4 : 3}>
                                     General overview, all selected options, total cost
                                     Final "Book now" button
                                   </Tab.Pane>
 
-                              </Tab.Content>
-                            </Tab.Container>
-                          </Col>
-                          <Col xs={12} md={showFullSummary ? 5 : 4} lg={showFullSummary ? 4 : 3} style={styles.widthTransition}>
-                            <Panel style={styles.overviewPanel}>
-                              <div style={Object.assign({}, styles.homeImage, { backgroundImage: `url(${config.img}${homestay.data.images[0].imagePath})` })} />
+                                </Tab.Content>
+                              </Tab.Container>
+                            </Col>
+                            <Col xs={12} md={showFullSummary ? 5 : 4} lg={showFullSummary ? 4 : 3} style={styles.widthTransition}>
+                              <Sticky
+                                isActive={!showFullSummary}
+                                topOffset={-100}
+                                stickyStyle={{ paddingTop: 80 }}
+                              >
+                                <Panel style={styles.overviewPanel}>
+                                  <div style={Object.assign({}, styles.homeImage, { backgroundImage: `url(${config.img}${homestay.data.images[0].imagePath})` })} />
 
-                              <Collapse in={showFullSummary}>
-                                <div style={animationInProgress ? { color: 'white' } : {}}>
-                                  <Row>
-                                    <Col xs={12}>
-                                      <div style={styles.borderBottom}>
-                                        <p>
-                                          <span>{t('common.Immersion')}</span><span className='pull-right'>{t(`immersions.${potentialBookingHelpers.immersionType}`)}</span>
-                                        </p>
-                                        <p>
-                                          <span>{t('common.Dates')}</span><span className='pull-right'>{uiDate(potentialBooking.arrivalDate)} &rarr; {uiDate(potentialBooking.departureDate)}</span>
-                                        </p>
-                                      </div>
-                                    </Col>
-                                  </Row>
-                                  <Row>
-                                    <Col xs={12}>
-                                      <div style={styles.borderBottom}>
-                                        <p>
-                                          <span>{t('booking.room_name')}</span><span className='pull-right'>{room.name}</span>
-                                        </p>
-                                        <p>
-                                          <span>{t('common.Guests')}</span><span className='pull-right'>{potentialBooking.guestCount}</span>
-                                        </p>
-                                      </div>
-                                    </Col>
-                                  </Row>
-                                  <Row>
-                                    <Col xs={12}>
-                                      {extraCosts.length > 0 &&
-                                        <p>
-                                          <span>{t('booking.extras')}</span>
-                                          <div style={styles.servicesListContainer} className='pull-right'>
-                                            {extraCosts.map(cost => {
-                                              return (
-                                                <span key={`extra-cost-${cost.service}`}>{t(`homes.services.${cost.service}`)}{extraCosts.indexOf(cost) !== extraCosts.length - 1 ? <span>,&nbsp;</span> : null}</span>
-                                              )
-                                            })}
+                                  <Collapse in={showFullSummary}>
+                                    <div style={animationInProgress ? { color: 'white' } : {}}>
+                                      <Row>
+                                        <Col xs={12}>
+                                          <div style={styles.borderBottom}>
+                                            <p>
+                                              <span>{t('common.Immersion')}</span><span className='pull-right'>{t(`immersions.${potentialBookingHelpers.immersionType}`)}</span>
+                                            </p>
+                                            <p>
+                                              <span>{t('common.Dates')}</span><span className='pull-right'>{uiDate(potentialBooking.arrivalDate)} &rarr; {uiDate(potentialBooking.departureDate)}</span>
+                                            </p>
                                           </div>
-                                        </p>
-                                      }
+                                        </Col>
+                                      </Row>
+                                      <Row>
+                                        <Col xs={12}>
+                                          <div style={styles.borderBottom}>
+                                            <p>
+                                              <span>{t('booking.room_name')}</span><span className='pull-right'>{room.name}</span>
+                                            </p>
+                                            <p>
+                                              <span>{t('common.Guests')}</span><span className='pull-right'>{potentialBooking.guestCount}</span>
+                                            </p>
+                                          </div>
+                                        </Col>
+                                      </Row>
+                                      <Row>
+                                        <Col xs={12}>
+                                          {extraCosts.length > 0 &&
+                                          <div style={styles.extraCostsList}>
+                                            <span>{t('booking.extras')}</span>
+                                            <div style={styles.servicesListContainer} className='pull-right'>
+                                              {extraCosts.map(cost => {
+                                                return (
+                                                  <span key={`extra-cost-${cost.service}`}>{t(`homes.services.${cost.service}`)}{extraCosts.indexOf(cost) !== extraCosts.length - 1 ? <span>,&nbsp;</span> : null}</span>
+                                                )
+                                              })}
+                                            </div>
+                                          </div>
+                                        }
+                                        </Col>
+                                      </Row>
+                                    </div>
+                                  </Collapse>
+                                  <Row>
+                                    <Col xs={12}>
+                                      <div>
+                                        <strong style={styles.totalPriceLabel}>{t('booking.total_price')}</strong>{!potentialBookingHelpers.price.loading && <span className='pull-right'>{currencySymbol}<span style={styles.totalPrice}>{(totalPrice).toFixed(2)}</span></span>}
+                                      </div>
                                     </Col>
                                   </Row>
-                                </div>
-                              </Collapse>
-                              <Row>
-                                <Col xs={12}>
-                                  <div>
-                                    <strong style={styles.totalPriceLabel}>{t('booking.total_price')}</strong>{!potentialBookingHelpers.price.loading && <span className='pull-right'>{currencySymbol}<span style={styles.totalPrice}>{totalPrice}</span></span>}
-                                  </div>
-                                </Col>
-                              </Row>
-                            </Panel>
-                          </Col>
-                        </Row>
-                        <Pager style={styles.pager} onSelect={this.changeStep}>
-                          {activeStep > 1 &&
-                            <Pager.Item eventKey={activeStep - 1} previous href='#'>&larr; {t(`booking.homestay_booking.step_${activeStep > 2 && !showUpsell ? activeStep : activeStep - 1}.title`)}</Pager.Item>
-                          }
-                          {activeStep !== 4 &&
-                            <Pager.Item eventKey={activeStep + 1} next href='#'>{t(`booking.homestay_booking.step_${activeStep === 1 && !showUpsell ? activeStep + 2 : activeStep + 1}.title`)} &rarr;</Pager.Item>
-                          }
-                        </Pager>
-                      </Well>
+                                </Panel>
+                              </Sticky>
+                            </Col>
+                          </Row>
+                        </Well>
+                      </StickyContainer>
                     </Col>
                   </Row>
+                  <Pager style={styles.pager} onSelect={this.changeStep}>
+                    {activeStep > 1 &&
+                    <Pager.Item eventKey={activeStep - 1} previous href='#'>&larr; {t(`booking.homestay_booking.step_${activeStep > 2 && !showUpsell ? activeStep : activeStep - 1}.title`)}</Pager.Item>
+                  }
+                    {activeStep !== 4 &&
+                    <Pager.Item eventKey={activeStep + 1} next href='#'>{t(`booking.homestay_booking.step_${activeStep === 1 && !showUpsell ? activeStep + 2 : activeStep + 1}.title`)} &rarr;</Pager.Item>
+                  }
+                  </Pager>
                 </div>
               }
             </div>

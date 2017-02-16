@@ -4,4 +4,5 @@
 // --------------------------------------------------------------------------------
 
 export apiDate from './apiDate'
+export sortByDayOfWeek from './sort-by-day-of-week'
 export uiDate from './uiDate'

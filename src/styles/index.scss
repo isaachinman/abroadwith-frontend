@@ -616,27 +616,11 @@ $popover-arrow-color: $darkBlue;
 }
 #homestay-booking-flow-container {
   ul.pager li.next {
-    float: right;
-    background: white;
-    padding: 15px 0 0 15px;
-    margin: 0 -1px -1px 0;
-    border-top: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-    border-radius: 20px 0 0 0;
     a {
       background: $freshGreen;
       border-color: $headerGreen;
       color: white;
     }
-  }
-  ul.pager li.previous {
-    float: left;
-    background: white;
-    padding: 15px 15px 0 0;
-    margin: 0 0 -1px -1px;
-    border-top: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-radius: 0 20px 0 0;
   }
   .react-selectize.bootstrap3 {
     .react-selectize-control {
