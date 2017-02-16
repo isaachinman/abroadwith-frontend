@@ -161,7 +161,7 @@ export function calculateHomestayPriceWithinBooking(jwt, params) {
         } else {
 
           // Request was successful
-          dispatch({ type: CALCULATE_HOMESTAY_PRICE_WITHIN_BOOKING_SUCCESS, result: (roundTo(JSON.parse(res.text), 2)).toFixed(2) })
+          dispatch({ type: CALCULATE_HOMESTAY_PRICE_WITHIN_BOOKING_SUCCESS, result: roundTo(JSON.parse(res.text), 2) })
 
         }
 

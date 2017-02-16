@@ -25,11 +25,6 @@ export default {
   h1Row: {
     marginBottom: 40,
   },
-  pager: {
-    marginLeft: -24,
-    marginBottom: -24,
-    width: 'calc(100% + 48px)',
-  },
   homeImage: {
     minHeight: 200,
     margin: '-15px 0 15px -15px',
@@ -43,7 +38,7 @@ export default {
   },
   overviewPanel: {
     boxShadow: 'none',
-    margin: '20px 0',
+    margin: '20px 0 25px 0',
   },
   borderBottom: {
     borderBottom: '1px solid #ddd',
@@ -61,5 +56,8 @@ export default {
   },
   tripDetailsContainer: {
     maxWidth: 540,
+  },
+  extraCostsList: {
+    marginBottom: 10,
   },
 }

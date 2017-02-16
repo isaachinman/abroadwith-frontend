@@ -83,9 +83,9 @@ export default function generateImmersionPricesForRoom(homestaySearch, homestay,
     }
 
     // Round up
-    stayRate = Math.ceil(stayRate)
-    tandemRate = Math.ceil(tandemRate)
-    teacherRate = Math.ceil(teacherRate)
+    if (stayRate) stayRate = Math.ceil(stayRate)
+    if (tandemRate) tandemRate = Math.ceil(tandemRate)
+    if (teacherRate) teacherRate = Math.ceil(teacherRate)
 
   }
 

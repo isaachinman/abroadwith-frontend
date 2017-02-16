@@ -60,11 +60,15 @@ export default class HomestayPriceCalculator extends Component {
 
     return (
       <div>
-        {!homestaySearch.price.loading &&
+        {!homestaySearch.price.loading ?
           <div>
             {homestaySearch.price.loaded &&
               <span>{Currencies[uiCurrency]}{homestaySearch.price.data}*</span>
             }
+          </div>
+          :
+          <div>
+            -
           </div>
         }
       </div>

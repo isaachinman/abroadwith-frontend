@@ -143,6 +143,8 @@ export default class Homestay extends Component {
 
     const rates = generateImmersionPricesForRoom(homestaySearch, homestay, activeRoom, activeRoomObj, uiCurrency, currencyRates)
 
+    console.log(rates)
+
     return (
       <div style={{ marginBottom: -20 }}>
 

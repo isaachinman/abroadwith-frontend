@@ -8,3 +8,6 @@
 
 // Before deployment to production
 1. npm shrinkwrap
+
+// Homestay booking
+1. Add/remove course, plus animation and price calculation
