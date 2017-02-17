@@ -5,7 +5,7 @@ import { calculateHomestayPriceWithinBooking, updatePotentialHomestayBooking } f
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
 import { connect } from 'react-redux'
-import { Col, Collapse, ControlLabel, Fade, FormGroup, Grid, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
+import { Col, Collapse, ControlLabel, Fade, FormGroup, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import HomeData from 'data/constants/HomeData'
 import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/homes/loadHome'
@@ -18,11 +18,11 @@ import { SimpleSelect as Select, MultiSelect } from 'react-selectize'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { SpinLoader } from 'components'
 import { uiDate } from 'utils/dates'
+import UpsellCourseSearch from 'components/UpsellCourseSearch/UpsellCourseSearch'
 import { translate } from 'react-i18next'
 
 // Relative imports
 import styles from './BookingHomestay.styles'
-import UpsellCourseSearch from './subcomponents/UpsellCourseSearch'
 
 @asyncConnect([{
   promise: ({ store: { dispatch, getState } }) => {
@@ -186,9 +186,13 @@ export default class BookingHomestay extends Component {
 
     // UI variables
     const showFullSummary = activeStep === 1 || (showUpsell && activeStep === 4) || (!showUpsell && activeStep === 3)
+    const stickied = typeof window !== 'undefined' ? window.innerWidth > 767 && !showFullSummary : !showFullSummary
+
+    // By default, the entire process is submittable as long as a user has at least one payment method
+    const isProcessable = user.paymentMethods.length > 0
 
     return (
-      <Grid style={styles.grid} ref={node => this.containerNode = node} id='homestay-booking-flow-container'>
+      <div style={styles.grid} ref={node => this.containerNode = node} className='container' id='homestay-booking-flow-container'>
 
         <Helmet title={t('booking.homestay_booking.title')} />
 
@@ -378,6 +382,7 @@ export default class BookingHomestay extends Component {
                                     <Row>
                                       <Col xs={12}>
                                         <PaymentMethods
+                                          insideBooking
                                           user={user}
                                           token={token}
                                         />
@@ -385,14 +390,12 @@ export default class BookingHomestay extends Component {
                                     </Row>
 
                                     <Row>
-                                      <Col xs={12}>
-                                        <p>{t('booking.charged_notification')}</p>
+                                      <Col xs={12} sm={10}>
+                                        <p className='text-muted'>{t('booking.charged_notification')}</p>
                                       </Col>
                                     </Row>
 
-                                    Displays payment methods, allowing adding new payment methods
-
-                                </Tab.Pane>
+                                  </Tab.Pane>
 
                                   <Tab.Pane eventKey={showUpsell ? 4 : 3}>
                                     General overview, all selected options, total cost
@@ -404,7 +407,7 @@ export default class BookingHomestay extends Component {
                             </Col>
                             <Col xs={12} md={showFullSummary ? 5 : 4} lg={showFullSummary ? 4 : 3} style={styles.widthTransition}>
                               <Sticky
-                                isActive={!showFullSummary}
+                                isActive={stickied}
                                 topOffset={-100}
                                 stickyStyle={{ paddingTop: 80 }}
                               >
@@ -420,7 +423,7 @@ export default class BookingHomestay extends Component {
                                               <span>{t('common.Immersion')}</span><span className='pull-right'>{t(`immersions.${potentialBookingHelpers.immersionType}`)}</span>
                                             </p>
                                             <p>
-                                              <span>{t('common.Dates')}</span><span className='pull-right'>{uiDate(potentialBooking.arrivalDate)} &rarr; {uiDate(potentialBooking.departureDate)}</span>
+                                              <span className='hidden-xs'>{t('common.Dates')}</span><small className='pull-right'>{uiDate(potentialBooking.arrivalDate)} &rarr; {uiDate(potentialBooking.departureDate)}</small>
                                             </p>
                                           </div>
                                         </Col>
@@ -440,17 +443,25 @@ export default class BookingHomestay extends Component {
                                       <Row>
                                         <Col xs={12}>
                                           {extraCosts.length > 0 &&
-                                          <div style={styles.extraCostsList}>
-                                            <span>{t('booking.extras')}</span>
-                                            <div style={styles.servicesListContainer} className='pull-right'>
-                                              {extraCosts.map(cost => {
-                                                return (
-                                                  <span key={`extra-cost-${cost.service}`}>{t(`homes.services.${cost.service}`)}{extraCosts.indexOf(cost) !== extraCosts.length - 1 ? <span>,&nbsp;</span> : null}</span>
-                                                )
-                                              })}
+                                            <div style={styles.extraCostsList}>
+                                              <span>{t('booking.extras')}</span>
+                                              <div style={styles.servicesListContainer} className='pull-right'>
+                                                {extraCosts.map(cost => {
+                                                  return (
+                                                    <span key={`extra-cost-${cost.service}`}>{t(`homes.services.${cost.service}`)}{extraCosts.indexOf(cost) !== extraCosts.length - 1 ? <span>,&nbsp;</span> : null}</span>
+                                                  )
+                                                })}
+                                              </div>
                                             </div>
-                                          </div>
-                                        }
+                                          }
+                                          {potentialBookingHelpers.upsellCourseBooking.courseId &&
+                                            <div style={styles.extraCostsList}>
+                                              <span>{t('booking.language_course')}</span>
+                                              <div style={styles.servicesListContainer} className='pull-right'>
+                                                {currencySymbol}{potentialBookingHelpers.upsellCourseBooking.totalPrice}
+                                              </div>
+                                            </div>
+                                          }
                                         </Col>
                                       </Row>
                                     </div>
@@ -472,11 +483,29 @@ export default class BookingHomestay extends Component {
                   </Row>
                   <Pager style={styles.pager} onSelect={this.changeStep}>
                     {activeStep > 1 &&
-                    <Pager.Item eventKey={activeStep - 1} previous href='#'>&larr; {t(`booking.homestay_booking.step_${activeStep > 2 && !showUpsell ? activeStep : activeStep - 1}.title`)}</Pager.Item>
-                  }
-                    {activeStep !== 4 &&
-                    <Pager.Item eventKey={activeStep + 1} next href='#'>{t(`booking.homestay_booking.step_${activeStep === 1 && !showUpsell ? activeStep + 2 : activeStep + 1}.title`)} &rarr;</Pager.Item>
-                  }
+                      <Pager.Item
+                        eventKey={activeStep - 1}
+                        previous
+                      >
+                        &larr; {t(`booking.homestay_booking.step_${activeStep > 2 && !showUpsell ? activeStep : activeStep - 1}.title`)}
+                      </Pager.Item>
+                    }
+                    {activeStep !== 4 && ((showUpsell && activeStep === 3 && !isProcessable) || (!showUpsell && activeStep === 2 && !isProcessable)) ?
+                      <Pager.Item
+                        disabled
+                        next
+                      >
+                        <div>{t(`booking.homestay_booking.step_${activeStep === 1 && !showUpsell ? activeStep + 2 : activeStep + 1}.title`)} &rarr;</div>
+                      </Pager.Item>
+                      :
+                      <Pager.Item
+                        disabled={showUpsell ? activeStep === 3 && !isProcessable : activeStep === 2 && !isProcessable}
+                        eventKey={activeStep + 1}
+                        next
+                      >
+                        {t(`booking.homestay_booking.step_${activeStep === 1 && !showUpsell ? activeStep + 2 : activeStep + 1}.title`)} &rarr;
+                      </Pager.Item>
+                    }
                   </Pager>
                 </div>
               }
@@ -484,7 +513,7 @@ export default class BookingHomestay extends Component {
           </SpinLoader>
         </div>
 
-      </Grid>
+      </div>
     )
   }
 }

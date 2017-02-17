@@ -621,6 +621,14 @@ $popover-arrow-color: $darkBlue;
       border-color: $headerGreen;
       color: white;
     }
+    &.disabled {
+      a {
+        pointer-events: all !important;
+        cursor: not-allowed;
+        background: rgba(0,0,0,.3);
+        border-color: rgba(0,0,0,.1);
+      }
+    }
   }
   .react-selectize.bootstrap3 {
     .react-selectize-control {
