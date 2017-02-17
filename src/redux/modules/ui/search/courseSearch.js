@@ -40,6 +40,7 @@ export default function reducer(state = initialState, action = {}) {
           loading: false,
           loaded: true,
           data: action.result,
+          params: action.params,
         }),
       }
     case PERFORM_COURSE_UPSELL_SEARCH_FAIL:
@@ -77,7 +78,7 @@ export function performCourseUpsellSearch(jwt, params) {
         } else {
 
           // GET was successful
-          dispatch({ type: PERFORM_COURSE_UPSELL_SEARCH_SUCCESS, result: JSON.parse(res.text) })
+          dispatch({ type: PERFORM_COURSE_UPSELL_SEARCH_SUCCESS, result: JSON.parse(res.text), params })
 
         }
 

@@ -7,7 +7,33 @@ const SEND_PAYMENT_NONCE = 'abroadwith/SEND_PAYMENT_NONCE'
 const SEND_PAYMENT_NONCE_SUCCESS = 'abroadwith/SEND_PAYMENT_NONCE_SUCCESS'
 const SEND_PAYMENT_NONCE_FAIL = 'abroadwith/SEND_PAYMENT_NONCE_FAIL'
 
-export default function sendPaymentNonce(jwt, nonce, callback) {
+const initialState = {
+  loading: false,
+}
+
+export default function reducer(state = initialState, action = {}) {
+  switch (action.type) {
+    case SEND_PAYMENT_NONCE:
+      return {
+        ...state,
+        loading: true,
+      }
+    case SEND_PAYMENT_NONCE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      }
+    case SEND_PAYMENT_NONCE_FAIL:
+      return {
+        ...state,
+        loading: false,
+      }
+    default:
+      return state
+  }
+}
+
+export function sendPaymentNonce(jwt, nonce, callback) {
 
   const cb = typeof callback === 'function' ? callback : () => {}
 

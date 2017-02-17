@@ -7,10 +7,11 @@ export default {
     maxWidth: 'calc(50% - 2.5px)',
   },
   paypalContainer: {
-    padding: '0 10px',
+    textAlign: 'center',
+    padding: '0 10px 10px 10px',
   },
-  panel: {
-    minHeight: 120,
+  bottomRow: {
+    marginTop: 63, // Account for 1px border top and bottom
   },
   typeIcon: {
     float: 'right',

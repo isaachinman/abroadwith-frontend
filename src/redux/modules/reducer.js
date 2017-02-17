@@ -21,6 +21,7 @@ import { loadUserWithAuth, loadHomestayWithAuth, reservations } from './privateD
 import { loadHomestay, loadUser } from './publicData'
 import messaging from './privateData/messaging/messaging'
 import modals from './ui/modals'
+import nonce from './payments/nonce'
 import receipts from './privateData/receipts/receipts'
 import reviews from './privateData/reviews/reviews'
 import signupStatus from './signup'
@@ -64,6 +65,7 @@ export default combineReducers({
   }),
   payments: combineReducers({
     clientToken,
+    nonce,
   }),
   signupStatus,
   verifications,

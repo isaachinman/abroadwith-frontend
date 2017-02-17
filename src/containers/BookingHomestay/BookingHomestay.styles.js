@@ -2,6 +2,9 @@ export default {
   grid: {
     position: 'relative',
     marginBottom: -20,
+    '@media (max-width: 500px)': {
+      padding: 0,
+    },
   },
   contentContainer: {
     background: 'rgba(255,255,255,.65)',
@@ -10,7 +13,7 @@ export default {
     borderLeft: '1px solid #eee',
     borderRight: '1px solid #eee',
     '@media (max-width: 767px)': {
-      padding: 15,
+      padding: 0,
     },
   },
   minHeightContainer: {
@@ -21,6 +24,9 @@ export default {
     '@media (max-width: 991px)': {
       display: 'none',
     },
+  },
+  well: {
+    minHeight: 540,
   },
   h1Row: {
     marginBottom: 40,

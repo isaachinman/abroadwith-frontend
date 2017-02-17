@@ -143,6 +143,8 @@ export default class Homestay extends Component {
 
     const rates = generateImmersionPricesForRoom(homestaySearch, homestay, activeRoom, activeRoomObj, uiCurrency, currencyRates)
 
+    const stickied = typeof window !== 'undefined' ? window.innerWidth > 767 : true
+
     console.log(rates)
 
     return (
@@ -440,6 +442,7 @@ export default class Homestay extends Component {
               </div>
               <div style={styles.stickyContainer}>
                 <Sticky
+                  isActive={stickied}
                   topOffset={-100}
                   stickyStyle={{ paddingTop: 100 }}
                 >

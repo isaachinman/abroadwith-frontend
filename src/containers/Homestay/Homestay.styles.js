@@ -56,7 +56,9 @@ export default {
     marginTop: -70,
     paddingRight: 15,
     '@media (max-width: 767px)': {
-      margin: '0 auto',
+      marginTop: 0,
+      textAlign: 'center',
+      width: '100%',
     },
   },
   panel: {
@@ -68,6 +70,7 @@ export default {
     width: 'calc(100% - 270px)',
     '@media (max-width: 767px)': {
       width: '100%',
+      padding: '50px 5px',
     },
     display: 'inline-block',
     padding: '50px 30px',

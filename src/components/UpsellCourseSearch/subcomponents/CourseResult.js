@@ -4,7 +4,6 @@ import { addUpsellCourseBooking, removeUpsellCourseBooking } from 'redux/modules
 import { Button, Col, Collapse, Tab, Tabs, Table, Row } from 'react-bootstrap'
 import config from 'config'
 import { connect } from 'react-redux'
-import { formatTimeOfDay } from 'utils/times'
 import Rate from 'antd/lib/rate'
 import roundTo from 'round-to'
 import { sortByDayOfWeek, uiDate } from 'utils/dates'
@@ -12,55 +11,8 @@ import { translate } from 'react-i18next'
 import TextTruncate from 'react-text-truncate'
 
 // Relative imports
-const styles = {
-  result: {
-    border: '1px solid #ddd',
-    borderRadius: 5,
-    overflow: 'hidden',
-    background: 'rgba(255,255,255,.65)',
-    transition: 'opacity .2s',
-  },
-  educatorImage: {
-    width: '100%',
-    minHeight: 178, // Account for border top and bottom of 1px each
-    backgroundSize: 'cover',
-  },
-  imageCol: {
-    paddingLeft: 0,
-    transition: 'width .35s',
-  },
-  widthTransition: {
-    transition: 'width .35s',
-  },
-  resultDetails: {
-    padding: '15px 0',
-  },
-  ratingNumber: {
-    fontSize: 11,
-  },
-  rightAlign: {
-    textAlign: 'right',
-  },
-  truncatedDescription: {
-    minHeight: 44,
-  },
-  fullInfoLink: {
-    marginTop: 5,
-  },
-  moreInfoTabs: {
-    marginTop: 15,
-  },
-  courseTabContent: {
-    padding: '15px 0',
-  },
-  bottomRow: {
-    marginTop: 23,
-  },
-  omittedResult: {
-    pointerEvents: 'none',
-    opacity: 0.35,
-  },
-}
+import CourseReviews from './CourseReviews'
+import styles from '../UpsellCourseSearch.styles'
 
 @connect(
   state => ({
@@ -91,10 +43,14 @@ export default class CourseResult extends Component {
 
   }
 
-  addCourse = () => this.props.dispatch(addUpsellCourseBooking(Object.assign({}, this.props.result, {
-    totalPrice: roundTo(this.props.result.totalPrice, 2),
-    weeklyPrice: roundTo(this.props.result.weeklyPrice, 2),
-  })))
+  addCourse = () => {
+    const modifiedData = Object.assign({}, this.props.result, {
+      totalPrice: roundTo(this.props.result.totalPrice, 2),
+      weeklyPrice: roundTo(this.props.result.weeklyPrice, 2),
+    })
+    delete modifiedData.educatorReviewResponses
+    this.props.dispatch(addUpsellCourseBooking(modifiedData))
+  }
 
   removeCourse = () => this.props.dispatch(removeUpsellCourseBooking())
 
@@ -106,10 +62,14 @@ export default class CourseResult extends Component {
   render() {
 
     const { expanded, localAnimationInProgress } = this.state
-    const { result, potentialBookingHelpers, t } = this.props
+    const { currencySymbol, result, upsellSearch, potentialBookingHelpers, t } = this.props
 
     const aResultIsAdded = potentialBookingHelpers.upsellCourseBooking.courseId
     const isAddedToBooking = aResultIsAdded && potentialBookingHelpers.upsellCourseBooking.courseId === result.courseId
+
+    const sortedTimeslots = sortByDayOfWeek(result.timeSlots)
+    const parsedDistance = result.distance > 1 ? result.distance.toFixed(2) + 'km' : (Math.round(parseInt(result.distance * 1000) / 10) * 10) + 'm'
+    console.log('sortedTimeslots: ', sortedTimeslots)
 
     let resultStyles = styles.result
 
@@ -125,25 +85,28 @@ export default class CourseResult extends Component {
 
     return (
       <Row style={resultStyles}>
-        <Col xs={12} md={4} style={expanded ? Object.assign({}, styles.imageCol, { width: 0, height: 0 }) : styles.imageCol}>
+        <Col xsHidden smHidden md={4} style={expanded ? Object.assign({}, styles.imageCol, { width: 0, height: 0 }) : styles.imageCol}>
           <div style={Object.assign({}, styles.educatorImage, { backgroundImage: `url(${config.img}${result.educatorImage || '/app/courses/default_course.jpg'})` })} />
         </Col>
         <Col xs={12} md={expanded ? 12 : 8} style={styles.widthTransition}>
           <div style={styles.resultDetails}>
             <Row>
               <Col xs={12} sm={8}>
-                <h5>{result.courseName}</h5>
+                <h5 style={styles.courseName}>{result.courseName}</h5>
               </Col>
               <Col xs={12} sm={4} style={styles.rightAlign} className='small-rating-wrapper light'>
-                <div style={{ marginTop: 10 }}>
+                <div style={styles.coursePrice} className='text-muted'>
+                  <small>{currencySymbol}</small>{(result.totalPrice).toFixed(2)}
+                </div>
+                <div>
                   <span style={styles.ratingNumber} className='text-muted'>({result.educatorReviewResponses.length})</span> <Rate disabled defaultValue={roundTo((result.educatorAverageRating || 0), 0)} />
                 </div>
               </Col>
               <Col xs={12} sm={11}>
                 {expanded ?
-                  <div>
+                  <p>
                     {result.shortDescription}
-                  </div>
+                  </p>
                   :
                   <div style={styles.truncatedDescription}>
                     <Collapse in={!localAnimationInProgress}>
@@ -158,6 +121,13 @@ export default class CourseResult extends Component {
               </Col>
               <Collapse in={expanded}>
                 <Col xs={12}>
+                  <p>
+                    <strong>{t('booking.result_dates')}: </strong>{uiDate(result.startDate)} {t('common.words.to')} {uiDate(result.endDate)}<br />
+                    <strong>{t('booking.result_distance')}: </strong>{parsedDistance}<br />
+                    <strong>{t('booking.educator_name')}: </strong>{result.educatorName}<br />
+                    <strong>{t('booking.level')}: </strong>{upsellSearch.params.level}-{result.endLevel}<br />
+                    <strong>{t('booking.lessons_per_week')}: </strong>{result.lessonsPerWeek}
+                  </p>
                   <Tabs style={styles.moreInfoTabs} id={`course-info-tabs-${result.courseId}`}>
                     <Tab eventKey={1} title={t('booking.weekly_schedule')} style={styles.courseTabContent}>
                       <Table striped bordered condensed hover>
@@ -168,42 +138,56 @@ export default class CourseResult extends Component {
                           </tr>
                         </thead>
                         <tbody>
-                          {sortByDayOfWeek(result.timeSlots).map(timeslot => {
+                          {sortedTimeslots.map(dayOfWeek => {
                             return (
-                              <tr key={`timeslot-${timeslot.dayOfWeek}-${timeslot.startTime}`}>
-                                <td>{t(`booking.weekdays.${timeslot.dayOfWeek}`)}</td>
-                                <td>{formatTimeOfDay(timeslot.startTime)} - {formatTimeOfDay(timeslot.endTime)}</td>
+                              <tr key={`timeslot-${dayOfWeek.day}`}>
+                                <td>{t(`booking.weekdays.${dayOfWeek.day}`)}</td>
+                                <td>
+                                  {dayOfWeek.slots.map(timespan => {
+                                    return (
+                                      <span key={`${dayOfWeek}-${timespan.startTime}`}>
+                                        {timespan.startTime}-{timespan.endTime}
+                                        {dayOfWeek.slots.indexOf(timespan) !== dayOfWeek.slots.length - 1 &&
+                                        <span>,&nbsp;</span>
+                                          }
+                                      </span>
+                                    )
+                                  })}
+                                </td>
                               </tr>
                             )
                           })}
                         </tbody>
                       </Table>
                     </Tab>
-                    <Tab eventKey={2} title={t('booking.reviews')} style={styles.courseTabContent}>
-                      Reviews
-                    </Tab>
-                    {result.schoolClosures && result.schoolClosures.length > 0 &&
-                      <Tab eventKey={3} title={t('booking.school_closures')} style={styles.courseTabContent}>
-                        <Table striped bordered condensed hover>
-                          <thead>
-                            <tr>
-                              <th>{t('booking.school_closures')}</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {result.schoolClosures.map(closure => {
-                              return (
-                                <tr key={`closure-${closure.startDate}`}>
-                                  <td>{uiDate(closure.startDate)} {t('common.words.to')} {uiDate(closure.endDate)}</td>
-                                </tr>
-                              )
-                            })}
-                          </tbody>
-                        </Table>
+                    {result.educatorReviewResponses.length > 0 &&
+                      <Tab eventKey={2} title={t('booking.reviews')} style={styles.courseTabContent}>
+                        <CourseReviews reviews={result.educatorReviewResponses} />
                       </Tab>
                     }
+                    {result.schoolClosures && result.schoolClosures.length > 0 &&
+                    <Tab eventKey={3} title={t('booking.school_closures')} style={styles.courseTabContent}>
+                      <Table striped bordered condensed hover>
+                        <thead>
+                          <tr>
+                            <th>{t('booking.school_closures')}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {result.schoolClosures.map(closure => {
+                            return (
+                              <tr key={`closure-${closure.startDate}`}>
+                                <td>{uiDate(closure.startDate)} {t('common.words.to')} {uiDate(closure.endDate)}</td>
+                              </tr>
+                            )
+                          })}
+                        </tbody>
+                      </Table>
+                    </Tab>
+                      }
                   </Tabs>
                 </Col>
+
               </Collapse>
               <Col xs={6} style={styles.bottomRow}>
                 <div style={styles.fullInfoLink}>
@@ -233,6 +217,7 @@ CourseResult.propTypes = {
   currencySymbol: PropTypes.string,
   dispatch: PropTypes.func,
   result: PropTypes.object,
+  upsellSearch: PropTypes.object,
   potentialBookingHelpers: PropTypes.object,
   t: PropTypes.func,
 }

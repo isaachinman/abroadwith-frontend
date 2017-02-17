@@ -55,6 +55,7 @@ export default {
     width: '60%',
     '@media (max-width: 767px)': {
       width: '100%',
+      padding: '20px 5px 0 5px',
     },
     '@media (max-width: 500px)': {
       marginTop: 70,

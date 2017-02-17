@@ -17,16 +17,16 @@ export default class PayPal extends Component {
 
   render() {
 
-    const { t, email, id, deletePaymentMethod } = this.props
+    const { t, email, id, insideBooking, deletePaymentMethod } = this.props
 
     return (
-      <Col xs={12} md={6} lg={4}>
-        <Panel style={styles.panel}>
-          <div style={styles.email}>{email}</div>
-          <div style={styles.connected}>{t('common.Connected')}</div>
+      <Col xs={12} md={8} lg={6}>
+        <Panel style={insideBooking ? Object.assign({}, styles.panel, { boxShadow: 'none' }) : styles.panel}>
+          <h6 style={styles.email}>{email}</h6>
+          <div className='text-muted'>{t('common.Connected')}</div>
           <div style={styles.bottomRow}>
             <a style={styles.removeBtn} onClick={() => deletePaymentMethod(id)}>{t('common.Remove')}</a>
-            <span style={styles.typeIcon}><FontAwesome name='cc-paypal' /></span>
+            <span style={styles.typeIcon}><FontAwesome className='header-blue' name='cc-paypal' size='2x' /></span>
           </div>
         </Panel>
       </Col>
@@ -37,6 +37,7 @@ export default class PayPal extends Component {
 PayPal.propTypes = {
   email: PropTypes.string,
   id: PropTypes.number,
+  insideBooking: PropTypes.bool,
   deletePaymentMethod: PropTypes.func,
   t: PropTypes.func,
 }
