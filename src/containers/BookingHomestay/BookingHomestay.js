@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
 import { Button, Col, Collapse, ControlLabel, Fade, FormControl, FormGroup, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
-import { calculateHomestayPriceWithinBooking, createHomestayBooking, updatePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
+import { calculateHomestayPriceWithinBooking, createHomestayBooking, deletePotentialHomestayBooking, updatePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import { createCourseBooking } from 'redux/modules/privateData/bookings/courseBookings'
 import { createNewThreadWithHost } from 'redux/modules/privateData/messaging/messaging'
 import Currencies from 'data/constants/Currencies'
@@ -194,8 +194,10 @@ export default class BookingHomestay extends Component {
     dispatch(createHomestayBooking(token, Object.assign({}, potentialBooking, {
       paymentMethodId: user.paymentMethods[0].id,
     }), () => {
+      dispatch(deletePotentialHomestayBooking())
       dispatch(push('/book-homestay/success'))
     }))
+
 
   }
 
@@ -227,7 +229,7 @@ export default class BookingHomestay extends Component {
     const specialDiet = potentialBooking.settingNames.filter(setting => HomeData.homeServices.FOOD_OPTION.includes(setting))
 
     // Determine extra services
-    const extrasAvailable = homestay.data.pricing.extras.filter(extra => HomeData.homeServices.GENERAL.includes(extra.service))
+    const extrasAvailable = homestay.data.pricing.extras.filter(extra => HomeData.homeServices.GENERAL.includes(extra.service) && extra.service !== 'EXTRA_GUEST')
     const extrasChosen = potentialBooking.serviceNames.filter(extra => HomeData.homeServices.GENERAL.includes(extra))
 
     // Determine extra costs
@@ -550,7 +552,8 @@ export default class BookingHomestay extends Component {
                                   <Row>
                                     <Col xs={12}>
                                       <div>
-                                        <strong style={styles.totalPriceLabel}>{t('booking.total_price')}</strong>{!potentialBookingHelpers.price.loading && <span className='pull-right'>{currencySymbol}<span style={styles.totalPrice}>{(totalPrice).toFixed(2)}</span></span>}
+                                        <strong style={styles.totalPriceLabel}>{t('booking.total_price')}</strong>
+                                        {!potentialBookingHelpers.price.loading ? <span className='pull-right'>{currencySymbol}<span style={styles.totalPrice}>{(totalPrice).toFixed(2)}</span></span> : <span className='pull-right'>-</span>}
                                       </div>
                                     </Col>
                                   </Row>
