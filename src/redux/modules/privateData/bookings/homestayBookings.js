@@ -30,6 +30,7 @@ const CREATE_HOMESTAY_BOOKING_SUCCESS = 'abroadwith/CREATE_HOMESTAY_BOOKING_SUCC
 const CREATE_HOMESTAY_BOOKING_FAIL = 'abroadwith/CREATE_HOMESTAY_BOOKING_FAIL'
 
 const initialState = {
+  loading: false,
   potentialBooking: {},
   potentialBookingHelpers: {
     price: {},
@@ -115,6 +116,21 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         potentialBooking: {},
         potentialBookingHelpers: {},
+      }
+    case CREATE_HOMESTAY_BOOKING:
+      return {
+        ...state,
+        loading: true,
+      }
+    case CREATE_HOMESTAY_BOOKING_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      }
+    case CREATE_HOMESTAY_BOOKING_FAIL:
+      return {
+        ...state,
+        loading: false,
       }
     default:
       return state
