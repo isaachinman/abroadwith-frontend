@@ -2,7 +2,9 @@
 import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
 import { Button, Col, Collapse, ControlLabel, Fade, FormControl, FormGroup, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
-import { calculateHomestayPriceWithinBooking, updatePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
+import { calculateHomestayPriceWithinBooking, createHomestayBooking, updatePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
+import { createCourseBooking } from 'redux/modules/privateData/bookings/courseBookings'
+import { createNewThreadWithHost } from 'redux/modules/privateData/messaging/messaging'
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
 import { connect } from 'react-redux'
@@ -20,6 +22,7 @@ import { SpinLoader } from 'components'
 import { uiDate } from 'utils/dates'
 import UpsellCourseSearch from 'components/UpsellCourseSearch/UpsellCourseSearch'
 import { translate } from 'react-i18next'
+import { push } from 'react-router-redux'
 
 // Relative imports
 import styles from './BookingHomestay.styles'
@@ -52,6 +55,7 @@ export default class BookingHomestay extends Component {
     animationInProgress: false,
     activeStep: this.props.potentialBookingHelpers.completionStep,
     upsellSearchInitialised: false,
+    messageToBeSentToHost: null,
   }
 
   componentWillMount = () => this.calculatePrice()
@@ -86,7 +90,6 @@ export default class BookingHomestay extends Component {
 
     // Handle uiCurrency change
     if (this.props.uiCurrency !== nextProps.uiCurrency) {
-      console.log('incoming currency: ', nextProps.uiCurrency)
       this.updatePotentialHomestayBooking('currency', nextProps.uiCurrency)
       this.calculatePrice(nextProps.uiCurrency)
     }
@@ -128,6 +131,8 @@ export default class BookingHomestay extends Component {
     this.calculatePrice()
   }
 
+  handleMessageChange = event => this.setState({ messageToBeSentToHost: event.target.value })
+
   updatePotentialHomestayBooking = (field, value) => {
     const { dispatch, potentialBooking } = this.props
     const newPotentialBooking = Object.assign({}, potentialBooking, { [field]: value })
@@ -136,11 +141,62 @@ export default class BookingHomestay extends Component {
 
   calculatePrice = overrideCurrency => {
     const { dispatch, token, potentialBooking } = this.props
-    console.log(potentialBooking.currency)
     dispatch(calculateHomestayPriceWithinBooking(token, overrideCurrency ? Object.assign({}, potentialBooking, { currency: overrideCurrency }) : potentialBooking))
   }
 
   changeStep = stepNum => this.setState({ activeStep: stepNum, animationInProgress: true }, () => setTimeout(() => this.setState({ animationInProgress: false }), 300))
+
+  processBookingRequest = () => {
+
+    /* -------------------------------------------------------------------------
+
+    This is the function that gets called on the final "book request" button
+
+      There are several actions which need to be performed:
+        1. Create actual homestay booking request (required)
+        2. Create course booking request (optional)
+        3. Create new thread with message content (optional)
+
+      Methodology: perform optional steps first, and then hook redirect into
+      mandatory step as final callback
+
+      Notes: this could be improved a _lot_ via proper thunks, error
+      handling, etc
+
+    --------------------------------------------------------------------------*/
+
+    const { messageToBeSentToHost } = this.state
+    const { dispatch, token, user, upsellSearch, potentialBooking, potentialBookingHelpers } = this.props
+
+    // Create new thread with message content (optional)
+    if (messageToBeSentToHost) {
+      dispatch(createNewThreadWithHost(token, {
+        arrival: potentialBooking.arrivalDate,
+        departure: potentialBooking.departureDate,
+        homeId: potentialBookingHelpers.homeID,
+        message: messageToBeSentToHost,
+      }))
+    }
+
+    // Create course booking request (optional)
+    if (potentialBookingHelpers.upsellCourseBooking.courseId) {
+      dispatch(createCourseBooking(token, {
+        courseId: potentialBookingHelpers.upsellCourseBooking.courseId,
+        startDate: potentialBookingHelpers.upsellCourseBooking.startDate,
+        endDate: potentialBookingHelpers.upsellCourseBooking.endDate,
+        level: upsellSearch.params.level,
+        studentName: `${user.firstName} ${user.lastName}`,
+      }))
+    }
+
+    // Create actual homestay booking request (required)
+    dispatch(createHomestayBooking(token, Object.assign({}, potentialBooking, {
+      paymentMethodId: user.paymentMethods[0].id,
+    }), () => {
+      dispatch(push('/book-homestay/success'))
+    }))
+
+  }
 
   render() {
 
@@ -413,13 +469,15 @@ export default class BookingHomestay extends Component {
                                             componentClass='textarea'
                                             placeholder={t('inbox.message_modal_placeholder')}
                                             style={styles.textarea}
+                                            value={this.state.messageToBeSentToHost || ''}
+                                            onChange={this.handleMessageChange}
                                           />
                                         </FormGroup>
                                       </Col>
                                     </Row>
                                     <Row>
                                       <Col xs={12}>
-                                        <Button bsSize='large' bsStyle='success'>{t('booking.request_booking')}</Button>
+                                        <Button onClick={this.processBookingRequest} bsSize='large' bsStyle='success'>{t('booking.request_booking')}</Button>
                                       </Col>
                                     </Row>
                                   </Tab.Pane>

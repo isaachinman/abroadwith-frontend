@@ -108,6 +108,11 @@ export default (store) => {
       cb(null, require('../containers/BookingHomestay/BookingHomestay'))
     }, 'booking')
   }
+  const getBookingHomestaySuccess = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/BookingHomestay/BookingHomestaySuccess'))
+    }, 'booking')
+  }
   const getEmailVerification = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/EmailVerification/EmailVerification'))
@@ -232,6 +237,7 @@ export default (store) => {
 
             <Route onEnter={requireLogin}>
               <Route path='book-homestay' onEnter={requirePotentialHomestayBooking} getComponent={getBookingHomestay} />
+              <Route path='book-homestay/success' getComponent={getBookingHomestaySuccess} />
               <Route path='edit-profile' getComponent={getUserProfileEdit} />
               <Route path='inbox' getComponent={getInbox} />
               <Route path='invite' getComponent={getInvite} />

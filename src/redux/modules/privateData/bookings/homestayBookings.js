@@ -24,6 +24,11 @@ const ADD_UPSELL_COURSE_BOOKING = 'abroadwith/ADD_UPSELL_COURSE_BOOKING'
 // Remove upsell course booking
 const REMOVE_UPSELL_COURSE_BOOKING = 'abroadwith/REMOVE_UPSELL_COURSE_BOOKING'
 
+// Create homestay booking
+const CREATE_HOMESTAY_BOOKING = 'abroadwith/CREATE_HOMESTAY_BOOKING'
+const CREATE_HOMESTAY_BOOKING_SUCCESS = 'abroadwith/CREATE_HOMESTAY_BOOKING_SUCCESS'
+const CREATE_HOMESTAY_BOOKING_FAIL = 'abroadwith/CREATE_HOMESTAY_BOOKING_FAIL'
+
 const initialState = {
   potentialBooking: {},
   potentialBookingHelpers: {
@@ -169,6 +174,43 @@ export function calculateHomestayPriceWithinBooking(jwt, params) {
 
     } catch (err) {
       dispatch({ type: CALCULATE_HOMESTAY_PRICE_WITHIN_BOOKING_FAIL, err })
+    }
+  }
+
+}
+
+export function createHomestayBooking(jwt, bookingObject, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
+
+  return async dispatch => {
+
+    dispatch({ type: CREATE_HOMESTAY_BOOKING })
+
+    try {
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/bookings`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+      request.send(bookingObject)
+
+      request.end((err, res) => {
+
+        if (err) {
+
+          dispatch({ type: CREATE_HOMESTAY_BOOKING_FAIL, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: CREATE_HOMESTAY_BOOKING_SUCCESS, result: res })
+          cb()
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: CREATE_HOMESTAY_BOOKING_FAIL, err })
     }
   }
 
