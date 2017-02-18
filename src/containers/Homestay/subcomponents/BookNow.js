@@ -280,8 +280,6 @@ export default class BookNow extends Component {
                   {t('common.Book_now')}
                 </Button>
               }
-
-
             </Col>
           </Row>
         </span>

@@ -7,18 +7,27 @@ const GET_ALL_MESSAGES = 'abroadwith/GET_ALL_MESSAGES'
 const GET_ALL_MESSAGES_SUCCESS = 'abroadwith/GET_ALL_MESSAGES_SUCCESS'
 const GET_ALL_MESSAGES_FAIL = 'abroadwith/GET_ALL_MESSAGES_FAIL'
 
+// Create new thread
+const CREATE_NEW_THREAD_WITH_HOST = 'abroadwith/CREATE_NEW_THREAD_WITH_HOST'
+const CREATE_NEW_THREAD_WITH_HOST_SUCCESS = 'abroadwith/CREATE_NEW_THREAD_WITH_HOST_SUCCESS'
+const CREATE_NEW_THREAD_WITH_HOST_FAIL = 'abroadwith/CREATE_NEW_THREAD_WITH_HOST_FAIL'
+
 // Load messages from thread
 const LOAD_MESSAGE_THREAD = 'abroadwith/LOAD_MESSAGE_THREAD'
 const LOAD_MESSAGE_THREAD_SUCCESS = 'abroadwith/LOAD_MESSAGE_THREAD_SUCCESS'
 const LOAD_MESSAGE_THREAD_FAIL = 'abroadwith/LOAD_MESSAGE_THREAD_FAIL'
 
-// Load messages from thread
+// Send message in thread
 const SEND_MESSAGE = 'abroadwith/SEND_MESSAGE'
 const SEND_MESSAGE_SUCCESS = 'abroadwith/SEND_MESSAGE_SUCCESS'
 const SEND_MESSAGE_FAIL = 'abroadwith/SEND_MESSAGE_FAIL'
 
 const initialState = {
   loaded: false,
+  newThread: {
+    loading: false,
+    loaded: false,
+  },
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -42,6 +51,31 @@ export default function reducer(state = initialState, action = {}) {
         loaded: false,
         error: true,
         errorMessage: action.error,
+      }
+    case CREATE_NEW_THREAD_WITH_HOST:
+      return {
+        ...state,
+        newThread: {
+          loading: true,
+          loaded: false,
+        },
+      }
+    case CREATE_NEW_THREAD_WITH_HOST_SUCCESS:
+      return {
+        ...state,
+        newThread: {
+          loading: false,
+          loaded: true,
+        },
+      }
+    case CREATE_NEW_THREAD_WITH_HOST_FAIL:
+      return {
+        ...state,
+        newThread: {
+          loading: false,
+          loaded: false,
+          error: action.error,
+        },
       }
     case LOAD_MESSAGE_THREAD: {
 
@@ -85,6 +119,41 @@ export function loadMessages(jwt) {
   return {
     types: [GET_ALL_MESSAGES, GET_ALL_MESSAGES_SUCCESS, GET_ALL_MESSAGES_FAIL],
     promise: client => client.get(`users/${jwtDecode(jwt).rid}/messages`, { auth: jwt }),
+  }
+}
+
+export function createNewThreadWithHost(jwt, threadObj, callback) {
+
+  const cb = typeof callback === 'function' ? callback : () => {}
+
+  return async dispatch => {
+    try {
+
+      dispatch({ type: CREATE_NEW_THREAD_WITH_HOST })
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/messages`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+      request.send(threadObj)
+
+      request.end(err => {
+
+        if (err) {
+
+          dispatch({ type: CREATE_NEW_THREAD_WITH_HOST_FAIL, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: CREATE_NEW_THREAD_WITH_HOST_SUCCESS })
+          cb()
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: CREATE_NEW_THREAD_WITH_HOST_FAIL, err })
+    }
   }
 }
 

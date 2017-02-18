@@ -147,6 +147,9 @@ Dimensions:
     @media (max-width: 799px) {
       display: none !important;
     }
+    .DateInput, .DateRangePickerInput {
+      border-radius: 0;
+    }
   }
 
   // Guest count picker

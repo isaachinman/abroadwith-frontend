@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import config from 'config'
 import { connect } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
+import { Link } from 'react-router'
 import { load as loadHomestay } from 'redux/modules/publicData/homes/loadHome'
 import { uiDate } from 'utils/dates'
 import { translate } from 'react-i18next'
@@ -54,7 +55,9 @@ export default class ThreadHomeInfo extends Component {
           <span>
             <Row>
               <Col xs={12}>
-                <div style={Object.assign({}, styles.homePhoto, { backgroundImage: `url(${config.img}${home.images[0].imagePath})` })} />
+                <Link to={`/homestay/${thread.homeId}`}>
+                  <div style={Object.assign({}, styles.homePhoto, { backgroundImage: `url(${config.img}${home.images[0].imagePath})` })} />
+                </Link>
               </Col>
             </Row>
             <Row>

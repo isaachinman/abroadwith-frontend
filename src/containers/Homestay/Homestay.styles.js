@@ -192,4 +192,11 @@ export default {
     fontSize: 10,
     lineHeight: '12px',
   },
+  contactHostAlert: {
+    marginTop: 15,
+    textAlign: 'center',
+  },
+  sendMessageModalContentContainer: {
+    padding: '15px 30px 30px 30px',
+  },
 }

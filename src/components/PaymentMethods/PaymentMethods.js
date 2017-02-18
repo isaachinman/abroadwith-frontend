@@ -87,12 +87,7 @@ export default class PaymentMethods extends Component {
               // This is paypal creation
               dispatch(sendPaymentNonce(token, nonce, () => {
                 dispatch(loadUserWithAuth(token))
-
-                window.braintreeIntegration.teardown()
                 closeAccordion()
-
-                braintree.setup(clientToken.value, 'custom', braintreeSetupObject)
-                document.querySelector('#add-new-paypal').classList.add('hide')
               }))
 
             },
@@ -105,9 +100,7 @@ export default class PaymentMethods extends Component {
             // This is credit card creation
             dispatch(sendPaymentNonce(token, obj.nonce, () => {
               dispatch(loadUserWithAuth(token))
-              window.braintreeIntegration.teardown()
               closeAccordion()
-              braintree.setup(clientToken.value, 'custom', braintreeSetupObject)
             }))
 
           },
@@ -126,7 +119,11 @@ export default class PaymentMethods extends Component {
 
   }
 
-  componentWillUnmount = () => window.braintreeIntegration.teardown()
+  componentWillUnmount = () => {
+    if (typeof window.braintreeIntegration !== 'undefined') {
+      window.braintreeIntegration.teardown()
+    }
+  }
 
   panelToggle = panel => this.setState({ addNewMethodAccordionExpanded: this.state.addNewMethodAccordionExpanded === panel ? 'none' : panel })
 
@@ -143,45 +140,49 @@ export default class PaymentMethods extends Component {
       <SpinLoader show={payments.nonce.loading}>
         <Row>
           {user.paymentMethods.map(paymentMethod => {
-            if (paymentMethod.type === 'PAYPAL') {
-              return (
-                <PayPal
-                  deletePaymentMethod={this.deletePaymentMethod}
-                  insideBooking={insideBooking}
-                  key={paymentMethod.id}
-                  {...paymentMethod}
-                />
-              )
-            } else if (paymentMethod.type === 'CARD') {
-              return (
-                <CreditCard
-                  deletePaymentMethod={this.deletePaymentMethod}
-                  insideBooking={insideBooking}
-                  key={paymentMethod.id}
-                  {...paymentMethod}
-                />
-              )
+            if (!insideBooking || (insideBooking && user.paymentMethods.indexOf(paymentMethod) === 0)) {
+              if (paymentMethod.type === 'PAYPAL') {
+                return (
+                  <PayPal
+                    deletePaymentMethod={this.deletePaymentMethod}
+                    insideBooking={insideBooking}
+                    key={paymentMethod.id}
+                    {...paymentMethod}
+                  />
+                )
+              } else if (paymentMethod.type === 'CARD') {
+                return (
+                  <CreditCard
+                    deletePaymentMethod={this.deletePaymentMethod}
+                    insideBooking={insideBooking}
+                    key={paymentMethod.id}
+                    {...paymentMethod}
+                  />
+                )
+              }
             }
           })}
-          <Col xs={12} md={insideBooking ? 8 : 6} lg={6} style={insideBooking ? { marginRight: '33%' } : {}}>
-            <Panel style={insideBooking ? { boxShadow: 'none' } : {}}>
-              <h4 className='header-green'>{t('common.Add_payment_method')}</h4>
-              <form id='add-payment-form' onSubmit={e => e.preventDefault()}>
-                <Accordion activeKey={this.state.addNewMethodAccordionExpanded} onSelect={this.panelToggle}>
-                  <Panel header={t('common.Credit_card')} eventKey='credit-card'>
-                    <div id='card-number' className='form-control' style={styles.ccFullWidth} />
-                    <div id='cvv' className='form-control' style={styles.ccHalfWidth} />
-                    <div id='expiration-date' className='form-control' style={Object.assign({}, styles.ccHalfWidth, { marginLeft: 5 })} />
-                    <Button id='add-new-card' bsStyle='success' type='submit'>{t('common.add_card_button')}</Button>
-                  </Panel>
-                  <Panel header={t('common.PayPal')} eventKey='paypal'>
-                    <div id='paypal-container' style={styles.paypalContainer} />
-                    <Button id='add-new-paypal' className='btn btn-flat btn-primary hide' type='submit' value={t('common.add_paypal_button')} />
-                  </Panel>
-                </Accordion>
-              </form>
-            </Panel>
-          </Col>
+          <div className={(!insideBooking || (insideBooking && user.paymentMethods.length === 0)) ? '' : 'hide'}>
+            <Col xs={12} md={insideBooking ? 8 : 6} lg={6} style={insideBooking ? { marginRight: '33%' } : {}}>
+              <Panel style={insideBooking ? { boxShadow: 'none' } : {}}>
+                <h4 className='header-green'>{t('common.Add_payment_method')}</h4>
+                <form id='add-payment-form' onSubmit={e => e.preventDefault()}>
+                  <Accordion activeKey={this.state.addNewMethodAccordionExpanded} onSelect={this.panelToggle}>
+                    <Panel header={t('common.Credit_card')} eventKey='credit-card'>
+                      <div id='card-number' className='form-control' style={styles.ccFullWidth} />
+                      <div id='cvv' className='form-control' style={styles.ccHalfWidth} />
+                      <div id='expiration-date' className='form-control' style={Object.assign({}, styles.ccHalfWidth, { marginLeft: 5 })} />
+                      <Button id='add-new-card' bsStyle='success' type='submit'>{t('common.add_card_button')}</Button>
+                    </Panel>
+                    <Panel header={t('common.PayPal')} eventKey='paypal'>
+                      <div id='paypal-container' style={styles.paypalContainer} />
+                      <Button id='add-new-paypal' className='btn btn-flat btn-primary hide' type='submit' value={t('common.add_paypal_button')} />
+                    </Panel>
+                  </Accordion>
+                </form>
+              </Panel>
+            </Col>
+          </div>
         </Row>
       </SpinLoader>
     )

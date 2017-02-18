@@ -66,4 +66,7 @@ export default {
   extraCostsList: {
     marginBottom: 10,
   },
+  textarea: {
+    minHeight: 140,
+  },
 }
