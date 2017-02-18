@@ -406,8 +406,13 @@
 
 .DateRangePickerInput {
   background-color: #fff;
-  border: 1px solid #cacccd;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   display: inline-block; }
+
+.DateInput {
+  border-radius: 5px;
+}
 
 .DateRangePickerInput--disabled {
   background: #cacccd; }

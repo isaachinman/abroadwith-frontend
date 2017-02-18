@@ -4,7 +4,7 @@ import { generateImmersionPricesForRoom } from 'utils/prices'
 import { asyncConnect } from 'redux-connect'
 import config from 'config'
 import { connect } from 'react-redux'
-import { Col, Grid, Panel, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Grid, Modal, Panel, Row } from 'react-bootstrap'
 import Currencies from 'data/constants/Currencies'
 import FontAwesome from 'react-fontawesome'
 import GoogleMap from 'google-map-react'
@@ -17,6 +17,7 @@ import { Link } from 'react-router'
 import MapStyles from 'data/constants/MapStyles'
 import moment from 'moment'
 import shallowCompare from 'react-addons-shallow-compare'
+import SendNewMessageToHost from 'components/SendNewMessageToHost/SendNewMessageToHost'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { updateRoomSearchParams, updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
 import Radium from 'radium'
@@ -40,11 +41,13 @@ import MapCircle from './subcomponents/MapCircle'
   (state, ownProps) => ({
     activeRoom: state.uiPersist.homestaySearch.activeRoom,
     debug: ownProps,
+    error: state.publicData.homestays.error,
     homestay: state.publicData.homestays[ownProps.params.homeID],
     homestaySearch: state.uiPersist.homestaySearch,
     host: state.publicData.homestays[ownProps.params.homeID] && state.publicData.homestays[ownProps.params.homeID].data && state.publicData.users[state.publicData.homestays[ownProps.params.homeID].data.host.userId] ? state.publicData.users[state.publicData.homestays[ownProps.params.homeID].data.host.userId] : null, // eslint-disable-line
-    error: state.publicData.homestays.error,
     loading: state.publicData.homestays.loading,
+    newThread: state.messaging.newThread,
+    token: state.auth.token || null,
     uiCurrency: state.ui.currency.value,
     currencyRates: state.ui.currency.exchangeRates.data.rates,
   })
@@ -58,13 +61,14 @@ export default class Homestay extends Component {
     lightboxOpen: false,
     lightboxImage: 0,
     roomSelectionOpen: false,
+    sendMessageModalOpen: false,
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
   }
 
-  componentDidUpdate = () => {
+  componentDidUpdate = prevProps => {
 
     // Initialisation steps
     const { activeRoom, dispatch, homestay } = this.props
@@ -87,6 +91,11 @@ export default class Homestay extends Component {
         console.log('Unable to determine conflicts', err)
       }
 
+    }
+
+    // If the user just sent a message to the host, close the modal
+    if (prevProps.newThread.loading && !this.props.newThread.loading) {
+      this.closeSendMessageModal()
     }
 
 
@@ -133,10 +142,14 @@ export default class Homestay extends Component {
   goToNextImage = () => this.setState({ lightboxImage: this.state.lightboxImage + 1 })
   goToImage = index => this.setState({ lightboxImage: index })
 
+  // Modal functions
+  openSendMessageModal = () => this.setState({ sendMessageModalOpen: true })
+  closeSendMessageModal = () => this.setState({ sendMessageModalOpen: false })
+
   render() {
 
     const { lightboxOpen, lightboxImage } = this.state
-    const { activeRoom, currencyRates, error, homestay, homestaySearch, host, loading, uiCurrency, t } = this.props
+    const { activeRoom, currencyRates, error, homestay, homestaySearch, host, loading, uiCurrency, t, token } = this.props
 
     const activeRoomObj = homestay.data && activeRoom ? homestay.data.rooms.filter(room => room.id === activeRoom)[0] : {}
     const currencySymbol = Currencies[uiCurrency]
@@ -273,11 +286,23 @@ export default class Homestay extends Component {
                       </p>
                     }
                     {host &&
-                      <p>
-                        <Link to={`/user/${homestay.data.host.userId}`}>
-                          {t('homes.more_about_host', { host: homestay.data.host.firstName })}
-                        </Link>
-                      </p>
+                      <Alert bsStyle='info' style={styles.contactHostAlert}>
+                        {token &&
+                          <span>
+                            <p>
+                              <Button onClick={this.openSendMessageModal} bsSize='xsmall' bsStyle='primary'>{t('common.Contact_host')}</Button>
+                            </p>
+                            <p>
+                              {t('common.words.or')}
+                            </p>
+                          </span>
+                        }
+                        <p>
+                          <Link to={`/user/${homestay.data.host.userId}`}>
+                            {t('homes.more_about_host', { host: homestay.data.host.firstName })}
+                          </Link>
+                        </p>
+                      </Alert>
                     }
                   </Col>
                 </Row>
@@ -466,6 +491,23 @@ export default class Homestay extends Component {
                 </Sticky>
               </div>
             </StickyContainer>
+            {token &&
+              <Modal
+                show={this.state.sendMessageModalOpen}
+                onHide={this.closeSendMessageModal}
+              >
+                <Modal.Header closeButton>
+                  <h5 className='header-green'>{t('common.send_message')}</h5>
+                </Modal.Header>
+                <div style={styles.sendMessageModalContentContainer}>
+                  <SendNewMessageToHost
+                    startDate={homestaySearch.params.arrival}
+                    endDate={homestaySearch.params.departure}
+                    homeID={homestay.data.id}
+                  />
+                </div>
+              </Modal>
+            }
           </Grid>
 
         }
@@ -484,7 +526,9 @@ Homestay.propTypes = {
   homestaySearch: PropTypes.object,
   host: PropTypes.object,
   loading: PropTypes.bool,
+  newThread: PropTypes.object,
   uiCurrency: PropTypes.string,
   params: PropTypes.object,
   t: PropTypes.func,
+  token: PropTypes.string,
 }

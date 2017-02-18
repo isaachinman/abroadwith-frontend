@@ -1,11 +1,11 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
+import { Button, Col, Collapse, ControlLabel, Fade, FormControl, FormGroup, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
 import { calculateHomestayPriceWithinBooking, updatePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
 import { connect } from 'react-redux'
-import { Col, Collapse, ControlLabel, Fade, FormGroup, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import HomeData from 'data/constants/HomeData'
 import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/homes/loadHome'
@@ -398,8 +398,30 @@ export default class BookingHomestay extends Component {
                                   </Tab.Pane>
 
                                   <Tab.Pane eventKey={showUpsell ? 4 : 3}>
-                                    General overview, all selected options, total cost
-                                    Final "Book now" button
+                                    <Row>
+                                      <Col xs={12}>
+                                        <h4>{t('booking.booking_summary')}</h4>
+                                      </Col>
+                                    </Row>
+                                    <Row>
+                                      <Col xs={12}>
+                                        <h6 className='header-green'>{t('booking.message_placeholder')}</h6>
+                                      </Col>
+                                      <Col xs={12} md={10}>
+                                        <FormGroup controlId='new-thread'>
+                                          <FormControl
+                                            componentClass='textarea'
+                                            placeholder={t('inbox.message_modal_placeholder')}
+                                            style={styles.textarea}
+                                          />
+                                        </FormGroup>
+                                      </Col>
+                                    </Row>
+                                    <Row>
+                                      <Col xs={12}>
+                                        <Button bsSize='large' bsStyle='success'>{t('booking.request_booking')}</Button>
+                                      </Col>
+                                    </Row>
                                   </Tab.Pane>
 
                                 </Tab.Content>
@@ -490,16 +512,16 @@ export default class BookingHomestay extends Component {
                         &larr; {t(`booking.homestay_booking.step_${activeStep > 2 && !showUpsell ? activeStep : activeStep - 1}.title`)}
                       </Pager.Item>
                     }
-                    {activeStep !== 4 && ((showUpsell && activeStep === 3 && !isProcessable) || (!showUpsell && activeStep === 2 && !isProcessable)) ?
+                    {((showUpsell && activeStep === 3 && !isProcessable) || (!showUpsell && activeStep === 2 && !isProcessable)) &&
                       <Pager.Item
                         disabled
                         next
                       >
                         <div>{t(`booking.homestay_booking.step_${activeStep === 1 && !showUpsell ? activeStep + 2 : activeStep + 1}.title`)} &rarr;</div>
                       </Pager.Item>
-                      :
+                    }
+                    {(((showUpsell && activeStep < 3) || (!showUpsell && activeStep < 2)) || ((showUpsell && activeStep === 3 && isProcessable) || (!showUpsell && activeStep === 2 && isProcessable))) &&
                       <Pager.Item
-                        disabled={showUpsell ? activeStep === 3 && !isProcessable : activeStep === 2 && !isProcessable}
                         eventKey={activeStep + 1}
                         next
                       >
