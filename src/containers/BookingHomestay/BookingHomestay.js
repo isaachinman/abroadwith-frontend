@@ -43,6 +43,7 @@ import styles from './BookingHomestay.styles'
     user: state.privateData.user.data,
     uiCurrency: state.ui.currency.value,
     token: state.auth.token,
+    loading: state.bookings.homestayBookings.loading,
     potentialBooking: state.bookings.homestayBookings.potentialBooking,
     potentialBookingHelpers: state.bookings.homestayBookings.potentialBookingHelpers,
   })
@@ -201,7 +202,7 @@ export default class BookingHomestay extends Component {
   render() {
 
     const { activeStep, animationInProgress, upsellSearchInitialised } = this.state
-    const { user, upsellSearch, homestays, t, token, potentialBooking, potentialBookingHelpers } = this.props
+    const { user, upsellSearch, homestays, loading, t, token, potentialBooking, potentialBookingHelpers } = this.props
 
     const currencySymbol = Currencies[potentialBooking.currency]
     const homestay = homestays[potentialBookingHelpers.homeID] ? homestays[potentialBookingHelpers.homeID] : {}
@@ -253,7 +254,7 @@ export default class BookingHomestay extends Component {
         <Helmet title={t('booking.homestay_booking.title')} />
 
         <div style={styles.contentContainer}>
-          <SpinLoader show={upsellSearch.loading || !upsellSearchInitialised}>
+          <SpinLoader show={upsellSearch.loading || !upsellSearchInitialised || loading}>
             <div style={styles.minHeightContainer}>
               {upsellSearchInitialised &&
                 <div>
@@ -601,6 +602,7 @@ export default class BookingHomestay extends Component {
 BookingHomestay.propTypes = {
   dispatch: PropTypes.func,
   homestays: PropTypes.object,
+  loading: PropTypes.bool,
   uiCurrency: PropTypes.string,
   user: PropTypes.object,
   upsellSearch: PropTypes.object,
