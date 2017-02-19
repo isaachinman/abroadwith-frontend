@@ -14,3 +14,7 @@
 2. Determine other actions besides home creation that change feUserType
 3. Start "Your Trip" page
 4. Add course booking back into homestay booking once Luis changes API path
+
+// Pipeline
+1. GZIP assets at compile time, not at serve time
+2. Use SSR caching to speed up server compile time (http://www.electrode.io/docs/server_side_render_cache.html)
