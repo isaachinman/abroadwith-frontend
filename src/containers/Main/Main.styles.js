@@ -9,6 +9,12 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url(${config.img}/app/hero/hero_v2_homepage_large.jpg)`,
+    '@media (max-width: 1000px)': {
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url(${config.img}/app/hero/hero_v2_homepage_large.jpg?w=1000)`,
+    },
+    '@media (max-width: 600px)': {
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url(${config.img}/app/hero/hero_v2_homepage_large.jpg?w=600)`,
+    },
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundColor: darkBlue,
