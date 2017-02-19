@@ -2,12 +2,12 @@ require('babel-polyfill')
 
 const img = {
   S3: {
-    isProduction: true,
     img: 'https://s3.eu-central-1.amazonaws.com/img.test-abroadwith.com',
+    s3: 'img.test-abroadwith.com',
   },
   IMGIX: {
-    isProduction: false,
     img: 'https://abroadwith.imgix.net',
+    s3: 'img.abroadwith.com',
   },
 }[process.env.IMG || 'S3']
 

@@ -1,0 +1,9 @@
+{
+  "types": [
+    "STUDENT",
+    "HOST",
+    "STUDENT_AND_HOST",
+    "MULTI_HOME_HOST",
+    "STUDENT_AND_MULTI_HOME_HOST"
+  ]
+}

@@ -1,12 +1,11 @@
 import jwtDecode from 'jwt-decode'
 import config from 'config'
+import { load as loadUserWithAuth, update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
+import { load as loadHomeWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import superagent from 'superagent'
 import { push } from 'react-router-redux'
 import { openVerifyEmailModal } from 'redux/modules/ui/modals'
-import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
-import { load as loadHomeWithAuth } from './loadHomeWithAuth'
-
 
 // Create homestay
 const CREATE_HOMESTAY = 'abroadwith/CREATE_HOMESTAY'
@@ -33,7 +32,7 @@ const DELETE_HOMESTAY = 'abroadwith/DELETE_HOMESTAY'
 const DELETE_HOMESTAY_SUCCESS = 'abroadwith/DELETE_HOMESTAY_SUCCESS'
 const DELETE_HOMESTAY_FAIL = 'abroadwith/DELETE_HOMESTAY_FAIL'
 
-export function createHomestay(jwt, redirectToManageHome) {
+export function createHomestay(jwt, user, redirectToManageHome) {
   return async dispatch => {
 
     dispatch(showLoading())
@@ -59,8 +58,15 @@ export function createHomestay(jwt, redirectToManageHome) {
               // Request was successful
               dispatch({ type: CREATE_HOMESTAY_SUCCESS })
               dispatch(hideLoading())
+
+              // Optional redirect
               if (redirectToManageHome) {
                 dispatch(loadUserWithAuth(jwt, () => dispatch(push('/manage-home'))))
+              }
+
+              // This is an action which can change a user's type
+              if (user.feUserType === 'STUDENT') {
+                dispatch(updateUser(jwtDecode(jwt).rid, Object.assign({}, user, { feUserType: 'STUDENT_AND_HOST' }), jwt))
               }
 
             }
