@@ -1,8 +1,11 @@
 /* eslint-disable */
 
+import config from 'config'
+
+console.log(config)
+
 var lwip = require('lwip')
 var exif = require('exif-parser')
-var domains = require('../../data/constants/domains.json')
 
 var AWS = require('aws-sdk')
 
@@ -36,7 +39,7 @@ var uploadImage = function(image_file,image_key,options,callback){
   if (type === 'pdf') {
     var params = {
       ACL: 'public-read',
-      Bucket: domains.S3_BUCKET,
+      Bucket: config.s3,
       Key: image_key,
       Body: image_file.buffer,
       ContentType: image_file.mimetypem,
@@ -107,7 +110,7 @@ var uploadImage = function(image_file,image_key,options,callback){
           else{
             var params = {
               ACL: 'public-read',
-              Bucket: domains.S3_BUCKET,
+              Bucket: config.s3,
               Key: image_key,
               Body: buffer,
               ContentType: image_file.mimetypem,

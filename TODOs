@@ -2,7 +2,6 @@
 1. Swap react-google-maps in homestay creation for google-map-react, thus eliminating react-google-maps dep
 2. Attempt to upgrade to webpack 2 for tree-shaking benefits
 3. Find any unused translation keys and elimate them
-4. Entire website needs to be rethought for mobile
 
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR

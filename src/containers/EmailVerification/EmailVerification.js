@@ -71,7 +71,7 @@ export default class EmailVerification extends Component {
 
   render() {
     const { whatToRender } = this.state
-    const { t, verifications } = this.props
+    const { user, t, token, verifications } = this.props
     console.log(this)
     return (
       <div>
@@ -122,7 +122,7 @@ export default class EmailVerification extends Component {
                     {t('common.email_verified_success_host')}
                   </p>
                   <div style={styles.btnBottom}>
-                    <Button onClick={() => this.props.dispatch(createHomestay(this.props.token, true))} bsStyle='primary'>{t('common.navbar_become_host')}</Button>
+                    <Button onClick={() => this.props.dispatch(createHomestay(token, user, true))} bsStyle='primary'>{t('common.navbar_become_host')}</Button>
                   </div>
                 </Alert>
               }

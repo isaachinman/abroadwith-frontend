@@ -81,8 +81,8 @@ export default class Navbar extends Component {
                   </LinkContainer>
                       }
                   {guestUI &&
-                  <NavItem onClick={() => dispatch(createHomestay(token, true))}>{t('common.navbar_become_host')}</NavItem>
-                      }
+                    <NavItem onClick={() => dispatch(createHomestay(token, user.data, true))}>{t('common.navbar_become_host')}</NavItem>
+                  }
                   <LinkContainer to='/inbox'>
                     <NavItem>
                       <FontAwesome name='envelope-o' />
@@ -141,8 +141,8 @@ export default class Navbar extends Component {
                   </LinkContainer>
                       }
                   {guestUI &&
-                  <NavItem onClick={() => dispatch(createHomestay(token, true))}>{t('common.navbar_become_host')}</NavItem>
-                      }
+                    <NavItem onClick={() => dispatch(createHomestay(token, user.data, true))}>{t('common.navbar_become_host')}</NavItem>
+                  }
                   <LinkContainer to='/inbox'>
                     <NavItem>{t('inbox.title')}</NavItem>
                   </LinkContainer>

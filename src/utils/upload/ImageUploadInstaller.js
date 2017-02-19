@@ -1,9 +1,10 @@
 /* eslint-disable */
 
+import config from 'config'
+
 var express = require('express')
 var https = require('https')
 var http = require('http')
-var domains = require('../../data/constants/domains.json')
 
 var multer  = require('multer')
 var storage = multer.memoryStorage()
@@ -27,8 +28,8 @@ var postSingle = function(req,path,photo,callback) {
   var post_data = JSON.stringify({pathName:photo})
 
   var post_options = {
-      host: domains.API_DOMAIN,
-      port: domains.API_PORT,
+      host: config.apiHost,
+      port: config.apiPort,
       path: path,
       method: 'POST',
       headers: {
@@ -38,23 +39,14 @@ var postSingle = function(req,path,photo,callback) {
       }
   }
 
+  console.log('post_options: ', post_options)
+
   // Set up the request
   var post_req
-  if (domains.API_HTTP == "https") {
-
-    post_req = https.request(post_options, function(res) {
-        res.setEncoding('utf8')
-        callback()
-    })
-
-  } else {
-
-    post_req = http.request(post_options, function(res) {
-        res.setEncoding('utf8')
-        callback()
-    })
-
-  }
+  post_req = https.request(post_options, function(res) {
+      res.setEncoding('utf8')
+      callback()
+  })
 
   post_req.on('error', function(e) {
     callback(e)
