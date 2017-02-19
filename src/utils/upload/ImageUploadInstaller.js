@@ -2,6 +2,8 @@
 
 import config from 'config'
 
+const hostWithoutProtocol = config.apiHost.replace(/^https?\:\/\//i, "")
+
 var express = require('express')
 var https = require('https')
 var http = require('http')
@@ -28,7 +30,7 @@ var postSingle = function(req,path,photo,callback) {
   var post_data = JSON.stringify({pathName:photo})
 
   var post_options = {
-      host: config.apiHost,
+      host: hostWithoutProtocol,
       port: config.apiPort,
       path: path,
       method: 'POST',
@@ -68,8 +70,8 @@ var postMultiple = function(req,path,photos,callback) {
   var post_data = JSON.stringify(data)
 
   var post_options = {
-      host: domains.API_DOMAIN,
-      port: domains.API_PORT,
+      host: hostWithoutProtocol,
+      port: config.apiPort,
       path: path,
       method: 'POST',
       headers: {
@@ -81,21 +83,10 @@ var postMultiple = function(req,path,photos,callback) {
 
   // Set up the request
   var post_req
-  if (domains.API_HTTP == "https") {
-
-    post_req = https.request(post_options, function(res) {
-        res.setEncoding('utf8')
-        callback()
-    })
-
-  } else {
-
-    post_req = http.request(post_options, function(res) {
-        res.setEncoding('utf8')
-        callback()
-    })
-
-  }
+  post_req = https.request(post_options, function(res) {
+      res.setEncoding('utf8')
+      callback()
+  })
 
   post_req.on('error', function (e) {
     callback(e)

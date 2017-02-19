@@ -12,6 +12,7 @@ import Radium from 'radium'
 import superagent from 'superagent'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
 import { load as loadUser, update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
+import { load as loadPublicUser } from 'redux/modules/publicData/users/loadUser'
 import { translate } from 'react-i18next'
 import { Typeahead } from 'react-bootstrap-typeahead'
 
@@ -50,6 +51,7 @@ export default class UserProfileEdit extends Component {
       request.end(err => {
 
         if (!err) {
+          dispatch(loadPublicUser(jwt.rid)) // Load public user object again - this is normally cached
           dispatch(loadUser(token))
         }
 
@@ -71,6 +73,7 @@ export default class UserProfileEdit extends Component {
     }
 
     dispatch(updateUser(jwt.rid, newUserData, token, () => {
+      dispatch(loadPublicUser(jwt.rid)) // Load public user object again - this is normally cached
       dispatch(push(`/user/${jwt.rid}`))
     }))
 
