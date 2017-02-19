@@ -7,8 +7,6 @@ export default (app) => {
 
     const supportRequest = req.body
 
-    console.log(supportRequest)
-
     // Send email via SendGrid
     // Their docs are all in ES5, so whatever
 

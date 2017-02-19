@@ -99,8 +99,6 @@ export default class Thread extends Component {
       return new Date(a.timestamp) - new Date(b.timestamp)
     }) : []
 
-    console.log(this)
-
     return (
       <Grid>
         <Helmet title={`${t('inbox.conversation_with')} ${thread ? thread.with.firstName : ''}`} />

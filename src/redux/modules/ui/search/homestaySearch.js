@@ -156,8 +156,6 @@ export function updateActiveRoom(roomID) {
 
 export function performRoomSearch(params, push) {
 
-  console.log('perform room search action: ', params)
-
   return async dispatch => {
 
     dispatch(showLoading())

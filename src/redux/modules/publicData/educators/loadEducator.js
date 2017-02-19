@@ -37,7 +37,6 @@ export function isLoaded(globalState, educatorID) {
 }
 
 export function load(educatorID) {
-  console.log('inside load educator', educatorID)
   return {
     types: [LOAD_EDUCATOR, LOAD_EDUCATOR_SUCCESS, LOAD_EDUCATOR_FAIL],
     promise: client => client.get(`/public/educators/${educatorID}`),

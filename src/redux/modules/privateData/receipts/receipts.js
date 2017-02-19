@@ -17,7 +17,6 @@ export default function reducer(state = {}, action = {}) {
         },
       }
     case LOAD_RECEIPT_SUCCESS:
-      console.log('load receipt was successful')
       return {
         ...state,
         [action.result.booking.id]: Object.assign({}, action.result, {

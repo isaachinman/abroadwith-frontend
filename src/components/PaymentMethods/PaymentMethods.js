@@ -105,7 +105,6 @@ export default class PaymentMethods extends Component {
 
           },
           onReady(integration) {
-            console.log('ON READY')
             window.braintreeIntegration = integration
           },
         }

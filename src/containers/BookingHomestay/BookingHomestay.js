@@ -210,8 +210,6 @@ export default class BookingHomestay extends Component {
     const homestay = homestays[potentialBookingHelpers.homeID] ? homestays[potentialBookingHelpers.homeID] : {}
     const room = homestay.data.rooms.filter(r => r.id === potentialBooking.roomId)[0]
 
-    console.log('room: ', room)
-
     const showUpsell = upsellSearch.loaded && upsellSearch.data && upsellSearch.data.results && upsellSearch.data.results.length > 0
 
     // Determine length of homestay
