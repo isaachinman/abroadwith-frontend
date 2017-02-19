@@ -14,6 +14,9 @@ const styles = {
   descriptionParagraph: {
     minHeight: 100,
   },
+  immersionPanel: {
+    boxShadow: 'none',
+  },
 }
 
 const hoursSharedPerWeekOptions = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
@@ -231,6 +234,7 @@ export default class HomeImmersions extends Component {
                 <Panel
                   header={<h3>{t('common.Stay')}</h3>}
                   footer={<a onClick={() => this.toggleImmersion('stay')}>{t('manage_home.disable')}</a>}
+                  style={styles.immersionPanel}
                 >
                   <Row>
                     <Col xs={12}>
@@ -270,7 +274,10 @@ export default class HomeImmersions extends Component {
             </Collapse>
             <Collapse in={!immersions.stay.isActive}>
               <div>
-                <Panel footer={<Button bsStyle='success' onClick={() => this.toggleImmersion('stay')}>{t('manage_home.enable')}</Button>}>
+                <Panel
+                  footer={<Button bsStyle='success' onClick={() => this.toggleImmersion('stay')}>{t('manage_home.enable')}</Button>}
+                  style={styles.immersionPanel}
+                >
                   <h3>{t('common.Stay')}</h3>
                   <p style={styles.descriptionParagraph}>{t('manage_home.stay_description')}</p>
                 </Panel>
@@ -284,6 +291,7 @@ export default class HomeImmersions extends Component {
                 <Panel
                   header={<h3>{t('common.Tandem')}</h3>}
                   footer={<a onClick={() => this.toggleImmersion('tandem')}>{t('manage_home.disable')}</a>}
+                  style={styles.immersionPanel}
                 >
                   <Row>
                     <Col xs={12}>
@@ -355,7 +363,10 @@ export default class HomeImmersions extends Component {
             </Collapse>
             <Collapse in={!immersions.tandem.isActive}>
               <div>
-                <Panel footer={<Button bsStyle='success' onClick={() => this.toggleImmersion('tandem')}>{t('manage_home.enable')}</Button>} >
+                <Panel
+                  footer={<Button bsStyle='success' onClick={() => this.toggleImmersion('tandem')}>{t('manage_home.enable')}</Button>}
+                  style={styles.immersionPanel}
+                >
                   <h3>{t('common.Tandem')}</h3>
                   <p style={styles.descriptionParagraph}>{t('manage_home.stay_description')}</p>
                 </Panel>
@@ -369,6 +380,7 @@ export default class HomeImmersions extends Component {
                 <Panel
                   header={<h3>{t('common.Teachers_stay')}</h3>}
                   footer={<a onClick={() => this.toggleImmersion('teacher')}>{t('manage_home.disable')}</a>}
+                  style={styles.immersionPanel}
                 >
                   <Row>
                     <Col xs={12}>
@@ -452,7 +464,10 @@ export default class HomeImmersions extends Component {
             </Collapse>
             <Collapse in={!immersions.teacher.isActive}>
               <div>
-                <Panel footer={<Button bsStyle='success' onClick={() => this.toggleImmersion('teacher')}>{t('manage_home.enable')}</Button>}>
+                <Panel
+                  footer={<Button bsStyle='success' onClick={() => this.toggleImmersion('teacher')}>{t('manage_home.enable')}</Button>}
+                  style={styles.immersionPanel}
+                >
                   <h3>{t('common.Teachers_stay')}</h3>
                   <p style={styles.descriptionParagraph}>{t('manage_home.stay_description')}</p>
                 </Panel>

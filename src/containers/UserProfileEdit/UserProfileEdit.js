@@ -147,7 +147,6 @@ export default class UserProfileEdit extends Component {
                         <CharacterCounter>
                           <FormControl
                             componentClass='textarea'
-                            placeholder={t('manage_home.description_rules_placeholder')}
                             style={{ minHeight: 160 }}
                             defaultValue={user.data.aboutMe}
                             maxLength={510}

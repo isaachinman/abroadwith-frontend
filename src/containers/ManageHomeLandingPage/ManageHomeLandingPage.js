@@ -15,7 +15,7 @@ import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/lo
 import styles from './ManageHomeLandingPage.styles'
 
 @asyncConnect([{
-  deferred: false,
+  deferred: true,
   promise: ({ store: { dispatch, getState } }) => {
 
     const { auth, privateData } = getState()

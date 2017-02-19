@@ -158,8 +158,6 @@ export default class Homestay extends Component {
 
     const stickied = typeof window !== 'undefined' ? window.innerWidth > 767 : true
 
-    console.log(rates)
-
     return (
       <div style={{ marginBottom: -20 }}>
 
