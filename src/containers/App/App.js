@@ -1,10 +1,15 @@
 // Absolute imports
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import config from 'config'
 import { deletePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
+import FadeProps from 'fade-props'
 import { Footer, LoadingBar, Navbar } from 'components'
 import { getUnreadMessageCount } from 'redux/modules/privateData/messaging/getUnreadMessageCount'
 import { geolocateViaBrowser } from 'utils/locations'
+import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
+import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
+import { loadCurrencyRates } from 'redux/modules/ui/currency'
 import { logout } from 'redux/modules/auth'
 import { push } from 'react-router-redux'
 import { StyleRoot } from 'radium'
@@ -14,13 +19,9 @@ import { translate } from 'react-i18next'
 import moment from 'moment'
 import NotFound from 'components/NotFound/NotFound'
 import notification from 'antd/lib/notification'
-import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
-import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
-import { loadCurrencyRates } from 'redux/modules/ui/currency'
+import { routingAnimation } from 'utils/animation'
 import VerifyEmailModal from 'components/Modals/VerifyEmailModal'
 import VerifyPhoneModal from 'components/Modals/VerifyPhoneModal'
-import config from 'config'
-import FadeProps from 'fade-props'
 
 // Relative imports
 import styles from './App.styles'
@@ -63,6 +64,9 @@ export default class App extends Component {
   componentDidMount = () => {
 
     const { currency, dispatch, homes, token, user } = this.props
+
+    // Instantiate routing animation
+    routingAnimation(dispatch)
 
     // Load homes if necessary
     if (user.data && user.data.homeIds && homes.length !== user.data.homeIds.length) {

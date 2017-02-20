@@ -8,19 +8,19 @@ import { load as loadHomeWithAuth } from 'redux/modules/privateData/homes/loadHo
 import { REHYDRATE } from 'redux-persist/constants'
 
 // Load previously stored auth
-const LOAD = 'auth/LOAD'
-const LOAD_SUCCESS = 'auth/LOAD_SUCCESS'
-const LOAD_FAIL = 'auth/LOAD_FAIL'
+const LOAD = 'abroadwith/LOAD_AUTH'
+const LOAD_SUCCESS = 'abroadwith/LOAD_AUTH_SUCCESS'
+const LOAD_FAIL = 'abroadwith/LOAD_AUTHFAIL'
 
 // Login stuff
-const LOGIN = 'auth/LOGIN'
-const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS'
-const LOGIN_FAIL = 'auth/LOGIN_FAIL'
+const LOGIN = 'abroadwith/LOGIN'
+const LOGIN_SUCCESS = 'abroadwith/LOGIN_SUCCESS'
+const LOGIN_FAIL = 'abroadwith/LOGIN_FAIL'
 
 // Logout stuff
-const LOGOUT = 'auth/LOGOUT'
-const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS'
-const LOGOUT_FAIL = 'auth/LOGOUT_FAIL'
+const LOGOUT = 'abroadwith/LOGOUT'
+const LOGOUT_SUCCESS = 'abroadwith/LOGOUT_SUCCESS'
+const LOGOUT_FAIL = 'abroadwith/LOGOUT_FAIL'
 
 const initialState = {
   loaded: false,
