@@ -1,12 +1,11 @@
 // Absolute imports
-import { asyncConnect } from 'redux-connect'
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { deletePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import { Footer, LoadingBar, Navbar } from 'components'
 import { getUnreadMessageCount } from 'redux/modules/privateData/messaging/getUnreadMessageCount'
 import { geolocateViaBrowser } from 'utils/locations'
-import { isLoaded as isAuthLoaded, logout } from 'redux/modules/auth'
+import { logout } from 'redux/modules/auth'
 import { push } from 'react-router-redux'
 import { StyleRoot } from 'radium'
 import Helmet from 'react-helmet'
@@ -29,18 +28,6 @@ import styles from './App.styles'
 // Config for notification system
 notification.config({ top: 100 })
 
-@asyncConnect([{
-  promise: ({ store: { dispatch, getState } }) => { // eslint-disable-line
-
-    const promises = []
-
-    if (isAuthLoaded(getState())) {
-      console.log('auth is loaded')
-    }
-
-    return Promise.all(promises)
-  },
-}])
 @connect(
   state => ({
     bookings: state.bookings,
@@ -53,8 +40,9 @@ notification.config({ top: 100 })
     homes: state.privateData.homes,
     routing: state.routing.locationBeforeTransitions,
     locale: state.ui.locale,
-  }),
-  { logout, pushState: push }
+    logout,
+    pushState: push,
+  })
 )
 @translate()
 export default class App extends Component {
@@ -190,10 +178,7 @@ export default class App extends Component {
 
   render() {
 
-    const { children, footer, jwt, user, routing, route } = this.props
-
-    console.log(routing.pathname)
-    console.log(this.props.children)
+    const { children, footer, jwt, user, route } = this.props
 
     return (
       <StyleRoot>
@@ -204,7 +189,7 @@ export default class App extends Component {
           <LoadingBar />
           <Navbar jwt={jwt} user={user} title={config.app.title} />
 
-          <FadeProps animationLength={40}>
+          <FadeProps animationLength={50}>
             <main style={styles.appContent} key={children.type.displayName}>
               {route.status === 200 && children}
               {route.status === 404 && <NotFound />}

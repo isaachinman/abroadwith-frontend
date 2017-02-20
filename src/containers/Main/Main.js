@@ -1,16 +1,28 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import { BackgroundColorBlock, FeaturedHomes, HowDoesItWork, InlineSearchUnit, Testimonial } from 'components'
 import { Button, Col, Grid, Modal, Panel, Row } from 'react-bootstrap'
-import Helmet from 'react-helmet'
-import { BackgroundColorBlock, FeaturedHomes, HowDoesItWork, InlineSearchUnit } from 'components'
-import { translate } from 'react-i18next'
-import Radium from 'radium'
-import Testimonial from 'components/Testimonial/Testimonial'
+import { connect } from 'react-redux'
+import { createHomestay } from 'redux/modules/privateData/homes/homeManagement'
 import { freshGreen, headerPink, warmPurple, saturatedPurple, headerBluePurple } from 'styles/colors'
+import Helmet from 'react-helmet'
+import { Link } from 'react-router'
+import { translate } from 'react-i18next'
+import { openHostSignupModal } from 'redux/modules/ui/modals'
+import { performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
+import Radium from 'radium'
+import { push } from 'react-router-redux'
 
 // Relative imports
 import styles from './Main.styles'
 
+@connect(state => ({
+  homestaySearch: state.uiPersist.homestaySearch,
+  jwt: state.auth.jwt,
+  uiLanguage: state.ui.locale.value,
+  user: state.privateData.user,
+  token: state.auth.token,
+}))
 @translate()
 @Radium
 export default class Main extends Component {
@@ -22,9 +34,16 @@ export default class Main extends Component {
   openHowDoesItWorkModal = () => this.setState({ howDoesItWorkModalOpen: true })
   closeHowDoesItWorkModal = () => this.setState({ howDoesItWorkModalOpen: false })
 
+  redirectToSearchWithImmersionType = type => {
+    const { dispatch, homestaySearch } = this.props
+    const params = Object.assign({}, homestaySearch.params)
+    params.immersions[type] = true
+    dispatch(performRoomSearch(params, push))
+  }
+
   render() {
 
-    const { t } = this.props
+    const { dispatch, jwt, user, t, token } = this.props
 
     return (
       <div>
@@ -64,29 +83,39 @@ export default class Main extends Component {
                 <Panel style={styles.immersionPanel}>
                   <h3 className='header-pink'>{t('common.Stay')}</h3>
                   <p style={styles.immersionDescription}>{t('common.stay_description')}</p>
-                  <Button bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: warmPurple })}>{t('common.find_host')}</Button>
+                  <Button onClick={() => this.redirectToSearchWithImmersionType('stay')} bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: warmPurple })}>{t('common.find_host')}</Button>
                 </Panel>
               </Col>
               <Col xs={12} md={4}>
                 <Panel style={styles.immersionPanel}>
                   <h3 className='header-blue'>{t('common.Tandem')}</h3>
                   <p style={styles.immersionDescription}>{t('common.tandem_description')}</p>
-                  <Button bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: saturatedPurple })} >{t('common.find_host')}</Button>
+                  <Button onClick={() => this.redirectToSearchWithImmersionType('tandem')} bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: saturatedPurple })} >{t('common.find_host')}</Button>
                 </Panel>
               </Col>
               <Col xs={12} md={4}>
                 <Panel style={styles.immersionPanel}>
                   <h3 className='header-green'>{t('common.Teacher')}</h3>
                   <p style={styles.immersionDescription}>{t('common.teacher_description')}</p>
-                  <Button bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: freshGreen })}>{t('common.find_host')}</Button>
+                  <Button onClick={() => this.redirectToSearchWithImmersionType('teacher')} bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: freshGreen })}>{t('common.find_host')}</Button>
                 </Panel>
               </Col>
             </Row>
             <Row>
               <Col xs={12} style={styles.hostBtnRow}>
-                <Button bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: headerPink })} >{t('common.see_all_hosts')}</Button>
-                {t('common.words.or')}
-                <Button bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: saturatedPurple })}>{t('common.navbar_become_host')}</Button>
+                <Button onClick={() => this.redirectToSearchWithImmersionType('stay')} bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: headerPink })} >{t('common.see_all_hosts')}</Button>
+                {!jwt &&
+                  <span>
+                    {t('common.words.or')}
+                    <Button onClick={() => dispatch(openHostSignupModal())} bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: saturatedPurple })}>{t('common.navbar_become_host')}</Button>
+                  </span>
+                }
+                {jwt && user && user.data && user.data.homeIds.length === 0 &&
+                  <span>
+                    {t('common.words.or')}
+                    <Button onClick={() => dispatch(createHomestay(token, user.data, true))} bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: saturatedPurple })}>{t('common.navbar_become_host')}</Button>
+                  </span>
+                }
               </Col>
             </Row>
           </Grid>
@@ -118,7 +147,9 @@ export default class Main extends Component {
             </Row>
             <Row>
               <Col xs={12} style={styles.hostBtnRow}>
-                <Button bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: saturatedPurple })} >{t('common.see_more_testimonials')}</Button>
+                <Link to='/testimonials'>
+                  <Button bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: saturatedPurple })} >{t('common.see_more_testimonials')}</Button>
+                </Link>
               </Col>
             </Row>
             <BackgroundColorBlock color={headerPink} minHeight={320} />
@@ -139,5 +170,9 @@ export default class Main extends Component {
 
 Main.propTypes = {
   dispatch: PropTypes.func,
+  homestaySearch: PropTypes.object,
+  jwt: PropTypes.object,
+  user: PropTypes.object,
   t: PropTypes.func,
+  token: PropTypes.string,
 }

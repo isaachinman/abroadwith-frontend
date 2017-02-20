@@ -9,6 +9,7 @@ import { isLoaded, load as loadUser } from 'redux/modules/publicData/users/loadU
 import Helmet from 'react-helmet'
 import { Link } from 'react-router'
 import Radium from 'radium'
+import { scrollToTopOfPage } from 'utils/scrolling'
 import { translate } from 'react-i18next'
 
 // Relative imports
@@ -34,7 +35,7 @@ import styles from './UserProfile.styles'
 @Radium
 export default class UserProfile extends Component {
 
-  componentDidMount = () => document.querySelector('body').scrollTop = 0
+  componentDidMount = () => scrollToTopOfPage()
 
   render() {
 

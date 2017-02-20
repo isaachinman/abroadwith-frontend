@@ -33,8 +33,8 @@ export default class Navbar extends Component {
 
     const { dispatch, jwt, modals, unreadMessageCount, user, t, token } = this.props
 
-    const hostUI = jwt && user && user.data && user.data.homeIds.length > 0
-    const guestUI = jwt ? !hostUI : false
+    const hostUI = jwt && user && user.data && user.data.feUserType.indexOf('HOST') > -1
+    const guestUI = jwt && user && user.data && user.data.feUserType.indexOf('STUDENT') > -1
 
     return (
       <span style={styles.navbarContainer}>
@@ -80,7 +80,7 @@ export default class Navbar extends Component {
                       {user.data.homeIds.length > 1 ? <NavItem>{t('common.navbar_your_homes')}</NavItem> : <NavItem>{t('common.navbar_your_home')}</NavItem>}
                     </LinkContainer>
                   }
-                  {guestUI &&
+                  {((guestUI && !hostUI) || (hostUI && user.data.homeIds.length === 0)) &&
                     <NavItem onClick={() => dispatch(createHomestay(token, user.data, true))}>{t('common.navbar_become_host')}</NavItem>
                   }
                   <LinkContainer to='/inbox'>
@@ -96,15 +96,15 @@ export default class Navbar extends Component {
                       <MenuItem>{t('common.navbar_profile')}</MenuItem>
                     </LinkContainer>
                     {hostUI &&
-                    <LinkContainer to='/reservations'>
-                      <NavItem>{t('common.navbar_reservations')}</NavItem>
-                    </LinkContainer>
-                        }
+                      <LinkContainer to='/reservations'>
+                        <NavItem>{t('common.navbar_reservations')}</NavItem>
+                      </LinkContainer>
+                    }
                     {guestUI &&
-                    <LinkContainer to='/trips'>
-                      <NavItem>{t('common.navbar_your_trips')}</NavItem>
-                    </LinkContainer>
-                        }
+                      <LinkContainer to='/trips'>
+                        <NavItem>{t('common.navbar_your_trips')}</NavItem>
+                      </LinkContainer>
+                    }
                     <LinkContainer to='/invite'>
                       <MenuItem>{t('common.navbar_invite')}</MenuItem>
                     </LinkContainer>
@@ -136,11 +136,11 @@ export default class Navbar extends Component {
               <span style={styles.mobileNavbar}>
                 <Nav>
                   {hostUI &&
-                  <LinkContainer to='/manage-home'>
-                    {user.data.homeIds.length > 1 ? <NavItem>{t('common.navbar_your_homes')}</NavItem> : <NavItem>{t('common.navbar_your_home')}</NavItem>}
-                  </LinkContainer>
-                      }
-                  {guestUI &&
+                    <LinkContainer to='/manage-home'>
+                      {user.data.homeIds.length > 1 ? <NavItem>{t('common.navbar_your_homes')}</NavItem> : <NavItem>{t('common.navbar_your_home')}</NavItem>}
+                    </LinkContainer>
+                  }
+                  {((guestUI && !hostUI) || (hostUI && user.data.homeIds.length === 0)) &&
                     <NavItem onClick={() => dispatch(createHomestay(token, user.data, true))}>{t('common.navbar_become_host')}</NavItem>
                   }
                   <LinkContainer to='/inbox'>
@@ -150,15 +150,15 @@ export default class Navbar extends Component {
                     <NavItem>{t('common.navbar_profile')}</NavItem>
                   </LinkContainer>
                   {hostUI &&
-                  <LinkContainer to='/reservations'>
-                    <NavItem>{t('common.navbar_reservations')}</NavItem>
-                  </LinkContainer>
-                      }
+                    <LinkContainer to='/reservations'>
+                      <NavItem>{t('common.navbar_reservations')}</NavItem>
+                    </LinkContainer>
+                  }
                   {guestUI &&
-                  <LinkContainer to='/trips'>
-                    <NavItem>{t('common.navbar_your_trips')}</NavItem>
-                  </LinkContainer>
-                      }
+                    <LinkContainer to='/trips'>
+                      <NavItem>{t('common.navbar_your_trips')}</NavItem>
+                    </LinkContainer>
+                  }
                   <LinkContainer to='/invite'>
                     <NavItem>{t('common.navbar_invite')}</NavItem>
                   </LinkContainer>
