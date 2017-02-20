@@ -59,7 +59,6 @@ customApiEndpoints.map(endpoint => {
   endpoint(app)
 })
 
-app.use(compression())
 app.use(cookieParser())
 app.use(i18nMiddleware.handle(i18n))
 imageUploadInstaller(app)

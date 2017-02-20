@@ -176,6 +176,7 @@
     "bootstrap-sass": "^3.3.5",
     "bootstrap-sass-loader": "^1.0.9",
     "clean-webpack-plugin": "^0.1.6",
+    "compression-webpack-plugin": "^0.3.2",
     "concurrently": "^2.2.0",
     "css-loader": "^0.26.1",
     "eslint": "3.15.0",
