@@ -133,7 +133,7 @@ export default class Settings extends Component {
               <h1>{t('admin.title')}</h1>
             </Col>
           </Row>
-          <Tab.Container id='left-tabs-example' defaultActiveKey='contact-info'>
+          <Tab.Container id='settings' defaultActiveKey='contact-info'>
             <Row style={styles.mainRow}>
               <Col style={styles.sidebar} xs={12} sm={4} md={3} lg={2}>
                 <Nav bsStyle='pills' stacked>
@@ -181,7 +181,7 @@ export default class Settings extends Component {
                     />
                   </Tab.Pane>
 
-                  <Tab.Pane eventKey='payments'>
+                  <Tab.Pane eventKey='payments' unmountOnExit={false}>
                     <h3>{t('admin.payments_payment_methods')}</h3>
                     <h5>{t('admin.payments_payment_methods_subtitle')}</h5>
                     <PaymentMethods {...this.props} />

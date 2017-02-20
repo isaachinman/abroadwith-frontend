@@ -63,7 +63,6 @@ export default class App extends Component {
     store: PropTypes.object.isRequired,
   }
 
-  // Mostly used to keep track of notifications etc
   state = {
     potentialBookingReminderSent: false,
   }
@@ -191,7 +190,10 @@ export default class App extends Component {
 
   render() {
 
-    const { footer, jwt, user, route, routing } = this.props
+    const { children, footer, jwt, user, routing, route } = this.props
+
+    console.log(routing.pathname)
+    console.log(this.props.children)
 
     return (
       <StyleRoot>
@@ -203,8 +205,8 @@ export default class App extends Component {
           <Navbar jwt={jwt} user={user} title={config.app.title} />
 
           <FadeProps animationLength={40}>
-            <main style={styles.appContent} key={routing.pathname}>
-              {route.status === 200 && this.props.children}
+            <main style={styles.appContent} key={children.type.displayName}>
+              {route.status === 200 && children}
               {route.status === 404 && <NotFound />}
             </main>
           </FadeProps>

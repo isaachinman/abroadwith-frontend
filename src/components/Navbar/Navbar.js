@@ -76,10 +76,10 @@ export default class Navbar extends Component {
               <span style={styles.desktopNavbar}>
                 <Nav navbar pullRight>
                   {hostUI &&
-                  <LinkContainer to='/manage-home'>
-                    {user.data.homeIds.length > 1 ? <NavItem>{t('common.navbar_your_homes')}</NavItem> : <NavItem>{t('common.navbar_your_home')}</NavItem>}
-                  </LinkContainer>
-                      }
+                    <LinkContainer to='/manage-home'>
+                      {user.data.homeIds.length > 1 ? <NavItem>{t('common.navbar_your_homes')}</NavItem> : <NavItem>{t('common.navbar_your_home')}</NavItem>}
+                    </LinkContainer>
+                  }
                   {guestUI &&
                     <NavItem onClick={() => dispatch(createHomestay(token, user.data, true))}>{t('common.navbar_become_host')}</NavItem>
                   }
