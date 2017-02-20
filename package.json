@@ -97,7 +97,6 @@
     "babel-runtime": "^6.3.19",
     "body-parser": "^1.16.0",
     "braintree-web": "^2.30.0",
-    "compression": "^1.6.0",
     "cookie-parser": "^1.4.3",
     "debounce": "^1.0.0",
     "deep-is": "^0.1.3",
