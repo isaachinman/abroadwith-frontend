@@ -13,6 +13,7 @@ import {
     SearchHomestays,
     SignupPage,
     UserProfile,
+    Testimonials,
   } from 'containers'
 
 export default (store) => {
@@ -158,6 +159,11 @@ export default (store) => {
       cb(null, require('../components/Thread/Thread'))
     }, 'inbox')
   }
+  const getPrivacyPolicy = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/PrivacyPolicy/PrivacyPolicy'))
+    }, 'privacy-policy')
+  }
   const getReceipt = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/Receipt/Receipt'))
@@ -198,10 +204,10 @@ export default (store) => {
       cb(null, require('../containers/Settings/Settings'))
     }, 'settings')
   }
-  const getPrivacyPolicy = (nextState, cb) => {
+  const getTrips = (nextState, cb) => {
     require.ensure([], require => {
-      cb(null, require('../containers/PrivacyPolicy/PrivacyPolicy'))
-    }, 'privacy-policy')
+      cb(null, require('../containers/Trips/Trips'))
+    }, 'trips')
   }
   const getUserProfileEdit = (nextState, cb) => {
     require.ensure([], require => {
@@ -255,6 +261,7 @@ export default (store) => {
               </Route>
               <Route path='settings' getComponent={getSettings} />
               <Route path='thread/:threadID' getComponent={getThread} />
+              <Route path='trips' getComponent={getTrips} />
               <Route path='verify/email' getComponent={getEmailVerification} />
             </Route>
 
@@ -270,6 +277,7 @@ export default (store) => {
             <Route path='signup' component={SignupPage} />
             <Route path='terms' getComponent={getTermsAndConditions} />
             <Route path='user/:userID' component={UserProfile} />
+            <Route path='testimonials' components={Testimonials} />
 
           </Route>
         )

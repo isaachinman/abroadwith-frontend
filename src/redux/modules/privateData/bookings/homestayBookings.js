@@ -29,7 +29,16 @@ const CREATE_HOMESTAY_BOOKING = 'abroadwith/CREATE_HOMESTAY_BOOKING'
 const CREATE_HOMESTAY_BOOKING_SUCCESS = 'abroadwith/CREATE_HOMESTAY_BOOKING_SUCCESS'
 const CREATE_HOMESTAY_BOOKING_FAIL = 'abroadwith/CREATE_HOMESTAY_BOOKING_FAIL'
 
+// Load homestay bookings
+const LOAD_HOMESTAY_BOOKINGS = 'abroadwith/LOAD_HOMESTAY_BOOKINGS'
+const LOAD_HOMESTAY_BOOKINGS_SUCCESS = 'abroadwith/LOAD_HOMESTAY_BOOKINGS_SUCCESS'
+const LOAD_HOMESTAY_BOOKINGS_FAIL = 'abroadwith/LOAD_HOMESTAY_BOOKINGS_FAIL'
+
 const initialState = {
+  bookings: {
+    loaded: false,
+    loading: false,
+  },
   loading: false,
   potentialBooking: {},
   potentialBookingHelpers: {
@@ -132,6 +141,33 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
       }
+    case LOAD_HOMESTAY_BOOKINGS:
+      return {
+        ...state,
+        bookings: {
+          loading: true,
+          loaded: false,
+        },
+      }
+    case LOAD_HOMESTAY_BOOKINGS_SUCCESS:
+      return {
+        ...state,
+        bookings: {
+          loading: false,
+          loaded: true,
+          data: action.result,
+        },
+      }
+    case LOAD_HOMESTAY_BOOKINGS_FAIL:
+      return {
+        ...state,
+        bookings: {
+          loading: false,
+          loaded: false,
+          error: true,
+          errorMessage: action.error,
+        },
+      }
     default:
       return state
   }
@@ -230,4 +266,11 @@ export function createHomestayBooking(jwt, bookingObject, callback) {
     }
   }
 
+}
+
+export function loadHomestayBookings(jwt) {
+  return {
+    types: [LOAD_HOMESTAY_BOOKINGS, LOAD_HOMESTAY_BOOKINGS_SUCCESS, LOAD_HOMESTAY_BOOKINGS_FAIL],
+    promise: client => client.get(`users/${jwtDecode(jwt).rid}/bookings`, { auth: jwt }),
+  }
 }
