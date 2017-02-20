@@ -19,7 +19,6 @@ import { translate } from 'react-i18next'
 import moment from 'moment'
 import NotFound from 'components/NotFound/NotFound'
 import notification from 'antd/lib/notification'
-import { routingAnimation } from 'utils/animation'
 import VerifyEmailModal from 'components/Modals/VerifyEmailModal'
 import VerifyPhoneModal from 'components/Modals/VerifyPhoneModal'
 
@@ -64,9 +63,6 @@ export default class App extends Component {
   componentDidMount = () => {
 
     const { currency, dispatch, homes, token, user } = this.props
-
-    // Instantiate routing animation
-    routingAnimation(dispatch)
 
     // Load homes if necessary
     if (user.data && user.data.homeIds && homes.length !== user.data.homeIds.length) {
