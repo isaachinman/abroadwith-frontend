@@ -3,9 +3,9 @@ import superagent from 'superagent'
 import { login, facebookLogin, googleLogin } from 'redux/modules/auth'
 
 // Login stuff
-const SIGNUP = 'auth/SIGNUP'
-const SIGNUP_SUCCESS = 'auth/SIGNUP_SUCCESS'
-const SIGNUP_FAIL = 'auth/SIGNUP_FAIL'
+const SIGNUP = 'abroadwith/SIGNUP'
+const SIGNUP_SUCCESS = 'abroadwith/SIGNUP_SUCCESS'
+const SIGNUP_FAIL = 'abroadwith/SIGNUP_FAIL'
 
 const initialState = {
   loading: false,
