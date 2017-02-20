@@ -8,6 +8,7 @@ import { loadingBarReducer } from 'react-redux-loading-bar'
 import auth from './auth'
 import clientToken from './payments/client-token'
 import contactUs from './publicData/users/contactUs'
+import courseBookings from './privateData/bookings/courseBookings'
 import courseSearch from './ui/search/courseSearch'
 import currency from './ui/currency'
 import educators from './publicData/educators/loadEducator'
@@ -31,6 +32,7 @@ import verifications from './privateData/users/verifications'
 export default combineReducers({
   auth,
   bookings: combineReducers({
+    courseBookings,
     homestayBookings,
   }),
   contactUs,

@@ -1,31 +1,46 @@
+import config from 'config'
+import { darkBlue } from 'styles/colors'
+
 export default {
-  h1Row: {
-    marginTop: 20,
+  pageContainer: {
+    '@media (max-width: 767px)': {
+      padding: 0,
+    },
   },
-  mainPanel: {
-    minHeight: 'calc(100vh - 300px)',
-    boxShadow: '5px 5px 12px 0 rgba(0,0,0,0.15)',
+  noTripsPanel: {
+    paddingTop: 50,
+    paddingBottom: 50,
+    marginTop: 100,
+    textAlign: 'center',
   },
-  tableRow: {
-    paddingTop: 30,
+  homestayHero: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),url(${config.img}/app/hero/hero_testimonials.jpeg)`,
+    '@media (max-width: 1000px)': {
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),url(${config.img}/app/hero/hero_testimonials.jpeg?w=1000)`,
+    },
+    '@media (max-width: 600px)': {
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),url(${config.img}/app/hero/hero_testimonials.jpeg?w=600)`,
+    },
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor: darkBlue,
+    color: 'white',
+    height: '50vh',
+    minHeight: 420,
+    '@media (max-width: 350px)': {
+      minHeight: 460,
+    },
+    marginBottom: 30,
   },
-  guestPhoto: {
-    width: 100,
-    height: 100,
-    borderRadius: '50%',
-    boxShadow: '5px 5px 12px 0 rgba(0,0,0,0.15)',
-    display: 'inline-block',
-  },
-  guestName: {
-    display: 'inline-block',
-    marginLeft: 10,
-    maxWidth: 160,
-    verticalAlign: 'top',
-  },
-  alert: {
-    lineHeight: '2em',
-  },
-  marginTop10: {
-    marginTop: 10,
+  heroTextContent: {
+    maxWidth: 600,
+    margin: '0 auto',
+    textShadow: '1px 2px 2px rgba(0, 0, 0, .2)',
   },
 }
