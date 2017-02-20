@@ -94,7 +94,7 @@ export function load(homeID) {
 
   return async dispatch => {
 
-    dispatch(showLoading())
+    if (__CLIENT__) dispatch(showLoading())
     dispatch({ type: LOAD_HOMESTAY, homeID })
 
     try {
@@ -105,14 +105,14 @@ export function load(homeID) {
 
           if (err) {
 
+            if (__CLIENT__) dispatch(hideLoading())
             resolve(dispatch({ type: LOAD_HOMESTAY_FAIL, homeID, err }))
-            dispatch(hideLoading())
 
           } else {
 
             // Load was successful
+            if (__CLIENT__) dispatch(hideLoading())
             resolve(dispatch({ type: LOAD_HOMESTAY_SUCCESS, homeID, result: body }))
-            dispatch(hideLoading())
 
           }
 
@@ -121,7 +121,7 @@ export function load(homeID) {
 
     } catch (err) {
       dispatch({ type: LOAD_HOMESTAY_FAIL, homeID, err })
-      dispatch(hideLoading())
+      if (__CLIENT__) dispatch(hideLoading())
     }
   }
 }
