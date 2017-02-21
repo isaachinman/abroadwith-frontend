@@ -1,10 +1,11 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
-import { Col, Panel, Row } from 'react-bootstrap'
+import { Button, Col, Panel, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { extendMoment } from 'moment-range'
 import Helmet from 'react-helmet'
+import { Link } from 'react-router'
 import { load as loadHomestay } from 'redux/modules/publicData/homes/loadHome'
 import { loadCourseBookings } from 'redux/modules/privateData/bookings/courseBookings'
 import { loadHomestayBookings } from 'redux/modules/privateData/bookings/homestayBookings'
@@ -127,6 +128,8 @@ export default class Trips extends Component {
       return mostRecentTrip.tripId
     }
 
+    return null
+
   }
 
   compileTrips = setActiveTrip => {
@@ -194,9 +197,11 @@ export default class Trips extends Component {
     const { activeTripID, initialised, trips } = this.state
     const { t } = this.props
 
-    const activeTrip = trips[activeTripID]
+    console.log(this)
+
+    const activeTrip = activeTripID ? trips[activeTripID] : null
     const tripsLength = Object.keys(trips).length
-    const noCourseBooking = !activeTrip.bookings.some(booking => booking.type === 'COURSE')
+    const noCourseBooking = activeTrip ? !activeTrip.bookings.some(booking => booking.type === 'COURSE') : null
 
     console.log('activeTrip: ', activeTrip)
     console.log(this)
@@ -208,7 +213,7 @@ export default class Trips extends Component {
         <Helmet title={t('trips.title')} />
         <div className='container' style={styles.pageContainer}>
           <div>
-            {initialised && tripsLength > 0 &&
+            {initialised && tripsLength > 0 && activeTrip &&
               <div>
                 {activeTrip.bookings.map(booking => {
                   if (booking.type === 'HOMESTAY') {
@@ -234,6 +239,15 @@ export default class Trips extends Component {
               <Col xs={12} md={6} mdOffset={3}>
                 <Panel style={styles.noTripsPanel}>
                   <h4 className='header-green'>{t('trips.no_trips')}</h4>
+                  <div style={{ marginTop: 30 }}>
+                    <Link to='/language-homestay/search'>
+                      <Button bsSize='xsmall' bsStyle='primary'>{t('common.find_host')}</Button>
+                    </Link>
+                    <div style={{ margin: '0 10px', display: 'inline-block' }}>{t('common.words.or')}</div>
+                    <Link to='language-program/search'>
+                      <Button bsSize='xsmall' bsStyle='success'>{t('common.find_language_course')}</Button>
+                    </Link>
+                  </div>
                 </Panel>
               </Col>
             </Row>

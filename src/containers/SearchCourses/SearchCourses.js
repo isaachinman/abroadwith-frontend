@@ -13,7 +13,7 @@ export default class CourseBooking extends Component {
 
     return (
       <Row>
-        <Col xs={12} md={6} mdOffset={3} style={{ marginTop: 100 }}>
+        <Col xs={12} md={6} mdOffset={3} lg={4} lgOffset={4} style={{ marginTop: 100 }}>
           <Panel>
             <h1>Coming soon!</h1>
             <p>In the very near future, Abroadwith will offer students the ability to book language courses in addition to, and completely separately from, their homestay experiences. This page will host an independent language-course search. Please check back soon.</p>

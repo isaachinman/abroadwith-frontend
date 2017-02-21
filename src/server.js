@@ -93,11 +93,10 @@ app.use((req, res) => {
 
   // Uncomment these lines to set a test token
   /* eslint-disable */
-  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiZjNGaUN4SFNnVjR6RWJfMnM3OHNjZyIsImlhdCI6MTQ4NzU4NzQ3NSwiZXhwIjoxNDg4MTkyMjc1LCJuYmYiOjE0ODc1ODczNTUsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IklzYWFjIiwicmlkIjoxMDA1MzMsImNiayI6MCwid2hvc3QiOnRydWUsImltZyI6Ii91c2Vycy8xMDA1MzMvMTQ4NzUyNjc4NzYwMi5qcGciLCJoaWQiOjU0NH0.JlT15uWtrgbnJFARNJ-YmunsdAfGRDbpSXo_p9Wd_r9mqLvI8ZCIaKnLGPR9I4K1TxRIIK4OGfXCazEcsAGYVNTKkH6rP2mCxiLP2kI6orAFGMA4xaXi8ermXTtqM36RRdcfT2Dla29-vW_iT2UvKpkBwQ_8AX0hykQvdqHn_c-Uz44CEl-_EyLTZ0fRPBmX6XtA-WR_2jjPlQMUcw2IohpqOXzKG7WaoKCOi7HLc6Y4RP3WL5_rNu0IKxh4-cH60_HzvbpGjYtUUZvF8X8Ni-51eII5uQE6ETMdcats2Lwc6vEcXdcaOLK33ubHZozxfgPGpm-IXfPUNLZcOnoRFA'
+  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiNnA5TTJYaDlOd2c2dmNUbzVkZWNIdyIsImlhdCI6MTQ4NzY5ODQ1OCwiZXhwIjoxNDg4MzAzMjU4LCJuYmYiOjE0ODc2OTgzMzgsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjc2hpbm1hbkBnbWFpbC5jb20iLCJuYW1lIjoiSXNhYWMiLCJyaWQiOjEwMDQ5NCwiY2JrIjoyLCJ3aG9zdCI6dHJ1ZSwiaW1nIjoiL3VzZXJzLzEwMDQ5NC8xNDgxMjg3MjM3NTk5LmpwZWciLCJoaWQiOjU0N30.V-znMp3iTq79_xlxxrvBOF9XfMn5umncRpjC1Hu9wtE4q1UV4wOJ-LaW7CI-Lc6LtsLNha_dHFUMypzKroOXi1MOLkxszCAmxDzqeNpBZnxE7gMGkLEyM7cWt1ZunqauyP8aEUM4-APXOdRsDTnMyGaW2tFmb-xYZkxr2-_5Nigrca-H2f3bhvTBXGSqU-aX9_wUe9K6T9vCucIBosXISSWszZylI8SW4YmNdrc2OJKS7jLOHhQYn9lhLVkAQImjo8JOdCw-nWM6qbL-g_FhdGg8O4khHjsHUUvhkhvuDVJZsxVQ0_8OR6F9DsE7sbr_TWgtzKPgzNdZ0bmN4ExKWA'
   // const expiryDate = new Date()
   // expiryDate.setDate(expiryDate.getDate() + 7)
   // res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
-  res.cookie('ui_currency', 'EUR')
   /* eslint-enable */
 
   if (__DEVELOPMENT__) {
@@ -131,6 +130,7 @@ app.use((req, res) => {
   let currencyDispatch = cb => cb()
   if (!req.cookies.ui_currency) {
     currencyDispatch = cb => dispatch(loadCurrencyRates(() => dispatch(changeCurrency('EUR', null, cb))))
+    res.cookie('ui_currency', 'EUR')
   } else {
     currencyDispatch = cb => dispatch(loadCurrencyRates(() => dispatch(changeCurrency(req.cookies.ui_currency, null, cb))))
   }
