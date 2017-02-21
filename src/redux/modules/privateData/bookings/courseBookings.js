@@ -63,25 +63,30 @@ export function createCourseBooking(jwt, bookingObject, callback) {
 
     try {
 
-      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/bookings`)
-      request.set({ Authorization: `Bearer ${(jwt)}` })
-      request.send(bookingObject)
+      return new Promise((resolve) => {
 
-      request.end((err, res) => {
+        const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/courseBookings`)
+        request.set({ Authorization: `Bearer ${(jwt)}` })
+        request.send(bookingObject)
 
-        if (err) {
+        request.end((err, res) => {
 
-          dispatch({ type: CREATE_COURSE_BOOKING_FAIL, err })
+          if (err) {
 
-        } else {
+            resolve(dispatch({ type: CREATE_COURSE_BOOKING_FAIL, err }))
 
-          // Request was successful
-          dispatch({ type: CREATE_COURSE_BOOKING_SUCCESS, result: res })
-          cb()
+          } else {
 
-        }
+            // Request was successful
+            resolve(dispatch({ type: CREATE_COURSE_BOOKING_SUCCESS, result: res }))
+            cb()
+
+          }
+
+        })
 
       })
+
 
     } catch (err) {
       dispatch({ type: CREATE_COURSE_BOOKING_FAIL, err })

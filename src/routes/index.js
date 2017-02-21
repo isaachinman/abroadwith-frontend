@@ -19,13 +19,11 @@ import {
 
 export default (store) => {
 
-  const noFooterEnter = liftedStore => {
-    liftedStore.dispatch(hideFooter())
-  }
-  const noFooterLeave = liftedStore => {
-    liftedStore.dispatch(showFooter())
-  }
+  // Hide and show footer based on route
+  const noFooterEnter = liftedStore => liftedStore.dispatch(hideFooter())
+  const noFooterLeave = liftedStore => liftedStore.dispatch(showFooter())
 
+  // Locale subpath redirection
   const checkLocaleEnter = (nextState, replace, cb) => {
 
     const { routing, ui } = store.getState()
@@ -62,10 +60,11 @@ export default (store) => {
     cb()
   }
 
-  const checkLocaleChange = (prevState, nextState, replace, cb) => {
-    checkLocaleEnter(nextState, replace, cb)
-  }
+  // Change function, identical to enter function
+  const checkLocaleChange = (prevState, nextState, replace, cb) => checkLocaleEnter(nextState, replace, cb)
 
+  // Manage home always lands on /manage-home, but if a user only has
+  // one home, this redirects them to /manage-home/{homeID}
   const singleHomeRedirect = (nextState, replace) => {
     const { homeIds } = store.getState().privateData.user.data
     if (homeIds.length === 1) {
@@ -73,32 +72,25 @@ export default (store) => {
     }
   }
 
+  // Require potential bookings on booking pages
   const requirePotentialHomestayBooking = (nextState, replace) => {
-
     if (!store.getState().bookings.homestayBookings.potentialBooking.stayId) {
-
-      // User doesn't have a potential homestay booking
       replace('/')
-
     }
-
   }
 
+  // Simple auth check for logged-in pages
   const requireLogin = (nextState, replace) => {
-
     function checkAuth() {
-
       const { auth: { jwt } } = store.getState()
       if (!jwt) {
         // User is not logged in, and will get bounced to homepage
         replace('/')
       }
     }
-
     if (!isAuthLoaded(store.getState())) {
       checkAuth()
     }
-
   }
 
   // --------------------------------------------------------------------------------
@@ -220,12 +212,13 @@ export default (store) => {
   // Please keep routes in alphabetical order
   // With the exception of Main, as this is the IndexRoute
   // --------------------------------------------------------------------------------
-
   return (
 
     <span>
+      {/* These routes are looped and produced for each locale */}
       {Object.values(UILanguages).map(locale => {
         return (
+
           <Route
             path={`${locale.basepath}`}
             key={locale.basepath}
@@ -285,12 +278,17 @@ export default (store) => {
           </Route>
         )
       })}
+
+      {/* Redirects for basepaths themselves */}
       {Object.values(UILanguages).map(locale => {
         return (
           <Redirect from={`/${locale.iso2}`} to={locale.basepath} key={locale.iso2} />
         )
       })}
+
+      {/* Catchall for unmatched routes, returns 404 */}
       <Route path='*' component={App} status={404} />
+
     </span>
   )
 }
