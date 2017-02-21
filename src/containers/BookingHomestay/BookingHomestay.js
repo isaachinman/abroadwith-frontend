@@ -162,43 +162,49 @@ export default class BookingHomestay extends Component {
       Methodology: perform optional steps first, and then hook redirect into
       mandatory step as final callback
 
-      Notes: this could be improved a _lot_ via proper thunks, error
-      handling, etc
-
     --------------------------------------------------------------------------*/
 
     const { messageToBeSentToHost } = this.state
     const { dispatch, token, user, upsellSearch, potentialBooking, potentialBookingHelpers } = this.props
 
+    const checkoutActions = []
+
     // Create new thread with message content (optional)
     if (messageToBeSentToHost) {
-      dispatch(createNewThreadWithHost(token, {
+      checkoutActions.push(dispatch(createNewThreadWithHost(token, {
         arrival: potentialBooking.arrivalDate,
         departure: potentialBooking.departureDate,
         homeId: potentialBookingHelpers.homeID,
         message: messageToBeSentToHost,
-      }))
+      })))
     }
 
     // Create course booking request (optional)
     if (potentialBookingHelpers.upsellCourseBooking.courseId) {
-      dispatch(createCourseBooking(token, {
+      checkoutActions.push(dispatch(createCourseBooking(token, {
         courseId: potentialBookingHelpers.upsellCourseBooking.courseId,
         startDate: potentialBookingHelpers.upsellCourseBooking.startDate,
         endDate: potentialBookingHelpers.upsellCourseBooking.endDate,
         level: upsellSearch.params.level,
         studentName: `${user.firstName} ${user.lastName}`,
-      }))
+        currency: potentialBooking.currency,
+        paymentMethodId: user.paymentMethods[0].id,
+      })))
     }
 
     // Create actual homestay booking request (required)
-    dispatch(createHomestayBooking(token, Object.assign({}, potentialBooking, {
+    checkoutActions.push(dispatch(createHomestayBooking(token, Object.assign({}, potentialBooking, {
       paymentMethodId: user.paymentMethods[0].id,
-    }), () => {
-      dispatch(deletePotentialHomestayBooking())
-      dispatch(push('/book-homestay/success'))
-    }))
+    }))))
 
+    // Execute all actions asynchronously
+    Promise.all(checkoutActions).then(() => {
+      dispatch(push('/book-homestay/success'))
+
+      // Not the nicest, but it works (routing isn't trustworthy benchmark of load/unload for components)
+      setTimeout(() => dispatch(deletePotentialHomestayBooking()), 1000)
+
+    })
 
   }
 

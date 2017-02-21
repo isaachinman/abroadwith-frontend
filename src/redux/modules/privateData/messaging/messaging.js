@@ -131,23 +131,27 @@ export function createNewThreadWithHost(jwt, threadObj, callback) {
 
       dispatch({ type: CREATE_NEW_THREAD_WITH_HOST })
 
-      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/messages`)
-      request.set({ Authorization: `Bearer ${(jwt)}` })
-      request.send(threadObj)
+      return new Promise((resolve) => {
 
-      request.end(err => {
+        const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/messages`)
+        request.set({ Authorization: `Bearer ${(jwt)}` })
+        request.send(threadObj)
 
-        if (err) {
+        request.end(err => {
 
-          dispatch({ type: CREATE_NEW_THREAD_WITH_HOST_FAIL, err })
+          if (err) {
 
-        } else {
+            resolve(dispatch({ type: CREATE_NEW_THREAD_WITH_HOST_FAIL, err }))
 
-          // Request was successful
-          dispatch({ type: CREATE_NEW_THREAD_WITH_HOST_SUCCESS })
-          cb()
+          } else {
 
-        }
+            // Request was successful
+            resolve(dispatch({ type: CREATE_NEW_THREAD_WITH_HOST_SUCCESS }))
+            cb()
+
+          }
+
+        })
 
       })
 
