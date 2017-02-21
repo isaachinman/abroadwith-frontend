@@ -190,7 +190,7 @@ export default class App extends Component {
           <Navbar jwt={jwt} user={user} title={config.app.title} />
 
           <FadeProps animationLength={50}>
-            <main style={styles.appContent} key={children.type.displayName}>
+            <main style={styles.appContent} key={children ? children.type.displayName : '404'}>
               {route.status === 200 && children}
               {route.status === 404 && <NotFound />}
             </main>

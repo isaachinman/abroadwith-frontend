@@ -21,6 +21,7 @@ import { StickyContainer, Sticky } from 'react-sticky'
 import { SpinLoader } from 'components'
 import { uiDate } from 'utils/dates'
 import UpsellCourseSearch from 'components/UpsellCourseSearch/UpsellCourseSearch'
+import { scrollToTopOfPage } from 'utils/scrolling'
 import { translate } from 'react-i18next'
 import { push } from 'react-router-redux'
 
@@ -66,7 +67,7 @@ export default class BookingHomestay extends Component {
     const { dispatch, token, potentialBooking, potentialBookingHelpers, upsellSearch } = this.props
 
     // Ensure the page is scrolled all the way up
-    window.scrollTo(0, 0)
+    scrollToTopOfPage()
 
     // Perform course upsell search
     dispatch(performCourseUpsellSearch(token, Object.assign({}, upsellSearch.params, {

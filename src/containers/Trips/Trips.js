@@ -11,12 +11,14 @@ import { loadHomestayBookings } from 'redux/modules/privateData/bookings/homesta
 import Moment from 'moment'
 import Radium from 'radium'
 import { translate } from 'react-i18next'
-import shortid from 'shortid'
+import { scrollToTopOfPage } from 'utils/scrolling'
 
 // Relative imports
+import AddACourseBooking from './subcomponents/AddACourseBooking'
 import CourseBooking from './subcomponents/CourseBooking'
 import HomestayBooking from './subcomponents/HomestayBooking'
 import styles from './Trips.styles'
+import TripSelector from './subcomponents/TripSelector'
 
 // Extend moment
 const moment = extendMoment(Moment)
@@ -57,12 +59,13 @@ export default class Trips extends Component {
     trips: [],
   }
 
-  componentWillMount = () => {
+  componentWillMount = () => this.compileTrips(true)
 
-    // This is a rather complex initialisation step that compiles
-    // homestay bookings and course bookings into "Trips"
-    this.compileTrips(true)
+  componentDidMount = () => scrollToTopOfPage()
 
+  changeTrip = activeTripID => {
+    this.setState({ activeTripID })
+    scrollToTopOfPage()
   }
 
   determineActiveTrip = trips => {
@@ -134,7 +137,7 @@ export default class Trips extends Component {
     const trips = {}
 
     // Start with homestay bookings, assign an ID and status
-    homestayBookings.data.map(homestayBooking => trips[shortid()] = {
+    homestayBookings.data.map(homestayBooking => trips[`h${homestayBooking.id}`] = {
       bookings: [Object.assign({}, homestayBooking, { type: 'HOMESTAY' })],
       status: homestayBooking.status,
     })
@@ -169,7 +172,7 @@ export default class Trips extends Component {
 
       // If there is no overlap with existing trips, create a new trip
       if (!overlap) {
-        trips[shortid()] = {
+        trips[`c${courseBooking.id}`] = {
           bookings: [Object.assign({}, courseBooking, { type: 'COURSE' })],
           status: courseBooking.status,
         }
@@ -193,6 +196,8 @@ export default class Trips extends Component {
 
     const activeTrip = trips[activeTripID]
     const tripsLength = Object.keys(trips).length
+    const noCourseBooking = !activeTrip.bookings.some(booking => booking.type === 'COURSE')
+
     console.log('activeTrip: ', activeTrip)
     console.log(this)
     console.log(tripsLength)
@@ -212,6 +217,16 @@ export default class Trips extends Component {
                     return <CourseBooking booking={booking} key={booking.id} />
                   }
                 })}
+                {noCourseBooking &&
+                  <AddACourseBooking />
+                }
+                {tripsLength > 1 &&
+                  <TripSelector
+                    activeTripID={activeTripID}
+                    trips={trips}
+                    changeTrip={this.changeTrip}
+                  />
+                }
               </div>
             }
             {initialised && tripsLength === 0 &&

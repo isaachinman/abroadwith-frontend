@@ -2,8 +2,6 @@
 
 import config from 'config'
 
-console.log(config)
-
 var lwip = require('lwip')
 var exif = require('exif-parser')
 

@@ -10,6 +10,7 @@ import {
     LoginPage,
     LoginSuccess,
     Main,
+    SearchCourses,
     SearchHomestays,
     SignupPage,
     UserProfile,
@@ -271,6 +272,8 @@ export default (store) => {
               onLeave={() => noFooterLeave(store)}
               component={SearchHomestays}
             />
+
+            <Route path='language-program/search' component={SearchCourses} />
 
             <Route path='login' component={LoginPage} />
             <Route path='privacy' getComponent={getPrivacyPolicy} />
