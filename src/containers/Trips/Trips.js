@@ -97,7 +97,7 @@ export default class Trips extends Component {
       // In this case, we're only going to look at the first booking of each trip
       const booking = trips[t].bookings[0]
 
-      if (booking.type === 'HOMESTAY') {
+      if (booking.bookingType === 'HOMESTAY') {
         if (moment(booking.arrivalDate).isAfter(nextUpcomingTrip.startDate)) {
           nextUpcomingTrip = {
             startDate: moment(booking.arrivalDate),
@@ -109,7 +109,7 @@ export default class Trips extends Component {
             tripId: t,
           }
         }
-      } else if (booking.type === 'COURSE') {
+      } else if (booking.bookingType === 'COURSE') {
         if (moment(booking.startDate).isAfter(nextUpcomingTrip.startDate)) {
           nextUpcomingTrip = {
             startDate: moment(booking.startDate),
@@ -146,14 +146,15 @@ export default class Trips extends Component {
     // Instantiate an empty object to fill
     const trips = {}
 
-    // Start with homestay bookings, assign an ID and status
+    // Start with homestay bookings
     homestayBookings.data.map(homestayBooking => trips[`h${homestayBooking.id}`] = {
-      bookings: [Object.assign({}, homestayBooking, { type: 'HOMESTAY' })],
-      status: homestayBooking.status,
+      bookings: [Object.assign({}, homestayBooking, { bookingType: 'HOMESTAY' })],
     })
 
     // Now map through any potential course bookings
     courseBookings.data.map(courseBooking => {
+
+      const data = Object.assign({}, courseBooking, { bookingType: 'COURSE' })
 
       // Determine a range for overlap checks
       const courseBookingRange = moment.range(courseBooking.startDate, courseBooking.endDate)
@@ -168,12 +169,12 @@ export default class Trips extends Component {
         trips[trip].bookings.map(booking => {
 
           // If a booking overlaps this courseBooking, push it into the trip
-          if (booking.type === 'HOMESTAY' &&
+          if (booking.bookingType === 'HOMESTAY' &&
               moment.range(moment(booking.arrivalDate), moment(booking.departureDate)).overlaps(courseBookingRange) &&
               booking.status.indexOf('DECLINED') === -1 &&
               booking.status.indexOf('CANCELLED') === -1
             ) {
-            trips[trip].bookings.push(courseBooking)
+            trips[trip].bookings.push(data)
             overlap = true
           }
 
@@ -183,7 +184,7 @@ export default class Trips extends Component {
       // If there is no overlap with existing trips, create a new trip
       if (!overlap) {
         trips[`c${courseBooking.id}`] = {
-          bookings: [Object.assign({}, courseBooking, { type: 'COURSE' })],
+          bookings: [data],
           status: courseBooking.status,
         }
       }
@@ -202,13 +203,13 @@ export default class Trips extends Component {
   render() {
 
     const { activeTripID, initialised, trips } = this.state
-    const { homestayBookings, t } = this.props
+    const { courseBookings, homestayBookings, t } = this.props
 
     console.log(this)
 
     const activeTrip = activeTripID ? trips[activeTripID] : null
     const tripsLength = Object.keys(trips).length
-    const noCourseBooking = activeTrip ? !activeTrip.bookings.some(booking => booking.type === 'COURSE') : null
+    const noCourseBooking = activeTrip ? !activeTrip.bookings.some(booking => booking.bookingType === 'COURSE') : null
 
     console.log('activeTrip: ', activeTrip)
     console.log(this)
@@ -219,14 +220,14 @@ export default class Trips extends Component {
       <div>
         <Helmet title={t('trips.title')} />
         <div className='container' style={styles.pageContainer}>
-          <SpinLoader show={homestayBookings.loading}>
+          <SpinLoader show={homestayBookings.loading || courseBookings.loading}>
             <div>
               {initialised && tripsLength > 0 && activeTrip &&
               <div>
                 {activeTrip.bookings.map(booking => {
-                  if (booking.type === 'HOMESTAY') {
-                    return <HomestayBooking booking={booking} key={booking.code} />
-                  } else if (booking.type === 'COURSE') {
+                  if (booking.bookingType === 'HOMESTAY') {
+                    return <HomestayBooking booking={booking} key={booking.code} marginBottom={activeTrip.bookings.length > 1} />
+                  } else if (booking.bookingType === 'COURSE') {
                     return <CourseBooking booking={booking} key={booking.id} />
                   }
                 })}
@@ -275,29 +276,3 @@ Trips.propTypes = {
   t: PropTypes.func,
   token: PropTypes.string,
 }
-
-/*
-
-Trips methodoloy:
-1. asyncConnect all homestay bookings
-2. asyncConnect all course bookings
-3. Run loader while compilation happens
-4. Push all homestay bookings into an array
-5. Loop through course bookings, if any overlap with any homestay bookings, push them into the same object
-6. Left with an array of "Trips", which can have 0 to 1 hometay booking, and 0 to multiple course bookings
-
-
-Data should look like:
-
-const trips = [
-  [
-    {
-      type: trip
-    },
-    {
-      type: course
-    }
-  ]
-]
-
-*/
