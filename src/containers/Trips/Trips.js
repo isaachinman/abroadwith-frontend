@@ -13,6 +13,7 @@ import Moment from 'moment'
 import Radium from 'radium'
 import { translate } from 'react-i18next'
 import { scrollToTopOfPage } from 'utils/scrolling'
+import { SpinLoader } from 'components'
 
 // Relative imports
 import AddACourseBooking from './subcomponents/AddACourseBooking'
@@ -61,8 +62,14 @@ export default class Trips extends Component {
   }
 
   componentWillMount = () => this.compileTrips(true)
-
   componentDidMount = () => scrollToTopOfPage()
+
+  // Anytime bookings are reloaded, trips must be recompiled
+  componentDidUpdate = prevProps => {
+    if (this.state.initialised && !this.props.homestayBookings.loading && prevProps.homestayBookings.loading) {
+      this.compileTrips()
+    }
+  }
 
   changeTrip = activeTripID => {
     this.setState({ activeTripID })
@@ -195,7 +202,7 @@ export default class Trips extends Component {
   render() {
 
     const { activeTripID, initialised, trips } = this.state
-    const { t } = this.props
+    const { homestayBookings, t } = this.props
 
     console.log(this)
 
@@ -212,8 +219,9 @@ export default class Trips extends Component {
       <div>
         <Helmet title={t('trips.title')} />
         <div className='container' style={styles.pageContainer}>
-          <div>
-            {initialised && tripsLength > 0 && activeTrip &&
+          <SpinLoader show={homestayBookings.loading}>
+            <div>
+              {initialised && tripsLength > 0 && activeTrip &&
               <div>
                 {activeTrip.bookings.map(booking => {
                   if (booking.type === 'HOMESTAY') {
@@ -234,25 +242,26 @@ export default class Trips extends Component {
                 }
               </div>
             }
-            {initialised && tripsLength === 0 &&
-            <Row>
-              <Col xs={12} md={6} mdOffset={3}>
-                <Panel style={styles.noTripsPanel}>
-                  <h4 className='header-green'>{t('trips.no_trips')}</h4>
-                  <div style={{ marginTop: 30 }}>
-                    <Link to='/language-homestay/search'>
-                      <Button bsSize='xsmall' bsStyle='primary'>{t('common.find_host')}</Button>
-                    </Link>
-                    <div style={{ margin: '0 10px', display: 'inline-block' }}>{t('common.words.or')}</div>
-                    <Link to='language-program/search'>
-                      <Button bsSize='xsmall' bsStyle='success'>{t('common.find_language_course')}</Button>
-                    </Link>
-                  </div>
-                </Panel>
-              </Col>
-            </Row>
+              {initialised && tripsLength === 0 &&
+              <Row>
+                <Col xs={12} md={6} mdOffset={3}>
+                  <Panel style={styles.noTripsPanel}>
+                    <h4 className='header-green'>{t('trips.no_trips')}</h4>
+                    <div style={{ marginTop: 30 }}>
+                      <Link to='/language-homestay/search'>
+                        <Button bsSize='xsmall' bsStyle='primary'>{t('common.find_host')}</Button>
+                      </Link>
+                      <div style={{ margin: '0 10px', display: 'inline-block' }}>{t('common.words.or')}</div>
+                      <Link to='language-program/search'>
+                        <Button bsSize='xsmall' bsStyle='success'>{t('common.find_language_course')}</Button>
+                      </Link>
+                    </div>
+                  </Panel>
+                </Col>
+              </Row>
             }
-          </div>
+            </div>
+          </SpinLoader>
         </div>
       </div>
     )

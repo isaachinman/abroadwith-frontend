@@ -156,6 +156,8 @@ export default class Signup extends Component {
 
   signup = (signupType, data) => {
 
+    console.log('data: ', data)
+
     const { dispatch, type } = this.props
     const { birthDate, firstName, lastName, email, password } = this.state.validatedFields
     const { referral_user } = this.props.query
@@ -384,6 +386,7 @@ export default class Signup extends Component {
                   onSuccess={response => this.signup('google', response)}
                   clientId='1094866362095-7qjnb8eojdpl862qiu6odrpdgrnrqgp5.apps.googleusercontent.com'
                   className='btn btn-block btn-lg btn-default btn-with-icon btn-google-login'
+                  scope='openid email profile'
                 >
                   <FontAwesome name='google' /> {t('common.sign_up_google')}
                 </GoogleLogin>

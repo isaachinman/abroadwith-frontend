@@ -29,6 +29,11 @@ const CREATE_HOMESTAY_BOOKING = 'abroadwith/CREATE_HOMESTAY_BOOKING'
 const CREATE_HOMESTAY_BOOKING_SUCCESS = 'abroadwith/CREATE_HOMESTAY_BOOKING_SUCCESS'
 const CREATE_HOMESTAY_BOOKING_FAIL = 'abroadwith/CREATE_HOMESTAY_BOOKING_FAIL'
 
+// Cancel homestay booking (guest)
+const CANCEL_HOMESTAY_BOOKING = 'abroadwith/CANCEL_HOMESTAY_BOOKING'
+const CANCEL_HOMESTAY_BOOKING_SUCCESS = 'abroadwith/CANCEL_HOMESTAY_BOOKING_SUCCESS'
+const CANCEL_HOMESTAY_BOOKING_FAIL = 'abroadwith/CANCEL_HOMESTAY_BOOKING_FAIL'
+
 // Load homestay bookings
 const LOAD_HOMESTAY_BOOKINGS = 'abroadwith/LOAD_HOMESTAY_BOOKINGS'
 const LOAD_HOMESTAY_BOOKINGS_SUCCESS = 'abroadwith/LOAD_HOMESTAY_BOOKINGS_SUCCESS'
@@ -140,6 +145,13 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loading: false,
+      }
+    case CANCEL_HOMESTAY_BOOKING:
+      return {
+        ...state,
+        bookings: Object.assign({}, state.bookings, {
+          loading: true, // Loading will be set to false by refetch of bookings
+        }),
       }
     case LOAD_HOMESTAY_BOOKINGS:
       return {
@@ -276,5 +288,38 @@ export function loadHomestayBookings(jwt) {
   return {
     types: [LOAD_HOMESTAY_BOOKINGS, LOAD_HOMESTAY_BOOKINGS_SUCCESS, LOAD_HOMESTAY_BOOKINGS_FAIL],
     promise: client => client.get(`users/${jwtDecode(jwt).rid}/bookings`, { auth: jwt }),
+  }
+}
+
+export function cancelHomestayBooking(jwt, bookingID) {
+
+  return async dispatch => {
+
+    dispatch({ type: CANCEL_HOMESTAY_BOOKING })
+
+    try {
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/bookings/${bookingID}`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+
+      request.end((err, res) => {
+
+        if (err) {
+
+          dispatch({ type: CANCEL_HOMESTAY_BOOKING_FAIL, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: CANCEL_HOMESTAY_BOOKING_SUCCESS, result: res })
+          dispatch(loadHomestayBookings(jwt))
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: CANCEL_HOMESTAY_BOOKING_FAIL, err })
+    }
   }
 }

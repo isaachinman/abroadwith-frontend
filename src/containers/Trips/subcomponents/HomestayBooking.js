@@ -1,12 +1,14 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import { Button, Col as BootstrapCol, Grid, Row } from 'react-bootstrap'
+import { cancelHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import config from 'config'
 import { connect } from 'react-redux'
-import { Col as BootstrapCol, Grid, Row } from 'react-bootstrap'
 import Currencies from 'data/constants/Currencies'
 import { darkBlue } from 'styles/colors'
 import { Link } from 'react-router'
 import moment from 'moment'
+import PopConfirm from 'antd/lib/popconfirm'
 import Radium from 'radium'
 import { uiDate } from 'utils/dates'
 import { translate } from 'react-i18next'
@@ -92,10 +94,22 @@ const styles = {
   },
 }
 
-@connect()
+@connect(
+  state => ({
+    token: state.auth.token,
+  })
+)
 @translate()
 @Radium
 export default class HomestayBooking extends Component {
+
+  cancelHomestayBooking = () => {
+
+    const { booking, dispatch, token } = this.props
+
+    dispatch(cancelHomestayBooking(token, booking.id))
+
+  }
 
   render() {
 
@@ -105,11 +119,19 @@ export default class HomestayBooking extends Component {
     const isApproved = booking.status.indexOf('APPROVED') > -1
     const isCancelled = booking.status.indexOf('CANCELLED') > -1
     const isDeclined = booking.status.indexOf('DECLINED') > -1
+    const isPending = booking.status.indexOf('PENDING') > -1
 
+    // Pending and Approved bookings in the future are actionable
+    const isActionable = (isApproved || isPending) && moment(booking.arrivalDate).isAfter(moment())
+
+    console.log('isActionable: ', isActionable)
+
+    console.log('isApproved: ', isApproved)
     console.log('isCancelled: ', isCancelled)
     console.log('isDeclined: ', isDeclined)
+    console.log('isPending: ', isPending)
     const currencySymbol = Currencies[booking.chargesCurrency]
-    console.log(this)
+
 
     return (
       <div>
@@ -160,6 +182,11 @@ export default class HomestayBooking extends Component {
                     {t('trips.invoices')}: {booking.invoiceIds.map(id => <Link to={`/invoice/${id}`} key={`invoice-${id}`}>{t('trips.invoice')} #{id}{booking.invoiceIds.indexOf(id) !== booking.invoiceIds.length - 1 && <span>,&nbsp;</span>}</Link>)}
                   </p>
                 }
+                {isActionable &&
+                  <PopConfirm onConfirm={this.cancelHomestayBooking} placement='top' title={t('common.are_you_sure')} okText={t('common.words.Yes')} cancelText={t('common.words.No')}>
+                    <Button bsSize='xsmall' bsStyle='danger'>{t('trips.actions.cancel')}</Button>
+                  </PopConfirm>
+                }
               </Col>
               <Col xs={12} md={6} style={styles.infoSectionTop}>
                 <h4 className='text-muted'>{t('common.Details')}</h4>
@@ -175,32 +202,32 @@ export default class HomestayBooking extends Component {
                   {t('booking.room_name')}: {booking.roomName}
                 </p>
               </Col>
-
-              {/* The bottom two sections are only shown for approved bookings */}
-              {isApproved &&
-
-                <div>
-                  <Col xs={12} md={6} style={styles.infoSectionBottom}>
-                    <h4 className='text-muted'>{t('trips.location')}</h4>
-                    {booking.homeAddress.street}{booking.homeAddress.complement && <span>, {booking.homeAddress.complement}</span>}
-                    <br />
-                    {booking.homeAddress.neighbourhood && <span>{booking.homeAddress.neighbourhood}, </span>}{booking.homeAddress.city} {booking.homeAddress.zipCode}
-                    <br />
-                    {booking.homeAddress.state}, {t(`countries.${booking.homeAddress.country}`)}
-                  </Col>
-                  <Col xs={12} md={6} style={styles.infoSectionBottom}>
-                    <h4 className='text-muted'>{t('common.host')}</h4>
-                    {booking.hostName}
-                    <br />
-                    {booking.hostEmail}
-                    <br />
-                    {booking.hostPhone}
-                  </Col>
-                </div>
-
-              }
-
             </Row>
+
+            {/* The bottom two sections are only shown for approved bookings */}
+            {isApproved &&
+
+              <Row>
+                <Col xs={12} md={6} style={styles.infoSectionBottom}>
+                  <h4 className='text-muted'>{t('trips.location')}</h4>
+                  {booking.homeAddress.street}{booking.homeAddress.complement && <span>, {booking.homeAddress.complement}</span>}
+                  <br />
+                  {booking.homeAddress.neighbourhood && <span>{booking.homeAddress.neighbourhood}, </span>}{booking.homeAddress.city} {booking.homeAddress.zipCode}
+                  <br />
+                  {booking.homeAddress.state}, {t(`countries.${booking.homeAddress.country}`)}
+                </Col>
+                <Col xs={12} md={6} style={styles.infoSectionBottom}>
+                  <h4 className='text-muted'>{t('common.host')}</h4>
+                  {booking.hostName}
+                  <br />
+                  {booking.hostEmail}
+                  <br />
+                  {booking.hostPhone}
+                </Col>
+              </Row>
+
+            }
+
           </div>
 
         </div>
@@ -213,4 +240,5 @@ HomestayBooking.propTypes = {
   booking: PropTypes.object,
   dispatch: PropTypes.func,
   t: PropTypes.func,
+  token: PropTypes.func,
 }
