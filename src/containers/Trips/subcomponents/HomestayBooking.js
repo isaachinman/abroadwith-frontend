@@ -106,35 +106,29 @@ export default class HomestayBooking extends Component {
   cancelHomestayBooking = () => {
 
     const { booking, dispatch, token } = this.props
-
     dispatch(cancelHomestayBooking(token, booking.id))
 
   }
 
   render() {
 
-    const { booking, t } = this.props
+    const { booking, marginBottom, t } = this.props
 
     // Luckily these things are at least named consistently
     const isApproved = booking.status.indexOf('APPROVED') > -1
-    const isCancelled = booking.status.indexOf('CANCELLED') > -1
-    const isDeclined = booking.status.indexOf('DECLINED') > -1
+    // const isCancelled = booking.status.indexOf('CANCELLED') > -1
+    // const isDeclined = booking.status.indexOf('DECLINED') > -1
     const isPending = booking.status.indexOf('PENDING') > -1
 
     // Pending and Approved bookings in the future are actionable
     const isActionable = (isApproved || isPending) && moment(booking.arrivalDate).isAfter(moment())
 
-    console.log('isActionable: ', isActionable)
-
-    console.log('isApproved: ', isApproved)
-    console.log('isCancelled: ', isCancelled)
-    console.log('isDeclined: ', isDeclined)
-    console.log('isPending: ', isPending)
     const currencySymbol = Currencies[booking.chargesCurrency]
 
+    console.log(this)
 
     return (
-      <div>
+      <div style={marginBottom ? { marginBottom: 60 } : {}}>
 
         <div style={styles.homestayHero}>
           <Grid style={styles.heroTextContent}>
@@ -176,7 +170,7 @@ export default class HomestayBooking extends Component {
                 <h4 className='text-muted'>{t('trips.status')}</h4>
                 <strong>{t(`trips.status_codes.${booking.status}`)}</strong>
                 <p>{t('trips.created')}: {uiDate(booking.created)}</p>
-                <p><Link to={`/receipt/${booking.id}`}>{t('trips.view_receipt')}</Link></p>
+                <p><Link to={`/receipt/homestay/${booking.id}`}>{t('trips.view_receipt')}</Link></p>
                 {booking.invoiceIds && booking.invoiceIds.length > 0 &&
                   <p>
                     {t('trips.invoices')}: {booking.invoiceIds.map(id => <Link to={`/invoice/${id}`} key={`invoice-${id}`}>{t('trips.invoice')} #{id}{booking.invoiceIds.indexOf(id) !== booking.invoiceIds.length - 1 && <span>,&nbsp;</span>}</Link>)}
@@ -239,6 +233,7 @@ export default class HomestayBooking extends Component {
 HomestayBooking.propTypes = {
   booking: PropTypes.object,
   dispatch: PropTypes.func,
+  marginBottom: PropTypes.bool,
   t: PropTypes.func,
   token: PropTypes.func,
 }
