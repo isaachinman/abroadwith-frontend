@@ -1,10 +1,11 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
 import { Button, Col, Row } from 'react-bootstrap'
-import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import { deleteUser } from 'redux/modules/privateData/users/deleteUser'
+import { Link } from 'react-router'
+import { translate } from 'react-i18next'
+import PopConfirm from 'antd/lib/popconfirm'
 import { requestResetPassword } from 'redux/modules/reset-password'
 
 // Relative imports
@@ -31,7 +32,10 @@ export default class ManageSecurity extends Component {
         <Col xs={12} md={6} lg={3}>
           <Button onClick={() => dispatch(requestResetPassword(user.email))} style={styles.btn} block bsStyle='info'>{t('admin.privacy_change_password')}</Button>
           <Link to='/terms'><Button style={styles.btn} block bsStyle='info'>{t('admin.privacy_terms')}</Button></Link>
-          <Button onClick={() => dispatch(deleteUser(jwt))} style={styles.btn} block bsStyle='danger'>{t('admin.privacy_delete_button')}</Button>
+
+          <PopConfirm onConfirm={() => dispatch(deleteUser(jwt))} placement='top' title={t('common.are_you_sure')} okText={t('common.words.Yes')} cancelText={t('common.words.No')}>
+            <Button style={styles.btn} block bsStyle='danger'>{t('admin.privacy_delete_button')}</Button>
+          </PopConfirm>
         </Col>
       </Row>
     )

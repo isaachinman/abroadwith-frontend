@@ -15,3 +15,7 @@
 
 // Pipeline
 1. Use SSR caching to speed up server compile time (http://www.electrode.io/docs/server_side_render_cache.html)
+
+// Feb 22
+1. Build CourseBooking
+2. CourseBookings with arrival date in future need actions (cancel)

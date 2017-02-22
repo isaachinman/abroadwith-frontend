@@ -178,9 +178,12 @@ export default class InlineSearchUnit extends Component {
         />
         <Select
           theme='bootstrap3'
-          value={{ value: 1, label: '1 guest' }}
+          value={{ value: homestaySearch.params.guests, label: homestaySearch.params.guests === 1 ? `1 ${t('common.guest')}` : `${homestaySearch.params.guests} ${t('common.guests')}` }}
+          onValueChange={event => this.handleValueChange('guests', event ? event.value : 1)}
         >
-          <option value={1}>1</option>
+          <option value={1}>{`1 ${t('common.guest')}`}</option>
+          <option value={2}>{`2 ${t('common.guests')}`}</option>
+          <option value={3}>{`3 ${t('common.guests')}`}</option>
         </Select>
 
         {standalone &&

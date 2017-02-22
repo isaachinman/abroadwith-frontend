@@ -38,7 +38,7 @@ export default class CourseBooking extends Component {
           id: trip,
           name: (booking.address && booking.address.country ?
                   t(`countries.${booking.address.country}`) : t('common.deleted_account'))
-                  + ` (${uiDate(booking.startDate)} ${t('common.words.to')} ${uiDate(booking.startDate)})`,
+                  + ` ${t('booking.language_course')} (${uiDate(booking.startDate)} ${t('common.words.to')} ${uiDate(booking.startDate)}) ${t(`trips.status_codes.${booking.status}`)}`,
         })
       }
     })
