@@ -35,6 +35,9 @@ export default function Html(props) {
   })
   basePath = basePath.replace(/^\//, '')
 
+  /* eslint-disable max-len */
+  /* eslint-disable global-require */
+
   return (
     <html lang='en'>
       <head>
@@ -65,9 +68,7 @@ export default function Html(props) {
         {/* outputs a <style/> tag with all bootstrap styles + App.scss + it could be CurrentPage.scss. */}
         {/* can smoothen the initial style flash (flicker) on page load in development mode. */}
         {/* ideally one could also include here the style for the current page (Home.scss, About.scss, etc) */}
-        {/* eslint-disable */}
         {Object.keys(assets.styles).length === 0 ? <style dangerouslySetInnerHTML={{ __html: require('../containers/App/App.styles')._style }} /> : null}
-        {/* eslint-enable */}
 
         <script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places' />
       </head>
@@ -77,7 +78,28 @@ export default function Html(props) {
         <script dangerouslySetInnerHTML={{ __html: `window.__i18n=${serialize(i18n)};` }} />
         <script dangerouslySetInnerHTML={{ __html: `window.__apiHost='${config.apiHost}'` }} />
         <script src={assets.javascript.main} charSet='UTF-8' />
+
+        {/* Analytics scripts, production only */}
+        {process.env.NODE_ENV === 'production' &&
+          <span>
+
+            {/* Google Analytics */}
+            <script dangerouslySetInnerHTML={{ __html: '(function(i,s,o,g,r,a,m){i.GoogleAnalyticsObject=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga");ga("create","UA-74192229-1","auto");ga("send","pageview")' }} />
+
+            {/* Facebook Pixel */}
+            <script dangerouslySetInnerHTML={{ __html: '!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js"); fbq("init", "759092950923015"); fbq("track", "PageView");' }} />
+
+            {/* Hubspot Tracking */}
+            <script dangerouslySetInnerHTML={{ __html: '!function(e,t,a,n){if(!e.getElementById(a)){var s=e.createElement(t),c=e.getElementsByTagName(t)[0];s.id=a,s.src="//js.hs-analytics.net/analytics/"+Math.ceil(new Date/n)*n+"/2343190.js",c.parentNode.insertBefore(s,c)}}(document,"script","hs-analytics",3e5);' }} />
+
+            {/* Crazy Egg */}
+            <script dangerouslySetInnerHTML={{ __html: 'setTimeout(function(){var a=document.createElement("script");var b=document.getElementsByTagName("script")[0];a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0058/7685.js?"+Math.floor(new Date().getTime()/3600000);a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);' }} />
+
+          </span>
+        }
+
       </body>
+
     </html>
   )
 }
