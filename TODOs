@@ -2,6 +2,7 @@
 1. Swap react-google-maps in homestay creation for google-map-react, thus eliminating react-google-maps dep
 2. Attempt to upgrade to webpack 2 for tree-shaking benefits
 3. Find any unused translation keys and elimate them
+4. Bind ga and hubspot analytic tracking to browser history (history.listen)
 
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
@@ -16,6 +17,12 @@
 // Pipeline
 1. Use SSR caching to speed up server compile time (http://www.electrode.io/docs/server_side_render_cache.html)
 
-// Feb 22
-1. Build CourseBooking
-2. CourseBookings with arrival date in future need actions (cancel)
+// Feb 23
+1. Three kinds of receipts
+  a. Homestay receipt
+  b. Course student receipt
+  c. Course educator receipt
+
+2. Two kinds of invoices
+  a. Homestay invoice
+  b. Course student invoice
