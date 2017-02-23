@@ -39,7 +39,7 @@
       "command": "pm2 start ./bin/server.js --name frontend_v2 -i 2",
       "env": {
         "NODE_PATH": "./src",
-        "NODE_ENV": "production",
+        "NODE_ENV": "integration",
         "PORT": 3002,
         "IMG": "S3",
         "SOLR": "DEV",
