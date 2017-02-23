@@ -5,7 +5,13 @@
     "transform-runtime",
     "add-module-exports",
     "transform-decorators-legacy",
-    "transform-react-display-name"
+    "transform-react-display-name",
+    ["transform-imports", {
+        "react-bootstrap": {
+            "transform": "react-bootstrap/lib/${member}",
+            "preventFullImport": true
+        }
+    }]
   ],
 
   "env": {
@@ -18,16 +24,6 @@
                 "imports": ["react", "redbox-react"]
               }
             ]
-        }]
-      ]
-    },
-    "production": {
-      "plugins": [
-        ["transform-imports", {
-            "react-bootstrap": {
-                "transform": "react-bootstrap/lib/${member}",
-                "preventFullImport": true
-            }
         }]
       ]
     }
