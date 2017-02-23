@@ -26,7 +26,7 @@ import { translate } from 'react-i18next'
 import { push } from 'react-router-redux'
 
 // Relative imports
-import styles from './BookingHomestay.styles'
+import styles from './BookHomestay.styles'
 
 @asyncConnect([{
   promise: ({ store: { dispatch, getState } }) => {
@@ -51,7 +51,7 @@ import styles from './BookingHomestay.styles'
 )
 @translate()
 @Radium
-export default class BookingHomestay extends Component {
+export default class BookHomestay extends Component {
 
   state = {
     animationInProgress: false,
@@ -607,7 +607,7 @@ export default class BookingHomestay extends Component {
   }
 }
 
-BookingHomestay.propTypes = {
+BookHomestay.propTypes = {
   dispatch: PropTypes.func,
   homestays: PropTypes.object,
   loading: PropTypes.bool,

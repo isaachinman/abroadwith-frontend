@@ -97,14 +97,14 @@ export default (store) => {
   // Lazy loaded routes: some routes should only be loaded if needed
   // The third argument require.ensure takes is the name of the chunk
   // --------------------------------------------------------------------------------
-  const getBookingHomestay = (nextState, cb) => {
+  const getBookHomestay = (nextState, cb) => {
     require.ensure([], require => {
-      cb(null, require('../containers/BookingHomestay/BookingHomestay'))
+      cb(null, require('../containers/BookHomestay/BookHomestay'))
     }, 'booking')
   }
-  const getBookingHomestaySuccess = (nextState, cb) => {
+  const getBookHomestaySuccess = (nextState, cb) => {
     require.ensure([], require => {
-      cb(null, require('../containers/BookingHomestay/BookingHomestaySuccess'))
+      cb(null, require('../containers/BookHomestay/BookHomestaySuccess'))
     }, 'booking')
   }
   const getEmailVerification = (nextState, cb) => {
@@ -236,8 +236,8 @@ export default (store) => {
             <Route path='homestay/:homeID' component={Homestay} />
 
             <Route onEnter={requireLogin}>
-              <Route path='book-homestay' onEnter={requirePotentialHomestayBooking} getComponent={getBookingHomestay} />
-              <Route path='book-homestay/success' getComponent={getBookingHomestaySuccess} />
+              <Route path='book-homestay' onEnter={requirePotentialHomestayBooking} getComponent={getBookHomestay} />
+              <Route path='book-homestay/success' getComponent={getBookHomestaySuccess} />
               <Route path='edit-profile' getComponent={getUserProfileEdit} />
               <Route path='inbox' getComponent={getInbox} />
               <Route path='invite' getComponent={getInvite} />

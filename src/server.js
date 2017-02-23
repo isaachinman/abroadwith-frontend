@@ -93,10 +93,10 @@ app.use((req, res) => {
 
   // Uncomment these lines to set a test token
   /* eslint-disable */
-  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiNnA5TTJYaDlOd2c2dmNUbzVkZWNIdyIsImlhdCI6MTQ4NzY5ODQ1OCwiZXhwIjoxNDg4MzAzMjU4LCJuYmYiOjE0ODc2OTgzMzgsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjc2hpbm1hbkBnbWFpbC5jb20iLCJuYW1lIjoiSXNhYWMiLCJyaWQiOjEwMDQ5NCwiY2JrIjoyLCJ3aG9zdCI6dHJ1ZSwiaW1nIjoiL3VzZXJzLzEwMDQ5NC8xNDgxMjg3MjM3NTk5LmpwZWciLCJoaWQiOjU0N30.V-znMp3iTq79_xlxxrvBOF9XfMn5umncRpjC1Hu9wtE4q1UV4wOJ-LaW7CI-Lc6LtsLNha_dHFUMypzKroOXi1MOLkxszCAmxDzqeNpBZnxE7gMGkLEyM7cWt1ZunqauyP8aEUM4-APXOdRsDTnMyGaW2tFmb-xYZkxr2-_5Nigrca-H2f3bhvTBXGSqU-aX9_wUe9K6T9vCucIBosXISSWszZylI8SW4YmNdrc2OJKS7jLOHhQYn9lhLVkAQImjo8JOdCw-nWM6qbL-g_FhdGg8O4khHjsHUUvhkhvuDVJZsxVQ0_8OR6F9DsE7sbr_TWgtzKPgzNdZ0bmN4ExKWA'
-  // const expiryDate = new Date()
-  // expiryDate.setDate(expiryDate.getDate() + 7)
-  // res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
+  const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiZ0tZNGwzUmlyOTJWUGdlRll1eGpHdyIsImlhdCI6MTQ4Nzg0MTM5OSwiZXhwIjoxNDg4NDQ2MTk5LCJuYmYiOjE0ODc4NDEyNzksInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjc2hpbm1hbkBnbWFpbC5jb20iLCJuYW1lIjoiSXNhYWMiLCJyaWQiOjEwMDU1MywiY2JrIjoyLCJ3aG9zdCI6dHJ1ZSwiaW1nIjoiL3VzZXJzLzEwMDU1My8xNDg3NzYzNjA0MjIwLmpwZWciLCJoaWQiOjU1MX0.AGN9UTWStJviPye9mR7PNl02bG_e_gS7874bVQgf2VcQHt8XoNFREXuotM_DXFxPIUSxYtkFCLxuhXBR8-cEppWn1cd6E-gGYsUer-WplnPwxIwU3-Kwf9ynYcsjTXFzIXSoN379UukiZWlnGyBesR2a2Aajqv0XGAsNAs1o0KjbUcNbAdeVA9ar0TwrUj2iP0Tt796kZKHiBNuy-IiCxWOO7sGp5bMWXUajwwZsbPP9MmbW5_QiVeNaRK7E9bT8wUhYART19JXR8jnY8BwM0abFpPt0MbMGf1HFsc-vpelClJ9oqv1Pi4OIYBSmOlsbxwZ_0jzMo95l9MPp2zuHAg'
+  const expiryDate = new Date()
+  expiryDate.setDate(expiryDate.getDate() + 7)
+  res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
   /* eslint-enable */
 
   if (__DEVELOPMENT__) {
