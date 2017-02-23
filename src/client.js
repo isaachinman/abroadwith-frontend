@@ -25,6 +25,14 @@ const dest = document.getElementById('content')
 const store = createStore(browserHistory, client, window.__data)
 const history = syncHistoryWithStore(browserHistory, store)
 
+// Bind Google Analytics to history API
+history.listen(location => {
+  if (typeof window !== 'undefined' && typeof window.ga === 'function') {
+    window.ga('set', 'page', location.pathname + location.search)
+    window.ga('send', 'pageview')
+  }
+})
+
 // If translation data has been hydrated, initialise it
 if (window.__i18n) {
   i18n.changeLanguage(window.__i18n.locale)

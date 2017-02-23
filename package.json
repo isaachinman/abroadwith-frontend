@@ -129,7 +129,7 @@
     "react-big-calendar": "^0.12.3",
     "react-bootstrap": "^0.30.7",
     "react-bootstrap-typeahead": "^1.0.0-beta2",
-    "react-dates": "^6.0.1",
+    "react-dates": "^5.2.0",
     "react-dom": "^15.3.0",
     "react-dropzone": "^3.7.3",
     "react-facebook-login": "^3.4.1",

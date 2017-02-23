@@ -26,14 +26,14 @@ export default class CourseBooking extends Component {
 
     const tripOptions = Object.keys(trips).map(trip => {
       const booking = trips[trip].bookings[0]
-      if (booking.type === 'HOMESTAY') {
+      if (booking.bookingType === 'HOMESTAY') {
         return ({
           id: trip,
           name: (booking.homeAddress && booking.homeAddress.country ?
                   t(`countries.${booking.homeAddress.country}`) : t('common.deleted_home'))
                   + ` (${uiDate(booking.arrivalDate)} ${t('common.words.to')} ${uiDate(booking.departureDate)}) ${t(`trips.status_codes.${booking.status}`)}`,
         })
-      } else if (booking.type === 'COURSE') {
+      } else if (booking.bookingType === 'COURSE') {
         return ({
           id: trip,
           name: (booking.address && booking.address.country ?
