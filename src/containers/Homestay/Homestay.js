@@ -14,6 +14,7 @@ import { load as loadUser } from 'redux/modules/publicData/users/loadUser'
 import Lightbox from 'react-images'
 import LightboxTheme from 'data/constants/LightboxTheme'
 import { Link } from 'react-router'
+import { MapCircle } from 'components'
 import MapStyles from 'data/constants/MapStyles'
 import moment from 'moment'
 import shallowCompare from 'react-addons-shallow-compare'
@@ -27,7 +28,6 @@ import { translate } from 'react-i18next'
 import BookNow from './subcomponents/BookNow'
 import HomestayReviews from './subcomponents/HomestayReviews'
 import styles from './Homestay.styles'
-import MapCircle from './subcomponents/MapCircle'
 
 @asyncConnect([{
   promise: ({ params, store: { dispatch, getState } }) => {

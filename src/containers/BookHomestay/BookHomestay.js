@@ -456,6 +456,9 @@ export default class BookHomestay extends Component {
                                     <Row>
                                       <Col xs={12} sm={10}>
                                         <p className='text-muted'>{t('booking.charged_notification')}</p>
+                                        <p className='text-muted'>
+                                          <small>{t('booking.exchange_rate_disclaimer')}</small>
+                                        </p>
                                       </Col>
                                     </Row>
 

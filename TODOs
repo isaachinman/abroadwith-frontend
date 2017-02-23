@@ -1,18 +1,16 @@
 // General
-1. Swap react-google-maps in homestay creation for google-map-react, thus eliminating react-google-maps dep
-2. Attempt to upgrade to webpack 2 for tree-shaking benefits
-3. Find any unused translation keys and elimate them
-4. Bind ga and hubspot analytic tracking to browser history (history.listen)
+1. Attempt to upgrade to webpack 2 for tree-shaking benefits
+2. Find any unused translation keys and elimate them
+3. Bind ga and hubspot analytic tracking to browser history (history.listen)
 
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
 
+// react-dates
+1. Needs fresh style application of colour palette
+
 // Before deployment to production
 1. npm shrinkwrap
-
-// February 20
-1. Start "Your Trip" page
-2. Add course booking back into homestay booking once Luis changes API path
 
 // Pipeline
 1. Use SSR caching to speed up server compile time (http://www.electrode.io/docs/server_side_render_cache.html)
