@@ -315,6 +315,7 @@ export default class ManageHome extends Component {
 }
 
 ManageHome.propTypes = {
+  data: PropTypes.object,
   dispatch: PropTypes.func,
   home: PropTypes.object,
   routeParams: PropTypes.object,
