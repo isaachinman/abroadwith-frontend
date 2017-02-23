@@ -10,6 +10,7 @@
   },
   "main": "bin/server.js",
   "scripts": {
+    "setup": "mkdir build && mkdir build/locales && npm i",
     "start": "concurrently --kill-others \"better-npm-run start-prod\"",
     "start-integration": "better-npm-run start-integration",
     "production": "better-npm-run start-prod",
