@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { DateRangePicker as DateRangePickerCore } from 'react-dates'
+import DateRangePickerCore from 'react-dates/lib/components/DateRangePicker'
 import scrollIntoView from 'scroll-into-view'
 
 import styles from './DateRangePicker.styles.js'
