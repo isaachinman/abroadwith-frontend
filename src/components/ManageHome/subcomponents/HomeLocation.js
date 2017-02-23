@@ -4,15 +4,18 @@ import { translate } from 'react-i18next'
 import { Button, Col, FormControl, Row } from 'react-bootstrap'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import DefaultBankCurrencies from 'data/constants/DefaultBankCurrencies'
-import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps'
-import { triggerEvent } from 'react-google-maps/lib/utils'
+import GoogleMap from 'google-map-react'
+import { MapCircle } from 'components'
+import MapStyles from 'data/constants/MapStyles'
 import debounce from 'debounce'
-import shortid from 'shortid'
 
 // Styles
 const styles = {
   input: {
     marginBottom: 10,
+  },
+  mapContainer: {
+    height: 340,
   },
 }
 
@@ -20,7 +23,7 @@ const styles = {
 export default class HomeLocation extends Component {
 
   state = {
-    gMapsRender: shortid(),
+    mapRender: this.props.activeTab === 'location',
     newLocation: {
       lat: null,
       lng: null,
@@ -44,9 +47,9 @@ export default class HomeLocation extends Component {
 
   componentWillUpdate = nextProps => {
     // Google map component must be re-rendered if it was previously hidden
-    if (this.props.activeTab !== 'location' && nextProps.activeTab === 'location' && this._googleMapComponent) {
-      setTimeout(() => triggerEvent(this._googleMapComponent, 'resize'), 250)
-      setTimeout(() => this.setState({ gMapsRender: shortid() }), 500)
+    if (this.props.activeTab !== 'location' && nextProps.activeTab === 'location') {
+      this.setState({ mapRender: false })
+      setTimeout(() => this.setState({ mapRender: true }), 250)
     }
   }
 
@@ -90,10 +93,10 @@ export default class HomeLocation extends Component {
     }
   }, 1000)
 
-  manuallyChangeHomeGeolocation = event => {
+  manuallyChangeHomeCoordinates = (hoverKey, childProps, mouse) => {
     const { newLocation } = this.state
-    newLocation.lat = event.latLng.lat()
-    newLocation.lng = event.latLng.lng()
+    newLocation.lat = mouse.lat
+    newLocation.lng = mouse.lng
     this.setState({ newLocation })
   }
 
@@ -116,6 +119,8 @@ export default class HomeLocation extends Component {
 
     const hasGeolocation = newLocation.lat && newLocation.lng
     const addressIsValid = newLocation.street && newLocation.city && newLocation.state && newLocation.zipCode && newLocation.country && newLocation.lat && newLocation.lng
+
+    console.log(this)
 
     return (
 
@@ -180,40 +185,29 @@ export default class HomeLocation extends Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <span style={{ display: 'none' }}>{gMapsRender}</span>
-            <GoogleMapLoader
-              containerElement={
-                <div
-                  style={{
-                    minHeight: 400,
-                    height: '100%',
-                    width: '100%',
-                    position: 'relative',
-                  }}
-                />
-              }
-              googleMapElement={
+            <span style={{ display: 'none' }}>{}</span>
+            <div style={styles.mapContainer} key={gMapsRender}>
+              {this.state.mapRender &&
                 <GoogleMap
-                  options={{ scrollwheel: false }}
-                  ref={gMap => this._googleMapComponent = gMap}
-                  zoom={hasGeolocation ? 10 : 2}
-                  center={hasGeolocation ? { lat: newLocation.lat, lng: newLocation.lng } : { lat: 0, lng: 0 }}
-                  defaultCenter={hasGeolocation ? { lat: newLocation.lat, lng: newLocation.lng } : { lat: 0, lng: 0 }}
+                  center={hasGeolocation ? { lat: newLocation.lat, lng: newLocation.lng } : { lat: 51.5074, lng: 0.1278 }}
+                  draggable={!this.state.mapChildDragging}
+                  zoom={hasGeolocation ? 14 : 1}
+                  onChildMouseDown={() => this.setState({ mapChildDragging: true })}
+                  onChildMouseUp={() => this.setState({ mapChildDragging: false })}
+                  onChildMouseMove={this.manuallyChangeHomeCoordinates}
+                  options={() => ({
+                    panControl: false,
+                    mapTypeControl: false,
+                    scrollwheel: false,
+                    styles: MapStyles,
+                  })}
                 >
                   {hasGeolocation &&
-                    <Marker
-                      draggable
-                      onDragend={this.manuallyChangeHomeGeolocation}
-                      position={{
-                        key: 'home',
-                        lat: newLocation.lat,
-                        lng: newLocation.lng,
-                      }}
-                    />
+                    <MapCircle lat={newLocation.lat} lng={newLocation.lng} />
                   }
                 </GoogleMap>
               }
-            />
+            </div>
           </Col>
         </Row>
         <Row>
