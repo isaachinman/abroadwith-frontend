@@ -12,7 +12,8 @@
   "scripts": {
     "setup": "mkdir build && mkdir build/locales && npm i",
     "start": "concurrently --kill-others \"better-npm-run start-prod\"",
-    "start-integration": "better-npm-run start-integration",
+    "start-integration": "pm2 start ecosystem/integration.json",
+    "start-production": "pm2 start ecosystem/production.json",
     "production": "better-npm-run start-prod",
     "build": "better-npm-run build",
     "postinstall": "npm run build",
@@ -23,30 +24,6 @@
     "test": "karma start"
   },
   "betterScripts": {
-    "start-prod": {
-      "command": "node ./bin/server.js",
-      "env": {
-        "NODE_PATH": "./src",
-        "NODE_ENV": "production",
-        "PORT": 3000,
-        "IMG": "IMGIX",
-        "SOLR": "PROD",
-        "APIHOST": "https://api.abroadwith.com",
-        "APIPORT": 443
-      }
-    },
-    "start-integration": {
-      "command": "pm2 start ./bin/server.js --name frontend_v2 -i 2",
-      "env": {
-        "NODE_PATH": "./src",
-        "NODE_ENV": "integration",
-        "PORT": 3002,
-        "IMG": "S3",
-        "SOLR": "DEV",
-        "APIHOST": "https://api.test-abroadwith.com",
-        "APIPORT": 443
-      }
-    },
     "start-dev": {
       "command": "node ./bin/server.js",
       "env": {

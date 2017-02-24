@@ -1,0 +1,19 @@
+{
+  "apps": [
+    {
+      "name": "abroadwith-frontend",
+      "script": "./bin/server.js",
+      "instances": 4,
+      "exec_mode": "cluster",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "integration",
+        "PORT": 3002,
+        "IMG": "S3",
+        "SOLR": "DEV",
+        "APIHOST": "https://api.test-abroadwith.com",
+        "APIPORT": 443
+      }
+    }
+  ]
+}

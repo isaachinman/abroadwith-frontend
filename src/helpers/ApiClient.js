@@ -12,7 +12,7 @@ function formatUrl(path) {
     return config.apiHost + adjustedPath
   }
   // Prepend `/api` to relative URL, to proxy to API server.
-  return window.__apiHost + adjustedPath
+  return window.__config.apiHost + adjustedPath
 }
 
 export default class ApiClient {
