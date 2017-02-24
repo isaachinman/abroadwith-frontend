@@ -3,16 +3,17 @@ import React, { Component, PropTypes } from 'react'
 import CharacterCounter from 'components/CharacterCounter/CharacterCounter'
 import config from 'config'
 import { connect } from 'react-redux'
-import { Button, Col, ControlLabel, FormControl, FormGroup, Grid, Row } from 'react-bootstrap'
+import { Button, Col, ControlLabel, FormControl, FormGroup, Grid, Modal, Row } from 'react-bootstrap'
 import Dropzone from 'react-dropzone'
 import Helmet from 'react-helmet'
 import i18n from 'i18n/i18n-client'
-import { push } from 'react-router-redux'
-import Radium from 'radium'
-import superagent from 'superagent'
-import SpinLoader from 'components/SpinLoader/SpinLoader'
 import { load as loadUser, update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { load as loadPublicUser } from 'redux/modules/publicData/users/loadUser'
+import { push } from 'react-router-redux'
+import Radium from 'radium'
+import ReactCrop from 'react-image-crop'
+import superagent from 'superagent'
+import SpinLoader from 'components/SpinLoader/SpinLoader'
 import { translate } from 'react-i18next'
 import { Typeahead } from 'react-bootstrap-typeahead'
 
@@ -32,27 +33,40 @@ import styles from './UserProfileEdit.styles'
 export default class UserProfileEdit extends Component {
 
   state = {
+    cropData: null,
+    profilePhotoModalOpen: false,
+    newProfilePhoto: null,
+    uiCrop: { aspect: 1, width: 100, top: 0, x: 20 },
     user: this.props.user.data,
   }
 
   onDrop = acceptedFiles => {
+    this.setState({ newProfilePhoto: acceptedFiles[0], profilePhotoModalOpen: true })
+  }
 
-    if (acceptedFiles.length > 0) {
+  setCroppingData = (crop, pixelCrop) => this.setState({ cropData: pixelCrop, uiCrop: crop })
+
+  closeProfilePhotoModal = () => this.setState({ newProfilePhoto: null, profilePhotoModalOpen: false })
+
+  processUpload = () => {
+
+    const { cropData, newProfilePhoto } = this.state
+
+    if (newProfilePhoto) {
 
       const { dispatch, jwt, token } = this.props
 
       const request = superagent.post(`/upload/users/${jwt.rid}/photo`)
       request.set({ abroadauth: `Bearer ${(token)}` })
-
-      acceptedFiles.forEach(file => {
-        request.attach('file', file)
-      })
+      request.set('cropData', JSON.stringify(cropData))
+      request.attach('file', newProfilePhoto)
 
       request.end(err => {
 
         if (!err) {
           dispatch(loadPublicUser(jwt.rid)) // Load public user object again - this is normally cached
           dispatch(loadUser(token))
+          this.setState({ cropData: null, newProfilePhoto: null, profilePhotoModalOpen: false })
         }
 
       })
@@ -99,6 +113,7 @@ export default class UserProfileEdit extends Component {
 
   render() {
 
+    const { newProfilePhoto, uiCrop, profilePhotoModalOpen } = this.state
     const { uiLanguage, user, t } = this.props
 
     const hasVisited = user && user.data && user.data.countriesVisited ? ((user.data.countriesVisited.replace(/['"]+/g, '')).replace(/[[\]']/g, '')).split(',') : null
@@ -305,6 +320,27 @@ export default class UserProfileEdit extends Component {
                   </Row>
 
                 </div>
+
+                <Modal
+                  backdrop='static'
+                  show={profilePhotoModalOpen}
+                  onHide={this.closeProfilePhotoModal}
+                >
+                  <Modal.Header closeButton />
+                  <div style={styles.profilePhotoModalContent}>
+                    {newProfilePhoto &&
+                      <ReactCrop
+                        crop={uiCrop}
+                        src={newProfilePhoto.preview}
+                        onComplete={this.setCroppingData}
+                        onImageLoaded={(crop, image, pixelCrop) => this.setCroppingData(crop, pixelCrop)}
+                      />
+                    }
+                  </div>
+                  <Modal.Footer>
+                    <Button onClick={this.processUpload}>Upload</Button>
+                  </Modal.Footer>
+                </Modal>
 
               </Grid>
             </SpinLoader>
