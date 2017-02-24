@@ -4,7 +4,7 @@
 
 * Place each major UI component along with its resources in a separate folder
   This makes easier to find related resources for any particular UI
-  element (CSS, images, unit tests, localization files etc.).
+  element (CSS, images, unit tests, localisation files etc.).
 * Avoid having CSS, images and other resource files shared between multiple components.
   This will make the code more maintainable, easy to refactor.
 * Add component to `src/components/index.js`. This file is an index of all components,
@@ -110,66 +110,4 @@ function Component() {
 Navigation.propTypes = { className: PropTypes.string }
 
 export default withStyles(Navigation, s)
-```
-
-## Use higher-order components
-
-* Use higher-order components (HOC) to extend existing React components.
-  Here is an example:
-
-```js
-// withViewport.js
-import React, { Component } from 'react'
-import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
-
-function withViewport(ComposedComponent) {
-  return class WithViewport extends Component {
-
-    state = {
-      viewport: canUseDOM ?
-        {width: window.innerWidth, height: window.innerHeight} :
-        {width: 1366, height: 768} // Default size for server-side rendering
-    }
-
-    componentDidMount() {
-      window.addEventListener('resize', this.handleResize)
-      window.addEventListener('orientationchange', this.handleResize)
-    }
-
-    componentWillUnmount() {
-      window.removeEventListener('resize', this.handleResize)
-      window.removeEventListener('orientationchange', this.handleResize)
-    }
-
-    handleResize = () => {
-      let viewport = {width: window.innerWidth, height: window.innerHeight}
-      if (this.state.viewport.width !== viewport.width ||
-        this.state.viewport.height !== viewport.height) {
-        this.setState({ viewport })
-      }
-    };
-
-    render() {
-      return <ComposedComponent {...this.props} viewport={this.state.viewport}/>
-    }
-
-  }
-}
-
-export default withViewport
-```
-
-```js
-// MyComponent.js
-import React from 'react'
-import withViewport from './withViewport'
-
-class MyComponent {
-  render() {
-    let { width, height } = this.props.viewport
-    return <div>{`Viewport: ${width}x${height}`}</div>
-  }
-}
-
-export default withViewport(MyComponent)
 ```
