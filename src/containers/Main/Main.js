@@ -1,6 +1,6 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { babyBlue, freshGreen, headerPink, warmPurple, saturatedPurple, headerBluePurple } from 'styles/colors'
+import { babyBlue, freshGreen, warmPurple, saturatedPurple, headerBluePurple } from 'styles/colors'
 import { BackgroundColorBlock, FeaturedHomes, HowDoesItWork, InlineSearchUnit, Testimonial } from 'components'
 import { Button, Col, Grid, Modal, Panel, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
@@ -152,7 +152,7 @@ export default class Main extends Component {
                 </Link>
               </Col>
             </Row>
-            <BackgroundColorBlock color={headerPink} minHeight={320} />
+            <BackgroundColorBlock color={babyBlue} minHeight={320} />
           </Grid>
         </div>
         <div style={{ marginBottom: -20 }} />
