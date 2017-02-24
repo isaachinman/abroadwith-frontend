@@ -74,9 +74,18 @@ export default function Html(props) {
       </head>
       <body style={styles.app}>
         <div id='content' dangerouslySetInnerHTML={{ __html: content }} />
+
+        {/* Several important data objects are hydrated into the window object */}
+
+        {/* Redux store */}
         <script dangerouslySetInnerHTML={{ __html: `window.__data=${serialize(store.getState())};` }} />
+
+        {/* Translation data */}
         <script dangerouslySetInnerHTML={{ __html: `window.__i18n=${serialize(i18n)};` }} />
-        <script dangerouslySetInnerHTML={{ __html: `window.__apiHost='${config.apiHost}'` }} />
+
+        {/* Runtime environment config */}
+        <script dangerouslySetInnerHTML={{ __html: `window.__config=${serialize(config)};` }} />
+
         <script src={assets.javascript.main} charSet='UTF-8' />
 
         {/* Analytics scripts, production only */}
