@@ -210,6 +210,7 @@ export default class Trips extends Component {
     const activeTrip = activeTripID ? trips[activeTripID] : null
     const tripsLength = Object.keys(trips).length
     const noCourseBooking = activeTrip ? !activeTrip.bookings.some(booking => booking.bookingType === 'COURSE') : null
+    const homestayIsCancelled = activeTrip && activeTrip.bookings[0] && activeTrip.bookings[0].bookingType === 'HOMESTAY' && (activeTrip.bookings[0].status.indexOf('DECLINED') > -1 || activeTrip.bookings[0].status.indexOf('CANCELLED') > -1)
 
     console.log('activeTrip: ', activeTrip)
     console.log(this)
@@ -226,12 +227,12 @@ export default class Trips extends Component {
               <div>
                 {activeTrip.bookings.map(booking => {
                   if (booking.bookingType === 'HOMESTAY') {
-                    return <HomestayBooking booking={booking} key={booking.code} marginBottom={activeTrip.bookings.length > 1} />
+                    return <HomestayBooking booking={booking} key={booking.code} />
                   } else if (booking.bookingType === 'COURSE') {
                     return <CourseBooking booking={booking} key={booking.id} />
                   }
                 })}
-                {noCourseBooking &&
+                {noCourseBooking && !homestayIsCancelled &&
                   <AddACourseBooking />
                 }
                 {tripsLength > 1 &&
