@@ -1,1 +1,1 @@
-export geolocateViaBrowser from './geolocate-via-browser'
+export geolocateViaBrowser from './geolocateViaBrowser'

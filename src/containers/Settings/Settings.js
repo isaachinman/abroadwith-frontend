@@ -9,8 +9,7 @@ import i18n from 'i18n/i18n-client'
 import { update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
 import shortid from 'shortid'
 import debounce from 'debounce'
-import doesNotHaveIDs from 'utils/languages/does-not-have-ids'
-import filterLanguageArray from 'utils/languages/filter-language-array'
+import { doesNotHaveIDs, filterLanguageArray } from 'utils/languages'
 
 // Components
 import ContactInfo from 'components/ContactInfo/ContactInfo'

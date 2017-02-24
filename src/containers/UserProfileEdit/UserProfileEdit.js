@@ -330,22 +330,24 @@ export default class UserProfileEdit extends Component {
                   onHide={this.closeProfilePhotoModal}
                 >
                   <SpinLoader show={profilePhotoUploading}>
-                    <Modal.Header closeButton>
-                      <Modal.Title>{t('users.crop_your_profile_photo')}</Modal.Title>
-                    </Modal.Header>
-                    <div style={styles.profilePhotoModalContent}>
-                      {newProfilePhoto &&
-                        <ReactCrop
-                          crop={uiCrop}
-                          src={newProfilePhoto.preview}
-                          onComplete={this.setCroppingData}
-                          onImageLoaded={(crop, image, pixelCrop) => this.setCroppingData(crop, pixelCrop)}
-                        />
-                      }
+                    <div>
+                      <Modal.Header closeButton>
+                        <Modal.Title>{t('users.crop_your_profile_photo')}</Modal.Title>
+                      </Modal.Header>
+                      <div style={styles.profilePhotoModalContent}>
+                        {newProfilePhoto &&
+                          <ReactCrop
+                            crop={uiCrop}
+                            src={newProfilePhoto.preview}
+                            onComplete={this.setCroppingData}
+                            onImageLoaded={(crop, image, pixelCrop) => this.setCroppingData(crop, pixelCrop)}
+                          />
+                          }
+                      </div>
+                      <Modal.Footer>
+                        <Button onClick={this.processUpload} bsStyle='primary'>{t('manage_home.choose_picture_button')}</Button>
+                      </Modal.Footer>
                     </div>
-                    <Modal.Footer>
-                      <Button onClick={this.processUpload} bsStyle='primary'>{t('manage_home.choose_picture_button')}</Button>
-                    </Modal.Footer>
                   </SpinLoader>
                 </Modal>
 

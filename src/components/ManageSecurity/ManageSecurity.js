@@ -6,7 +6,7 @@ import { deleteUser } from 'redux/modules/privateData/users/deleteUser'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import PopConfirm from 'antd/lib/popconfirm'
-import { requestResetPassword } from 'redux/modules/reset-password'
+import { requestResetPassword } from 'redux/modules/resetPassword'
 
 // Relative imports
 import styles from './ManageSecurity.styles'

@@ -13,7 +13,7 @@ import i18n from 'i18n/i18n-client'
 import { openLoginModal, closeStudentSignupModal, closeHostSignupModal } from 'redux/modules/ui/modals'
 import { validateEighteenYearsOld, validatePassword } from 'utils/validation'
 import validator from 'validator'
-import filterLanguageArray from 'utils/languages/filter-language-array'
+import { filterLanguageArray } from 'utils/languages'
 
 // Relative imports
 import styles from './Signup.styles.js'

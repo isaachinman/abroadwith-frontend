@@ -6,7 +6,7 @@ import { loadingBarReducer } from 'react-redux-loading-bar'
 
 // Relative imports
 import auth from './auth'
-import clientToken from './payments/client-token'
+import clientToken from './payments/clientToken'
 import contactUs from './publicData/users/contactUs'
 import courseBookings from './privateData/bookings/courseBookings'
 import courseSearch from './ui/search/courseSearch'

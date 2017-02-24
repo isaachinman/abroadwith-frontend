@@ -1,3 +1,3 @@
-export applyAbroadwithFee from './apply-abroadwith-fee'
-export applyNumericalDiscount from './apply-numerical-discount'
-export generateImmersionPricesForRoom from './generate-immersion-prices-for-room'
+export applyAbroadwithFee from './applyAbroadwithFee'
+export applyNumericalDiscount from './applyNumericalDiscount'
+export generateImmersionPricesForRoom from './generateImmersionPricesForRoom'
