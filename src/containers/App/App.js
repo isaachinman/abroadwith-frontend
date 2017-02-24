@@ -103,7 +103,7 @@ export default class App extends Component {
       // If the user doesn't have a home country, geolocate them by IP
       if (!user.data.address || !user.data.address.country) {
 
-        console.log('GEOLOCATION: ', geolocateViaBrowser(dispatch, token, user.data))
+        geolocateViaBrowser(dispatch, token, user.data)
 
       }
 

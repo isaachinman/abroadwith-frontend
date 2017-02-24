@@ -128,7 +128,7 @@ export default class HomestayBooking extends Component {
     console.log(this)
 
     return (
-      <div style={marginBottom ? { marginBottom: 60 } : {}}>
+      <div style={{ marginBottom: 60 }}>
 
         <div style={styles.homestayHero}>
           <Grid style={styles.heroTextContent}>
