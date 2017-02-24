@@ -58,4 +58,8 @@ export default {
       width: '100%',
     },
   },
+  profilePhotoModalContent: {
+    padding: 30,
+    textAlign: 'center',
+  },
 }

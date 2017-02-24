@@ -20,6 +20,9 @@ var uploadImage = require("./UploadImage")
 var newSquarePhoto = function(file, key, callback){
   uploadImage(file,key,{width:250,crop:{width:250,height:250}},callback)
 }
+var customCrop = function(file, key, cropData, callback) {
+  uploadImage(file, key, { width: 250, height: 250, customCrop: true, cropData: cropData }, callback)
+}
 
 var newHeroPhoto = function(file, key, callback){
   uploadImage(file,key,{width:1400},callback)
@@ -101,6 +104,9 @@ var postMultiple = function(req,path,photos,callback) {
 var routerUser = express.Router()
 routerUser.post('/', function(req, res) {
 
+  console.log('HEADERS: ', JSON.parse(req.get('cropData')))
+  console.log(typeof req.get('cropData'))
+
   if (!req.decoded_token || req.decoded_token.id != req.photoUserId) {
     res.status(401).send('Restricted function.')
     return
@@ -118,7 +124,7 @@ routerUser.post('/', function(req, res) {
 
   var imagePath = '/users/'+req.photoUserId+'/'+(new Date().getTime())+".jpg"
 
-  newSquarePhoto(req.files[0], imagePath.substring(1), function(err) {
+  customCrop(req.files[0], imagePath.substring(1), JSON.parse(req.get('cropData')), function(err) {
 
     var result = {}
     if (err) {

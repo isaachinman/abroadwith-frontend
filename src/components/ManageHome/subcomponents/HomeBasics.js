@@ -192,7 +192,7 @@ export default class HomeBasics extends Component {
 }
 
 HomeBasics.propTypes = {
-  activeStep: PropTypes.string,
+  activeStep: PropTypes.object,
   dispatch: PropTypes.func,
   home: PropTypes.object,
   inProgress: PropTypes.bool,

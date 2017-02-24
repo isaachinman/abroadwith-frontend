@@ -98,28 +98,58 @@ var uploadImage = function(image_file,image_key,options,callback){
         crop_height = crop_width;
         crop_width = newone;
       }
-      processed.resize(width,height)
-        .crop(crop_width,crop_height)
-        .toBuffer('jpg',{quality:90}, function(err,buffer){
-          if(err){
-            console.log(err);
-            if(callback) callback(err);
-          }
-          else{
-            var params = {
-              ACL: 'public-read',
-              Bucket: config.s3,
-              Key: image_key,
-              Body: buffer,
-              ContentType: image_file.mimetypem,
-              CacheControl: 'max-age=1209600'
+
+      console.log('OPTIONS: ', options)
+      if (options.customCrop) {
+
+        processed.crop(options.cropData.x, options.cropData.y, options.cropData.x + options.cropData.width, options.cropData.y + options.cropData.height)
+          .resize(width,height)
+          .toBuffer('jpg',{quality:90}, function(err,buffer){
+            if(err){
+              console.log(err);
+              if(callback) callback(err);
             }
-            s3.putObject(params, function(err, data) {
-                if(err) console.log(err);
-                if(callback) callback(err);
-            });
-          }
-        });
+            else{
+              var params = {
+                ACL: 'public-read',
+                Bucket: config.s3,
+                Key: image_key,
+                Body: buffer,
+                ContentType: image_file.mimetypem,
+                CacheControl: 'max-age=1209600'
+              }
+              s3.putObject(params, function(err, data) {
+                  if(err) console.log(err);
+                  if(callback) callback(err);
+              });
+            }
+          });
+
+      } else {
+        processed.resize(width,height)
+          .crop(crop_width,crop_height)
+          .toBuffer('jpg',{quality:90}, function(err,buffer){
+            if(err){
+              console.log(err);
+              if(callback) callback(err);
+            }
+            else{
+              var params = {
+                ACL: 'public-read',
+                Bucket: config.s3,
+                Key: image_key,
+                Body: buffer,
+                ContentType: image_file.mimetypem,
+                CacheControl: 'max-age=1209600'
+              }
+              s3.putObject(params, function(err, data) {
+                  if(err) console.log(err);
+                  if(callback) callback(err);
+              });
+            }
+          });
+      }
+
     });
   }
 
