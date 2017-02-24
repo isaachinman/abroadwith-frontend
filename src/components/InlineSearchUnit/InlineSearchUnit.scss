@@ -211,11 +211,11 @@ Dimensions:
 
   // Search button
   button.search-btn {
-    @include gradient-animation( #9251AC, #F7A4EC, 0.25s );
+    @include gradient-animation( #5A65DB, #6FA8EF, 0.25s );
     @include textOverflow;
     cursor: pointer;
     vertical-align: top;
-    background: $headerPink;
+    background: $babyBlue;
     border: none;
     width: 120px;
     height: 60px;
