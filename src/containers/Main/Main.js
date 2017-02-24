@@ -1,10 +1,10 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import { babyBlue, freshGreen, headerPink, warmPurple, saturatedPurple, headerBluePurple } from 'styles/colors'
 import { BackgroundColorBlock, FeaturedHomes, HowDoesItWork, InlineSearchUnit, Testimonial } from 'components'
 import { Button, Col, Grid, Modal, Panel, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { createHomestay } from 'redux/modules/privateData/homes/homeManagement'
-import { freshGreen, headerPink, warmPurple, saturatedPurple, headerBluePurple } from 'styles/colors'
 import Helmet from 'react-helmet'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
@@ -103,7 +103,7 @@ export default class Main extends Component {
             </Row>
             <Row>
               <Col xs={12} style={styles.hostBtnRow}>
-                <Button onClick={() => this.redirectToSearchWithImmersionType('stay')} bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: headerPink })} >{t('common.see_all_hosts')}</Button>
+                <Button onClick={() => this.redirectToSearchWithImmersionType('stay')} bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: babyBlue })} >{t('common.see_all_hosts')}</Button>
                 {!jwt &&
                   <span>
                     {t('common.words.or')}
