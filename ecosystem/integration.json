@@ -3,7 +3,7 @@
     {
       "name": "abroadwith-frontend",
       "script": "./bin/server.js",
-      "instances": 4,
+      "instances": 2,
       "exec_mode": "cluster",
       "env": {
         "NODE_PATH": "./src",
