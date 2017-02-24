@@ -112,7 +112,7 @@ export default class HomestayBooking extends Component {
 
   render() {
 
-    const { booking, marginBottom, t } = this.props
+    const { booking, t } = this.props
 
     // Luckily these things are at least named consistently
     const isApproved = booking.status.indexOf('APPROVED') > -1
@@ -233,7 +233,6 @@ export default class HomestayBooking extends Component {
 HomestayBooking.propTypes = {
   booking: PropTypes.object,
   dispatch: PropTypes.func,
-  marginBottom: PropTypes.bool,
   t: PropTypes.func,
   token: PropTypes.func,
 }

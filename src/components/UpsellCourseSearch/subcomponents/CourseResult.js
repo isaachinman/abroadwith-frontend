@@ -6,7 +6,7 @@ import config from 'config'
 import { connect } from 'react-redux'
 import Rate from 'antd/lib/rate'
 import roundTo from 'round-to'
-import { sortByDayOfWeek, uiDate } from 'utils/dates'
+import { semanticDate, sortByDayOfWeek, uiDate } from 'utils/dates'
 import { translate } from 'react-i18next'
 import TextTruncate from 'react-text-truncate'
 
@@ -122,7 +122,7 @@ export default class CourseResult extends Component {
               <Collapse in={expanded}>
                 <Col xs={12}>
                   <p>
-                    <strong>{t('booking.result_dates')}: </strong>{uiDate(result.startDate)} {t('common.words.to')} {uiDate(result.endDate)}<br />
+                    <strong>{t('booking.result_dates')}: </strong>{semanticDate(t, result.startDate)} {t('common.words.to')} {semanticDate(t, result.endDate)}<br />
                     <strong>{t('booking.result_distance')}: </strong>{parsedDistance}<br />
                     <strong>{t('booking.educator_name')}: </strong>{result.educatorName}<br />
                     <strong>{t('booking.level')}: </strong>{upsellSearch.params.level}-{result.endLevel}<br />
