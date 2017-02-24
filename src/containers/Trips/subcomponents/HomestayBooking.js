@@ -170,10 +170,10 @@ export default class HomestayBooking extends Component {
                 <h4 className='text-muted'>{t('trips.status')}</h4>
                 <strong>{t(`trips.status_codes.${booking.status}`)}</strong>
                 <p>{t('trips.created')}: {uiDate(booking.created)}</p>
-                <p><Link to={`/receipt/homestay/${booking.id}`}>{t('trips.view_receipt')}</Link></p>
+                <p><Link to={`/receipt/homestay/student/${booking.id}`}>{t('trips.view_receipt')}</Link></p>
                 {booking.invoiceIds && booking.invoiceIds.length > 0 &&
                   <p>
-                    {t('trips.invoices')}: {booking.invoiceIds.map(id => <Link to={`/invoice/${id}`} key={`invoice-${id}`}>{t('trips.invoice')} #{id}{booking.invoiceIds.indexOf(id) !== booking.invoiceIds.length - 1 && <span>,&nbsp;</span>}</Link>)}
+                    {t('trips.invoices')}: {booking.invoiceIds.map(id => <Link to={`/invoice/homestay/student/${id}`} key={`invoice-${id}`}>{t('trips.invoice')} #{id}{booking.invoiceIds.indexOf(id) !== booking.invoiceIds.length - 1 && <span>,&nbsp;</span>}</Link>)}
                   </p>
                 }
                 {isActionable &&

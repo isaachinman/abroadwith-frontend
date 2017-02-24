@@ -8,7 +8,7 @@ import Helmet from 'react-helmet'
 import Currencies from 'data/constants/Currencies'
 
 // Relative imports
-import styles from './Invoice.styles'
+import styles from './InvoiceHomestay.styles'
 
 @connect(
   (state, ownProps) => ({
@@ -17,7 +17,7 @@ import styles from './Invoice.styles'
   })
 )
 @translate()
-export default class Invoice extends Component {
+export default class InvoiceHomestay extends Component {
 
   componentDidMount = () => {
     const { dispatch, token, routeParams } = this.props
@@ -137,7 +137,7 @@ export default class Invoice extends Component {
   }
 }
 
-Invoice.propTypes = {
+InvoiceHomestay.propTypes = {
   dispatch: PropTypes.func,
   invoice: PropTypes.object,
   t: PropTypes.func,

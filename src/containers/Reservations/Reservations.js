@@ -138,7 +138,7 @@ export default class Reservations extends Component {
                                   {t('trips.invoices')}:
                                   {reservation.invoiceIds.length > 0 ? reservation.invoiceIds.map(invoice => {
                                     return (
-                                      <Link key={`invoicelink${invoice}`} to={`/invoice/${invoice}`}> {t('trips.invoice')} #{invoice}</Link>
+                                      <Link key={`invoicelink${invoice}`} to={`/invoice/homestay/host/${invoice}`}> {t('trips.invoice')} #{invoice}</Link>
                                     )
                                   }) : <span> {t('trips.not_applicable')}</span>}
                                 </div>

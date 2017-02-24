@@ -1,6 +1,5 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import { Alert, Button, Col, Grid, Panel, Row } from 'react-bootstrap'
 import { uiDate } from 'utils/dates'
@@ -11,6 +10,7 @@ import Currencies from 'data/constants/Currencies'
 import Helmet from 'react-helmet'
 import HomestayBookingStatusCodes from 'data/constants/HomestayBookingStatusCodes'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
+import { translate } from 'react-i18next'
 import moment from 'moment'
 
 // Styles
@@ -191,7 +191,7 @@ export default class ReservationDetails extends Component {
                       <Col xs={6}>
                         <strong>{t('trips.invoices')}:</strong> {reservation.invoiceIds.length > 0 ? reservation.invoiceIds.map(invoice => {
                           return (
-                            <Link key={`invoicelink${invoice}`} to={`/invoice/${invoice}`}> {t('trips.invoice')} #{invoice}</Link>
+                            <Link key={`invoicelink${invoice}`} to={`/invoice/homestay/host/${invoice}`}> {t('trips.invoice')} #{invoice}</Link>
                           )
                         }) : <span> {t('trips.not_applicable')}</span>}
                       </Col>
