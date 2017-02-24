@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 import { extendMoment } from 'moment-range'
 import Helmet from 'react-helmet'
 import { Link } from 'react-router'
-import { load as loadHomestay } from 'redux/modules/publicData/homes/loadHome'
 import { loadCourseBookings } from 'redux/modules/privateData/bookings/courseBookings'
 import { loadHomestayBookings } from 'redux/modules/privateData/bookings/homestayBookings'
 import Moment from 'moment'
@@ -32,12 +31,7 @@ const moment = extendMoment(Moment)
 
     const token = getState().auth.token
 
-    promises.push(dispatch(loadHomestayBookings(token)).then(data => {
-      if (data[0] && data[0].homeId) {
-        dispatch(loadHomestay(data[0].homeId))
-      }
-    }))
-
+    promises.push(dispatch(loadHomestayBookings(token)))
     promises.push(dispatch(loadCourseBookings(token)))
 
     return Promise.all(promises)

@@ -13,16 +13,7 @@
 
 // Before deployment to production
 1. npm shrinkwrap
+2. Set up step to clear localstorage and cookies entirely
 
 // Pipeline
 1. Use SSR caching to speed up server compile time (http://www.electrode.io/docs/server_side_render_cache.html)
-
-// Feb 23
-1. Three kinds of receipts
-  a. Homestay receipt
-  b. Course student receipt
-  c. Course educator receipt
-
-2. Two kinds of invoices
-  a. Homestay invoice
-  b. Course student invoice
