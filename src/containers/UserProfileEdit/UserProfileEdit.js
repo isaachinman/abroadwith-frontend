@@ -35,6 +35,7 @@ export default class UserProfileEdit extends Component {
   state = {
     cropData: null,
     profilePhotoModalOpen: false,
+    profilePhotoUploading: false,
     newProfilePhoto: null,
     uiCrop: { aspect: 1, width: 100, top: 0, x: 20 },
     user: this.props.user.data,
@@ -54,6 +55,8 @@ export default class UserProfileEdit extends Component {
 
     if (newProfilePhoto) {
 
+      this.setState({ profilePhotoUploading: true })
+
       const { dispatch, jwt, token } = this.props
 
       const request = superagent.post(`/upload/users/${jwt.rid}/photo`)
@@ -66,7 +69,7 @@ export default class UserProfileEdit extends Component {
         if (!err) {
           dispatch(loadPublicUser(jwt.rid)) // Load public user object again - this is normally cached
           dispatch(loadUser(token))
-          this.setState({ cropData: null, newProfilePhoto: null, profilePhotoModalOpen: false })
+          this.setState({ cropData: null, newProfilePhoto: null, profilePhotoModalOpen: false, profilePhotoUploading: false })
         }
 
       })
@@ -113,7 +116,7 @@ export default class UserProfileEdit extends Component {
 
   render() {
 
-    const { newProfilePhoto, uiCrop, profilePhotoModalOpen } = this.state
+    const { newProfilePhoto, uiCrop, profilePhotoModalOpen, profilePhotoUploading } = this.state
     const { uiLanguage, user, t } = this.props
 
     const hasVisited = user && user.data && user.data.countriesVisited ? ((user.data.countriesVisited.replace(/['"]+/g, '')).replace(/[[\]']/g, '')).split(',') : null
@@ -147,7 +150,7 @@ export default class UserProfileEdit extends Component {
                         activeClassName='basic-dropzone-active'
                         onDrop={this.onDrop}
                       >
-                        <div style={{ marginBottom: 15 }}>{t('users.profile_picture_upload_explanation')}</div>
+                        <h6 className='text-muted' style={{ marginBottom: 15 }}>{t('users.profile_picture_upload_explanation')}</h6>
                         {user.data.photo &&
                           <img src={`${config.img}${user.data.photo}`} className='dropzone-img' alt='Your profile' />
                         }
@@ -326,20 +329,24 @@ export default class UserProfileEdit extends Component {
                   show={profilePhotoModalOpen}
                   onHide={this.closeProfilePhotoModal}
                 >
-                  <Modal.Header closeButton />
-                  <div style={styles.profilePhotoModalContent}>
-                    {newProfilePhoto &&
-                      <ReactCrop
-                        crop={uiCrop}
-                        src={newProfilePhoto.preview}
-                        onComplete={this.setCroppingData}
-                        onImageLoaded={(crop, image, pixelCrop) => this.setCroppingData(crop, pixelCrop)}
-                      />
-                    }
-                  </div>
-                  <Modal.Footer>
-                    <Button onClick={this.processUpload}>Upload</Button>
-                  </Modal.Footer>
+                  <SpinLoader show={profilePhotoUploading}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>{t('users.crop_your_profile_photo')}</Modal.Title>
+                    </Modal.Header>
+                    <div style={styles.profilePhotoModalContent}>
+                      {newProfilePhoto &&
+                        <ReactCrop
+                          crop={uiCrop}
+                          src={newProfilePhoto.preview}
+                          onComplete={this.setCroppingData}
+                          onImageLoaded={(crop, image, pixelCrop) => this.setCroppingData(crop, pixelCrop)}
+                        />
+                      }
+                    </div>
+                    <Modal.Footer>
+                      <Button onClick={this.processUpload} bsStyle='primary'>{t('manage_home.choose_picture_button')}</Button>
+                    </Modal.Footer>
+                  </SpinLoader>
                 </Modal>
 
               </Grid>
