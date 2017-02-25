@@ -10,7 +10,7 @@
   },
   "main": "bin/server.js",
   "scripts": {
-    "setup": "mkdir build && mkdir build/locales && npm i",
+    "setup": "mkdir build && mkdir build/locales && mkdir build/currency-rates && npm i",
     "start": "concurrently --kill-others \"better-npm-run start-prod\"",
     "start-integration": "pm2 start ecosystem/integration.json",
     "start-production": "pm2 start ecosystem/production.json",
