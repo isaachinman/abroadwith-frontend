@@ -67,7 +67,7 @@ export default class Main extends Component {
             </Row>
             <Row>
               <Col xs={12}>
-                <Button onClick={this.openHowDoesItWorkModal} bsStyle='primary' className='hidden-xs hidden-sm' bsSize='small' style={styles.button}>{t('common.how_does_it_work')}</Button>
+                <Button onClick={this.openHowDoesItWorkModal} className='hidden-xs hidden-sm' bsSize='small' style={styles.button}>{t('common.how_does_it_work')}</Button>
               </Col>
             </Row>
           </Grid>

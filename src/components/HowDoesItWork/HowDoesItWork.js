@@ -26,19 +26,19 @@ export default class HowDoesItWork extends Component {
         <Row>
           <Col style={styles.howItWorksBox} xs={10} xsOffset={1} sm={8} smOffset={2} md={4} mdOffset={0}>
             <h4 style={styles.bigNumber}>1</h4>
-            <Image src={`${config.img}/app/how_it_works/how_it_works_v2_1.jpg`} alt='How it works #1' rounded responsive />
+            <Image src={`${config.img}/app/how_it_works/how_it_works_v2_1.jpg`} alt='How it works #1' style={styles.image} rounded responsive />
             <h6 className='header-saturated-purple'>{t('common.discover')}</h6>
             <p>{t('common.discover_description')}</p>
           </Col>
           <Col style={styles.howItWorksBox} xs={10} xsOffset={1} sm={8} smOffset={2} md={4} mdOffset={0}>
             <h4 style={styles.bigNumber}>2</h4>
-            <Image src={`${config.img}/app/how_it_works/how_it_works_v2_2.jpg`} alt='How it works #2'rounded responsive />
+            <Image src={`${config.img}/app/how_it_works/how_it_works_v2_2.jpg`} alt='How it works #2' style={styles.image} rounded responsive />
             <h6 className='header-saturated-purple'>{t('common.book_immersion')}</h6>
             <p>{t('common.book_immersion_description', { stay: t('common.stay'), tandem: t('common.tandem'), teachers_stay: t('common.teachers_stay') })}</p>
           </Col>
           <Col style={styles.howItWorksBox} xs={10} xsOffset={1} sm={8} smOffset={2} md={4} mdOffset={0}>
             <h4 style={styles.bigNumber}>3</h4>
-            <Image src={`${config.img}/app/how_it_works/how_it_works_v2_3.jpg`} alt='How it works #3'rounded responsive />
+            <Image src={`${config.img}/app/how_it_works/how_it_works_v2_3.jpg`} alt='How it works #3' style={styles.image} rounded responsive />
             <h6 className='header-saturated-purple'>{t('common.book_language_course')}</h6>
             <p>{t('common.book_language_course_description')}</p>
           </Col>

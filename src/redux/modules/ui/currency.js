@@ -72,9 +72,7 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function changeCurrency(currency, setCookie, callback) {
-
-  const cb = typeof callback === 'function' ? callback : () => {}
+export function changeCurrency(currency, setCookie) {
 
   return dispatch => {
 
@@ -82,15 +80,16 @@ export function changeCurrency(currency, setCookie, callback) {
 
     try {
 
-      // To Do: validate currency format
+      return new Promise((resolve) => {
 
-      // A boolean to control the setting of the cookie will be passed on client-side calls
-      if (setCookie) {
-        Cookies.set('ui_currency', currency)
-      }
+        // A boolean to control the setting of the cookie will be passed on client-side calls
+        if (setCookie) {
+          Cookies.set('ui_currency', currency)
+        }
 
-      dispatch({ type: CHANGE_CURRENCY_SUCCESS, currency })
-      cb()
+        resolve(dispatch({ type: CHANGE_CURRENCY_SUCCESS, currency }))
+
+      })
 
     } catch (err) {
 
@@ -102,9 +101,7 @@ export function changeCurrency(currency, setCookie, callback) {
 
 // This function is primarily called by the server on initial session request,
 // but can be called on the client if the SSR call fails
-export function loadCurrencyRates(callback) {
-
-  const cb = typeof callback === 'function' ? callback : () => {}
+export function loadCurrencyRates() {
 
   return async dispatch => {
 
@@ -112,67 +109,66 @@ export function loadCurrencyRates(callback) {
 
     try {
 
+      return new Promise((resolve) => {
+
       // Behaviour is fundamentally different on server vs client
-      if (typeof window === 'undefined') {
+        if (typeof window === 'undefined') {
 
         const fs = require('fs') // eslint-disable-line
 
         // If rates exist, and were fetched within the time limit, use them locally
-        if (fs.existsSync('build/currency-rates/latest.json') &&
+          if (fs.existsSync('build/currency-rates/latest.json') &&
             fs.existsSync('build/currency-rates/rates.lock') &&
             moment(fs.readFileSync('build/currency-rates/rates.lock', 'utf-8')).isAfter(moment())) {
 
-          console.log('exists within cache')
-          dispatch({ type: LOAD_CURRENCY_RATES_SUCCESS, result: JSON.parse(fs.readFileSync('build/currency-rates/latest.json', 'utf-8')) })
-          cb()
+            console.log('exists within cache')
+            resolve(dispatch({ type: LOAD_CURRENCY_RATES_SUCCESS, result: JSON.parse(fs.readFileSync('build/currency-rates/latest.json', 'utf-8')) }))
 
-        } else {
+          } else {
 
-          console.log('doesnt exist, performing external request')
+            console.log('doesnt exist, performing external request')
 
           // Daily currency rates are fetched and stored on an s3 bucket by an external application
           // This application refreshes them every 10 minutes (async depending on actual use)
-          const request = superagent.get('https://d9fbkd6o04txh.cloudfront.net/latest.json')
-          request.end((error, response = {}) => {
+            const request = superagent.get('https://d9fbkd6o04txh.cloudfront.net/latest.json')
+            request.end((error, response = {}) => {
 
-            if (error) {
+              if (error) {
 
-              dispatch({ type: LOAD_CURRENCY_RATES_FAIL, error })
+                resolve(dispatch({ type: LOAD_CURRENCY_RATES_FAIL, error }))
 
-            } else {
+              } else {
 
               // GET was successful
-              fs.writeFile('build/currency-rates/latest.json', response.text)
-              fs.writeFile('build/currency-rates/rates.lock', moment().add(10, 'minutes').toString()) // Adjust cache life here
-              dispatch({ type: LOAD_CURRENCY_RATES_SUCCESS, result: JSON.parse(response.text) })
+                fs.writeFile('build/currency-rates/latest.json', response.text)
+                fs.writeFile('build/currency-rates/rates.lock', moment().add(10, 'minutes').toString()) // Adjust cache life here
+                resolve(dispatch({ type: LOAD_CURRENCY_RATES_SUCCESS, result: JSON.parse(response.text) }))
 
+              }
+
+            })
+
+          }
+
+        } else {
+
+        // This action really shouldn't be called on the client, but if it is,
+        // just get the rates directly from the S3 bucket
+          const request = superagent.get('https://d9fbkd6o04txh.cloudfront.net/latest.json')
+          request.end((error, response = {}) => {
+            if (error) {
+              resolve(dispatch({ type: LOAD_CURRENCY_RATES_FAIL, error }))
+            } else {
+              resolve(dispatch({ type: LOAD_CURRENCY_RATES_SUCCESS, result: JSON.parse(response.text) }))
             }
-
-            cb()
-
           })
 
         }
 
-      } else {
-
-        // This action really shouldn't be called on the client, but if it is,
-        // just get the rates directly from the S3 bucket
-        const request = superagent.get('https://d9fbkd6o04txh.cloudfront.net/latest.json')
-        request.end((error, response = {}) => {
-          if (error) {
-            dispatch({ type: LOAD_CURRENCY_RATES_FAIL, error })
-          } else {
-            dispatch({ type: LOAD_CURRENCY_RATES_SUCCESS, result: JSON.parse(response.text) })
-          }
-          cb()
-        })
-
-      }
+      })
 
     } catch (error) {
       dispatch({ type: LOAD_CURRENCY_RATES_FAIL, error })
-      cb()
     }
   }
 }

@@ -7,6 +7,9 @@ export default {
   centerAlign: {
     textAlign: 'center',
   },
+  image: {
+    minHeight: 260,
+  },
   bigNumber: {
     position: 'absolute',
     top: 0,

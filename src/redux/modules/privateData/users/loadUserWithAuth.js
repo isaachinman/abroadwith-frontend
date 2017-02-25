@@ -80,28 +80,33 @@ export function load(jwt, callback, bodylessCallback) {
 
     try {
 
-      const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}`)
+      return new Promise((resolve) => {
 
-      request.set({ Authorization: `Bearer ${(jwt)}` })
+        console.log('inside load user with auth')
 
-      request.end((err, { body } = {}) => {
+        const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}`)
+        request.set({ Authorization: `Bearer ${(jwt)}` })
 
-        if (err) {
+        request.end((err, { body } = {}) => {
 
-          dispatch({ type: LOAD_USER_WITH_AUTH_FAIL, err })
+          if (err) {
 
-        } else if (body) {
+            resolve(dispatch({ type: LOAD_USER_WITH_AUTH_FAIL, err }))
+
+          } else if (body) {
 
           // Load was successful
-          dispatch({ type: LOAD_USER_WITH_AUTH_SUCCESS, result: body })
-          cb(body)
-          bdCb()
+            resolve(dispatch({ type: LOAD_USER_WITH_AUTH_SUCCESS, result: body }))
+            cb(body)
+            bdCb()
 
-        } else {
+          } else {
 
-          dispatch({ type: LOAD_USER_WITH_AUTH_FAIL, err: 'Unknown error' })
+            resolve(dispatch({ type: LOAD_USER_WITH_AUTH_FAIL, err: 'Unknown error' }))
 
-        }
+          }
+
+        })
 
       })
 

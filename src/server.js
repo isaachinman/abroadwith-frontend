@@ -58,18 +58,21 @@ customApiEndpoints.map(endpoint => {
   endpoint(app)
 })
 
+// Install image upload endpoints
+imageUploadInstaller(app)
+
 app.use(cookieParser())
 app.use(i18nMiddleware.handle(i18n))
-imageUploadInstaller(app)
 
 app.use(Express.static(path.join(__dirname, '..', 'build')))
 
 // Proxy to API server
+// Not 100% sure if this will see continued use
 app.use('/api', (req, res) => {
   proxy.web(req, res, { target: targetUrl })
 })
 
-// added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
+// Error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', (error, req, res) => {
 
   let json = {} // eslint-disable-line
@@ -93,23 +96,29 @@ app.use((req, res) => {
 
   // Uncomment these lines to set a test token
   /* eslint-disable */
-  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiZ0tZNGwzUmlyOTJWUGdlRll1eGpHdyIsImlhdCI6MTQ4Nzg0MTM5OSwiZXhwIjoxNDg4NDQ2MTk5LCJuYmYiOjE0ODc4NDEyNzksInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjc2hpbm1hbkBnbWFpbC5jb20iLCJuYW1lIjoiSXNhYWMiLCJyaWQiOjEwMDU1MywiY2JrIjoyLCJ3aG9zdCI6dHJ1ZSwiaW1nIjoiL3VzZXJzLzEwMDU1My8xNDg3NzYzNjA0MjIwLmpwZWciLCJoaWQiOjU1MX0.AGN9UTWStJviPye9mR7PNl02bG_e_gS7874bVQgf2VcQHt8XoNFREXuotM_DXFxPIUSxYtkFCLxuhXBR8-cEppWn1cd6E-gGYsUer-WplnPwxIwU3-Kwf9ynYcsjTXFzIXSoN379UukiZWlnGyBesR2a2Aajqv0XGAsNAs1o0KjbUcNbAdeVA9ar0TwrUj2iP0Tt796kZKHiBNuy-IiCxWOO7sGp5bMWXUajwwZsbPP9MmbW5_QiVeNaRK7E9bT8wUhYART19JXR8jnY8BwM0abFpPt0MbMGf1HFsc-vpelClJ9oqv1Pi4OIYBSmOlsbxwZ_0jzMo95l9MPp2zuHAg'
+  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoibFIxSHpEM2FKeXRTUFhsYjVtTG5TUSIsImlhdCI6MTQ4ODA1MjQ0OCwiZXhwIjoxNDg4NjU3MjQ4LCJuYmYiOjE0ODgwNTIzMjgsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IklzYWFjIiwicmlkIjoxMDA1MzMsImNiayI6MCwid2hvc3QiOnRydWUsImltZyI6Ii91c2Vycy8xMDA1MzMvMTQ4NzUyNjc4NzYwMi5qcGcifQ.Yu4lEa9ugN-RSxBzLVhkQEZpAPMUo-bOa_5YSzEtUUy7DR-cziMZELXdfVdhSR3ySlYOqNX7UMn9clhL3otNj5h3J0Afkm0Yh6l3MDc0x5iBDDXPv6q9o1c-tXD72Kp435isd0LCd21zHQzrAdpTcjbl5GyWSNi_0nOtzWlfom2qlZPIvPRYIsCEwq1Ka5XCdzY2nmaPY5FbGg7B_W9gDu1WQ6FePbFH88y9ZbwaO-ATN_iZh5Blyv_tweNLDhti5yASveyYDTdhiRrN2UWox6cxT5TCpGFxQTplyQcx3L-PZJiM5DnIrT66THX4d_zUIYHCb3gnXxqL5NaIu-lVwg'
   // const expiryDate = new Date()
   // expiryDate.setDate(expiryDate.getDate() + 7)
   // res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
   /* eslint-enable */
 
   if (__DEVELOPMENT__) {
+
     // Do not cache webpack stats: the script file would change since
     // hot module replacement is enabled in the development env
-
     webpackIsomorphicTools.refresh()
+
   }
+
+  // Helper middleware
   const client = new ApiClient(req)
+
+  // Create and sync history with store
   const memoryHistory = createHistory(req.originalUrl)
   const store = createStore(memoryHistory, client)
   const history = syncHistoryWithStore(memoryHistory, store)
 
+  // The all-important renderToString for SSR
   function hydrateOnClient() {
     res.send('<!doctype html>\n' +
       ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store} />))
@@ -118,43 +127,6 @@ app.use((req, res) => {
   if (__DISABLE_SSR__) {
     hydrateOnClient()
     return
-  }
-
-  // ---------------------------------------------------------------------------------------------
-  // This is where we will do all the custom rendering and external calls necessary
-  // It's messy, it needs refactoring with some specific methodology, thunks or something similar
-  // ---------------------------------------------------------------------------------------------
-  const { dispatch } = store
-
-  // If user has a currency cookie, set their appropriate language.
-  let currencyDispatch = cb => cb()
-  if (!req.cookies.ui_currency) {
-    currencyDispatch = cb => dispatch(loadCurrencyRates(() => dispatch(changeCurrency('EUR', null, cb))))
-    res.cookie('ui_currency', 'EUR')
-  } else {
-    currencyDispatch = cb => dispatch(loadCurrencyRates(() => dispatch(changeCurrency(req.cookies.ui_currency, null, cb))))
-  }
-
-  // If user has a language cookie, set their appropriate language.
-  let languageDispatch = cb => cb()
-  if (req.cookies.ui_language && store.getState().ui.locale.value !== req.cookies.ui_language) {
-    languageDispatch = cb => dispatch(changeLocale(req.cookies.ui_language, null, cb))
-  } else {
-
-    // If the user has no cookie, check if they landed on a non-English url
-    let foreignLanguage = false
-    Object.values(UILanguages).map(language => {
-      if (language.iso2 !== 'en' && req.originalUrl.indexOf(language.basepath) > -1) {
-        foreignLanguage = true
-        languageDispatch = cb => dispatch(changeLocale(language.iso2, null, cb))
-      }
-    })
-
-    // Otherwise set language to English
-    if (!foreignLanguage) {
-      languageDispatch = cb => dispatch(changeLocale('en', null, cb))
-    }
-
   }
 
   const renderFunction = () => match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
@@ -205,18 +177,72 @@ app.use((req, res) => {
 
   })
 
+  // ---------------------------------------------------------------------------------------------
+  // This is where we will do all the custom rendering and external calls necessary for
+  // app initialisation. If a new action needs to be added, simply push it into the array.
+  // ---------------------------------------------------------------------------------------------
+  const { dispatch } = store
+  const initProcedure = []
+
+  // CURRENCY PROCEDURE --------------------------------------------------------
+
+  // First, load conversion rates
+  initProcedure.push(dispatch(loadCurrencyRates()))
+
+  // If user has a currency cookie, set their appropriate language
+  if (!req.cookies.ui_currency) {
+
+    // Assign EUR as default
+    initProcedure.push(dispatch(changeCurrency('EUR', null)))
+
+    // Set cookie
+    res.cookie('ui_currency', 'EUR')
+
+  } else {
+
+    // Otherwise, use the cookie value
+    initProcedure.push(dispatch(changeCurrency(req.cookies.ui_currency, null)))
+
+  }
+
+  // LANGUAGE PROCEDURE --------------------------------------------------------
+
+  // If user has a language cookie, set their appropriate language
+  if (req.cookies.ui_language && store.getState().ui.locale.value !== req.cookies.ui_language) {
+
+    initProcedure.push(dispatch(changeLocale(req.cookies.ui_language, null)))
+
+  } else {
+
+    // If the user has no cookie, check if they landed on a non-English url
+    let foreignLanguage = false
+    Object.values(UILanguages).map(language => {
+      if (language.iso2 !== 'en' && req.originalUrl.indexOf(language.basepath) > -1) {
+        foreignLanguage = true
+        initProcedure.push(dispatch(changeLocale(language.iso2, null)))
+      }
+    })
+
+    // Otherwise set language to English
+    if (!foreignLanguage) {
+      initProcedure.push(dispatch(changeLocale('en', null)))
+    }
+
+  }
+
+  console.log(req.cookies.access_token)
+
   if (req.cookies.access_token) {
 
     // If user has an access_token cookie, log them in before rendering the page
     store.dispatch(loadAuth(req.cookies.access_token)) // synchronous action
-    store.dispatch(loadUserWithAuth(req.cookies.access_token, null, currencyDispatch.bind(null, languageDispatch.bind(null, renderFunction))))
-
-  } else {
-
-    // Otherwise just render the page
-    currencyDispatch(languageDispatch.bind(null, renderFunction))
+    initProcedure.push(dispatch(loadUserWithAuth(req.cookies.access_token)))
 
   }
+
+  // Finally, render the page
+  Promise.all(initProcedure).then(() => renderFunction())
+
 
 })
 

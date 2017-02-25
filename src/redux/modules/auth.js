@@ -110,9 +110,7 @@ export function isLoaded(globalState) {
 }
 
 // This function is primarily serverside
-export function load(jwt, callback) {
-
-  const cb = typeof callback === 'function' ? callback : () => {}
+export function load(jwt) {
 
   return dispatch => {
 
@@ -120,13 +118,16 @@ export function load(jwt, callback) {
 
     try {
 
-      // Ensure validity
-      if (moment(jwtDecode(jwt).exp * 1000).isBefore(moment())) {
-        dispatch({ type: LOAD_FAIL, err: 'jwt expired' })
-      } else {
-        dispatch({ type: LOAD_SUCCESS, jwt })
-        cb()
-      }
+      return new Promise((resolve) => {
+
+        // Ensure validity
+        if (moment(jwtDecode(jwt).exp * 1000).isBefore(moment())) {
+          resolve(dispatch({ type: LOAD_FAIL, err: 'jwt expired' }))
+        } else {
+          resolve(dispatch({ type: LOAD_SUCCESS, jwt }))
+        }
+
+      })
 
     } catch (err) {
       dispatch({ type: LOAD_FAIL, err })

@@ -40,9 +40,7 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function changeLocale(locale, setCookie, callback) {
-
-  const cb = typeof callback === 'function' ? callback : () => {}
+export function changeLocale(locale, setCookie) {
 
   return dispatch => {
 
@@ -50,39 +48,39 @@ export function changeLocale(locale, setCookie, callback) {
 
     try {
 
-      // To Do: validate locale format
+      return new Promise((resolve) => {
 
-      if (setCookie) {
+        if (setCookie) {
 
         // A boolean to control the setting of the cookie will be passed on client-side calls
-        Cookies.set('ui_language', locale)
+          Cookies.set('ui_language', locale)
 
         // Load the necessary locale
-        const request = superagent.get(`/locales/${locale}.json`)
-        request.end((err, res) => {
+          const request = superagent.get(`/locales/${locale}.json`)
+          request.end((err, res) => {
 
-          window.__i18n = {
-            locale,
-            translations: JSON.parse(res.text),
-          }
+            window.__i18n = {
+              locale,
+              translations: JSON.parse(res.text),
+            }
 
-          i18n.addResourceBundle(window.__i18n.locale, 'translation', window.__i18n.translations, true)
-          i18n.changeLanguage(window.__i18n.locale, () => {
-            dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
-            browserHistory.replace(window.location.pathname)
-            cb()
+            i18n.addResourceBundle(window.__i18n.locale, 'translation', window.__i18n.translations, true)
+            i18n.changeLanguage(window.__i18n.locale, () => {
+              dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
+              browserHistory.replace(window.location.pathname)
+            })
+
+
           })
 
+        } else {
 
-        })
+          // No cookie for server-side
+          resolve(dispatch({ type: CHANGE_LOCALE_SUCCESS, locale }))
 
-      } else {
+        }
 
-        // No cookie for server-side
-        dispatch({ type: CHANGE_LOCALE_SUCCESS, locale })
-        cb()
-
-      }
+      })
 
 
     } catch (err) {
