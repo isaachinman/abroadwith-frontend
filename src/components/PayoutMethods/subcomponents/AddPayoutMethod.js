@@ -323,7 +323,7 @@ export default class AddPayoutMethod extends Component {
               <Button
                 style={styles.addPayoutButton}
                 disabled={!bankFormIsValid}
-                bsStyle='success'
+                bsStyle='primary'
                 onClick={() => this.addPayoutMethod('Bank')}
               >
                 {t('admin.payments_add_bank_account')}
@@ -436,7 +436,7 @@ export default class AddPayoutMethod extends Component {
               <Button
                 style={styles.addPayoutButton}
                 disabled={!paypalFormIsValid}
-                bsStyle='success'
+                bsStyle='primary'
                 onClick={() => this.addPayoutMethod('PayPal')}
               >
                 {t('admin.payments_add_paypal_account')}

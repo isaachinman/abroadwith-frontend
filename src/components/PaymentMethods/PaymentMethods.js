@@ -171,7 +171,7 @@ export default class PaymentMethods extends Component {
                       <div id='card-number' className='form-control' style={styles.ccFullWidth} />
                       <div id='cvv' className='form-control' style={styles.ccHalfWidth} />
                       <div id='expiration-date' className='form-control' style={Object.assign({}, styles.ccHalfWidth, { marginLeft: 5 })} />
-                      <Button id='add-new-card' bsStyle='success' type='submit'>{t('common.add_card_button')}</Button>
+                      <Button id='add-new-card' bsStyle='primary' type='submit'>{t('common.add_card_button')}</Button>
                     </Panel>
                     <Panel header={t('common.PayPal')} eventKey='paypal'>
                       <div id='paypal-container' style={styles.paypalContainer} />

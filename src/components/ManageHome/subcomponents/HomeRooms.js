@@ -228,6 +228,8 @@ export default class HomeRooms extends Component {
                   </Col>
                   <Col xs={12} md={6}>
                     <Dropzone
+                      className='basic-dropzone'
+                      activeClassName='basic-dropzone-active'
                       multiple={false}
                       onDrop={this.newRoomDrop}
                     >
@@ -335,6 +337,8 @@ export default class HomeRooms extends Component {
                       </Col>
                       <Col xs={12} md={6}>
                         <Dropzone
+                          className='basic-dropzone'
+                          activeClassName='basic-dropzone-active'
                           multiple={false}
                           onDrop={acceptedFiles => this.existingRoomDrop(acceptedFiles, room.id)}
                         >

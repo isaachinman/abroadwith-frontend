@@ -182,7 +182,10 @@ export default class Homestay extends Component {
                     style={Object.assign({}, styles.heroImage, { backgroundImage: `url(${config.img}${homestay.data.images[0].imagePath})` })}
                   />
                   {homestay.data.host.photo &&
-                    <div style={Object.assign({}, styles.hostImage, { backgroundImage: `url(${config.img}${homestay.data.host.photo})` })} />
+                    <div>
+                      <div style={styles.hostImageBGMask} />
+                      <div style={Object.assign({}, styles.hostImage, { backgroundImage: `url(${config.img}${homestay.data.host.photo})` })} />
+                    </div>
                 }
                   <Lightbox
                     backdropClosesModal
