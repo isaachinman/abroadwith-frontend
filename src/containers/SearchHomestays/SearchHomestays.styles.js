@@ -128,6 +128,17 @@ export default {
     borderRadius: 5,
     zIndex: 57,
   },
+  searchResultHostImgBGMask: {
+    width: 84,
+    height: 84,
+    position: 'absolute',
+    background: '#FFFFFF',
+    opacity: 0.35,
+    right: 8,
+    top: 118,
+    borderRadius: 6,
+    zIndex: 3,
+  },
   searchResultRating: {
     position: 'absolute',
     right: 10,

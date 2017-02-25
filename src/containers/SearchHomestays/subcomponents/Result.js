@@ -103,7 +103,12 @@ export default class Result extends Component {
               </div>
             </div>
 
-            <div style={Object.assign({}, styles.searchResultHostImg, { backgroundImage: `url(${config.img}${result.hostPhoto})` })} />
+            {result.hostPhoto &&
+              <div>
+                <div style={styles.searchResultHostImgBGMask} />
+                <div style={Object.assign({}, styles.searchResultHostImg, { backgroundImage: `url(${config.img}${result.hostPhoto})` })} />
+              </div>
+            }
 
             {result.reviewCount > 0 &&
               <div style={styles.searchResultRating} className='small-rating-wrapper'>

@@ -48,6 +48,16 @@ export default {
     left: 30,
     boxShadow: '5px 5px 12px 0 rgba(0,0,0,0.15)',
   },
+  hostImageBGMask: {
+    background: '#F5F5F5',
+    width: 184,
+    height: 184,
+    borderRadius: '50%',
+    position: 'absolute',
+    top: 378,
+    left: 28,
+    opacity: 0.65,
+  },
   stickyContainer: {
     display: 'inline-block',
     verticalAlign: 'top',
