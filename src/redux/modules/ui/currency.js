@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import moment from 'moment'
 import superagent from 'superagent'
 
 // Load currency rates
@@ -111,24 +112,63 @@ export function loadCurrencyRates(callback) {
 
     try {
 
-      // Daily currency rates are fetched and stored on an s3 bucket by an external application
-      const request = superagent.get('https://d9fbkd6o04txh.cloudfront.net/latest.json')
-      request.end((error, response = {}) => {
+      // Behaviour is fundamentally different on server vs client
+      if (typeof window === 'undefined') {
 
-        if (error) {
+        const fs = require('fs') // eslint-disable-line
 
-          dispatch({ type: LOAD_CURRENCY_RATES_FAIL, error })
+        // If rates exist, and were fetched within the time limit, use them locally
+        if (fs.existsSync('build/currency-rates/latest.json') &&
+            fs.existsSync('build/currency-rates/rates.lock') &&
+            moment(fs.readFileSync('build/currency-rates/rates.lock', 'utf-8')).isAfter(moment())) {
+
+          console.log('exists within cache')
+          dispatch({ type: LOAD_CURRENCY_RATES_SUCCESS, result: JSON.parse(fs.readFileSync('build/currency-rates/latest.json', 'utf-8')) })
           cb()
 
         } else {
 
-          // GET was successful
-          dispatch({ type: LOAD_CURRENCY_RATES_SUCCESS, result: JSON.parse(response.text) })
-          cb()
+          console.log('doesnt exist, performing external request')
+
+          // Daily currency rates are fetched and stored on an s3 bucket by an external application
+          // This application refreshes them every 10 minutes (async depending on actual use)
+          const request = superagent.get('https://d9fbkd6o04txh.cloudfront.net/latest.json')
+          request.end((error, response = {}) => {
+
+            if (error) {
+
+              dispatch({ type: LOAD_CURRENCY_RATES_FAIL, error })
+
+            } else {
+
+              // GET was successful
+              fs.writeFile('build/currency-rates/latest.json', response.text)
+              fs.writeFile('build/currency-rates/rates.lock', moment().add(10, 'minutes').toString()) // Adjust cache life here
+              dispatch({ type: LOAD_CURRENCY_RATES_SUCCESS, result: JSON.parse(response.text) })
+
+            }
+
+            cb()
+
+          })
 
         }
 
-      })
+      } else {
+
+        // This action really shouldn't be called on the client, but if it is,
+        // just get the rates directly from the S3 bucket
+        const request = superagent.get('https://d9fbkd6o04txh.cloudfront.net/latest.json')
+        request.end((error, response = {}) => {
+          if (error) {
+            dispatch({ type: LOAD_CURRENCY_RATES_FAIL, error })
+          } else {
+            dispatch({ type: LOAD_CURRENCY_RATES_SUCCESS, result: JSON.parse(response.text) })
+          }
+          cb()
+        })
+
+      }
 
     } catch (error) {
       dispatch({ type: LOAD_CURRENCY_RATES_FAIL, error })
