@@ -30,18 +30,6 @@
   }
 }
 
-// Modify carousel controls
-.carousel-control {
-  .glyphicon {
-    display: none;
-  }
-  &:hover {
-    .glyphicon {
-      display: block;
-    }
-  }
-}
-
 // Search page styles
 .gm-style-cc {
   display: none;

@@ -1,7 +1,12 @@
 import config from 'config'
-import { darkBlue } from 'styles/colors'
+import { darkBlue, warmPurple } from 'styles/colors'
 
 export default {
+  button: {
+    color: 'white',
+    borderColor: warmPurple,
+    background: warmPurple,
+  },
   hero: {
     position: 'relative',
     display: 'flex',
