@@ -5,6 +5,7 @@ import { BackgroundColorBlock, FeaturedHomes, HowDoesItWork, InlineSearchUnit, T
 import { Button, Col, Grid, Modal, Panel, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { createHomestay } from 'redux/modules/privateData/homes/homeManagement'
+import equal from 'deep-is'
 import Helmet from 'react-helmet'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
@@ -29,6 +30,13 @@ export default class Main extends Component {
 
   state = {
     howDoesItWorkModalOpen: false,
+  }
+
+  shouldComponentUpdate = (nextProps, nextState) => {
+    if (!equal(this.props, nextProps) || !equal(this.state, nextState)) {
+      return true
+    }
+    return false
   }
 
   openHowDoesItWorkModal = () => this.setState({ howDoesItWorkModalOpen: true })

@@ -17,6 +17,8 @@ const colorMap = {
 @Radium
 export default class Testimonial extends Component {
 
+  shouldComponentUpdate = () => false // Entirely static component
+
   render() {
 
     const { t, type, person } = this.props

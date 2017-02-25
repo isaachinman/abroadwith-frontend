@@ -25,6 +25,10 @@ const dest = document.getElementById('content')
 const store = createStore(browserHistory, client, window.__data)
 const history = syncHistoryWithStore(browserHistory, store)
 
+if (__DEVTOOLS__) {
+  window.Perf = require('react-addons-perf') // eslint-disable-line
+}
+
 // Bind Google Analytics to history API
 history.listen(location => {
   if (typeof window !== 'undefined' && typeof window.ga === 'function') {

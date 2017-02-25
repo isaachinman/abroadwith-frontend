@@ -17,7 +17,7 @@ export default class DateRangePicker extends Component {
 
       // Scroll datepicker into view if necessary
       if (focusedInput) {
-        const node = document.querySelectorAll('.DateRangePicker__picker--show')[0]
+        const node = document.querySelectorAll('.DateRangePicker__picker')[0]
 
         if (this.props.scrollToPosition) {
           scrollIntoView(node, {

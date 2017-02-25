@@ -1,4 +1,4 @@
-//  enable runtime transpilation to use ES6/7 in node
+// Enable runtime transpilation of ES6/7 in Node
 /* eslint-disable */
 
 var fs = require('fs');
