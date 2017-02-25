@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { ContactUsForm } from 'components'
+import equal from 'deep-is'
 import { Grid, Modal, FormControl } from 'react-bootstrap'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
@@ -27,6 +28,13 @@ export default class Footer extends Component {
 
   state = {
     contactModalOpen: false,
+  }
+
+  shouldComponentUpdate = (nextProps, nextState) => {
+    if (!equal(this.props, nextProps) || !equal(this.state, nextState)) {
+      return true
+    }
+    return false
   }
 
   openContactModal = () => this.setState({ contactModalOpen: true })
