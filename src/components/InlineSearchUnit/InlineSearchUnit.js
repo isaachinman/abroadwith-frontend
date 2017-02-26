@@ -134,7 +134,7 @@ export default class InlineSearchUnit extends Component {
 
     const { homestaySearch, uiLanguage, standalone, integrated, shadow, t } = this.props
     const searchLoading = homestaySearch.loading
-    const allLanguages = Object.entries(i18n.store.data[uiLanguage].translation.languages).map(([id, label]) => ({ id, label }))
+    const allLanguages = i18n.store.data[uiLanguage] ? Object.entries(i18n.store.data[uiLanguage].translation.languages).map(([id, label]) => ({ id, label })) : []
 
     let topLevelClassName = 'inline-search-unit'
 

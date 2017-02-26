@@ -41,6 +41,7 @@ export default function Html(props) {
   return (
     <html lang='en'>
       <head>
+
         {head.base.toComponent()}
         {head.title.toComponent()}
         {head.meta.toComponent()}
@@ -57,22 +58,25 @@ export default function Html(props) {
         <link href='https://fonts.googleapis.com/css?family=Heebo:500|Karla:400,700' rel='stylesheet' />
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' type='text/css' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        {/* styles (will be present only in production with webpack extract text plugin) */}
+
+        {/* Production styles */}
         {Object.keys(assets.styles).map((style, key) =>
           <link href={assets.styles[style]} key={key} media='screen, projection'
             rel='stylesheet' type='text/css' charSet='UTF-8'
           />
         )}
 
-        {/* (will be present only in development mode) */}
-        {/* outputs a <style/> tag with all bootstrap styles + App.scss + it could be CurrentPage.scss. */}
-        {/* can smoothen the initial style flash (flicker) on page load in development mode. */}
-        {/* ideally one could also include here the style for the current page (Home.scss, About.scss, etc) */}
+        {/* Development styles */}
         {Object.keys(assets.styles).length === 0 ? <style dangerouslySetInnerHTML={{ __html: require('../containers/App/App.styles')._style }} /> : null}
 
-        <script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places' />
+        {/* Google Maps API */}
+        <script type='text/javascript' async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places' />
+
       </head>
+
       <body style={styles.app}>
+
+        {/* This is the actual app root node */}
         <div id='content' dangerouslySetInnerHTML={{ __html: content }} />
 
         {/* Several important data objects are hydrated into the window object */}
@@ -86,7 +90,7 @@ export default function Html(props) {
         {/* Runtime environment config */}
         <script dangerouslySetInnerHTML={{ __html: `window.__config=${serialize(config)};` }} />
 
-        <script src={assets.javascript.main} charSet='UTF-8' />
+        <script src={assets.javascript.main} async defer charSet='UTF-8' />
 
         {/* Analytics scripts, production only */}
         {process.env.NODE_ENV === 'production' &&
