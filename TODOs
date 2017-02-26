@@ -1,6 +1,5 @@
 // General
-1. Attempt to upgrade to webpack 2 for tree-shaking benefits
-2. Find any unused translation keys and elimate them
+1. Find any unused translation keys and elimate them
 
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR

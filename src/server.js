@@ -163,11 +163,9 @@ app.use((req, res) => {
           )
 
           res.status(200)
-
           global.navigator = { userAgent: req.headers['user-agent'] }
+          res.send('<!doctype html>\n' + ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} i18n={i18nClient} />))
 
-          res.send('<!doctype html>\n' +
-            ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} i18n={i18nClient} />))
         })
 
       } else {
