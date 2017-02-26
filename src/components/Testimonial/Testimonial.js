@@ -26,7 +26,7 @@ export default class Testimonial extends Component {
     return (
       <div style={styles.panel}>
         <div style={styles.mainInfo}>
-          <img src={`${config.img}/app/testimonials/${person}.jpg`} style={styles.img} alt={person} />
+          <img src={`${config.img}/app/testimonials/${person}.jpg?w=200`} style={styles.img} alt={person} />
           <div style={styles.title} className='header-blue' dangerouslySetInnerHTML={{
             __html: t(`testimonials.${type}_testimonials.${person}.title`),
           }}
