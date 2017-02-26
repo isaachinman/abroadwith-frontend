@@ -4,22 +4,10 @@ import ReactDOM from 'react-dom/server'
 import serialize from 'serialize-javascript'
 import Helmet from 'react-helmet'
 import config from 'config'
-import SSRCaching from 'electrode-react-ssr-caching'
 import UILanguages from 'data/constants/UILanguages'
 
 // Relative imports
 import styles from '../containers/App/App.styles'
-
-// Set up SSR caching
-SSRCaching.enableCaching()
-SSRCaching.setCachingConfig({
-  components: {
-    Html: {
-      strategy: 'simple',
-      enable: true,
-    },
-  },
-})
 
 /**
  * Wrapper component containing HTML metadata and boilerplate tags.
