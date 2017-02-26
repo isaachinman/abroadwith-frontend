@@ -5,9 +5,6 @@
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
 
-// react-dates
-1. Needs fresh style application of colour palette
-
 // Before deployment to production
 1. npm shrinkwrap
 2. Set up step to clear localstorage and cookies entirely

@@ -49,8 +49,10 @@
   width: 39px;
   height: 38px; }
   .CalendarMonth__day:active {
-    background: $headerPink;
-    border: 1px double darken($headerPink, 2%); }
+    background: $warmPurple;
+    border: 1px double darken($warmPurple, 2%);
+    color: white;
+  }
 
 .CalendarMonth__day--highlighted-calendar {
   background: #ffe8bc;
@@ -90,8 +92,8 @@
 
 .CalendarMonth__day--hovered-span,
 .CalendarMonth__day--after-hovered-start {
-  background: lighten($freshGreen, 35%);
-  border: 1px double lighten($freshGreen, 25%);
+  background: #F7A4EC;
+  border-color: lighten(#F7A4EC, 5%);
   color: #007a87; }
 
 .CalendarMonth__day--selected-start,

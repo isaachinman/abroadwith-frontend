@@ -94,6 +94,7 @@ export default {
   },
   searchResultCarouselImg: {
     backgroundSize: 'cover',
+    backgroundPosition: 'center',
     width: '100%',
     height: 160,
   },
@@ -155,6 +156,7 @@ export default {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    textTransform: 'capitalize',
   },
   searchResultSubtitle: {
     fontSize: 12,

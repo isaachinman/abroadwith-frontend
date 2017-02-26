@@ -75,7 +75,7 @@ export default class Navbar extends Component {
             {jwt &&
               <span style={styles.desktopNavbar}>
                 <Nav navbar pullRight>
-                  {hostUI &&
+                  {hostUI && user.data.homeIds.length > 0 &&
                     <LinkContainer to='/manage-home'>
                       {user.data.homeIds.length > 1 ? <NavItem>{t('common.navbar_your_homes')}</NavItem> : <NavItem>{t('common.navbar_your_home')}</NavItem>}
                     </LinkContainer>
