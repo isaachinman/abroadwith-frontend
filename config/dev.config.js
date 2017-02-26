@@ -107,6 +107,7 @@ module.exports = {
   },
   progress: true,
   resolve: {
+    unsafeCache: true,
     modulesDirectories: [
       'src',
       'node_modules'
