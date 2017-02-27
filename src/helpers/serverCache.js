@@ -40,7 +40,14 @@ const cache = (duration) => {
 /* eslint-enable */
 
 export default (app) => {
-  app.get('/', cache(600), (req, res, next) => {
-    next()
-  })
+
+  // List of routes to be cached (argument for cache function is lifetime in seconds)
+  const routesToCache = [
+    '/',
+    '/es/',
+    '/de/',
+  ]
+
+  routesToCache.map(route => app.get(route, cache(3600), (req, res, next) => next()))
+
 }
