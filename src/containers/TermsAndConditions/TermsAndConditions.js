@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 import { Grid, Row } from 'react-bootstrap'
+import { scrollToTopOfPage } from 'utils/scrolling'
+
 
 // Relative imports
 import styles from './TermsAndConditions.styles.js'
 
 export default class TermsAndConditions extends Component {
+
+  componentDidMount = () => scrollToTopOfPage()
+
   render() {
     return (
       <Grid style={styles}>
