@@ -9,17 +9,30 @@ const mcache = require('memory-cache')
 /* eslint-disable */
 const cache = (duration) => {
   return (req, res, next) => {
-    const key = '__express__' + req.originalUrl || req.url
-    const cachedBody = mcache.get(key)
-    if (cachedBody && !req.cookies.access_token) {
-      res.send(cachedBody)
-      return
+
+    // Only perform any caching/hydration if it's a logged-out page
+    if (!req.cookies.access_token) {
+
+      // Define keyname
+      const key = '__express__' + req.originalUrl || req.url
+      const cachedBody = mcache.get(key)
+
+      // If the key already exists, send it down
+      if (cachedBody) {
+        res.send(cachedBody)
+        return
+      }
+
+      res.sendResponse = res.send
+
+      // If it doesn't, cache the body for future use and send it down
+      res.send = (body) => {
+        mcache.put(key, body, duration * 1000)
+        res.sendResponse(body)
+      }
+
     }
-    res.sendResponse = res.send
-    res.send = (body) => {
-      mcache.put(key, body, duration * 1000)
-      res.sendResponse(body)
-    }
+
     next()
 
   }
