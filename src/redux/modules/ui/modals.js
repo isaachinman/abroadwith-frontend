@@ -47,6 +47,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loginModal: {
           open: true,
+          loggedInCallback: action.loggedInCallback,
         },
       }
     case CLOSE_LOGIN_MODAL:
@@ -139,8 +140,8 @@ export function closeVerifyPhoneModal() {
 }
 
 // Login modal
-export function openLoginModal() {
-  return dispatch => dispatch({ type: OPEN_LOGIN_MODAL })
+export function openLoginModal(loggedInCallback) {
+  return dispatch => dispatch({ type: OPEN_LOGIN_MODAL, loggedInCallback })
 }
 export function closeLoginModal() {
   return dispatch => dispatch({ type: CLOSE_LOGIN_MODAL })

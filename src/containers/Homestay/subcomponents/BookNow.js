@@ -7,9 +7,10 @@ import { connect } from 'react-redux'
 import { DateRangePicker, SpinLoader } from 'components'
 import HomeData from 'data/constants/HomeData'
 import Moment from 'moment'
+import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 import moize from 'moize'
 import { extendMoment } from 'moment-range'
-import { openLoginModal } from 'redux/modules/ui/modals'
+import { openLoginModal, openVerifyEmailModal } from 'redux/modules/ui/modals'
 import { push } from 'react-router-redux'
 import { SimpleSelect as Select } from 'react-selectize'
 import { translate } from 'react-i18next'
@@ -28,6 +29,8 @@ const moment = extendMoment(Moment)
     homestay: state.publicData.homestays[ownProps.homeID],
     homestaySearch: state.uiPersist.homestaySearch,
     uiCurrency: state.ui.currency.value,
+    user: state.privateData.user,
+    token: state.auth.token,
   })
 )
 @translate()
@@ -70,43 +73,64 @@ export default class BookNow extends Component {
   handleBookNowClick = () => {
 
     const { immersionForPriceCalculation } = this.state
-    const { auth, dispatch, homestay, homestaySearch, uiCurrency } = this.props
+    const { auth, dispatch, homestay, homestaySearch, uiCurrency, user, token } = this.props
 
-    if (auth.jwt && auth.jwt) {
+    if (auth.jwt && auth.jwt && user.data) {
 
-      // ------------------------------------------------------------------------------------
-      // Create potential booking object and redirect into homestay booking flow
-      // First object is an actual booking object which will eventually be used in a POST
-      // Second object is a helper object
-      // ------------------------------------------------------------------------------------
-      const serviceNames = homestaySearch.params.filters.filter(filter => HomeData.homeServices.MEAL_PLAN.includes(filter) || HomeData.homeServices.GENERAL.includes(filter))
-      const settingNames = homestaySearch.params.filters.filter(filter => HomeData.homeServices.FOOD_OPTION.includes(filter))
-      dispatch(createPotentialHomestayBooking({
-        arrivalDate: homestaySearch.params.arrival,
-        departureDate: homestaySearch.params.departure,
-        guestCount: homestaySearch.params.guests,
-        roomId: homestaySearch.activeRoom,
-        stayId: homestay.data.immersions[immersionForPriceCalculation].id,
-        languageHostWillTeach: homestaySearch.params.language && homestay.data.immersions[immersionForPriceCalculation].languagesOffered.indexOf(homestaySearch.params.language) > -1 ? homestaySearch.params.language : homestay.data.immersions[immersionForPriceCalculation].languagesOffered[0],
-        languageGuestWillTeach: immersionForPriceCalculation === 'tandem' ? homestay.data.immersions.tandem.languagesInterested[0].lang : null,
-        currency: uiCurrency,
-        serviceNames,
-        settingNames,
-        paymentMethodId: null,
-      }, {
-        createdAt: new Date(),
-        completionStep: 1,
-        homeID: homestay.data.id,
-        homeLat: homestay.data.location.lat,
-        homeLng: homestay.data.location.lng,
-        immersionType: immersionForPriceCalculation,
-      }))
-      dispatch(push('/book-homestay'))
+      const processRequest = () => {
+        // ------------------------------------------------------------------------------------
+        // Create potential booking object and redirect into homestay booking flow
+        // First object is an actual booking object which will eventually be used in a POST
+        // Second object is a helper object
+        // ------------------------------------------------------------------------------------
+        const serviceNames = homestaySearch.params.filters.filter(filter => HomeData.homeServices.MEAL_PLAN.includes(filter) || HomeData.homeServices.GENERAL.includes(filter))
+        const settingNames = homestaySearch.params.filters.filter(filter => HomeData.homeServices.FOOD_OPTION.includes(filter))
+        dispatch(createPotentialHomestayBooking({
+          arrivalDate: homestaySearch.params.arrival,
+          departureDate: homestaySearch.params.departure,
+          guestCount: homestaySearch.params.guests,
+          roomId: homestaySearch.activeRoom,
+          stayId: homestay.data.immersions[immersionForPriceCalculation].id,
+          languageHostWillTeach: homestaySearch.params.language && homestay.data.immersions[immersionForPriceCalculation].languagesOffered.indexOf(homestaySearch.params.language) > -1 ? homestaySearch.params.language : homestay.data.immersions[immersionForPriceCalculation].languagesOffered[0],
+          languageGuestWillTeach: immersionForPriceCalculation === 'tandem' ? homestay.data.immersions.tandem.languagesInterested[0].lang : null,
+          currency: uiCurrency,
+          serviceNames,
+          settingNames,
+          paymentMethodId: null,
+        }, {
+          createdAt: new Date(),
+          completionStep: 1,
+          homeID: homestay.data.id,
+          homeLat: homestay.data.location.lat,
+          homeLng: homestay.data.location.lng,
+          immersionType: immersionForPriceCalculation,
+        }))
+        dispatch(push('/book-homestay'))
+      }
+
+      // Users must have email verifications
+      if (!user.data.verifications.email) {
+
+        dispatch(loadUserWithAuth(token, response => {
+
+          if (response && response.verifications && response.verifications.email) {
+            processRequest()
+          } else {
+            dispatch(openVerifyEmailModal())
+          }
+
+        }))
+
+      } else if (user.data.verifications.email) {
+
+        processRequest()
+
+      }
 
     } else {
 
       // If the user is not logged in, open the login modal
-      dispatch(openLoginModal())
+      dispatch(openLoginModal(() => dispatch(push('/book-homestay'))))
 
     }
 
@@ -166,7 +190,6 @@ export default class BookNow extends Component {
     const { immersionsAvailable, immersionForPriceCalculation } = this.state
 
     const {
-      auth,
       currencySymbol,
       handleRoomDropdownChange,
       homestay,
@@ -239,13 +262,10 @@ export default class BookNow extends Component {
               <strong className='header-green'>{t('common.Price')}:</strong>
 
               <span className='pull-right'>
-                {hasDateRange && !auth.jwt &&
-                  <a onClick={() => this.props.dispatch(openLoginModal())}>{t('common.log_in_to_see_prices')}</a>
-                }
                 {(!homestaySearch.params.arrival || !homestaySearch.params.departure) &&
                   <span>{currencySymbol}{weeklyPriceBasedOnSelectedImmersion}/{t('common.week')}</span>
                 }
-                {hasDateRange && auth.jwt && homestaySearch.activeRoom && immersionForPriceCalculation &&
+                {hasDateRange && homestaySearch.activeRoom && immersionForPriceCalculation &&
                   <HomestayPriceCalculator
                     homeID={this.props.homeID}
                     immersionForPriceCalculation={immersionForPriceCalculation}
@@ -299,5 +319,7 @@ BookNow.propTypes = {
   immersionRates: PropTypes.object,
   roomSelectionOpen: PropTypes.bool,
   uiCurrency: PropTypes.string,
+  user: PropTypes.object,
   t: PropTypes.func,
+  token: PropTypes.string,
 }
