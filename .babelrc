@@ -10,6 +10,14 @@
         "react-bootstrap": {
             "transform": "react-bootstrap/lib/${member}",
             "preventFullImport": true
+        },
+        "react-bootstrap-typeahead": {
+            "transform": "react-bootstrap-typeahead/lib/${member}.react",
+            "preventFullImport": true
+        },
+        "react-dates": {
+            "transform": "react-dates/lib/components/${member}",
+            "preventFullImport": true
         }
     }]
   ],
