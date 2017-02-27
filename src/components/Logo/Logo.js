@@ -12,7 +12,7 @@ export default class Logo extends Component {
   }
 
   handleClick = () => {
-    this.setState({ smaller: true }, () => setTimeout(() => this.setState({ smaller: false }), 200))
+    this.setState({ smaller: true }, () => setTimeout(() => this.setState({ smaller: false }), 100))
   }
 
   render() {
@@ -21,8 +21,9 @@ export default class Logo extends Component {
     const src = color === 'blue' ? `${config.img}/app/logo/abroadwith_logo_blue.png` : ''
 
     const imageStyles = {
-      transition: 'width .1s',
+      transition: 'width .075s',
       width: this.state.smaller ? '95%' : '100%',
+      opacity: this.state.smaller ? 0.8 : 1,
     }
 
     return (
