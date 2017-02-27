@@ -8,9 +8,11 @@ import { createNewThreadWithHost } from 'redux/modules/privateData/messaging/mes
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
 import { connect } from 'react-redux'
+import DefaultBankCurrencies from 'data/constants/DefaultBankCurrencies'
 import Helmet from 'react-helmet'
 import HomeData from 'data/constants/HomeData'
 import { isLoaded, load as loadHomestay } from 'redux/modules/publicData/homes/loadHome'
+import jwtDecode from 'jwt-decode'
 import moment from 'moment'
 import Steps from 'antd/lib/steps'
 import Radium from 'radium'
@@ -20,6 +22,7 @@ import { SimpleSelect as Select, MultiSelect } from 'react-selectize'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { SpinLoader } from 'components'
 import { uiDate } from 'utils/dates'
+import { update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
 import UpsellCourseSearch from 'components/UpsellCourseSearch/UpsellCourseSearch'
 import { scrollToTopOfPage } from 'utils/scrolling'
 import { translate } from 'react-i18next'
@@ -56,6 +59,7 @@ export default class BookHomestay extends Component {
   state = {
     animationInProgress: false,
     activeStep: this.props.potentialBookingHelpers.completionStep,
+    needsCountry: !this.props.user.address || !this.props.user.address.country,
     upsellSearchInitialised: false,
     messageToBeSentToHost: null,
   }
@@ -107,6 +111,12 @@ export default class BookHomestay extends Component {
     }
   }
 
+  updateUserCountry = country => {
+    const { dispatch, token, user } = this.props
+    const newObject = Object.assign({}, user, { address: { country } })
+    dispatch(updateUser(jwtDecode(token).rid, newObject, token))
+  }
+
   handleDietChange = diet => {
     const newSettings = this.props.potentialBooking.settingNames.filter(setting => !HomeData.homeServices.FOOD_OPTION.includes(setting))
     diet.map(dietaryOption => newSettings.push(dietaryOption.value))
@@ -142,8 +152,8 @@ export default class BookHomestay extends Component {
   }
 
   calculatePrice = overrideCurrency => {
-    const { dispatch, token, potentialBooking } = this.props
-    dispatch(calculateHomestayPriceWithinBooking(token, overrideCurrency ? Object.assign({}, potentialBooking, { currency: overrideCurrency }) : potentialBooking))
+    const { dispatch, potentialBooking } = this.props
+    dispatch(calculateHomestayPriceWithinBooking(overrideCurrency ? Object.assign({}, potentialBooking, { currency: overrideCurrency }) : potentialBooking))
   }
 
   changeStep = stepNum => this.setState({ activeStep: stepNum, animationInProgress: true }, () => setTimeout(() => this.setState({ animationInProgress: false }), 300))
@@ -210,7 +220,7 @@ export default class BookHomestay extends Component {
 
   render() {
 
-    const { activeStep, animationInProgress, upsellSearchInitialised } = this.state
+    const { activeStep, animationInProgress, needsCountry, upsellSearchInitialised } = this.state
     const { user, upsellSearch, homestays, loading, t, token, potentialBooking, potentialBookingHelpers } = this.props
 
     const currencySymbol = Currencies[potentialBooking.currency]
@@ -253,7 +263,7 @@ export default class BookHomestay extends Component {
     const stickied = typeof window !== 'undefined' ? window.innerWidth > 767 && !showFullSummary : !showFullSummary
 
     // By default, the entire process is submittable as long as a user has at least one payment method
-    const isProcessable = user.paymentMethods.length > 0
+    const isProcessable = user.paymentMethods.length > 0 && user.address && user.address.country
 
     return (
       <div style={styles.grid} ref={node => this.containerNode = node} className='container' id='homestay-booking-flow-container'>
@@ -452,6 +462,26 @@ export default class BookHomestay extends Component {
                                         />
                                       </Col>
                                     </Row>
+
+                                    {needsCountry &&
+                                      <Row>
+                                        <Col xs={12} sm={8} md={6}>
+                                          <FormGroup>
+                                            <ControlLabel>{t('manage_home.location.country')}*</ControlLabel>
+                                            <Select
+                                              hideResetButton
+                                              theme='bootstrap3'
+                                              defaultValue={user.address && user.address.country ? user.address.country : null}
+                                              onValueChange={value => this.updateUserCountry(value.value)}
+                                            >
+                                              {Object.keys(DefaultBankCurrencies).map(country => {
+                                                return <option key={`home-country-${country}`} value={country}>{t(`countries.${country}`)}</option>
+                                              })}
+                                            </Select>
+                                          </FormGroup>
+                                        </Col>
+                                      </Row>
+                                    }
 
                                     <Row>
                                       <Col xs={12} sm={10}>
