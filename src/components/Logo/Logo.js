@@ -1,21 +1,37 @@
 // Absolute imports
-import React from 'react'
+import React, { Component } from 'react'
 import config from 'config'
 
 // Relative imports
 import styles from './Logo.styles'
 
-export default function Logo(props) {
+export default class Logo extends Component {
 
-  const { componentStyle, size, color } = props // eslint-disable-line no-shadow
+  state = {
+    smaller: false,
+  }
 
-  const src = color === 'blue' ? `${config.img}/app/logo/abroadwith_logo_blue.png` : ''
+  handleClick = () => {
+    this.setState({ smaller: true }, () => setTimeout(() => this.setState({ smaller: false }), 200))
+  }
 
-  return (
-    <span style={Object.assign({}, styles.logoContainer, { maxWidth: size }, componentStyle)}>
-      <img src={src} alt='Abroadwith' style={styles.image} />
-    </span>
-  )
+  render() {
+
+    const { componentStyle, size, color } = this.props // eslint-disable-line no-shadow
+    const src = color === 'blue' ? `${config.img}/app/logo/abroadwith_logo_blue.png` : ''
+
+    const imageStyles = {
+      transition: 'width .1s',
+      width: this.state.smaller ? '95%' : '100%',
+    }
+
+    return (
+      <span onMouseDown={this.handleClick} style={Object.assign({}, styles.logoContainer, { maxWidth: size }, componentStyle)}>
+        <img src={src} alt='Abroadwith' style={imageStyles} />
+      </span>
+    )
+  }
+
 
 }
 

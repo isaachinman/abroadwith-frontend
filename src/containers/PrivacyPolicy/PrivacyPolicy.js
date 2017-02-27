@@ -2,12 +2,16 @@ import React, { Component, PropTypes } from 'react'
 import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
 import { Grid, Row } from 'react-bootstrap'
+import { scrollToTopOfPage } from 'utils/scrolling'
 
 // Relative imports
 import styles from './PrivacyPolicy.styles.js'
 
 @translate()
 export default class PrivacyPolicy extends Component {
+
+  componentDidMount = () => scrollToTopOfPage()
+
   render() {
     const { t } = this.props
     return (

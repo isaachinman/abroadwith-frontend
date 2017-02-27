@@ -4,12 +4,15 @@ import { ContactUsForm } from 'components'
 import { Col, Grid, Row } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
+import { scrollToTopOfPage } from 'utils/scrolling'
 
 // Relative imports
 import styles from './ContactUs.styles'
 
 @translate()
 export default class ContactUs extends Component {
+
+  componentDidMount = () => scrollToTopOfPage()
 
   render() {
     const { t } = this.props

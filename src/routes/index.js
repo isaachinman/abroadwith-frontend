@@ -4,12 +4,16 @@ import { isLoaded as isAuthLoaded } from 'redux/modules/auth'
 import { hideFooter, showFooter } from 'redux/modules/ui/footer'
 import UILanguages from 'data/constants/UILanguages'
 import {
+    AbroadwithForHosts,
+    AbroadwithForStudents,
+    About,
     App,
     ContactUs,
     Homestay,
     LoginPage,
     LoginSuccess,
     Main,
+    PopularLanguages,
     SearchCourses,
     SearchHomestays,
     SignupPage,
@@ -231,9 +235,12 @@ export default (store) => {
 
             <IndexRoute component={Main} />
 
+            <Route path='about' component={About} />
+            <Route path='abroadwith-for-students' component={AbroadwithForStudents} />
             <Route path='contact-us' component={ContactUs} />
             <Route path='faq' getComponent={getFAQ} />
             <Route path='homestay/:homeID' component={Homestay} />
+            <Route path='host-international-students' component={AbroadwithForHosts} />
 
             <Route onEnter={requireLogin}>
               <Route path='book-homestay' onEnter={requirePotentialHomestayBooking} getComponent={getBookHomestay} />
@@ -271,6 +278,7 @@ export default (store) => {
             <Route path='language-program/search' component={SearchCourses} />
 
             <Route path='login' component={LoginPage} />
+            <Route path='popular-languages-destinations' component={PopularLanguages} />
             <Route path='privacy' getComponent={getPrivacyPolicy} />
             <Route path='signup' component={SignupPage} />
             <Route path='terms' getComponent={getTermsAndConditions} />

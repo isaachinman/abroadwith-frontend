@@ -4,7 +4,7 @@ import { Col, Grid, Nav, NavItem, Tab, Row } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import Radium from 'radium'
 import { scrollToTopOfPage } from 'utils/scrolling'
-import { Testimonial } from 'components'
+import { Testimonial, StaticHero } from 'components'
 import { translate } from 'react-i18next'
 
 // Relative imports
@@ -21,18 +21,11 @@ export default class Testimonials extends Component {
     return (
       <div>
         <Helmet title={t('testimonials.title')} />
-        <div style={styles.hero}>
-
-          <Grid style={styles.heroTextContent}>
-            <Row>
-              <Col xs={12}>
-                <h1>{t('testimonials.title')}</h1>
-                <h5>{t('testimonials.subtitle')}</h5>
-              </Col>
-            </Row>
-          </Grid>
-
-        </div>
+        <StaticHero
+          title={t('testimonials.title')}
+          subtitle={t('testimonials.subtitle')}
+          image='/app/hero/hero_testimonials.jpeg'
+        />
         <Grid>
           <Tab.Container id='testimonials' defaultActiveKey='students'>
             <Row>

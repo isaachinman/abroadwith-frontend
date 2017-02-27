@@ -6,7 +6,3 @@
 
 // Before deployment to production
 1. npm shrinkwrap
-2. Set up step to clear localstorage and cookies entirely
-
-// Booking Process
-1. Test the case of a user entering booking flow without country
