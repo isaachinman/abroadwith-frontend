@@ -93,6 +93,7 @@
     "jwt-decode": "^2.1.0",
     "less": "^2.5.3",
     "lwip": "0.0.9",
+    "memory-cache": "^0.1.6",
     "moize": "^2.1.5",
     "moment-range": "^3.0.0",
     "multer": "^1.2.1",

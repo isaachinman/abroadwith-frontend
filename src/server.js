@@ -25,6 +25,7 @@ import contactForm from 'helpers/api/contactForm'
 import getRoomCalendar from 'helpers/api/getRoomCalendar'
 import logout from 'helpers/api/logout'
 import homestaySearch from 'helpers/api/homestaySearch'
+import serverCache from 'helpers/serverCache'
 
 // Relative imports
 import ApiClient from './helpers/ApiClient'
@@ -52,6 +53,12 @@ const proxy = httpProxy.createProxyServer({
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+// User cookieParser
+app.use(cookieParser())
+
+// Cache public pages
+serverCache(app)
+
 // Install custom API endpoints
 const customApiEndpoints = [contactForm, getRoomCalendar, logout, homestaySearch]
 customApiEndpoints.map(endpoint => {
@@ -61,7 +68,6 @@ customApiEndpoints.map(endpoint => {
 // Install image upload endpoints
 imageUploadInstaller(app)
 
-app.use(cookieParser())
 app.use(i18nMiddleware.handle(i18n))
 
 app.use(Express.static(path.join(__dirname, '..', 'build')))
