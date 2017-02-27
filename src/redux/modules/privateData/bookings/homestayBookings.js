@@ -205,7 +205,7 @@ export function deletePotentialHomestayBooking() {
   return async dispatch => dispatch({ type: DELETE_POTENTIAL_HOMESTAY_BOOKING })
 }
 
-export function calculateHomestayPriceWithinBooking(jwt, params) {
+export function calculateHomestayPriceWithinBooking(params) {
 
   // Clean the data
   const cleanedParams = Object.assign({}, params)
@@ -217,8 +217,7 @@ export function calculateHomestayPriceWithinBooking(jwt, params) {
 
     try {
 
-      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/bookings/price`)
-      request.set({ Authorization: `Bearer ${(jwt)}` })
+      const request = superagent.post(`${config.apiHost}/public/bookings/price`)
       request.send(cleanedParams)
 
       request.end((err, res) => {
@@ -253,7 +252,7 @@ export function createHomestayBooking(jwt, bookingObject, callback) {
 
     try {
 
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
 
         const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/bookings`)
         request.set({ Authorization: `Bearer ${(jwt)}` })
@@ -263,7 +262,7 @@ export function createHomestayBooking(jwt, bookingObject, callback) {
 
           if (err) {
 
-            resolve(dispatch({ type: CREATE_HOMESTAY_BOOKING_FAIL, err }))
+            reject(dispatch({ type: CREATE_HOMESTAY_BOOKING_FAIL, err }))
 
           } else {
 

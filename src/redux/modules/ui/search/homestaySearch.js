@@ -1,7 +1,6 @@
 import config from 'config'
 import superagent from 'superagent'
 import homestaySearchParamsToUrl from 'utils/search/homestaySearchParamsToUrl'
-import jwtDecode from 'jwt-decode'
 import { REHYDRATE } from 'redux-persist/constants'
 import roundTo from 'round-to'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
@@ -200,7 +199,7 @@ export function performRoomSearch(params, push) {
   }
 }
 
-export function calculateHomestayPrice(jwt, params) {
+export function calculateHomestayPrice(params) {
 
   return async dispatch => {
 
@@ -208,8 +207,7 @@ export function calculateHomestayPrice(jwt, params) {
 
     try {
 
-      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/bookings/price`)
-      request.set({ Authorization: `Bearer ${(jwt)}` })
+      const request = superagent.post(`${config.apiHost}/public/bookings/price`)
       request.send(params)
 
       request.end((err, res) => {

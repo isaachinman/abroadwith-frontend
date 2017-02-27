@@ -11,7 +11,6 @@ import equal from 'deep-is'
     homestay: state.publicData.homestays[ownProps.homeID],
     homestaySearch: state.uiPersist.homestaySearch,
     uiCurrency: state.ui.currency.value,
-    token: state.auth.token,
   })
 )
 export default class HomestayPriceCalculator extends Component {
@@ -34,7 +33,7 @@ export default class HomestayPriceCalculator extends Component {
 
   calculatePrice = () => {
 
-    const { dispatch, homestay, homestaySearch, immersionForPriceCalculation, token, uiCurrency } = this.props
+    const { dispatch, homestay, homestaySearch, immersionForPriceCalculation, uiCurrency } = this.props
 
     const calculationObject = {
       arrivalDate: homestaySearch.params.arrival,
@@ -50,7 +49,7 @@ export default class HomestayPriceCalculator extends Component {
       weeklyHours: immersionForPriceCalculation === 'teacher' ? homestay.data.immersions.teacher.packages[0] : null,
     }
 
-    dispatch(calculateHomestayPrice(token, calculationObject))
+    dispatch(calculateHomestayPrice(calculationObject))
 
   }
 
@@ -82,5 +81,4 @@ HomestayPriceCalculator.propTypes = {
   homestaySearch: PropTypes.object,
   immersionForPriceCalculation: PropTypes.string,
   uiCurrency: PropTypes.string,
-  token: PropTypes.string,
 }

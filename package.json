@@ -3,7 +3,7 @@
   "description": "",
   "author": "Isaac Hinman <isaac@isaachinman.com> (github.com/isaachinman)",
   "license": "UNLICENSED",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/abroadwith/frontend"
@@ -81,7 +81,6 @@
     "exif-parser": "^0.1.9",
     "express": "^4.13.3",
     "fade-props": "^1.0.0",
-    "file-loader": "^0.9.0",
     "google-map-react": "^0.22.3",
     "http-proxy": "^1.12.0",
     "i18next": "^4.1.0",

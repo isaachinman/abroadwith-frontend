@@ -16,6 +16,7 @@ import styles from './Login.styles'
 @connect(state => ({
   jwt: state.auth.jwt,
   loginStatus: state.auth,
+  loginModal: state.ui.modals.loginModal,
 }))
 @translate()
 export default class Login extends Component {
@@ -29,6 +30,16 @@ export default class Login extends Component {
         uiState: null,
       },
     },
+  }
+
+  closeModal = () => {
+
+    const { dispatch, jwt, loginModal } = this.props
+
+    if (jwt && jwt.rid && typeof loginModal.loggedInCallback === 'function') {
+      loginModal.loggedInCallback()
+      dispatch(closeLoginModal())
+    }
   }
 
   handleGoToSignup = () => {
@@ -53,13 +64,13 @@ export default class Login extends Component {
     console.log(response)
     if (response.accessToken && response.status !== 'unknown') {
       const { dispatch } = this.props
-      dispatch(authActions.facebookLogin(response.email, response.accessToken, () => dispatch(closeLoginModal())))
+      dispatch(authActions.facebookLogin(response.email, response.accessToken, this.closeModal))
     }
   }
 
   handleGoogleLogin = (response) => {
     const { dispatch } = this.props
-    dispatch(authActions.googleLogin(response.getBasicProfile().getEmail(), response.getAuthResponse().id_token, () => dispatch(closeLoginModal())))
+    dispatch(authActions.googleLogin(response.getBasicProfile().getEmail(), response.getAuthResponse().id_token, this.closeModal))
   }
 
   handleGoogleLoginFailure = () => {
@@ -99,7 +110,7 @@ export default class Login extends Component {
 
     if (formIsValid) {
       const { dispatch } = this.props
-      dispatch(authActions.login(email.value, password.value, null, null, () => dispatch(closeLoginModal())))
+      dispatch(authActions.login(email.value, password.value, null, null, this.closeModal))
     } else {
       return false
     }
@@ -218,5 +229,6 @@ Login.propTypes = {
   facebookLogin: PropTypes.func,
   googleLogin: PropTypes.func,
   loginStatus: PropTypes.object,
+  loginModal: PropTypes.object,
   logout: PropTypes.func,
 }

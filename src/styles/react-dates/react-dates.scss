@@ -92,8 +92,8 @@
 
 .CalendarMonth__day--hovered-span,
 .CalendarMonth__day--after-hovered-start {
-  background: #F7A4EC;
-  border-color: lighten(#F7A4EC, 5%);
+  background: lighten(#F7A4EC, 10%);
+  border-color: lighten(#F7A4EC, 15%);
   color: #007a87; }
 
 .CalendarMonth__day--selected-start,
