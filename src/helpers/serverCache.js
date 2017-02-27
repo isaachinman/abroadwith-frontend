@@ -1,13 +1,17 @@
+import UILanguages from 'data/constants/UILanguages'
+
 const mcache = require('memory-cache')
 
+
 // This is a very simple html cacher -------------------------------------------
-// Basically, we cache all public pages, eg all requests without
+// Basically, we cache all public (static) pages, eg all requests without
 // an access_token cookie. This prevents the server having to redo
 // expensive renderToString computations over and over for no reason.
+// More info: goenning.net/2016/02/10/simple-server-side-cache-for-expressjs
 // -----------------------------------------------------------------------------
 
 /* eslint-disable */
-const cache = (duration) => {
+const cache = () => {
   return (req, res, next) => {
 
     // Only perform any caching/hydration if it's a logged-out page
@@ -27,7 +31,7 @@ const cache = (duration) => {
 
       // If it doesn't, cache the body for future use and send it down
       res.send = (body) => {
-        mcache.put(key, body, duration * 1000)
+        mcache.put(key, body)
         res.sendResponse(body)
       }
 
@@ -41,13 +45,28 @@ const cache = (duration) => {
 
 export default (app) => {
 
-  // List of routes to be cached (argument for cache function is lifetime in seconds)
-  const routesToCache = [
-    '/',
-    '/es/',
-    '/de/',
-  ]
+  const routesToCache = []
 
-  routesToCache.map(route => app.get(route, cache(3600), (req, res, next) => next()))
+  // List of routes to be cached
+  ;[
+    '',
+    'about',
+    'abroadwith-for-students',
+    'faq',
+    'homestay/:homeID',
+    'host-international-students',
+    'privacy',
+    'signup',
+    'terms',
+    'testimonials',
+    'user/:userID',
+  ].map(route => {
+
+    // Loop through non-English locales
+    Object.values(UILanguages).map(lang => routesToCache.push(`${lang.basepath}${route}`))
+
+  })
+
+  routesToCache.map(route => app.get(route, cache(), (req, res, next) => next()))
 
 }
