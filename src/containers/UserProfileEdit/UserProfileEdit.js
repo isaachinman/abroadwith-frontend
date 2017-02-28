@@ -64,12 +64,18 @@ export default class UserProfileEdit extends Component {
       request.set('cropData', JSON.stringify(cropData))
       request.attach('file', newProfilePhoto)
 
-      request.end(err => {
+      request.end((err, res) => {
 
         if (!err) {
           dispatch(loadPublicUser(jwt.rid)) // Load public user object again - this is normally cached
           dispatch(loadUser(token))
-          this.setState({ cropData: null, newProfilePhoto: null, profilePhotoModalOpen: false, profilePhotoUploading: false })
+          this.setState({
+            cropData: null,
+            newProfilePhoto: null,
+            profilePhotoModalOpen: false,
+            profilePhotoUploading: false,
+            user: Object.assign({}, this.state.user, { photo: Object.values(JSON.parse(res.text))[0].location }),
+          })
         }
 
       })
