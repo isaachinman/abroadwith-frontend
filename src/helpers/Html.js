@@ -92,6 +92,8 @@ export default function Html(props) {
         {/* Runtime environment config */}
         <script dangerouslySetInnerHTML={{ __html: `window.__config=${serialize(config)};` }} />
 
+        {/* Main JavaScript assets */}
+        <script src={assets.javascript.vendor} charSet='UTF-8' />
         <script src={assets.javascript.main} async defer charSet='UTF-8' />
 
         {/* Analytics scripts, production only */}

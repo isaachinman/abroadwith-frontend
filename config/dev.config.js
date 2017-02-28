@@ -117,6 +117,12 @@ module.exports = {
   },
   plugins: [
 
+    // Split vendor into a chunk to speed up build times
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: module => /node_modules/.test(module.resource)
+    }),
+
     new HappyPack({
       loaders: [
         'babel?' + JSON.stringify(babelLoaderQuery)
