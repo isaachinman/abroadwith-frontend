@@ -5,6 +5,7 @@ import { Button, Col, FormGroup, FormControl, OverlayTrigger, Panel, Tooltip, Ro
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { ManageLanguages } from 'components'
+import moment from 'moment'
 import * as signupActions from 'redux/modules/signup'
 import FacebookLogin from 'react-facebook-login'
 import FontAwesome from 'react-fontawesome'
@@ -149,14 +150,13 @@ export default class Signup extends Component {
 
   handlebirthDateChange = event => {
     const modifiedValidation = this.state.validatedFields
-    const isValid = validateEighteenYearsOld(event.target.value)
-    modifiedValidation.birthDate = { uiState: isValid ? 'success' : 'error', value: isValid ? event.target.value : null }
+    const flexibleDate = moment(event.target.value, 'YYYY-MM-DD').format('YYYY-MM-DD')
+    const isValid = validateEighteenYearsOld(flexibleDate)
+    modifiedValidation.birthDate = { uiState: isValid ? 'success' : 'error', value: isValid ? flexibleDate : null }
     this.setState({ validatedFields: modifiedValidation })
   }
 
   signup = (signupType, data) => {
-
-    console.log('data: ', data)
 
     const { dispatch, type } = this.props
     const { birthDate, firstName, lastName, email, password } = this.state.validatedFields
@@ -352,7 +352,7 @@ export default class Signup extends Component {
                       <FormControl
                         type='date'
                         style={styles.emailSignupInput}
-                        placeholder={t('common.birthDate')}
+                        placeholder={t('common.birthday_placeholder')}
                         onChange={event => this.handlebirthDateChange(event)}
                       />
                       <FormControl.Feedback />
