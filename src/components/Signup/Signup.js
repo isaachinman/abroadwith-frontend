@@ -268,7 +268,7 @@ export default class Signup extends Component {
           <Row>
             <Col xs={12}>
               <h2 style={{ color: '#32325D' }}>{t('common.language_modal_hello')}</h2>
-              <h6 className='text-muted'>{t('common.language_modal_title')}</h6>
+              <h5><small>{t('common.language_modal_title')}</small></h5>
             </Col>
           </Row>
           <Row>

@@ -637,3 +637,16 @@ $popover-arrow-color: $darkBlue;
     color: $bodyTextColor !important;
   }
 }
+
+// Extend bootstrap dropdowns
+.dropdown-menu {
+  li {
+    height: 50px;
+    display: table;
+    width: 100%;
+    a {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}
