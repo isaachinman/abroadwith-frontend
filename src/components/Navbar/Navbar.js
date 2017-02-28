@@ -1,6 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { createHomestay } from 'redux/modules/privateData/homes/homeManagement'
 import { IndexLink } from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Login, Logo, Signup } from 'components'
@@ -8,7 +9,6 @@ import { Badge, Modal, Navbar as BootstrapNavbar, Nav, NavItem, NavDropdown, Men
 import { logout } from 'redux/modules/auth'
 import FontAwesome from 'react-fontawesome'
 import Radium from 'radium'
-import { createHomestay } from 'redux/modules/privateData/homes/homeManagement'
 import { openLoginModal, closeLoginModal, openStudentSignupModal, closeStudentSignupModal, openHostSignupModal, closeHostSignupModal } from 'redux/modules/ui/modals'
 import { translate } from 'react-i18next'
 
