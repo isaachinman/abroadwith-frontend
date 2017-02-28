@@ -7,7 +7,13 @@ import { scrollToTopOfPage } from 'utils/scrolling'
 import { StaticHero } from 'components'
 
 // Relative imports
-// import styles from './PopularLanguages.styles'
+import CityPanel from './subcomponents/CityPanel'
+import styles from './PopularLanguages.styles'
+
+// Cities by language
+const englishCities = ['London', 'Bournemouth', 'Brighton', 'Bristol', 'Cambridge', 'Eastbourne', 'Manchester', 'Oxford', 'Vancouver', 'New York', 'San Francisco', 'Seattle']
+const spanishCities = ['Barcelona', 'Granada', 'Madrid', 'Salamanca', 'Sevilla', 'Valencia', 'Alicante', 'Buenos Aires']
+const germanCities = ['Berlin', 'Hamburg', 'Munich', 'Heidelberg', 'Vienna']
 
 @translate()
 export default class PopularLanguages extends Component {
@@ -21,14 +27,51 @@ export default class PopularLanguages extends Component {
         <Helmet title={t('popular_languages.title')} />
         <StaticHero
           title={t('popular_languages.h1')}
-          image='/app/hero/hero_testimonials.jpeg'
+          subtitle={t('popular_languages.introduction_paragraph_1')}
+          image='/app/hero/hero_v2_popular_languages.jpeg'
         />
-        <Grid>
-          <Row>
-            <Col xs={12}>
-              PopularLanguages
-            </Col>
-          </Row>
+        <Grid style={styles.grid}>
+          <div style={styles.contentContainer}>
+            <Row>
+              <Col xs={12} md={8} mdOffset={2}>
+                <p>{t('popular_languages.introduction_paragraph_2')}</p>
+                <p>{t('popular_languages.introduction_paragraph_3')}</p>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} md={8} mdOffset={2}>
+                <h4>{t('languages.ENG')}</h4>
+                <p>{t('popular_languages.language_text.ENG')}</p>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} md={8} mdOffset={2}>
+                {englishCities.map(city => <CityPanel cityName={city} key={city} />)}
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} md={8} mdOffset={2}>
+                <h4>{t('languages.SPA')}</h4>
+                <p>{t('popular_languages.language_text.SPA')}</p>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} md={8} mdOffset={2}>
+                {spanishCities.map(city => <CityPanel cityName={city} key={city} />)}
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} md={8} mdOffset={2}>
+                <h4>{t('languages.DEU')}</h4>
+                <p>{t('popular_languages.language_text.DEU')}</p>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} md={8} mdOffset={2}>
+                {germanCities.map(city => <CityPanel cityName={city} key={city} />)}
+              </Col>
+            </Row>
+          </div>
         </Grid>
       </div>
     )

@@ -29,10 +29,9 @@ export default class AbroadwithForStudents extends Component {
           <div style={styles.contentContainer}>
             <Row>
               <Col xs={12} md={8} mdOffset={2}>
-                <p>{t('why_abroadwith.paragraph1')}</p>
-                <p>{t('why_abroadwith.paragraph2')}</p>
-                <p>{t('why_abroadwith.paragraph3')}</p>
-                <p>{t('why_abroadwith.paragraph4')}</p>
+                <p>{t('why_abroadwith.paragraph_1')}</p>
+                <p>{t('why_abroadwith.paragraph_2')}</p>
+                <p>{t('why_abroadwith.paragraph_3')}</p>
               </Col>
             </Row>
             <Row>
