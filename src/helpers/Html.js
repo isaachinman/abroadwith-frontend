@@ -68,9 +68,6 @@ export default function Html(props) {
         {/* Development styles */}
         {Object.keys(assets.styles).length === 0 ? <style dangerouslySetInnerHTML={{ __html: require('../containers/App/App.styles')._style }} /> : null}
 
-        {/* Google Maps API */}
-        <script type='text/javascript' async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places' />
-
       </head>
 
       <body style={styles.app}>
@@ -91,6 +88,9 @@ export default function Html(props) {
 
         {/* Runtime environment config */}
         <script dangerouslySetInnerHTML={{ __html: `window.__config=${serialize(config)};` }} />
+
+        {/* Google Maps API */}
+        <script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places' />
 
         {/* Main JavaScript assets */}
         <script src={assets.javascript.vendor} charSet='UTF-8' />

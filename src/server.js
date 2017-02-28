@@ -56,11 +56,17 @@ app.use(bodyParser.json())
 // User cookieParser
 app.use(cookieParser())
 
-// Cache public pages
+// Cache public pages into memory
 if (!__DEVELOPMENT__) {
   serverCache(app)
 }
 
+// Set cache headers for assets
+app.get('/dist/*.(js|css)', (req, res, next) => {
+  res.setHeader('Cache-Control', 'public, max-age=2592000')
+  res.setHeader('Expires', new Date(Date.now() + 2592000000).toUTCString())
+  next()
+})
 
 // Install custom API endpoints
 const customApiEndpoints = [contactForm, getRoomCalendar, logout, homestaySearch]
