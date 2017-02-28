@@ -79,7 +79,7 @@ export default class AbroadwithForStudents extends Component {
             </Row>
             <Row>
               <Col xs={12} md={8} mdOffset={2}>
-                <h4>{t('testimonials.title')}</h4>
+                <h4 style={{ marginBottom: 30 }}>{t('testimonials.title')}</h4>
                 <Testimonial
                   type='student'
                   person='daniel'

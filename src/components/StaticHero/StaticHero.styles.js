@@ -30,4 +30,7 @@ export default {
     borderBottom: '1px solid #ddd',
     background: 'white',
   },
+  btnContainer: {
+    marginTop: 30,
+  },
 }

@@ -12,7 +12,7 @@ export default class StaticHero extends Component {
 
   render() {
 
-    const { image, title, subtitle } = this.props
+    const { actionButton, image, title, subtitle } = this.props
 
     const heroStyles = Object.assign({}, styles.hero, {
       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),url(${config.img}${image})`,
@@ -31,6 +31,11 @@ export default class StaticHero extends Component {
             <Col xs={12}>
               <h1>{title}</h1>
               <h5>{subtitle}</h5>
+              {actionButton &&
+                <div style={styles.btnContainer}>
+                  {actionButton}
+                </div>
+              }
             </Col>
           </Row>
         </Grid>
@@ -40,6 +45,7 @@ export default class StaticHero extends Component {
 }
 
 StaticHero.propTypes = {
+  actionButton: PropTypes.element,
   image: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string,
