@@ -26,7 +26,7 @@ export default class Testimonials extends Component {
           subtitle={t('testimonials.subtitle')}
           image='/app/hero/hero_testimonials.jpeg'
         />
-        <Grid>
+        <Grid style={{ marginTop: 20 }}>
           <Tab.Container id='testimonials' defaultActiveKey='students'>
             <Row>
               <Col xs={12}>
