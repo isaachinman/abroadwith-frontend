@@ -33,6 +33,7 @@ export default {
     width: '100%',
   },
   select: {
+    background: 'white',
     fontSize: 12,
     textAlign: 'left',
     minWidth: 120,

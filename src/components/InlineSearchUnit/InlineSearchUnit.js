@@ -14,20 +14,35 @@ import i18n from 'i18n/i18n-client'
 import { SimpleSelect as Select } from 'react-selectize'
 import MapBounds from 'data/constants/MapBounds'
 import moment from 'moment'
+import Radium from 'radium'
 import { translate } from 'react-i18next'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import { updateRoomSearchParams, performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
 import { push } from 'react-router-redux'
+import { pulseOpposite } from 'utils/animation'
 
 // Relative imports
 import LocationSearch from './subcomponents/LocationSearch'
+
+// Animation styles
+const animation = {
+  pulseOpposite: {
+    animation: 'x 0.2s',
+    animationName: Radium.keyframes(pulseOpposite, 'pulseOpposite'),
+  },
+}
 
 @connect(state => ({
   uiLanguage: state.ui.locale.value,
   homestaySearch: state.uiPersist.homestaySearch,
 }))
 @translate()
+@Radium
 export default class InlineSearchUnit extends Component {
+
+  state = {
+    loadingAnimation: false,
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
@@ -127,11 +142,13 @@ export default class InlineSearchUnit extends Component {
       params.mapData.bounds = MapBounds.europe
     }
 
+    this.setState({ loadingAnimation: true })
     dispatch(performRoomSearch(params, push))
   }
 
   render() {
 
+    const { loadingAnimation } = this.state
     const { homestaySearch, uiLanguage, standalone, integrated, shadow, t } = this.props
     const searchLoading = homestaySearch.loading
     const allLanguages = i18n.store.data[uiLanguage] ? Object.entries(i18n.store.data[uiLanguage].translation.languages).map(([id, label]) => ({ id, label })) : []
@@ -151,7 +168,7 @@ export default class InlineSearchUnit extends Component {
     }
 
     return (
-      <div className={topLevelClassName}>
+      <div style={loadingAnimation ? animation.pulseOpposite : null} className={topLevelClassName}>
         <Typeahead
           tabIndex={1}
           selected={homestaySearch.params.language ? [{ label: t(`languages.${homestaySearch.params.language}`), id: homestaySearch.params.language }] : []}
@@ -189,7 +206,7 @@ export default class InlineSearchUnit extends Component {
         {standalone &&
         <Button
           disabled={searchLoading}
-          onClick={this.handleGoToSearchPage}
+          onMouseDown={this.handleGoToSearchPage}
           bsSize='large'
           className='search-btn'
         >

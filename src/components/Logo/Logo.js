@@ -1,18 +1,29 @@
 // Absolute imports
 import React, { Component } from 'react'
 import config from 'config'
+import { pulseOpposite } from 'utils/animation'
+import Radium from 'radium'
 
 // Relative imports
 import styles from './Logo.styles'
 
+// Animation styles
+const animation = {
+  pulseOpposite: {
+    animation: 'x 0.2s',
+    animationName: Radium.keyframes(pulseOpposite, 'pulseOpposite'),
+  },
+}
+
+@Radium
 export default class Logo extends Component {
 
   state = {
-    smaller: false,
+    animate: false,
   }
 
   handleClick = () => {
-    this.setState({ smaller: true }, () => setTimeout(() => this.setState({ smaller: false }), 100))
+    this.setState({ animate: true }, () => setTimeout(() => this.setState({ animate: false }), 400)) // Have to reset for multi use
   }
 
   render() {
@@ -20,15 +31,11 @@ export default class Logo extends Component {
     const { componentStyle, size, color } = this.props // eslint-disable-line no-shadow
     const src = color === 'blue' ? `${config.img}/app/logo/abroadwith_logo_blue.png` : ''
 
-    const imageStyles = {
-      transition: 'width .075s',
-      width: this.state.smaller ? '95%' : '100%',
-      opacity: this.state.smaller ? 0.8 : 1,
-    }
-
     return (
       <span onMouseDown={this.handleClick} style={Object.assign({}, styles.logoContainer, { maxWidth: size }, componentStyle)}>
-        <img src={src} alt='Abroadwith' style={imageStyles} />
+        <div style={this.state.animate ? animation.pulseOpposite : null}>
+          <img src={src} alt='Abroadwith' style={styles.image} />
+        </div>
       </span>
     )
   }
