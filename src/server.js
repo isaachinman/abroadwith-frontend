@@ -57,7 +57,10 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 
 // Cache public pages
-serverCache(app)
+if (!__DEVELOPMENT__) {
+  serverCache(app)
+}
+
 
 // Install custom API endpoints
 const customApiEndpoints = [contactForm, getRoomCalendar, logout, homestaySearch]
