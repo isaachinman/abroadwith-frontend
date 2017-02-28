@@ -65,6 +65,12 @@ module.exports = {
     // Ignore momentjs locales
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
+    // Split vendor into a chunk which can have a very long cache-life
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: module => /node_modules/.test(module.resource)
+    }),
+
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin('[name]-[chunkhash].css', {allChunks: true}),
     new webpack.DefinePlugin({
