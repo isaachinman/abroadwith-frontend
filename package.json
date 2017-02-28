@@ -1,9 +1,9 @@
 {
   "name": "abroadwith-frontend",
-  "description": "",
+  "description": "A React/Redux isomorphic implementation for Abroadwith (2017).",
   "author": "Isaac Hinman <isaac@isaachinman.com> (github.com/isaachinman)",
   "license": "UNLICENSED",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/abroadwith/frontend"
@@ -11,10 +11,8 @@
   "main": "bin/server.js",
   "scripts": {
     "setup": "mkdir build && mkdir build/locales && mkdir build/currency-rates && npm i",
-    "start": "concurrently --kill-others \"better-npm-run start-prod\"",
     "start-integration": "pm2 start ecosystem/integration.json",
     "start-production": "pm2 start ecosystem/production.json",
-    "production": "better-npm-run start-prod",
     "build": "better-npm-run build",
     "postinstall": "npm run build",
     "lint": "eslint src --fix",
@@ -94,6 +92,7 @@
     "lwip": "0.0.9",
     "memory-cache": "^0.1.6",
     "moize": "^2.1.5",
+    "moment": "^2.14.1",
     "moment-range": "^3.0.0",
     "multer": "^1.2.1",
     "piping": "^1.0.0-rc.3",
@@ -166,9 +165,7 @@
     "git-prepush-hook": "^1.0.1",
     "happypack": "^3.0.2",
     "json-loader": "^0.5.4",
-    "moment": "^2.14.1",
     "node-sass": "^3.4.2",
-    "react": "^15.3.0",
     "react-a11y": "^0.3.3",
     "react-addons-perf": "^15.4.2",
     "react-addons-test-utils": "^15.3.0",
@@ -240,5 +237,7 @@
   "engines": {
     "node": "5.6.0"
   },
-  "pre-push": []
+  "pre-push": [
+    "lint"
+  ]
 }
