@@ -1,6 +1,7 @@
 export default {
   grid: {
     padding: 0,
+    marginBottom: -20,
   },
   contentContainer: {
     background: 'white',
