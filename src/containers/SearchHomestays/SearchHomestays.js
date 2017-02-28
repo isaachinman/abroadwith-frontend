@@ -56,9 +56,49 @@ export default class SearchHomestays extends Component {
     // This is our initialisation step
     if (!this.state.mapDimensions.width && nextState.mapDimensions.width && !this.state.initialSearchPerformed) {
 
-      // We will assume that if there aren't bounds in the store, and no data has been loaded,
-      // the user isn't already inside a search process
-      if (!search.loaded && !search.params.mapData.bounds) {
+      // In some cases, we link to this search page with a semantic location query
+      if (routing.query.locationString && !routing.query.maxLat) {
+
+        // Instantiate the Google services we'll need
+        /* eslint-disable */
+        const autocompleter = new google.maps.places.AutocompleteService()
+        const geocoder = new google.maps.Geocoder
+        /* eslint-enable */
+
+        // Get a place suggestion from the locationString
+        autocompleter.getQueryPredictions({ input: routing.query.locationString }, (predictions, status) => {
+
+          // Geolocate the first result
+          if (status === 'OK' && predictions.length > 0) {
+
+            geocoder.geocode({ placeId: predictions[0].place_id }, (results, geocodeStatus) => {
+
+              if (geocodeStatus === 'OK' && results.length > 0) {
+
+                const viewport = results[0].geometry.bounds
+
+                dispatch(performRoomSearch(Object.assign({}, homestaySearchUrlToParams(this.props.routing.query), {
+                  mapData: {
+                    bounds: {
+                      maxLat: viewport.f.f,
+                      maxLng: viewport.b.b,
+                      minLat: viewport.f.b,
+                      minLng: viewport.b.f,
+                    },
+                  },
+                }), push))
+              }
+
+            })
+
+          }
+
+        })
+
+      } else if (!search.loaded && !search.params.mapData.bounds) {
+
+        // We will assume that if there aren't bounds in the store, and no data has been loaded,
+        // the user isn't already inside a search process
 
         // If there are bounds in the query, hydrate the entire query
         if (routing.query.maxLat && routing.query.maxLng && routing.query.minLat && routing.query.minLng) {
