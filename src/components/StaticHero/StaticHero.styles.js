@@ -17,7 +17,6 @@ export default {
     '@media (max-width: 350px)': {
       minHeight: 460,
     },
-    marginBottom: 30,
   },
   heroTextContent: {
     maxWidth: 600,

@@ -29,7 +29,7 @@ export default class Logo extends Component {
   render() {
 
     const { componentStyle, size, color } = this.props // eslint-disable-line no-shadow
-    const src = color === 'blue' ? `${config.img}/app/logo/abroadwith_logo_blue.png` : ''
+    const src = color === 'blue' ? `${config.img}/app/logo/abroadwith_logo_blue_v2.png` : ''
 
     return (
       <span onMouseDown={this.handleClick} style={Object.assign({}, styles.logoContainer, { maxWidth: size }, componentStyle)}>

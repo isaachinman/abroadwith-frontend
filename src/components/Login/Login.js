@@ -38,8 +38,10 @@ export default class Login extends Component {
 
     if (jwt && jwt.rid && typeof loginModal.loggedInCallback === 'function') {
       loginModal.loggedInCallback()
-      dispatch(closeLoginModal())
     }
+
+    dispatch(closeLoginModal())
+
   }
 
   handleGoToSignup = () => {
