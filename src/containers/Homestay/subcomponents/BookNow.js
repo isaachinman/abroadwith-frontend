@@ -97,6 +97,7 @@ export default class BookNow extends Component {
           serviceNames,
           settingNames,
           paymentMethodId: null,
+          weeklyHours: immersionForPriceCalculation === 'teacher' ? homestay.data.immersions.teacher.packages[0] : null,
         }, {
           createdAt: new Date(),
           completionStep: 1,

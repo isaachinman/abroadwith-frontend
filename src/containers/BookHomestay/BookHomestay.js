@@ -405,24 +405,44 @@ export default class BookHomestay extends Component {
                                           </Col>
 
                                           {potentialBookingHelpers.immersionType === 'tandem' &&
-                                          <Col xs={12} sm={6}>
-                                            <FormGroup>
-                                              <ControlLabel>{t('booking.teaching')}</ControlLabel>
-                                              <Select
-                                                hideResetButton
-                                                theme='bootstrap3'
-                                                value={{ value: potentialBooking.languageGuestWillTeach, label: t(`languages.${potentialBooking.languageGuestWillTeach}`) }}
-                                                onValueChange={value => this.updatePotentialHomestayBooking('languageGuestWillTeach', value.value)}
-                                              >
-                                                {homestay.data.immersions.tandem.languagesInterested.map(lang => {
-                                                  return (
-                                                    <option key={`tandem=${lang.lang}`} value={lang.lang}>{t(`languages.${lang.lang}`)}</option>
-                                                  )
-                                                })}
-                                              </Select>
-                                            </FormGroup>
-                                          </Col>
-                                        }
+                                            <Col xs={12} sm={6}>
+                                              <FormGroup>
+                                                <ControlLabel>{t('booking.teaching')}</ControlLabel>
+                                                <Select
+                                                  hideResetButton
+                                                  theme='bootstrap3'
+                                                  value={{ value: potentialBooking.languageGuestWillTeach, label: t(`languages.${potentialBooking.languageGuestWillTeach}`) }}
+                                                  onValueChange={value => this.updatePotentialHomestayBooking('languageGuestWillTeach', value.value)}
+                                                >
+                                                  {homestay.data.immersions.tandem.languagesInterested.map(lang => {
+                                                    return (
+                                                      <option key={`tandem=${lang.lang}`} value={lang.lang}>{t(`languages.${lang.lang}`)}</option>
+                                                    )
+                                                  })}
+                                                </Select>
+                                              </FormGroup>
+                                            </Col>
+                                          }
+
+                                          {potentialBookingHelpers.immersionType === 'teacher' &&
+                                            <Col xs={12} sm={6}>
+                                              <FormGroup>
+                                                <ControlLabel>{t('booking.hours_per_week')}</ControlLabel>
+                                                <Select
+                                                  hideResetButton
+                                                  theme='bootstrap3'
+                                                  value={{ value: potentialBooking.weeklyHours, label: potentialBooking.weeklyHours }}
+                                                  onValueChange={value => this.updatePotentialHomestayBooking('weeklyHours', value.value)}
+                                                >
+                                                  {homestay.data.immersions.teacher.packages.map(pkg => {
+                                                    return (
+                                                      <option key={`teacher-pkg-${pkg}`} value={pkg}>{`${pkg}`}</option>
+                                                    )
+                                                  })}
+                                                </Select>
+                                              </FormGroup>
+                                            </Col>
+                                          }
 
                                         </Row>
 
