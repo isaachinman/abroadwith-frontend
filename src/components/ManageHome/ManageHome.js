@@ -296,7 +296,7 @@ export default class ManageHome extends Component {
                       <Image src={home.data.images.length > 0 ? `${config.img}${home.data.images[0].imagePath}` : ''} responsive rounded />
                       <div style={styles.successModalBody}>
                         <p>{t('manage_home.now_accepting_guests')}</p>
-                        <Link to={`/home/${routeParams.homeID}`}>
+                        <Link to={`/homestay/${routeParams.homeID}`}>
                           <Button bsStyle='primary' block>{t('manage_home.view_your_home')}</Button>
                         </Link>
                         <div style={styles.successModalOr}>{t('common.words.or')}</div>
