@@ -268,9 +268,6 @@ export default (app) => {
     options.path += '&sort=homeRating+DESC'
 
 
-    console.log('Path searched:', decodeURIComponent(options.path))
-
-
     // -----------------------------------------------------
     // End of price fetch logic
     // -----------------------------------------------------

@@ -11,8 +11,9 @@ import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import { openHostSignupModal } from 'redux/modules/ui/modals'
 import { performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
-import Radium from 'radium'
 import { push } from 'react-router-redux'
+import Radium from 'radium'
+import { scrollToTopOfPage } from 'utils/scrolling'
 
 // Relative imports
 import styles from './Main.styles'
@@ -31,6 +32,8 @@ export default class Main extends Component {
   state = {
     howDoesItWorkModalOpen: false,
   }
+
+  componentDidMount = () => scrollToTopOfPage()
 
   shouldComponentUpdate = (nextProps, nextState) => {
     if (!equal(this.props, nextProps) || !equal(this.state, nextState)) {

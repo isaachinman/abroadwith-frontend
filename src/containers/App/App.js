@@ -64,6 +64,7 @@ export default class App extends Component {
 
     const { currency, dispatch, homes, locale, token, user } = this.props
 
+    // Set moment locale
     moment.locale(locale.value)
 
     // Load homes if necessary
