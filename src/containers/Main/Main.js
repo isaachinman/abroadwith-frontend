@@ -56,7 +56,12 @@ export default class Main extends Component {
     return (
       <div>
 
-        <Helmet title={t('main.title')} />
+        <Helmet
+          title={t('main.title')}
+          meta={[
+            { name: 'description', content: t('main.meta_description') },
+          ]}
+        />
         <div style={styles.hero}>
 
           <Grid style={styles.heroTextContent}>

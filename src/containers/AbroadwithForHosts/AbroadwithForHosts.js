@@ -36,7 +36,12 @@ export default class AbroadwithForHosts extends Component {
     const { t } = this.props
     return (
       <div>
-        <Helmet title={t('host.meta_description')} />
+        <Helmet
+          title={t('host.title')}
+          meta={[
+            { name: 'description', content: t('host.meta_description') },
+          ]}
+        />
         <StaticHero
           title={t('host.h1')}
           subtitle={t('host.subtitle')}

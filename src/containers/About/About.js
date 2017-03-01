@@ -19,7 +19,12 @@ export default class About extends Component {
     const { t } = this.props
     return (
       <div>
-        <Helmet title={t('about.title')} />
+        <Helmet
+          title={t('about.title')}
+          meta={[
+            { name: 'description', content: t('about.meta_description') },
+          ]}
+        />
         <StaticHero
           title={t('about.h1')}
           subtitle={t('about.h2')}
