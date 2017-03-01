@@ -39,7 +39,7 @@ export default class AbroadwithForHosts extends Component {
         <Helmet title={t('host.meta_description')} />
         <StaticHero
           title={t('host.h1')}
-          subtitle={t('why_abroadwith.subtitle')}
+          subtitle={t('host.subtitle')}
           actionButton={<Button onClick={this.handleBecomeAHostClick} bsSize='small' bsStyle='primary'>{t('common.navbar_become_host')}</Button>}
           image='/app/hero/hero_v2_abroadwith_for_hosts.jpg'
         />
