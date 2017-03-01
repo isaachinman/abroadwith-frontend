@@ -121,12 +121,9 @@ export function loadCurrencyRates() {
             fs.existsSync('build/currency-rates/rates.lock') &&
             moment(fs.readFileSync('build/currency-rates/rates.lock', 'utf-8')).isAfter(moment())) {
 
-            console.log('exists within cache')
             resolve(dispatch({ type: LOAD_CURRENCY_RATES_SUCCESS, result: JSON.parse(fs.readFileSync('build/currency-rates/latest.json', 'utf-8')) }))
 
           } else {
-
-            console.log('doesnt exist, performing external request')
 
           // Daily currency rates are fetched and stored on an s3 bucket by an external application
           // This application refreshes them every 10 minutes (async depending on actual use)
