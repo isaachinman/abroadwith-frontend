@@ -148,7 +148,7 @@ export default class Settings extends Component {
               <Col style={styles.mainPanel} xs={12} sm={8} md={9} lg={10}>
                 <Tab.Content animation>
 
-                  <Tab.Pane eventKey='contact-info'>
+                  <Tab.Pane eventKey='contact-info' unmountOnExit={false}>
                     <h3>{t('admin.contact_info_title')}</h3>
                     <ContactInfo
                       {...this.props}
