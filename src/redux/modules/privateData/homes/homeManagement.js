@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode'
 import config from 'config'
 import { load as loadUserWithAuth, update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
-import { load as loadHomeWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
+import { load as loadHomeWithAuth, loadHomestayCalendar } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import superagent from 'superagent'
 import { push } from 'react-router-redux'
@@ -138,6 +138,7 @@ export function toggleHomePausing(jwt, homeID, pausedStatus) {
 
           // Request was successful
           dispatch({ type: TOGGLE_HOME_PAUSING_SUCCESS })
+          dispatch(loadHomestayCalendar(jwt, homeID))
 
         }
 
