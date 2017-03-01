@@ -72,7 +72,7 @@ export default class UserProfile extends Component {
                 <Row>
                   <Col xs={12}>
                     <div style={styles.topRow}>
-                      <h1 style={styles.h1}>{user.firstName} <small>USERTYPE</small></h1>
+                      <h1 style={styles.h1}>{user.firstName} <small>{t(`users.types.${user.feUserType}`)}</small></h1>
                       {user.photo &&
                         <div style={Object.assign({}, styles.profileImage, { backgroundImage: `url(${config.img}${user.photo})` })} />
                       }

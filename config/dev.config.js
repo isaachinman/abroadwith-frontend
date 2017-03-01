@@ -4,9 +4,6 @@ require('babel-polyfill')
 
 var resolvePaths = require('./resolve.paths')
 
-// Translations
-var translations = require('./translations.config.js')
-
 // Webpack config for development
 var fs = require('fs')
 var path = require('path')

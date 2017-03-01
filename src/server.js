@@ -62,7 +62,7 @@ if (process.env.NODE_ENV !== 'development') {
   // Cache public pages into memory
   serverCache(app)
 
-  // Set cache headers for assets
+  // Set cache headers for assets (one month)
   app.get('/dist/*.(js|css)', (req, res, next) => {
     res.setHeader('Cache-Control', 'public, max-age=2592000')
     res.setHeader('Expires', new Date(Date.now() + 2592000000).toUTCString())

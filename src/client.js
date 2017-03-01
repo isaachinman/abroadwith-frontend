@@ -35,6 +35,7 @@ history.listen(location => {
     window.ga('set', 'page', location.pathname + location.search)
     window.ga('send', 'pageview')
   }
+
 })
 
 // If translation data has been hydrated, initialise it
