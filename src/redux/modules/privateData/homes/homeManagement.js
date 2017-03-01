@@ -32,6 +32,35 @@ const DELETE_HOMESTAY = 'abroadwith/DELETE_HOMESTAY'
 const DELETE_HOMESTAY_SUCCESS = 'abroadwith/DELETE_HOMESTAY_SUCCESS'
 const DELETE_HOMESTAY_FAIL = 'abroadwith/DELETE_HOMESTAY_FAIL'
 
+const initialState = {
+  loading: false,
+}
+
+export default function reducer(state = initialState, action = {}) {
+  switch (action.type) {
+    case CREATE_HOMESTAY: {
+      return {
+        ...state,
+        loading: true,
+      }
+    }
+    case CREATE_HOMESTAY_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+      }
+    }
+    case CREATE_HOMESTAY_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      }
+    }
+    default:
+      return state
+  }
+}
+
 export function createHomestay(jwt, user, redirectToManageHome) {
   return async dispatch => {
 
