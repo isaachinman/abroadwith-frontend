@@ -14,27 +14,62 @@ const mcache = require('memory-cache')
 const cache = () => {
   return (req, res, next) => {
 
+    const route = req.originalUrl || req.url
+    let isOnRightLocaleSite = true
+
     // Only perform any caching/hydration if it's a logged-out page
     if (!req.cookies.access_token) {
 
+      // We need to ensure that users with a language cookie are hitting the right url
+      if (typeof req.cookies.ui_language === 'string') {
+
+        if (req.cookies.ui_language === 'en') {
+
+          Object.keys(UILanguages).map(locale => {
+            if (route.indexOf(`/${locale}/`) > -1) {
+              isOnRightLocaleSite = false
+            }
+          })
+
+        } else {
+
+          if (route.indexOf(`/${req.cookies.ui_language}`) === -1) {
+            isOnRightLocaleSite = false
+          }
+
+          Object.keys(UILanguages).map(locale => {
+            if (locale !== req.cookies.ui_language && route.indexOf(`/${locale}/`) > -1) {
+              isOnRightLocaleSite = false
+            }
+          })
+
+        }
+
+      }
+
       // Define keyname
-      const key = '__express__' + req.originalUrl || req.url
+      const key = '__express__' + route
       const cachedBody = mcache.get(key)
 
       // If the key already exists, send it down
-      if (cachedBody) {
+      if (isOnRightLocaleSite && cachedBody) {
         res.send(cachedBody)
         return
       }
 
       res.sendResponse = res.send
 
-      // If it doesn't, cache the body for future use and send it down
+      // If it doesn't, trigger normal response
       res.send = (body) => {
-        mcache.put(key, body)
-        res.sendResponse(body)
-      }
 
+        // If the request was logically correct, store in cache
+        if (isOnRightLocaleSite) {
+          mcache.put(key, body)
+        }
+
+        res.sendResponse(body)
+
+      }
     }
 
     next()
