@@ -4,7 +4,7 @@ import { Button, Col, Modal, Row } from 'react-bootstrap'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
+import { updateHomestay } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import { closeVerifyPhoneModal } from 'redux/modules/ui/modals'
 import ManagePhoneNumbers from 'components/ManagePhoneNumbers/ManagePhoneNumbers'
 
@@ -49,7 +49,10 @@ export default class VerifyPhoneModal extends Component {
 
     if (verifyPhoneModal.reason === 'HOME_PUBLICATION') {
       successCallback = () => {
-        dispatch(loadHomestayWithAuth(token, verifyPhoneModal.additionalData.homeID, () => dispatch(closeVerifyPhoneModal())))
+
+        // Now we have to actually POST the home once more to publish it
+        dispatch(updateHomestay(token, verifyPhoneModal.additionalData.homeID, verifyPhoneModal.additionalData.homeObject))
+
       }
     }
 

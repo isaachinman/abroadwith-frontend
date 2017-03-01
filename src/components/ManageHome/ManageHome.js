@@ -51,7 +51,7 @@ export default class ManageHome extends Component {
 
   componentWillReceiveProps = (nextProps) => {
 
-    const { dispatch, home, routeParams } = this.props
+    const { home } = this.props
 
     if (home && home.data) {
 
@@ -66,21 +66,13 @@ export default class ManageHome extends Component {
         this.setState({ tab: null })
       }
 
-      // User is in home-creation process and now needs to verify their phone
-      if (!home.data.homeActivationResponse.activated &&
-          home.data.homeActivationResponse.code !== 'PHONE_NOT_VERIFIED' &&
-          nextProps.data && nextProps.data.homeActivationResponse.code === 'PHONE_NOT_VERIFIED') {
-        dispatch(openVerifyPhoneModal('HOME_PUBLICATION', { homeID: routeParams.homeID }))
-      }
-
     }
   }
 
   componentDidUpdate = () => {
-    console.log('componentDidUpdate')
     const { dispatch, home, modals, routeParams } = this.props
     if (home && home.data && home.data.homeActivationResponse.code === 'PHONE_NOT_VERIFIED' && !modals.verifyPhoneModal.open) {
-      dispatch(openVerifyPhoneModal('HOME_PUBLICATION', { homeID: routeParams.homeID }))
+      dispatch(openVerifyPhoneModal('HOME_PUBLICATION', { homeID: routeParams.homeID, homeObject: home.data }))
     }
   }
 
