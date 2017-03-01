@@ -16,6 +16,7 @@ import { translate } from 'react-i18next'
 import styles from './Navbar.styles'
 
 @connect(state => ({
+  homeManagement: state.privateData.homeManagement,
   jwt: state.auth.jwt,
   unreadMessageCount: state.unreadMessageCount,
   token: state.auth.token,
@@ -25,13 +26,23 @@ import styles from './Navbar.styles'
 @Radium
 export default class Navbar extends Component {
 
+  createHomestay = () => {
+
+    const { dispatch, homeManagement, user, token } = this.props
+
+    if (!homeManagement.loading) {
+      dispatch(createHomestay(token, user.data, true))
+    }
+
+  }
+
   handleLogout = () => {
     this.props.dispatch(logout())
   }
 
   render() {
 
-    const { dispatch, jwt, modals, unreadMessageCount, user, t, token } = this.props
+    const { homeManagement, jwt, modals, unreadMessageCount, user, t } = this.props
 
     const hostUI = jwt && user && user.data && user.data.feUserType.indexOf('HOST') > -1
     const guestUI = jwt && user && user.data && user.data.feUserType.indexOf('STUDENT') > -1
@@ -81,7 +92,7 @@ export default class Navbar extends Component {
                     </LinkContainer>
                   }
                   {((guestUI && !hostUI) || (hostUI && user.data.homeIds.length === 0)) &&
-                    <NavItem onClick={() => dispatch(createHomestay(token, user.data, true))}>{t('common.navbar_become_host')}</NavItem>
+                    <NavItem onClick={this.createHomestay} disabled={homeManagement.loading}>{homeManagement.loading ? t('common.Loading') : t('common.navbar_become_host')}</NavItem>
                   }
                   <LinkContainer to='/inbox'>
                     <NavItem>
@@ -141,7 +152,7 @@ export default class Navbar extends Component {
                     </LinkContainer>
                   }
                   {((guestUI && !hostUI) || (hostUI && user.data.homeIds.length === 0)) &&
-                    <NavItem onClick={() => dispatch(createHomestay(token, user.data, true))}>{t('common.navbar_become_host')}</NavItem>
+                    <NavItem onClick={this.createHomestay} disabled={homeManagement.loading}>{homeManagement.loading ? t('common.Loading') : t('common.navbar_become_host')}</NavItem>
                   }
                   <LinkContainer to='/inbox'>
                     <NavItem>{t('inbox.title')}</NavItem>
@@ -208,6 +219,7 @@ export default class Navbar extends Component {
 
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
+  homeManagement: PropTypes.object,
   jwt: PropTypes.object,
   token: PropTypes.string,
   logout: PropTypes.func,

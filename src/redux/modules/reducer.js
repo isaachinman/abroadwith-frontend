@@ -14,6 +14,7 @@ import currency from './ui/currency'
 import educators from './publicData/educators/loadEducator'
 import footer from './ui/footer'
 import homestayBookings from './privateData/bookings/homestayBookings'
+import homeManagement from './privateData/homes/homeManagement'
 import homestaySearch from './ui/search/homestaySearch'
 import hoverables from './ui/search/hoverables'
 import invoices from './privateData/invoices/invoices'
@@ -45,6 +46,7 @@ export default combineReducers({
     invoices,
     user: loadUserWithAuth,
     homes: loadHomestayWithAuth,
+    homeManagement,
     receipts,
     reservations,
     reviews,
