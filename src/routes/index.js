@@ -31,7 +31,7 @@ export default (store) => {
   const checkLocaleEnter = (nextState, replace, cb) => {
 
     const { routing, ui } = store.getState()
-    const route = routing.locationBeforeTransitions.pathname
+    const route = routing.locationBeforeTransitions.pathname + routing.locationBeforeTransitions.search
 
     if (ui.locale.value === 'en') {
 
