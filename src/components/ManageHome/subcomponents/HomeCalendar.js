@@ -239,17 +239,19 @@ export default class HomeCalendar extends Component {  // eslint-disable-line
             <p className='text-muted'>{t('home_calendar.disable_dates_explanation')}</p>
           </Col>
           <Col xs={12} sm={4} md={3} lg={2}>
-            <div>
-              <Switch
-                onChange={pausedStatus => this.toggleHomePausing(pausedStatus)}
-                unCheckedChildren={t('home_calendar.unlisted')}
-                checkedChildren={t('home_calendar.listed')}
-                checked={home.data.isActive}
-              />
-              <OverlayTrigger placement='top' overlay={<Tooltip id='tooltip'>{t('home_calendar.pausing_explanation')}</Tooltip>}>
-                <FontAwesome name='question-circle' style={{ margin: '0 5px', paddingTop: 2 }} className='text-muted' />
-              </OverlayTrigger>
-            </div>
+            {calendar && calendar.data &&
+              <div>
+                <Switch
+                  onChange={pausedStatus => this.toggleHomePausing(!pausedStatus)}
+                  unCheckedChildren={t('home_calendar.unlisted')}
+                  checkedChildren={t('home_calendar.listed')}
+                  checked={!calendar.data.isPaused}
+                />
+                <OverlayTrigger placement='top' overlay={<Tooltip id='tooltip'>{t('home_calendar.pausing_explanation')}</Tooltip>}>
+                  <FontAwesome name='question-circle' style={{ margin: '0 5px', paddingTop: 2 }} className='text-muted' />
+                </OverlayTrigger>
+              </div>
+            }
           </Col>
         </Row>
         {home && home.data && home.data.rooms && home.data.rooms.length > 0 && home.calendar &&
