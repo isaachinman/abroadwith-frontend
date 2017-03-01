@@ -1,6 +1,7 @@
 // General
 1. Use Redux Devtools Extension to produce tests
 2. Webpack long-term caching not working correctly, hash names being generate erroneously (https://github.com/webpack/webpack/issues/1315)
+3. Set up long term logs, based on request, user info, etc
 
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
@@ -10,6 +11,10 @@
 
 // Login
 1. Add feedback error for 409 conflict on signup
+
+// Manage Home
+1. Add "hide clear" button to all react-selectizes
+2. Add loading animation to home photos dropzone tab (it's already on the next/loading button)
 
 // Homestay
 1. Need to be prepared to deal with homes that are so newly published they don't have room calendars
