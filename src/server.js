@@ -117,6 +117,8 @@ app.use((req, res) => {
   // res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
   /* eslint-enable */
 
+  console.log('Request on route: ', req.originalUrl)
+
   if (__DEVELOPMENT__) {
 
     // Do not cache webpack stats: the script file would change since
@@ -242,8 +244,6 @@ app.use((req, res) => {
     }
 
   }
-
-  console.log(req.cookies.access_token)
 
   if (req.cookies.access_token) {
 

@@ -72,7 +72,6 @@ export default class EmailVerification extends Component {
   render() {
     const { whatToRender } = this.state
     const { user, t, token, verifications } = this.props
-    console.log(this)
     return (
       <div>
         <Helmet title={t('common.email_verification_title')} />

@@ -82,8 +82,6 @@ export function load(jwt, callback, bodylessCallback) {
 
       return new Promise((resolve) => {
 
-        console.log('inside load user with auth')
-
         const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}`)
         request.set({ Authorization: `Bearer ${(jwt)}` })
 

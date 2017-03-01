@@ -64,7 +64,6 @@ export default class App extends Component {
 
     const { currency, dispatch, homes, locale, token, user } = this.props
 
-    console.log('locale: ', locale)
     moment.locale(locale.value)
 
     // Load homes if necessary

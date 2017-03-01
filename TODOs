@@ -8,3 +8,6 @@
 
 // Before deployment to production
 1. npm shrinkwrap
+
+// Login
+1. Add feedback error for 409 conflict on signup
