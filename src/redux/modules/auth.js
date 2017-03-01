@@ -1,11 +1,13 @@
 // Absolute imports
-import jwtDecode from 'jwt-decode'
-import moment from 'moment'
 import config from 'config.js'
-import superagent from 'superagent'
+import jwtDecode from 'jwt-decode'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { load as loadHomeWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
+import moment from 'moment'
+import notification from 'antd/lib/notification'
 import { REHYDRATE } from 'redux-persist/constants'
+import superagent from 'superagent'
+
 
 // Load previously stored auth
 const LOAD = 'abroadwith/LOAD_AUTH'
@@ -221,7 +223,12 @@ export function googleLogin(email, googleToken, callback) {
 }
 
 export function logout() {
+
+  // Clear session data
   localStorage.clear()
+  notification.destroy()
+
+  // POST to logout endpoint (removes httpOnly cookie)
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
     promise: () => fetch(new Request('/logout'), {
@@ -229,4 +236,5 @@ export function logout() {
       credentials: 'include',
     }),
   }
+
 }
