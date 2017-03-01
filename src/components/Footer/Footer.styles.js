@@ -39,6 +39,7 @@ export default {
     width: 120,
   },
   caretDown: {
+    pointerEvents: 'none',
     position: 'absolute',
     top: 10,
     left: 105,

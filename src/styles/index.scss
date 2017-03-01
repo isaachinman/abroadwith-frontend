@@ -650,3 +650,7 @@ $popover-arrow-color: $darkBlue;
     }
   }
 }
+
+select.form-control option{
+  color: $bodyTextColor;
+}
