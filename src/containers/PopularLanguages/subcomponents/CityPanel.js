@@ -1,6 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { Col } from 'react-bootstrap'
+import config from 'config'
 import { darkBlue } from 'styles/colors'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
@@ -26,6 +27,7 @@ const styles = {
     verticalAlign: 'middle',
     textAlign: 'center',
     color: 'white',
+    textShadow: '-2px 3px 3px #333',
   },
 }
 
@@ -35,13 +37,14 @@ export default class CityPanel extends Component {
   render() {
 
     const { cityName, t } = this.props
+    const pathSafeName = cityName.replace(/ /g, '_')
 
     return (
       <Col xs={12} sm={6}>
         <Link to={`/language-homestay/search?locationString=${encodeURI(cityName)}`} style={styles.link}>
-          <div style={styles.panel}>
+          <div style={Object.assign({}, styles.panel, { backgroundImage: `url(${config.img}/static/cities/${pathSafeName}.jpg)` })}>
             <div style={styles.cityName}>
-              <h5>{t(`cities.${(cityName).replace(/ /g, '_')}`)}</h5>
+              <h4>{t(`cities.${pathSafeName}`)}</h4>
             </div>
           </div>
         </Link>
