@@ -10,3 +10,6 @@
 
 // Login
 1. Add feedback error for 409 conflict on signup
+
+// Homestay
+1. Need to be prepared to deal with homes that are so newly published they don't have room calendars
