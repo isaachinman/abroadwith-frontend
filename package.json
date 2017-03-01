@@ -163,6 +163,7 @@
     "eslint-plugin-jsx-a11y": "^2.1.0",
     "eslint-plugin-react": "^6.1.2",
     "extract-text-webpack-plugin": "^1.0.1",
+    "find-in-files": "^0.3.1",
     "git-prepush-hook": "^1.0.1",
     "happypack": "^3.0.2",
     "json-loader": "^0.5.4",
