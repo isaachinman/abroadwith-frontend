@@ -19,7 +19,12 @@ export default class AbroadwithForStudents extends Component {
     const { t } = this.props
     return (
       <div>
-        <Helmet title={t('why_abroadwith.title')} />
+        <Helmet
+          title={t('why_abroadwith.title')}
+          meta={[
+            { name: 'description', content: t('why_abroadwith.meta_description') },
+          ]}
+        />
         <StaticHero
           title={t('why_abroadwith.h1')}
           subtitle={t('why_abroadwith.subtitle')}

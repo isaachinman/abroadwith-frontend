@@ -15,7 +15,15 @@ export default class SignupPage extends Component {
     const { t } = this.props
     return (
       <div style={styles.loginPage}>
-        <Helmet title={t('common.Sign_up')} />
+        <Helmet
+          title={t('common.Sign_up')}
+          meta={[
+            { property: 'og:title', content: t('signup.referral_og_title') },
+            { property: 'og:description', content: t('signup.referral_og_description') },
+            { property: 'og:image', content: 'https://abroadwith.imgix.net/app/hero/hero_host.jpg' },
+            { property: 'fb:app_id', content: '144948059203060' },
+          ]}
+        />
         <h1 style={styles.h1}>{t('common.Sign_up')}</h1>
         <Grid>
           <Row>

@@ -24,7 +24,12 @@ export default class PopularLanguages extends Component {
     const { t } = this.props
     return (
       <div>
-        <Helmet title={t('popular_languages.title')} />
+        <Helmet
+          title={t('popular_languages.title')}
+          meta={[
+            { name: 'description', content: t('meta_description.meta_description') },
+          ]}
+        />
         <StaticHero
           title={t('popular_languages.h1')}
           subtitle={t('popular_languages.introduction_paragraph_1')}
