@@ -57,7 +57,7 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 
 // These are performance enhancements which will run in all environments except local dev
-if (process.env.NODE_ENV !== '') {
+if (process.env.NODE_ENV !== 'development') {
 
   // Cache public pages into memory
   serverCache(app)
