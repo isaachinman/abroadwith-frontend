@@ -374,72 +374,73 @@ export default class Homestay extends Component {
                     </Col>
                   }
                 </Row>
-                <Row style={styles.borderBottomPadded}>
+                <Row>
                   <Col xs={12}>
                     <h4 style={{ textTransform: 'capitalize' }}>{t('common.Home_info')}</h4>
                   </Col>
-                  {homestay.data.basics.AMENITIES.length > 0 &&
-                    <span>
-                      <Col sm={12} md={3}>
-                        <p>
-                          <strong>{t('common.Amenities')}: </strong>
-                        </p>
-                      </Col>
-                      <Col sm={12} md={9}>
-                        <p>
-                          {homestay.data.basics.AMENITIES.map(amenity => <span key={`home-amenity-${amenity}`}>{t(`homes.amenities.${amenity}`)}{homestay.data.basics.AMENITIES.indexOf(amenity) !== homestay.data.basics.AMENITIES.length - 1 ? <span>,&nbsp;</span> : null}</span>)}
-                        </p>
-                      </Col>
-                    </span>
+                </Row>
+                {homestay.data.basics.AMENITIES.length > 0 &&
+                <Row>
+                  <Col sm={12} md={3}>
+                    <p>
+                      <strong>{t('common.Amenities')}: </strong>
+                    </p>
+                  </Col>
+                  <Col sm={12} md={9}>
+                    <p>
+                      {homestay.data.basics.AMENITIES.map(amenity => <span key={`home-amenity-${amenity}`}>{t(`homes.amenities.${amenity}`)}{homestay.data.basics.AMENITIES.indexOf(amenity) !== homestay.data.basics.AMENITIES.length - 1 ? <span>,&nbsp;</span> : null}</span>)}
+                    </p>
+                  </Col>
+                </Row>
                   }
-                  {homestay.data.basics.EXTRAS.length > 0 &&
-                    <span>
-                      <Col sm={12} md={3}>
-                        <p>
-                          <strong>{t('homes.extras_label')}: </strong>
-                        </p>
-                      </Col>
-                      <Col sm={12} md={9}>
-                        <p>
-                          {homestay.data.basics.EXTRAS.map(extra => <span key={`home-extra-${extra}`}>{t(`homes.extras.${extra}`)}{homestay.data.basics.EXTRAS.indexOf(extra) !== homestay.data.basics.EXTRAS.length - 1 ? <span>,&nbsp;</span> : null}</span>)}
-                        </p>
-                      </Col>
-                    </span>
+                {homestay.data.basics.EXTRAS.length > 0 &&
+                <Row>
+                  <Col sm={12} md={3}>
+                    <p>
+                      <strong>{t('homes.extras_label')}: </strong>
+                    </p>
+                  </Col>
+                  <Col sm={12} md={9}>
+                    <p>
+                      {homestay.data.basics.EXTRAS.map(extra => <span key={`home-extra-${extra}`}>{t(`homes.extras.${extra}`)}{homestay.data.basics.EXTRAS.indexOf(extra) !== homestay.data.basics.EXTRAS.length - 1 ? <span>,&nbsp;</span> : null}</span>)}
+                    </p>
+                  </Col>
+                </Row>
                   }
-                  {homestay.data.basics.FOOD_OPTION.length > 0 &&
-                    <span>
-                      <Col sm={12} md={3}>
-                        <p>
-                          <strong>{t('homes.diets_offered_label')}: </strong>
-                        </p>
-                      </Col>
-                      <Col sm={12} md={9}>
-                        <p>
-                          {homestay.data.basics.FOOD_OPTION.map(foodOption => <span key={`home-food-${foodOption}`}>{t(`homes.diets_offered.${foodOption}`)}{homestay.data.basics.FOOD_OPTION.indexOf(foodOption) !== homestay.data.basics.FOOD_OPTION.length - 1 ? <span>,&nbsp;</span> : null}</span>)}
-                        </p>
-                      </Col>
-                    </span>
+                {homestay.data.basics.FOOD_OPTION.length > 0 &&
+                <Row>
+                  <Col sm={12} md={3}>
+                    <p>
+                      <strong>{t('homes.diets_offered_label')}: </strong>
+                    </p>
+                  </Col>
+                  <Col sm={12} md={9}>
+                    <p>
+                      {homestay.data.basics.FOOD_OPTION.map(foodOption => <span key={`home-food-${foodOption}`}>{t(`homes.diets_offered.${foodOption}`)}{homestay.data.basics.FOOD_OPTION.indexOf(foodOption) !== homestay.data.basics.FOOD_OPTION.length - 1 ? <span>,&nbsp;</span> : null}</span>)}
+                    </p>
+                  </Col>
+                </Row>
                   }
-                  {homestay.data.pricing.extras.length > 0 &&
-                    <span>
-                      <Col sm={12} md={3}>
-                        <p>
-                          <strong>{t('common.available_for_additional_fee')}: </strong>
-                        </p>
-                      </Col>
-                      <Col sm={12} md={9}>
-                        <p>
-                          {homestay.data.pricing.extras.map(extra => {
-                            return (
-                              <span key={`home-extra-cost-${extra.service}`}>{t(`homes.services.${extra.service}`)}&nbsp;({currencySymbol}{extra.cost}){homestay.data.pricing.extras.indexOf(extra) !== homestay.data.pricing.extras.length - 1 ? <span>,&nbsp;</span> : null}</span>)
-                          }
+                {homestay.data.pricing.extras.length > 0 &&
+                <Row>
+                  <Col sm={12} md={3}>
+                    <p>
+                      <strong>{t('common.available_for_additional_fee')}: </strong>
+                    </p>
+                  </Col>
+                  <Col sm={12} md={9}>
+                    <p>
+                      {homestay.data.pricing.extras.map(extra => {
+                        return (
+                          <span key={`home-extra-cost-${extra.service}`}>{t(`homes.services.${extra.service}`)}&nbsp;({currencySymbol}{extra.cost}){homestay.data.pricing.extras.indexOf(extra) !== homestay.data.pricing.extras.length - 1 ? <span>,&nbsp;</span> : null}</span>)
+                      }
                             )
                           }
-                        </p>
-                      </Col>
-                    </span>
-                  }
+                    </p>
+                  </Col>
                 </Row>
+                }
+                <div style={Object.assign({}, styles.borderBottom, { marginBottom: 20 })} />
                 <Row style={styles.borderBottomPadded}>
                   <Col xs={12}>
                     <h4>{t('common.Reviews')}</h4>

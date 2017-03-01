@@ -1,7 +1,6 @@
 // General
-1. Find any unused translation keys and eliminate them
-2. Use Redux Devtools Extension to produce tests
-3. Webpack long-term caching not working correctly, hash names being generate erroneously (https://github.com/webpack/webpack/issues/1315)
+1. Use Redux Devtools Extension to produce tests
+2. Webpack long-term caching not working correctly, hash names being generate erroneously (https://github.com/webpack/webpack/issues/1315)
 
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
