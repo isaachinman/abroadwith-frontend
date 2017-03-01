@@ -64,6 +64,7 @@ export default class DateRangePicker extends Component {
       <div style={combinedStyles} className={large ? 'daterangepicker-large' : ''}>
         <DateRangePickerCore
           {...this.props}
+          displayFormat='DD-MM-YYYY'
           isDayBlocked={isDayBlocked}
           orientation={this.props.orientation}
           onDatesChange={onDatesChange}

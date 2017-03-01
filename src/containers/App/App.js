@@ -62,7 +62,10 @@ export default class App extends Component {
   // ------------------------------------------------------------------/
   componentDidMount = () => {
 
-    const { currency, dispatch, homes, token, user } = this.props
+    const { currency, dispatch, homes, locale, token, user } = this.props
+
+    console.log('locale: ', locale)
+    moment.locale(locale.value)
 
     // Load homes if necessary
     if (user.data && user.data.homeIds && homes.length !== user.data.homeIds.length) {
@@ -81,6 +84,11 @@ export default class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+
+    // Locale just changed
+    if (this.props.locale.value !== nextProps.locale.value) {
+      moment.locale(nextProps.locale.value)
+    }
 
     if (!this.props.jwt && nextProps.jwt) {
 

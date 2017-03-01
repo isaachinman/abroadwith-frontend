@@ -63,7 +63,7 @@ module.exports = {
   plugins: [
 
     // Ignore momentjs locales
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /de|en|es/),
 
     // Split vendor into a chunk which can have a very long cache-life
     new webpack.optimize.CommonsChunkPlugin({
