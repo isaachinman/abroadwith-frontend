@@ -208,6 +208,7 @@ export function calculateHomestayPrice(params) {
 
     try {
 
+      // Validate request
       if (moment().isAfter(moment(params.arrivalDate)) || moment().isAfter(moment(params.departureDate))) {
         throw new Error('Date range is invalid')
       }
