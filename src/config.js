@@ -16,13 +16,13 @@ if (typeof window === 'undefined') {
   const solr = {
     PROD: {
       solr: {
-        host: 'solr.abroadwith.com',
+        host: '35.157.185.49',
         port: 8983,
       },
     },
     DEV: {
       solr: {
-        host: 'solr.test-abroadwith.com',
+        host: '35.157.15.140',
         port: 8983,
       },
     },
