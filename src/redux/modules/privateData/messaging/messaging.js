@@ -1,4 +1,5 @@
 import jwtDecode from 'jwt-decode'
+import moment from 'moment'
 import superagent from 'superagent'
 import config from 'config'
 
@@ -127,9 +128,15 @@ export function createNewThreadWithHost(jwt, threadObj, callback) {
   const cb = typeof callback === 'function' ? callback : () => {}
 
   return async dispatch => {
+
+    dispatch({ type: CREATE_NEW_THREAD_WITH_HOST })
+
     try {
 
-      dispatch({ type: CREATE_NEW_THREAD_WITH_HOST })
+      // Validate request
+      if (moment().isAfter(moment(threadObj.arrival)) || moment().isAfter(moment(threadObj.departure)) || !moment(threadObj.arrival).isValid() || !moment(threadObj.departure).isValid()) {
+        throw new Error('Date range is invalid')
+      }
 
       return new Promise((resolve) => {
 
