@@ -97,7 +97,7 @@ export default class App extends Component {
     } else if (this.props.jwt && !nextProps.jwt) {
 
       // Logout just happened
-      this.props.pushState('/')
+      this.props.dispatch(push('/'))
 
     }
 
