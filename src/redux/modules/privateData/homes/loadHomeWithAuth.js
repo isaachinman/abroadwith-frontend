@@ -321,6 +321,11 @@ export function updateHomestay(jwt, homeID, originalObject, notificationMessage)
 
     try {
 
+      // Validate request
+      if (homeObject.images.some(image => !image.id)) {
+        throw new Error('One or more home images do not have an ID')
+      }
+
       const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes/${homeID}`)
       request.set({ Authorization: `Bearer ${(jwt)}` })
       request.send(homeObject)
