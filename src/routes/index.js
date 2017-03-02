@@ -176,6 +176,11 @@ export default (store) => {
       cb(null, require('../containers/ReservationDetails/ReservationDetails'))
     }, 'reservations')
   }
+  const getResetPassword = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/ResetPassword/ResetPassword'))
+    }, 'reset-password')
+  }
   const getReview = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/Review/Review'))
@@ -280,6 +285,7 @@ export default (store) => {
             <Route path='login' component={LoginPage} />
             <Route path='popular-languages-destinations' component={PopularLanguages} />
             <Route path='privacy' getComponent={getPrivacyPolicy} />
+            <Route path='reset-password-set' getComponent={getResetPassword} />
             <Route path='signup' component={SignupPage} />
             <Route path='terms' getComponent={getTermsAndConditions} />
             <Route path='user/:userID' component={UserProfile} />

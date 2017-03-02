@@ -1,7 +1,7 @@
 // Absolute imports
 import { Alert, Button, Col, Form, FormGroup, FormControl, InputGroup, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { closeLoginModal, openStudentSignupModal } from 'redux/modules/ui/modals'
+import { closeLoginModal, openStudentSignupModal, openResetPasswordModal } from 'redux/modules/ui/modals'
 import { validateExists, validatePassword } from 'utils/validation'
 import * as authActions from 'redux/modules/auth'
 import FacebookLogin from 'react-facebook-login'
@@ -42,6 +42,12 @@ export default class Login extends Component {
 
     dispatch(closeLoginModal())
 
+  }
+
+  handleGoToResetPassword = () => {
+    const { dispatch } = this.props
+    dispatch(closeLoginModal())
+    dispatch(openResetPasswordModal())
   }
 
   handleGoToSignup = () => {
@@ -196,6 +202,7 @@ export default class Login extends Component {
                 <InputGroup.Addon><FontAwesome name='lock' /></InputGroup.Addon>
                 <FormControl required type='password' placeholder={t('common.Password')} onChange={event => this.handlePasswordChange(event.target.value)} />
               </InputGroup>
+              <a style={{ fontSize: 12 }} className='pull-right' onClick={this.handleGoToResetPassword}>{t('common.forgot_password')}</a>
             </Col>
             <Col sm={12}>
               {password.message}

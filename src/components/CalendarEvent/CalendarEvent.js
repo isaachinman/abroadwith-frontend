@@ -72,7 +72,9 @@ export default class CalendarEvent extends Component {
       <div ref='target' onClick={this.toggle} style={combinedStyle}>
         {event.type === 'RESERVATION' &&
           <div style={styles.truncate}>
-            <img src={`${config.img}${event.img}`} style={styles.img} alt={event.img} />
+            {event.img &&
+              <img src={`${config.img}${event.img}`} style={styles.img} alt={event.img} />
+            }
             {event.title}
             <Overlay
               target={() => ReactDOM.findDOMNode(this.refs.target)}
