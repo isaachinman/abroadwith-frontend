@@ -8,6 +8,7 @@ import { requestVerificationEmail } from 'redux/modules/privateData/users/verifi
 import ManagePhoneNumbers from 'components/ManagePhoneNumbers/ManagePhoneNumbers'
 import Dropzone from 'react-dropzone'
 import jwtDecode from 'jwt-decode'
+import { SpinLoader } from 'components'
 import superagent from 'superagent'
 
 // Relative imports
@@ -20,6 +21,7 @@ import styles from './ManageVerifications.styles'
 export default class ManageVerifications extends Component {
 
   state = {
+    loading: false,
     idModalIsOpen: false,
     successModalIsOpen: false,
   }
@@ -28,10 +30,12 @@ export default class ManageVerifications extends Component {
 
     if (acceptedFiles.length > 0) {
 
-      const { jwt } = this.props
+      this.setState({ loading: true })
 
-      const request = superagent.post(`/upload/users/${jwtDecode(jwt).rid}/id`)
-      request.set({ abroadauth: `Bearer ${(jwt)}` })
+      const { token } = this.props
+
+      const request = superagent.post(`/upload/users/${jwtDecode(token).rid}/id`)
+      request.set({ abroadauth: `Bearer ${(token)}` })
 
       acceptedFiles.forEach(file => {
         request.attach('photos', file)
@@ -43,6 +47,8 @@ export default class ManageVerifications extends Component {
           this.closeModal('id')
           this.openModal('success')
         }
+
+        this.setState({ loading: false })
 
       })
     }
@@ -64,6 +70,8 @@ export default class ManageVerifications extends Component {
       token,
       dispatch,
     } = this.props
+
+    console.log(this)
 
     return (
       <Row>
@@ -106,12 +114,18 @@ export default class ManageVerifications extends Component {
                   show={this.state.idModalIsOpen}
                   bsSize='small'
                 >
-                  <div style={styles.modalContent}>
-                    <h3>{t('admin.upload_id')}</h3>
-                    <Dropzone onDrop={this.onDrop}>
-                      <div>{t('admin.upload_id_explanation')}</div>
-                    </Dropzone>
-                  </div>
+                  <SpinLoader show={this.state.loading}>
+                    <div style={styles.modalContent}>
+                      <h3>{t('admin.upload_id')}</h3>
+                      <Dropzone
+                        className='basic-dropzone'
+                        activeClassName='basic-dropzone-active'
+                        onDrop={this.onDrop}
+                      >
+                        <div>{t('admin.upload_id_explanation')}</div>
+                      </Dropzone>
+                    </div>
+                  </SpinLoader>
                 </Modal>
                 <Modal
                   onHide={() => this.closeModal('success')}
