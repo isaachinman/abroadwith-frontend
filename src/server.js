@@ -56,19 +56,19 @@ app.use(bodyParser.json())
 // User cookieParser
 app.use(cookieParser())
 
-// These are performance enhancements which will run in all environments except local dev
-if (process.env.NODE_ENV !== 'development') {
 
+if (process.env.NODE_ENV !== 'development') {
   // Cache public pages into memory
   serverCache(app)
+}
 
+if (process.env.NODE_ENV === 'production') {
   // Set cache headers for assets (one month)
   app.get('/dist/*.(js|css)', (req, res, next) => {
     res.setHeader('Cache-Control', 'public, max-age=2592000')
     res.setHeader('Expires', new Date(Date.now() + 2592000000).toUTCString())
     next()
   })
-
 }
 
 // Install custom API endpoints
