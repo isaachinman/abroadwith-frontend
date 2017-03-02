@@ -48,6 +48,11 @@ export function signup(type, signupObject, googleToken, callback) {
 
     try {
 
+      // Validate request
+      if (!['HOST', 'STUDENT'].includes(signupObject.type)) {
+        throw new Error('userType is invalid')
+      }
+
       const { email, password, facebookToken, googleId } = signupObject // eslint-disable-line
 
       const request = superagent.post(`${config.apiHost}/users`).send(signupObject).withCredentials()
