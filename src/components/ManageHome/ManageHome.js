@@ -51,12 +51,14 @@ export default class ManageHome extends Component {
 
   componentWillReceiveProps = (nextProps) => {
 
-    const { home } = this.props
+    const { dispatch, home, token, routeParams } = this.props
 
     if (home && home.data) {
 
       // Home was just published case
       if (!home.data.homeActivationResponse.activated && nextProps.home.data.homeActivationResponse.activated) {
+        // Now we have to actually POST the home once more to publish it
+        dispatch(updateHomestay(token, routeParams.homeID, nextProps.home.data))
         this.setState({ successModalOpen: true })
       }
 
