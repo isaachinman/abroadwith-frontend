@@ -4,7 +4,6 @@ import { Col, ControlLabel, FormControl, FormGroup, Row } from 'react-bootstrap'
 import { translate } from 'react-i18next'
 import CharacterCounter from 'components/CharacterCounter/CharacterCounter'
 import validator from 'validator'
-import Geosuggest from 'react-geosuggest'
 
 // Relative imports
 import ManagePhoneNumbers from '../ManagePhoneNumbers/ManagePhoneNumbers'
@@ -90,9 +89,8 @@ export default class ContactInfo extends Component {
               <CharacterCounter>
                 <FormControl
                   type='text'
-                  label={t('common.First_name')}
                   defaultValue={user.lastName}
-                  placeholder={t('common.First_name')}
+                  placeholder={t('common.Last_name')}
                   onChange={event => this.handleChange(event, 'string', 'lastName')}
                   maxLength={50}
                 />
@@ -133,9 +131,16 @@ export default class ContactInfo extends Component {
           <Col xs={12} sm={6} md={4}>
             <FormGroup>
               <ControlLabel>{t('users.home_address_label')}</ControlLabel>
-              <Geosuggest
-                inputClassName='form-control'
-              />
+              <CharacterCounter>
+                <FormControl
+                  type='text'
+                  defaultValue={user.location}
+                  placeholder={t('users.home_address_label')}
+                  onChange={event => this.handleChange(event, 'string', 'location')}
+                  maxLength={50}
+                />
+              </CharacterCounter>
+              <FormControl.Feedback />
             </FormGroup>
           </Col>
         </Row>
