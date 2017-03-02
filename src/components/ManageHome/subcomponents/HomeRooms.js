@@ -9,13 +9,12 @@ import Dropzone from 'react-dropzone'
 import FontAwesome from 'react-fontawesome'
 import RoomData from 'data/constants/RoomData'
 import Switch from 'antd/lib/switch'
-import shortid from 'shortid'
 
 @translate()
 export default class HomeRooms extends Component {
 
   state = {
-    render: shortid(),
+    activeRoom: this.props.inProgress ? 'new-room' : null,
     rooms: this.props.home.data.rooms,
     newRoom: {
       name: null,
@@ -81,29 +80,33 @@ export default class HomeRooms extends Component {
 
   // This function forces a rerender
   // react-bootstrap-switch doesn't render properly if hidden
-  forceRender = () => {
-    this.setState({ render: shortid() })
+  selectRoom = eventKey => {
+    this.setState({ activeRoom: eventKey === this.state.activeRoom ? 'none' : eventKey })
   }
 
   createRoom = () => {
     const { dispatch, token, inProgress, tabOverride, routeParams } = this.props
     const { newRoom, newRoomImg } = this.state
+
     if (inProgress) {
       tabOverride('rooms')
       dispatch(createRoom(token, routeParams.homeID, newRoom, newRoomImg))
-      this.setState({
-        newRoom: {
-          name: null,
-          description: null,
-          vacancies: 1,
-          shared: false,
-          bed: null,
-          facilities: [],
-        },
-      })
     } else {
       dispatch(createRoom(token, routeParams.homeID, newRoom, newRoomImg))
     }
+
+    this.setState({
+      activeRoom: 'none',
+      newRoom: {
+        name: null,
+        description: null,
+        vacancies: 1,
+        shared: false,
+        bed: null,
+        facilities: [],
+      },
+    })
+
   }
 
   goToNext = () => {
@@ -124,7 +127,7 @@ export default class HomeRooms extends Component {
 
   render() {
 
-    const { newRoom, newRoomImg, render, rooms } = this.state
+    const { newRoom, newRoomImg, rooms } = this.state
     const { home, inProgress, t } = this.props
 
     const loading = home.loading
@@ -144,9 +147,8 @@ export default class HomeRooms extends Component {
         <Row>
           <Col xs={12}>
             <PanelGroup
-              onSelect={this.forceRender}
-              id={render}
-              defaultActiveKey={inProgress ? 'new-room' : null}
+              onSelect={this.selectRoom}
+              activeKey={this.state.activeRoom}
               accordion
             >
               <Panel
@@ -167,6 +169,7 @@ export default class HomeRooms extends Component {
                   <Col xs={12} md={6}>
                     <ControlLabel>{t('rooms.bed_types_label')}*</ControlLabel>
                     <Select
+                      hideResetButton
                       theme='bootstrap3'
                       placeholder={t('rooms.bed_types_placeholder')}
                       onValueChange={event => this.handleValueChange(true, null, 'bed', event.value)}
@@ -184,6 +187,7 @@ export default class HomeRooms extends Component {
                       <FontAwesome name='question-circle' className='pull-right text-muted' />
                     </OverlayTrigger>
                     <Select
+                      hideResetButton
                       theme='bootstrap3'
                       placeholder={t('rooms.vacancies_placeholder')}
                       onValueChange={event => this.handleValueChange(true, null, 'vacancies', event.value)}
@@ -282,6 +286,7 @@ export default class HomeRooms extends Component {
                       <Col xs={12} md={6}>
                         <ControlLabel>{t('rooms.bed_types_label')}*</ControlLabel>
                         <Select
+                          hideResetButton
                           theme='bootstrap3'
                           placeholder={t('rooms.bed_types_placeholder')}
                           onValueChange={event => this.handleValueChange(false, room.id, 'bed', event.value)}
@@ -296,6 +301,7 @@ export default class HomeRooms extends Component {
                       <Col xs={12} md={6}>
                         <ControlLabel>{t('rooms.vacancies_label')}*</ControlLabel>
                         <Select
+                          hideResetButtons
                           theme='bootstrap3'
                           placeholder={t('rooms.vacancies_placeholder')}
                           onValueChange={event => this.handleValueChange(false, room.id, 'vacancies', event.value)}

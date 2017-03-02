@@ -64,6 +64,16 @@ export default class Homestay extends Component {
     sendMessageModalOpen: false,
   }
 
+  componentDidMount = () => {
+
+    const { dispatch, homestay, homestaySearch } = this.props
+
+    if (!homestaySearch.activeRoom) {
+      dispatch(updateActiveRoom(homestay.data.rooms[0].id))
+    }
+
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
   }

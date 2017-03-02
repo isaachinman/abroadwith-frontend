@@ -243,6 +243,7 @@ export default class HomeImmersions extends Component {
                         <FontAwesome name='question-circle' className='pull-right text-muted' />
                       </OverlayTrigger>
                       <Select
+                        hideResetButton
                         theme='bootstrap3'
                         onValueChange={event => this.handleValueChange('stay', 'hours', event ? event.value : '')}
                         value={immersions.stay.hours ? { label: immersions.stay.hours, value: immersions.stay.hours } : null}
@@ -300,6 +301,7 @@ export default class HomeImmersions extends Component {
                         <FontAwesome name='question-circle' className='pull-right text-muted' />
                       </OverlayTrigger>
                       <Select
+                        hideResetButton
                         theme='bootstrap3'
                         onValueChange={event => this.handleValueChange('tandem', 'hours', event ? event.value : '')}
                         value={immersions.tandem.hours ? { label: immersions.tandem.hours, value: immersions.tandem.hours } : null}
