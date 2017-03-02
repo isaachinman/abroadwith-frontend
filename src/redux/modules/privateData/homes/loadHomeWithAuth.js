@@ -12,6 +12,16 @@ const UPDATE_HOMESTAY = 'abroadwith/UPDATE_HOMESTAY'
 const UPDATE_HOMESTAY_SUCCESS = 'abroadwith/UPDATE_HOMESTAY_SUCCESS'
 const UPDATE_HOMESTAY_FAIL = 'abroadwith/UPDATE_HOMESTAY_FAIL'
 
+// Add home photo
+const ADD_HOME_PHOTO = 'abroadwith/ADD_HOME_PHOTO'
+const ADD_HOME_PHOTO_SUCCESS = 'abroadwith/ADD_HOME_PHOTO_SUCCESS'
+const ADD_HOME_PHOTO_FAIL = 'abroadwith/ADD_HOME_PHOTO_FAIL'
+
+// Delete home photo
+const DELETE_HOME_PHOTO = 'abroadwith/DELETE_HOME_PHOTO'
+const DELETE_HOME_PHOTO_SUCCESS = 'abroadwith/DELETE_HOME_PHOTO_SUCCESS'
+const DELETE_HOME_PHOTO_FAIL = 'abroadwith/DELETE_HOME_PHOTO_FAIL'
+
 // Add teacher certificate
 const ADD_TEACHER_CERTIFICATE = 'abroadwith/ADD_TEACHER_CERTIFICATE'
 const ADD_TEACHER_CERTIFICATE_SUCCESS = 'abroadwith/ADD_TEACHER_CERTIFICATE_SUCCESS'
@@ -131,6 +141,56 @@ export default function reducer(state = {}, action = {}) {
       }
       break
     }
+    case ADD_HOME_PHOTO: {
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          photosLoading: true,
+        }),
+      }
+    }
+    case ADD_HOME_PHOTO_SUCCESS: {
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          photosLoading: false,
+        }),
+      }
+    }
+    case ADD_HOME_PHOTO_FAIL: {
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          photosLoading: false,
+          error: action.error,
+        }),
+      }
+    }
+    case DELETE_HOME_PHOTO: {
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          photosLoading: true,
+        }),
+      }
+    }
+    case DELETE_HOME_PHOTO_SUCCESS: {
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          photosLoading: false,
+        }),
+      }
+    }
+    case DELETE_HOME_PHOTO_FAIL: {
+      return {
+        ...state,
+        [action.homeID]: Object.assign({}, state[action.homeID], {
+          photosLoading: false,
+          error: action.error,
+        }),
+      }
+    }
     case ADD_TEACHER_CERTIFICATE: {
       return {
         ...state,
@@ -181,6 +241,7 @@ export default function reducer(state = {}, action = {}) {
           loaded: true,
           data: action.result,
           certificateLoading: false,
+          photosLoading: false,
         },
       }
     case LOAD_HOMESTAY_WITH_AUTH_FAIL:
@@ -402,6 +463,76 @@ export function addTeacherCertificate(jwt, homeID, homeObject, newCertificate, n
 
     } catch (err) {
       dispatch({ type: ADD_TEACHER_CERTIFICATE_FAIL, homeID, err })
+    }
+  }
+}
+
+export function addHomePhoto(jwt, homeID, acceptedFiles) {
+
+  return async dispatch => {
+
+    dispatch({ type: ADD_HOME_PHOTO, homeID })
+
+    try {
+
+      const request = superagent.post(`/upload/users/${jwtDecode(jwt).rid}/homes/${homeID}/photos`)
+      request.set({ abroadauth: `Bearer ${(jwt)}` })
+      acceptedFiles.forEach((file) => {
+        request.attach('file', file)
+      })
+
+
+      request.end((err, { body } = {}) => {
+
+        if (err) {
+
+          dispatch({ type: ADD_HOME_PHOTO_FAIL, homeID, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: ADD_HOME_PHOTO_SUCCESS, homeID, result: body })
+          dispatch(load(jwt, homeID))
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: ADD_HOME_PHOTO_FAIL, homeID, err })
+    }
+  }
+}
+
+export function deleteHomePhoto(jwt, homeID, photoID) {
+
+  return async dispatch => {
+
+    dispatch({ type: DELETE_HOME_PHOTO, homeID, photoID })
+
+    try {
+
+      const request = superagent.delete(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes/${homeID}/images/${photoID}`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+
+      request.end((err, { body } = {}) => {
+
+        if (err) {
+
+          dispatch({ type: DELETE_HOME_PHOTO_FAIL, homeID, photoID, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: DELETE_HOME_PHOTO_SUCCESS, homeID, photoID, result: body })
+          dispatch(load(jwt, homeID))
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: DELETE_HOME_PHOTO_FAIL, homeID, photoID, err })
     }
   }
 }
