@@ -1,6 +1,7 @@
 import config from 'config'
 import superagent from 'superagent'
 import homestaySearchParamsToUrl from 'utils/search/homestaySearchParamsToUrl'
+import moment from 'moment'
 import { REHYDRATE } from 'redux-persist/constants'
 import roundTo from 'round-to'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
@@ -206,6 +207,10 @@ export function calculateHomestayPrice(params) {
     dispatch({ type: CALCULATE_HOMESTAY_PRICE })
 
     try {
+
+      if (moment().isAfter(moment(params.arrivalDate)) || moment().isAfter(moment(params.departureDate))) {
+        throw new Error('Date range is invalid')
+      }
 
       const request = superagent.post(`${config.apiHost}/public/bookings/price`)
       request.send(params)
