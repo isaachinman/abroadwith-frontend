@@ -2,12 +2,13 @@
 import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
 import { Button, Col, FormControl, Tooltip, Thumbnail, OverlayTrigger, Row } from 'react-bootstrap'
-import { addHomePhoto, deleteHomePhoto } from 'redux/modules/privateData/homes/homeManagement'
+import { addHomePhoto, deleteHomePhoto } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import config from 'config'
 import Dropzone from 'react-dropzone'
 import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc'
 import FontAwesome from 'react-fontawesome'
 import debounce from 'debounce'
+import { SpinLoader } from 'components'
 
 // Styles
 const styles = {
@@ -15,6 +16,7 @@ const styles = {
     width: '100%',
     padding: 20,
     border: '1px dashed #d9d9d9',
+    margin: '0 15px',
   },
   dropzone: {
     cursor: 'pointer',
@@ -163,26 +165,28 @@ export default class HomePhotos extends Component {
           </Col>
         </Row>
         <Row>
-          <Col xs={12} style={styles.photoContainer}>
-            <Dropzone
-              onDrop={this.onDrop}
-              style={styles.dropzone}
-            >
-              <FontAwesome name='inbox' size='4x' style={{ color: '#5A65DB' }} />
-              <h5>{t('common.drop_files_here')}</h5>
-            </Dropzone>
+          <SpinLoader show={home.photosLoading}>
+            <Col xs={12} style={styles.photoContainer}>
+              <Dropzone
+                onDrop={this.onDrop}
+                style={styles.dropzone}
+              >
+                <FontAwesome name='inbox' size='4x' style={{ color: '#5A65DB' }} />
+                <h5>{t('common.drop_files_here')}</h5>
+              </Dropzone>
 
-            <SortableList
-              axis={'xy'}
-              useWindowAsScrollContainer
-              useDragHandle
-              images={this.state.images}
-              onSortEnd={this.onSortEnd}
-              t={t}
-              deletePhoto={this.deletePhoto}
-              handleValueChange={this.handleValueChange}
-            />
-          </Col>
+              <SortableList
+                axis={'xy'}
+                useWindowAsScrollContainer
+                useDragHandle
+                images={this.state.images}
+                onSortEnd={this.onSortEnd}
+                t={t}
+                deletePhoto={this.deletePhoto}
+                handleValueChange={this.handleValueChange}
+              />
+            </Col>
+          </SpinLoader>
         </Row>
         <Row>
           <Col xs={12}>

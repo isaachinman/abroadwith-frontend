@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode'
 import config from 'config'
 import { load as loadUserWithAuth, update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
-import { load as loadHomeWithAuth, loadHomestayCalendar } from 'redux/modules/privateData/homes/loadHomeWithAuth'
+import { loadHomestayCalendar } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import superagent from 'superagent'
 import { push } from 'react-router-redux'
@@ -16,16 +16,6 @@ const CREATE_HOMESTAY_FAIL = 'abroadwith/CREATE_HOMESTAY_FAIL'
 const TOGGLE_HOME_PAUSING = 'abroadwith/TOGGLE_HOME_PAUSING'
 const TOGGLE_HOME_PAUSING_SUCCESS = 'abroadwith/TOGGLE_HOME_PAUSING_SUCCESS'
 const TOGGLE_HOME_PAUSING_FAIL = 'abroadwith/TOGGLE_HOME_PAUSING_FAIL'
-
-// Add home photo
-const ADD_HOME_PHOTO = 'abroadwith/ADD_HOME_PHOTO'
-const ADD_HOME_PHOTO_SUCCESS = 'abroadwith/ADD_HOME_PHOTO_SUCCESS'
-const ADD_HOME_PHOTO_FAIL = 'abroadwith/ADD_HOME_PHOTO_FAIL'
-
-// Delete home photo
-const DELETE_HOME_PHOTO = 'abroadwith/DELETE_HOME_PHOTO'
-const DELETE_HOME_PHOTO_SUCCESS = 'abroadwith/DELETE_HOME_PHOTO_SUCCESS'
-const DELETE_HOME_PHOTO_FAIL = 'abroadwith/DELETE_HOME_PHOTO_FAIL'
 
 // Delete homestay
 const DELETE_HOMESTAY = 'abroadwith/DELETE_HOMESTAY'
@@ -146,76 +136,6 @@ export function toggleHomePausing(jwt, homeID, pausedStatus) {
 
     } catch (err) {
       dispatch({ type: TOGGLE_HOME_PAUSING_FAIL, err })
-    }
-  }
-}
-
-export function addHomePhoto(jwt, homeID, acceptedFiles) {
-
-  return async dispatch => {
-
-    dispatch({ type: ADD_HOME_PHOTO, homeID })
-
-    try {
-
-      const request = superagent.post(`/upload/users/${jwtDecode(jwt).rid}/homes/${homeID}/photos`)
-      request.set({ abroadauth: `Bearer ${(jwt)}` })
-      acceptedFiles.forEach((file) => {
-        request.attach('file', file)
-      })
-
-
-      request.end((err, { body } = {}) => {
-
-        if (err) {
-
-          dispatch({ type: ADD_HOME_PHOTO_FAIL, homeID, err })
-
-        } else {
-
-          // Request was successful
-          dispatch({ type: ADD_HOME_PHOTO_SUCCESS, homeID, result: body })
-          dispatch(loadHomeWithAuth(jwt, homeID))
-
-        }
-
-      })
-
-    } catch (err) {
-      dispatch({ type: ADD_HOME_PHOTO_FAIL, homeID, err })
-    }
-  }
-}
-
-export function deleteHomePhoto(jwt, homeID, photoID) {
-
-  return async dispatch => {
-
-    dispatch({ type: DELETE_HOME_PHOTO, photoID })
-
-    try {
-
-      const request = superagent.delete(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes/${homeID}/images/${photoID}`)
-      request.set({ Authorization: `Bearer ${(jwt)}` })
-
-      request.end((err, { body } = {}) => {
-
-        if (err) {
-
-          dispatch({ type: DELETE_HOME_PHOTO_FAIL, photoID, err })
-
-        } else {
-
-          // Request was successful
-          dispatch({ type: DELETE_HOME_PHOTO_SUCCESS, photoID, result: body })
-          dispatch(loadHomeWithAuth(jwt, homeID))
-
-        }
-
-      })
-
-    } catch (err) {
-      dispatch({ type: DELETE_HOME_PHOTO_FAIL, photoID, err })
     }
   }
 }
