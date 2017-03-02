@@ -18,6 +18,10 @@ const CLOSE_VERIFY_EMAIL_MODAL = 'abroadwith/CLOSE_VERIFY_EMAIL_MODAL'
 const OPEN_VERIFY_PHONE_MODAL = 'abroadwith/OPEN_VERIFY_PHONE_MODAL'
 const CLOSE_VERIFY_PHONE_MODAL = 'abroadwith/CLOSE_VERIFY_PHONE_MODAL'
 
+// Verify phone modal
+const OPEN_RESET_PASSWORD_MODAL = 'abroadwith/OPEN_RESET_PASSWORD_MODAL'
+const CLOSE_RESET_PASSWORD_MODAL = 'abroadwith/CLOSE_RESET_PASSWORD_MODAL'
+
 const initialState = {
   verifyEmailModal: {
     open: false,
@@ -31,6 +35,10 @@ const initialState = {
   },
   loginModal: {
     open: false,
+  },
+  resetPasswordModal: {
+    open: false,
+    emailSent: false,
   },
   studentSignupModal: {
     open: false,
@@ -56,6 +64,20 @@ export default function reducer(state = initialState, action = {}) {
         loginModal: {
           open: false,
         },
+      }
+    case OPEN_RESET_PASSWORD_MODAL:
+      return {
+        ...state,
+        resetPasswordModal: Object.assign({}, state.resetPasswordModal, {
+          open: true,
+        }),
+      }
+    case CLOSE_RESET_PASSWORD_MODAL:
+      return {
+        ...state,
+        resetPasswordModal: Object.assign({}, state.resetPasswordModal, {
+          open: false,
+        }),
       }
     case OPEN_STUDENT_SIGNUP_MODAL:
       return {
@@ -161,4 +183,12 @@ export function openHostSignupModal() {
 }
 export function closeHostSignupModal() {
   return dispatch => dispatch({ type: CLOSE_HOST_SIGNUP_MODAL })
+}
+
+// Reset password modal
+export function openResetPasswordModal() {
+  return dispatch => dispatch({ type: OPEN_RESET_PASSWORD_MODAL })
+}
+export function closeResetPasswordModal() {
+  return dispatch => dispatch({ type: CLOSE_RESET_PASSWORD_MODAL })
 }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import config from 'config'
 import { deletePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import FadeProps from 'fade-props'
-import { Footer, LoadingBar, Navbar } from 'components'
+import { Footer, LoadingBar, Navbar, ResetPasswordModal, VerifyEmailModal, VerifyPhoneModal } from 'components'
 import { getUnreadMessageCount } from 'redux/modules/privateData/messaging/getUnreadMessageCount'
 import { geolocateViaBrowser } from 'utils/locations'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
@@ -19,8 +19,6 @@ import { translate } from 'react-i18next'
 import moment from 'moment'
 import NotFound from 'components/NotFound/NotFound'
 import notification from 'antd/lib/notification'
-import VerifyEmailModal from 'components/Modals/VerifyEmailModal'
-import VerifyPhoneModal from 'components/Modals/VerifyPhoneModal'
 
 // Relative imports
 import styles from './App.styles'
@@ -211,6 +209,8 @@ export default class App extends Component {
           {user && user.data && user.data.verifications && !user.data.verifications.phone &&
             <VerifyPhoneModal />
           }
+
+          <ResetPasswordModal />
 
           {!footer.hidden &&
             <Footer />

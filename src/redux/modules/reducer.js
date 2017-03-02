@@ -25,6 +25,7 @@ import messaging from './privateData/messaging/messaging'
 import modals from './ui/modals'
 import nonce from './payments/nonce'
 import receipts from './privateData/receipts/receipts'
+import resetPassword from './resetPassword'
 import reviews from './privateData/reviews/reviews'
 import signupStatus from './signup'
 import unreadMessageCount from './privateData/messaging/getUnreadMessageCount'
@@ -71,6 +72,7 @@ export default combineReducers({
     clientToken,
     nonce,
   }),
+  resetPassword,
   signupStatus,
   verifications,
 })
