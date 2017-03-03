@@ -11,6 +11,8 @@ import createHistory from 'react-router/lib/createMemoryHistory'
 import Express from 'express'
 import http from 'http'
 import httpProxy from 'http-proxy'
+import jwtDecode from 'jwt-decode'
+import logger from 'helpers/logger'
 import path from 'path'
 import PrettyError from 'pretty-error'
 import React from 'react'
@@ -114,13 +116,21 @@ app.use((req, res) => {
 
   // Uncomment these lines to set a test token
   /* eslint-disable */
-  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoibFIxSHpEM2FKeXRTUFhsYjVtTG5TUSIsImlhdCI6MTQ4ODA1MjQ0OCwiZXhwIjoxNDg4NjU3MjQ4LCJuYmYiOjE0ODgwNTIzMjgsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IklzYWFjIiwicmlkIjoxMDA1MzMsImNiayI6MCwid2hvc3QiOnRydWUsImltZyI6Ii91c2Vycy8xMDA1MzMvMTQ4NzUyNjc4NzYwMi5qcGcifQ.Yu4lEa9ugN-RSxBzLVhkQEZpAPMUo-bOa_5YSzEtUUy7DR-cziMZELXdfVdhSR3ySlYOqNX7UMn9clhL3otNj5h3J0Afkm0Yh6l3MDc0x5iBDDXPv6q9o1c-tXD72Kp435isd0LCd21zHQzrAdpTcjbl5GyWSNi_0nOtzWlfom2qlZPIvPRYIsCEwq1Ka5XCdzY2nmaPY5FbGg7B_W9gDu1WQ6FePbFH88y9ZbwaO-ATN_iZh5Blyv_tweNLDhti5yASveyYDTdhiRrN2UWox6cxT5TCpGFxQTplyQcx3L-PZJiM5DnIrT66THX4d_zUIYHCb3gnXxqL5NaIu-lVwg'
+  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiX1d5RUZpeEo2VzVrTl9HYzNvc3ptZyIsImlhdCI6MTQ4ODUzNzE3NiwiZXhwIjoxNDg5MTQxOTc2LCJuYmYiOjE0ODg1MzcwNTYsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IklzYWFjIiwicmlkIjoxMDA1MzMsImNiayI6MCwid2hvc3QiOnRydWUsImltZyI6Ii91c2Vycy8xMDA1MzMvMTQ4NzUyNjc4NzYwMi5qcGciLCJoaWQiOjU2OH0.PQBcIjLUA6lf3a4pUoXghrRxE4QI7hdVVuk4q2MoceSr8Qv9ZyxVvQa2OnLFwyWNXxe0aGHuLPya1FJRI4me9CIsDYAgKQFd9AjQM9abw1tj0gJaVImMBve8CyKMxEsD5NURFTuewt2faDRa2dAy6w3bzizZA6ih1sgw61VUQKH9Sd0oSfVUfmrOK2CkJy0pNC-yaDmxmWgg3ko2b1ZAGuBMFf91LvhiqBNbbWLnZlVPfN7U_m1COrFAgbPT8_UaymFCwb3wG2xCZdLpANAs0EOe680TszhLL9ioQf-XPLi5Rr59Pqm2PPCyNK2JTxrFrb1HFmbzAWOE3sPeiDmLsA'
   // const expiryDate = new Date()
   // expiryDate.setDate(expiryDate.getDate() + 7)
   // res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
   /* eslint-enable */
 
-  console.log('Request on route: ', req.originalUrl)
+  // Log requests in production to S3 bucket
+  if (process.env.NODE_ENV === 'production') {
+    const loggedIn = typeof req.cookies.access_token === 'string'
+    logger.info({
+      routeRequested: req.originalUrl,
+      loggedIn,
+      jwt: loggedIn ? jwtDecode(req.cookies.access_token) : null,
+    })
+  }
 
   if (__DEVELOPMENT__) {
 

@@ -1,7 +1,6 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import shortid from 'shortid'
-import { Button, Col, FormGroup, FormControl, OverlayTrigger, Panel, Tooltip, Row } from 'react-bootstrap'
+import { Alert, Button, Col, FormGroup, FormControl, OverlayTrigger, Panel, Tooltip, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { ManageLanguages } from 'components'
@@ -11,6 +10,7 @@ import FacebookLogin from 'react-facebook-login'
 import FontAwesome from 'react-fontawesome'
 import GoogleLogin from 'react-google-login'
 import i18n from 'i18n/i18n-client'
+import shortid from 'shortid'
 import { openLoginModal, closeStudentSignupModal, closeHostSignupModal } from 'redux/modules/ui/modals'
 import { validateEighteenYearsOld, validatePassword } from 'utils/validation'
 import validator from 'validator'
@@ -305,6 +305,19 @@ export default class Signup extends Component {
             <Row>
               <Col xs={12}>
                 <Panel header={<h4>{t('common.sign_up_email')}</h4>} style={{ boxShadow: 'none' }}>
+
+                  {signupStatus.error && signupStatus.errorMessage.statusCode === 409 &&
+                    <Row>
+                      <Col sm={12}>
+                        <Alert bsStyle='danger'>
+                          <p>
+                            <a onClick={this.handleGoToLogin}>{t('common.signup_conflict')}</a>
+                          </p>
+                        </Alert>
+                      </Col>
+                    </Row>
+                  }
+
                   <form onSubmit={event => {
                     event.preventDefault()
                     this.signup('email')
