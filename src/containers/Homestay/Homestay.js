@@ -34,7 +34,7 @@ import styles from './Homestay.styles'
 
     const promises = []
 
-    if (!__CLIENT__ && !isLoaded(getState(), params.homeID)) {
+    if (!isLoaded(getState(), params.homeID)) {
       promises.push(dispatch(loadHomestay(params.homeID)))
     }
 
