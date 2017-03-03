@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
 import { performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
+import { push } from 'react-router-redux'
 
 
 @connect(
@@ -19,7 +20,7 @@ export default class SearchPagination extends Component {
     if (((this.props.homestaySearch.params.pageOffset / this.props.homestaySearch.params.pageSize) + 1) > 1 && this.props.homestaySearch.data.resultDetails.numberOfResults !== nextProps.homestaySearch.data.resultDetails.numberOfResults) {
       this.props.dispatch(performRoomSearch(Object.assign({}, this.props.homestaySearch.params, {
         pageOffset: 0,
-      })))
+      }), push))
     }
 
   }
@@ -31,7 +32,7 @@ export default class SearchPagination extends Component {
     const newParams = Object.assign({}, homestaySearch.params, {
       pageOffset: (homestaySearch.params.pageSize * page) - homestaySearch.params.pageSize,
     })
-    dispatch(performRoomSearch(newParams))
+    dispatch(performRoomSearch(newParams, push))
 
     // Scroll result list to top
     document.getElementById('homestay-search-result-list').scrollTop = 0
