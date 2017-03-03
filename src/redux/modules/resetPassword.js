@@ -81,7 +81,7 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function resetPasswordSet(id, email, password, redirect) {
+export function resetPasswordSet(id, email, password, redirectLocation) {
 
   return async dispatch => {
     try {
@@ -102,10 +102,7 @@ export function resetPasswordSet(id, email, password, redirect) {
 
             // Request was successful
             resolve(dispatch({ type: RESET_PASSWORD_SUCCESS }))
-
-            if (redirect) {
-              dispatch(push('/login'))
-            }
+            dispatch(push(redirectLocation))
 
 
           }
