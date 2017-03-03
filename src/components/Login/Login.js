@@ -179,11 +179,11 @@ export default class Login extends Component {
           <Row>
             <Col sm={compact ? 12 : 4} smOffset={compact ? 0 : 4}>
               <Alert bsStyle='danger'>
-                <h5>LOGIN_FAILED</h5>
+                <h5>{t('common.login_failed')}</h5>
               </Alert>
             </Col>
           </Row>
-            }
+        }
 
         <Form horizontal onSubmit={this.handleEmailLogin}>
 

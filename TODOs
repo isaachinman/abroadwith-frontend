@@ -1,14 +1,11 @@
 // General
 1. Use Redux Devtools Extension to produce tests
 2. Webpack long-term caching not working correctly, hash names being generate erroneously (https://github.com/webpack/webpack/issues/1315)
-3. Set up long term logs, based on request, user info, etc
-4. The layout of the homes and users reducers are unintuitive and could use refactoring, or renaming at the least
+3. The layout of the homes and users reducers are unintuitive and could use refactoring, or renaming at the least
+4. Determine format of log object and all applicable log cases / data
 
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
 
 // Before deployment to production
 1. npm shrinkwrap
-
-// Login
-1. Add feedback error for 409 conflict on signup
