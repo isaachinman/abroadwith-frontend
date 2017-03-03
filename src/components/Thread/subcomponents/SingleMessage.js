@@ -15,6 +15,8 @@ export default class SingleMessage extends Component {
 
     const { author, content, photo } = this.props
 
+    const escapedContent = content.replace(/↵/g, '<br/>')
+
     return (
       <div style={styles.messageContainer}>
         {author === 'you' &&
@@ -24,7 +26,9 @@ export default class SingleMessage extends Component {
             </Col>
             <Col xs={10} sm={8} md={7} style={Object.assign({}, styles.message, styles.messageLeft)}>
               <FontAwesome name='caret-left' style={styles.caretLeft} />
-              {content}
+              <div className='display-linebreak'>
+                {escapedContent}
+              </div>
             </Col>
           </div>
         }
@@ -32,7 +36,9 @@ export default class SingleMessage extends Component {
           <div>
             <Col xs={10} xsOffset={2} sm={8} smOffset={2} md={7} mdOffset={3} style={Object.assign({}, styles.message, styles.messageRight)}>
               <FontAwesome name='caret-right' style={styles.caretRight} />
-              {content}
+              <div className='display-linebreak'>
+                {escapedContent}
+              </div>
             </Col>
             <Col xsHidden sm={2} style={{ textAlign: 'right' }}>
               <div style={Object.assign({}, styles.smallProfilePicture, { backgroundImage: `url(${config.img}${photo || '/users/default.jpg?w=100'})` })} />
