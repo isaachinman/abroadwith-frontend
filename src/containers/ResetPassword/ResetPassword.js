@@ -41,7 +41,7 @@ export default class ResetPassword extends Component {
   resetPassword = () => {
     const { email, password } = this.state.validatedFields
     const { dispatch, jwt, router } = this.props
-    dispatch(resetPasswordSet(router.location.query.id, email.value, password.value, jwt === null))
+    dispatch(resetPasswordSet(router.location.query.id, email.value, password.value, jwt === null ? '/login' : '/'))
   }
 
   handleEmailChange = event => {
