@@ -156,10 +156,10 @@ export default (app) => {
       }
     }
 
-    if (req.query.houseType) {
-      var all = req.query.houseType.split(',')
-      search_response.params.filters.houseType = all
-      query.push("homeType:("+(req.query.houseType.replace(/,/g, ' OR '))+')')
+    if (req.query.homeType) {
+      var all = req.query.homeType.split(',')
+      search_response.params.filters.homeType = all
+      query.push("homeType:("+(req.query.homeType.replace(/,/g, ' OR '))+')')
     }
 
     if (filters.length > 0) {
@@ -370,10 +370,6 @@ var processResults = function(search_response) {
         immersionToUse = 'TA'
       } else if (immersions.indexOf('TE') > -1 && results[i].teacherPrice > 0) {
         immersionToUse = 'TE'
-      }
-
-      if (results[i].roomId === 830) {
-        console.log(results[i])
       }
 
       // Immersion to use will still be undefined when all three prices are equal to zero

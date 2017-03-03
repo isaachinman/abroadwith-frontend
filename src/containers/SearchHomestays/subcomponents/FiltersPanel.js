@@ -71,6 +71,9 @@ export default class FiltersPanel extends Component {
 
   state = {
     filters: this.props.homestaySearch.params.filters || [],
+    otherParams: {
+      homeType: null,
+    },
   }
 
   componentWillReceiveProps = nextProps => {
@@ -82,14 +85,19 @@ export default class FiltersPanel extends Component {
   handleSearch = () => {
     const { dispatch, homestaySearch } = this.props
     dispatch(performRoomSearch(Object.assign({}, homestaySearch.params, {
+      homeType: this.state.otherParams.homeType,
       filters: this.state.filters,
     }), push))
     this.props.handleClose()
   }
 
-  handleChange = (value) => {
+  handleChange = (value, field) => {
 
-    if (Number.isInteger(value) && value >= 50) {
+    if (typeof field === 'string') {
+
+      this.setState({ otherParams: Object.assign({}, this.state.otherParams, { [field]: value }) })
+
+    } else if (Number.isInteger(value) && value >= 50) {
 
       // Special case for weird meal plan slider thing
       let newFilters = this.state.filters.filter(filter => filter !== 'FULL_BOARD' && filter !== 'HALF_BOARD')
@@ -117,7 +125,7 @@ export default class FiltersPanel extends Component {
 
   render() {
 
-    const { filters } = this.state
+    const { filters, otherParams } = this.state
     const { handleClose, open, t } = this.props
 
     let mealPlanValue = 0
@@ -126,8 +134,6 @@ export default class FiltersPanel extends Component {
     } else if (filters.includes('FULL_BOARD')) {
       mealPlanValue = 100
     }
-
-    console.log(filters)
 
     return (
       <div style={open ? Object.assign({}, styles.filtersPanelContainer, { pointerEvents: 'all' }) : styles.filtersPanelContainer}>
@@ -174,8 +180,8 @@ export default class FiltersPanel extends Component {
                   </Col>
                   <Col xs={12}>
                     <Checkbox.Group
-                      value={filters}
-                      onChange={this.handleChange}
+                      value={otherParams.homeType}
+                      onChange={value => this.handleChange(value, 'homeType')}
                       options={HomeData.homeTypes.map(homeType => ({
                         value: homeType,
                         label: t(`homes.home_types.${homeType}`),
