@@ -123,14 +123,13 @@ app.use((req, res) => {
   /* eslint-enable */
 
   // Log requests in production to S3 bucket
-  if (process.env.NODE_ENV === 'production') {
-    const loggedIn = typeof req.cookies.access_token === 'string'
-    logger.info({
-      routeRequested: req.originalUrl,
-      loggedIn,
-      jwt: loggedIn ? jwtDecode(req.cookies.access_token) : null,
-    })
-  }
+  const loggedIn = typeof req.cookies.access_token === 'string'
+  logger.info({
+    type: 'request',
+    routeRequested: req.originalUrl,
+    loggedIn,
+    jwt: loggedIn ? jwtDecode(req.cookies.access_token) : null,
+  })
 
   if (__DEVELOPMENT__) {
 

@@ -21,13 +21,24 @@ const s3_stream = new S3StreamLogger({
 // Bind stream error to different function to prevent recursion
 s3_stream.on('error', (err) => console.log(err))
 
-// This is our logger function
-const logger = new winston.Logger({
-  transports: [
+const transports = []
+
+// Only log to S3 in production
+if (process.env.NODE_ENV === 'production') {
+  transports.push(
     new (winston.transports.File)({
       stream: s3_stream,
     }),
-  ],
+  )
+} else {
+  transports.push(
+    new (winston.transports.Console)()
+  )
+}
+
+// This is our logger function
+const logger = new winston.Logger({
+  transports,
 })
 
 export default logger
