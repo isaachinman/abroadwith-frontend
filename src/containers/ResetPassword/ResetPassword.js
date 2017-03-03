@@ -10,6 +10,7 @@ import { validatePassword } from 'utils/validation'
 import validator from 'validator'
 
 @connect(state => ({
+  jwt: state.auth.jwt,
   resetPassword: state.resetPassword.resetPassword,
 }))
 @translate()
@@ -39,8 +40,8 @@ export default class ResetPassword extends Component {
 
   resetPassword = () => {
     const { email, password } = this.state.validatedFields
-    const { dispatch, router } = this.props
-    dispatch(resetPasswordSet(router.location.query.id, email.value, password.value))
+    const { dispatch, jwt, router } = this.props
+    dispatch(resetPasswordSet(router.location.query.id, email.value, password.value, jwt === null))
   }
 
   handleEmailChange = event => {
@@ -118,6 +119,7 @@ export default class ResetPassword extends Component {
 
 ResetPassword.propTypes = {
   dispatch: PropTypes.func,
+  jwt: PropTypes.object,
   resetPassword: PropTypes.object,
   router: PropTypes.object,
   t: PropTypes.func,

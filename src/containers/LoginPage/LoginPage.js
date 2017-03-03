@@ -1,15 +1,30 @@
 // Absolute imports
+import React, { Component, PropTypes } from 'react'
 import { Col, Grid, Row, Panel } from 'react-bootstrap'
-import { Login } from 'components'
+import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import React, { Component } from 'react'
+import { Login } from 'components'
+import { push } from 'react-router-redux'
 import { translate } from 'react-i18next'
 
 // Relative imports
 import styles from './LoginPage.styles'
 
+@connect(state => ({
+  jwt: state.auth.jwt,
+}))
 @translate()
 export default class LoginPage extends Component {
+
+  componentWillReceiveProps = nextProps => {
+
+    // Login just happened, redirect to homepage
+    const { dispatch, jwt } = this.props
+    if (!jwt && nextProps.jwt) {
+      dispatch(push('/'))
+    }
+
+  }
 
   render() {
     const { t } = this.props
@@ -33,5 +48,7 @@ export default class LoginPage extends Component {
 }
 
 LoginPage.propTypes = {
-  t: React.PropTypes.func,
+  dispatch: PropTypes.func,
+  jwt: PropTypes.object,
+  t: PropTypes.func,
 }
