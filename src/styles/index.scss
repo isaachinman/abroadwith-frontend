@@ -651,3 +651,7 @@ $popover-arrow-color: $darkBlue;
 select.form-control option{
   color: $bodyTextColor;
 }
+
+.display-linebreak {
+  white-space: pre-line;
+}
