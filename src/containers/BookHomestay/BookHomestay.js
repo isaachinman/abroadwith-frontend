@@ -168,6 +168,7 @@ export default class BookHomestay extends Component {
         1. Create actual homestay booking request (required)
         2. Create course booking request (optional)
         3. Create new thread with message content (optional)
+        4. Update userType if necessary (optional)
 
       Methodology: perform optional steps first, and then hook redirect into
       mandatory step as final callback
@@ -200,6 +201,13 @@ export default class BookHomestay extends Component {
         currency: potentialBooking.currency,
         paymentMethodId: user.paymentMethods[0].id,
       })))
+    }
+
+    // Update userType if required
+    if (['HOST', 'MULTI_HOME_HOST'].includes(user.feUserType)) {
+      checkoutActions.push(dispatch(updateUser(jwtDecode(token).rid, Object.assign({}, user, {
+        feUserType: user.feUserType === 'HOST' ? 'STUDENT_AND_HOST' : 'STUDENT_AND_MULTI_HOME_HOST',
+      }), token)))
     }
 
     // Create actual homestay booking request (required)
