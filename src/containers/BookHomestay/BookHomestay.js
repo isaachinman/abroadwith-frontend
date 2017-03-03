@@ -653,7 +653,7 @@ export default class BookHomestay extends Component {
                         eventKey={activeStep + 1}
                         next
                       >
-                        {t(`booking.homestay_booking.step_${activeStep === 1 && !showUpsell ? activeStep + 2 : activeStep + 1}.title`)} &rarr;
+                        {t(`booking.homestay_booking.step_${(activeStep === 1 || activeStep === 2) && !showUpsell ? activeStep + 2 : activeStep + 1}.title`)} &rarr;
                       </Pager.Item>
                     }
                   </Pager>

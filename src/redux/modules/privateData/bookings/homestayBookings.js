@@ -1,6 +1,7 @@
 import config from 'config'
 import jwtDecode from 'jwt-decode'
 import roundTo from 'round-to'
+import { push } from 'react-router-redux'
 import superagent from 'superagent'
 import { REHYDRATE } from 'redux-persist/constants'
 
@@ -223,6 +224,12 @@ export function calculateHomestayPriceWithinBooking(params) {
       request.end((err, res) => {
 
         if (err) {
+
+          // There are some rare cases in which we have actually sent an invalid request:
+          // 1. The room is already booked for these dates, but Solr hasn't reindexed (period of 10 minutes)
+          if (err.statusCode === 400) {
+            dispatch(push('/'))
+          }
 
           dispatch({ type: CALCULATE_HOMESTAY_PRICE_WITHIN_BOOKING_FAIL, err })
 
