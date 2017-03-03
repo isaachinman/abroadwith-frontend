@@ -30,7 +30,9 @@ export default class ResultList extends Component {
           }
         </div>
         <div>
-          <Pagination />
+          {loaded &&
+            <Pagination />
+          }
         </div>
         <div className='text-muted'><small>{t('search.number_of_results_found', { number: numberOfResults })}</small></div>
         <div style={{ marginRight: -20 }}>
