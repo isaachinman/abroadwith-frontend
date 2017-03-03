@@ -34,6 +34,7 @@ const initialState = {
     arrival: null,
     departure: null,
     guests: 1,
+    homeType: null,
     immersions: {
       stay: true,
       tandem: true,
