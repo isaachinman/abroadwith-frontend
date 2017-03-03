@@ -386,7 +386,7 @@ export default class BookHomestay extends Component {
                                                 values={extrasChosen.map(extra => ({ value: extra, label: t(`homes.extras.${extra}`) }))}
                                                 onValuesChange={this.handleServicesChange}
                                               >
-                                                {extrasAvailable.map(extra => <option key={`service-${extra.service}`} value={extra.service}>{t(`homes.services.${extra.service}`)}</option>)}
+                                                {extrasAvailable.map(extra => <option key={`service-${extra.service}`} value={extra.service}>{t(`homes.extras.${extra.service}`)}</option>)}
                                               </MultiSelect>
                                             </FormGroup>
                                           </Col>
