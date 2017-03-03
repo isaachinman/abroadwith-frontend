@@ -32,8 +32,13 @@ import styles from './Homestay.styles'
 @asyncConnect([{
   promise: ({ params, store: { dispatch, getState } }) => {
 
-    const result = !isLoaded(getState(), params.homeID) ? dispatch(loadHomestay(params.homeID)) : null
-    return __CLIENT__ ? null : result
+    const promises = []
+
+    if (!__CLIENT__ && !isLoaded(getState(), params.homeID)) {
+      promises.push(dispatch(loadHomestay(params.homeID)))
+    }
+
+    return Promise.all(promises)
 
   },
 }])
