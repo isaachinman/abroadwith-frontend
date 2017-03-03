@@ -99,14 +99,14 @@ export function load(homeID) {
 
     try {
 
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
         const request = superagent.get(`${config.apiHost}/public/homes/${homeID}`)
         request.end((err, { body } = {}) => {
 
           if (err) {
 
             if (__CLIENT__) dispatch(hideLoading())
-            resolve(dispatch({ type: LOAD_HOMESTAY_FAIL, homeID, err }))
+            reject(dispatch({ type: LOAD_HOMESTAY_FAIL, homeID, err }))
 
           } else {
 
