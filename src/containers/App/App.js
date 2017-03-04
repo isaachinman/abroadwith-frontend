@@ -156,7 +156,7 @@ export default class App extends Component {
         <div style={{ textAlign: 'right', marginBottom: -10 }}>
           <Button onClick={toBooking} bsSize='xsmall' bsStyle='success' style={{ fontSize: 12 }}>{t('common.notifications.incomplete_homestay_booking.button')}</Button>
           <div>
-            <a onClick={deleteBooking} style={{ fontSize: 10 }}>Delete booking</a>
+            <a onClick={deleteBooking} style={{ fontSize: 10 }}>{t('common.words.delete')}</a>
           </div>
         </div>
       )
