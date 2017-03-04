@@ -1,22 +1,26 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
 import { Col, Panel, Row } from 'react-bootstrap'
+import Helmet from 'react-helmet'
 import { scrollToTopOfPage } from 'utils/scrolling'
+import { translate } from 'react-i18next'
 
-@connect()
+@translate()
 export default class CourseBooking extends Component {
 
   componentDidMount = () => scrollToTopOfPage()
 
   render() {
 
+    const { t } = this.props
+
     return (
       <Row>
+        <Helmet title={t('common.courses_page_coming_soon_title')} />
         <Col xs={12} md={6} mdOffset={3} lg={4} lgOffset={4} style={{ marginTop: 100 }}>
           <Panel>
-            <h1>Coming soon!</h1>
-            <p>In the very near future, Abroadwith will offer students the ability to book language courses in addition to, and completely separately from, their homestay experiences. This page will host an independent language-course search. Please check back soon.</p>
+            <h1>{t('common.courses_page_coming_soon_title')}</h1>
+            <p>{t('common.courses_page_coming_soon_description')}</p>
           </Panel>
         </Col>
       </Row>
@@ -25,6 +29,5 @@ export default class CourseBooking extends Component {
 }
 
 CourseBooking.propTypes = {
-  dispatch: PropTypes.func,
   t: PropTypes.func,
 }
