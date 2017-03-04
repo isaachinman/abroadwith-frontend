@@ -134,7 +134,7 @@ export default {
     height: 84,
     position: 'absolute',
     background: '#FFFFFF',
-    opacity: 0.35,
+    opacity: 0.15,
     right: 8,
     top: 158,
     borderRadius: 6,

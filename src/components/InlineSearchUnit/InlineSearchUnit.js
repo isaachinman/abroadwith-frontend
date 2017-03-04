@@ -10,6 +10,7 @@ import { apiDate } from 'utils/dates'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { DateRangePicker } from 'components'
+import equal from 'deep-is'
 import i18n from 'i18n/i18n-client'
 import { SimpleSelect as Select } from 'react-selectize'
 import MapBounds from 'data/constants/MapBounds'
@@ -44,8 +45,8 @@ export default class InlineSearchUnit extends Component {
     loadingAnimation: false,
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState)
+  shouldComponentUpdate(nextProps) {
+    return !equal(this.props.homestaySearch, nextProps.homestaySearch)
   }
 
   handleValueChange = (field, value) => {
