@@ -1,12 +1,13 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { generateImmersionPricesForRoom } from 'utils/prices'
+import { Alert, Button, Col, Grid, Modal, Panel, Row } from 'react-bootstrap'
 import { asyncConnect } from 'redux-connect'
+import { BackgroundImage, MapCircle } from 'components'
 import config from 'config'
 import { connect } from 'react-redux'
-import { Alert, Button, Col, Grid, Modal, Panel, Row } from 'react-bootstrap'
 import Currencies from 'data/constants/Currencies'
 import FontAwesome from 'react-fontawesome'
+import { generateImmersionPricesForRoom } from 'utils/prices'
 import GoogleMap from 'google-map-react'
 import Helmet from 'react-helmet'
 import { isLoaded, load as loadHomestay, loadRoomCalendar } from 'redux/modules/publicData/homes/loadHome'
@@ -14,7 +15,6 @@ import { load as loadUser } from 'redux/modules/publicData/users/loadUser'
 import Lightbox from 'react-images'
 import LightboxTheme from 'data/constants/LightboxTheme'
 import { Link } from 'react-router'
-import { MapCircle } from 'components'
 import MapStyles from 'data/constants/MapStyles'
 import moment from 'moment'
 import shallowCompare from 'react-addons-shallow-compare'
@@ -192,16 +192,19 @@ export default class Homestay extends Component {
               <Row>
                 <Col xs={12} style={styles.heroContainer}>
                   <div style={styles.diagonal} />
-                  <div
-                    onClick={this.openLightbox}
-                    style={Object.assign({}, styles.heroImage, { backgroundImage: `url(${config.img}${homestay.data.images[0].imagePath})` })}
-                  />
+                  <div onClick={this.openLightbox}>
+                    <BackgroundImage
+                      maxWidth={1400}
+                      src={homestay.data.images[0].imagePath}
+                      styles={styles.heroImage}
+                    />
+                  </div>
                   {homestay.data.host.photo &&
                     <div>
                       <div style={styles.hostImageBGMask} />
                       <div style={Object.assign({}, styles.hostImage, { backgroundImage: `url(${config.img}${homestay.data.host.photo})` })} />
                     </div>
-                }
+                  }
                   <Lightbox
                     backdropClosesModal
                     currentImage={lightboxImage}
