@@ -1,5 +1,6 @@
 export default {
   panel: {
+    display: 'table',
     padding: 0,
     background: 'white',
     borderRadius: 5,
@@ -8,7 +9,7 @@ export default {
     margin: '0 15px 30px 15px',
   },
   mainInfo: {
-    display: 'inline-block',
+    display: 'table-cell',
     width: 200,
     '@media (max-width: 767px)': {
       width: '100%',
@@ -30,7 +31,7 @@ export default {
   },
   content: {
     borderLeft: '1px solid #eee',
-    display: 'inline-block',
+    display: 'table-cell',
     verticalAlign: 'top',
     width: 'calc(100% - 200px)',
     padding: '10px 30px 30px 30px',
