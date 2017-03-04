@@ -24,7 +24,7 @@ s3_stream.on('error', (err) => console.log(err))
 const transports = []
 
 // Only log to S3 in production
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'integration') {
   transports.push(
     new (winston.transports.File)({
       stream: s3_stream,

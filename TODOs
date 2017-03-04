@@ -9,3 +9,4 @@
 
 // Before deployment to production
 1. npm shrinkwrap
+2. Set logger back to only in production
