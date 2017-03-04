@@ -23,7 +23,7 @@ export default class ResultList extends Component {
               <Result key={shortid()} currency={currency} result={result} />
             )
           })}
-          {loaded && results && results.length === 0 &&
+          {numberOfResults !== null && loaded && results && results.length === 0 &&
             <div style={styles.noResults}>
               <h6 className='header-green'>{t('search.no_results_found')}</h6>
             </div>

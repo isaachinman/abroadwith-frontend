@@ -68,14 +68,14 @@ export default class Result extends Component {
         >
           {result.roomPhoto &&
           <Carousel.Item>
-            <div style={Object.assign({}, styles.searchResultCarouselImg, { backgroundImage: `url(${config.img}${result.roomPhoto})` })} />
+            <div style={Object.assign({}, styles.searchResultCarouselImg, { backgroundImage: `url(${config.img}${result.roomPhoto}?w=300)` })} />
           </Carousel.Item>
             }
           {result.homePhotosWithOrder && result.homePhotosWithOrder.length > 0 &&
               parsePhotoOrder(result.homePhotosWithOrder).map(photo => {
                 return (
                   <Carousel.Item key={shortid()}>
-                    <div style={Object.assign({}, styles.searchResultCarouselImg, { backgroundImage: `url(${config.img}${photo})` })} />
+                    <div style={Object.assign({}, styles.searchResultCarouselImg, { backgroundImage: `url(${config.img}${photo}?w=300)` })} />
                   </Carousel.Item>
                 )
               })

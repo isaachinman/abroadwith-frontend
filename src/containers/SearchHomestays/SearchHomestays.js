@@ -263,7 +263,7 @@ export default class SearchHomestays extends Component {
                   loaded={search.loaded}
                   currency={currency}
                   results={search.data.results}
-                  numberOfResults={search.data && search.data.resultDetails ? search.data.resultDetails.numberOfResults : 0}
+                  numberOfResults={search.data && search.data.resultDetails ? search.data.resultDetails.numberOfResults : null}
                 />
               </div>
             </SpinLoader>
