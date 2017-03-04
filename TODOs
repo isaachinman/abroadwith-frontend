@@ -3,6 +3,9 @@
 2. Webpack long-term caching not working correctly, hash names being generate erroneously (https://github.com/webpack/webpack/issues/1315)
 3. The layout of the homes and users reducers are unintuitive and could use refactoring, or renaming at the least
 4. Determine format of log object and all applicable log cases / data
+5. Set up progressive image loading with tiny blurry images via imgix params for all images
+  - Try extending https://github.com/leny/react-progressive-image
+  - Set a hidden img node and listen for its "load" callback, but use image as background image for CSS benefits
 
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR

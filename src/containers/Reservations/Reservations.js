@@ -19,6 +19,7 @@ import SpinLoader from 'components/SpinLoader/SpinLoader'
 // Relative imports
 import styles from './Reservations.styles'
 
+// Sort priority
 const orderOfPriority = {
   pending: 1,
   approved: 2,

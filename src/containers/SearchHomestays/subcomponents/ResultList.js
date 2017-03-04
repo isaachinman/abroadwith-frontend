@@ -1,8 +1,8 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import shallowCompare from 'react-addons-shallow-compare'
 import { Footer } from 'components'
 import { translate } from 'react-i18next'
-import shortid from 'shortid'
 
 // Relative imports
 import Pagination from './Pagination'
@@ -11,16 +11,23 @@ import styles from '../SearchHomestays.styles'
 
 @translate()
 export default class ResultList extends Component {
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
+  }
+
   render() {
 
     const { currency, loaded, t, numberOfResults, results } = this.props
+
+    console.log('ResultList Rendering', this.props)
 
     return (
       <div>
         <div style={styles.resultListMinHeight}>
           {results && results.length > 0 && results.map(result => {
             return (
-              <Result key={shortid()} currency={currency} result={result} />
+              <Result key={result.roomId} currency={currency} result={result} />
             )
           })}
           {numberOfResults !== null && loaded && results && results.length === 0 &&

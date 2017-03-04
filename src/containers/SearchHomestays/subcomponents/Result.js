@@ -1,6 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import shallowCompare from 'react-addons-shallow-compare'
+import { BackgroundImage } from 'components'
 import { connect } from 'react-redux'
 import { Carousel } from 'react-bootstrap'
 import { roomResultMouseEnter, roomResultMouseLeave } from 'redux/modules/ui/search/hoverables'
@@ -13,7 +14,6 @@ import { updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
 import parsePhotoOrder from 'utils/homes/parsePhotoOrder'
 import Radium from 'radium'
 import Rate from 'antd/lib/rate'
-import shortid from 'shortid'
 
 // Relative imports
 import styles from '../SearchHomestays.styles'
@@ -49,6 +49,8 @@ export default class Result extends Component {
       averageRating = (result.avgCleanRating + result.avgFoodRating + result.avgLangCultLearRating + result.avgLocationRating + result.avgRoomRating) / 5
     }
 
+    const parsedPhotoArray = result.homePhotosWithOrder && result.homePhotosWithOrder.length > 0 ? parsePhotoOrder(result.homePhotosWithOrder) : []
+
     return (
       <div
         key={result.roomId}
@@ -67,19 +69,29 @@ export default class Result extends Component {
           nextIcon={<FontAwesome style={styles.carouselIcon} name='angle-right' />}
         >
           {result.roomPhoto &&
-          <Carousel.Item>
-            <div style={Object.assign({}, styles.searchResultCarouselImg, { backgroundImage: `url(${config.img}${result.roomPhoto}?w=300)` })} />
-          </Carousel.Item>
-            }
-          {result.homePhotosWithOrder && result.homePhotosWithOrder.length > 0 &&
-              parsePhotoOrder(result.homePhotosWithOrder).map(photo => {
-                return (
-                  <Carousel.Item key={shortid()}>
-                    <div style={Object.assign({}, styles.searchResultCarouselImg, { backgroundImage: `url(${config.img}${photo}?w=300)` })} />
-                  </Carousel.Item>
-                )
-              })
-            }
+            <Carousel.Item>
+              <BackgroundImage
+                maxWidth={300}
+                src={result.roomPhoto}
+                styles={styles.searchResultCarouselImg}
+              />
+            </Carousel.Item>
+          }
+          {parsedPhotoArray.map(photo => {
+            return (
+              <Carousel.Item key={photo}>
+                {!result.roomPhoto && parsedPhotoArray.indexOf(photo) === 0 ?
+                  <BackgroundImage
+                    maxWidth={300}
+                    src={photo}
+                    styles={styles.searchResultCarouselImg}
+                  />
+                  :
+                  <div style={Object.assign({}, styles.searchResultCarouselImg, { backgroundImage: `url(${config.img}${photo}?w=300)` })} />
+                }
+              </Carousel.Item>
+            )
+          })}
         </Carousel>
         <div style={styles.searchResultBottomHalf} className='bottom-half'>
           <div style={styles.searchResultInfo}>
