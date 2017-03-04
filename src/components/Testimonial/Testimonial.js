@@ -1,8 +1,9 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { translate } from 'react-i18next'
 import config from 'config'
+import { Link } from 'react-router'
 import Radium from 'radium'
+import { translate } from 'react-i18next'
 
 // Relative imports
 import styles from './Testimonials.styles'
@@ -11,6 +12,24 @@ import styles from './Testimonials.styles'
 const colorMap = {
   daniel: 'pink',
   isabel: 'blue',
+  oliver: 'green',
+  marco: 'pink',
+  sue: 'blue',
+  francois: 'green',
+  esther: 'pink',
+  cathy: 'blue',
+  lola: 'green',
+  julien: 'pink',
+  jonathan: 'blue',
+}
+
+// ID map (for links)
+const idMap = {
+  esther: 1734,
+  cathy: 3,
+  lola: 218,
+  julien: 56,
+  jonathan: 1748,
 }
 
 @translate()
@@ -33,6 +52,13 @@ export default class Testimonial extends Component {
         <div style={styles.content}>
           <h5 className={`header-${colorMap[person]}`}>{t(`testimonials.${type}_testimonials.${person}.subtitle`)}</h5>
           <p>{t(`testimonials.${type}_testimonials.${person}.description`)}</p>
+          {type === 'host' &&
+            <p>
+              <Link to={`/${type === 'student' ? 'user' : 'homestay'}/${idMap[person]}`}>
+                {t('testimonials.host_home_link', { host: person.charAt(0).toUpperCase() + person.slice(1).toLowerCase() })}
+              </Link>
+            </p>
+          }
         </div>
       </div>
     )
