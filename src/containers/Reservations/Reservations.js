@@ -115,6 +115,9 @@ export default class Reservations extends Component {
                             </Td>
                             <Td className='location-column' column={locationColumnName} value={reservation.arrivalDate}>
                               <div>
+                                {reservation.roomName &&
+                                  <div>{reservation.roomName}</div>
+                                }
                                 <div>{uiDate(reservation.arrivalDate)} / {uiDate(reservation.departureDate)}</div>
                                 <div>{reservation.homeAddress ? <span>{reservation.homeAddress.street}, {reservation.homeAddress.city}</span> : <span>{t('trips.not_applicable')}</span>}</div>
                               </div>
