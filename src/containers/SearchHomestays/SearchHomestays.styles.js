@@ -96,7 +96,7 @@ export default {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     width: '100%',
-    height: 160,
+    height: 200,
   },
   searchResultPrice: {
     zIndex: 57,
@@ -125,7 +125,7 @@ export default {
     backgroundSize: 'cover',
     position: 'absolute',
     right: 10,
-    top: 120,
+    top: 160,
     borderRadius: 5,
     zIndex: 57,
   },
@@ -136,7 +136,7 @@ export default {
     background: '#FFFFFF',
     opacity: 0.35,
     right: 8,
-    top: 118,
+    top: 158,
     borderRadius: 6,
     zIndex: 3,
   },
@@ -185,6 +185,6 @@ export default {
     minHeight: 'calc(100vh - 245px)',
   },
   carouselIcon: {
-    marginTop: 80,
+    marginTop: 100,
   },
 }
