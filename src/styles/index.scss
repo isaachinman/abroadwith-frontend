@@ -655,3 +655,9 @@ select.form-control option{
 .display-linebreak {
   white-space: pre-line;
 }
+
+.reactable-header-sortable {
+  &:hover {
+    background: rgba(0,0,0,0.075);
+  }
+}
