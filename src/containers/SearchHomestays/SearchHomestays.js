@@ -207,7 +207,10 @@ export default class SearchHomestays extends Component {
     }
 
     // Compile number of "filters" currently applied
-    const numOfFiltersApplied = search.params.filters.length + search.params.homeType.length
+    let numOfFiltersApplied = search.params.filters.length
+    if (search.params.homeType) {
+      numOfFiltersApplied += search.params.homeType.length
+    }
 
     return (
       <div>
