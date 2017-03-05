@@ -206,6 +206,9 @@ export default class SearchHomestays extends Component {
       zoom = fittedBounds.zoom
     }
 
+    // Compile number of "filters" currently applied
+    const numOfFiltersApplied = search.params.filters.length + search.params.homeType.length
+
     return (
       <div>
         <Helmet title={t('search.title')} />
@@ -245,7 +248,7 @@ export default class SearchHomestays extends Component {
                 >
                   <div style={styles.extra}>{t('search.price_range')}</div>
                 </OverlayTrigger>
-                <div style={styles.extra} onClick={this.openFiltersPanel}>{t('search.more_filters')}{search.params.filters.length > 0 && <span>&nbsp;({search.params.filters.length})</span>}</div>
+                <div style={styles.extra} onClick={this.openFiltersPanel}>{t('search.more_filters')}{numOfFiltersApplied > 0 && <span>&nbsp;({numOfFiltersApplied})</span>}</div>
               </div>
             </div>
             <div style={styles.inlineSearchUnit}>
