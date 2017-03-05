@@ -12,7 +12,7 @@ import superagent from 'superagent'
 // Load previously stored auth
 const LOAD = 'abroadwith/LOAD_AUTH'
 const LOAD_SUCCESS = 'abroadwith/LOAD_AUTH_SUCCESS'
-const LOAD_FAIL = 'abroadwith/LOAD_AUTHFAIL'
+const LOAD_FAIL = 'abroadwith/LOAD_AUTH_FAIL'
 
 // Login stuff
 const LOGIN = 'abroadwith/LOGIN'
