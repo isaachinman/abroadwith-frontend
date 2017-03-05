@@ -24,6 +24,7 @@ import UILanguages from 'data/constants/UILanguages'
 
 // Custom API imports
 import contactForm from 'helpers/api/contactForm'
+import errorHandler from 'helpers/api/errorHandler'
 import getRoomCalendar from 'helpers/api/getRoomCalendar'
 import logout from 'helpers/api/logout'
 import homestaySearch from 'helpers/api/homestaySearch'
@@ -58,7 +59,6 @@ app.use(bodyParser.json())
 // User cookieParser
 app.use(cookieParser())
 
-
 if (process.env.NODE_ENV !== 'development') {
   // Cache public pages into memory
   serverCache(app)
@@ -74,7 +74,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Install custom API endpoints
-const customApiEndpoints = [contactForm, getRoomCalendar, logout, homestaySearch]
+const customApiEndpoints = [contactForm, errorHandler, getRoomCalendar, logout, homestaySearch]
 customApiEndpoints.map(endpoint => {
   endpoint(app)
 })
@@ -125,7 +125,7 @@ app.use((req, res) => {
   // Log requests in production to S3 bucket
   const loggedIn = typeof req.cookies.access_token === 'string'
   logger.info({
-    type: 'request',
+    type: 'Session initialisation',
     routeRequested: req.originalUrl,
     loggedIn,
     jwt: loggedIn ? jwtDecode(req.cookies.access_token) : null,

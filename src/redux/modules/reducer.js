@@ -12,6 +12,7 @@ import courseBookings from './privateData/bookings/courseBookings'
 import courseSearch from './ui/search/courseSearch'
 import currency from './ui/currency'
 import educators from './publicData/educators/loadEducator'
+import errorHandler from './errorHandler'
 import footer from './ui/footer'
 import homestayBookings from './privateData/bookings/homestayBookings'
 import homeManagement from './privateData/homes/homeManagement'
@@ -38,6 +39,7 @@ export default combineReducers({
     homestayBookings,
   }),
   contactUs,
+  errorHandler,
   loadingBar: loadingBarReducer,
   messaging,
   unreadMessageCount,

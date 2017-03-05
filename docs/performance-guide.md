@@ -31,3 +31,12 @@ done via `require.ensure`, and can be mainly seen in src/routes.
 Sometimes, functions are called frequently/regularly enough to warrant memoisation. Really, any pure function can benefit from memoisation, and a lot of the components in this project are pure.
 
 Despite that, I haven't gone crazy with memoisation.
+
+## Caching
+
+TODO: write about caching public routes via express
+
+## Error Handling
+
+TODO: Write about winston transport to S3 bucket with /clientside-error endpoint etc
+NB: Importance of adhering to SUCCESS and FAIL suffixes
