@@ -110,7 +110,10 @@ export default class PaymentMethods extends Component {
         }
 
         // Setup braintree form
-        braintree.setup(clientToken.value, 'custom', braintreeSetupObject)
+        if (document.getElementById('add-payment-form') !== null) {
+          braintree.setup(clientToken.value, 'custom', braintreeSetupObject)
+        }
+
 
       })
 
@@ -118,11 +121,11 @@ export default class PaymentMethods extends Component {
 
   }
 
-  componentWillUnmount = () => {
-    if (typeof window.braintreeIntegration !== 'undefined') {
-      window.braintreeIntegration.teardown()
-    }
-  }
+  // componentWillUnmount = () => {
+  //   if (typeof window.braintreeIntegration !== 'undefined') {
+  //     window.braintreeIntegration.teardown()
+  //   }
+  // }
 
   panelToggle = panel => this.setState({ addNewMethodAccordionExpanded: this.state.addNewMethodAccordionExpanded === panel ? 'none' : panel })
 
