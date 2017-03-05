@@ -80,7 +80,7 @@ export default class Reservations extends Component {
                   {!reservations.loading && reservations.loaded && reservations.data && reservations.data.length > 0 &&
                     <Table
                       className='table'
-                      defaultSort={{ column: statusColumnName, direction: 'asc' }}
+                      defaultSort={{ column: locationColumnName, direction: 'desc' }}
                       filterable={[guestColumnName]}
                       filterPlaceholder={t('reservations.search_by_guest_name')}
                       itemsPerPage={5}
@@ -114,7 +114,7 @@ export default class Reservations extends Component {
                                 <div>{t(`reservations.status_codes.${reservation.status}`)}</div>
                               </div>
                             </Td>
-                            <Td className='location-column' column={locationColumnName} value={reservation.arrivalDate}>
+                            <Td className='location-column' column={locationColumnName} value={reservation.departureDate}>
                               <div>
                                 {reservation.roomName &&
                                   <div>{reservation.roomName}</div>
