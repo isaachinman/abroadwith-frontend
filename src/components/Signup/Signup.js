@@ -47,6 +47,7 @@ export default class Signup extends Component {
         uiState: null,
       },
     },
+    languageLevelsNotValid: false,
     learningLanguages: [
       {
         id: shortid.generate(),
@@ -125,6 +126,14 @@ export default class Signup extends Component {
 
   changePage = page => {
     this.setState({ page })
+  }
+
+  handleLanguagesNotValidBtnClick = () => {
+    console.log('clicked')
+    if (this.state.knownLanguages.some(lang => !lang.level)) {
+      console.log('evaluated true')
+      this.setState({ languageLevelsNotValid: true })
+    }
   }
 
   handleNameChange = (event, nameType) => {
@@ -226,6 +235,7 @@ export default class Signup extends Component {
     const {
       knownLanguages,
       learningLanguages,
+      languageLevelsNotValid,
     } = this.state
 
     // Determine available languages
@@ -278,6 +288,7 @@ export default class Signup extends Component {
                 availableLanguages={availableLanguages}
                 knownLanguages={knownLanguages}
                 learningLanguages={learningLanguages}
+                levelNotSelectedError={languageLevelsNotValid}
                 removeLanguage={this.removeLanguage}
                 updateLanguage={this.updateLanguage}
                 updateLanguageLevel={this.updateLanguageLevel}
@@ -287,13 +298,13 @@ export default class Signup extends Component {
           <Row>
             <Col xs={12}>
               {!languagesAreValid &&
-              <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('common.languages_choose_at_least_one')}</Tooltip>}>
-                <Button style={styles.nextBtn} className='disabled'>{t('common.next')}</Button>
-              </OverlayTrigger>
-                      }
+                <OverlayTrigger placement='right' overlay={<Tooltip id='tooltip'>{t('common.languages_choose_at_least_one')}</Tooltip>}>
+                  <Button style={styles.nextBtn} onClick={this.handleLanguagesNotValidBtnClick} className='disabled'>{t('common.next')}</Button>
+                </OverlayTrigger>
+              }
               {languagesAreValid &&
-              <Button style={styles.nextBtn} bsStyle='success' onClick={() => this.changePage(2)}>{t('common.next')}</Button>
-                      }
+                <Button style={styles.nextBtn} bsStyle='success' onClick={() => this.changePage(2)}>{t('common.next')}</Button>
+              }
             </Col>
           </Row>
         </div>
