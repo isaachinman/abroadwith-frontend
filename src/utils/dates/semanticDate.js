@@ -1,5 +1,6 @@
 import moment from 'moment'
 
+// Probably don't need to pass translate in and can import directly from i18n, needs refactoring (confirm SSR compat)
 export default function semanticDate(translate, date) {
 
   const year = moment(date).format('YYYY')
