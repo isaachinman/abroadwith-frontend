@@ -69,7 +69,7 @@ export default class Homestay extends Component {
     sendMessageModalOpen: false,
   }
 
-  componentDidMount = () => {
+  componentWillMount = () => {
 
     const { dispatch, homestay, homestaySearch } = this.props
 
