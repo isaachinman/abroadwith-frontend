@@ -30,6 +30,7 @@ const orderOfPriority = {
 
 @connect(
   state => ({
+    uiLanguage: state.ui.locale.value,
     token: state.auth.token,
     reservations: state.privateData.reservations,
   }),
@@ -40,6 +41,13 @@ export default class Reservations extends Component {
   componentDidMount = () => {
     const { dispatch, token } = this.props
     dispatch(loadReservations(token))
+  }
+
+  componentDidUpdate = prevProps => {
+    if (prevProps.uiLanguage !== this.props.uiLanguage) {
+      const { dispatch, token } = this.props
+      dispatch(loadReservations(token))
+    }
   }
 
   approveReservation = (reservationID) => {
@@ -54,7 +62,7 @@ export default class Reservations extends Component {
 
   render() {
 
-    const { reservations, t } = this.props
+    const { reservations, uiLanguage, t } = this.props
 
     const guestColumnName = t('reservations.sections.guest')
     const statusColumnName = t('reservations.sections.status')
@@ -171,6 +179,7 @@ export default class Reservations extends Component {
 Reservations.propTypes = {
   dispatch: PropTypes.func,
   reservations: PropTypes.object,
+  uiLanguage: PropTypes.string,
   t: PropTypes.func,
   token: PropTypes.string,
 }
