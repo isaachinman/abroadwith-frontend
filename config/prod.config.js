@@ -62,17 +62,17 @@ module.exports = {
   },
   plugins: [
 
-    // Ignore momentjs locales
+    // Ignore MomentJs locales
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /de|en|es/),
 
-    // Split vendor into a chunk which can have a very long cache-life
+    // Split vendor into a chunk which can have a long cache-life
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: module => /node_modules/.test(module.resource)
     }),
 
-    // css files from the extract-text-plugin loader
-    new ExtractTextPlugin('[name]-[chunkhash].css', {allChunks: true}),
+    // Css files from the extract-text-plugin loader
+    new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
@@ -84,11 +84,13 @@ module.exports = {
       __DEVTOOLS__: false
     }),
 
-    // ignore dev config
+    // Ignore dev config
     new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
 
-    // optimizations
+    // Optimizations
     new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       comments: false,
       compress: {
@@ -111,10 +113,14 @@ module.exports = {
       },
       exclude: [/\.min\.js$/gi]
     }),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.optimize.DedupePlugin(),
 
-    new CompressionPlugin(),
+    // GZIP everything up
+    new CompressionPlugin({
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0
+    }),
 
     webpackIsomorphicToolsPlugin
   ]

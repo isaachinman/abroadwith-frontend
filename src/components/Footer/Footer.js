@@ -112,10 +112,13 @@ export default class Footer extends Component {
             </div>
             <div style={compact ? styles.flexChildCompact : styles.flexChild} className='hidden-md hidden-lg'>
               <h6>{t('common.company')}</h6>
-              <div><Link to='/abroadwith-for-students' style={styles.footerLink}>{t('common.footer_why_abroadwith')}</Link></div>
-              <div><Link to='/host-international-students' style={styles.footerLink}>{t('common.footer_responsible_homestay')}</Link></div>
-              <div><a href='//www.abroadwith-educators.com' style={styles.footerLink}>{t('common.footer_abroadwith_for_educators')}</a></div>
-              <div><Link to='/popular-languages-destinations' style={styles.footerLink}>{t('common.footer_popular')}</Link></div>
+              <div><Link to='/about' style={styles.footerLink}>{t('common.About')}</Link></div>
+              <div><a href='//blog.abroadwith.com' style={styles.footerLink}>{t('common.Blog')}</a></div>
+              <div><a href='//jobs.abroadwith.com' style={styles.footerLink}>{t('common.Jobs')}</a></div>
+              <div><a href='//press.abroadwith.com' style={styles.footerLink}>{t('common.Press')}</a></div>
+              <div><Link to='/privacy' style={styles.footerLink}>{t('common.Policies')}</Link></div>
+              <div><Link to='/terms' style={styles.footerLink}>{t('common.terms_and_conditions')}</Link></div>
+              <div><Link to='/contact-us' style={styles.footerLink}>{t('common.contact')}</Link></div>
             </div>
             <div style={compact ? styles.flexChildCompact : styles.flexChild}>
               <h6>{t('common.footer_host')}</h6>

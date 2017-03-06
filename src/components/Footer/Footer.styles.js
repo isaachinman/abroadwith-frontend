@@ -71,7 +71,7 @@ export default {
     width: '25%',
     '@media (max-width: 991px)': {
       display: 'inline-block',
-      verticalAlign: 'middle',
+      verticalAlign: 'top',
       width: '50%',
       marginBottom: 30,
       padding: '0 5px',
