@@ -1,6 +1,8 @@
 import jwtDecode from 'jwt-decode'
 import config from 'config'
 import superagent from 'superagent'
+import notification from 'antd/lib/notification'
+import i18n from 'i18next'
 
 // Load reservations
 const LOAD_RESERVATIONS = 'abroadwith/LOAD_RESERVATIONS'
@@ -58,7 +60,7 @@ export default function reducer(state = initialState, action = {}) {
     case APPROVE_RESERVATION_FAIL:
       return Object.assign({}, state, {
         loading: false,
-        loaded: false,
+        loaded: true, // Set to true for AW2-117 override
       })
     case CANCEL_RESERVATION:
       return Object.assign({}, state, {
@@ -146,6 +148,15 @@ export function approveReservation(jwt, reservationID, refetchReservations) {
         if (err) {
 
           dispatch({ type: APPROVE_RESERVATION_FAIL, err })
+
+          if (err.statusCode === 400 && err.rawResponse === 'There is already a booking for the given dates and room') {
+            notification.warning({
+              key: 'cannotApproveBooking',
+              duration: 10,
+              message: i18n.t('reservations.cannot_approve_booking_title'),
+              description: i18n.t('reservations.cannot_approve_booking_description'),
+            })
+          }
 
         } else {
 
