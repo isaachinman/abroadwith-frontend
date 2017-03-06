@@ -43,8 +43,7 @@ export default class UploadTeacherCertifications extends Component {
     const { newCertificateImg } = this.state
     const { t } = this.props
     const formIsValid = this.validateForm()
-    console.log(formIsValid)
-    console.log(this)
+
     return (
       <div>
         <Row>

@@ -39,9 +39,26 @@ export default class HomeImmersions extends Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    if (this.props.home.certificateLoading === true && nextProps.home.certificateLoading === false) {
-      this.setState({ certificationModalOpen: false })
+
+    // Very specific case of user uploading teacher certificate before teacher immersion "exists"
+    if (!this.props.home.loaded && nextProps.home.loaded && nextProps.inProgress && nextProps.home.data.immersions.teacher && nextProps.home.data.immersions.teacher.certifications) {
+      const newState = Object.assign({}, this.state)
+      newState.immersions.teacher = Object.assign({}, this.state.immersions.teacher, {
+        certifications: nextProps.home.data.immersions.teacher.certifications,
+      })
     }
+
+    if (this.props.home.certificateLoading === true && nextProps.home.certificateLoading === false) {
+      this.setState({
+        certificationModalOpen: false,
+        immersions: Object.assign({}, this.state.immersions, {
+          teacher: Object.assign({}, this.state.immersions.teacher, {
+            certifications: nextProps.home.data.immersions.teacher.certifications,
+          }),
+        }),
+      })
+    }
+
   }
 
   handleValueChange = (immersionType, field, value) => {
