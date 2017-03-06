@@ -443,13 +443,22 @@ export function addTeacherCertificate(jwt, homeID, homeObject, newCertificate, n
             img: JSON.parse(res.text).location,
           })
 
+          const newHomeObj = homeObject
+
+          if (newHomeObj.immersions.teacher === null) {
+            newHomeObj.immersions.teacher = {
+              isActive: false,
+              certifications: [],
+              languagesOffered: [],
+            }
+          }
+
           const newTeacherCerts = Object.assign(homeObject.immersions.teacher, {
             certifications: homeObject.immersions.teacher.certifications ?
                               homeObject.immersions.teacher.certifications.concat(finalCert) :
                               [].push(finalCert),
           })
 
-          const newHomeObj = homeObject
           newHomeObj.immersions.teacher = newTeacherCerts
 
           dispatch(updateHomestay(jwt, homeID, newHomeObj))
