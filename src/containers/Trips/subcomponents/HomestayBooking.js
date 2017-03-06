@@ -116,12 +116,14 @@ export default class HomestayBooking extends Component {
 
     // Luckily these things are at least named consistently
     const isApproved = booking.status.indexOf('APPROVED') > -1
-    // const isCancelled = booking.status.indexOf('CANCELLED') > -1
+    const isCancelled = booking.status.indexOf('CANCELLED') > -1
     // const isDeclined = booking.status.indexOf('DECLINED') > -1
     const isPending = booking.status.indexOf('PENDING') > -1
 
     // Pending and Approved bookings in the future are actionable
     const isActionable = (isApproved || isPending) && moment(booking.arrivalDate).isAfter(moment())
+
+    const hasReceipt = isApproved || isCancelled
 
     const currencySymbol = Currencies[booking.chargesCurrency]
 
@@ -170,7 +172,9 @@ export default class HomestayBooking extends Component {
                 <h4 className='text-muted'>{t('trips.status')}</h4>
                 <strong>{t(`trips.status_codes.${booking.status}`)}</strong>
                 <p>{t('trips.created')}: {uiDate(booking.created)}</p>
-                <p><Link to={`/receipt/homestay/student/${booking.id}`}>{t('trips.view_receipt')}</Link></p>
+                {hasReceipt &&
+                  <p><Link to={`/receipt/homestay/student/${booking.id}`}>{t('trips.view_receipt')}</Link></p>
+                }
                 {booking.invoiceIds && booking.invoiceIds.length > 0 &&
                   <p>
                     {t('trips.invoices')}: {booking.invoiceIds.map(id => <Link to={`/invoice/homestay/student/${id}`} key={`invoice-${id}`}>{t('trips.invoice')} #{id}{booking.invoiceIds.indexOf(id) !== booking.invoiceIds.length - 1 && <span>,&nbsp;</span>}</Link>)}
