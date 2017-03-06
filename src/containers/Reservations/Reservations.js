@@ -62,7 +62,7 @@ export default class Reservations extends Component {
 
   render() {
 
-    const { reservations, uiLanguage, t } = this.props
+    const { reservations, t } = this.props
 
     const guestColumnName = t('reservations.sections.guest')
     const statusColumnName = t('reservations.sections.status')
