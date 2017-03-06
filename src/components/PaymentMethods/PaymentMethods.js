@@ -114,7 +114,6 @@ export default class PaymentMethods extends Component {
           braintree.setup(clientToken.value, 'custom', braintreeSetupObject)
         }
 
-
       })
 
     }

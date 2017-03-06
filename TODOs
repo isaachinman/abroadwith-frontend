@@ -8,7 +8,3 @@
 
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
-
-// Before deployment to production
-1. npm shrinkwrap
-2. Set logger back to only in production
