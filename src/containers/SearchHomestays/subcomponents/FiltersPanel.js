@@ -166,7 +166,7 @@ export default class FiltersPanel extends Component {
                     <Slider
                       onChange={this.handleChange}
                       min={-10}
-                      marks={{ 0: 'Breakfast', 50: 'Breakfast & Dinner', 100: 'Breakfast, Lunch, & Dinner' }}
+                      marks={{ 0: t('search.meal_choice.breakfast'), 50: t('search.meal_choice.half_board'), 100: t('search.meal_choice.full_board') }}
                       step={null}
                       value={mealPlanValue}
                     />
