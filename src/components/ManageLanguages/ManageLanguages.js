@@ -1,6 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { DropdownButton, InputGroup, MenuItem, Well } from 'react-bootstrap'
+import FontAwesome from 'react-fontawesome'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import { translate } from 'react-i18next'
 import i18n from 'i18n/i18n-client'
@@ -19,6 +20,7 @@ export default class ManageLanguages extends Component {
       doNotCenterAlign,
       learningLanguages,
       knownLanguages,
+      levelNotSelectedError,
       t,
       removeLanguage,
       updateLanguage,
@@ -62,6 +64,9 @@ export default class ManageLanguages extends Component {
                 {learningLanguages.length > 1 &&
                   <div onClick={() => removeLanguage('learning', lang.id)} style={styles.removeLanguage}>&times;</div>
                 }
+                {levelNotSelectedError && lang.language && !lang.level &&
+                  <FontAwesome style={styles.levelError} name='exclamation-circle' />
+                }
               </div>
             )
           })}
@@ -100,6 +105,9 @@ export default class ManageLanguages extends Component {
                 {knownLanguages.length > 1 &&
                   <div onClick={() => removeLanguage('known', lang.id)} style={styles.removeLanguage}>&times;</div>
                 }
+                {levelNotSelectedError && lang.language && !lang.level &&
+                  <FontAwesome style={styles.levelError} name='exclamation-circle' />
+                }
               </div>
             )
           })}
@@ -119,9 +127,10 @@ ManageLanguages.propTypes = {
   availableLanguages: PropTypes.array,
   controlled: PropTypes.bool,
   doNotCenterAlign: PropTypes.bool,
-  learningLanguages: PropTypes.array,
   knownLanguages: PropTypes.array,
   learningLevels: PropTypes.bool,
+  learningLanguages: PropTypes.array,
+  levelNotSelectedError: PropTypes.bool,
   knownLevels: PropTypes.bool,
   removeLanguage: PropTypes.func,
   t: PropTypes.func,

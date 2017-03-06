@@ -1,3 +1,5 @@
+import { sunsetOrange } from 'styles/colors'
+
 export default {
   moduleContainer: {
     maxWidth: 480,
@@ -20,6 +22,19 @@ export default {
     position: 'absolute',
     top: 5,
     right: 0,
+  },
+  levelError: {
+    width: 18,
+    height: 18,
+    lineHeight: '18px',
+    color: sunsetOrange,
+    background: 'white',
+    borderRadius: '50%',
+    fontSize: 17,
+    cursor: 'pointer',
+    position: 'absolute',
+    top: 8,
+    right: -4,
   },
   textInput: {
     verticalAlign: 'middle',
