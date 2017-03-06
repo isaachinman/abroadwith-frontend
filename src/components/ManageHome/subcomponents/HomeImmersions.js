@@ -178,7 +178,7 @@ export default class HomeImmersions extends Component {
   distributeTandemDiscount = (inputObject, cb) => {
 
     // Only proceed if there is indeed a global discount to apply
-    if (inputObject.discount) {
+    if (inputObject.discount && inputObject.languagesInterested) {
       const discount = inputObject.discount
       const tandem = Object.assign({}, inputObject, {
         languagesInterested: inputObject.languagesInterested.map(lang => {
