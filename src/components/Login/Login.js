@@ -1,5 +1,6 @@
 // Absolute imports
 import { Alert, Button, Col, Form, FormGroup, FormControl, InputGroup, Row } from 'react-bootstrap'
+import config from 'config'
 import { connect } from 'react-redux'
 import { closeLoginModal, openStudentSignupModal, openResetPasswordModal } from 'redux/modules/ui/modals'
 import { validateExists, validatePassword } from 'utils/validation'
@@ -143,7 +144,7 @@ export default class Login extends Component {
         <Row>
           <Col xs={12} sm={compact ? 12 : 8} smOffset={compact ? 0 : 2}>
             <FacebookLogin
-              appId='144997212531478'
+              appId={config.facebookAppID}
               callback={this.handleFacebookLogin}
               cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-facebook-login'
               fields='name,email,birthday'
