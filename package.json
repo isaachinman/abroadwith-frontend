@@ -10,6 +10,7 @@
   },
   "main": "bin/server.js",
   "scripts": {
+    "deploy": "better-npm-run deploy",
     "setup": "mkdir build && mkdir build/locales && mkdir build/currency-rates && npm i",
     "start-integration": "pm2 start ecosystem/integration.json",
     "start-production": "pm2 start ecosystem/production.json",
@@ -31,8 +32,7 @@
         "IMG": "S3",
         "SOLR": "DEV",
         "APIHOST": "https://api.test-abroadwith.com",
-        "APIPORT": 443,
-        "FACEBOOK_APP_ID": "144997212531478"
+        "APIPORT": 443
       }
     },
     "watch-client": {
@@ -45,12 +45,17 @@
         "IMG": "S3",
         "SOLR": "DEV",
         "APIHOST": "https://api.test-abroadwith.com",
-        "APIPORT": 443,
-        "FACEBOOK_APP_ID": "144997212531478"
+        "APIPORT": 443
       }
     },
     "build": {
       "command": "webpack --json > build/stats.json --verbose --colors --display-error-details --config config/prod.config.js && rm -rf build/dist && mv build/dist-new build/dist",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "deploy": {
+      "command": "bash ./config/scripts/deploy-main-platform.sh",
       "env": {
         "NODE_ENV": "production"
       }
@@ -169,6 +174,7 @@
     "happypack": "^3.0.2",
     "json-loader": "^0.5.4",
     "node-sass": "^3.4.2",
+    "progress-bar-webpack-plugin": "^1.9.3",
     "react-a11y": "^0.3.3",
     "react-addons-perf": "^15.4.2",
     "react-addons-test-utils": "^15.3.0",
