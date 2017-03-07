@@ -1,7 +1,9 @@
 import config from 'config.js'
+import i18n from 'i18next'
 import jwtDecode from 'jwt-decode'
 import superagent from 'superagent'
 import { logout } from 'redux/modules/auth'
+import notification from 'antd/lib/notification'
 
 // Login stuff
 const DELETE_USER = 'auth/DELETE_USER'
@@ -52,6 +54,16 @@ export function deleteUser(jwt) {
         if (err) {
 
           dispatch({ type: DELETE_USER_FAIL, err })
+
+          // Users who have approved bookings cannot delete their accounts
+          if (err.statusCode === 409) {
+            notification.warning({
+              key: 'cannotDeleteUserAccount',
+              duration: 10,
+              message: i18n.t('admin.user_deletion_failure_title'),
+              description: i18n.t('admin.user_deletion_failure_paragraph1'),
+            })
+          }
 
         } else {
 

@@ -100,6 +100,7 @@ export default (store) => {
   // --------------------------------------------------------------------------------
   // Lazy loaded routes: some routes should only be loaded if needed
   // The third argument require.ensure takes is the name of the chunk
+  // This can probably be abstracted in some way instead of so much boilerplate
   // --------------------------------------------------------------------------------
   const getBookHomestay = (nextState, cb) => {
     require.ensure([], require => {
