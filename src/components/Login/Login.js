@@ -138,8 +138,6 @@ export default class Login extends Component {
       password,
     } = this.state.validatedFields
 
-    console.log(this)
-
     return (
       <div style={styles.loginPanel}>
         <Row>
@@ -204,9 +202,13 @@ export default class Login extends Component {
               </InputGroup>
               <a style={{ fontSize: 12 }} className='pull-right' onClick={this.handleGoToResetPassword}>{t('common.forgot_password')}</a>
             </Col>
-            <Col sm={12}>
-              {password.message}
-            </Col>
+            {password.message &&
+              <Col xs={12}>
+                <Alert bsStyle='danger'>
+                  {t(`common.password_validation_messages.${password.message}`)}
+                </Alert>
+              </Col>
+            }
           </FormGroup>
 
           <FormGroup>

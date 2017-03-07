@@ -129,9 +129,7 @@ export default class Signup extends Component {
   }
 
   handleLanguagesNotValidBtnClick = () => {
-    console.log('clicked')
     if (this.state.knownLanguages.some(lang => !lang.level)) {
-      console.log('evaluated true')
       this.setState({ languageLevelsNotValid: true })
     }
   }
