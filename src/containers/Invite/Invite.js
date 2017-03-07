@@ -3,6 +3,7 @@ import { Button, Col, Grid, Row, Panel, FormControl } from 'react-bootstrap'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
+import { StaticHero } from 'components'
 import { translate } from 'react-i18next'
 
 // Relative imports
@@ -26,16 +27,15 @@ export default class Invite extends Component {
     const { jwt, t } = this.props
     return (
 
-      <div style={styles.loginPage}>
+      <div>
         <Helmet title={t('invite.title')} />
+        <StaticHero
+          title={t('invite.title')}
+          subtitle={t('invite.subtitle') + '*'}
+          image='/app/hero/hero_invite.jpeg'
+        />
         <Grid>
-          <Row>
-            <Col xs={12}>
-              <h1 className='header-green'>{t('invite.title')}</h1>
-              <h5 className='text-muted'>{t('invite.subtitle')}*</h5>
-            </Col>
-          </Row>
-          <Row>
+          <Row style={styles.topRow}>
             <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
               <Panel>
                 <Row>
@@ -64,8 +64,6 @@ export default class Invite extends Component {
                 </Row>
               </Panel>
             </Col>
-          </Row>
-          <Row>
             <Col xs={12}>
               <small className='text-muted'>*{t('invite.disclaimer')}</small>
             </Col>
