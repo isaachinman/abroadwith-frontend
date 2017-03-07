@@ -397,6 +397,7 @@ export default class Signup extends Component {
                   appId='144997212531478'
                   callback={response => this.signup('facebook', response)}
                   cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-facebook-login'
+                  scope='public_profile, email, user_birthday'
                   fields='first_name,last_name,email,birthday'
                   textButton={t('common.sign_up_facebook')}
                   icon='fa-facebook-square'
