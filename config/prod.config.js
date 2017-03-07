@@ -16,6 +16,9 @@ var assetsPath = path.resolve(projectRootPath, './build/dist-new')
 // Compress assets at build time, not runtime
 var CompressionPlugin = require('compression-webpack-plugin')
 
+// Progress bar
+var ProgressBarPlugin = require('progress-bar-webpack-plugin')
+
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'))
@@ -61,6 +64,9 @@ module.exports = {
     extensions: ['', '.json', '.js', '.jsx']
   },
   plugins: [
+
+    // Progress bar
+    new ProgressBarPlugin(),
 
     // Ignore MomentJs locales
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /de|en|es/),

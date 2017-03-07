@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "abroadwith-frontend",
+      "name": "main-platform",
       "script": "./bin/server.js",
       "instances": 1,
       "exec_mode": "cluster",
