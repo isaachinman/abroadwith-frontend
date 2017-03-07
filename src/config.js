@@ -33,6 +33,7 @@ if (typeof window === 'undefined') {
     port: process.env.PORT || 3000,
     apiHost: process.env.APIHOST || 'https://api.test-abroadwith.com',
     apiPort: process.env.APIPORT || 443,
+    cookieDomain: process.env.NODE_ENV === 'production' ? '.abroadwith.com' : '.test-abroadwith.com',
     app: {
       title: 'Abroadwith',
       head: {
