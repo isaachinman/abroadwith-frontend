@@ -135,7 +135,7 @@ export default class Thread extends Component {
                         value={this.state.newMessage}
                         componentClass='textarea'
                         style={styles.messageInput}
-                        placeholder={t('common.First_name')}
+                        placeholder={t('inbox.input_placeholder')}
                         onChange={event => this.handleTextareaChange(event.target.value)}
                       />
                       <Button onClick={this.sendMessage} bsStyle='success' style={styles.sendBtn}>{t('inbox.message_modal_btn')}</Button>

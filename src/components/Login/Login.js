@@ -202,7 +202,7 @@ export default class Login extends Component {
               </InputGroup>
               <a style={{ fontSize: 12 }} className='pull-right' onClick={this.handleGoToResetPassword}>{t('common.forgot_password')}</a>
             </Col>
-            {password.message &&
+            {password.message && password.message.length > 0 &&
               <Col xs={12}>
                 <Alert bsStyle='danger'>
                   {t(`common.password_validation_messages.${password.message}`)}
