@@ -24,6 +24,7 @@ export default {
   },
   diagonal: {
     position: 'absolute',
+    zIndex: 1,
     top: 460,
     left: 15,
     width: 280,
@@ -44,6 +45,7 @@ export default {
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     position: 'absolute',
+    zIndex: 2,
     top: 380,
     left: 30,
     boxShadow: '5px 5px 12px 0 rgba(0,0,0,0.15)',

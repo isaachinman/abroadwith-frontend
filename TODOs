@@ -9,6 +9,3 @@
 
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
-
-// Receipts
-1. Language course receipt needs to be built out
