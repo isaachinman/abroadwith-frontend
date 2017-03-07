@@ -24,4 +24,4 @@ Then do one of the following, depending on desired environment:
 
 
 
-*Requires global installation of `pm2 2.4.0`
+*Requires global installation of `pm2 (latest)`

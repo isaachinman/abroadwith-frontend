@@ -1,5 +1,4 @@
 // NB: Logs are in UTC time
-
 import moment from 'moment'
 
 const winston = require('winston')

@@ -1,8 +1,8 @@
 # Images
 
-This project uses webpack in a relatively conservative way - only for the management of css/scss and JavaScript. Using webpack to manage images is not a good idea.
+This project uses webpack in a relatively conservative way - only for the management of css/scss and JavaScript. Using webpack to manage images is not a good idea (in my opinion/experience).
 
-### Methodology
+## Methodology
 
 Images are stored in S3 buckets, one for integration, one for production.
 
@@ -30,4 +30,4 @@ We have a highly-optimised image pipeline in our production environment, so it i
   }
   ```
 
-This is of high importance, as approximately half the bandwidth transmitted from this project is images.
+This is of high importance, as approximately half the bandwidth transmitted by our frontend is image data.

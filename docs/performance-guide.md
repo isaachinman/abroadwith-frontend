@@ -32,10 +32,6 @@ Sometimes, functions are called frequently/regularly enough to warrant memoisati
 
 Despite that, I haven't gone crazy with memoisation.
 
-## Caching
-
-TODO: write about caching public routes via express
-
 ## Error Handling
 
 TODO: Write about winston transport to S3 bucket with /clientside-error endpoint etc
