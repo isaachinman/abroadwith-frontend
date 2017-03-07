@@ -123,11 +123,10 @@ export default class HomestayBooking extends Component {
     // Pending and Approved bookings in the future are actionable
     const isActionable = (isApproved || isPending) && moment(booking.arrivalDate).isAfter(moment())
 
+    // Only specific statuses have receipts
     const hasReceipt = isApproved || isCancelled
 
     const currencySymbol = Currencies[booking.chargesCurrency]
-
-    console.log(this)
 
     return (
       <div style={{ marginBottom: 60 }}>

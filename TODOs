@@ -5,6 +5,7 @@
     - Authorised requests: (token, data, options)
     - Unauthorised requests: (data, options)
 3. The layout of the homes and users reducers are unintuitive and could use refactoring, or renaming at the least
+4. Refactoring getComponents in routes/index.js
 
 // Search
 1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
