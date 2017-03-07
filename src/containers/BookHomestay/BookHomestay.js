@@ -68,22 +68,11 @@ export default class BookHomestay extends Component {
 
   componentDidMount = () => {
 
-    const { dispatch, token, potentialBooking, potentialBookingHelpers, upsellSearch } = this.props
-
     // Ensure the page is scrolled all the way up
     scrollToTopOfPage()
 
     // Perform course upsell search
-    dispatch(performCourseUpsellSearch(token, Object.assign({}, upsellSearch.params, {
-      centerPoint: {
-        lat: potentialBookingHelpers.homeLat,
-        lng: potentialBookingHelpers.homeLng,
-      },
-      currency: potentialBooking.currency,
-      language: potentialBooking.languageHostWillTeach,
-      startDate: potentialBooking.arrivalDate,
-      endDate: potentialBooking.departureDate,
-    })))
+    this.performCourseUpsellSearch()
 
   }
 
@@ -109,6 +98,22 @@ export default class BookHomestay extends Component {
       window.scrollTo(0, 0)
 
     }
+  }
+
+  performCourseUpsellSearch = () => {
+
+    const { dispatch, token, potentialBooking, potentialBookingHelpers, upsellSearch } = this.props
+
+    dispatch(performCourseUpsellSearch(token, Object.assign({}, upsellSearch.params, {
+      centerPoint: {
+        lat: potentialBookingHelpers.homeLat,
+        lng: potentialBookingHelpers.homeLng,
+      },
+      currency: potentialBooking.currency,
+      language: potentialBooking.languageHostWillTeach,
+      startDate: potentialBooking.arrivalDate,
+      endDate: potentialBooking.departureDate,
+    })))
   }
 
   updateUserCountry = country => {
@@ -149,6 +154,12 @@ export default class BookHomestay extends Component {
     const { dispatch, potentialBooking } = this.props
     const newPotentialBooking = Object.assign({}, potentialBooking, { [field]: value })
     dispatch(updatePotentialHomestayBooking(newPotentialBooking))
+
+    // If the learning language just changed, retrigger course search
+    if (field === 'languageHostWillTeach') {
+      this.performCourseUpsellSearch()
+    }
+
   }
 
   calculatePrice = overrideCurrency => {

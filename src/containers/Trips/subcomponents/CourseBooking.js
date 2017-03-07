@@ -115,13 +115,16 @@ export default class CourseBooking extends Component {
 
     // Luckily these things are at least named consistently
     const isApproved = booking.status.indexOf('APPROVED') > -1
-    // const isCancelled = booking.status.indexOf('CANCELLED') > -1
+    const isCancelled = booking.status.indexOf('CANCELLED') > -1
     // const isDeclined = booking.status.indexOf('DECLINED') > -1
     // const isPending = booking.status.indexOf('PENDING') > -1
 
     // Pending and Approved bookings in the future are actionable
     // const isActionable = (isApproved || isPending) && moment(booking.startDate).isAfter(moment())
     const isActionable = false // Currently students cannot cancel course bookings
+
+    // Only specific statuses have receipts
+    const hasReceipt = isApproved || isCancelled
 
     return (
       <div style={{ marginBottom: 60 }}>
@@ -164,11 +167,12 @@ export default class CourseBooking extends Component {
               <Col xs={12} md={6} style={styles.infoSectionTop}>
                 <h4 className='text-muted'>{t('trips.status')}</h4>
                 <strong>{t(`trips.status_codes.${booking.status}`)}</strong>
-
-                <p><Link to={`/receipt/course/${booking.id}`}>{t('trips.view_receipt')}</Link></p>
+                {hasReceipt &&
+                  <p><Link to={`/receipt/course/student/${booking.id}`}>{t('trips.view_receipt')}</Link></p>
+                }
                 {booking.invoiceIds && booking.invoiceIds.length > 0 &&
                   <p>
-                    {t('trips.invoices')}: {booking.invoiceIds.map(id => <Link to={`/invoice/${id}`} key={`invoice-${id}`}>{t('trips.invoice')} #{id}{booking.invoiceIds.indexOf(id) !== booking.invoiceIds.length - 1 && <span>,&nbsp;</span>}</Link>)}
+                    {t('trips.invoices')}: {booking.invoiceIds.map(id => <Link to={`/invoice/course/student/${id}`} key={`invoice-${id}`}>{t('trips.invoice')} #{id}{booking.invoiceIds.indexOf(id) !== booking.invoiceIds.length - 1 && <span>,&nbsp;</span>}</Link>)}
                   </p>
                 }
                 {isActionable &&

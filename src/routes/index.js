@@ -131,6 +131,11 @@ export default (store) => {
       cb(null, require('../containers/Invite/Invite'))
     }, 'invite')
   }
+  const getInvoiceCourse = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/InvoiceCourse/InvoiceCourse'))
+    }, 'invoice')
+  }
   const getInvoiceHomestay = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/InvoiceHomestay/InvoiceHomestay'))
@@ -160,6 +165,11 @@ export default (store) => {
     require.ensure([], require => {
       cb(null, require('../containers/PrivacyPolicy/PrivacyPolicy'))
     }, 'privacy-policy')
+  }
+  const getReceiptCourse = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/ReceiptCourse/ReceiptCourse'))
+    }, 'receipt')
   }
   const getReceiptHomestay = (nextState, cb) => {
     require.ensure([], require => {
@@ -253,11 +263,13 @@ export default (store) => {
               <Route path='edit-profile' getComponent={getUserProfileEdit} />
               <Route path='inbox' getComponent={getInbox} />
               <Route path='invite' getComponent={getInvite} />
+              <Route path='invoice/course/student/:invoiceID' getComponent={getInvoiceCourse} />
               <Route path='invoice/homestay/host/:invoiceID' getComponent={getInvoiceHomestay} />
               <Route path='invoice/homestay/student/:invoiceID' getComponent={getInvoiceHomestay} />
               <Route path='login-success' component={LoginSuccess} />
               <Route path='manage-home' getComponent={getManageHomeLandingPage} onEnter={singleHomeRedirect} />
               <Route path='manage-home/:homeID' getComponent={getManageHome} />
+              <Route path='receipt/course/student/:bookingID' getComponent={getReceiptCourse} />
               <Route path='receipt/homestay/host/:bookingID' getComponent={getReceiptHomestay} />
               <Route path='receipt/homestay/student/:bookingID' getComponent={getReceiptHomestay} />
               <Route path='reservations' getComponent={getReservations} />

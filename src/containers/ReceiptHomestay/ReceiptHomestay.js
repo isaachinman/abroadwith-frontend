@@ -5,7 +5,7 @@ import config from 'config'
 import Currencies from 'data/constants/Currencies'
 import { Alert, Button, Col, Panel, Row, Grid } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { loadReceipt } from 'redux/modules/privateData/receipts/receipts'
+import { loadHomestayReceipt } from 'redux/modules/privateData/receipts/receipts'
 import { Link } from 'react-router'
 import Helmet from 'react-helmet'
 import HomestayBookingStatusCodes from 'data/constants/HomestayBookingStatusCodes'
@@ -20,13 +20,13 @@ import styles from './ReceiptHomestay.styles'
   deferred: false,
   promise: ({ params, store: { dispatch, getState } }) => {
 
-    return Promise.resolve(dispatch(loadReceipt(getState().auth.token, params.bookingID)))
+    return Promise.resolve(dispatch(loadHomestayReceipt(getState().auth.token, params.bookingID)))
 
   },
 }])
 @connect(
   (state, ownProps) => ({
-    reservation: state.privateData.receipts[ownProps.params.bookingID].booking,
+    reservation: state.privateData.receipts[`h${ownProps.params.bookingID}`].booking,
   })
 )
 @translate()
@@ -167,7 +167,7 @@ export default class ReceiptHomestay extends Component {
                     <Col xs={6}>
                       <strong>{t('trips.invoices')}:</strong> {reservation.invoiceIds.length > 0 ? reservation.invoiceIds.map(invoice => {
                         return (
-                          <Link key={`invoicelink${invoice}`} to={`/invoice/${invoice}`}> {t('trips.invoice')} #{invoice}</Link>
+                          <Link key={`invoicelink${invoice}`} to={`/invoice/homestay/student/${invoice}`}> {t('trips.invoice')} #{invoice}</Link>
                         )
                       }) : <span> {t('trips.not_applicable')}</span>}
                     </Col>
