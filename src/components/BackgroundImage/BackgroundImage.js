@@ -4,20 +4,14 @@ import config from 'config'
 
 export default class BackgroundImage extends Component {
 
-  state = { loaded: false }
-
-  onLoad = () => this.setState({ loaded: true })
-
   render() {
-
-    const { loaded } = this.state
 
     const combinedStyles = Object.assign({}, this.props.styles, {
       backgroundColor: 'rgba(0,0,0,.075)',
       position: 'relative',
       transition: 'opacity 0.25s',
-      opacity: loaded ? 1 : 0,
-      backgroundImage: this.props.src ? 'url(' + config.img + (this.props.src).split('?')[0] + '?w=' + this.props.maxWidth + ')' : '',
+      opacity: 1,
+      backgroundImage: 'url(' + config.img + (this.props.src).split('?')[0] + '?w=' + this.props.maxWidth + ')',
     })
 
     return (
