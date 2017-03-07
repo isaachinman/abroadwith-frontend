@@ -34,6 +34,7 @@ if (typeof window === 'undefined') {
     apiHost: process.env.APIHOST || 'https://api.test-abroadwith.com',
     apiPort: process.env.APIPORT || 443,
     cookieDomain: process.env.NODE_ENV === 'production' ? '.abroadwith.com' : '.test-abroadwith.com',
+    facebookAppID: process.env.NODE_ENV === 'production' ? '144948059203060' : '144997212531478',
     app: {
       title: 'Abroadwith',
       head: {

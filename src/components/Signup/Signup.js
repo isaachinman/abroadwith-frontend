@@ -1,6 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { Alert, Button, Col, FormGroup, FormControl, OverlayTrigger, Panel, Tooltip, Row } from 'react-bootstrap'
+import config from 'config'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { ManageLanguages } from 'components'
@@ -394,7 +395,7 @@ export default class Signup extends Component {
             <Row>
               <Col xs={12}>
                 <FacebookLogin
-                  appId='144997212531478'
+                  appId={config.facebookAppID}
                   callback={response => this.signup('facebook', response)}
                   cssClass='btn btn-block btn-lg btn-default btn-with-icon btn-facebook-login'
                   scope='public_profile, email, user_birthday'
