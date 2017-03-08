@@ -1,8 +1,11 @@
+// Absolute imports
 import React from 'react'
 import { IndexRoute, Redirect, Route } from 'react-router'
 import { isLoaded as isAuthLoaded } from 'redux/modules/auth'
 import { hideFooter, showFooter } from 'redux/modules/ui/footer'
 import UILanguages from 'data/constants/UILanguages'
+
+// Public routes (included in main bundle)
 import {
     AbroadwithForHosts,
     AbroadwithForStudents,
@@ -24,8 +27,14 @@ import {
 export default (store) => {
 
   // Hide and show footer based on route
-  const noFooterEnter = liftedStore => liftedStore.dispatch(hideFooter())
-  const noFooterLeave = liftedStore => liftedStore.dispatch(showFooter())
+  const noFooterEnter = liftedStore => {
+    console.log('Hide Footer')
+    liftedStore.dispatch(hideFooter())
+  }
+  const noFooterLeave = liftedStore => {
+    console.log('Show Footer')
+    liftedStore.dispatch(showFooter())
+  }
 
   // Locale subpath redirection
   const checkLocaleEnter = (nextState, replace, cb) => {
@@ -85,16 +94,20 @@ export default (store) => {
 
   // Simple auth check for logged-in pages
   const requireLogin = (nextState, replace) => {
+
     function checkAuth() {
-      const { auth: { jwt } } = store.getState()
-      if (!jwt) {
+      if (!store.getState().auth.jwt) {
+
         // User is not logged in, and will get bounced to homepage
         replace('/')
+
       }
     }
+
     if (!isAuthLoaded(store.getState())) {
       checkAuth()
     }
+
   }
 
   // --------------------------------------------------------------------------------
@@ -289,6 +302,7 @@ export default (store) => {
             <Route
               path='language-homestay/search'
               onEnter={() => noFooterEnter(store)}
+              onChange={() => noFooterEnter(store)}
               onLeave={() => noFooterLeave(store)}
               component={SearchHomestays}
             />
