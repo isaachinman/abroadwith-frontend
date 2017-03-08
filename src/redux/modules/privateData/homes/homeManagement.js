@@ -52,12 +52,19 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 export function createHomestay(jwt, user, redirectToManageHome) {
+
   return async dispatch => {
 
     dispatch(showLoading())
     dispatch({ type: CREATE_HOMESTAY })
 
     try {
+
+      // Non MULTI-type users are not allowed to create multiple homes
+      if (user.homeIds.length > 0 && user.feUserType.indexOf('MULTI') === -1) {
+        dispatch(hideLoading())
+        return dispatch(push('/manage-home'))
+      }
 
       dispatch(loadUserWithAuth(jwt, response => {
 

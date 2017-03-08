@@ -9,6 +9,7 @@ import { translate } from 'react-i18next'
 import { openHostSignupModal } from 'redux/modules/ui/modals'
 import { scrollToTopOfPage } from 'utils/scrolling'
 import { StaticHero, Testimonial } from 'components'
+import { push } from 'react-router-redux'
 
 // Relative imports
 import styles from './AbroadwithForHosts.styles'
@@ -26,7 +27,13 @@ export default class AbroadwithForHosts extends Component {
   handleBecomeAHostClick = () => {
     const { dispatch, jwt, token, user } = this.props
     if (jwt && user.data) {
-      dispatch(createHomestay(token, user.data, true))
+
+      if (user.data.homeIds.length === 0) {
+        dispatch(createHomestay(token, user.data, true))
+      } else {
+        dispatch(push('/manage-home'))
+      }
+
     } else {
       dispatch(openHostSignupModal())
     }
