@@ -9,12 +9,12 @@ import { apiDate } from 'utils/dates'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { DateRangePicker } from 'components'
-import equal from 'deep-is'
 import i18n from 'i18n/i18n-client'
 import { SimpleSelect as Select } from 'react-selectize'
 import MapBounds from 'data/constants/MapBounds'
 import moment from 'moment'
 import Radium from 'radium'
+import shallowCompare from 'react-addons-shallow-compare'
 import { translate } from 'react-i18next'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import { updateRoomSearchParams, performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
@@ -44,8 +44,8 @@ export default class InlineSearchUnit extends Component {
     loadingAnimation: false,
   }
 
-  shouldComponentUpdate(nextProps) {
-    return !equal(this.props.homestaySearch, nextProps.homestaySearch)
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
   }
 
   handleValueChange = (field, value) => {
@@ -166,6 +166,8 @@ export default class InlineSearchUnit extends Component {
     if (shadow) {
       topLevelClassName += ' shadow'
     }
+
+    console.log('rendering: ', uiLanguage)
 
     return (
       <div style={loadingAnimation ? animation.pulseOpposite : null} className={topLevelClassName}>
