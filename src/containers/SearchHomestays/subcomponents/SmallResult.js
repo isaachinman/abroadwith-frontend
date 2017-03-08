@@ -41,6 +41,7 @@ export default class SmallResult extends Component {
         <Carousel
           indicators={false}
           interval={0}
+          slide={false}
           style={styles.searchResultCarousel}
           prevIcon={<FontAwesome style={styles.carouselIcon} name='angle-left' />}
           nextIcon={<FontAwesome style={styles.carouselIcon} name='angle-right' />}

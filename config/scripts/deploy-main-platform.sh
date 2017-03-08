@@ -21,7 +21,7 @@ echo ""
 echo "------------------------ Updating dependencies ---------------------------"
 
 echo ""
-npm i &&
+npm prune --production=false && npm i &&
 echo "Update complete √"
 echo ""
 

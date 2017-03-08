@@ -7,5 +7,5 @@
 3. The layout of the homes and users reducers are unintuitive and could use refactoring, or renaming at the least
 4. Refactoring getComponents in routes/index.js
 
-// Search
-1. Change image carousels to slide={false} once the react-bootstrap guys merge PR
+// Homepage
+1. Title in hero jumps from top to center onload
