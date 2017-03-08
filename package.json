@@ -15,7 +15,6 @@
     "start-integration": "pm2 start ecosystem/integration.json",
     "start-production": "pm2 start ecosystem/production.json",
     "build": "better-npm-run build",
-    "postinstall": "npm run build",
     "lint": "eslint src --fix",
     "start-dev": "better-npm-run start-dev",
     "watch-client": "better-npm-run watch-client",

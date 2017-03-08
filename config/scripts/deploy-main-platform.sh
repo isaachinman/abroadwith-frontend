@@ -18,6 +18,13 @@ cd ../ && git pull &&
 echo "Pull complete √"
 echo ""
 
+echo "------------------------ Updating dependencies ---------------------------"
+
+echo ""
+npm i &&
+echo "Update complete √"
+echo ""
+
 echo "----------------------- Performing Webpack build -------------------------"
 
 echo ""
