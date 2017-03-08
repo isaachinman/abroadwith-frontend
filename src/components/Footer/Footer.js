@@ -2,7 +2,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { ContactUsForm } from 'components'
-import equal from 'deep-is'
 import { Grid, Modal, FormControl } from 'react-bootstrap'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
@@ -11,6 +10,7 @@ import { changeLocale } from 'redux/modules/ui/locale'
 import FontAwesome from 'react-fontawesome'
 import moment from 'moment'
 import Radium from 'radium'
+import shallowCompare from 'react-addons-shallow-compare'
 import UILanguages from 'data/constants/UILanguages'
 
 // Relative imports
@@ -30,11 +30,8 @@ export default class Footer extends Component {
     contactModalOpen: false,
   }
 
-  shouldComponentUpdate = (nextProps, nextState) => {
-    if (!equal(this.props, nextProps) || !equal(this.state, nextState)) {
-      return true
-    }
-    return false
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
   }
 
   openContactModal = () => this.setState({ contactModalOpen: true })
