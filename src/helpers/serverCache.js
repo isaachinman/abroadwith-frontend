@@ -1,3 +1,4 @@
+import logger from 'helpers/logger'
 import UILanguages from 'data/constants/UILanguages'
 
 const mcache = require('memory-cache')
@@ -54,6 +55,17 @@ const cache = () => {
       // If the key already exists, send it down
       if (isOnRightLocaleSite && cachedBody) {
         res.send(cachedBody)
+
+        // Use of in-memory cache completely sidesteps the rest of the application, so we need to do logging here
+        // Log requests in production to S3 bucket
+        const loggedIn = typeof req.cookies.access_token === 'string'
+        logger.info({
+          type: 'Session initialisation',
+          routeRequested: req.originalUrl,
+          loggedIn,
+          jwt: loggedIn ? jwtDecode(req.cookies.access_token) : null,
+        })
+
         return
       }
 
