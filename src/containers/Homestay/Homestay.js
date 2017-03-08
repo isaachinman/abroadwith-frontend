@@ -62,7 +62,6 @@ import styles from './Homestay.styles'
 export default class Homestay extends Component {
 
   state = {
-    activeRoom: {},
     lightboxOpen: false,
     lightboxImage: 0,
     roomSelectionOpen: false,
@@ -73,7 +72,8 @@ export default class Homestay extends Component {
 
     const { dispatch, homestay, homestaySearch } = this.props
 
-    if (!homestaySearch.activeRoom) {
+    // If there is no active room, or if it belongs to another home, we need to reset
+    if (!homestaySearch.activeRoom || !homestay.data.rooms.some(room => room.id === homestaySearch.activeRoom)) {
       dispatch(updateActiveRoom(homestay.data.rooms[0].id))
     }
 
@@ -112,7 +112,6 @@ export default class Homestay extends Component {
     if (prevProps.newThread.loading && !this.props.newThread.loading) {
       this.closeSendMessageModal()
     }
-
 
   }
 
@@ -165,6 +164,9 @@ export default class Homestay extends Component {
 
     const { lightboxOpen, lightboxImage } = this.state
     const { activeRoom, currencyRates, error, homestay, homestaySearch, host, loading, uiCurrency, t, token } = this.props
+
+    // In some cases, this render will occur with an active room from another home, return out
+    if (!homestay.data.rooms.some(room => room.id === homestaySearch.activeRoom)) return null
 
     const activeRoomObj = homestay.data && activeRoom ? homestay.data.rooms.filter(room => room.id === activeRoom)[0] : {}
     const currencySymbol = Currencies[uiCurrency]
