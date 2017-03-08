@@ -53,4 +53,6 @@ But, `package.json` and the `ecosystem` dir should live at the top level, so tha
 
 Shared components and utils might be a bit tricky when it comes to path resolution. Might need a top-level `resolve.paths.js`.
 
+Having a shared node_modules will greatly reduce the total dep size by reusing source code for both sets of bundles.
+
 This part of the document is a WIP and I will add my ideas here as they come to me.
