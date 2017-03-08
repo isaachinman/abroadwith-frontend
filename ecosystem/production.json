@@ -5,7 +5,8 @@
       "script": "./bin/server.js",
       "instances": 4,
       "exec_mode": "cluster",
-      "min_uptime" : "120s",
+      "min_uptime": "2m",
+      "listen_timeout": 120000,
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",

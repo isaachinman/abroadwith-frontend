@@ -1,9 +1,14 @@
+# Store the start time so we can compare against end time for duration
+start=`date +%s`
+
+# Notify of startup
 echo ""
 echo "--------------------------------------------------------------------------"
 echo "------------------ Starting main platform deployment ---------------------"
 echo "--------------------------------------------------------------------------"
 echo ""
 
+# Pull locales step
 echo "--------------------- Pulling locales repository -------------------------"
 
 echo ""
@@ -47,4 +52,18 @@ echo ""
 echo "Reload complete √"
 echo ""
 
+echo ""
+echo "-------------------------------- Ending ----------------------------------"
+echo ""
+
+end=`date +%s`
+
+rtS1="Deployment took "
+runtime=$((end-start))
+rtS2=" seconds"
+runtimeMessage=$rtS1$runtime$rtS2
+echo $runtimeMessage
+
+echo ""
 echo "-------------------------- Deployment complete ---------------------------"
+echo ""
