@@ -167,8 +167,6 @@ export default class InlineSearchUnit extends Component {
       topLevelClassName += ' shadow'
     }
 
-    console.log('rendering: ', uiLanguage)
-
     return (
       <div style={loadingAnimation ? animation.pulseOpposite : null} className={topLevelClassName}>
         <Typeahead

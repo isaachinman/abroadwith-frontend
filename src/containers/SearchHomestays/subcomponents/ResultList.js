@@ -20,8 +20,6 @@ export default class ResultList extends Component {
 
     const { currency, loaded, t, numberOfResults, results } = this.props
 
-    console.log('ResultList Rendering', this.props)
-
     return (
       <div>
         <div style={styles.resultListMinHeight}>

@@ -108,7 +108,7 @@
     "react-addons-shallow-compare": "^15.4.2",
     "react-animations": "^0.1.0",
     "react-big-calendar": "^0.12.3",
-    "react-bootstrap": "^0.30.7",
+    "react-bootstrap": "0.30.8",
     "react-bootstrap-typeahead": "^1.0.0-beta2",
     "react-dates": "6.1.0",
     "react-dom": "15.4.2",
