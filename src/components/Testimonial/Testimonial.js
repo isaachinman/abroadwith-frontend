@@ -21,6 +21,8 @@ const colorMap = {
   lola: 'green',
   julien: 'pink',
   jonathan: 'blue',
+  brian: 'green',
+  giulia: 'green',
 }
 
 // ID map (for links)
@@ -51,7 +53,10 @@ export default class Testimonial extends Component {
         </div>
         <div style={styles.content}>
           <h5 className={`header-${colorMap[person]}`}>{t(`testimonials.${type}_testimonials.${person}.subtitle`)}</h5>
-          <p>{t(`testimonials.${type}_testimonials.${person}.description`)}</p>
+          <p dangerouslySetInnerHTML={{
+            __html: t(`testimonials.${type}_testimonials.${person}.description`),
+          }}
+          />
           {type === 'host' &&
             <p>
               <Link to={`/${type === 'student' ? 'user' : 'homestay'}/${idMap[person]}`}>
