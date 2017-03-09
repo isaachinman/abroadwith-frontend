@@ -1,12 +1,7 @@
 import config from 'config'
-import { darkBlue, warmPurple } from 'styles/colors'
+import { darkBlue } from 'styles/colors'
 
 export default {
-  button: {
-    color: 'white',
-    borderColor: warmPurple,
-    background: warmPurple,
-  },
   hero: {
     position: 'relative',
     display: 'flex',
@@ -69,8 +64,39 @@ export default {
     padding: '3px 15px',
     margin: '5px 10px',
   },
+  popularCityContainer: {
+    padding: '15px 15px 0 15px',
+  },
   popularCityPanel: {
-    width: 300,
-    marginLeft: 30,
+    position: 'relative',
+    maxWidth: 400,
+    padding: 0,
+    border: 'none',
+  },
+  popularCityImg: {
+    position: 'relative',
+    zIndex: 0,
+    maxWidth: '100%',
+    borderRadius: 3,
+  },
+  popularCityImgMask: {
+    borderRadius: 3,
+    position: 'absolute',
+    zIndex: 1,
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: 'rgba(50,50,50,.15)',
+  },
+  popularCityTitle: {
+    color: 'white',
+    position: 'absolute',
+    zIndex: 2,
+    top: 'calc(50% - 40px)',
+    left: 0,
+    width: '100%',
+    textAlign: 'center',
+    textShadow: '1px 2px 2px rgba(0, 0, 0, .6)',
   },
 }
