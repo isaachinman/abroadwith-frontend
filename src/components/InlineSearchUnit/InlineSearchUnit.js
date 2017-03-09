@@ -5,11 +5,13 @@
 
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import { asyncConnect } from 'redux-connect'
 import { apiDate } from 'utils/dates'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { DateRangePicker } from 'components'
 import i18n from 'i18n/i18n-client'
+import { loadListOfCourseCities, loadListOfCourseLanguages } from 'redux/modules/ui/search/courseSearch'
 import { SimpleSelect as Select } from 'react-selectize'
 import MapBounds from 'data/constants/MapBounds'
 import moment from 'moment'
@@ -32,7 +34,25 @@ const animation = {
   },
 }
 
+@asyncConnect([{
+  deferred: false,
+  promise: ({ params, helpers }) => {
+
+    console.log('what')
+    Promise.resolve(console.log(params, helpers))
+
+    // const promises = []
+    //
+    // if (!isLoaded(getState(), params.homeID)) {
+    //   promises.push(dispatch(loadHomestay(params.homeID)))
+    // }
+    //
+    // return Promise.all(promises)
+
+  },
+}])
 @connect(state => ({
+  courseSearch: state.uiPersist.courseSearch,
   uiLanguage: state.ui.locale.value,
   homestaySearch: state.uiPersist.homestaySearch,
 }))
@@ -42,6 +62,24 @@ export default class InlineSearchUnit extends Component {
 
   state = {
     loadingAnimation: false,
+  }
+
+  componentDidMount = () => {
+
+    const { courseSearch, dispatch, type } = this.props
+
+    if (type === 'course') {
+
+      if (courseSearch.listOfCitiesAvailable.length === 0) {
+        dispatch(loadListOfCourseCities())
+      }
+
+      if (courseSearch.listOfLanguagesAvailable.length === 0) {
+        dispatch(loadListOfCourseLanguages())
+      }
+
+    }
+
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -148,10 +186,20 @@ export default class InlineSearchUnit extends Component {
 
   render() {
 
+    console.log('inside InlineSearchUnit')
+
     const { loadingAnimation } = this.state
-    const { homestaySearch, uiLanguage, standalone, integrated, shadow, t } = this.props
-    const searchLoading = homestaySearch.loading
-    const allLanguages = i18n.store.data[uiLanguage] ? Object.entries(i18n.store.data[uiLanguage].translation.languages).map(([id, label]) => ({ id, label })) : []
+    const { homestaySearch, uiLanguage, standalone, integrated, shadow, t, type } = this.props
+
+    const courseSearch = {} // MOCK DATA
+
+    const searchLoading = type === 'homestay' ? homestaySearch.loading : courseSearch.loading
+
+    let allLanguages = []
+
+    if (type === 'homestay' && i18n.store.data[uiLanguage]) {
+      allLanguages = Object.entries(i18n.store.data[uiLanguage].translation.languages).map(([id, label]) => ({ id, label }))
+    }
 
     let topLevelClassName = 'inline-search-unit'
 
@@ -221,6 +269,7 @@ export default class InlineSearchUnit extends Component {
 }
 
 InlineSearchUnit.propTypes = {
+  courseSearch: PropTypes.object,
   dispatch: PropTypes.func,
   homestaySearch: PropTypes.object,
   uiLanguage: PropTypes.string,
@@ -228,4 +277,5 @@ InlineSearchUnit.propTypes = {
   shadow: PropTypes.bool,
   integrated: PropTypes.bool,
   t: PropTypes.func,
+  type: PropTypes.string,
 }
