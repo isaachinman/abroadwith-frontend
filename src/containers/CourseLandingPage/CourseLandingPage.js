@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { babyBlue, freshGreen, saturatedPurple } from 'styles/colors'
 import { BackgroundColorBlock, InlineSearchUnit, Testimonial } from 'components'
 import { Button, Col, Grid, Panel, Row } from 'react-bootstrap'
+import config from 'config'
 import { connect } from 'react-redux'
 import equal from 'deep-is'
 import Helmet from 'react-helmet'
@@ -16,7 +17,7 @@ import { scrollToTopOfPage } from 'utils/scrolling'
 import styles from './CourseLandingPage.styles'
 
 // Popular cities
-const popularCities = ['barcelona', 'berlin', 'dublin', 'london', 'madrid', 'sevilla']
+const popularCities = ['barcelona', 'malaga', 'london', 'berlin', 'dublin', 'madrid', 'sevilla']
 
 @connect(state => ({
   homestaySearch: state.uiPersist.homestaySearch,
@@ -92,14 +93,16 @@ export default class CourseLandingPage extends Component {
             <Row>
               <Masonry
                 elementType={'ul'}
-                options={{ transitionDuration: 0 }}
-                style={{ listStyle: 'none' }}
+                options={{ transitionDuration: 0, fitWidth: true }}
+                className='masonry-grid'
               >
                 {popularCities.map(city => {
                   return (
-                    <li key={city} style={styles.popularCityPanel}>
-                      <Panel>
-                        <h4>{city}</h4>
+                    <li key={city} style={styles.popularCityContainer}>
+                      <Panel style={styles.popularCityPanel} className='popular-city-panel-course-landing-page'>
+                        <div style={styles.popularCityImgMask} />
+                        <img src={`${config.img}/app/courses_popular_cities/${city}.jpg`} alt={city} style={styles.popularCityImg} />
+                        <h4 style={styles.popularCityTitle}>{t(`courses_landing_page.popular_cities.${city}.title`)}</h4>
                       </Panel>
                     </li>
                   )

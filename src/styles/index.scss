@@ -661,3 +661,17 @@ select.form-control option{
     background: rgba(0,0,0,0.075);
   }
 }
+
+// Course landing page
+.popular-city-panel-course-landing-page {
+  .panel-body {
+    padding: 0;
+  }
+}
+
+// Masonry grid
+.masonry-grid {
+  list-style: none;
+  margin: 0 auto 60px auto;
+  -webkit-padding-start: 0px;
+}
