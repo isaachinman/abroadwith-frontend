@@ -78,6 +78,7 @@ export default {
     zIndex: 0,
     maxWidth: '100%',
     borderRadius: 3,
+    marginBottom: -1,
   },
   popularCityImgMask: {
     borderRadius: 3,
