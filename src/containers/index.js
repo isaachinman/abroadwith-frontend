@@ -8,6 +8,7 @@ export AbroadwithForStudents from './AbroadwithForStudents/AbroadwithForStudents
 export About from './About/About'
 export App from './App/App'
 export ContactUs from './ContactUs/ContactUs'
+export CourseLandingPage from './CourseLandingPage/CourseLandingPage'
 export Main from './Main/Main'
 export LoginPage from './LoginPage/LoginPage'
 export LoginSuccess from './LoginSuccess/LoginSuccess'
