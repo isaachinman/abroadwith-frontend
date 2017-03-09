@@ -51,7 +51,10 @@ export default class CourseLandingPage extends Component {
     howDoesItWorkModalOpen: false,
   }
 
-  componentDidMount = () => scrollToTopOfPage()
+  componentDidMount = () => {
+    scrollToTopOfPage()
+    this.masonry.layout()
+  }
 
   shouldComponentUpdate = (nextProps, nextState) => {
     if (!equal(this.props, nextProps) || !equal(this.state, nextState)) {
@@ -109,6 +112,7 @@ export default class CourseLandingPage extends Component {
             </Row>
             <Row>
               <Masonry
+                ref={c => this.masonry = this.masonry || c.masonry}
                 elementType={'ul'}
                 options={{ transitionDuration: 0, fitWidth: true }}
                 className='masonry-grid'
