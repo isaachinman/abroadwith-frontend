@@ -1,12 +1,25 @@
 import config from 'config'
+import moment from 'moment'
 import superagent from 'superagent'
 
-// Perform search
+// Perform upsell search
 const PERFORM_COURSE_UPSELL_SEARCH = 'abroadwith/PERFORM_COURSE_UPSELL_SEARCH'
 const PERFORM_COURSE_UPSELL_SEARCH_SUCCESS = 'abroadwith/PERFORM_COURSE_UPSELL_SEARCH_SUCCESS'
 const PERFORM_COURSE_UPSELL_SEARCH_FAIL = 'abroadwith/PERFORM_COURSE_UPSELL_SEARCH_FAIL'
 
+// Get list of cities available
+const LOAD_LIST_OF_COURSE_CITIES = 'abroadwith/LOAD_LIST_OF_COURSE_CITIES'
+const LOAD_LIST_OF_COURSE_CITIES_SUCCESS = 'abroadwith/LOAD_LIST_OF_COURSE_CITIES_SUCCESS'
+const LOAD_LIST_OF_COURSE_CITIES_FAIL = 'abroadwith/LOAD_LIST_OF_COURSE_CITIES_FAIL'
+
+// Get list of languages available
+const LOAD_LIST_OF_COURSE_LANGUAGES = 'abroadwith/LOAD_LIST_OF_COURSE_LANGUAGES'
+const LOAD_LIST_OF_COURSE_LANGUAGES_SUCCESS = 'abroadwith/LOAD_LIST_OF_COURSE_LANGUAGES_SUCCESS'
+const LOAD_LIST_OF_COURSE_LANGUAGES_FAIL = 'abroadwith/LOAD_LIST_OF_COURSE_LANGUAGES_FAIL'
+
 const initialState = {
+  listOfCitiesAvailable: [],
+  listOfLanguagesAvailable: [],
   upsellSearch: {
     params: {
       categories: [],
@@ -52,6 +65,17 @@ export default function reducer(state = initialState, action = {}) {
           error: action.error,
         }),
       }
+    case LOAD_LIST_OF_COURSE_CITIES_SUCCESS:
+      return {
+        ...state,
+        listOfCitiesAvailable: action.result,
+      }
+    case LOAD_LIST_OF_COURSE_LANGUAGES_SUCCESS:
+      console.log('language action: ', action)
+      return {
+        ...state,
+        listOfLanguagesAvailable: action.result,
+      }
     default:
       return state
   }
@@ -86,6 +110,163 @@ export function performCourseUpsellSearch(jwt, params) {
 
     } catch (err) {
       dispatch({ type: PERFORM_COURSE_UPSELL_SEARCH_FAIL, err })
+    }
+  }
+}
+
+// Currently, this function can only be called serverside due to CORS and insecure response issues from Solr
+export function loadListOfCourseCities() {
+
+  return async dispatch => {
+
+    dispatch({ type: LOAD_LIST_OF_COURSE_CITIES })
+
+    try {
+
+      return new Promise((resolve, reject) => {
+
+        // Behaviour is fundamentally different on server vs client
+        if (typeof window === 'undefined') {
+
+          const fs = require('fs') // eslint-disable-line
+
+          // If cities exist, and were fetched within the time limit, use them locally
+          if (fs.existsSync('build/course-data/cities.json') &&
+            fs.existsSync('build/course-data/cities.lock') &&
+            moment(fs.readFileSync('build/course-data/cities.lock', 'utf-8')).isAfter(moment())) {
+
+            resolve(dispatch({ type: LOAD_LIST_OF_COURSE_CITIES_SUCCESS, result: JSON.parse(fs.readFileSync('build/course-data/cities.json', 'utf-8')) }))
+
+          } else {
+
+            // Sometimes new course cities are added by the business team
+            // This application refreshes them every day (async depending on actual use)
+            const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_cities/select?q=*&wt=json`)
+            request.end((error, response = {}) => {
+
+              if (error) {
+
+                reject(dispatch({ type: LOAD_LIST_OF_COURSE_CITIES_FAIL, error }))
+
+              } else {
+
+                // GET was successful
+                const data = JSON.parse(response.text).response.docs
+
+                fs.writeFile('build/course-data/cities.json', JSON.stringify(data))
+                fs.writeFile('build/course-data/cities.lock', moment().add(1, 'days').toString()) // Adjust cache life here
+                resolve(dispatch({ type: LOAD_LIST_OF_COURSE_CITIES_SUCCESS, result: data }))
+
+              }
+
+            })
+
+          }
+
+        } else {
+
+          // Because of Solr's insecure/improper response, I've literally set up an endpoint that
+          // just runs the above action on the server and then returns it to client
+          const request = superagent.get('/public/course-cities')
+          request.end((error, response = {}) => {
+
+            if (error) {
+
+              reject(dispatch({ type: LOAD_LIST_OF_COURSE_CITIES_FAIL, error }))
+
+            } else {
+
+              resolve(dispatch({ type: LOAD_LIST_OF_COURSE_CITIES_SUCCESS, result: JSON.parse(response.text) }))
+
+            }
+
+          })
+
+        }
+
+      })
+
+    } catch (error) {
+      dispatch({ type: LOAD_LIST_OF_COURSE_CITIES_FAIL, error })
+    }
+  }
+}
+
+// Currently, this function can only be called serverside due to CORS and insecure response issues from Solr
+export function loadListOfCourseLanguages() {
+
+  return async dispatch => {
+
+    dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES })
+
+    try {
+
+      return new Promise((resolve, reject) => {
+
+        // Behaviour is fundamentally different on server vs client
+        if (typeof window === 'undefined') {
+
+          const fs = require('fs') // eslint-disable-line
+
+          // If cities exist, and were fetched within the time limit, use them locally
+          if (fs.existsSync('build/course-data/languages.json') &&
+            fs.existsSync('build/course-data/languages.lock') &&
+            moment(fs.readFileSync('build/course-data/languages.lock', 'utf-8')).isAfter(moment())) {
+
+            resolve(dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES_SUCCESS, result: JSON.parse(fs.readFileSync('build/course-data/languages.json', 'utf-8')) }))
+
+          } else {
+
+            // Sometimes new course languages are added by the business team
+            // This application refreshes them every day (async depending on actual use)
+            const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_courses/select?q=*&wt=json&fl=language&group=true&group.field=language`)
+            request.end((error, response = {}) => {
+
+              if (error) {
+
+                reject(dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES_FAIL, error }))
+
+              } else {
+
+                // GET was successful
+                const data = JSON.parse(response.text).grouped.language.groups.map(lang => lang.groupValue)
+
+                fs.writeFile('build/course-data/languages.json', JSON.stringify(data))
+                fs.writeFile('build/course-data/languages.lock', moment().add(1, 'days').toString()) // Adjust cache life here
+                resolve(dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES_SUCCESS, result: data }))
+
+              }
+
+            })
+
+          }
+
+        } else {
+
+          // Because of Solr's insecure/improper response, I've literally set up an endpoint that
+          // just runs the above action on the server and then returns it to client
+          const request = superagent.get('/public/course-languages')
+          request.end((error, response = {}) => {
+
+            if (error) {
+
+              reject(dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES_FAIL, error }))
+
+            } else {
+
+              console.log('LANGUAGE RESPONSE: ', response)
+              resolve(dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES_SUCCESS, result: JSON.parse(response.text) }))
+
+            }
+
+          })
+
+        }
+
+      })
+
+    } catch (error) {
+      dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES_FAIL, error })
     }
   }
 }

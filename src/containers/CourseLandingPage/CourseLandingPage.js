@@ -1,5 +1,6 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import { asyncConnect } from 'redux-connect'
 import { babyBlue, freshGreen, saturatedPurple } from 'styles/colors'
 import { BackgroundColorBlock, InlineSearchUnit, Testimonial } from 'components'
 import { Button, Col, Grid, Panel, Row } from 'react-bootstrap'
@@ -8,6 +9,7 @@ import { connect } from 'react-redux'
 import equal from 'deep-is'
 import Helmet from 'react-helmet'
 import { Link } from 'react-router'
+import { loadListOfCourseCities, loadListOfCourseLanguages } from 'redux/modules/ui/search/courseSearch'
 import Masonry from 'react-masonry-component'
 import { translate } from 'react-i18next'
 import Radium from 'radium'
@@ -19,6 +21,21 @@ import styles from './CourseLandingPage.styles'
 // Popular cities
 const popularCities = ['barcelona', 'malaga', 'london', 'berlin', 'dublin', 'madrid', 'sevilla']
 
+@asyncConnect([{
+  promise: ({ store: { dispatch } }) => {
+
+    const promises = []
+
+    // InlineSearchUnit will take care of fetching for itself clientside
+    if (!__CLIENT__) {
+      promises.push(dispatch(loadListOfCourseCities()))
+      promises.push(dispatch(loadListOfCourseLanguages()))
+    }
+
+    return Promise.all(promises)
+
+  },
+}])
 @connect(state => ({
   homestaySearch: state.uiPersist.homestaySearch,
   jwt: state.auth.jwt,
@@ -78,7 +95,7 @@ export default class CourseLandingPage extends Component {
           </Grid>
 
           <div style={styles.heroInputRow}>
-            <InlineSearchUnit standalone shadow />
+            <InlineSearchUnit type='course' standalone shadow />
           </div>
 
         </div>

@@ -122,6 +122,9 @@ export default class Navbar extends Component {
                     <LinkContainer to='/settings'>
                       <MenuItem>{t('common.navbar_settings')}</MenuItem>
                     </LinkContainer>
+                    <LinkContainer to='/language-courses'>
+                      <MenuItem>To language courses</MenuItem>
+                    </LinkContainer>
                     <MenuItem divider />
                     <MenuItem onSelect={this.handleLogout}>
                       {t('common.navbar_logout')}

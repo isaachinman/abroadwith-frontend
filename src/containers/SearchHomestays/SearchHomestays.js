@@ -255,7 +255,7 @@ export default class SearchHomestays extends Component {
               </div>
             </div>
             <div style={styles.inlineSearchUnit}>
-              <InlineSearchUnit integrated />
+              <InlineSearchUnit type='homestay' integrated />
             </div>
           </div>
           <div style={styles.resultScrollList} id='homestay-search-result-list'>

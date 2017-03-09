@@ -25,6 +25,8 @@ import UILanguages from 'data/constants/UILanguages'
 // Custom API imports
 import contactForm from 'helpers/api/contactForm'
 import errorHandler from 'helpers/api/errorHandler'
+import getCourseCities from 'helpers/api/getCourseCities'
+import getCourseLanguages from 'helpers/api/getCourseLanguages'
 import getRoomCalendar from 'helpers/api/getRoomCalendar'
 import logout from 'helpers/api/logout'
 import homestaySearch from 'helpers/api/homestaySearch'
@@ -74,7 +76,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Install custom API endpoints
-const customApiEndpoints = [contactForm, errorHandler, getRoomCalendar, logout, homestaySearch]
+const customApiEndpoints = [contactForm, errorHandler, getCourseCities, getCourseLanguages, getRoomCalendar, logout, homestaySearch]
 customApiEndpoints.map(endpoint => {
   endpoint(app)
 })
