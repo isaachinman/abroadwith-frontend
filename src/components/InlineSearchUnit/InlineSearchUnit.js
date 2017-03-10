@@ -5,13 +5,13 @@
 
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { asyncConnect } from 'redux-connect'
 import { apiDate } from 'utils/dates'
 import { connect } from 'react-redux'
+import CourseCategories from 'data/constants/CourseCategories'
 import { Button } from 'react-bootstrap'
 import { DateRangePicker } from 'components'
 import i18n from 'i18n/i18n-client'
-import { loadListOfCourseCities, loadListOfCourseLanguages } from 'redux/modules/ui/search/courseSearch'
+import { loadCourseCities, loadCourseLanguages, updateCourseSearchParams, performCourseSearch } from 'redux/modules/ui/search/courseSearch'
 import { SimpleSelect as Select } from 'react-selectize'
 import MapBounds from 'data/constants/MapBounds'
 import moment from 'moment'
@@ -34,23 +34,6 @@ const animation = {
   },
 }
 
-@asyncConnect([{
-  deferred: false,
-  promise: ({ params, helpers }) => {
-
-    console.log('what')
-    Promise.resolve(console.log(params, helpers))
-
-    // const promises = []
-    //
-    // if (!isLoaded(getState(), params.homeID)) {
-    //   promises.push(dispatch(loadHomestay(params.homeID)))
-    // }
-    //
-    // return Promise.all(promises)
-
-  },
-}])
 @connect(state => ({
   courseSearch: state.uiPersist.courseSearch,
   uiLanguage: state.ui.locale.value,
@@ -70,12 +53,12 @@ export default class InlineSearchUnit extends Component {
 
     if (type === 'course') {
 
-      if (courseSearch.listOfCitiesAvailable.length === 0) {
-        dispatch(loadListOfCourseCities())
+      if (courseSearch.citiesAvailable.length === 0) {
+        dispatch(loadCourseCities())
       }
 
-      if (courseSearch.listOfLanguagesAvailable.length === 0) {
-        dispatch(loadListOfCourseLanguages())
+      if (courseSearch.languagesAvailable.length === 0) {
+        dispatch(loadCourseLanguages())
       }
 
     }
@@ -88,8 +71,13 @@ export default class InlineSearchUnit extends Component {
 
   handleValueChange = (field, value) => {
 
-    const { dispatch, integrated } = this.props
-    const { params } = this.props.homestaySearch
+    const { dispatch, integrated, type } = this.props
+
+    // Keep all variables and functions flexible
+    const params = type === 'homestay' ? this.props.homestaySearch : this.props.courseSearch
+    const updateParams = type === 'homestay' ? updateRoomSearchParams : updateCourseSearchParams
+    const performSearch = type === 'homestay' ? performRoomSearch : performCourseSearch
+
     let newParams
 
     if (field === 'dates') {
@@ -102,52 +90,74 @@ export default class InlineSearchUnit extends Component {
 
     } else if (field === 'location') {
 
-      if (value !== null) {
+      console.log('inside location change function: ', value)
 
-        // The location input returns complex data
-        const { viewport, location } = value.geometry
+      if (value !== null) {
 
         let mapData = {}
 
-        // Larger places come with a viewport object from Google
-        if (viewport) {
+        if (type === 'homestay') {
 
-          mapData.bounds = {
-            maxLat: viewport.f.f,
-            maxLng: viewport.b.b,
-            minLat: viewport.f.b,
-            minLng: viewport.b.f,
+          // The geolocation input returns complex data
+          const { viewport, location } = value.geometry
+
+          // Larger places come with a viewport object from Google
+          if (viewport) {
+
+            mapData.bounds = {
+              maxLat: viewport.f.f,
+              maxLng: viewport.b.b,
+              minLat: viewport.f.b,
+              minLng: viewport.b.f,
+            }
+
+          } else {
+
+            // Smaller places, like specific addresses, do not
+            mapData = {
+              bounds: null,
+              center: {
+                lat: location.lat(),
+                lng: location.lng(),
+              },
+              zoom: 15,
+            }
+
           }
 
-        } else {
+          newParams = Object.assign({}, params, {
+            mapData,
+            locationString: value.formatted_address,
+          })
 
-          // Smaller places, like specific addresses, do not
+        } else if (type === 'course') {
+
+          // Course cities already have predetermined coords
           mapData = {
             bounds: null,
             center: {
-              lat: location.lat(),
-              lng: location.lng(),
+              lat: value.coords.lat,
+              lng: value.coords.lng,
             },
+            locationString: value.label,
             zoom: 15,
           }
 
         }
 
-        newParams = Object.assign({}, params, {
-          mapData,
-          locationString: value.formatted_address,
-        })
-
       } else {
+
+        // If the value is null (input was just cleared), wipe data
         newParams = Object.assign({}, params, {
           mapData: {},
           locationString: null,
         })
+
       }
 
     } else {
 
-      // Two inputs return simple values
+      // Some inputs return simple values
       newParams = Object.assign({}, params, {
         [field]: value,
       })
@@ -158,14 +168,16 @@ export default class InlineSearchUnit extends Component {
 
       // Don't dispatch search until we have a proper date range
       if (field !== 'dates' || (field === 'dates' && value.startDate && value.endDate)) {
-        dispatch(performRoomSearch(newParams, push))
+        dispatch(performSearch(newParams, push))
       } else {
-        dispatch(updateRoomSearchParams(newParams))
+        dispatch(updateParams(newParams))
       }
 
-
     } else {
-      dispatch(updateRoomSearchParams(newParams))
+
+      // If not integrated (on a search page), just update params, don't perform a search yet
+      dispatch(updateParams(newParams))
+
     }
 
   }
@@ -186,19 +198,20 @@ export default class InlineSearchUnit extends Component {
 
   render() {
 
-    console.log('inside InlineSearchUnit')
+    console.log(this)
 
     const { loadingAnimation } = this.state
-    const { homestaySearch, uiLanguage, standalone, integrated, shadow, t, type } = this.props
-
-    const courseSearch = {} // MOCK DATA
+    const { courseSearch, homestaySearch, uiLanguage, standalone, integrated, shadow, t, type } = this.props
 
     const searchLoading = type === 'homestay' ? homestaySearch.loading : courseSearch.loading
 
+    // Determine languages available
     let allLanguages = []
 
     if (type === 'homestay' && i18n.store.data[uiLanguage]) {
       allLanguages = Object.entries(i18n.store.data[uiLanguage].translation.languages).map(([id, label]) => ({ id, label }))
+    } else if (type === 'course') {
+      allLanguages = courseSearch.languagesAvailable.map(lang => ({ id: lang, label: t(`languages.${lang}`) }))
     }
 
     let topLevelClassName = 'inline-search-unit'
@@ -215,41 +228,97 @@ export default class InlineSearchUnit extends Component {
       topLevelClassName += ' shadow'
     }
 
+    // Determine placeholder texts
+    let languagesPlaceholder = t('search.language_to_learn')
+    if (integrated) {
+      languagesPlaceholder = t('search.language_to_learn_mobile')
+    }
+    if (type === 'course') {
+      languagesPlaceholder = t('search.choose_a_language')
+    }
+
+    // Determine course categories based on language
+    const courseCategories = []
+    if (type === 'course') {
+
+      CourseCategories.general_categories.map(category => courseCategories.push({ value: category, label: t(`course_categories.GENERAL_CATEGORIES.${category}`) }))
+
+      if (['en', 'de', 'es'].includes(courseSearch.language)) {
+        // Add language specific categories
+      }
+
+    }
+
     return (
       <div style={loadingAnimation ? animation.pulseOpposite : null} className={topLevelClassName}>
+
         <Typeahead
           tabIndex={1}
+          className={type === 'course' ? 'course-language' : ''}
           selected={homestaySearch.params.language ? [{ label: t(`languages.${homestaySearch.params.language}`), id: homestaySearch.params.language }] : []}
-          placeholder={integrated ? t('search.language_to_learn_mobile') : t('search.language_to_learn')}
+          placeholder={languagesPlaceholder}
           options={allLanguages}
           onChange={options => {
             return options[0] ? this.handleValueChange('language', options[0].id) : this.handleValueChange('language', null)
           }}
         />
-        <LocationSearch
-          integrated={integrated}
-          defaultValue={homestaySearch.params.locationString}
-          handleValueChange={this.handleValueChange}
-        />
+
+        {/* Geolocation search is only for homestays */}
+        {type === 'homestay' &&
+          <LocationSearch
+            integrated={integrated}
+            defaultValue={homestaySearch.params.locationString}
+            handleValueChange={this.handleValueChange}
+          />
+        }
+
+        {/* Courses have a predetermined list of available cities */}
+        {type === 'course' &&
+          <Typeahead
+            className='course-city'
+            tabIndex={1}
+            selected={[]}
+            placeholder={t('search.choose_a_city')}
+            options={courseSearch.citiesAvailable.map(city => ({ id: city.name, label: t(`course_cities.${city.name}`), coords: { lat: city.location_0_coordinate, lng: city.location_1_coordinate } }))}
+            onChange={options => {
+              return options[0] ? this.handleValueChange('location', options[0]) : this.handleValueChange('location', null)
+            }}
+          />
+        }
+
         <DateRangePicker
           inlineBlock
           large
           startDate={homestaySearch.params.arrival ? moment(homestaySearch.params.arrival) : null}
           endDate={homestaySearch.params.departure ? moment(homestaySearch.params.departure) : null}
-          startDatePlaceholderText={t('common.Arrival')}
-          endDatePlaceholderText={t('common.Departure')}
+          startDatePlaceholderText={type === 'homestay' ? t('common.Arrival') : t('search.start_date')}
+          endDatePlaceholderText={type === 'homestay' ? t('common.Departure') : t('search.end_date')}
           onDatesChange={datesObject => this.handleValueChange('dates', datesObject)}
           scrollToPosition={standalone}
         />
-        <Select
-          theme='bootstrap3'
-          value={{ value: homestaySearch.params.guests, label: homestaySearch.params.guests === 1 ? `1 ${t('common.guest')}` : `${homestaySearch.params.guests} ${t('common.guests')}` }}
-          onValueChange={event => this.handleValueChange('guests', event ? event.value : 1)}
-        >
-          <option value={1}>{`1 ${t('common.guest')}`}</option>
-          <option value={2}>{`2 ${t('common.guests')}`}</option>
-          <option value={3}>{`3 ${t('common.guests')}`}</option>
-        </Select>
+
+        {/* Guest count is only for homestays */}
+        {type === 'homestay' &&
+          <Select
+            theme='bootstrap3'
+            value={{ value: homestaySearch.params.guests, label: homestaySearch.params.guests === 1 ? `1 ${t('common.guest')}` : `${homestaySearch.params.guests} ${t('common.guests')}` }}
+            onValueChange={event => this.handleValueChange('guests', event ? event.value : 1)}
+          >
+            <option value={1}>{`1 ${t('common.guest')}`}</option>
+            <option value={2}>{`2 ${t('common.guests')}`}</option>
+            <option value={3}>{`3 ${t('common.guests')}`}</option>
+          </Select>
+        }
+
+        {/* Course category selection is only for courses */}
+        {type === 'course' &&
+          <Select
+            className='course-category'
+            placeholder={t('booking.course_categories')}
+            theme='bootstrap3'
+            options={courseCategories}
+          />
+        }
 
         {standalone &&
         <Button
@@ -277,5 +346,5 @@ InlineSearchUnit.propTypes = {
   shadow: PropTypes.bool,
   integrated: PropTypes.bool,
   t: PropTypes.func,
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
 }
