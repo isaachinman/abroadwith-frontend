@@ -8,18 +8,18 @@ const PERFORM_COURSE_UPSELL_SEARCH_SUCCESS = 'abroadwith/PERFORM_COURSE_UPSELL_S
 const PERFORM_COURSE_UPSELL_SEARCH_FAIL = 'abroadwith/PERFORM_COURSE_UPSELL_SEARCH_FAIL'
 
 // Get list of cities available
-const LOAD_LIST_OF_COURSE_CITIES = 'abroadwith/LOAD_LIST_OF_COURSE_CITIES'
-const LOAD_LIST_OF_COURSE_CITIES_SUCCESS = 'abroadwith/LOAD_LIST_OF_COURSE_CITIES_SUCCESS'
-const LOAD_LIST_OF_COURSE_CITIES_FAIL = 'abroadwith/LOAD_LIST_OF_COURSE_CITIES_FAIL'
+const LOAD_COURSE_CITIES = 'abroadwith/LOAD_COURSE_CITIES'
+const LOAD_COURSE_CITIES_SUCCESS = 'abroadwith/LOAD_COURSE_CITIES_SUCCESS'
+const LOAD_COURSE_CITIES_FAIL = 'abroadwith/LOAD_COURSE_CITIES_FAIL'
 
 // Get list of languages available
-const LOAD_LIST_OF_COURSE_LANGUAGES = 'abroadwith/LOAD_LIST_OF_COURSE_LANGUAGES'
-const LOAD_LIST_OF_COURSE_LANGUAGES_SUCCESS = 'abroadwith/LOAD_LIST_OF_COURSE_LANGUAGES_SUCCESS'
-const LOAD_LIST_OF_COURSE_LANGUAGES_FAIL = 'abroadwith/LOAD_LIST_OF_COURSE_LANGUAGES_FAIL'
+const LOAD_COURSE_LANGUAGES = 'abroadwith/LOAD_COURSE_LANGUAGES'
+const LOAD_COURSE_LANGUAGES_SUCCESS = 'abroadwith/LOAD_COURSE_LANGUAGES_SUCCESS'
+const LOAD_COURSE_LANGUAGES_FAIL = 'abroadwith/LOAD_COURSE_LANGUAGES_FAIL'
 
 const initialState = {
-  listOfCitiesAvailable: [],
-  listOfLanguagesAvailable: [],
+  citiesAvailable: [],
+  languagesAvailable: [],
   upsellSearch: {
     params: {
       categories: [],
@@ -65,16 +65,15 @@ export default function reducer(state = initialState, action = {}) {
           error: action.error,
         }),
       }
-    case LOAD_LIST_OF_COURSE_CITIES_SUCCESS:
+    case LOAD_COURSE_CITIES_SUCCESS:
       return {
         ...state,
-        listOfCitiesAvailable: action.result,
+        citiesAvailable: action.result,
       }
-    case LOAD_LIST_OF_COURSE_LANGUAGES_SUCCESS:
-      console.log('language action: ', action)
+    case LOAD_COURSE_LANGUAGES_SUCCESS:
       return {
         ...state,
-        listOfLanguagesAvailable: action.result,
+        languagesAvailable: action.result,
       }
     default:
       return state
@@ -115,11 +114,11 @@ export function performCourseUpsellSearch(jwt, params) {
 }
 
 // Currently, this function can only be called serverside due to CORS and insecure response issues from Solr
-export function loadListOfCourseCities() {
+export function loadCourseCities() {
 
   return async dispatch => {
 
-    dispatch({ type: LOAD_LIST_OF_COURSE_CITIES })
+    dispatch({ type: LOAD_COURSE_CITIES })
 
     try {
 
@@ -135,7 +134,7 @@ export function loadListOfCourseCities() {
             fs.existsSync('build/course-data/cities.lock') &&
             moment(fs.readFileSync('build/course-data/cities.lock', 'utf-8')).isAfter(moment())) {
 
-            resolve(dispatch({ type: LOAD_LIST_OF_COURSE_CITIES_SUCCESS, result: JSON.parse(fs.readFileSync('build/course-data/cities.json', 'utf-8')) }))
+            resolve(dispatch({ type: LOAD_COURSE_CITIES_SUCCESS, result: JSON.parse(fs.readFileSync('build/course-data/cities.json', 'utf-8')) }))
 
           } else {
 
@@ -146,7 +145,7 @@ export function loadListOfCourseCities() {
 
               if (error) {
 
-                reject(dispatch({ type: LOAD_LIST_OF_COURSE_CITIES_FAIL, error }))
+                reject(dispatch({ type: LOAD_COURSE_CITIES_FAIL, error }))
 
               } else {
 
@@ -155,7 +154,7 @@ export function loadListOfCourseCities() {
 
                 fs.writeFile('build/course-data/cities.json', JSON.stringify(data))
                 fs.writeFile('build/course-data/cities.lock', moment().add(1, 'days').toString()) // Adjust cache life here
-                resolve(dispatch({ type: LOAD_LIST_OF_COURSE_CITIES_SUCCESS, result: data }))
+                resolve(dispatch({ type: LOAD_COURSE_CITIES_SUCCESS, result: data }))
 
               }
 
@@ -172,11 +171,11 @@ export function loadListOfCourseCities() {
 
             if (error) {
 
-              reject(dispatch({ type: LOAD_LIST_OF_COURSE_CITIES_FAIL, error }))
+              reject(dispatch({ type: LOAD_COURSE_CITIES_FAIL, error }))
 
             } else {
 
-              resolve(dispatch({ type: LOAD_LIST_OF_COURSE_CITIES_SUCCESS, result: JSON.parse(response.text) }))
+              resolve(dispatch({ type: LOAD_COURSE_CITIES_SUCCESS, result: JSON.parse(response.text) }))
 
             }
 
@@ -187,17 +186,17 @@ export function loadListOfCourseCities() {
       })
 
     } catch (error) {
-      dispatch({ type: LOAD_LIST_OF_COURSE_CITIES_FAIL, error })
+      dispatch({ type: LOAD_COURSE_CITIES_FAIL, error })
     }
   }
 }
 
 // Currently, this function can only be called serverside due to CORS and insecure response issues from Solr
-export function loadListOfCourseLanguages() {
+export function loadCourseLanguages() {
 
   return async dispatch => {
 
-    dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES })
+    dispatch({ type: LOAD_COURSE_LANGUAGES })
 
     try {
 
@@ -213,7 +212,7 @@ export function loadListOfCourseLanguages() {
             fs.existsSync('build/course-data/languages.lock') &&
             moment(fs.readFileSync('build/course-data/languages.lock', 'utf-8')).isAfter(moment())) {
 
-            resolve(dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES_SUCCESS, result: JSON.parse(fs.readFileSync('build/course-data/languages.json', 'utf-8')) }))
+            resolve(dispatch({ type: LOAD_COURSE_LANGUAGES_SUCCESS, result: JSON.parse(fs.readFileSync('build/course-data/languages.json', 'utf-8')) }))
 
           } else {
 
@@ -224,7 +223,7 @@ export function loadListOfCourseLanguages() {
 
               if (error) {
 
-                reject(dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES_FAIL, error }))
+                reject(dispatch({ type: LOAD_COURSE_LANGUAGES_FAIL, error }))
 
               } else {
 
@@ -233,7 +232,7 @@ export function loadListOfCourseLanguages() {
 
                 fs.writeFile('build/course-data/languages.json', JSON.stringify(data))
                 fs.writeFile('build/course-data/languages.lock', moment().add(1, 'days').toString()) // Adjust cache life here
-                resolve(dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES_SUCCESS, result: data }))
+                resolve(dispatch({ type: LOAD_COURSE_LANGUAGES_SUCCESS, result: data }))
 
               }
 
@@ -250,12 +249,11 @@ export function loadListOfCourseLanguages() {
 
             if (error) {
 
-              reject(dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES_FAIL, error }))
+              reject(dispatch({ type: LOAD_COURSE_LANGUAGES_FAIL, error }))
 
             } else {
 
-              console.log('LANGUAGE RESPONSE: ', response)
-              resolve(dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES_SUCCESS, result: JSON.parse(response.text) }))
+              resolve(dispatch({ type: LOAD_COURSE_LANGUAGES_SUCCESS, result: JSON.parse(response.text) }))
 
             }
 
@@ -266,7 +264,7 @@ export function loadListOfCourseLanguages() {
       })
 
     } catch (error) {
-      dispatch({ type: LOAD_LIST_OF_COURSE_LANGUAGES_FAIL, error })
+      dispatch({ type: LOAD_COURSE_LANGUAGES_FAIL, error })
     }
   }
 }

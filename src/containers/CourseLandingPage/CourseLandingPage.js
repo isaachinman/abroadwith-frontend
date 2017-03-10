@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import equal from 'deep-is'
 import Helmet from 'react-helmet'
 import { Link } from 'react-router'
-import { loadListOfCourseCities, loadListOfCourseLanguages } from 'redux/modules/ui/search/courseSearch'
+import { loadCourseCities, loadCourseLanguages } from 'redux/modules/ui/search/courseSearch'
 import Masonry from 'react-masonry-component'
 import { translate } from 'react-i18next'
 import Radium from 'radium'
@@ -28,8 +28,8 @@ const popularCities = ['barcelona', 'malaga', 'london', 'berlin', 'dublin', 'mad
 
     // InlineSearchUnit will take care of fetching for itself clientside
     if (!__CLIENT__) {
-      promises.push(dispatch(loadListOfCourseCities()))
-      promises.push(dispatch(loadListOfCourseLanguages()))
+      promises.push(dispatch(loadCourseCities()))
+      promises.push(dispatch(loadCourseLanguages()))
     }
 
     return Promise.all(promises)
