@@ -93,8 +93,8 @@ export default function Html(props) {
         <script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBQW0Z5fmFm8snLhXDOVuD8YuegwCMigqQ&libraries=places' />
 
         {/* Main JavaScript assets */}
-        <script src={assets.javascript.vendor} charSet='UTF-8' />
-        <script src={assets.javascript.main} async defer charSet='UTF-8' />
+        <script src={assets.javascript.vendor} defer charSet='UTF-8' />
+        <script src={assets.javascript.main} defer charSet='UTF-8' />
 
         {/* Analytics scripts, production only */}
         {process.env.NODE_ENV === 'production' &&
