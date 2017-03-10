@@ -171,6 +171,7 @@ Dimensions:
     vertical-align: top;
     .react-selectize-search-field-and-selected-values {
       width: 80px;
+      max-height: 60px;
       .value-wrapper {
         max-width: calc(100% - 20px);
         .simple-value {

@@ -1,5 +1,5 @@
 {
-  "general_categories": [
+  "GENERAL": [
     "BUSINESS",
     "CONVERSATIONAL",
     "COOKING_AND_LANGUAGE",
@@ -18,17 +18,17 @@
     "WEEKEND_SEMI_INTENSIVE",
     "FIFTY_PLUS"
   ],
-  "en_categories": [
+  "ENG": [
     "CAMBRIDGE_TEST_PREP",
     "TOEFL_TEST_PREP",
     "IETLS_TEST_PREP",
     "TOEIC_TEST_PREP"
   ],
-  "es_categories": [
+  "SPA": [
     "DELE",
     "CELU"
   ],
-  "de_categories": [
+  "DEU": [
     "TELC",
     "GOETHE_INSTITUT",
     "OESTERREICHISCHES_SPRACHDIPLOM",

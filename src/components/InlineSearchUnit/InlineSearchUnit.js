@@ -74,7 +74,7 @@ export default class InlineSearchUnit extends Component {
     const { dispatch, integrated, type } = this.props
 
     // Keep all variables and functions flexible
-    const params = type === 'homestay' ? this.props.homestaySearch : this.props.courseSearch
+    const params = type === 'homestay' ? this.props.homestaySearch.params : this.props.courseSearch.params
     const updateParams = type === 'homestay' ? updateRoomSearchParams : updateCourseSearchParams
     const performSearch = type === 'homestay' ? performRoomSearch : performCourseSearch
 
@@ -133,15 +133,18 @@ export default class InlineSearchUnit extends Component {
         } else if (type === 'course') {
 
           // Course cities already have predetermined coords
-          mapData = {
-            bounds: null,
-            center: {
-              lat: value.coords.lat,
-              lng: value.coords.lng,
+          newParams = Object.assign({}, params, {
+            mapData: {
+              bounds: null,
+              center: {
+                lat: value.coords.lat,
+                lng: value.coords.lng,
+              },
+              locationString: value.label,
+              zoom: 15,
             },
-            locationString: value.label,
-            zoom: 15,
-          }
+            locationString: value.formatted_address,
+          })
 
         }
 
@@ -237,16 +240,39 @@ export default class InlineSearchUnit extends Component {
       languagesPlaceholder = t('search.choose_a_language')
     }
 
+    // Determine language selected
+    let languageSelected = []
+    if (type === 'homestay' && homestaySearch.params.language) {
+      languageSelected = [{ label: t(`languages.${homestaySearch.params.language}`), id: homestaySearch.params.language }]
+    } else if (type === 'course' && courseSearch.params.language) {
+      languageSelected = [{ label: t(`languages.${courseSearch.params.language}`), id: courseSearch.params.language }]
+    }
+
     // Determine course categories based on language
     const courseCategories = []
     if (type === 'course') {
 
-      CourseCategories.general_categories.map(category => courseCategories.push({ value: category, label: t(`course_categories.GENERAL_CATEGORIES.${category}`) }))
+      if (['ENG', 'DEU', 'SPA'].includes(courseSearch.params.language)) {
 
-      if (['en', 'de', 'es'].includes(courseSearch.language)) {
-        // Add language specific categories
+        // Add language specific categories first
+        CourseCategories[courseSearch.params.language].map(category => courseCategories.push({ value: category, label: t(`course_categories.${category}`) }))
+
       }
 
+      // Now add all general categories
+      CourseCategories.GENERAL.map(category => courseCategories.push({ value: category, label: t(`course_categories.${category}`) }))
+
+    }
+
+    // Determine dates
+    let startDate = null
+    let endDate = null
+
+    if (this.props[`${type}Search`].params.arrival) {
+      startDate = moment(this.props[`${type}Search`].params.arrival)
+    }
+    if (this.props[`${type}Search`].params.departure) {
+      endDate = moment(this.props[`${type}Search`].params.departure)
     }
 
     return (
@@ -255,7 +281,7 @@ export default class InlineSearchUnit extends Component {
         <Typeahead
           tabIndex={1}
           className={type === 'course' ? 'course-language' : ''}
-          selected={homestaySearch.params.language ? [{ label: t(`languages.${homestaySearch.params.language}`), id: homestaySearch.params.language }] : []}
+          selected={languageSelected}
           placeholder={languagesPlaceholder}
           options={allLanguages}
           onChange={options => {
@@ -277,7 +303,7 @@ export default class InlineSearchUnit extends Component {
           <Typeahead
             className='course-city'
             tabIndex={1}
-            selected={[]}
+            selected={courseSearch.params.mapData.locationString ? [{ id: courseSearch.params.mapData.locationString, label: courseSearch.params.mapData.locationString }] : []}
             placeholder={t('search.choose_a_city')}
             options={courseSearch.citiesAvailable.map(city => ({ id: city.name, label: t(`course_cities.${city.name}`), coords: { lat: city.location_0_coordinate, lng: city.location_1_coordinate } }))}
             onChange={options => {
@@ -289,8 +315,8 @@ export default class InlineSearchUnit extends Component {
         <DateRangePicker
           inlineBlock
           large
-          startDate={homestaySearch.params.arrival ? moment(homestaySearch.params.arrival) : null}
-          endDate={homestaySearch.params.departure ? moment(homestaySearch.params.departure) : null}
+          startDate={startDate}
+          endDate={endDate}
           startDatePlaceholderText={type === 'homestay' ? t('common.Arrival') : t('search.start_date')}
           endDatePlaceholderText={type === 'homestay' ? t('common.Departure') : t('search.end_date')}
           onDatesChange={datesObject => this.handleValueChange('dates', datesObject)}
@@ -317,6 +343,8 @@ export default class InlineSearchUnit extends Component {
             placeholder={t('booking.course_categories')}
             theme='bootstrap3'
             options={courseCategories}
+            value={courseSearch.params.courseCategories ? { value: courseSearch.params.courseCategories, label: t(`course_categories.${courseSearch.params.courseCategories}`) } : null}
+            onValueChange={event => this.handleValueChange('courseCategories', event ? event.value : null)}
           />
         }
 
