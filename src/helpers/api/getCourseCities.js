@@ -22,7 +22,7 @@ export default (app) => {
 
     // Sometimes new course cities are added by the business team
     // This application refreshes them every day (async depending on actual use)
-    const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_cities/select?q=*&wt=json`)
+    const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_cities/select?q=*&wt=json&fl=location_0_coordinate,location_1_coordinate,name`)
     request.end((error, response = {}) => {
 
       if (error) {

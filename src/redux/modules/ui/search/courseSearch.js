@@ -1,5 +1,6 @@
 import config from 'config'
 import moment from 'moment'
+import { REHYDRATE } from 'redux-persist/constants'
 import superagent from 'superagent'
 
 // Perform upsell search
@@ -17,9 +18,39 @@ const LOAD_COURSE_LANGUAGES = 'abroadwith/LOAD_COURSE_LANGUAGES'
 const LOAD_COURSE_LANGUAGES_SUCCESS = 'abroadwith/LOAD_COURSE_LANGUAGES_SUCCESS'
 const LOAD_COURSE_LANGUAGES_FAIL = 'abroadwith/LOAD_COURSE_LANGUAGES_FAIL'
 
+// Update search params
+const UPDATE_COURSE_SEARCH_PARAMS = 'abroadwith/UPDATE_COURSE_SEARCH_PARAMS'
+
+// Erase history
+const ERASE_COURSE_SEARCH_HISTORY = 'abroadwith/ERASE_COURSE_SEARCH_HISTORY'
+
 const initialState = {
   citiesAvailable: [],
   languagesAvailable: [],
+  data: {
+    results: [],
+  },
+  activeCourse: null,
+  loaded: false,
+  loading: false,
+  rehydrate: true,
+  params: {
+    arrival: null,
+    courseCategories: null,
+    departure: null,
+    guests: 1,
+    language: null,
+    mapData: {},
+    minPrice: 0,
+    maxPrice: 1000,
+    filters: [],
+    pageOffset: 0,
+    pageSize: 10,
+  },
+  price: {
+    loading: false,
+    loaded: false,
+  },
   upsellSearch: {
     params: {
       categories: [],
@@ -37,8 +68,49 @@ const initialState = {
   },
 }
 
+// Erase search history
+export function eraseCourseSearchHistory() {
+  return async dispatch => dispatch({ type: ERASE_COURSE_SEARCH_HISTORY })
+}
+
+// Update params
+export function updateCourseSearchParams(params) {
+  return async dispatch => dispatch({ type: UPDATE_COURSE_SEARCH_PARAMS, params })
+}
+
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    // This is a rehydration (from localstore) case
+    case REHYDRATE: {
+      const incoming = action.payload.uiPersist
+      if (incoming && incoming.courseSearch && incoming.courseSearch.rehydrate) {
+        return Object.assign({}, state, incoming.courseSearch, {
+
+          // Do not rehydrate these things
+          citiesAvailable: state.citiesAvailable,
+          languagesAvailable: state.languagesAvailable,
+          activeCourse: null,
+          loaded: false,
+          loading: false,
+          price: {
+            loading: false,
+            loaded: false,
+          },
+
+        })
+      }
+      return state
+    }
+    // Used to erase history when it (because of rehydration),
+    // would cause weird behaviour
+    case ERASE_COURSE_SEARCH_HISTORY: {
+      return Object.assign({}, initialState, { rehydrate: false })
+    }
+    case UPDATE_COURSE_SEARCH_PARAMS:
+      return {
+        ...state,
+        params: Object.assign({}, state.params, action.params),
+      }
     case PERFORM_COURSE_UPSELL_SEARCH:
       return {
         ...state,
@@ -140,7 +212,7 @@ export function loadCourseCities() {
 
             // Sometimes new course cities are added by the business team
             // This application refreshes them every day (async depending on actual use)
-            const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_cities/select?q=*&wt=json`)
+            const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_cities/select?q=*&wt=json&fl=location_0_coordinate,location_1_coordinate,name`)
             request.end((error, response = {}) => {
 
               if (error) {
