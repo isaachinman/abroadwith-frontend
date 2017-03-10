@@ -48,12 +48,13 @@ const popularCities = ['barcelona', 'malaga', 'london', 'berlin', 'dublin', 'mad
 export default class CourseLandingPage extends Component {
 
   state = {
-    howDoesItWorkModalOpen: false,
+    masonryOpacity: 0,
   }
 
   componentDidMount = () => {
     scrollToTopOfPage()
     this.masonry.layout()
+    setTimeout(() => this.setState({ masonryOpacity: 1 }), 250)
   }
 
   shouldComponentUpdate = (nextProps, nextState) => {
@@ -116,6 +117,7 @@ export default class CourseLandingPage extends Component {
                 elementType={'ul'}
                 options={{ transitionDuration: 0, fitWidth: true }}
                 className='masonry-grid'
+                style={{ opacity: this.state.masonryOpacity }}
               >
                 {popularCities.map(city => {
                   return (
