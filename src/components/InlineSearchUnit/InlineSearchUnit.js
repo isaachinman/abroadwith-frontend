@@ -169,7 +169,7 @@ export default class InlineSearchUnit extends Component {
 
     if (integrated) {
 
-      // Don't dispatch search until we have a proper date range
+      // Don't dispatch search if we only have one date (no range)
       if (field !== 'dates' || (field === 'dates' && value.startDate && value.endDate)) {
         dispatch(performSearch(newParams, push))
       } else {
@@ -187,16 +187,30 @@ export default class InlineSearchUnit extends Component {
 
   handleGoToSearchPage = () => {
 
-    const { dispatch, homestaySearch } = this.props
-    const params = Object.assign({}, homestaySearch.params)
+    // Keep vars and functions flexible
+    const { courseSearch, dispatch, homestaySearch, type } = this.props
+    const performSearch = type === 'homestay' ? performRoomSearch : performCourseSearch
+
+    let params = {}
+
+    // Clone new object of existing params
+    if (type === 'homestay') {
+      params = Object.assign({}, homestaySearch.params)
+    } else if (type === 'course') {
+      params = Object.assign({}, courseSearch.params)
+    }
 
     // If there's no location data, set it to default
     if (!params.mapData.bounds) {
       params.mapData.bounds = MapBounds.europe
     }
 
+    // Fire loading animation with local state
     this.setState({ loadingAnimation: true })
-    dispatch(performRoomSearch(params, push))
+
+    // Perform search action
+    dispatch(performSearch(params, push))
+
   }
 
   render() {

@@ -1,7 +1,14 @@
 import config from 'config'
+import courseSearchParamsToUrl from 'utils/search/homestaySearchParamsToUrl'
 import moment from 'moment'
 import { REHYDRATE } from 'redux-persist/constants'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import superagent from 'superagent'
+
+// Perform regular search
+const PERFORM_COURSE_SEARCH = 'abroadwith/PERFORM_COURSE_SEARCH'
+const PERFORM_COURSE_SEARCH_SUCCESS = 'abroadwith/PERFORM_COURSE_SEARCH_SUCCESS'
+const PERFORM_COURSE_SEARCH_FAIL = 'abroadwith/PERFORM_COURSE_SEARCH_FAIL'
 
 // Perform upsell search
 const PERFORM_COURSE_UPSELL_SEARCH = 'abroadwith/PERFORM_COURSE_UPSELL_SEARCH'
@@ -111,6 +118,25 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         params: Object.assign({}, state.params, action.params),
       }
+    case PERFORM_COURSE_SEARCH:
+      return {
+        ...state,
+        loading: true,
+      }
+    case PERFORM_COURSE_SEARCH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        data: action.result,
+      }
+    case PERFORM_COURSE_SEARCH_FAIL:
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error: action.error,
+      }
     case PERFORM_COURSE_UPSELL_SEARCH:
       return {
         ...state,
@@ -149,6 +175,52 @@ export default function reducer(state = initialState, action = {}) {
       }
     default:
       return state
+  }
+}
+
+export function performCourseSearch(params, push) {
+
+  return async dispatch => {
+
+    dispatch(showLoading())
+    dispatch({ type: PERFORM_COURSE_SEARCH })
+
+    // It's important to dispatch param update _after_ search.loading has been set
+    // to prevent the map from calling another search on bounds change
+    dispatch(updateCourseSearchParams(params))
+
+    try {
+
+      const query = courseSearchParamsToUrl(Object.assign({}, params))
+
+      const request = superagent.get(`/homestays/search/get-results${query}`)
+      request.end((err, res = {}) => {
+
+        if (err) {
+
+          dispatch({ type: PERFORM_COURSE_SEARCH_FAIL, err })
+          dispatch(hideLoading())
+
+        } else {
+
+          // GET was successful
+          dispatch({ type: PERFORM_COURSE_SEARCH_SUCCESS, result: JSON.parse(res.text) })
+          dispatch(hideLoading())
+
+          // By dispatching the push after results are already loaded, users will hit
+          // the search page with results already populated
+          if (typeof push === 'function') {
+            dispatch(push(`/language-course/search${query}`))
+          }
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: PERFORM_COURSE_SEARCH_FAIL, err })
+      dispatch(hideLoading())
+    }
   }
 }
 

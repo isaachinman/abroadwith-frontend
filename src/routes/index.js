@@ -308,8 +308,8 @@ export default (store) => {
               component={SearchHomestays}
             />
 
-            <Route path='language-courses' component={CourseLandingPage} />
-            <Route path='language-courses/search' component={SearchCourses} />
+            <Route path='language-course' component={CourseLandingPage} />
+            <Route path='language-course/search' component={SearchCourses} />
 
             <Route path='login' component={LoginPage} />
             <Route path='popular-languages-destinations' component={PopularLanguages} />
