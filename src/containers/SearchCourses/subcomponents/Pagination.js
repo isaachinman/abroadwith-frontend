@@ -2,13 +2,13 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
-import { performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
+import { performCourseSearch } from 'redux/modules/ui/search/courseSearch'
 import { push } from 'react-router-redux'
 
 
 @connect(
   state => ({
-    homestaySearch: state.uiPersist.homestaySearch,
+    courseSearch: state.uiPersist.courseSearch,
   })
 )
 export default class SearchPagination extends Component {
@@ -17,8 +17,8 @@ export default class SearchPagination extends Component {
 
     // If a user is on a page greater than one and performs a new search that returns less results,
     // put them back on page 1 to be safe
-    if (((this.props.homestaySearch.params.pageOffset / this.props.homestaySearch.params.pageSize) + 1) > 1 && this.props.homestaySearch.data.resultDetails.numberOfResults !== nextProps.homestaySearch.data.resultDetails.numberOfResults) {
-      this.props.dispatch(performRoomSearch(Object.assign({}, this.props.homestaySearch.params, {
+    if (((this.props.courseSearch.params.pageOffset / this.props.courseSearch.params.pageSize) + 1) > 1 && this.props.courseSearch.data.resultDetails.numberOfResults !== nextProps.courseSearch.data.resultDetails.numberOfResults) {
+      this.props.dispatch(performCourseSearch(Object.assign({}, this.props.courseSearch.params, {
         pageOffset: 0,
       }), push))
     }
@@ -28,11 +28,11 @@ export default class SearchPagination extends Component {
   handleChange = page => {
 
     // Dispatch new search
-    const { dispatch, homestaySearch } = this.props
-    const newParams = Object.assign({}, homestaySearch.params, {
-      pageOffset: (homestaySearch.params.pageSize * page) - homestaySearch.params.pageSize,
+    const { dispatch, courseSearch } = this.props
+    const newParams = Object.assign({}, courseSearch.params, {
+      pageOffset: (courseSearch.params.pageSize * page) - courseSearch.params.pageSize,
     })
-    dispatch(performRoomSearch(newParams, push))
+    dispatch(performCourseSearch(newParams, push))
 
     // Scroll result list to top
     document.getElementById('homestay-search-result-list').scrollTop = 0
@@ -41,10 +41,10 @@ export default class SearchPagination extends Component {
 
   render() {
 
-    const { homestaySearch } = this.props
+    const { courseSearch } = this.props
 
-    const activePage = (homestaySearch.params.pageOffset / homestaySearch.params.pageSize) + 1
-    const numberOfPages = homestaySearch.data && homestaySearch.data.resultDetails ? Math.ceil(homestaySearch.data.resultDetails.numberOfResults / homestaySearch.params.pageSize) : 0
+    const activePage = (courseSearch.params.pageOffset / courseSearch.params.pageSize) + 1
+    const numberOfPages = courseSearch.data && courseSearch.data.resultDetails ? Math.ceil(courseSearch.data.resultDetails.numberOfResults / courseSearch.params.pageSize) : 0
     return (
       <div>
         {numberOfPages > 1 &&
@@ -67,5 +67,5 @@ export default class SearchPagination extends Component {
 
 SearchPagination.propTypes = {
   dispatch: PropTypes.func,
-  homestaySearch: PropTypes.object,
+  courseSearch: PropTypes.object,
 }

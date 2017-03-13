@@ -12,7 +12,7 @@ import MapBounds from 'data/constants/MapBounds'
 import Measure from 'react-measure'
 import { translate } from 'react-i18next'
 import { fitBounds } from 'google-map-react/utils'
-import { roomPopoverClose, roomResultMouseLeave } from 'redux/modules/ui/search/hoverables'
+import { coursePopoverClose, courseResultMouseLeave } from 'redux/modules/ui/search/hoverables'
 import { eraseCourseSearchHistory, performCourseSearch } from 'redux/modules/ui/search/courseSearch'
 import { push } from 'react-router-redux'
 import Radium from 'radium'
@@ -147,8 +147,8 @@ export default class SearchCourses extends Component {
     // Somewhat hacky way of ensuring the click target is the parent map
     if (event.target.style.width === '100%') {
       const { dispatch } = this.props
-      dispatch(roomPopoverClose())
-      dispatch(roomResultMouseLeave())
+      dispatch(coursePopoverClose())
+      dispatch(courseResultMouseLeave())
     }
 
   }

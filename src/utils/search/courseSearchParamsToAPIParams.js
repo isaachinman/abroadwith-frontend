@@ -4,27 +4,18 @@
 // The purpose of this is to keep the course search object on the FE
 // similar to the homestay search object so that code can be reused
 
-// NB: Currently, we do not support open date searching, but that will change
-// Once it is supported, simply remove the || on startDate and endDate
-
-import { apiDate } from 'utils/dates'
-import moment from 'moment'
-
 export default params => {
-
-  console.log('original params: ', params)
 
   const apiParams = Object.assign({}, params, {
     categories: params.categories ? [params.categories] : [],
-    language: params.language || 'SPA',
-    startDate: params.arrival || apiDate(moment()),
-    endDate: params.departure || apiDate(moment().add(2, 'weeks')),
+    startDate: params.arrival,
+    endDate: params.departure,
     rectangularBounds: {
-      point1: {
+      southWest: {
         lat: params.mapData.bounds.maxLat,
         lng: params.mapData.bounds.maxLng,
       },
-      point2: {
+      northEast: {
         lat: params.mapData.bounds.minLat,
         lng: params.mapData.bounds.minLng,
       },

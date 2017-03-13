@@ -20,12 +20,14 @@ export default class ResultList extends Component {
 
     const { currency, loaded, t, numberOfResults, results } = this.props
 
+    console.log(this)
+
     return (
       <div>
         <div style={styles.resultListMinHeight}>
           {results && results.length > 0 && results.map(result => {
             return (
-              <Result key={result.roomId} currency={currency} result={result} />
+              <Result key={result.courseId} currency={currency} result={result} />
             )
           })}
           {numberOfResults !== null && loaded && results && results.length === 0 &&

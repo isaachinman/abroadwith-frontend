@@ -4,7 +4,6 @@ import Slider from 'rc-slider'
 import { Popover } from 'react-bootstrap'
 import Currencies from 'data/constants/Currencies'
 
-
 // Styles
 const styles = {
   sliderContainer: {

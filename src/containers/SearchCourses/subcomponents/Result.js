@@ -4,13 +4,13 @@ import shallowCompare from 'react-addons-shallow-compare'
 import { BackgroundImage } from 'components'
 import { connect } from 'react-redux'
 import { Carousel } from 'react-bootstrap'
-import { roomResultMouseEnter, roomResultMouseLeave } from 'redux/modules/ui/search/hoverables'
+import { courseResultMouseEnter, courseResultMouseLeave } from 'redux/modules/ui/search/hoverables'
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
 import FontAwesome from 'react-fontawesome'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
-import { updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
+import { updateActiveCourse } from 'redux/modules/ui/search/courseSearch'
 import parsePhotoOrder from 'utils/homes/parsePhotoOrder'
 import Radium from 'radium'
 import Rate from 'antd/lib/rate'
@@ -27,16 +27,16 @@ export default class Result extends Component {
     return shallowCompare(this, nextProps, nextState)
   }
 
-  handleClick = () => this.props.dispatch(updateActiveRoom(this.props.result.roomId))
+  handleClick = () => this.props.dispatch(updateActiveCourse(this.props.result.courseId))
 
   handleMouseEnter = () => {
     const { dispatch, result } = this.props
-    dispatch(roomResultMouseEnter(result.roomId))
+    dispatch(courseResultMouseEnter(result.courseId))
   }
 
   handleMouseLeave = () => {
     const { dispatch, result } = this.props
-    dispatch(roomResultMouseLeave(result.roomId))
+    dispatch(courseResultMouseLeave(result.courseId))
   }
 
   render() {
@@ -53,13 +53,13 @@ export default class Result extends Component {
 
     return (
       <div
-        key={result.roomId}
+        key={result.courseId}
         style={styles.searchResult}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         className='result-second-child-margin course'
       >
-        <Link onClick={this.handleClick} to={`/homestay/${result.homeId}`} style={styles.overlayLink} />
+        <Link onClick={this.handleClick} to={`/language-school/${result.educatorId}`} style={styles.overlayLink} />
         <div style={styles.searchResultPrice}>{Currencies[currency]}{Math.ceil(result.price)}<span style={styles.perWeek}>{t('search.per_week')}</span></div>
         <Carousel
           indicators={false}
@@ -102,17 +102,6 @@ export default class Result extends Component {
               </div>
               <div style={styles.searchResultSubtitle}>
                 {t(`homes.home_types.${result.homeType}`)} > {result.homeCity} {result.homeNeighbourhood && <span>({result.homeNeighbourhood})</span>}
-              </div>
-              <div style={{ opacity: 0.75 }}>
-                {result.immersions.includes('stay') &&
-                  <span className='immersion-tag stay'>{t('immersions.stay')}</span>
-                }
-                {result.immersions.includes('tandem') &&
-                  <span className='immersion-tag tandem'>{t('immersions.tandem')}</span>
-                }
-                {result.immersions.includes('teacher') &&
-                  <span className='immersion-tag teacher'>{t('immersions.teachers_stay')}</span>
-                }
               </div>
             </div>
 

@@ -6,7 +6,7 @@ import Currencies from 'data/constants/Currencies'
 import config from 'config'
 import FontAwesome from 'react-fontawesome'
 import { Link } from 'react-router'
-import { updateActiveRoom } from 'redux/modules/ui/search/homestaySearch'
+import { updateActiveCourse } from 'redux/modules/ui/search/courseSearch'
 import { translate } from 'react-i18next'
 import parsePhotoOrder from 'utils/homes/parsePhotoOrder'
 import Radium from 'radium'
@@ -17,14 +17,14 @@ import styles from '../SearchCourses.styles'
 
 @connect(
   state => ({
-    roomHovered: state.ui.hoverables.roomHovered,
+    courseHovered: state.ui.hoverables.courseHovered,
   })
 )
 @translate()
 @Radium
 export default class SmallResult extends Component {
 
-  handleClick = () => this.props.dispatch(updateActiveRoom(this.props.result.roomId))
+  handleClick = () => this.props.dispatch(updateActiveCourse(this.props.result.courseId))
 
   render() {
 
@@ -36,7 +36,7 @@ export default class SmallResult extends Component {
         style={styles.smallResult}
         className='small-result'
       >
-        <Link onClick={this.handleClick} to={`/homestay/${result.homeId}`} style={styles.overlayLink} />
+        <Link onClick={this.handleClick} to={`/language-school/${result.educatorId}`} style={styles.overlayLink} />
         <div style={styles.searchResultPrice}>{Currencies[currency]}{Math.ceil(result.price)}<span style={styles.perWeek}>{t('search.per_week')}</span></div>
         <Carousel
           indicators={false}
@@ -82,5 +82,5 @@ SmallResult.propTypes = {
   dispatch: PropTypes.func,
   t: PropTypes.func,
   result: PropTypes.object,
-  roomHovered: PropTypes.number,
+  courseHovered: PropTypes.number,
 }
