@@ -20,7 +20,7 @@ const s3_stream = new S3StreamLogger({
 })
 
 // Bind stream error to different function to prevent recursion
-// s3_stream.on('error', (err) => console.log(err))
+s3_stream.on('error', (err) => console.log(err))
 
 const transports = []
 
