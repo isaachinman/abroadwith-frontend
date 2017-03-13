@@ -2,7 +2,6 @@
 import React, { Component, PropTypes } from 'react'
 import GoogleMap from 'google-map-react'
 import MapStyles from 'data/constants/MapStyles'
-import shortid from 'shortid'
 
 // Relative imports
 import styles from '../SearchCourses.styles'
@@ -28,7 +27,7 @@ export default class Map extends Component {
             styles: MapStyles,
           })}
         >
-          {results && results.map(result => <Marker key={shortid()} currency={currency} lat={result.lat} lng={result.lng} {...result} />)}
+          {results && results.map(result => <Marker key={result.courseId} currency={currency} lat={result.lat} lng={result.lng} {...result} />)}
         </GoogleMap>
       </div>
     )
