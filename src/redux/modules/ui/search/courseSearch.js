@@ -1,3 +1,4 @@
+import { apiDate } from 'utils/dates'
 import config from 'config'
 import courseSearchParamsToAPIParams from 'utils/search/courseSearchParamsToAPIParams'
 import courseSearchParamsToUrl from 'utils/search/courseSearchParamsToUrl'
@@ -28,6 +29,9 @@ const LOAD_COURSE_LANGUAGES_FAIL = 'abroadwith/LOAD_COURSE_LANGUAGES_FAIL'
 
 // Update search params
 const UPDATE_COURSE_SEARCH_PARAMS = 'abroadwith/UPDATE_COURSE_SEARCH_PARAMS'
+
+// Update activeRoom
+const UPDATE_ACTIVE_COURSE = 'abroadwith/UPDATE_ACTIVE_COURSE'
 
 // Erase history
 const ERASE_COURSE_SEARCH_HISTORY = 'abroadwith/ERASE_COURSE_SEARCH_HISTORY'
@@ -89,6 +93,11 @@ export function updateCourseSearchParams(params) {
   return async dispatch => dispatch({ type: UPDATE_COURSE_SEARCH_PARAMS, params })
 }
 
+// Update active course
+export function updateActiveCourse(courseID) {
+  return async dispatch => dispatch({ type: UPDATE_ACTIVE_COURSE, courseID })
+}
+
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     // This is a rehydration (from localstore) case
@@ -121,6 +130,11 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         params: Object.assign({}, state.params, action.params),
+      }
+    case UPDATE_ACTIVE_COURSE:
+      return {
+        ...state,
+        activeRoom: action.courseID,
       }
     case PERFORM_COURSE_SEARCH:
       return {
@@ -182,12 +196,26 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function performCourseSearch(params, push) {
+export function performCourseSearch(immutableParams, push) {
+
+  const params = Object.assign({}, immutableParams)
 
   return async dispatch => {
 
     dispatch(showLoading())
     dispatch({ type: PERFORM_COURSE_SEARCH })
+
+    // Here we must fill some values if they are not provided
+    // This is a temporary solution and will eventually be patched
+    if (!params.language) {
+      params.language = 'SPA'
+    }
+    if (!params.arrival) {
+      params.arrival = apiDate(moment())
+    }
+    if (!params.departure) {
+      params.departure = apiDate(moment().add(2, 'weeks'))
+    }
 
     // It's important to dispatch param update _after_ search.loading has been set
     // to prevent the map from calling another search on bounds change
