@@ -114,8 +114,14 @@ export default (store) => {
   // --------------------------------------------------------------------------------
   // Lazy loaded routes: some routes should only be loaded if needed
   // The third argument require.ensure takes is the name of the chunk
-  // This can probably be abstracted in some way instead of so much boilerplate
+  // ----------
+  // What you will see below is an absolute tonne of boilerplate
+  // Unfortunately, it's unavoidable. require and require.ensure must receive
+  // string literals, variables won't work. It must be known at compile time
+  // without program flow analysis. These getComponent functions only contain
+  // the require.ensure statement, so we are stuck writing them all explicitly.
   // --------------------------------------------------------------------------------
+
   const getBookHomestay = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/BookHomestay/BookHomestay'))
@@ -309,7 +315,13 @@ export default (store) => {
             />
 
             <Route path='language-course' component={CourseLandingPage} />
-            <Route path='language-course/search' component={SearchCourses} />
+            <Route
+              path='language-course/search'
+              onEnter={() => noFooterEnter(store)}
+              onChange={() => noFooterEnter(store)}
+              onLeave={() => noFooterLeave(store)}
+              component={SearchCourses}
+            />
 
             <Route path='login' component={LoginPage} />
             <Route path='popular-languages-destinations' component={PopularLanguages} />

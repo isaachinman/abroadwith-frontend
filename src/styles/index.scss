@@ -364,13 +364,10 @@ span.input-group-addon .fa {
   max-height: 100%;
 }
 
-
-$popover-bg: $darkBlue;
-$popover-arrow-color: $darkBlue;
+// Homestay map s
+$homestay-popover-bg: $darkBlue;
+$homestay-popover-arrow-color: $darkBlue;
 .homestay-map-marker {
-  &--active {
-    background-color: red;
-  }
   position: absolute;
   top: 0;
   left: 0;
@@ -383,7 +380,7 @@ $popover-arrow-color: $darkBlue;
   @include reset-text;
   font-size: $font-size-base;
 
-  background-color: $popover-bg;
+  background-color: $homestay-popover-bg;
   &--hovered {
     background-color: $freshGreen;
   }
@@ -413,7 +410,6 @@ $popover-arrow-color: $darkBlue;
 // Arrows
 //
 // .arrow is outer, .arrow:after is inner
-
 .homestay-map-marker > .arrow {
   &,
   &:after {
@@ -467,10 +463,27 @@ $popover-arrow-color: $darkBlue;
       bottom: 1px;
       margin-left: -$popover-arrow-width;
       border-bottom-width: 0;
-      border-top-color: $popover-arrow-color;
+      border-top-color: $homestay-popover-arrow-color;
     }
   }
+}
 
+// Course map results
+.course-map-marker {
+  @extend .homestay-map-marker;
+  background-color: $warmPurple;
+  &.hovered {
+    z-index: 1061;
+    background-color: $headerGreen;
+    .arrow:after {
+      border-top-color: $headerGreen !important;
+    }
+  }
+  &.top > .arrow {
+    &:after {
+      border-top-color: $warmPurple;
+    }
+  }
 }
 
 // Search results
@@ -482,6 +495,13 @@ $popover-arrow-color: $darkBlue;
   }
   .carousel-control {
     z-index: 56;
+  }
+  &.course {
+    &:hover {
+      .hover-stripe {
+        background: $babyBlue;
+      }
+    }
   }
   &:hover {
     .hover-stripe {

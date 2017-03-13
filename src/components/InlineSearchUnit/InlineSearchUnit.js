@@ -36,6 +36,7 @@ const animation = {
 
 @connect(state => ({
   courseSearch: state.uiPersist.courseSearch,
+  uiCurrency: state.ui.currency.value,
   uiLanguage: state.ui.locale.value,
   homestaySearch: state.uiPersist.homestaySearch,
 }))
@@ -188,7 +189,7 @@ export default class InlineSearchUnit extends Component {
   handleGoToSearchPage = () => {
 
     // Keep vars and functions flexible
-    const { courseSearch, dispatch, homestaySearch, type } = this.props
+    const { courseSearch, dispatch, homestaySearch, uiCurrency, type } = this.props
     const performSearch = type === 'homestay' ? performRoomSearch : performCourseSearch
 
     let params = {}
@@ -197,7 +198,14 @@ export default class InlineSearchUnit extends Component {
     if (type === 'homestay') {
       params = Object.assign({}, homestaySearch.params)
     } else if (type === 'course') {
+
       params = Object.assign({}, courseSearch.params)
+
+      // If there's no currency, set it
+      if (!params.currency) {
+        params.currency = uiCurrency
+      }
+
     }
 
     // If there's no location data, set it to default
@@ -357,8 +365,8 @@ export default class InlineSearchUnit extends Component {
             placeholder={t('booking.course_categories')}
             theme='bootstrap3'
             options={courseCategories}
-            value={courseSearch.params.courseCategories ? { value: courseSearch.params.courseCategories, label: t(`course_categories.${courseSearch.params.courseCategories}`) } : null}
-            onValueChange={event => this.handleValueChange('courseCategories', event ? event.value : null)}
+            value={courseSearch.params.categories ? { value: courseSearch.params.categories, label: t(`course_categories.${courseSearch.params.categories}`) } : null}
+            onValueChange={event => this.handleValueChange('categories', event ? event.value : null)}
           />
         }
 
@@ -383,6 +391,7 @@ InlineSearchUnit.propTypes = {
   courseSearch: PropTypes.object,
   dispatch: PropTypes.func,
   homestaySearch: PropTypes.object,
+  uiCurrency: PropTypes.string,
   uiLanguage: PropTypes.string,
   standalone: PropTypes.bool,
   shadow: PropTypes.bool,

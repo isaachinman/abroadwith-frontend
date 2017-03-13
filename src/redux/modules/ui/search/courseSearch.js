@@ -1,5 +1,6 @@
 import config from 'config'
-import courseSearchParamsToUrl from 'utils/search/homestaySearchParamsToUrl'
+import courseSearchParamsToAPIParams from 'utils/search/courseSearchParamsToAPIParams'
+import courseSearchParamsToUrl from 'utils/search/courseSearchParamsToUrl'
 import moment from 'moment'
 import { REHYDRATE } from 'redux-persist/constants'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
@@ -43,16 +44,19 @@ const initialState = {
   rehydrate: true,
   params: {
     arrival: null,
-    courseCategories: null,
+    categories: null,
+    currency: null,
     departure: null,
-    guests: 1,
     language: null,
+    level: 'A1',
     mapData: {},
-    minPrice: 0,
-    maxPrice: 1000,
-    filters: [],
+    maxWeeklyPrice: 1000,
     pageOffset: 0,
     pageSize: 10,
+    sort: {
+      parameter: 'PRICE',
+      order: 'ASC',
+    },
   },
   price: {
     loading: false,
@@ -192,8 +196,11 @@ export function performCourseSearch(params, push) {
     try {
 
       const query = courseSearchParamsToUrl(Object.assign({}, params))
+      const apiParams = courseSearchParamsToAPIParams(Object.assign({}, params))
 
-      const request = superagent.get(`/homestays/search/get-results${query}`)
+      const request = superagent.post(`${config.apiHost}/search/courses`)
+      request.send(apiParams)
+
       request.end((err, res = {}) => {
 
         if (err) {
