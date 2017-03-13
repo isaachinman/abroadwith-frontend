@@ -1,7 +1,7 @@
 // General
 1. Use Redux Devtools Extension to produce tests
 2. Webpack long-term caching not working correctly, hash names being generate erroneously (https://github.com/webpack/webpack/issues/1315)
-3. Refactor all actions to take an exact number of arguments, eg
+3. Refactor the signature of all actions to take an exact number of arguments, eg
     - Authorised requests: (token, data, options)
     - Unauthorised requests: (data, options)
 4. The layout of the homes and users reducers are unintuitive and could use refactoring, or renaming at the least

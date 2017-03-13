@@ -3,15 +3,12 @@ import React, { Component, PropTypes } from 'react'
 import shallowCompare from 'react-addons-shallow-compare'
 import { BackgroundImage } from 'components'
 import { connect } from 'react-redux'
-import { Carousel } from 'react-bootstrap'
 import { courseResultMouseEnter, courseResultMouseLeave } from 'redux/modules/ui/search/hoverables'
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
-import FontAwesome from 'react-fontawesome'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import { updateActiveCourse } from 'redux/modules/ui/search/courseSearch'
-import parsePhotoOrder from 'utils/homes/parsePhotoOrder'
 import Radium from 'radium'
 import Rate from 'antd/lib/rate'
 
@@ -49,8 +46,6 @@ export default class Result extends Component {
       averageRating = (result.avgCleanRating + result.avgFoodRating + result.avgLangCultLearRating + result.avgLocationRating + result.avgRoomRating) / 5
     }
 
-    const parsedPhotoArray = result.homePhotosWithOrder && result.homePhotosWithOrder.length > 0 ? parsePhotoOrder(result.homePhotosWithOrder) : []
-
     return (
       <div
         key={result.courseId}
@@ -60,40 +55,12 @@ export default class Result extends Component {
         className='result-second-child-margin course'
       >
         <Link onClick={this.handleClick} to={`/language-school/${result.educatorId}`} style={styles.overlayLink} />
-        <div style={styles.searchResultPrice}>{Currencies[currency]}{Math.ceil(result.price)}<span style={styles.perWeek}>{t('search.per_week')}</span></div>
-        <Carousel
-          indicators={false}
-          interval={0}
-          slide={false}
-          style={styles.searchResultCarousel}
-          prevIcon={<FontAwesome style={styles.carouselIcon} name='angle-left' />}
-          nextIcon={<FontAwesome style={styles.carouselIcon} name='angle-right' />}
-        >
-          {result.roomPhoto &&
-            <Carousel.Item>
-              <BackgroundImage
-                maxWidth={300}
-                src={result.roomPhoto}
-                styles={styles.searchResultCarouselImg}
-              />
-            </Carousel.Item>
-          }
-          {parsedPhotoArray.map(photo => {
-            return (
-              <Carousel.Item key={photo}>
-                {!result.roomPhoto && parsedPhotoArray.indexOf(photo) === 0 ?
-                  <BackgroundImage
-                    maxWidth={300}
-                    src={photo}
-                    styles={styles.searchResultCarouselImg}
-                  />
-                  :
-                  <div style={Object.assign({}, styles.searchResultCarouselImg, { backgroundImage: `url(${config.img}${photo}?w=300)` })} />
-                }
-              </Carousel.Item>
-            )
-          })}
-        </Carousel>
+        <div style={styles.searchResultPrice}>{Currencies[currency]}{(result.totalPrice).toFixed(2)}</div>
+        <BackgroundImage
+          maxWidth={300}
+          src={result.educatorImage ? result.educatorImage : '/app/courses/default_course.jpg'}
+          styles={styles.searchResultCarouselImg}
+        />
         <div style={styles.searchResultBottomHalf} className='bottom-half'>
           <div style={styles.searchResultInfo}>
             <div style={styles.searchResultText}>

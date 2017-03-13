@@ -64,7 +64,16 @@ export default function reducer(state = initialState, action = {}) {
     case REHYDRATE: {
       const incoming = action.payload.uiPersist
       if (incoming && incoming.homestaySearch && incoming.homestaySearch.rehydrate) {
+
+        const today = moment().startOf('day').subtract(1, 'minutes')
+
         return Object.assign({}, state, incoming.homestaySearch, {
+
+          // Conditionally accept rehydrated params
+          params: Object.assign({}, incoming.homestaySearch.params, {
+            arrival: incoming.homestaySearch.params.arrival && moment(incoming.homestaySearch.params.arrival).isAfter(today) ? incoming.homestaySearch.params.arrival : null,
+            departure: incoming.homestaySearch.params.departure && moment(incoming.homestaySearch.params.departure).isAfter(today) ? incoming.homestaySearch.params.departure : null,
+          }),
 
           // Do not rehydrate these things
           activeRoom: null,

@@ -102,9 +102,20 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     // This is a rehydration (from localstore) case
     case REHYDRATE: {
+
       const incoming = action.payload.uiPersist
+
       if (incoming && incoming.courseSearch && incoming.courseSearch.rehydrate) {
+
+        const today = moment().startOf('day').subtract(1, 'minutes')
+
         return Object.assign({}, state, incoming.courseSearch, {
+
+          // Conditionally accept rehydrated params
+          params: Object.assign({}, incoming.courseSearch.params, {
+            arrival: incoming.courseSearch.params.arrival && moment(incoming.courseSearch.params.arrival).isAfter(today) ? incoming.courseSearch.params.arrival : null,
+            departure: incoming.courseSearch.params.departure && moment(incoming.courseSearch.params.departure).isAfter(today) ? incoming.courseSearch.params.departure : null,
+          }),
 
           // Do not rehydrate these things
           citiesAvailable: state.citiesAvailable,
@@ -207,9 +218,6 @@ export function performCourseSearch(immutableParams, push) {
 
     // Here we must fill some values if they are not provided
     // This is a temporary solution and will eventually be patched
-    if (!params.language) {
-      params.language = 'SPA'
-    }
     if (!params.arrival) {
       params.arrival = apiDate(moment())
     }

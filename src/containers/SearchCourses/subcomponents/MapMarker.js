@@ -35,7 +35,7 @@ export default class MapMarker extends Component {
 
   render() {
 
-    const { currency, price, courseId, courseHovered, coursePopover } = this.props
+    const { currency, totalPrice, courseId, courseHovered, coursePopover } = this.props
     const hovered = courseId === courseHovered
     const popoverOpen = courseId === coursePopover
 
@@ -65,7 +65,7 @@ export default class MapMarker extends Component {
             <div role='tooltip' className={markerClass} style={{ display: 'block' }}>
               <div className='arrow' />
               <div className='homestay-map-marker-content'>
-                <span className='currency'>{Currencies[currency]}</span>{Math.ceil(price)}
+                <span className='currency'>{Currencies[currency]}</span>{(totalPrice).toFixed(2)}
               </div>
             </div>
           </div>
@@ -94,7 +94,7 @@ export default class MapMarker extends Component {
 MapMarker.propTypes = {
   currency: PropTypes.string,
   dispatch: PropTypes.func,
-  price: PropTypes.number,
+  totalPrice: PropTypes.number,
   courseHovered: PropTypes.number,
   courseId: PropTypes.number,
   coursePopover: PropTypes.number,
