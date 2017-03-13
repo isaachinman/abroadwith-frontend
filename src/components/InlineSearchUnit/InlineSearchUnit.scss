@@ -409,6 +409,12 @@ Dimensions:
       input {
         border-radius: 0;
       }
+
+      // Course city input
+      &.course-city {
+        width: 121px;
+      }
+
     }
 
     // Location input
@@ -433,8 +439,15 @@ Dimensions:
       &-control {
         padding: 0 14px;
       }
-    }
 
+      // Course category
+      &.course-category {
+        .react-selectize-control {
+          padding: 0 5px;
+        }
+      }
+
+    }
 
   }
 }

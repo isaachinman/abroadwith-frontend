@@ -5,12 +5,7 @@
     - Authorised requests: (token, data, options)
     - Unauthorised requests: (data, options)
 4. The layout of the homes and users reducers are unintuitive and could use refactoring, or renaming at the least
-5. Refactoring getComponents in routes/index.js
-6. There is a short period in the zero downtime (production) reload where brand new users who don't have cached assets will 404 on css and js resources
-7. Clicking back browser button jumps transition animation
+5. There is a short period in the zero downtime (production) reload where brand new users who don't have cached assets will 404 on css and js resources
 
 // Homepage
 1. Title in hero jumps from top to center onload
-
-// Course search
-1. Going to have to flatten course categories in translations
