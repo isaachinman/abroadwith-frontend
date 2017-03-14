@@ -69,7 +69,7 @@ export default class HomeLocation extends Component {
       let queryString = ''
       Object.keys(newLocation).map(field => {
         const value = newLocation[field]
-        if (field !== 'country' && typeof value === 'string' && value.length > 0) {
+        if (field !== 'country' && field !== 'complement' && typeof value === 'string' && value.length > 0) {
           queryString += value.split(/[ ,]+/).join('+') + ','
         }
       })
