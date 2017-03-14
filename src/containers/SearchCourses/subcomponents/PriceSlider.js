@@ -1,8 +1,9 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import Currencies from 'data/constants/Currencies'
 import Slider from 'rc-slider'
 import { Popover } from 'react-bootstrap'
-import Currencies from 'data/constants/Currencies'
+import { translate } from 'react-i18next'
 
 // Styles
 const styles = {
@@ -19,11 +20,12 @@ const styles = {
   },
 }
 
+@translate()
 export default class PriceSlider extends Component {
 
   render() {
 
-    const { handlePriceChange, maxPrice, currency } = this.props
+    const { handlePriceChange, maxPrice, t, currency } = this.props
 
     // Popover props passed along
     const { arrowOffsetLeft, arrowOffsetTop, className, placement, positionLeft, positionTop, style } = this.props // eslint-disable-line
@@ -43,7 +45,7 @@ export default class PriceSlider extends Component {
         id='price-slider-course-search'
       >
         <div style={styles.sliderContainer}>
-          <h6 style={{ marginTop: 0 }}>Max weekly price</h6>
+          <h6 style={{ marginTop: 0 }}>{t('search.max_weekly_price')}</h6>
           <Slider
             tipFormatter={value => `${currencySymbol}${value}`}
             min={0}

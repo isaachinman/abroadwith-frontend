@@ -222,8 +222,6 @@ export default class InlineSearchUnit extends Component {
 
   render() {
 
-    console.log(this)
-
     const { loadingAnimation } = this.state
     const { courseSearch, homestaySearch, uiLanguage, standalone, integrated, shadow, t, type } = this.props
 

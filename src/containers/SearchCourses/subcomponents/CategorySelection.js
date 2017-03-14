@@ -75,7 +75,7 @@ export default class CategorySelection extends Component {
 
 CategorySelection.propTypes = {
   t: PropTypes.func,
-  categories: PropTypes.func,
+  categories: PropTypes.array,
   handleCategoryChange: PropTypes.func,
   language: PropTypes.string,
 }
