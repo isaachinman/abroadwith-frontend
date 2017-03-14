@@ -7,7 +7,6 @@
 import React, { Component, PropTypes } from 'react'
 import { apiDate } from 'utils/dates'
 import { connect } from 'react-redux'
-import CourseCategories from 'data/constants/CourseCategories'
 import { Button } from 'react-bootstrap'
 import { DateRangePicker } from 'components'
 import i18n from 'i18n/i18n-client'
@@ -270,22 +269,6 @@ export default class InlineSearchUnit extends Component {
       languageSelected = [{ label: t(`languages.${courseSearch.params.language}`), id: courseSearch.params.language }]
     }
 
-    // Determine course categories based on language
-    const courseCategories = []
-    if (type === 'course') {
-
-      if (['ENG', 'DEU', 'SPA'].includes(courseSearch.params.language)) {
-
-        // Add language specific categories first
-        CourseCategories[courseSearch.params.language].map(category => courseCategories.push({ value: category, label: t(`course_categories.${category}`) }))
-
-      }
-
-      // Now add all general categories
-      CourseCategories.GENERAL.map(category => courseCategories.push({ value: category, label: t(`course_categories.${category}`) }))
-
-    }
-
     // Determine dates
     let startDate = null
     let endDate = null
@@ -358,16 +341,22 @@ export default class InlineSearchUnit extends Component {
           </Select>
         }
 
-        {/* Course category selection is only for courses */}
+        {/* Course level selection is only for courses */}
         {type === 'course' &&
           <Select
-            className='course-category'
-            placeholder={t('booking.course_categories')}
+            className='course-level'
+            placeholder={t('booking.level')}
             theme='bootstrap3'
-            options={courseCategories}
-            value={courseSearch.params.categories ? { value: courseSearch.params.categories, label: t(`course_categories.${courseSearch.params.categories}`) } : null}
-            onValueChange={event => this.handleValueChange('categories', event ? event.value : null)}
-          />
+            value={{ value: courseSearch.params.level, label: courseSearch.params.level }}
+            onValueChange={event => this.handleValueChange('level', event ? event.value : null)}
+          >
+            <option value='A1'>A1</option>
+            <option value='A2'>A2</option>
+            <option value='B1'>B1</option>
+            <option value='B2'>B2</option>
+            <option value='C1'>C1</option>
+            <option value='C2'>C2</option>
+          </Select>
         }
 
         {standalone &&

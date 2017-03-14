@@ -7,12 +7,12 @@ import Currencies from 'data/constants/Currencies'
 // Styles
 const styles = {
   sliderContainer: {
-    padding: '10px 35px',
+    padding: '10px 50px 10px 10px',
     minWidth: 300,
   },
   priceDisplay: {
     position: 'absolute',
-    top: 20,
+    bottom: 20,
     fontSize: 12,
     width: 20,
     textAlign: 'center',
@@ -21,15 +21,9 @@ const styles = {
 
 export default class PriceSlider extends Component {
 
-  handleChange = value => {
-    if (value && value.length === 2) {
-      this.props.handlePriceChange(value[0], value[1])
-    }
-  }
-
   render() {
 
-    const { minPrice, maxPrice, currency } = this.props
+    const { handlePriceChange, maxPrice, currency } = this.props
 
     // Popover props passed along
     const { arrowOffsetLeft, arrowOffsetTop, className, placement, positionLeft, positionTop, style } = this.props // eslint-disable-line
@@ -46,19 +40,18 @@ export default class PriceSlider extends Component {
         positionLeft={positionLeft}
         positionTop={positionTop}
         style={Object.assign({}, style, { maxWidth: 'none' })}
-        id='price-slider-homestay-search'
+        id='price-slider-course-search'
       >
         <div style={styles.sliderContainer}>
-          <div style={Object.assign({}, styles.priceDisplay, { left: 10 })}>{currencySymbol}{minPrice}</div>
+          <h6 style={{ marginTop: 0 }}>Max weekly price</h6>
           <Slider
-            range
             tipFormatter={value => `${currencySymbol}${value}`}
             min={0}
-            max={600}
-            defaultValue={[minPrice, maxPrice]}
-            onAfterChange={this.handleChange}
+            max={1000}
+            defaultValue={maxPrice}
+            onAfterChange={handlePriceChange}
           />
-          <div style={Object.assign({}, styles.priceDisplay, { right: 15 })}>{currencySymbol}{maxPrice}</div>
+          <div style={Object.assign({}, styles.priceDisplay, { right: 30 })}>{currencySymbol}{maxPrice}</div>
         </div>
       </Popover>
     )
@@ -69,7 +62,6 @@ PriceSlider.propTypes = {
   currency: PropTypes.string,
   handlePriceChange: PropTypes.func,
   t: PropTypes.func,
-  minPrice: PropTypes.number,
   maxPrice: PropTypes.number,
   uiCurrency: PropTypes.string,
 }

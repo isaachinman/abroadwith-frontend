@@ -1,4 +1,4 @@
-import { darkBlue, headerBluePurple, headerGreen } from 'styles/colors'
+import { bodyTextColor, darkBlue, headerBluePurple, headerGreen } from 'styles/colors'
 
 export default {
   grid: {
@@ -79,6 +79,7 @@ export default {
     position: 'relative',
   },
   searchResult: {
+    verticalAlign: 'top',
     background: 'white',
     marginBottom: 20,
     position: 'relative',
@@ -105,52 +106,28 @@ export default {
     fontSize: 14,
     fontWeight: 'bold',
   },
-  perWeek: {
-    fontWeight: 'normal',
-    fontSize: 12,
-  },
-  searchResultHostImg: {
-    pointerEvents: 'none',
-    width: 80,
-    height: 80,
-    backgroundSize: 'cover',
-    position: 'absolute',
-    right: 10,
-    top: 160,
-    borderRadius: 5,
-    zIndex: 57,
-  },
-  searchResultHostImgBGMask: {
-    width: 84,
-    height: 84,
-    position: 'absolute',
-    background: '#FFFFFF',
-    opacity: 0.15,
-    right: 8,
-    top: 158,
-    borderRadius: 6,
-    zIndex: 3,
-  },
   searchResultRating: {
     position: 'absolute',
     right: 10,
-    top: 213,
+    top: 12,
     fontSize: 12,
     color: headerBluePurple,
   },
   searchResultText: {
     padding: '10px 10px 5px 10px',
-    maxWidth: 'calc(100% - 80px)',
     color: darkBlue,
   },
   searchResultTitle: {
+    fontSize: 17,
+    maxWidth: 'calc(100% - 90px)',
+    fontWeight: 'bold',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     textTransform: 'capitalize',
   },
   searchResultSubtitle: {
-    fontSize: 12,
+    fontSize: 13,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -175,7 +152,13 @@ export default {
   resultListMinHeight: {
     minHeight: 'calc(100vh - 245px)',
   },
-  carouselIcon: {
-    marginTop: 100,
+  resultDescription: {
+    fontSize: 14,
+    margin: '10px 0',
+    minHeight: 57,
+    color: bodyTextColor,
+  },
+  resultDates: {
+    margin: '5px 0 15px 0',
   },
 }

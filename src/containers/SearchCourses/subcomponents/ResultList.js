@@ -13,7 +13,7 @@ export default class ResultList extends Component {
 
   render() {
 
-    const { currency, loaded, t, numberOfResults, results } = this.props
+    const { currency, loaded, t, numberOfResults, results, startLevel } = this.props
 
     console.log(this)
 
@@ -22,12 +22,12 @@ export default class ResultList extends Component {
         <div style={styles.resultListMinHeight}>
           {results && results.length > 0 && results.map(result => {
             return (
-              <Result key={result.courseId} currency={currency} result={result} />
+              <Result key={result.courseId} currency={currency} result={result} startLevel={startLevel} />
             )
           })}
           {numberOfResults !== null && loaded && results && results.length === 0 &&
             <div style={styles.noResults}>
-              <h6 className='header-green'>{t('search.no_results_found')}</h6>
+              <h6 className='header-green'>{t('search.no_course_results_found')}</h6>
             </div>
           }
         </div>
@@ -51,4 +51,5 @@ ResultList.propTypes = {
   t: PropTypes.func,
   numberOfResults: PropTypes.number,
   results: PropTypes.array,
+  startLevel: PropTypes.string,
 }

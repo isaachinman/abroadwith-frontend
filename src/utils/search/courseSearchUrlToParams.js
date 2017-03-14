@@ -27,6 +27,10 @@ export default urlObject => {
 
         params.sort.order = urlObject[param]
 
+      } else if (param === 'categories') {
+
+        params.categories = urlObject[param].split(',')
+
       } else if (isNaN(urlObject[param])) {
 
         // If param is not an integer, do nothing
