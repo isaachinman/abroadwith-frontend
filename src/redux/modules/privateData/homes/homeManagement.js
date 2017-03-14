@@ -1,5 +1,6 @@
 import jwtDecode from 'jwt-decode'
 import config from 'config'
+import { googleTrack } from 'utils/analytics'
 import { load as loadUserWithAuth, update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { loadHomestayCalendar } from 'redux/modules/privateData/homes/loadHomeWithAuth'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
@@ -80,6 +81,12 @@ export function createHomestay(jwt, user, redirectToManageHome) {
               dispatch(hideLoading())
 
             } else {
+
+              // Track event via Google Analytics
+              googleTrack({
+                eventCategory: 'host_events',
+                eventAction: 'home_created',
+              })
 
               // Request was successful
               dispatch({ type: CREATE_HOMESTAY_SUCCESS })

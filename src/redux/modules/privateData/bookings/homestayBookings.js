@@ -1,4 +1,5 @@
 import config from 'config'
+import { googleTrack } from 'utils/analytics'
 import jwtDecode from 'jwt-decode'
 import roundTo from 'round-to'
 import { push } from 'react-router-redux'
@@ -272,6 +273,12 @@ export function createHomestayBooking(jwt, bookingObject, callback) {
             reject(dispatch({ type: CREATE_HOMESTAY_BOOKING_FAIL, err }))
 
           } else {
+
+            // Track event via Google Analytics
+            googleTrack({
+              eventCategory: 'request_events',
+              eventAction: 'booking_request',
+            })
 
             // Request was successful
             resolve(dispatch({ type: CREATE_HOMESTAY_BOOKING_SUCCESS, result: res }))
