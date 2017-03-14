@@ -14,6 +14,8 @@ However, visitors that are logged out all receive the same content. This means w
 
 If you take a look in `src/helpers/serverCache.js`, you will see a very basic implementation of an in-memory cache, with a list of routes to cache at the bottom. There are two special things going on: (1) only deliver cached content to logged-out users, (2) make sure the user is on the right locale site. Besides that it's really straightforward.
 
+This in memory cache helps us achieve TTFB of ~25ms in production for "public" pages.
+
 ## Abroadwith Data
 
 TODO
