@@ -1,4 +1,5 @@
 import config from 'config.js'
+import { googleTrack } from 'utils/analytics'
 import superagent from 'superagent'
 import { login, facebookLogin, googleLogin } from 'redux/modules/auth'
 
@@ -64,6 +65,12 @@ export function signup(type, signupObject, googleToken, callback) {
           dispatch({ type: SIGNUP_FAIL, err })
 
         } else {
+
+          // Track event via Google Analytics
+          googleTrack({
+            eventCategory: 'user_events',
+            eventAction: 'registration',
+          })
 
           // Signup was success
           dispatch({ type: SIGNUP_SUCCESS })

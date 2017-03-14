@@ -31,6 +31,7 @@ if (typeof window === 'undefined') {
   module.exports = Object.assign({
     host: process.env.HOST || 'localhost',
     port: process.env.PORT || 3000,
+    env: process.env.NODE_ENV,
     apiHost: process.env.APIHOST || 'https://api.test-abroadwith.com',
     apiPort: process.env.APIPORT || 443,
     cookieDomain: process.env.NODE_ENV === 'production' ? '.abroadwith.com' : '.test-abroadwith.com',

@@ -1,4 +1,5 @@
 import config from 'config'
+import { googleTrack } from 'utils/analytics'
 import jwtDecode from 'jwt-decode'
 import superagent from 'superagent'
 
@@ -64,7 +65,6 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-// This functionality does not exist yet via the API, but will in the future
 export function createCourseBooking(jwt, bookingObject, callback) {
 
   const cb = typeof callback === 'function' ? callback : () => {}
@@ -88,6 +88,12 @@ export function createCourseBooking(jwt, bookingObject, callback) {
             resolve(dispatch({ type: CREATE_COURSE_BOOKING_FAIL, err }))
 
           } else {
+
+            // Track event via Google Analytics
+            googleTrack({
+              eventCategory: 'request_events',
+              eventAction: 'course_request',
+            })
 
             // Request was successful
             resolve(dispatch({ type: CREATE_COURSE_BOOKING_SUCCESS, result: res }))
