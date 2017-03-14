@@ -1,6 +1,7 @@
 export default urlObject => {
 
   const params = {
+    categories: [],
     mapData: {
       bounds: {},
     },
