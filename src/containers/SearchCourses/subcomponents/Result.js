@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import shallowCompare from 'react-addons-shallow-compare'
 import { BackgroundImage } from 'components'
+import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { courseResultMouseEnter, courseResultMouseLeave } from 'redux/modules/ui/search/hoverables'
 import Currencies from 'data/constants/Currencies'
@@ -52,42 +53,42 @@ export default class Result extends Component {
         style={styles.searchResult}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-        className='result-second-child-margin course'
       >
         <Link onClick={this.handleClick} to={`/language-school/${result.educatorId}`} style={styles.overlayLink} />
         <div style={styles.searchResultPrice}>{Currencies[currency]}{(result.totalPrice).toFixed(2)}</div>
-        <BackgroundImage
-          maxWidth={300}
-          src={result.educatorImage ? result.educatorImage : '/app/courses/default_course.jpg'}
-          styles={styles.searchResultCarouselImg}
-        />
-        <div style={styles.searchResultBottomHalf} className='bottom-half'>
-          <div style={styles.searchResultInfo}>
-            <div style={styles.searchResultText}>
-              <div style={styles.searchResultTitle}>
-                {t('common.home_of', { first_name: result.hostName })}
-              </div>
-              <div style={styles.searchResultSubtitle}>
-                {t(`homes.home_types.${result.homeType}`)} > {result.homeCity} {result.homeNeighbourhood && <span>({result.homeNeighbourhood})</span>}
-              </div>
+        <Col xs={12} md={5} style={styles.resultCol}>
+          <BackgroundImage
+            maxWidth={300}
+            src={result.educatorImage ? result.educatorImage : '/app/courses/default_course.jpg'}
+            styles={styles.searchResultImg}
+          />
+        </Col>
+
+        <Col xs={12} md={7} style={styles.resultCol}>
+          <div style={styles.searchResultText}>
+            <div style={styles.searchResultTitle}>
+              {t('common.home_of', { first_name: result.hostName })}
             </div>
-
-            {result.hostPhoto &&
-              <div>
-                <div style={styles.searchResultHostImgBGMask} />
-                <div style={Object.assign({}, styles.searchResultHostImg, { backgroundImage: `url(${config.img}${result.hostPhoto})` })} />
-              </div>
-            }
-
-            {result.reviewCount > 0 &&
-              <div style={styles.searchResultRating} className='small-rating-wrapper'>
-                ({result.reviewCount}) <Rate disabled defaultValue={averageRating} />
-              </div>
-            }
-
+            <div style={styles.searchResultSubtitle}>
+              {t(`homes.home_types.${result.homeType}`)} > {result.homeCity} {result.homeNeighbourhood && <span>({result.homeNeighbourhood})</span>}
+            </div>
           </div>
-          <div className='hover-stripe' />
-        </div>
+
+          {result.hostPhoto &&
+          <div>
+            <div style={styles.searchResultHostImgBGMask} />
+            <div style={Object.assign({}, styles.searchResultHostImg, { backgroundImage: `url(${config.img}${result.hostPhoto})` })} />
+          </div>
+          }
+
+          {result.reviewCount > 0 &&
+          <div style={styles.searchResultRating} className='small-rating-wrapper'>
+              ({result.reviewCount}) <Rate disabled defaultValue={averageRating} />
+          </div>
+          }
+        </Col>
+
+
       </div>
     )
   }

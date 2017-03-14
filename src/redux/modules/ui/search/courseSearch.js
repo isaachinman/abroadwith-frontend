@@ -56,7 +56,7 @@ const initialState = {
     mapData: {},
     maxWeeklyPrice: 1000,
     pageOffset: 0,
-    pageSize: 10,
+    pageSize: 5,
     sort: {
       parameter: 'PRICE',
       order: 'ASC',

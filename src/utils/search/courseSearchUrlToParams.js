@@ -27,9 +27,15 @@ export default urlObject => {
 
         params.sort.order = urlObject[param]
 
+      } else if (isNaN(urlObject[param])) {
+
+        // If param is not an integer, do nothing
+        params[param] = urlObject[param]
+
       } else {
 
-        params[param] = urlObject[param]
+        // If it is an integer, parse it
+        params[param] = parseInt(urlObject[param])
 
       }
 

@@ -1,6 +1,5 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import shallowCompare from 'react-addons-shallow-compare'
 import { Footer } from 'components'
 import { translate } from 'react-i18next'
 
@@ -11,10 +10,6 @@ import styles from '../SearchCourses.styles'
 
 @translate()
 export default class ResultList extends Component {
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState)
-  }
 
   render() {
 
