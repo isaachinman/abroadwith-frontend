@@ -6,12 +6,13 @@ import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { courseResultMouseEnter, courseResultMouseLeave } from 'redux/modules/ui/search/hoverables'
 import Currencies from 'data/constants/Currencies'
-import config from 'config'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import { updateActiveCourse } from 'redux/modules/ui/search/courseSearch'
 import Radium from 'radium'
 import Rate from 'antd/lib/rate'
+import { semanticDate } from 'utils/dates'
+import TextTruncate from 'react-text-truncate'
 
 // Relative imports
 import styles from '../SearchCourses.styles'
@@ -39,13 +40,8 @@ export default class Result extends Component {
 
   render() {
 
-    const { currency, t, result } = this.props
-
-    let averageRating = null
-
-    if (result.reviewCount > 0) {
-      averageRating = (result.avgCleanRating + result.avgFoodRating + result.avgLangCultLearRating + result.avgLocationRating + result.avgRoomRating) / 5
-    }
+    const { currency, t, result, startLevel } = this.props
+    const currencySymbol = Currencies[currency]
 
     return (
       <div
@@ -55,7 +51,7 @@ export default class Result extends Component {
         onMouseLeave={this.handleMouseLeave}
       >
         <Link onClick={this.handleClick} to={`/language-school/${result.educatorId}`} style={styles.overlayLink} />
-        <div style={styles.searchResultPrice}>{Currencies[currency]}{(result.totalPrice).toFixed(2)}</div>
+        <div style={styles.searchResultPrice}>{currencySymbol}{(result.totalPrice).toFixed(2)}</div>
         <Col xs={12} md={5} style={styles.resultCol}>
           <BackgroundImage
             maxWidth={300}
@@ -67,25 +63,31 @@ export default class Result extends Component {
         <Col xs={12} md={7} style={styles.resultCol}>
           <div style={styles.searchResultText}>
             <div style={styles.searchResultTitle}>
-              {t('common.home_of', { first_name: result.hostName })}
+              {result.courseName}
             </div>
-            <div style={styles.searchResultSubtitle}>
-              {t(`homes.home_types.${result.homeType}`)} > {result.homeCity} {result.homeNeighbourhood && <span>({result.homeNeighbourhood})</span>}
+            <div style={styles.searchResultSubtitle} className='text-muted'>
+              {result.educatorName}
+            </div>
+            <div style={styles.resultDescription}>
+              <TextTruncate
+                ref={node => this.truncator = node}
+                line={3}
+                text={result.shortDescription}
+              />
+            </div>
+            <div style={styles.resultDates}>
+              {semanticDate(t, result.startDate)} {t('common.words.to')} {semanticDate(t, result.endDate)}
+            </div>
+            <div style={styles.resultLevel}>
+              <div className='course-info-tag'>{startLevel} {t('common.words.to')} {result.endLevel}</div>
+              <div className='course-info-tag'>{currencySymbol}{(result.weeklyPrice).toFixed(2)}{t('search.per_week')}}</div>
             </div>
           </div>
 
-          {result.hostPhoto &&
-          <div>
-            <div style={styles.searchResultHostImgBGMask} />
-            <div style={Object.assign({}, styles.searchResultHostImg, { backgroundImage: `url(${config.img}${result.hostPhoto})` })} />
-          </div>
-          }
-
-          {result.reviewCount > 0 &&
           <div style={styles.searchResultRating} className='small-rating-wrapper'>
-              ({result.reviewCount}) <Rate disabled defaultValue={averageRating} />
+            ({result.educatorReviewResponses.length}) <Rate disabled defaultValue={result.educatorAverageRating} />
           </div>
-          }
+
         </Col>
 
 
@@ -100,4 +102,5 @@ Result.propTypes = {
   t: PropTypes.func,
   result: PropTypes.object,
   roomHovered: PropTypes.number,
+  startLevel: PropTypes.string,
 }

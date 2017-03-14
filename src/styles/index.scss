@@ -549,6 +549,12 @@ $homestay-popover-arrow-color: $darkBlue;
   }
 }
 
+// Course info tag
+.course-info-tag {
+  @extend .immersion-tag;
+  font-size: 12px;
+}
+
 // Search result rating
 .small-rating-wrapper {
   .ant-rate {

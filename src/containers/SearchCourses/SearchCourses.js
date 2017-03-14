@@ -19,8 +19,7 @@ import Radium from 'radium'
 import SpinLoader from 'components/SpinLoader/SpinLoader'
 
 // Relative imports
-import FiltersPanel from './subcomponents/FiltersPanel'
-import ImmersionSelection from './subcomponents/ImmersionSelection'
+import CategorySelection from './subcomponents/CategorySelection'
 import Map from './subcomponents/Map'
 import PriceSlider from './subcomponents/PriceSlider'
 import ResultList from './subcomponents/ResultList'
@@ -39,7 +38,6 @@ import styles from './SearchCourses.styles'
 export default class SearchCourses extends Component {
 
   state = {
-    filtersPanelOpen: false,
     initialSearchPerformed: false,
     mapDimensions: {},
   }
@@ -126,6 +124,16 @@ export default class SearchCourses extends Component {
   closeFiltersPanel = () => this.setState({ filtersPanelOpen: false })
   openFiltersPanel = () => this.setState({ filtersPanelOpen: true })
 
+  handleCategoryChange = values => {
+
+    const { dispatch, search } = this.props
+    const categories = values.map(category => category.value)
+    dispatch(performCourseSearch(Object.assign({}, search.params, {
+      categories,
+    }), push))
+
+  }
+
   handleMapChange = newGeometry => {
 
     const { dispatch, search } = this.props
@@ -153,18 +161,17 @@ export default class SearchCourses extends Component {
 
   }
 
-  handlePriceChange = (minPrice, maxPrice) => {
+  handlePriceChange = maxWeeklyPrice => {
     const { dispatch, search } = this.props
     dispatch(performCourseSearch(Object.assign({}, search.params, {
-      minPrice,
-      maxPrice,
+      maxWeeklyPrice,
     }), push))
   }
 
   render() {
 
-    const { filtersPanelOpen, mapDimensions } = this.state
-    const { uiCurrency, uiLanguage, t, search } = this.props
+    const { mapDimensions } = this.state
+    const { uiCurrency, t, search } = this.props
 
     const currency = search.data && search.data.params ? search.data.params.currency : uiCurrency
 
@@ -200,17 +207,15 @@ export default class SearchCourses extends Component {
                   trigger='click'
                   placement='bottom'
                   overlay={(
-                    <ImmersionSelection
-                      toggleImmersion={this.handleImmersionToggle}
-                      handleTandemLanguageChange={this.handleTandemLanguageChange}
-                      tandemLanguage={search.params.tandemLanguage}
-                      immersions={search.params.immersions}
-                      uiLanguage={uiLanguage}
+                    <CategorySelection
+                      handleCategoryChange={this.handleCategoryChange}
+                      categories={search.params.categories}
+                      language={search.params.language}
                     />
                   )}
                   rootClose
                 >
-                  <div style={styles.extra}>{t('common.immersions')}</div>
+                  <div style={styles.extra}>{t('booking.course_categories')}{search.params.categories.length > 0 && <span> ({search.params.categories.length})</span>}</div>
                 </OverlayTrigger>
                 <OverlayTrigger
                   trigger='click'
@@ -219,15 +224,13 @@ export default class SearchCourses extends Component {
                     <PriceSlider
                       currency={currency}
                       handlePriceChange={this.handlePriceChange}
-                      maxPrice={parseInt(search.params.maxPrice)}
-                      minPrice={parseInt(search.params.minPrice)}
+                      maxPrice={parseInt(search.params.maxWeeklyPrice)}
                     />
                   )}
                   rootClose
                 >
                   <div style={styles.extra}>{t('search.price_range')}</div>
                 </OverlayTrigger>
-                <div style={styles.extra} onClick={this.openFiltersPanel}>{t('search.more_filters')}</div>
               </div>
             </div>
             <div style={styles.inlineSearchUnit}>
@@ -235,10 +238,6 @@ export default class SearchCourses extends Component {
             </div>
           </div>
           <div style={styles.resultScrollList} id='homestay-search-result-list'>
-            <FiltersPanel
-              handleClose={this.closeFiltersPanel}
-              open={filtersPanelOpen}
-            />
             <SpinLoader light noLoader show={search.loading}>
               <div>
                 <ResultList
@@ -246,6 +245,7 @@ export default class SearchCourses extends Component {
                   currency={currency}
                   results={search.data.results}
                   numberOfResults={search.data && search.data.resultDetails ? search.data.resultDetails.numberOfResults : null}
+                  startLevel={search.params.level}
                 />
               </div>
             </SpinLoader>

@@ -7,7 +7,6 @@
 export default params => {
 
   const apiParams = Object.assign({}, params, {
-    categories: params.categories ? [params.categories] : [],
     startDate: params.arrival,
     endDate: params.departure,
     rectangularBounds: {

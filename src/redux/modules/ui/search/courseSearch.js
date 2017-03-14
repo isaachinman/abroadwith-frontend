@@ -48,7 +48,7 @@ const initialState = {
   rehydrate: true,
   params: {
     arrival: null,
-    categories: null,
+    categories: [],
     currency: null,
     departure: null,
     language: null,
@@ -223,6 +223,9 @@ export function performCourseSearch(immutableParams, push) {
     }
     if (!params.departure) {
       params.departure = apiDate(moment().add(2, 'weeks'))
+    }
+    if (!params.level) {
+      params.level = 'A1'
     }
 
     // It's important to dispatch param update _after_ search.loading has been set
