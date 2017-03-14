@@ -47,8 +47,13 @@ export default class Main extends Component {
 
   redirectToSearchWithImmersionType = type => {
     const { dispatch, homestaySearch } = this.props
-    const params = Object.assign({}, homestaySearch.params)
-    params.immersions[type] = true
+    const params = Object.assign({}, homestaySearch.params, {
+      immersions: {
+        stay: type === 'stay',
+        tandem: type === 'tandem',
+        teacher: type === 'teacher',
+      },
+    })
     dispatch(performRoomSearch(params, push))
   }
 
