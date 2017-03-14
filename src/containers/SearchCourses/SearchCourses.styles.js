@@ -82,21 +82,17 @@ export default {
     background: 'white',
     marginBottom: 20,
     position: 'relative',
-    width: 'calc(50% - 10px)',
-    '@media (max-width: 991px)': {
-      display: 'block',
-      width: '100%',
-      maxWidth: 400,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
+    width: '100%',
     display: 'inline-block',
+    border: '1px solid #ddd',
   },
-  searchResultCarouselImg: {
+  searchResultImg: {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    width: '100%',
-    height: 200,
+    minHeight: 200,
+  },
+  resultCol: {
+    padding: 0,
   },
   searchResultPrice: {
     zIndex: 57,
@@ -112,11 +108,6 @@ export default {
   perWeek: {
     fontWeight: 'normal',
     fontSize: 12,
-  },
-  searchResultBottomHalf: {
-    borderRight: '1px solid #ddd',
-    borderBottom: '1px solid #ddd',
-    borderLeft: '1px solid #ddd',
   },
   searchResultHostImg: {
     pointerEvents: 'none',
