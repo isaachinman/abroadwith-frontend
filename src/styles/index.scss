@@ -463,7 +463,7 @@ $homestay-popover-arrow-color: $darkBlue;
     bottom: -$popover-arrow-outer-width;
     &:after {
       content: " ";
-      bottom: 1px;
+      bottom: 2px;
       margin-left: -$popover-arrow-width;
       border-bottom-width: 0;
       border-top-color: $homestay-popover-arrow-color;

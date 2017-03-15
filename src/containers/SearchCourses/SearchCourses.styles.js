@@ -92,6 +92,11 @@ export default {
     backgroundPosition: 'center',
     minHeight: 200,
   },
+  smallSearchResultImg: {
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    minHeight: 160,
+  },
   resultCol: {
     padding: 0,
   },

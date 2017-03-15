@@ -39,8 +39,8 @@ export default class MapMarker extends Component {
     const hovered = courseId === courseHovered
     const popoverOpen = courseId === coursePopover
 
-    const markerWidth = popoverOpen ? 250 : 40
-    const markerHeight = popoverOpen ? 216 : 40
+    const markerWidth = popoverOpen ? 225 : 40
+    const markerHeight = popoverOpen ? 210 : 40
     let markerClass = 'course-map-marker top'
 
     if (hovered) {

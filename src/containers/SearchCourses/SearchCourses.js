@@ -113,6 +113,8 @@ export default class SearchCourses extends Component {
 
     const { dispatch, search } = this.props
 
+    console.log(newGeometry.bounds.nw)
+
     if (this.state.initialSearchPerformed && !search.loading) {
       dispatch(performCourseSearch(Object.assign({}, search.params, {
         mapData: {
@@ -169,6 +171,8 @@ export default class SearchCourses extends Component {
       center = fittedBounds.center
       zoom = fittedBounds.zoom
     }
+
+    console.log(this)
 
     return (
       <div>
