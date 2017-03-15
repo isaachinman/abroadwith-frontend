@@ -9,6 +9,7 @@ import { apiDate } from 'utils/dates'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { DateRangePicker } from 'components'
+import { getBoundsFromLocationString } from 'utils/locations'
 import i18n from 'i18n/i18n-client'
 import { loadCourseCities, loadCourseLanguages, updateCourseSearchParams, performCourseSearch } from 'redux/modules/ui/search/courseSearch'
 import { SimpleSelect as Select } from 'react-selectize'
@@ -90,8 +91,6 @@ export default class InlineSearchUnit extends Component {
 
     } else if (field === 'location') {
 
-      console.log('inside location change function: ', value)
-
       if (value !== null) {
 
         let mapData = {}
@@ -169,13 +168,31 @@ export default class InlineSearchUnit extends Component {
     if (integrated) {
 
       // Don't dispatch if we don't have bounds (will result in no map)
-      if (newParams.mapData.bounds || newParams.mapData.center) {
+      if (type === 'homestay') {
 
         // Don't dispatch search if we only have one date (no range)
         if (field !== 'dates' || (field === 'dates' && value.startDate && value.endDate)) {
           dispatch(performSearch(newParams, push))
         } else {
           dispatch(updateParams(newParams))
+        }
+
+      } else if (type === 'course') {
+
+        // If we have a center point, we need to get bounds
+        if (newParams.mapData.center) {
+
+          getBoundsFromLocationString(newParams.locationString).then(bounds => {
+
+            dispatch(performSearch(Object.assign({}, newParams, {
+              mapData: {
+                bounds,
+              },
+            }), push))
+
+          })
+        } else if (typeof newParams.mapData.bounds === 'object') {
+          dispatch(performSearch(newParams, push))
         }
 
       }
@@ -199,7 +216,18 @@ export default class InlineSearchUnit extends Component {
 
     // Clone new object of existing params
     if (type === 'homestay') {
+
       params = Object.assign({}, homestaySearch.params)
+
+      // If there's no location data, set it to default
+      if (!params.mapData.bounds) {
+        params.mapData.bounds = MapBounds.europe
+      }
+
+      // Perform search action
+      dispatch(performSearch(params, push))
+
+
     } else if (type === 'course') {
 
       params = Object.assign({}, courseSearch.params)
@@ -209,18 +237,19 @@ export default class InlineSearchUnit extends Component {
         params.currency = uiCurrency
       }
 
-    }
+      // Geolocate bounds for course city
+      getBoundsFromLocationString(params.locationString).then(bounds => {
+        dispatch(performSearch(Object.assign({}, params, {
+          mapData: {
+            bounds,
+          },
+        }), push))
+      })
 
-    // If there's no location data, set it to default
-    if (!params.mapData.bounds) {
-      params.mapData.bounds = MapBounds.europe
     }
 
     // Fire loading animation with local state
     this.setState({ loadingAnimation: true })
-
-    // Perform search action
-    dispatch(performSearch(params, push))
 
   }
 

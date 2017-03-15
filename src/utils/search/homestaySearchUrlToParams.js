@@ -1,8 +1,5 @@
 export default urlObject => {
 
-  console.log('inside url function')
-  console.log('url object: ', urlObject)
-
   const params = {
     immersions: {},
     mapData: {
@@ -28,7 +25,6 @@ export default urlObject => {
           tandem: immersionArray.indexOf('TA') > -1,
           teacher: immersionArray.indexOf('TE') > -1,
         }
-        console.log('immersionArray: ', immersionArray)
 
       } else {
 
@@ -39,9 +35,6 @@ export default urlObject => {
     }
 
   })
-
-  console.log('about to return these: ', params)
-  console.log('bounds: ', params.mapData.bounds)
 
   return params
 

@@ -6,6 +6,7 @@ import abroadwithBoundsToGMAPBounds from 'utils/search/abroadwithBoundsToGMAPBou
 import gmapBoundsToAbroadwithBounds from 'utils/search/gmapBoundsToAbroadwithBounds'
 import { connect } from 'react-redux'
 import { InlineSearchUnit } from 'components'
+import { getBoundsFromLocationString } from 'utils/locations'
 import { Grid, OverlayTrigger } from 'react-bootstrap'
 import homestaySearchUrlToParams from 'utils/search/homestaySearchUrlToParams'
 import MapBounds from 'data/constants/MapBounds'
@@ -59,40 +60,12 @@ export default class SearchHomestays extends Component {
       // In some cases, we link to this search page with a semantic location query
       if (routing.query.locationString && !routing.query.maxLat) {
 
-        // Instantiate the Google services we'll need
-        /* eslint-disable */
-        const autocompleter = new google.maps.places.AutocompleteService()
-        const geocoder = new google.maps.Geocoder
-        /* eslint-enable */
-
-        // Get a place suggestion from the locationString
-        autocompleter.getQueryPredictions({ input: routing.query.locationString }, (predictions, status) => {
-
-          // Geolocate the first result
-          if (status === 'OK' && predictions.length > 0) {
-
-            geocoder.geocode({ placeId: predictions[0].place_id }, (results, geocodeStatus) => {
-
-              if (geocodeStatus === 'OK' && results.length > 0) {
-
-                const viewport = results[0].geometry.bounds
-
-                dispatch(performRoomSearch(Object.assign({}, homestaySearchUrlToParams(this.props.routing.query), {
-                  mapData: {
-                    bounds: {
-                      maxLat: viewport.f.f,
-                      maxLng: viewport.b.b,
-                      minLat: viewport.f.b,
-                      minLng: viewport.b.f,
-                    },
-                  },
-                }), push))
-              }
-
-            })
-
-          }
-
+        getBoundsFromLocationString(routing.query.locationString).then(bounds => {
+          dispatch(performRoomSearch(Object.assign({}, homestaySearchUrlToParams(this.props.routing.query), {
+            mapData: {
+              bounds,
+            },
+          }), push))
         })
 
       } else if (!search.loaded && !search.params.mapData.bounds) {

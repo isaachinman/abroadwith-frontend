@@ -6,8 +6,6 @@ export default params => {
 
   Object.keys(params).map(param => {
 
-    console.log(param)
-
     // General truthy check
     if (params[param] || params[param] === 0) {
 
@@ -28,8 +26,6 @@ export default params => {
         query += `&departure=${apiDate(params[param])}`
 
       } else if (param === 'sort') {
-
-        console.log('SORT INCOMING: ', params[param])
 
         query += `&sort=${params[param].parameter}&sortOrder=${params[param].order}`
 
