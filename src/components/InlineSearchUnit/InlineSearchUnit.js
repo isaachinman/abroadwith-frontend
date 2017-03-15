@@ -180,7 +180,7 @@ export default class InlineSearchUnit extends Component {
       } else if (type === 'course') {
 
         // If we have a center point, we need to get bounds
-        if (newParams.mapData.center) {
+        if (newParams.locationString) {
 
           getBoundsFromLocationString(newParams.locationString).then(bounds => {
 
@@ -191,6 +191,7 @@ export default class InlineSearchUnit extends Component {
             }), push))
 
           })
+
         } else if (typeof newParams.mapData.bounds === 'object') {
           dispatch(performSearch(newParams, push))
         }
@@ -237,14 +238,27 @@ export default class InlineSearchUnit extends Component {
         params.currency = uiCurrency
       }
 
-      // Geolocate bounds for course city
-      getBoundsFromLocationString(params.locationString).then(bounds => {
+      if (params.locationString) {
+
+        // Geolocate bounds for course city
+        getBoundsFromLocationString(params.locationString).then(bounds => {
+          dispatch(performSearch(Object.assign({}, params, {
+            mapData: {
+              bounds,
+            },
+          }), push))
+        })
+
+      } else {
+
+        // If user hasn't chosen a course city, show them Europe
         dispatch(performSearch(Object.assign({}, params, {
           mapData: {
-            bounds,
+            bounds: MapBounds.europe,
           },
         }), push))
-      })
+
+      }
 
     }
 
