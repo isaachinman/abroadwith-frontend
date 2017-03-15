@@ -140,10 +140,9 @@ export default class InlineSearchUnit extends Component {
                 lat: value.coords.lat,
                 lng: value.coords.lng,
               },
-              locationString: value.label,
               zoom: 15,
             },
-            locationString: value.formatted_address,
+            locationString: value.label,
           })
 
         }
@@ -169,11 +168,16 @@ export default class InlineSearchUnit extends Component {
 
     if (integrated) {
 
-      // Don't dispatch search if we only have one date (no range)
-      if (field !== 'dates' || (field === 'dates' && value.startDate && value.endDate)) {
-        dispatch(performSearch(newParams, push))
-      } else {
-        dispatch(updateParams(newParams))
+      // Don't dispatch if we don't have bounds (will result in no map)
+      if (newParams.mapData.bounds || newParams.mapData.center) {
+
+        // Don't dispatch search if we only have one date (no range)
+        if (field !== 'dates' || (field === 'dates' && value.startDate && value.endDate)) {
+          dispatch(performSearch(newParams, push))
+        } else {
+          dispatch(updateParams(newParams))
+        }
+
       }
 
     } else {
@@ -306,9 +310,9 @@ export default class InlineSearchUnit extends Component {
           <Typeahead
             className='course-city'
             tabIndex={1}
-            selected={courseSearch.params.mapData.locationString ? [{ id: courseSearch.params.mapData.locationString, label: courseSearch.params.mapData.locationString }] : []}
+            selected={courseSearch.params.locationString ? [{ id: courseSearch.params.locationString, label: courseSearch.params.locationString }] : []}
             placeholder={t('search.choose_a_city')}
-            options={courseSearch.citiesAvailable.map(city => ({ id: city.name, label: t(`course_cities.${city.name}`), coords: { lat: city.location_0_coordinate, lng: city.location_1_coordinate } }))}
+            options={courseSearch.citiesAvailable.map(city => ({ id: city.name, label: t(`course_cities.${city.name}.name`), coords: { lat: city.location_0_coordinate, lng: city.location_1_coordinate } }))}
             onChange={options => {
               return options[0] ? this.handleValueChange('location', options[0]) : this.handleValueChange('location', null)
             }}
