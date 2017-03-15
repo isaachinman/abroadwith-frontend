@@ -23,6 +23,7 @@ export default params => {
 
   delete apiParams.arrival
   delete apiParams.departure
+  delete apiParams.locationString
   delete apiParams.mapData
 
   return apiParams
