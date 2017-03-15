@@ -5,6 +5,7 @@
 
 export BackgroundColorBlock from './BackgroundColorBlock/BackgroundColorBlock'
 export BackgroundImage from './BackgroundImage/BackgroundImage'
+export CityInfo from './CityInfo/CityInfo'
 export ContactUsForm from './ContactUsForm/ContactUsForm'
 export DateRangePicker from './DateRangePicker/DateRangePicker'
 export FeaturedHomes from './FeaturedHomes/FeaturedHomes'

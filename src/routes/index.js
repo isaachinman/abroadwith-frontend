@@ -18,6 +18,7 @@ import {
     LoginSuccess,
     Main,
     PopularLanguages,
+    School,
     SearchCourses,
     SearchHomestays,
     SignupPage,
@@ -29,11 +30,9 @@ export default (store) => {
 
   // Hide and show footer based on route
   const noFooterEnter = liftedStore => {
-    console.log('Hide Footer')
     liftedStore.dispatch(hideFooter())
   }
   const noFooterLeave = liftedStore => {
-    console.log('Show Footer')
     liftedStore.dispatch(showFooter())
   }
 
@@ -322,6 +321,8 @@ export default (store) => {
               onLeave={() => noFooterLeave(store)}
               component={SearchCourses}
             />
+
+            <Route path='language-school/:educatorID' component={School} />
 
             <Route path='login' component={LoginPage} />
             <Route path='popular-languages-destinations' component={PopularLanguages} />

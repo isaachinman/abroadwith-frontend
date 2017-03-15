@@ -30,6 +30,9 @@
   }
 }
 
+// Angled edges mixin
+@import "./angled-edges/angled-edges.scss";
+
 // Search page styles
 .gm-style-cc {
   display: none;
@@ -702,4 +705,10 @@ select.form-control option{
   -webkit-padding-start: 0px;
   transition: opacity 2s;
   min-height: 500px;
+}
+
+// School profile page
+.school-profile-page-header {
+  background: $headerGreen;
+  @include angled-edge('outside bottom','lower right', $headerGreen, 60);
 }
