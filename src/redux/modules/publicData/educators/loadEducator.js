@@ -1,3 +1,4 @@
+// Load public educator object
 const LOAD_EDUCATOR = 'abroadwith/LOAD'
 const LOAD_EDUCATOR_SUCCESS = 'abroadwith/LOAD_SUCCESS'
 const LOAD_EDUCATOR_FAIL = 'abroadwith/LOAD_FAIL'

@@ -330,7 +330,7 @@ export function loadCourseCities() {
 
             // Sometimes new course cities are added by the business team
             // This application refreshes them every day (async depending on actual use)
-            const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_cities/select?q=*&wt=json&fl=location_0_coordinate,location_1_coordinate,name`)
+            const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_cities/select?q=*&wt=json&fl=location_0_coordinate,location_1_coordinate,name&rows=1000`)
             request.end((error, response = {}) => {
 
               if (error) {
@@ -408,7 +408,7 @@ export function loadCourseLanguages() {
 
             // Sometimes new course languages are added by the business team
             // This application refreshes them every day (async depending on actual use)
-            const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_courses/select?q=*&wt=json&fl=language&group=true&group.field=language`)
+            const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_courses/select?q=*&wt=json&fl=language&group=true&group.field=language&rows=1000`)
             request.end((error, response = {}) => {
 
               if (error) {
