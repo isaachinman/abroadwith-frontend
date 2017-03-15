@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import shallowCompare from 'react-addons-shallow-compare'
 import Helmet from 'react-helmet'
 import abroadwithBoundsToGMAPBounds from 'utils/search/abroadwithBoundsToGMAPBounds'
+import { getBoundsFromLocationString } from 'utils/locations'
 import gmapBoundsToAbroadwithBounds from 'utils/search/gmapBoundsToAbroadwithBounds'
 import { connect } from 'react-redux'
 import { InlineSearchUnit } from 'components'
@@ -50,92 +51,19 @@ export default class SearchCourses extends Component {
 
     const { dispatch, routing, search } = this.props
 
-    // Course locations come from a predetermined list of center point coords
-    // These need to be converted into bounds every single time
-
-    console.log(this)
-    console.log(this.props.search.params.locationString, nextProps.search.params.locationString)
-    if (this.props.search.params.locationString !== nextProps.search.params.locationString && nextProps.search.params.locationString !== null) {
-
-      console.log('inside new city case')
-
-      // Instantiate the Google services we'll need
-      /* eslint-disable */
-      const autocompleter = new google.maps.places.AutocompleteService()
-      const geocoder = new google.maps.Geocoder
-      /* eslint-enable */
-
-      // Get a place suggestion from the locationString
-      autocompleter.getQueryPredictions({ input: nextProps.search.params.locationString }, (predictions, status) => {
-
-        // Geolocate the first result
-        if (status === 'OK' && predictions.length > 0) {
-
-          geocoder.geocode({ placeId: predictions[0].place_id }, (results, geocodeStatus) => {
-
-            if (geocodeStatus === 'OK' && results.length > 0) {
-
-              const viewport = results[0].geometry.bounds
-
-              dispatch(performCourseSearch(Object.assign({}, nextProps.search.params, {
-                mapData: {
-                  bounds: {
-                    maxLat: viewport.f.f,
-                    maxLng: viewport.b.b,
-                    minLat: viewport.f.b,
-                    minLng: viewport.b.f,
-                  },
-                },
-              }), push))
-            }
-
-          })
-
-        }
-
-      })
-
-    }
-
     // This is our initialisation step
     if (!this.state.mapDimensions.width && nextState.mapDimensions.width && !this.state.initialSearchPerformed) {
 
       // In some cases, we link to this search page with a semantic location query
       if (routing.query.locationString && !routing.query.maxLat) {
 
-        // Instantiate the Google services we'll need
-        /* eslint-disable */
-        const autocompleter = new google.maps.places.AutocompleteService()
-        const geocoder = new google.maps.Geocoder
-        /* eslint-enable */
+        getBoundsFromLocationString(routing.query.locationString).then(bounds => {
 
-        // Get a place suggestion from the locationString
-        autocompleter.getQueryPredictions({ input: routing.query.locationString }, (predictions, status) => {
-
-          // Geolocate the first result
-          if (status === 'OK' && predictions.length > 0) {
-
-            geocoder.geocode({ placeId: predictions[0].place_id }, (results, geocodeStatus) => {
-
-              if (geocodeStatus === 'OK' && results.length > 0) {
-
-                const viewport = results[0].geometry.bounds
-
-                dispatch(performCourseSearch(Object.assign({}, courseSearchUrlToParams(this.props.routing.query), {
-                  mapData: {
-                    bounds: {
-                      maxLat: viewport.f.f,
-                      maxLng: viewport.b.b,
-                      minLat: viewport.f.b,
-                      minLng: viewport.b.f,
-                    },
-                  },
-                }), push))
-              }
-
-            })
-
-          }
+          dispatch(performCourseSearch(Object.assign({}, courseSearchUrlToParams(this.props.routing.query), {
+            mapData: {
+              bounds,
+            },
+          }), push))
 
         })
 

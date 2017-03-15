@@ -48,9 +48,6 @@ export default urlObject => {
 
   })
 
-  console.log('about to return these: ', params)
-  console.log('bounds: ', params.mapData.bounds)
-
   return params
 
 }
