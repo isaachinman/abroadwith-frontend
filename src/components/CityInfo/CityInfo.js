@@ -21,15 +21,12 @@ export default class CityInfo extends Component {
     request.end((err, res) => {
       if (!err) {
         this.setState({ cityName: res.body.cityName })
-        console.log('clientside response: ', res)
       }
     })
 
   }
 
   render() {
-
-    console.log(this)
 
     return (
       <Row>

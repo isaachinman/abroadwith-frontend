@@ -31,7 +31,6 @@ export default class PriceSlider extends Component {
     const { arrowOffsetLeft, arrowOffsetTop, className, placement, positionLeft, positionTop, style } = this.props // eslint-disable-line
 
     const currencySymbol = Currencies[currency]
-    console.log(this)
 
     return (
       <Popover

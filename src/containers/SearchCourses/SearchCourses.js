@@ -54,6 +54,8 @@ export default class SearchCourses extends Component {
     // This is our initialisation step
     if (!this.state.mapDimensions.width && nextState.mapDimensions.width && !this.state.initialSearchPerformed) {
 
+      this.calculateMapData(nextState.mapDimensions)
+
       // In some cases, we link to this search page with a semantic location query
       if (routing.query.locationString && !routing.query.maxLat) {
 
@@ -96,6 +98,30 @@ export default class SearchCourses extends Component {
     }
   }
 
+  componentDidUpdate = prevProps => {
+
+    if (prevProps.search.params.locationString !== this.props.search.params.locationString) {
+      this.calculateMapData(this.state.mapDimensions)
+    }
+
+  }
+
+  calculateMapData = dimensions => {
+
+    const { search } = this.props
+
+    // The map must be measured before it can be rendered
+    if (dimensions.width && dimensions.height && search.params.mapData.bounds && search.params.mapData.bounds.maxLat) {
+      const fittedBounds = fitBounds(
+        abroadwithBoundsToGMAPBounds(search.params.mapData.bounds),
+        { width: dimensions.width || 0, height: dimensions.height || 0 }
+      )
+      this.mapCenter = fittedBounds.center
+      this.mapZoom = fittedBounds.zoom
+    }
+
+  }
+
   closeFiltersPanel = () => this.setState({ filtersPanelOpen: false })
   openFiltersPanel = () => this.setState({ filtersPanelOpen: true })
 
@@ -112,8 +138,6 @@ export default class SearchCourses extends Component {
   handleMapChange = newGeometry => {
 
     const { dispatch, search } = this.props
-
-    console.log(newGeometry.bounds.nw)
 
     if (this.state.initialSearchPerformed && !search.loading) {
       dispatch(performCourseSearch(Object.assign({}, search.params, {
@@ -147,7 +171,6 @@ export default class SearchCourses extends Component {
 
   render() {
 
-    const { mapDimensions } = this.state
     const { uiCurrency, t, search } = this.props
 
     const currency = search.data && search.data.params ? search.data.params.currency : uiCurrency
@@ -157,22 +180,6 @@ export default class SearchCourses extends Component {
     if (__CLIENT__ && typeof window !== 'undefined' && window.innerWidth <= 767) {
       renderMap = false
     }
-
-    // Default settings
-    let center = false
-    let zoom = false
-
-    // The map must be measured before it can be rendered
-    if (mapDimensions.width && mapDimensions.height && search.params.mapData.bounds && search.params.mapData.bounds.maxLat) {
-      const fittedBounds = fitBounds(
-        abroadwithBoundsToGMAPBounds(search.params.mapData.bounds),
-        { width: mapDimensions.width || 0, height: mapDimensions.height || 0 }
-      )
-      center = fittedBounds.center
-      zoom = fittedBounds.zoom
-    }
-
-    console.log(this)
 
     return (
       <div>
@@ -236,13 +243,13 @@ export default class SearchCourses extends Component {
               }}
             >
               <div style={styles.mapPanel}>
-                {center && zoom &&
+                {this.mapCenter && this.mapZoom &&
                   <Map
-                    center={center}
+                    center={this.mapCenter}
                     currency={currency}
                     handleLocationChange={this.handleMapChange}
                     handleMapClick={this.handleMapClick}
-                    zoom={zoom}
+                    zoom={this.mapZoom}
                     results={search.data.results}
                   />
                 }
