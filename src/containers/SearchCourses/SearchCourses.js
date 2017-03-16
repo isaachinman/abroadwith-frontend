@@ -181,6 +181,8 @@ export default class SearchCourses extends Component {
       renderMap = false
     }
 
+    console.log(this)
+
     return (
       <div>
         <Helmet title={t('search.course_title')} />

@@ -30,7 +30,7 @@ const LOAD_COURSE_LANGUAGES_FAIL = 'abroadwith/LOAD_COURSE_LANGUAGES_FAIL'
 // Update search params
 const UPDATE_COURSE_SEARCH_PARAMS = 'abroadwith/UPDATE_COURSE_SEARCH_PARAMS'
 
-// Update activeRoom
+// Update active course
 const UPDATE_ACTIVE_COURSE = 'abroadwith/UPDATE_ACTIVE_COURSE'
 
 // Erase history
@@ -121,7 +121,6 @@ export default function reducer(state = initialState, action = {}) {
           citiesAvailable: state.citiesAvailable,
           languagesAvailable: state.languagesAvailable,
           activeCourse: null,
-          loaded: false,
           loading: false,
           price: {
             loading: false,
@@ -145,7 +144,7 @@ export default function reducer(state = initialState, action = {}) {
     case UPDATE_ACTIVE_COURSE:
       return {
         ...state,
-        activeRoom: action.courseID,
+        activeCourse: action.courseID,
       }
     case PERFORM_COURSE_SEARCH:
       return {
