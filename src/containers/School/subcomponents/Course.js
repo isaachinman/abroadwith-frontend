@@ -1,11 +1,10 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { addUpsellCourseBooking, removeUpsellCourseBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import { Button, Col, Collapse, Tab, Tabs, Table, Row } from 'react-bootstrap'
 import config from 'config'
 import { connect } from 'react-redux'
-import roundTo from 'round-to'
 import { semanticDate, sortByDayOfWeek } from 'utils/dates'
+import { updateActiveCourse } from 'redux/modules/ui/search/courseSearch'
 import { translate } from 'react-i18next'
 import TextTruncate from 'react-text-truncate'
 
@@ -14,7 +13,7 @@ import styles from '../School.styles'
 
 @connect(
   state => ({
-    courseSearch: state.uiPersist.courseSearch.params,
+    courseSearch: state.uiPersist.courseSearch,
     uiCurrency: state.ui.currency.value,
   })
 )
@@ -41,15 +40,10 @@ export default class Course extends Component {
   // }
 
   addCourse = () => {
-    const modifiedData = Object.assign({}, this.props.result, {
-      totalPrice: roundTo(this.props.result.totalPrice, 2),
-      weeklyPrice: roundTo(this.props.result.weeklyPrice, 2),
-    })
-    delete modifiedData.educatorReviewResponses
-    this.props.dispatch(addUpsellCourseBooking(modifiedData))
+    this.props.dispatch(updateActiveCourse(this.props.result.courseId))
   }
 
-  removeCourse = () => this.props.dispatch(removeUpsellCourseBooking())
+  removeCourse = () => this.props.dispatch(updateActiveCourse(null))
 
   toggleExpanded = () => {
     this.setState({ localAnimationInProgress: true, expanded: !this.state.expanded })
@@ -72,10 +66,7 @@ export default class Course extends Component {
         endTime: split[2],
       }
     })
-
-    console.log(parsedTimeslots)
     const sortedTimeslots = sortByDayOfWeek(parsedTimeslots)
-    console.log('sortedTimeslots: ', sortedTimeslots)
 
     let resultStyles = styles.result
 
@@ -86,8 +77,6 @@ export default class Course extends Component {
         resultStyles = Object.assign({}, styles.result, styles.omittedResult)
       }
     }
-
-    console.log(this)
 
     return (
       <Row style={resultStyles}>
@@ -122,7 +111,7 @@ export default class Course extends Component {
                   <p>
                     <strong>{t('booking.result_dates')}: </strong>{semanticDate(t, result.startDate)} {t('common.words.to')} {semanticDate(t, result.endDate)}<br />
                     <strong>{t('booking.educator_name')}: </strong>{result.educatorName}<br />
-                    <strong>{t('booking.level')}: </strong>{courseSearch.level}-{result.endLevel}<br />
+                    <strong>{t('booking.level')}: </strong>{courseSearch.params.level}-{result.endLevel}<br />
                     <strong>{t('booking.lessons_per_week')}: </strong>{result.lessonsPerWeek}
                   </p>
                   <Tabs style={styles.moreInfoTabs} id={`course-info-tabs-${result.courseId}`}>

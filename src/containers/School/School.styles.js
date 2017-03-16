@@ -22,7 +22,7 @@ export default {
       width: '100%',
       padding: '50px 5px',
     },
-    padding: '90px 15px 30px 15px',
+    padding: '90px 15px 15px 15px',
     display: 'inline-block',
   },
   stickyContainer: {
@@ -30,7 +30,7 @@ export default {
     verticalAlign: 'top',
     width: 270,
     textAlign: 'right',
-    marginTop: -30,
+    marginTop: 134,
     paddingRight: 15,
     '@media (max-width: 767px)': {
       marginTop: 0,
@@ -104,5 +104,67 @@ export default {
   mapContainer: {
     height: 300,
     paddingBottom: 15,
+  },
+  result: {
+    borderRadius: 5,
+    overflow: 'hidden',
+    background: 'rgba(0,0,0,.065)',
+    transition: 'opacity .2s',
+    margin: '15px 0',
+  },
+  educatorImage: {
+    width: '100%',
+    minHeight: 178, // Account for border top and bottom of 1px each
+    backgroundSize: 'cover',
+  },
+  imageCol: {
+    paddingLeft: 0,
+    transition: 'width .35s',
+  },
+  courseName: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  widthTransition: {
+    transition: 'width .35s',
+  },
+  resultDetails: {
+    padding: '15px 0',
+  },
+  coursePrice: {
+    marginTop: 3,
+    fontSize: 13,
+    lineHeight: '13px',
+  },
+  ratingNumber: {
+    fontSize: 11,
+    lineHeight: '1.1em',
+  },
+  rightAlign: {
+    textAlign: 'right',
+  },
+  truncatedDescription: {
+    minHeight: 44,
+  },
+  fullInfoLink: {
+    marginTop: 5,
+  },
+  moreInfoTabs: {
+    marginTop: 15,
+  },
+  courseTabContent: {
+    padding: '15px 5px 5px 5px',
+    background: 'white',
+    borderLeft: '1px solid #ddd',
+    borderRight: '1px solid #ddd',
+    borderBottom: '1px solid #ddd',
+  },
+  bottomRow: {
+    marginTop: 23,
+  },
+  omittedResult: {
+    pointerEvents: 'none',
+    opacity: 0.35,
   },
 }

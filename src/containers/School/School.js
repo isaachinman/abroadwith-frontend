@@ -27,6 +27,7 @@ import styles from './School.styles'
 
     if (!isLoaded(getState(), params.educatorID)) {
       promises.push(dispatch(loadEducator(params.educatorID)))
+      promises.push(dispatch(loadEducatorCourses(params.educatorID)))
     }
 
     return Promise.all(promises)
@@ -52,12 +53,9 @@ export default class School extends Component {
   componentDidMount = () => {
     const { dispatch, educator } = this.props
     dispatch(loadEducatorCity({ lat: educator.address.lat, lng: educator.address.lng }, educator.id))
-    dispatch(loadEducatorCourses(educator.id))
   }
 
   render() {
-
-    console.log(this)
 
     const { educator, t, uiCurrency } = this.props
 
@@ -117,14 +115,14 @@ export default class School extends Component {
                           <Row>
                             {educator.image ?
                               <span>
-                                <Col xs={12} md={4}>
+                                <Col xs={12} md={5}>
                                   <BackgroundImage
                                     src={educator.image}
                                     maxWidth={500}
                                     styles={styles.educatorMainImg}
                                   />
                                 </Col>
-                                <Col xs={12} md={8}>
+                                <Col xs={12} md={7}>
                                   <p>{educator.description}</p>
                                 </Col>
                               </span>
@@ -135,6 +133,18 @@ export default class School extends Component {
                             }
                           </Row>
                           <Row>
+                            {educator.schoolSize &&
+                              <span>
+                                <Col sm={12} md={4}>
+                                  <p>
+                                    <strong>{t('schools.school_size')}: </strong>
+                                  </p>
+                                </Col>
+                                <Col sm={12} md={8}>
+                                  <p>{t(`schools.sizes.${educator.schoolSize}`)}</p>
+                                </Col>
+                              </span>
+                            }
                             <Col sm={12} md={4}>
                               <p>
                                 <strong>{t('schools.languages_offered')}: </strong>
@@ -149,20 +159,18 @@ export default class School extends Component {
                                 })}
                               </p>
                             </Col>
-                          </Row>
-                          {educator.websiteLink &&
-                            <Row>
-                              <Col sm={12} md={4}>
-                                <p>
-                                  <strong>{t('schools.website')}: </strong>
-                                </p>
-                              </Col>
-                              <Col sm={12} md={8}>
-                                <p><a href={educator.websiteLink}>{educator.websiteLink}</a></p>
-                              </Col>
-                            </Row>
-                          }
-                          <Row>
+                            {educator.websiteLink &&
+                              <span>
+                                <Col sm={12} md={4}>
+                                  <p>
+                                    <strong>{t('schools.website')}: </strong>
+                                  </p>
+                                </Col>
+                                <Col sm={12} md={8}>
+                                  <p><a href={educator.websiteLink}>{educator.websiteLink}</a></p>
+                                </Col>
+                              </span>
+                            }
                             <Col sm={12} md={4}>
                               <p>
                                 <strong>{t('schools.address')}: </strong>
@@ -179,7 +187,7 @@ export default class School extends Component {
                               <div style={styles.mapContainer}>
                                 <GoogleMap
                                   center={[educator.address.lat, educator.address.lng]}
-                                  zoom={14}
+                                  zoom={16}
                                   options={() => ({
                                     panControl: false,
                                     mapTypeControl: false,

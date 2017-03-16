@@ -142,7 +142,14 @@ export default class BookNow extends Component {
     // })
 
     return (
-      <div>Book course now</div>
+      <div>
+        <div>Arrival date</div>
+        <div>Departure date</div>
+        <div>Start level</div>
+        <div>Course</div>
+        <div>Price info</div>
+        <div>Bookg now</div>
+      </div>
     )
   }
 }
