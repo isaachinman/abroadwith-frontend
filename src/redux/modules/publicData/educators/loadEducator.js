@@ -1,3 +1,4 @@
+import config from 'config'
 import superagent from 'superagent'
 
 // Load public educator object
@@ -20,6 +21,7 @@ const initialState = {
 }
 
 export default function reducer(state = initialState, action = {}) {
+  console.log(action)
   switch (action.type) {
     case LOAD_EDUCATOR:
       return {
@@ -31,13 +33,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        [action.result.id]: Object.assign({}, action.result, {
-          courses: {
-            loaded: false,
-            loading: false,
-            data: null,
-          },
-        }),
+        [action.result.id]: Object.assign({}, state[action.result.id], action.result),
       }
     case LOAD_EDUCATOR_FAIL:
       return {
@@ -100,23 +96,46 @@ export function loadEducatorCity(coords, educatorID) {
 
       return new Promise((resolve, reject) => {
 
-        const request = superagent.post('/public/closest-city')
-        request.send(coords)
+        // Behaviour is fundamentally different on server vs client
+        if (typeof window === 'undefined') {
 
-        request.end((err, res) => {
+          const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_cities/select?wt=json&q={!func}geodist()&sfield=location&pt=${coords.lat},${coords.lng}&sort=score asc&rows=1`)
+          request.end((err, res) => {
 
-          if (err) {
+            if (err) {
 
-            reject(dispatch({ type: LOAD_EDUCATOR_CITY_FAIL, err, educatorID }))
+              reject(dispatch({ type: LOAD_EDUCATOR_CITY_FAIL, err, educatorID }))
 
-          } else {
+            } else {
 
-            // Request was successful
-            resolve(dispatch({ type: LOAD_EDUCATOR_CITY_SUCCESS, result: res.body.cityName, educatorID }))
+              // Request was successful
+              resolve(dispatch({ type: LOAD_EDUCATOR_CITY_SUCCESS, result: res.cityName, educatorID }))
 
-          }
+            }
 
-        })
+
+          })
+
+        } else {
+
+          const request = superagent.post('/public/closest-city')
+          request.send(coords)
+
+          request.end((err, res) => {
+
+            if (err) {
+
+              reject(dispatch({ type: LOAD_EDUCATOR_CITY_FAIL, err, educatorID }))
+
+            } else {
+
+              // Request was successful
+              resolve(dispatch({ type: LOAD_EDUCATOR_CITY_SUCCESS, result: res.body.cityName, educatorID }))
+
+            }
+
+          })
+        }
 
       })
 
@@ -137,23 +156,47 @@ export function loadEducatorCourses(educatorID) {
 
       return new Promise((resolve, reject) => {
 
-        const request = superagent.post('/public/educator-courses')
-        request.send({ educatorID })
+        // Behaviour is fundamentally different on server vs client
+        if (typeof window === 'undefined') {
 
-        request.end((err, res) => {
+          const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_courses/select?q=educatorId%3A${educatorID}&wt=json&indent=true&rows=100`)
+          request.end((err, res) => {
 
-          if (err) {
+            if (err) {
 
-            reject(dispatch({ type: LOAD_EDUCATOR_COURSES_FAIL, err, educatorID }))
+              reject(dispatch({ type: LOAD_EDUCATOR_COURSES_FAIL, err, educatorID }))
 
-          } else {
+            } else {
 
-            // Request was successful
-            resolve(dispatch({ type: LOAD_EDUCATOR_COURSES_SUCCESS, result: res.body, educatorID }))
+              console.log('COURSE RES: ', JSON.parse(res.text).response)
+              // Request was successful
+              resolve(dispatch({ type: LOAD_EDUCATOR_COURSES_SUCCESS, result: JSON.parse(res.text).response.docs, educatorID }))
 
-          }
+            }
 
-        })
+          })
+
+        } else {
+
+          const request = superagent.post('/public/educator-courses')
+          request.send({ educatorID })
+
+          request.end((err, res) => {
+
+            if (err) {
+
+              reject(dispatch({ type: LOAD_EDUCATOR_COURSES_FAIL, err, educatorID }))
+
+            } else {
+
+              // Request was successful
+              resolve(dispatch({ type: LOAD_EDUCATOR_COURSES_SUCCESS, result: res.body, educatorID }))
+
+            }
+
+          })
+
+        }
 
       })
 
