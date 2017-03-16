@@ -5,10 +5,15 @@ const LOAD_EDUCATOR = 'abroadwith/LOAD_EDUCATOR'
 const LOAD_EDUCATOR_SUCCESS = 'abroadwith/LOAD_EDUCATOR_SUCCESS'
 const LOAD_EDUCATOR_FAIL = 'abroadwith/LOAD_EDUCATOR_FAIL'
 
-// Load public educator object
+// Load educator city based on lat/lng
 const LOAD_EDUCATOR_CITY = 'abroadwith/LOAD_EDUCATOR_CITY'
 const LOAD_EDUCATOR_CITY_SUCCESS = 'abroadwith/LOAD_EDUCATOR_CITY_SUCCESS'
 const LOAD_EDUCATOR_CITY_FAIL = 'abroadwith/LOAD_EDUCATOR_CITY_FAIL'
+
+// Load educator courses
+const LOAD_EDUCATOR_COURSES = 'abroadwith/LOAD_EDUCATOR_COURSES'
+const LOAD_EDUCATOR_COURSES_SUCCESS = 'abroadwith/LOAD_EDUCATOR_COURSES_SUCCESS'
+const LOAD_EDUCATOR_COURSES_FAIL = 'abroadwith/LOAD_EDUCATOR_COURSES_FAIL'
 
 const initialState = {
   loaded: false,
@@ -26,7 +31,13 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        [action.result.id]: action.result,
+        [action.result.id]: Object.assign({}, action.result, {
+          courses: {
+            loaded: false,
+            loading: false,
+            data: null,
+          },
+        }),
       }
     case LOAD_EDUCATOR_FAIL:
       return {
@@ -38,10 +49,29 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD_EDUCATOR_CITY_SUCCESS:
       return {
         ...state,
-        loading: false,
-        loaded: true,
         [action.educatorID]: Object.assign({}, state[action.educatorID], {
           city: action.result,
+        }),
+      }
+    case LOAD_EDUCATOR_COURSES:
+      return {
+        ...state,
+        [action.educatorID]: Object.assign({}, state[action.educatorID], {
+          courses: {
+            loading: true,
+            loaded: false,
+          },
+        }),
+      }
+    case LOAD_EDUCATOR_COURSES_SUCCESS:
+      return {
+        ...state,
+        [action.educatorID]: Object.assign({}, state[action.educatorID], {
+          courses: {
+            loading: false,
+            loaded: true,
+            data: action.result,
+          },
         }),
       }
     default:
@@ -81,8 +111,6 @@ export function loadEducatorCity(coords, educatorID) {
 
           } else {
 
-
-            console.log('res: ', res)
             // Request was successful
             resolve(dispatch({ type: LOAD_EDUCATOR_CITY_SUCCESS, result: res.body.cityName, educatorID }))
 
@@ -94,6 +122,43 @@ export function loadEducatorCity(coords, educatorID) {
 
     } catch (err) {
       dispatch({ type: LOAD_EDUCATOR_CITY_FAIL, err, educatorID })
+    }
+  }
+
+}
+
+export function loadEducatorCourses(educatorID) {
+
+  return async dispatch => {
+
+    dispatch({ type: LOAD_EDUCATOR_COURSES, educatorID })
+
+    try {
+
+      return new Promise((resolve, reject) => {
+
+        const request = superagent.post('/public/educator-courses')
+        request.send({ educatorID })
+
+        request.end((err, res) => {
+
+          if (err) {
+
+            reject(dispatch({ type: LOAD_EDUCATOR_COURSES_FAIL, err, educatorID }))
+
+          } else {
+
+            // Request was successful
+            resolve(dispatch({ type: LOAD_EDUCATOR_COURSES_SUCCESS, result: res.body, educatorID }))
+
+          }
+
+        })
+
+      })
+
+    } catch (err) {
+      dispatch({ type: LOAD_EDUCATOR_COURSES_FAIL, err, educatorID })
     }
   }
 
