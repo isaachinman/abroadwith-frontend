@@ -4,9 +4,9 @@ import superagent from 'superagent'
 export default (app) => {
 
   // This is the public endpoint to return the closest (within 50km) city to a given lat/lng point
-  app.post('/public/closest-city', (req, res) => {
+  app.post('/public/educator-courses', (req, res) => {
 
-    const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_cities/select?wt=json&q={!func}geodist()&sfield=location&pt=${req.body.lat},${req.body.lng}&sort=score asc&rows=1`)
+    const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_courses/select?q=educatorId%3A${req.body.educatorID}&wt=json&indent=true&rows=100`)
     request.end((error, response = {}) => {
 
       if (error) {
@@ -20,7 +20,7 @@ export default (app) => {
       const parsedResponse = JSON.parse(response.text).response
 
       if (parsedResponse.numFound >= 1) {
-        return res.send({ cityName: parsedResponse.docs[0].name })
+        return res.send(parsedResponse.docs)
       }
 
       return res.sendStatus(404)

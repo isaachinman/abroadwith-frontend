@@ -23,14 +23,8 @@ import imageUploadInstaller from 'utils/upload/ImageUploadInstaller'
 import UILanguages from 'data/constants/UILanguages'
 
 // Custom API imports
-import contactForm from 'helpers/api/contactForm'
-import errorHandler from 'helpers/api/errorHandler'
-import getClosestCity from 'helpers/api/getClosestCity'
-import getCourseCities from 'helpers/api/getCourseCities'
-import getCourseLanguages from 'helpers/api/getCourseLanguages'
-import getRoomCalendar from 'helpers/api/getRoomCalendar'
-import logout from 'helpers/api/logout'
-import homestaySearch from 'helpers/api/homestaySearch'
+import { contactForm, errorHandler, getAllEducatorCourses, getClosestCity, getCourseCities, getCourseLanguages, getRoomCalendar, homestaySearch, logout } from 'helpers/api'
+
 import serverCache from 'helpers/serverCache'
 
 // Relative imports
@@ -77,7 +71,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Install custom API endpoints
-const customApiEndpoints = [contactForm, errorHandler, getClosestCity, getCourseCities, getCourseLanguages, getRoomCalendar, logout, homestaySearch]
+const customApiEndpoints = [contactForm, errorHandler, getAllEducatorCourses, getClosestCity, getCourseCities, getCourseLanguages, getRoomCalendar, logout, homestaySearch]
 customApiEndpoints.map(endpoint => {
   endpoint(app)
 })
