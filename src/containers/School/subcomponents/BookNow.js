@@ -1,12 +1,12 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { apiDate } from 'utils/dates'
-// import { Button, Col, OverlayTrigger, Tooltip, Row } from 'react-bootstrap'
+import { Button, Col, OverlayTrigger, Tooltip, Row } from 'react-bootstrap'
 import { createPotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import { connect } from 'react-redux'
-// import { DateRangePicker, SpinLoader } from 'components'
+import { DateRangePicker, SpinLoader } from 'components'
 import HomeData from 'data/constants/HomeData'
-// import moment from 'moment'
+import moment from 'moment'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { openLoginModal, openVerifyEmailModal } from 'redux/modules/ui/modals'
 import { push } from 'react-router-redux'
@@ -16,7 +16,7 @@ import { updateCourseSearchParams, updateActiveCourse } from 'redux/modules/ui/s
 
 // Relative imports
 // import HomestayPriceCalculator from './HomestayPriceCalculator'
-// import styles from '../School.styles'
+import styles from '../School.styles'
 
 // Extend moment
 
@@ -122,34 +122,70 @@ export default class BookNow extends Component {
 
   render() {
 
-    // const {
-    //   currencySymbol,
-    //   handleRoomDropdownChange,
-    //   homestay,
-    //   courseSearch,
-    //   immersionRates,
-    //   t,
-    //   roomSelectionOpen,
-    // } = this.props
-    //
-    // const hasDateRange = courseSearch.params.arrival && courseSearch.params.departure
-    // const determineBlockedStatus = homestay.roomCalendars[courseSearch.activeRoom] && homestay.roomCalendars[courseSearch.activeRoom].data && homestay.roomCalendars[courseSearch.activeRoom].data.unavailabilities ? this.determineBlockedStatus : () => false
+    const {
+      currencySymbol,
+      handleRoomDropdownChange,
+      courses,
+      courseSearch,
+      immersionRates,
+      t,
+      roomSelectionOpen,
+    } = this.props
 
-    // const alphabeticalCourses = homestay.data.rooms.sort((a, b) => {
-    //   const x = a.name.toLowerCase()
-    //   const y = b.name.toLowerCase()
+    const hasDateRange = courseSearch.params.arrival && courseSearch.params.departure
+
+    // const alphabeticalCourses = courses.loaded ? courses.data.sort((a, b) => {
+    //   const x = a.courseName.toLowerCase()
+    //   const y = b.courseName.toLowerCase()
     //   return x < y ? -1 : x > y ? 1 : 0 // eslint-disable-line
-    // })
+    // }) : []
 
     return (
-      <div>
-        <div>Arrival date</div>
-        <div>Departure date</div>
-        <div>Start level</div>
-        <div>Course</div>
-        <div>Price info</div>
-        <div>Bookg now</div>
-      </div>
+      <SpinLoader show={courses.loading}>
+        <span style={styles.bookNowContainer} className='book-now-panel'>
+          <Row style={styles.bookNowBorderBottom}>
+            <Col xs={12}>
+              <DateRangePicker
+                startDate={courseSearch.params.arrival ? moment(courseSearch.params.arrival) : null}
+                endDate={courseSearch.params.departure ? moment(courseSearch.params.departure) : null}
+                inlineBlock
+                large
+                startDatePlaceholderText={t('common.Arrival')}
+                endDatePlaceholderText={t('common.Departure')}
+                scrollToPosition={false}
+                onDatesChange={this.handleDatesChange}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              {!hasDateRange ?
+                <OverlayTrigger placement='top' overlay={<Tooltip id='tooltip'>{t('homes.pick_dates_tooltip')}</Tooltip>}>
+                  <Button
+                    className='disabled'
+                    style={styles.bookNowButton}
+                    block
+                    bsStyle='success'
+                    bsSize='large'
+                  >
+                    {t('common.Book_now')}
+                  </Button>
+                </OverlayTrigger>
+                :
+                <Button
+                  onClick={this.handleBookNowClick}
+                  style={styles.bookNowButton}
+                  block
+                  bsStyle='success'
+                  bsSize='large'
+                >
+                  {t('common.Book_now')}
+                </Button>
+              }
+            </Col>
+          </Row>
+        </span>
+      </SpinLoader>
     )
   }
 }
