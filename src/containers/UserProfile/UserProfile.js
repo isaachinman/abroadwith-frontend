@@ -55,7 +55,7 @@ export default class UserProfile extends Component {
 
             <Grid style={styles.grid}>
 
-              {auth && auth.loaded && auth.jwt.rid === user.id &&
+              {auth && auth.jwt && auth.jwt.rid === user.id &&
                 <Navbar fluid style={styles.navbar}>
                   <Navbar.Text pullRight>
                     <Link to='/edit-profile'>
@@ -85,6 +85,9 @@ export default class UserProfile extends Component {
                     <p style={styles.aboutMeParagraph}>
                       {user.aboutMe || t('users.no_about_me')}
                     </p>
+                    {user.homes.length > 0 &&
+                      <p><Link to={`/homestay/${user.homes[0].id}`}>{t('homes.non_family_home_title', { host: user.firstName })}</Link></p>
+                    }
                   </Col>
                   <Col xs={12} sm={4} lg={3} lgOffset={1}>
                     <Panel header={<h6>{t('admin.verifications_tabname')}</h6>} style={styles.noBoxShadow}>
