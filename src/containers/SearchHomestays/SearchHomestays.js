@@ -56,6 +56,8 @@ export default class SearchHomestays extends Component {
     // This is our initialisation step
     if (!this.state.mapDimensions.width && nextState.mapDimensions.width && !this.state.initialSearchPerformed) {
 
+      this.calculateMapData(nextState.mapDimensions)
+
       // In some cases, we link to this search page with a semantic location query
       if (routing.query.locationString && !routing.query.maxLat) {
 
@@ -124,6 +126,15 @@ export default class SearchHomestays extends Component {
     }
   }
 
+  componentDidUpdate = prevProps => {
+
+    // If user selected new location from autocomplete input, move map
+    if (prevProps.search.params.locationString !== this.props.search.params.locationString) {
+      this.calculateMapData(this.state.mapDimensions)
+    }
+
+  }
+
   closeFiltersPanel = () => this.setState({ filtersPanelOpen: false })
   openFiltersPanel = () => this.setState({ filtersPanelOpen: true })
 
@@ -179,9 +190,25 @@ export default class SearchHomestays extends Component {
     }), push))
   }
 
+  calculateMapData = dimensions => {
+
+    const { search } = this.props
+
+    // The map must be measured before it can be rendered
+    if (dimensions.width && dimensions.height && search.params.mapData.bounds && search.params.mapData.bounds.maxLat) {
+      const fittedBounds = fitBounds(
+        abroadwithBoundsToGMAPBounds(search.params.mapData.bounds),
+        { width: dimensions.width || 0, height: dimensions.height || 0 }
+      )
+      this.mapCenter = fittedBounds.center
+      this.mapZoom = fittedBounds.zoom
+    }
+
+  }
+
   render() {
 
-    const { filtersPanelOpen, mapDimensions } = this.state
+    const { filtersPanelOpen } = this.state
     const { uiCurrency, uiLanguage, t, search } = this.props
 
     const currency = search.data && search.data.params ? search.data.params.currency : uiCurrency
@@ -190,20 +217,6 @@ export default class SearchHomestays extends Component {
     let renderMap = true
     if (__CLIENT__ && typeof window !== 'undefined' && window.innerWidth <= 767) {
       renderMap = false
-    }
-
-    // Default settings
-    let center = false
-    let zoom = false
-
-    // The map must be measured before it can be rendered
-    if (mapDimensions.width && mapDimensions.height && search.params.mapData.bounds && search.params.mapData.bounds.maxLat) {
-      const fittedBounds = fitBounds(
-        abroadwithBoundsToGMAPBounds(search.params.mapData.bounds),
-        { width: mapDimensions.width || 0, height: mapDimensions.height || 0 }
-      )
-      center = fittedBounds.center
-      zoom = fittedBounds.zoom
     }
 
     // Compile number of "filters" currently applied
@@ -281,13 +294,13 @@ export default class SearchHomestays extends Component {
               }}
             >
               <div style={styles.mapPanel}>
-                {center && zoom &&
+                {this.mapCenter && this.mapZoom &&
                   <Map
-                    center={center}
+                    center={this.mapCenter}
                     currency={currency}
                     handleLocationChange={this.handleMapChange}
                     handleMapClick={this.handleMapClick}
-                    zoom={zoom}
+                    zoom={this.mapZoom}
                     results={search.data.results}
                   />
                 }
