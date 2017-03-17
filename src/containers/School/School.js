@@ -12,6 +12,7 @@ import { isLoaded, load as loadEducator, loadEducatorCourses, loadEducatorCity }
 import MapStyles from 'data/constants/MapStyles'
 import Radium from 'radium'
 import { StickyContainer, Sticky } from 'react-sticky'
+import { updateActiveCourse } from 'redux/modules/ui/search/courseSearch'
 import { translate } from 'react-i18next'
 
 // Relative imports
@@ -46,7 +47,6 @@ import styles from './School.styles'
 }])
 @connect(
   (state, ownProps) => ({
-    activeCourse: state.uiPersist.courseSearch.activeCourse,
     error: state.publicData.educators.error,
     educator: state.publicData.educators[ownProps.params.educatorID],
     courseSearch: state.uiPersist.courseSearch,
@@ -59,6 +59,17 @@ import styles from './School.styles'
 @translate()
 @Radium
 export default class School extends Component {
+
+  componentWillMount = () => {
+
+    const { courseSearch, dispatch, educator } = this.props
+
+    // If there is no active course, or if it belongs to another school, we need to reset
+    if (!courseSearch.activeCourse || !educator.courses.data.some(course => course.courseId === courseSearch.activeCourse)) {
+      dispatch(updateActiveCourse(educator.courses.data[0].courseId))
+    }
+
+  }
 
   render() {
 
@@ -294,7 +305,6 @@ export default class School extends Component {
 }
 
 School.propTypes = {
-  activeCourse: PropTypes.number,
   currencyRates: PropTypes.object,
   dispatch: PropTypes.func,
   educator: PropTypes.object,

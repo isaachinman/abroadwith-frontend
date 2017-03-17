@@ -29,9 +29,11 @@ export default {
       width: '100%',
       padding: '120px 0 15px 0',
     },
-    minHeight: '100vh',
     padding: '120px 15px 15px 15px',
     display: 'inline-block',
+  },
+  tabPane: {
+    minHeight: '80vh',
   },
   stickyContainer: {
     display: 'inline-block',
@@ -81,6 +83,7 @@ export default {
     borderBottom: '1px solid #ddd',
     borderLeft: '1px solid #ddd',
     borderRadius: '0 0 4px 4px',
+    minHeight: 'calc(100vh - 300px)',
   },
   reviewContent: {
     minHeight: 60,
@@ -184,7 +187,17 @@ export default {
     opacity: 0.99,
     width: '100%',
     height: 30,
-    marginTop: 30,
+    marginTop: 60,
     background: headerGreen,
+  },
+  bookNowBorderBottom: {
+    borderBottom: '1px solid #eee',
+    paddingBottom: 10,
+  },
+  bookNowContainer: {
+    textAlign: 'left',
+  },
+  bookNowButton: {
+    marginBottom: 5,
   },
 }
