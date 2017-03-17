@@ -2,8 +2,10 @@ import { apiDate } from 'utils/dates'
 import config from 'config'
 import courseSearchParamsToAPIParams from 'utils/search/courseSearchParamsToAPIParams'
 import courseSearchParamsToUrl from 'utils/search/courseSearchParamsToUrl'
+import jwtDecode from 'jwt-decode'
 import moment from 'moment'
 import { REHYDRATE } from 'redux-persist/constants'
+import roundTo from 'round-to'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import superagent from 'superagent'
 
@@ -26,6 +28,11 @@ const LOAD_COURSE_CITIES_FAIL = 'abroadwith/LOAD_COURSE_CITIES_FAIL'
 const LOAD_COURSE_LANGUAGES = 'abroadwith/LOAD_COURSE_LANGUAGES'
 const LOAD_COURSE_LANGUAGES_SUCCESS = 'abroadwith/LOAD_COURSE_LANGUAGES_SUCCESS'
 const LOAD_COURSE_LANGUAGES_FAIL = 'abroadwith/LOAD_COURSE_LANGUAGES_FAIL'
+
+// Calculate course price
+const CALCULATE_COURSE_PRICE = 'abroadwith/CALCULATE_COURSE_PRICE'
+const CALCULATE_COURSE_PRICE_SUCCESS = 'abroadwith/CALCULATE_COURSE_PRICE_SUCCESS'
+const CALCULATE_COURSE_PRICE_FAIL = 'abroadwith/CALCULATE_COURSE_PRICE_FAIL'
 
 // Update search params
 const UPDATE_COURSE_SEARCH_PARAMS = 'abroadwith/UPDATE_COURSE_SEARCH_PARAMS'
@@ -120,7 +127,6 @@ export default function reducer(state = initialState, action = {}) {
           // Do not rehydrate these things
           citiesAvailable: state.citiesAvailable,
           languagesAvailable: state.languagesAvailable,
-          activeCourse: null,
           loading: false,
           price: {
             loading: false,
@@ -456,4 +462,43 @@ export function loadCourseLanguages() {
       dispatch({ type: LOAD_COURSE_LANGUAGES_FAIL, error })
     }
   }
+}
+
+export function calculateCoursePrice(jwt, params) {
+
+  return async dispatch => {
+
+    dispatch({ type: CALCULATE_COURSE_PRICE })
+
+    try {
+
+      // Validate request
+      if (moment().isAfter(moment(params.arrivalDate)) || moment().isAfter(moment(params.departureDate))) {
+        throw new Error('Date range is invalid')
+      }
+
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/courseBookings/price`)
+      request.set({ Authorization: `Bearer ${(jwt)}` })
+      request.send(params)
+
+      request.end((err, res) => {
+
+        if (err) {
+
+          dispatch({ type: CALCULATE_COURSE_PRICE_FAIL, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: CALCULATE_COURSE_PRICE_SUCCESS, result: (roundTo(JSON.parse(res.text), 2)).toFixed(2) })
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: CALCULATE_COURSE_PRICE_FAIL, err })
+    }
+  }
+
 }
