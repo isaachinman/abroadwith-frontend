@@ -712,3 +712,9 @@ select.form-control option{
   background: $headerGreen;
   @include angled-edge('outside bottom','lower right', $headerGreen, 60);
 }
+#school-profile-page-tabs {
+  .nav-tabs > li:not(.active) > a {
+    background: #eee;
+    border: 1px solid #DFDFDF;
+  }
+}

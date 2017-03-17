@@ -55,7 +55,8 @@ export default {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     minHeight: 300,
-    margin: '15px 0 30px 0',
+    margin: '15px 0',
+    borderRadius: 5,
   },
   tabTitle: {
     margin: 0,

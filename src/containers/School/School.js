@@ -1,9 +1,8 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { Col, Grid, Nav, NavItem, Panel, Tab, Row } from 'react-bootstrap'
 import { asyncConnect } from 'redux-connect'
 import { BackgroundImage, MapPin } from 'components'
-// import config from 'config'
+import { Badge, Col, Grid, Nav, NavItem, Panel, Tab, Row, Well } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Currencies from 'data/constants/Currencies'
 import GoogleMap from 'google-map-react'
@@ -26,8 +25,17 @@ import styles from './School.styles'
     const promises = []
 
     if (!isLoaded(getState(), params.educatorID)) {
-      promises.push(dispatch(loadEducator(params.educatorID)))
+
+      // First load educator by ID
+      promises.push(dispatch(loadEducator(params.educatorID)).then(educator => {
+
+        // Then load city by coordinates
+        return dispatch(loadEducatorCity({ lat: educator.address.lat, lng: educator.address.lng }, params.educatorID))
+      }))
+
+      // Simultaneously load all courses by educatorID
       promises.push(dispatch(loadEducatorCourses(params.educatorID)))
+
     }
 
     return Promise.all(promises)
@@ -50,17 +58,14 @@ import styles from './School.styles'
 @Radium
 export default class School extends Component {
 
-  componentDidMount = () => {
-    const { dispatch, educator } = this.props
-    dispatch(loadEducatorCity({ lat: educator.address.lat, lng: educator.address.lng }, educator.id))
-  }
-
   render() {
 
     const { educator, t, uiCurrency } = this.props
 
     const currencySymbol = Currencies[uiCurrency]
     const stickied = typeof window !== 'undefined' ? window.innerWidth > 767 : true
+
+    console.log(this)
 
     return (
       <div style={{ marginBottom: -20 }}>
@@ -77,7 +82,7 @@ export default class School extends Component {
               <div className='school-profile-page-header'>
                 <Row style={styles.headerRow}>
                   <Col xs={12} sm={7} md={8} lg={9}>
-                    <h1>{educator.schoolName}</h1>
+                    <h1>{educator.schoolName}<Badge style={{ textShadow: 'none' }}>{t(`course_cities.${educator.city}.name`)}</Badge></h1>
                   </Col>
                 </Row>
               </div>
@@ -132,56 +137,58 @@ export default class School extends Component {
                               </Col>
                             }
                           </Row>
-                          <Row>
-                            {educator.schoolSize &&
-                              <span>
-                                <Col sm={12} md={4}>
-                                  <p>
-                                    <strong>{t('schools.school_size')}: </strong>
-                                  </p>
-                                </Col>
-                                <Col sm={12} md={8}>
-                                  <p>{t(`schools.sizes.${educator.schoolSize}`)}</p>
-                                </Col>
-                              </span>
-                            }
-                            <Col sm={12} md={4}>
-                              <p>
-                                <strong>{t('schools.languages_offered')}: </strong>
-                              </p>
-                            </Col>
-                            <Col sm={12} md={8}>
-                              <p>
-                                {educator.offeredLanguages.map(lang => {
-                                  return (
-                                    <span key={`offered-lang-${lang}`}>{t(`languages.${lang}`)}{educator.offeredLanguages.indexOf(lang) !== educator.offeredLanguages.length - 1 ? <span>,&nbsp;</span> : null}</span>
-                                  )
-                                })}
-                              </p>
-                            </Col>
-                            {educator.websiteLink &&
-                              <span>
-                                <Col sm={12} md={4}>
-                                  <p>
-                                    <strong>{t('schools.website')}: </strong>
-                                  </p>
-                                </Col>
-                                <Col sm={12} md={8}>
-                                  <p><a href={educator.websiteLink}>{educator.websiteLink}</a></p>
-                                </Col>
-                              </span>
-                            }
-                            <Col sm={12} md={4}>
-                              <p>
-                                <strong>{t('schools.address')}: </strong>
-                              </p>
-                            </Col>
-                            <Col sm={12} md={8}>
-                              <p>
-                                {educator.address.street}, {educator.address.city}<br />{educator.address.zipCode && <span>{educator.address.zipCode},</span>} {t(`countries.${educator.address.country}`)}
-                              </p>
-                            </Col>
-                          </Row>
+                          <Well>
+                            <Row>
+                              {educator.schoolSize &&
+                                <span>
+                                  <Col sm={12} md={4}>
+                                    <p>
+                                      <strong>{t('schools.school_size')}: </strong>
+                                    </p>
+                                  </Col>
+                                  <Col sm={12} md={8}>
+                                    <p>{t(`schools.sizes.${educator.schoolSize}`)}</p>
+                                  </Col>
+                                </span>
+                              }
+                              <Col sm={12} md={4}>
+                                <p>
+                                  <strong>{t('schools.languages_offered')}: </strong>
+                                </p>
+                              </Col>
+                              <Col sm={12} md={8}>
+                                <p>
+                                  {educator.offeredLanguages.map(lang => {
+                                    return (
+                                      <span key={`offered-lang-${lang}`}>{t(`languages.${lang}`)}{educator.offeredLanguages.indexOf(lang) !== educator.offeredLanguages.length - 1 ? <span>,&nbsp;</span> : null}</span>
+                                    )
+                                  })}
+                                </p>
+                              </Col>
+                              {educator.websiteLink &&
+                                <span>
+                                  <Col sm={12} md={4}>
+                                    <p>
+                                      <strong>{t('schools.website')}: </strong>
+                                    </p>
+                                  </Col>
+                                  <Col sm={12} md={8}>
+                                    <p><a href={educator.websiteLink}>{educator.websiteLink}</a></p>
+                                  </Col>
+                                </span>
+                              }
+                              <Col sm={12} md={4}>
+                                <p>
+                                  <strong>{t('schools.address')}: </strong>
+                                </p>
+                              </Col>
+                              <Col sm={12} md={8}>
+                                <p>
+                                  {educator.address.street}, {educator.address.city}<br />{educator.address.zipCode && <span>{educator.address.zipCode},</span>} {t(`countries.${educator.address.country}`)}
+                                </p>
+                              </Col>
+                            </Row>
+                          </Well>
                           <Row>
                             <Col xs={12}>
                               <div style={styles.mapContainer}>
@@ -214,23 +221,27 @@ export default class School extends Component {
                                     maxWidth={800}
                                     styles={styles.cityImg}
                                   />
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col xs={12} md={10} mdOffset={1}>
                                   <p>{t(`course_cities.${educator.city}.description`)}</p>
                                 </Col>
                               </Row>
                               <Row>
-                                <Col xs={12}>
+                                <Col xs={12} md={10} mdOffset={1}>
                                   <h6>{t('schools.language')}</h6>
                                   <p>{t(`course_cities.${educator.city}.language`)}</p>
                                 </Col>
                               </Row>
                               <Row>
-                                <Col xs={12}>
+                                <Col xs={12} md={10} mdOffset={1}>
                                   <h6>{t('schools.culture')}</h6>
                                   <p>{t(`course_cities.${educator.city}.culture`)}</p>
                                 </Col>
                               </Row>
                               <Row>
-                                <Col xs={12}>
+                                <Col xs={12} md={10} mdOffset={1}>
                                   <h6>{t('schools.nightlife')}</h6>
                                   <p>{t(`course_cities.${educator.city}.nightlife`)}</p>
                                 </Col>
