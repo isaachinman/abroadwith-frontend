@@ -122,15 +122,17 @@ export default class BookNow extends Component {
 
   render() {
 
-    const {
-      currencySymbol,
-      handleRoomDropdownChange,
-      courses,
-      courseSearch,
-      immersionRates,
-      t,
-      roomSelectionOpen,
-    } = this.props
+    // const {
+    //   currencySymbol,
+    //   handleRoomDropdownChange,
+    //   courses,
+    //   courseSearch,
+    //   immersionRates,
+    //   t,
+    //   roomSelectionOpen,
+    // } = this.props
+
+    const { courses, courseSearch, t } = this.props
 
     const hasDateRange = courseSearch.params.arrival && courseSearch.params.departure
 
@@ -192,6 +194,7 @@ export default class BookNow extends Component {
 
 BookNow.propTypes = {
   auth: PropTypes.object,
+  courses: PropTypes.object,
   currencySymbol: PropTypes.string,
   dispatch: PropTypes.func,
   handleRoomDropdownChange: PropTypes.func,
