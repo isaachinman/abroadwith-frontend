@@ -39,8 +39,8 @@ export default class MapMarker extends Component {
     const hovered = roomId === roomHovered
     const popoverOpen = roomId === roomPopover
 
-    const markerWidth = popoverOpen ? 250 : 40
-    const markerHeight = popoverOpen ? 216 : 40
+    const markerWidth = popoverOpen ? 245 : 40
+    const markerHeight = popoverOpen ? 242 : 40
     let markerClass = 'homestay-map-marker top'
 
     if (hovered) {
