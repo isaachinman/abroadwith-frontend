@@ -107,8 +107,13 @@ export function loadEducatorCity(coords, educatorID) {
 
             } else {
 
+              // GET was successful
+              const parsedResponse = JSON.parse(res.text).response
+
+              console.log('CITY RESPONSE: ', parsedResponse.docs[0].name)
+
               // Request was successful
-              resolve(dispatch({ type: LOAD_EDUCATOR_CITY_SUCCESS, result: res.cityName, educatorID }))
+              resolve(dispatch({ type: LOAD_EDUCATOR_CITY_SUCCESS, result: parsedResponse.docs[0].name, educatorID }))
 
             }
 

@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
 import { BackgroundImage, MapPin } from 'components'
 import { Badge, Col, Grid, Nav, NavItem, Panel, Tab, Row, Well } from 'react-bootstrap'
+import config from 'config'
 import { connect } from 'react-redux'
 import Currencies from 'data/constants/Currencies'
 import GoogleMap from 'google-map-react'
@@ -31,6 +32,7 @@ import styles from './School.styles'
 
         // Then load city by coordinates
         return dispatch(loadEducatorCity({ lat: educator.address.lat, lng: educator.address.lng }, params.educatorID))
+
       }))
 
       // Simultaneously load all courses by educatorID
@@ -72,229 +74,220 @@ export default class School extends Component {
 
         {educator && educator.id &&
 
-          <Grid style={styles.grid}>
+        <Grid style={styles.grid}>
 
-            <Helmet title={educator.schoolName} />
+          <Helmet title={educator.schoolName} />
 
-            <div style={styles.bg} />
+          <div style={styles.bg} />
 
-            <StickyContainer>
-              <div className='school-profile-page-header'>
-                <Row style={styles.headerRow}>
-                  <Col xs={12} sm={7} md={8} lg={9}>
-                    <h1>{educator.schoolName}<Badge style={{ textShadow: 'none' }}>{t(`course_cities.${educator.city}.name`)}</Badge></h1>
+          <StickyContainer>
+            <div className='school-profile-page-header'>
+              <Row style={styles.headerRow}>
+                <Col xs={12} sm={7} md={8} lg={9}>
+                  <h1>{educator.schoolName} <Badge style={styles.badge}>{t(`course_cities.${educator.city}.name`)}</Badge><Badge style={styles.badge}>{t(`languages.${educator.offeredLanguages[0]}`)}</Badge></h1>
+                </Col>
+                <Col xs={12} sm={5} md={4} lg={3}>
+                  <div
+                    className='hidden-xs'
+                    style={Object.assign({}, styles.educatorMainImg, { backgroundImage: `url(${config.img}${educator.image}?w=200)` })}
+                  />
+                </Col>
+              </Row>
+            </div>
+            <div style={styles.contentContainer}>
+              <Tab.Container id='school-profile-page-tabs' defaultActiveKey='school'>
+                <Row className='clearfix'>
+                  <Col sm={12}>
+                    <Nav bsStyle='tabs'>
+
+                      <NavItem eventKey='school'>
+                        <h6 style={styles.tabTitle}>{t('schools.tabs.school')}</h6>
+                      </NavItem>
+
+                      <NavItem eventKey='city'>
+                        <h6 style={styles.tabTitle}>{t('schools.tabs.city')}</h6>
+                      </NavItem>
+
+                      {educator.educatorReviews.length > 0 &&
+                      <NavItem eventKey='reviews'>
+                        <h6 style={styles.tabTitle}>{t('schools.tabs.reviews')}</h6>
+                      </NavItem>
+                          }
+
+                      <NavItem eventKey='courses'>
+                        <h6 style={styles.tabTitle}>{t('schools.tabs.courses')}</h6>
+                      </NavItem>
+
+                    </Nav>
                   </Col>
-                </Row>
-              </div>
-              <div style={styles.contentContainer}>
-                <Tab.Container id='school-profile-page-tabs' defaultActiveKey='school'>
-                  <Row className='clearfix'>
-                    <Col sm={12}>
-                      <Nav bsStyle='tabs'>
+                  <Col sm={12}>
+                    <Tab.Content animation style={styles.tabContentContainer}>
 
-                        <NavItem eventKey='school'>
-                          <h6 style={styles.tabTitle}>{t('schools.tabs.school')}</h6>
-                        </NavItem>
-
-                        <NavItem eventKey='city'>
-                          <h6 style={styles.tabTitle}>{t('schools.tabs.city')}</h6>
-                        </NavItem>
-
-                        {educator.educatorReviews.length > 0 &&
-                          <NavItem eventKey='reviews'>
-                            <h6 style={styles.tabTitle}>{t('schools.tabs.reviews')}</h6>
-                          </NavItem>
-                        }
-
-                        <NavItem eventKey='courses'>
-                          <h6 style={styles.tabTitle}>{t('schools.tabs.courses')}</h6>
-                        </NavItem>
-
-                      </Nav>
-                    </Col>
-                    <Col sm={12}>
-                      <Tab.Content animation style={styles.tabContentContainer}>
-
-                        {/* School info tab */}
-                        <Tab.Pane eventKey='school'>
+                      {/* School info tab */}
+                      <Tab.Pane eventKey='school'>
+                        <Row>
+                          <Col xs={12}>
+                            <p>{educator.description}</p>
+                          </Col>
+                        </Row>
+                        <Well>
                           <Row>
-                            {educator.image ?
-                              <span>
-                                <Col xs={12} md={5}>
-                                  <BackgroundImage
-                                    src={educator.image}
-                                    maxWidth={500}
-                                    styles={styles.educatorMainImg}
-                                  />
-                                </Col>
-                                <Col xs={12} md={7}>
-                                  <p>{educator.description}</p>
-                                </Col>
-                              </span>
-                              :
-                              <Col xs={12}>
-                                <p>{educator.description}</p>
-                              </Col>
-                            }
-                          </Row>
-                          <Well>
-                            <Row>
-                              {educator.schoolSize &&
-                                <span>
-                                  <Col sm={12} md={4}>
-                                    <p>
-                                      <strong>{t('schools.school_size')}: </strong>
-                                    </p>
-                                  </Col>
-                                  <Col sm={12} md={8}>
-                                    <p>{t(`schools.sizes.${educator.schoolSize}`)}</p>
-                                  </Col>
-                                </span>
-                              }
+                            {educator.schoolSize &&
+                            <span>
                               <Col sm={12} md={4}>
                                 <p>
-                                  <strong>{t('schools.languages_offered')}: </strong>
+                                  <strong>{t('schools.school_size')}: </strong>
                                 </p>
                               </Col>
                               <Col sm={12} md={8}>
-                                <p>
-                                  {educator.offeredLanguages.map(lang => {
-                                    return (
-                                      <span key={`offered-lang-${lang}`}>{t(`languages.${lang}`)}{educator.offeredLanguages.indexOf(lang) !== educator.offeredLanguages.length - 1 ? <span>,&nbsp;</span> : null}</span>
-                                    )
-                                  })}
-                                </p>
+                                <p>{t(`schools.sizes.${educator.schoolSize}`)}</p>
                               </Col>
-                              {educator.websiteLink &&
-                                <span>
-                                  <Col sm={12} md={4}>
-                                    <p>
-                                      <strong>{t('schools.website')}: </strong>
-                                    </p>
-                                  </Col>
-                                  <Col sm={12} md={8}>
-                                    <p><a href={educator.websiteLink}>{educator.websiteLink}</a></p>
-                                  </Col>
-                                </span>
-                              }
+                            </span>
+                                }
+                            <Col sm={12} md={4}>
+                              <p>
+                                <strong>{t('schools.languages_offered')}: </strong>
+                              </p>
+                            </Col>
+                            <Col sm={12} md={8}>
+                              <p>
+                                {educator.offeredLanguages.map(lang => {
+                                  return (
+                                    <span key={`offered-lang-${lang}`}>{t(`languages.${lang}`)}{educator.offeredLanguages.indexOf(lang) !== educator.offeredLanguages.length - 1 ? <span>,&nbsp;</span> : null}</span>
+                                  )
+                                })}
+                              </p>
+                            </Col>
+                            {educator.websiteLink &&
+                            <span>
                               <Col sm={12} md={4}>
                                 <p>
-                                  <strong>{t('schools.address')}: </strong>
+                                  <strong>{t('schools.website')}: </strong>
                                 </p>
                               </Col>
                               <Col sm={12} md={8}>
-                                <p>
-                                  {educator.address.street}, {educator.address.city}<br />{educator.address.zipCode && <span>{educator.address.zipCode},</span>} {t(`countries.${educator.address.country}`)}
-                                </p>
+                                <p><a href={educator.websiteLink}>{educator.websiteLink}</a></p>
                               </Col>
-                            </Row>
-                          </Well>
-                          <Row>
-                            <Col xs={12}>
-                              <div style={styles.mapContainer}>
-                                <GoogleMap
-                                  center={[educator.address.lat, educator.address.lng]}
-                                  zoom={16}
-                                  options={() => ({
-                                    panControl: false,
-                                    mapTypeControl: false,
-                                    scrollwheel: false,
-                                    styles: MapStyles,
-                                  })}
-                                >
-                                  <MapPin lat={educator.address.lat} lng={educator.address.lng} />
-                                </GoogleMap>
-                              </div>
+                            </span>
+                                }
+                            <Col sm={12} md={4}>
+                              <p>
+                                <strong>{t('schools.address')}: </strong>
+                              </p>
+                            </Col>
+                            <Col sm={12} md={8}>
+                              <p>
+                                {educator.address.street}, {educator.address.city}<br />{educator.address.zipCode && <span>{educator.address.zipCode},</span>} {t(`countries.${educator.address.country}`)}
+                              </p>
                             </Col>
                           </Row>
-                        </Tab.Pane>
+                        </Well>
+                        <Row>
+                          <Col xs={12}>
+                            <div style={styles.mapContainer}>
+                              <GoogleMap
+                                center={[educator.address.lat, educator.address.lng]}
+                                zoom={16}
+                                options={() => ({
+                                  panControl: false,
+                                  mapTypeControl: false,
+                                  scrollwheel: false,
+                                  styles: MapStyles,
+                                })}
+                              >
+                                <MapPin lat={educator.address.lat} lng={educator.address.lng} />
+                              </GoogleMap>
+                            </div>
+                          </Col>
+                        </Row>
+                      </Tab.Pane>
 
-                        {/* City tab */}
-                        <Tab.Pane eventKey='city'>
-                          {educator.city &&
-                            <span>
-                              <Row>
-                                <Col xs={12}>
-                                  <h4>{t(`course_cities.${educator.city}.name`)}</h4>
-                                  <BackgroundImage
-                                    src={t(`course_cities.${educator.city}.image`)}
-                                    maxWidth={800}
-                                    styles={styles.cityImg}
-                                  />
-                                </Col>
-                              </Row>
-                              <Row>
-                                <Col xs={12} md={10} mdOffset={1}>
-                                  <p>{t(`course_cities.${educator.city}.description`)}</p>
-                                </Col>
-                              </Row>
-                              <Row>
-                                <Col xs={12} md={10} mdOffset={1}>
-                                  <h6>{t('schools.language')}</h6>
-                                  <p>{t(`course_cities.${educator.city}.language`)}</p>
-                                </Col>
-                              </Row>
-                              <Row>
-                                <Col xs={12} md={10} mdOffset={1}>
-                                  <h6>{t('schools.culture')}</h6>
-                                  <p>{t(`course_cities.${educator.city}.culture`)}</p>
-                                </Col>
-                              </Row>
-                              <Row>
-                                <Col xs={12} md={10} mdOffset={1}>
-                                  <h6>{t('schools.nightlife')}</h6>
-                                  <p>{t(`course_cities.${educator.city}.nightlife`)}</p>
-                                </Col>
-                              </Row>
-                            </span>
+                      {/* City tab */}
+                      <Tab.Pane eventKey='city'>
+                        {educator.city &&
+                        <span>
+                          <Row>
+                            <Col xs={12}>
+                              <h4>{t(`course_cities.${educator.city}.name`)}</h4>
+                              <BackgroundImage
+                                src={t(`course_cities.${educator.city}.image`)}
+                                maxWidth={800}
+                                styles={styles.cityImg}
+                              />
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col xs={12}>
+                              <p>{t(`course_cities.${educator.city}.description`)}</p>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col xs={12}>
+                              <h6>{t('schools.language')}</h6>
+                              <p>{t(`course_cities.${educator.city}.language`)}</p>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col xs={12}>
+                              <h6>{t('schools.culture')}</h6>
+                              <p>{t(`course_cities.${educator.city}.culture`)}</p>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col xs={12}>
+                              <h6>{t('schools.nightlife')}</h6>
+                              <p>{t(`course_cities.${educator.city}.nightlife`)}</p>
+                            </Col>
+                          </Row>
+                        </span>
+                            }
+                      </Tab.Pane>
+
+                      {/* Reviews tab */}
+                      {educator.educatorReviews.length > 0 &&
+                      <Tab.Pane eventKey='reviews'>
+                        <SchoolReviews reviews={educator.educatorReviews} />
+                      </Tab.Pane>
                           }
-                        </Tab.Pane>
 
-                        {/* Reviews tab */}
-                        {educator.educatorReviews.length > 0 &&
-                          <Tab.Pane eventKey='reviews'>
-                            <SchoolReviews reviews={educator.educatorReviews} />
-                          </Tab.Pane>
-                        }
+                      {/* Courses tab */}
+                      <Tab.Pane eventKey='courses'>
+                        {educator.courses.loaded &&
+                        <span>
+                          {educator.courses.data.map(course => <Course key={course.courseId} result={course} />)}
+                        </span>
+                            }
+                      </Tab.Pane>
 
-                        {/* Courses tab */}
-                        <Tab.Pane eventKey='courses'>
-                          {educator.courses.loaded &&
-                            <span>
-                              {educator.courses.data.map(course => <Course key={course.courseId} result={course} />)}
-                            </span>
-                          }
-                        </Tab.Pane>
-
-                      </Tab.Content>
-                    </Col>
-                  </Row>
-                </Tab.Container>
-              </div>
-              <div style={styles.stickyContainer}>
-                <Sticky
-                  isActive={stickied}
-                  topOffset={-100}
-                  stickyStyle={{ paddingTop: 100 }}
-                >
-                  <div>
-                    <Panel style={styles.panel}>
-                      <BookNow
-                        currencySymbol={currencySymbol}
-                        determineCalendarConflict={this.determineCalendarConflict}
-                        handleRoomDropdownChange={this.handleRoomDropdownChange}
-                        homeID={parseInt(this.props.params.homeID)}
-                        roomSelectionOpen={this.state.roomSelectionOpen}
-                      />
-                    </Panel>
-                  </div>
-                </Sticky>
-              </div>
-            </StickyContainer>
-          </Grid>
-
+                    </Tab.Content>
+                  </Col>
+                </Row>
+              </Tab.Container>
+            </div>
+            <div style={styles.stickyContainer}>
+              <Sticky
+                isActive={stickied}
+                topOffset={-100}
+                stickyStyle={{ paddingTop: 100 }}
+              >
+                <div>
+                  <Panel style={styles.panel}>
+                    <BookNow
+                      courses={educator.courses}
+                      currencySymbol={currencySymbol}
+                      determineCalendarConflict={this.determineCalendarConflict}
+                      handleRoomDropdownChange={this.handleRoomDropdownChange}
+                      homeID={parseInt(this.props.params.homeID)}
+                      roomSelectionOpen={this.state.roomSelectionOpen}
+                    />
+                  </Panel>
+                </div>
+              </Sticky>
+            </div>
+          </StickyContainer>
+          <div style={styles.pageBottomColourBlock} />
+        </Grid>
         }
-
       </div>
     )
   }

@@ -1,15 +1,22 @@
+import { headerGreen } from 'styles/colors'
+
 export default {
   grid: {
     position: 'relative',
   },
   headerRow: {
+    position: 'relative',
     color: 'white',
     textShadow: '1px 2px 2px rgba(0, 0, 0, .15)',
     padding: '30px 30px 10px 30px',
     marginBottom: 0,
   },
+  badge: {
+    textShadow: 'none',
+    letterSpacing: '.5px',
+  },
   bg: {
-    background: 'rgba(0,0,0,.02)',
+    background: '#F5F5F5',
     position: 'absolute',
     top: 0,
     left: 15,
@@ -20,9 +27,10 @@ export default {
     width: 'calc(100% - 270px)',
     '@media (max-width: 767px)': {
       width: '100%',
-      padding: '50px 5px',
+      padding: '120px 0 15px 0',
     },
-    padding: '90px 15px 15px 15px',
+    minHeight: '100vh',
+    padding: '120px 15px 15px 15px',
     display: 'inline-block',
   },
   stickyContainer: {
@@ -30,7 +38,7 @@ export default {
     verticalAlign: 'top',
     width: 270,
     textAlign: 'right',
-    marginTop: 134,
+    marginTop: 165,
     paddingRight: 15,
     '@media (max-width: 767px)': {
       marginTop: 0,
@@ -46,9 +54,13 @@ export default {
   educatorMainImg: {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    minHeight: 200,
-    opacity: 0.9,
-    margin: '10px 0 20px 0',
+    width: 180,
+    height: 180,
+    position: 'absolute',
+    top: 10,
+    right: 35,
+    zIndex: 1,
+    borderRadius: '50%',
   },
   cityImg: {
     backgroundSize: 'cover',
@@ -109,7 +121,7 @@ export default {
   result: {
     borderRadius: 5,
     overflow: 'hidden',
-    background: 'rgba(0,0,0,.065)',
+    background: 'rgba(0,0,0,.045)',
     transition: 'opacity .2s',
     margin: '15px 0',
   },
@@ -167,5 +179,12 @@ export default {
   omittedResult: {
     pointerEvents: 'none',
     opacity: 0.35,
+  },
+  pageBottomColourBlock: {
+    opacity: 0.99,
+    width: '100%',
+    height: 30,
+    marginTop: 30,
+    background: headerGreen,
   },
 }
