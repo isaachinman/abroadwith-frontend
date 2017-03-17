@@ -21,7 +21,6 @@ const initialState = {
 }
 
 export default function reducer(state = initialState, action = {}) {
-  console.log(action)
   switch (action.type) {
     case LOAD_EDUCATOR:
       return {
