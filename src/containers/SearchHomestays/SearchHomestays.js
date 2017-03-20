@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import shallowCompare from 'react-addons-shallow-compare'
 import Helmet from 'react-helmet'
 import abroadwithBoundsToGMAPBounds from 'utils/search/abroadwithBoundsToGMAPBounds'
+import { browserHistory } from 'react-router'
 import gmapBoundsToAbroadwithBounds from 'utils/search/gmapBoundsToAbroadwithBounds'
 import { connect } from 'react-redux'
 import { InlineSearchUnit } from 'components'
@@ -44,6 +45,20 @@ export default class SearchHomestays extends Component {
     filtersPanelOpen: false,
     initialSearchPerformed: false,
     mapDimensions: {},
+  }
+
+  componentDidMount = () => {
+
+    // Add listener for browser navigation (primarily to support backwards navigation)
+    this.navListener = browserHistory.listen(location => {
+
+      // Application-caused location changes are PUSH, while browser events are POP
+      if (location.action === 'POP') {
+        this.props.dispatch(performRoomSearch(homestaySearchUrlToParams(location.query)))
+      }
+
+    })
+
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -96,6 +111,8 @@ export default class SearchHomestays extends Component {
       }
     }
   }
+
+  componentWillUnmount = () => this.navListener()
 
   closeFiltersPanel = () => this.setState({ filtersPanelOpen: false })
   openFiltersPanel = () => this.setState({ filtersPanelOpen: true })
@@ -153,6 +170,8 @@ export default class SearchHomestays extends Component {
   }
 
   render() {
+
+    console.log(this)
 
     const { filtersPanelOpen, mapDimensions } = this.state
     const { uiCurrency, uiLanguage, t, search } = this.props
