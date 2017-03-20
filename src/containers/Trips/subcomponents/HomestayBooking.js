@@ -169,7 +169,7 @@ export default class HomestayBooking extends Component {
             <Row>
               <Col xs={12} md={6} style={styles.infoSectionTop}>
                 <h4 className='text-muted'>{t('trips.status')}</h4>
-                <strong>{t(`trips.status_codes.${booking.status}`)}</strong>
+                <p><strong>{t(`trips.status_codes.${booking.status}`)}</strong></p>
                 <p>{t('trips.created')}: {uiDate(booking.created)}</p>
                 {hasReceipt &&
                   <p><Link to={`/receipt/homestay/student/${booking.id}`}>{t('trips.view_receipt')}</Link></p>

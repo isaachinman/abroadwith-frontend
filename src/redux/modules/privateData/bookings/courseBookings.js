@@ -113,7 +113,7 @@ export function loadCourseBookings(jwt) {
   }
 }
 
-export function cancelHomestayBooking(jwt, bookingID) {
+export function cancelCourseBooking(jwt, bookingID) {
 
   return async dispatch => {
 
@@ -121,7 +121,7 @@ export function cancelHomestayBooking(jwt, bookingID) {
 
     try {
 
-      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/bookings/${bookingID}`)
+      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/courseBookings/${bookingID}`)
       request.set({ Authorization: `Bearer ${(jwt)}` })
 
       request.end((err, res) => {

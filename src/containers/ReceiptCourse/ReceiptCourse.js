@@ -1,15 +1,16 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
+import { cancelCourseBooking } from 'redux/modules/privateData/bookings/courseBookings'
 import config from 'config'
+import CourseBookingStatusCodes from 'data/constants/CourseBookingStatusCodes'
 import Currencies from 'data/constants/Currencies'
 import { Alert, Button, Col, Panel, Row, Grid } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { loadCourseReceipt } from 'redux/modules/privateData/receipts/receipts'
 import { Link } from 'react-router'
 import Helmet from 'react-helmet'
-import CourseBookingStatusCodes from 'data/constants/CourseBookingStatusCodes'
-// import moment from 'moment'
+import moment from 'moment'
 import { uiDate, semanticDate } from 'utils/dates'
 import { translate } from 'react-i18next'
 
@@ -35,11 +36,10 @@ export default class ReceiptCourse extends Component {
 
     const { t, reservation } = this.props
 
-    // const today = moment().startOf('day').subtract(1, 'minutes')
+    const today = moment().startOf('day').subtract(1, 'minutes')
     const bookingPhase = Object.keys(CourseBookingStatusCodes).filter(statusCategory => CourseBookingStatusCodes[statusCategory].indexOf(reservation.status) > -1)[0]
 
-    // const isActionable = ['pending', 'approved'].includes(bookingPhase) && moment(reservation.arrivalDate).isAfter(today)
-    const isActionable = false // Currently students cannot cancel bookings
+    const isActionable = ['pending', 'approved'].includes(bookingPhase) && moment(reservation.arrivalDate).isAfter(today)
 
     console.log(this)
 
@@ -82,9 +82,7 @@ export default class ReceiptCourse extends Component {
                     <Col xs={12}>
                       <h5>{t('trips.actions_title')}:</h5>
                       <Alert style={styles.alert}>
-                        <Button onClick={() => this.approveReservation(reservation.id)} bsStyle='primary'>{t('trips.actions.approve')}</Button>
-                        {t('common.words.or')}&nbsp;
-                        <Button onClick={() => this.declineReservation(reservation.id)} bsStyle='danger'>{t('trips.actions.decline')}</Button>
+                        <Button onClick={() => this.props.dispatch(cancelCourseBooking(reservation.id))} bsStyle='danger'>{t('trips.actions.decline')}</Button>
                       </Alert>
                     </Col>
                         }
@@ -92,7 +90,7 @@ export default class ReceiptCourse extends Component {
                     <Col xs={12}>
                       <h5>{t('trips.actions_title')}:</h5>
                       <Alert bsStyle='danger' style={styles.alert}>
-                        <Button onClick={() => this.cancelReservation(reservation.id)} bsStyle='danger'>{t('trips.actions.cancel')}</Button>
+                        <Button onClick={() => this.props.dispatch(cancelCourseBooking(reservation.id))} bsStyle='danger'>{t('trips.actions.cancel')}</Button>
                       </Alert>
                     </Col>
                         }
@@ -158,10 +156,11 @@ export default class ReceiptCourse extends Component {
 }
 
 ReceiptCourse.propTypes = {
-  data: React.PropTypes.object,
-  loading: React.PropTypes.bool,
-  user: React.PropTypes.object,
+  data: PropTypes.object,
+  dispatch: PropTypes.func,
+  loading: PropTypes.bool,
+  user: PropTypes.object,
   reservation: PropTypes.object,
   t: PropTypes.func,
-  error: React.PropTypes.object,
+  error: PropTypes.object,
 }

@@ -60,7 +60,9 @@ export default class Trips extends Component {
 
   // Anytime bookings are reloaded, trips must be recompiled
   componentDidUpdate = prevProps => {
-    if (this.state.initialised && !this.props.homestayBookings.loading && prevProps.homestayBookings.loading) {
+    if (this.state.initialised &&
+        ((!this.props.homestayBookings.loading && prevProps.homestayBookings.loading) ||
+        (!this.props.courseBookings.loading && prevProps.courseBookings.loading))) {
       this.compileTrips()
     }
   }
