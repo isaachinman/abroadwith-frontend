@@ -120,8 +120,11 @@ export default class HomestayBooking extends Component {
     // const isDeclined = booking.status.indexOf('DECLINED') > -1
     const isPending = booking.status.indexOf('PENDING') > -1
 
+    // Defining today as 23:39 of yesterday takes care of edge cases where booking starts today
+    const today = moment().startOf('day').subtract(1, 'minutes')
+
     // Pending and Approved bookings in the future are actionable
-    const isActionable = (isApproved || isPending) && moment(booking.arrivalDate).isAfter(moment())
+    const isActionable = (isApproved || isPending) && moment(booking.arrivalDate).isAfter(today)
 
     // Only specific statuses have receipts
     const hasReceipt = isApproved || isCancelled
