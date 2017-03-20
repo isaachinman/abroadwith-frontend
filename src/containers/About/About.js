@@ -1,6 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { Col, Grid, Row } from 'react-bootstrap'
+import config from 'config'
 import Helmet from 'react-helmet'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
@@ -39,6 +40,33 @@ export default class About extends Component {
                 <p>{t('about.paragraph_3')}</p>
               </Col>
             </Row>
+          </div>
+        </Grid>
+        <div style={styles.parterRow}>
+          <Grid style={styles.grid}>
+            <Row>
+              <Col xs={12} style={{ textAlign: 'center' }}>
+                <img
+                  alt='El Referente'
+                  src={`${config.img}/app/partners/el_referente.png`}
+                  style={styles.partnerImg}
+                />
+                <img
+                  alt='Startups Asociacion'
+                  src={`${config.img}/app/partners/startups_asociacion.png`}
+                  style={styles.partnerImg}
+                />
+                <img
+                  alt='German Startups Association'
+                  src={`${config.img}/app/partners/german_startups_association.png`}
+                  style={styles.partnerImg}
+                />
+              </Col>
+            </Row>
+          </Grid>
+        </div>
+        <Grid style={styles.grid}>
+          <div style={styles.contentContainer}>
             <Row>
               <Col xs={12} md={8} mdOffset={2}>
                 <h4>{t('common.most_popular_immersions')}</h4>
