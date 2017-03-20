@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import config from 'config'
 import { deletePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
 import FadeProps from 'fade-props'
-import { Footer, LoadingBar, Navbar, ResetPasswordModal, VerifyEmailModal, VerifyPhoneModal } from 'components'
+import { Footer, LoadingBar, Navbar, ResetPasswordModal, VerifyEmailModal, VerifyEmailSentModal, VerifyPhoneModal } from 'components'
 import { getUnreadMessageCount } from 'redux/modules/privateData/messaging/getUnreadMessageCount'
 import { geolocateViaBrowser } from 'utils/locations'
 import { load as loadHomestayWithAuth } from 'redux/modules/privateData/homes/loadHomeWithAuth'
@@ -204,7 +204,10 @@ export default class App extends Component {
 
 
           {user && user.data && user.data.verifications && !user.data.verifications.email &&
-            <VerifyEmailModal />
+            <span>
+              <VerifyEmailModal />
+              <VerifyEmailSentModal />
+            </span>
           }
           {user && user.data && user.data.verifications && !user.data.verifications.phone &&
             <VerifyPhoneModal />

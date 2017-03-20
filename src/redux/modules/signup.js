@@ -1,6 +1,7 @@
 import config from 'config.js'
 import superagent from 'superagent'
 import { login, facebookLogin, googleLogin } from 'redux/modules/auth'
+import { openVerifyEmailSentModal } from 'redux/modules/ui/modals'
 
 // Login stuff
 const SIGNUP = 'abroadwith/SIGNUP'
@@ -77,6 +78,9 @@ export function signup(type, signupObject, googleToken, callback) {
           } else if (type === 'google') {
             dispatch(googleLogin(email, googleToken))
           }
+
+          // Open email verification sent modal
+          dispatch(openVerifyEmailSentModal())
 
 
         }

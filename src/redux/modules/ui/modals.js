@@ -14,6 +14,10 @@ const CLOSE_HOST_SIGNUP_MODAL = 'abroadwith/CLOSE_HOST_SIGNUP_MODAL'
 const OPEN_VERIFY_EMAIL_MODAL = 'abroadwith/OPEN_VERIFY_EMAIL_MODAL'
 const CLOSE_VERIFY_EMAIL_MODAL = 'abroadwith/CLOSE_VERIFY_EMAIL_MODAL'
 
+// Verify email modal
+const OPEN_VERIFY_EMAIL_SENT_MODAL = 'abroadwith/OPEN_VERIFY_EMAIL_SENT_MODAL'
+const CLOSE_VERIFY_EMAIL_SENT_MODAL = 'abroadwith/CLOSE_VERIFY_EMAIL_SENT_MODAL'
+
 // Verify phone modal
 const OPEN_VERIFY_PHONE_MODAL = 'abroadwith/OPEN_VERIFY_PHONE_MODAL'
 const CLOSE_VERIFY_PHONE_MODAL = 'abroadwith/CLOSE_VERIFY_PHONE_MODAL'
@@ -27,6 +31,9 @@ const initialState = {
     open: false,
     reason: null,
     additionalData: {},
+  },
+  verifyEmailSentModal: {
+    open: false,
   },
   verifyPhoneModal: {
     open: false,
@@ -123,6 +130,20 @@ export default function reducer(state = initialState, action = {}) {
           reason: null,
         },
       }
+    case OPEN_VERIFY_EMAIL_SENT_MODAL:
+      return {
+        ...state,
+        verifyEmailSentModal: {
+          open: true,
+        },
+      }
+    case CLOSE_VERIFY_EMAIL_SENT_MODAL:
+      return {
+        ...state,
+        verifyEmailSentModal: {
+          open: false,
+        },
+      }
     case OPEN_VERIFY_PHONE_MODAL:
       return {
         ...state,
@@ -151,6 +172,14 @@ export function openVerifyEmailModal(reason) {
 }
 export function closeVerifyEmailModal() {
   return dispatch => dispatch({ type: CLOSE_VERIFY_EMAIL_MODAL })
+}
+
+// Verify email modal
+export function openVerifyEmailSentModal() {
+  return dispatch => dispatch({ type: OPEN_VERIFY_EMAIL_SENT_MODAL })
+}
+export function closeVerifyEmailSentModal() {
+  return dispatch => dispatch({ type: CLOSE_VERIFY_EMAIL_SENT_MODAL })
 }
 
 // Verify phone modal
