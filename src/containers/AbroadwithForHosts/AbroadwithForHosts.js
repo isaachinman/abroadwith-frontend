@@ -29,7 +29,7 @@ export default class AbroadwithForHosts extends Component {
     if (jwt && user.data) {
 
       if (user.data.homeIds.length === 0) {
-        dispatch(createHomestay(token, user.data, true))
+        dispatch(createHomestay(token, true))
       } else {
         dispatch(push('/manage-home'))
       }

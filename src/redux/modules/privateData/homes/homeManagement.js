@@ -52,7 +52,7 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function createHomestay(jwt, user, redirectToManageHome) {
+export function createHomestay(jwt, redirectToManageHome) {
 
   return async dispatch => {
 
@@ -61,15 +61,16 @@ export function createHomestay(jwt, user, redirectToManageHome) {
 
     try {
 
-      // Non MULTI-type users are not allowed to create multiple homes
-      if (user.homeIds.length > 0 && user.feUserType.indexOf('MULTI') === -1) {
-        dispatch(hideLoading())
-        return dispatch(push('/manage-home'))
-      }
-
       dispatch(loadUserWithAuth(jwt, response => {
 
-        if (response && response.verifications && response.verifications.email) {
+        // Non MULTI-type users are not allowed to create multiple homes
+        if (response.homeIds.length > 0 && response.feUserType.indexOf('MULTI') === -1) {
+
+          dispatch(hideLoading())
+          return dispatch(push('/manage-home'))
+
+        } else if (response && response.verifications && response.verifications.email) {
+
           const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes`)
           request.set({ Authorization: `Bearer ${(jwt)}` })
 
@@ -98,8 +99,8 @@ export function createHomestay(jwt, user, redirectToManageHome) {
               }
 
               // This is an action which can change a user's type
-              if (user.feUserType === 'STUDENT') {
-                dispatch(updateUser(jwtDecode(jwt).rid, Object.assign({}, user, { feUserType: 'STUDENT_AND_HOST' }), jwt))
+              if (response.feUserType === 'STUDENT') {
+                dispatch(updateUser(jwtDecode(jwt).rid, Object.assign({}, response, { feUserType: 'STUDENT_AND_HOST' }), jwt))
               }
 
             }

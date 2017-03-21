@@ -134,7 +134,7 @@ export default class Main extends Component {
                 {jwt && user && user.data && user.data.homeIds.length === 0 &&
                   <span>
                     {t('common.words.or')}
-                    <Button onClick={() => dispatch(createHomestay(token, user.data, true))} bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: saturatedPurple })}>{t('common.navbar_become_host')}</Button>
+                    <Button onClick={() => dispatch(createHomestay(token, true))} bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: saturatedPurple })}>{t('common.navbar_become_host')}</Button>
                   </span>
                 }
               </Col>

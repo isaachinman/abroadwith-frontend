@@ -47,7 +47,7 @@ export default class ManageHomeLandingPage extends Component {
 
   render() {
 
-    const { dispatch, homes, user, t, token } = this.props
+    const { dispatch, homes, t, token } = this.props
 
     return (
       <Grid>
@@ -77,7 +77,7 @@ export default class ManageHomeLandingPage extends Component {
             )
           })}
           <Col xs={12} md={6} lg={4}>
-            <Panel onClick={() => dispatch(createHomestay(token, user, true))} style={styles.homePanel}>
+            <Panel onClick={() => dispatch(createHomestay(token, true))} style={styles.homePanel}>
               <h5>Create new home <small><FontAwesome name='plus' /></small></h5>
             </Panel>
           </Col>

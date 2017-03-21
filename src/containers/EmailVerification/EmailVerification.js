@@ -71,7 +71,7 @@ export default class EmailVerification extends Component {
 
   render() {
     const { whatToRender } = this.state
-    const { user, t, token, verifications } = this.props
+    const { t, token, verifications } = this.props
     return (
       <div>
         <Helmet title={t('common.email_verification_title')} />
@@ -121,7 +121,7 @@ export default class EmailVerification extends Component {
                     {t('common.email_verified_success_host')}
                   </p>
                   <div style={styles.btnBottom}>
-                    <Button onClick={() => this.props.dispatch(createHomestay(token, user, true))} bsStyle='primary'>{t('common.navbar_become_host')}</Button>
+                    <Button onClick={() => this.props.dispatch(createHomestay(token, true))} bsStyle='primary'>{t('common.navbar_become_host')}</Button>
                   </div>
                 </Alert>
               }
