@@ -28,10 +28,10 @@ export default class Navbar extends Component {
 
   createHomestay = () => {
 
-    const { dispatch, homeManagement, user, token } = this.props
+    const { dispatch, homeManagement, token } = this.props
 
     if (!homeManagement.loading) {
-      dispatch(createHomestay(token, user.data, true))
+      dispatch(createHomestay(token, true))
     }
 
   }
