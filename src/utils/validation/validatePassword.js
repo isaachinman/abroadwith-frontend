@@ -17,12 +17,17 @@ export default (password, options) => {
       validationMessages.push('TOO_LONG')
     }
 
-    if (password.indexOf(options.firstName) > -1) {
-      validationMessages.push('CONTAINS_FIRST_NAME')
-    }
+    // This is very poorly thought out validation which is "legacy"
+    if (typeof options === 'object') {
 
-    if (password.indexOf(options.lastName) > -1) {
-      validationMessages.push('CONTAINS_LAST_NAME')
+      if (password.indexOf(options.firstName) > -1) {
+        validationMessages.push('CONTAINS_FIRST_NAME')
+      }
+
+      if (password.indexOf(options.lastName) > -1) {
+        validationMessages.push('CONTAINS_LAST_NAME')
+      }
+
     }
 
     let twoOfThreeConditions = 0
