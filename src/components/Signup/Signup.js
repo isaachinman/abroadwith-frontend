@@ -1,6 +1,6 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { Alert, Button, Col, FormGroup, FormControl, OverlayTrigger, Panel, Tooltip, Row } from 'react-bootstrap'
+import { Alert, Button, Col, FormGroup, FormControl, HelpBlock, OverlayTrigger, Panel, Tooltip, Row } from 'react-bootstrap'
 import config from 'config'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
@@ -151,12 +151,17 @@ export default class Signup extends Component {
 
   handlePasswordChange = event => {
     const modifiedValidation = this.state.validatedFields
-    const isValid = validatePassword(event.target.value).valid
-    modifiedValidation.password = { uiState: isValid ? 'success' : 'error', value: isValid ? event.target.value : null }
+    const isValid = validatePassword(event.target.value, { firstName: modifiedValidation.firstName.value, lastName: modifiedValidation.lastName.value })
+    if (isValid.valid) {
+      modifiedValidation.password = { uiState: 'success', value: event.target.value }
+    } else {
+      modifiedValidation.password = { uiState: 'error', value: null, errorMessage: isValid.errors }
+    }
     this.setState({ validatedFields: modifiedValidation })
+    console.log(this)
   }
 
-  handlebirthDateChange = event => {
+  handleBirthDateChange = event => {
     const modifiedValidation = this.state.validatedFields
     const flexibleDate = moment(event.target.value, 'YYYY-MM-DD').format('YYYY-MM-DD')
     const isValid = validateEighteenYearsOld(flexibleDate)
@@ -369,6 +374,9 @@ export default class Signup extends Component {
                           onChange={event => this.handlePasswordChange(event)}
                         />
                         <FormControl.Feedback />
+                        {password.uiState === 'error' &&
+                          <HelpBlock>{t(`common.password_validation_messages.${password.errorMessage[0]}`)}</HelpBlock>
+                        }
                       </FormGroup>
                     </OverlayTrigger>
                     <FormGroup validationState={birthDate.uiState}>
@@ -376,7 +384,7 @@ export default class Signup extends Component {
                         type='date'
                         style={styles.emailSignupInput}
                         placeholder={t('common.birthday_placeholder')}
-                        onChange={event => this.handlebirthDateChange(event)}
+                        onChange={event => this.handleBirthDateChange(event)}
                       />
                       <FormControl.Feedback />
                     </FormGroup>
