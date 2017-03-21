@@ -8,8 +8,9 @@ import { connect } from 'react-redux'
 import Currencies from 'data/constants/Currencies'
 import GoogleMap from 'google-map-react'
 import Helmet from 'react-helmet'
-import { isLoaded, load as loadEducator, loadEducatorCourses, loadEducatorCity } from 'redux/modules/publicData/educators/loadEducator'
+import { isLoaded, load as loadEducator, loadEducatorCity } from 'redux/modules/publicData/educators/loadEducator'
 import MapStyles from 'data/constants/MapStyles'
+import moment from 'moment'
 import Radium from 'radium'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { updateActiveCourse } from 'redux/modules/ui/search/courseSearch'
@@ -35,9 +36,6 @@ import styles from './School.styles'
         return dispatch(loadEducatorCity({ lat: educator.address.lat, lng: educator.address.lng }, params.educatorID))
 
       }))
-
-      // Simultaneously load all courses by educatorID
-      promises.push(dispatch(loadEducatorCourses(params.educatorID)))
 
     }
 
@@ -65,8 +63,8 @@ export default class School extends Component {
     const { courseSearch, dispatch, educator } = this.props
 
     // If there is no active course, or if it belongs to another school, we need to reset
-    if (!courseSearch.activeCourse || !educator.courses.data.some(course => course.courseId === courseSearch.activeCourse)) {
-      dispatch(updateActiveCourse(educator.courses.data[0].courseId))
+    if (!courseSearch.activeCourse || !educator.courses.some(course => course.id === courseSearch.activeCourse)) {
+      dispatch(updateActiveCourse(educator.courses[0].id))
     }
 
   }
@@ -79,6 +77,13 @@ export default class School extends Component {
     const stickied = typeof window !== 'undefined' ? window.innerWidth > 767 : true
 
     console.log(this)
+
+    const filteredCourses = educator.courses.filter(course => {
+
+      // Non recurring courses in the past are literally unbookable and should not be shown
+      return (course.recurrenceType || (course.recurrenceType === null && moment().isBefore(moment(course.startDate).add(course.numberOfWeeks, 'weeks'))))
+
+    })
 
     return (
       <div style={{ marginBottom: -20 }}>
@@ -263,9 +268,9 @@ export default class School extends Component {
 
                       {/* Courses tab */}
                       <Tab.Pane eventKey='courses'>
-                        {educator.courses.loaded &&
+                        {educator.courses &&
                         <span>
-                          {educator.courses.data.map(course => <Course key={course.courseId} result={course} />)}
+                          {filteredCourses.map(course => <Course key={course.id} result={course} educatorName={educator.schoolName} />)}
                         </span>
                             }
                       </Tab.Pane>

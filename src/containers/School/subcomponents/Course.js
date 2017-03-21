@@ -1,8 +1,8 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
-import { Button, Col, Collapse, Tab, Tabs, Table, Row } from 'react-bootstrap'
-import config from 'config'
+import { Button, Col, Collapse, Table, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import FontAwesome from 'react-fontawesome'
 import { semanticDate, sortByDayOfWeek } from 'utils/dates'
 import { updateActiveCourse } from 'redux/modules/ui/search/courseSearch'
 import { translate } from 'react-i18next'
@@ -40,7 +40,7 @@ export default class Course extends Component {
   // }
 
   addCourse = () => {
-    this.props.dispatch(updateActiveCourse(this.props.result.courseId))
+    this.props.dispatch(updateActiveCourse(this.props.result.id))
   }
 
   removeCourse = () => this.props.dispatch(updateActiveCourse(null))
@@ -53,46 +53,25 @@ export default class Course extends Component {
   render() {
 
     const { expanded, localAnimationInProgress } = this.state
-    const { result, courseSearch, t } = this.props
+    const { result, courseSearch, t, educatorName } = this.props
 
     const aResultIsAdded = courseSearch.activeCourse
-    const isAddedToBooking = aResultIsAdded && courseSearch.activeCourse === result.courseId
+    const isAddedToBooking = aResultIsAdded && courseSearch.activeCourse === result.id
 
-    const parsedTimeslots = result.courseTimeSlots.map(slot => {
-      const split = slot.split(';')
-      return {
-        dayOfWeek: split[0],
-        startTime: split[1],
-        endTime: split[2],
-      }
-    })
-    const sortedTimeslots = sortByDayOfWeek(parsedTimeslots)
-
-    let resultStyles = styles.result
-
-    if (aResultIsAdded) {
-      if (isAddedToBooking) {
-        resultStyles = Object.assign({}, styles.result, styles.addedResult)
-      } else {
-        resultStyles = Object.assign({}, styles.result, styles.omittedResult)
-      }
-    }
+    const sortedTimeslots = sortByDayOfWeek(result.timeSlots)
 
     return (
-      <Row style={resultStyles}>
-        <Col xsHidden smHidden md={4} style={expanded ? Object.assign({}, styles.imageCol, { width: 0, height: 0 }) : styles.imageCol}>
-          <div style={Object.assign({}, styles.educatorImage, { backgroundImage: `url(${config.img}${result.educatorImage || '/app/courses/default_course.jpg'})` })} />
-        </Col>
-        <Col xs={12} md={expanded ? 12 : 8} style={styles.widthTransition}>
+      <Row style={styles.result}>
+        <Col xs={12}>
           <div style={styles.resultDetails}>
             <Row>
               <Col xs={12} sm={8}>
-                <h5 style={styles.courseName}>{result.courseName}</h5>
+                <h5 style={styles.courseName}>{result.name}</h5>
               </Col>
               <Col xs={12} sm={11}>
                 {expanded ?
                   <p>
-                    {result.shortDescription}
+                    {result.description}
                   </p>
                   :
                   <div style={styles.truncatedDescription}>
@@ -100,7 +79,7 @@ export default class Course extends Component {
                       <TextTruncate
                         ref={node => this.truncator = node}
                         line={2}
-                        text={result.shortDescription}
+                        text={result.description}
                       />
                     </Collapse>
                   </div>
@@ -110,43 +89,40 @@ export default class Course extends Component {
                 <Col xs={12}>
                   <p>
                     <strong>{t('booking.result_dates')}: </strong>{semanticDate(t, result.startDate)} {t('common.words.to')} {semanticDate(t, result.endDate)}<br />
-                    <strong>{t('booking.educator_name')}: </strong>{result.educatorName}<br />
+                    <strong>{t('booking.educator_name')}: </strong>{educatorName}<br />
                     <strong>{t('booking.level')}: </strong>{courseSearch.params.level}-{result.endLevel}<br />
-                    <strong>{t('booking.lessons_per_week')}: </strong>{result.lessonsPerWeek}
+                    <strong>{t('booking.lessons_per_week')}: </strong>{result.hoursPerWeek}
                   </p>
-                  <Tabs style={styles.moreInfoTabs} id={`course-info-tabs-${result.courseId}`}>
-                    <Tab eventKey={1} title={t('booking.weekly_schedule')} style={styles.courseTabContent}>
-                      <Table striped bordered condensed hover>
-                        <thead>
-                          <tr>
-                            <th>{t('booking.day_of_week')}</th>
-                            <th style={{ textTransform: 'capitalize' }}>{t('booking.hours')}</th>
+                  <h6 style={{ marginTop: 30 }}>{t('booking.weekly_schedule')}</h6>
+                  <Table striped bordered condensed hover>
+                    <thead>
+                      <tr>
+                        <th>{t('booking.day_of_week')}</th>
+                        <th style={{ textTransform: 'capitalize' }}>{t('booking.hours')}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sortedTimeslots.map(dayOfWeek => {
+                        return (
+                          <tr key={`timeslot-${dayOfWeek.day}`}>
+                            <td>{t(`booking.weekdays.${dayOfWeek.day}`)}</td>
+                            <td>
+                              {dayOfWeek.slots.map(timespan => {
+                                return (
+                                  <span key={`${dayOfWeek}-${timespan.startTime}`}>
+                                    {timespan.startTime}-{timespan.endTime}
+                                    {dayOfWeek.slots.indexOf(timespan) !== dayOfWeek.slots.length - 1 &&
+                                    <span>,&nbsp;</span>
+                                      }
+                                  </span>
+                                )
+                              })}
+                            </td>
                           </tr>
-                        </thead>
-                        <tbody>
-                          {sortedTimeslots.map(dayOfWeek => {
-                            return (
-                              <tr key={`timeslot-${dayOfWeek.day}`}>
-                                <td>{t(`booking.weekdays.${dayOfWeek.day}`)}</td>
-                                <td>
-                                  {dayOfWeek.slots.map(timespan => {
-                                    return (
-                                      <span key={`${dayOfWeek}-${timespan.startTime}`}>
-                                        {timespan.startTime}-{timespan.endTime}
-                                        {dayOfWeek.slots.indexOf(timespan) !== dayOfWeek.slots.length - 1 &&
-                                        <span>,&nbsp;</span>
-                                          }
-                                      </span>
-                                    )
-                                  })}
-                                </td>
-                              </tr>
-                            )
-                          })}
-                        </tbody>
-                      </Table>
-                    </Tab>
-                  </Tabs>
+                        )
+                      })}
+                    </tbody>
+                  </Table>
                 </Col>
 
               </Collapse>
@@ -162,7 +138,7 @@ export default class Course extends Component {
               }
               {isAddedToBooking &&
                 <Col xs={6} style={Object.assign({}, styles.rightAlign, styles.bottomRow)}>
-                  <Button onClick={this.removeCourse} bsSize='xsmall' bsStyle='danger'>{t('booking.remove')}</Button>
+                  <h6 style={{ margin: 0 }} className='header-green'>Course selected <FontAwesome name='check-circle' /></h6>
                 </Col>
               }
             </Row>
@@ -178,6 +154,7 @@ Course.propTypes = {
   courseSearch: PropTypes.object,
   currencySymbol: PropTypes.string,
   dispatch: PropTypes.func,
+  educatorName: PropTypes.string,
   result: PropTypes.object,
   upsellSearch: PropTypes.object,
   potentialBookingHelpers: PropTypes.object,

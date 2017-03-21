@@ -152,7 +152,7 @@ export default class BookNow extends Component {
       high: 0,
     }
 
-    this.props.courses.data.map(course => {
+    this.props.courses.map(course => {
       if (levelMap[course.startLevel] < levels.low) {
         levels.low = course.startLevel
       }
@@ -172,9 +172,9 @@ export default class BookNow extends Component {
     const { activeCourse } = courseSearch
     const hasDateRange = courseSearch.params.arrival && courseSearch.params.departure
 
-    const alphabeticalCourses = courses.loaded ? courses.data.sort((a, b) => {
-      const x = a.courseName.toLowerCase()
-      const y = b.courseName.toLowerCase()
+    const alphabeticalCourses = courses ? courses.sort((a, b) => {
+      const x = a.name.toLowerCase()
+      const y = b.name.toLowerCase()
       return x < y ? -1 : x > y ? 1 : 0 // eslint-disable-line
     }) : []
 
@@ -188,7 +188,7 @@ export default class BookNow extends Component {
     console.log(this)
 
     return (
-      <SpinLoader show={courses.loading}>
+      <SpinLoader show={false}>
         <span style={styles.bookNowContainer} className='book-now-panel'>
           <Row style={styles.bookNowBorderBottom}>
             <Col xs={12}>
@@ -224,10 +224,10 @@ export default class BookNow extends Component {
                 placeholder='Course'
                 theme='bootstrap3'
                 className='book-now-room-select'
-                value={activeCourse ? { value: activeCourse, label: courses.data.filter(course => course.courseId === activeCourse)[0].courseName } : {}}
+                value={activeCourse ? { value: activeCourse, label: courses.filter(course => course.id === activeCourse)[0].name } : {}}
                 onValueChange={this.handleCourseChange}
               >
-                {alphabeticalCourses.map(course => <option key={course.courseId} value={course.courseId}>{course.courseName}</option>)}
+                {alphabeticalCourses.map(course => <option key={course.id} value={course.id}>{course.name}</option>)}
               </Select>
             </Col>
           </Row>
@@ -271,7 +271,7 @@ export default class BookNow extends Component {
 
 BookNow.propTypes = {
   auth: PropTypes.object,
-  courses: PropTypes.object,
+  courses: PropTypes.array,
   currencySymbol: PropTypes.string,
   dispatch: PropTypes.func,
   educatorID: PropTypes.number,
