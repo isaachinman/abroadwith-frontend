@@ -142,9 +142,6 @@ export default {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-  widthTransition: {
-    transition: 'width .35s',
-  },
   resultDetails: {
     padding: '15px 0',
   },
@@ -178,10 +175,6 @@ export default {
   },
   bottomRow: {
     marginTop: 23,
-  },
-  omittedResult: {
-    pointerEvents: 'none',
-    opacity: 0.35,
   },
   pageBottomColourBlock: {
     opacity: 0.99,
