@@ -158,7 +158,6 @@ export default class Signup extends Component {
       modifiedValidation.password = { uiState: 'error', value: null, errorMessage: isValid.errors }
     }
     this.setState({ validatedFields: modifiedValidation })
-    console.log(this)
   }
 
   handleBirthDateChange = event => {
@@ -282,7 +281,7 @@ export default class Signup extends Component {
           <Row>
             <Col xs={12}>
               <h2 style={{ color: '#32325D' }}>{t('common.language_modal_hello')}</h2>
-              <h5><small>{t('common.language_modal_title')}</small></h5>
+              <h6 style={styles.subtitle}><small>{t('common.language_modal_title')}</small></h6>
             </Col>
           </Row>
           <Row>
