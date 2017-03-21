@@ -19,6 +19,7 @@ import { translate } from 'react-i18next'
 import moment from 'moment'
 import NotFound from 'components/NotFound/NotFound'
 import notification from 'antd/lib/notification'
+import { openVerifyPhoneModal } from 'redux/modules/ui/modals'
 
 // Relative imports
 import styles from './App.styles'
@@ -69,7 +70,15 @@ export default class App extends Component {
     if (user.data && user.data.homeIds && homes.length !== user.data.homeIds.length) {
       user.data.homeIds.map(homeID => {
         if (!homes[homeID] || (homes[homeID] && !homes[homeID].loading && !homes[homeID].loaded)) {
-          dispatch(loadHomestayWithAuth(token, homeID))
+          dispatch(loadHomestayWithAuth(token, homeID)).then(action => {
+
+            // Check home object - if a user is starting a new session and their home's publication
+            // is hanging on phone verification, display UI to remind them
+            if (action.result && action.result.homeActivationResponse && action.result.homeActivationResponse.code === 'PHONE_NOT_VERIFIED') {
+              dispatch(openVerifyPhoneModal('HOME_PUBLICATION', { homeID: action.result.homeID, homeObject: action.result }))
+            }
+
+          })
         }
       })
     }
