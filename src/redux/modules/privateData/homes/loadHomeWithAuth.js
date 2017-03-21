@@ -139,7 +139,13 @@ export default function reducer(state = {}, action = {}) {
           }),
         }
       }
-      break
+      return {
+        ...state,
+        [action.homeID]: {
+          loading: true,
+          loaded: false,
+        },
+      }
     }
     case ADD_HOME_PHOTO: {
       return {
