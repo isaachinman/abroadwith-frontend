@@ -75,7 +75,7 @@ export default class App extends Component {
             // Check home object - if a user is starting a new session and their home's publication
             // is hanging on phone verification, display UI to remind them
             if (action.result && action.result.homeActivationResponse && action.result.homeActivationResponse.code === 'PHONE_NOT_VERIFIED') {
-              dispatch(openVerifyPhoneModal('HOME_PUBLICATION', { homeID: action.result.homeID, homeObject: action.result }))
+              dispatch(openVerifyPhoneModal('HOME_PUBLICATION', { homeID, homeObject: action.result }))
             }
 
           })
