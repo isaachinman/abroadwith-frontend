@@ -136,7 +136,7 @@ export default class HomestayBooking extends Component {
             <Row>
               <Col xs={12}>
                 <h1>{t('trips.your_homestay')}</h1>
-                <h5>{t('trips.trip_with', { immersion: t(`immersions.${booking.immersionType}`), host: booking.hostName, country: t(`countries.${booking.homeAddress.country}`) })}</h5>
+                <h5>{t('trips.trip_with', { immersion: t(`immersions.${booking.immersionType}`), host: booking.hostName, country: booking.homeAddress ? t(`countries.${booking.homeAddress.country}`) : t('common.deleted_home') })}</h5>
               </Col>
             </Row>
           </Grid>

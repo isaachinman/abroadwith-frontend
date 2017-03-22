@@ -73,7 +73,7 @@ export default class Homestay extends Component {
     const { dispatch, homestay, homestaySearch } = this.props
 
     // If there is no active room, or if it belongs to another home, we need to reset
-    if (!homestaySearch.activeRoom || !homestay.data.rooms.some(room => room.id === homestaySearch.activeRoom)) {
+    if (homestay.data && (!homestaySearch.activeRoom || !homestay.data.rooms.some(room => room.id === homestaySearch.activeRoom))) {
       dispatch(updateActiveRoom(homestay.data.rooms[0].id))
     }
 
