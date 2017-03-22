@@ -289,7 +289,7 @@ export default class School extends Component {
                 <div>
                   <Panel style={styles.panel}>
                     <BookNow
-                      courses={educator.courses}
+                      courses={filteredCourses}
                       currencySymbol={currencySymbol}
                       determineCalendarConflict={this.determineCalendarConflict}
                       handleRoomDropdownChange={this.handleRoomDropdownChange}
