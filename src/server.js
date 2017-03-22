@@ -13,6 +13,7 @@ import http from 'http'
 import httpProxy from 'http-proxy'
 import jwtDecode from 'jwt-decode'
 import logger from 'helpers/logger'
+import moment from 'moment'
 import path from 'path'
 import PrettyError from 'pretty-error'
 import React from 'react'
@@ -118,7 +119,7 @@ app.use((req, res) => {
   /* eslint-disable */
   // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiX1d5RUZpeEo2VzVrTl9HYzNvc3ptZyIsImlhdCI6MTQ4ODUzNzE3NiwiZXhwIjoxNDg5MTQxOTc2LCJuYmYiOjE0ODg1MzcwNTYsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IklzYWFjIiwicmlkIjoxMDA1MzMsImNiayI6MCwid2hvc3QiOnRydWUsImltZyI6Ii91c2Vycy8xMDA1MzMvMTQ4NzUyNjc4NzYwMi5qcGciLCJoaWQiOjU2OH0.PQBcIjLUA6lf3a4pUoXghrRxE4QI7hdVVuk4q2MoceSr8Qv9ZyxVvQa2OnLFwyWNXxe0aGHuLPya1FJRI4me9CIsDYAgKQFd9AjQM9abw1tj0gJaVImMBve8CyKMxEsD5NURFTuewt2faDRa2dAy6w3bzizZA6ih1sgw61VUQKH9Sd0oSfVUfmrOK2CkJy0pNC-yaDmxmWgg3ko2b1ZAGuBMFf91LvhiqBNbbWLnZlVPfN7U_m1COrFAgbPT8_UaymFCwb3wG2xCZdLpANAs0EOe680TszhLL9ioQf-XPLi5Rr59Pqm2PPCyNK2JTxrFrb1HFmbzAWOE3sPeiDmLsA'
   // const expiryDate = new Date()
-  // expiryDate.setDate(expiryDate.getDate() + 7)
+  // expiryDate.setDate(expiryDate.getDate() - 30)
   // res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
   /* eslint-enable */
 
@@ -259,9 +260,14 @@ app.use((req, res) => {
 
   if (req.cookies.access_token) {
 
-    // If user has an access_token cookie, log them in before rendering the page
-    store.dispatch(loadAuth(req.cookies.access_token)) // synchronous action
-    initProcedure.push(dispatch(loadUserWithAuth(req.cookies.access_token)))
+    // Ensure validity
+    if (!moment(jwtDecode(req.cookies.access_token).exp * 1000).isBefore(moment())) {
+
+      // If user has an access_token cookie, log them in before rendering the page
+      store.dispatch(loadAuth(req.cookies.access_token)) // synchronous action
+      initProcedure.push(dispatch(loadUserWithAuth(req.cookies.access_token)))
+
+    }
 
   }
 
