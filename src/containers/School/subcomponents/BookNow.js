@@ -178,14 +178,13 @@ export default class BookNow extends Component {
       return x < y ? -1 : x > y ? 1 : 0 // eslint-disable-line
     }) : []
 
-    // If language levels have not been calculated, calculate and store them
-    if (!this.startLevel || !this.endLevel) {
-      const levels = this.determineLanguageLevels()
-      this.startLevel = levels.low
-      this.endLevel = levels.high
-    }
+    const levels = this.determineLanguageLevels()
 
-    console.log(this)
+    const levelOptions = Object.keys(levelMap).map(level => {
+      if (level && levelMap[level] >= levelMap[levels.low] && levelMap[level] <= levelMap[levels.high]) {
+        return <option value={level} key={level}>{(level).toString()}</option>
+      }
+    }).filter(option => option)
 
     return (
       <SpinLoader show={false}>
@@ -212,11 +211,7 @@ export default class BookNow extends Component {
                 value={{ value: courseSearch.params.level, label: courseSearch.params.level }}
                 onValueChange={this.handleChangeLanguageLevel}
               >
-                {Object.keys(levelMap).map(level => {
-                  if (levelMap[level] >= levelMap[this.startLevel] && levelMap[level] <= levelMap[this.endLevel]) {
-                    return <option value={level} key={level}>{(level).toString()}</option>
-                  }
-                })}
+                {levelOptions}
               </Select>
             </Col>
             <Col xs={12} style={styles.alignLeft}>

@@ -7,9 +7,21 @@ import { semanticDate, sortByDayOfWeek } from 'utils/dates'
 import { updateActiveCourse } from 'redux/modules/ui/search/courseSearch'
 import { translate } from 'react-i18next'
 import TextTruncate from 'react-text-truncate'
+import moment from 'moment'
 
 // Relative imports
 import styles from '../School.styles'
+
+// Days of week map
+const daysOfTheWeek = {
+  1: 'mon',
+  2: 'tue',
+  3: 'wed',
+  4: 'thu',
+  5: 'fri',
+  6: 'sat',
+  7: 'sun',
+}
 
 @connect(
   state => ({
@@ -22,7 +34,6 @@ export default class Course extends Component {
 
   state = {
     expanded: false,
-    localAnimationInProgress: false,
   }
 
   // componentWillUpdate = nextProps => {
@@ -52,13 +63,41 @@ export default class Course extends Component {
 
   render() {
 
-    const { expanded, localAnimationInProgress } = this.state
+    const { expanded } = this.state
     const { result, courseSearch, t, educatorName } = this.props
 
     const aResultIsAdded = courseSearch.activeCourse
     const isAddedToBooking = aResultIsAdded && courseSearch.activeCourse === result.id
 
     const sortedTimeslots = sortByDayOfWeek(result.timeSlots)
+
+    let courseDateDescription = null
+
+    const startDayOfWeek = t(`common.weekdays.${daysOfTheWeek[moment(result.startDate).day()]}`)
+    const nthOfMonth = Math.ceil(moment(result.startDate).date() / 7)
+
+    console.log(result.startDate, startDayOfWeek, nthOfMonth)
+
+    switch (result.recurrenceType) {
+      case null:
+        courseDateDescription = t('schools.course_length_descriptors.non_recurring', { startDate: result.startDate, endDate: result.endDate })
+        break
+      case 'WEEKLY':
+        courseDateDescription = t('schools.course_length_descriptors.weekly', { dayOfWeek: startDayOfWeek, weekCount: t(`schools.course_weekcounts.w${nthOfMonth}`) })
+        break
+      case 'MONTHLY':
+        courseDateDescription = t('schools.course_length_descriptors.monthly', { dayOfWeek: startDayOfWeek, weekCount: t(`schools.course_weekcounts.w${nthOfMonth}`) })
+        break
+      case 'QUARTERLY':
+        courseDateDescription = t('schools.course_length_descriptors.quarterly', { dayOfWeek: startDayOfWeek, weekCount: t(`schools.course_weekcounts.w${nthOfMonth}`) })
+        break
+      case 'HALF_YEARLY':
+        courseDateDescription = t('schools.course_length_descriptors.biannual', { dayOfWeek: startDayOfWeek, weekCount: t(`schools.course_weekcounts.w${nthOfMonth}`) })
+        break
+      default: {
+        break
+      }
+    }
 
     return (
       <Row style={styles.result}>
@@ -75,15 +114,14 @@ export default class Course extends Component {
                   </p>
                   :
                   <div style={styles.truncatedDescription}>
-                    <Collapse in={!localAnimationInProgress}>
-                      <TextTruncate
-                        ref={node => this.truncator = node}
-                        line={2}
-                        text={result.description}
-                      />
-                    </Collapse>
+                    <TextTruncate
+                      ref={node => this.truncator = node}
+                      line={2}
+                      text={result.description}
+                    />
                   </div>
                 }
+                <p>{courseDateDescription}</p>
               </Col>
               <Collapse in={expanded}>
                 <Col xs={12}>
