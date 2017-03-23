@@ -1,7 +1,7 @@
 import config from 'config'
 import { googleTrack } from 'utils/analytics'
 import jwtDecode from 'jwt-decode'
-import roundTo from 'round-to'
+import { roundTo } from 'utils/numbers'
 import { push } from 'react-router-redux'
 import superagent from 'superagent'
 import { REHYDRATE } from 'redux-persist/constants'

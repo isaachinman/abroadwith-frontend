@@ -3,7 +3,7 @@ import superagent from 'superagent'
 import homestaySearchParamsToUrl from 'utils/search/homestaySearchParamsToUrl'
 import moment from 'moment'
 import { REHYDRATE } from 'redux-persist/constants'
-import roundTo from 'round-to'
+import { roundTo } from 'utils/numbers'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 // Perform search

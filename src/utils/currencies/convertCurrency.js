@@ -1,4 +1,4 @@
-import roundTo from 'round-to'
+import { roundTo } from 'utils/numbers'
 
 export default function convertCurrency(rates, from, to, value) {
 
