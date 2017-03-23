@@ -1,7 +1,7 @@
 import { applyAbroadwithFee, applyNumericalDiscount } from 'utils/prices'
 import { convertCurrency } from 'utils/currencies'
 import moment from 'moment'
-import roundTo from 'round-to'
+import { roundTo } from 'utils/numbers'
 
 export default function generateImmersionPricesForRoom(homestaySearch, homestay, activeRoom, activeRoomObj, uiCurrency, currencyRates) {
 

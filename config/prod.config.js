@@ -4,6 +4,8 @@ require('babel-polyfill')
 // Translations
 var translations = require('./translations.config.js')
 
+var resolvePaths = require('./resolve.paths')
+
 // Webpack config for creating the production bundle.
 var path = require('path')
 var webpack = require('webpack')
@@ -61,7 +63,8 @@ module.exports = {
       'src',
       'node_modules'
     ],
-    extensions: ['', '.json', '.js', '.jsx']
+    extensions: ['', '.json', '.js', '.jsx'],
+    alias: resolvePaths,
   },
   plugins: [
 
