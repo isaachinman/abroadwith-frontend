@@ -1,12 +1,29 @@
 import config from 'config'
 import jwtDecode from 'jwt-decode'
+import moment from 'moment'
 import superagent from 'superagent'
+import { REHYDRATE } from 'redux-persist/constants'
+
+// Create a potential homestay booking
+const CREATE_POTENTIAL_COURSE_BOOKING = 'abroadwith/CREATE_POTENTIAL_COURSE_BOOKING'
+
+// Update a potential homestay booking
+const UPDATE_POTENTIAL_COURSE_BOOKING = 'abroadwith/UPDATE_POTENTIAL_COURSE_BOOKING'
+
+// Delete a potential homestay booking
+const DELETE_POTENTIAL_COURSE_BOOKING = 'abroadwith/DELETE_POTENTIAL_COURSE_BOOKING'
+
+// Calculate course price
+const CALCULATE_COURSE_PRICE_WITHIN_BOOKING = 'abroadwith/CALCULATE_COURSE_PRICE_WITHIN_BOOKING'
+const CALCULATE_COURSE_PRICE_WITHIN_BOOKING_SUCCESS = 'abroadwith/CALCULATE_COURSE_PRICE_WITHIN_BOOKING_SUCCESS'
+const CALCULATE_COURSE_PRICE_WITHIN_BOOKING_FAIL = 'abroadwith/CALCULATE_COURSE_PRICE_WITHIN_BOOKING_FAIL'
 
 // Create course booking
 const CREATE_COURSE_BOOKING = 'abroadwith/CREATE_COURSE_BOOKING'
 const CREATE_COURSE_BOOKING_SUCCESS = 'abroadwith/CREATE_COURSE_BOOKING_SUCCESS'
 const CREATE_COURSE_BOOKING_FAIL = 'abroadwith/CREATE_COURSE_BOOKING_FAIL'
 
+// Cancel course booking
 const CANCEL_COURSE_BOOKING = 'abroadwith/CANCEL_COURSE_BOOKING'
 const CANCEL_COURSE_BOOKING_SUCCESS = 'abroadwith/CANCEL_COURSE_BOOKING_SUCCESS'
 const CANCEL_COURSE_BOOKING_FAIL = 'abroadwith/CANCEL_COURSE_BOOKING_FAIL'
@@ -21,10 +38,27 @@ const initialState = {
     loaded: false,
     loading: false,
   },
+  loading: false,
+  potentialBooking: {},
+  potentialBookingHelpers: {
+    price: {},
+    upsellCourseBooking: {},
+  },
 }
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    // This is a rehydration (from localstore) case
+    case REHYDRATE: {
+      const incoming = action.payload.bookings
+      if (incoming && incoming.courseBookings) {
+        return Object.assign({}, state, {
+          potentialBooking: incoming.courseBookings.potentialBooking,
+          potentialBookingHelpers: incoming.courseBookings.potentialBookingHelpers,
+        })
+      }
+      return state
+    }
     case CANCEL_COURSE_BOOKING:
       return {
         ...state,
@@ -59,12 +93,75 @@ export default function reducer(state = initialState, action = {}) {
           errorMessage: action.error,
         },
       }
+    case CREATE_POTENTIAL_COURSE_BOOKING:
+      return {
+        ...state,
+        potentialBooking: action.potentialBookingObject,
+        potentialBookingHelpers: Object.assign({}, action.potentialBookingHelpers, {
+          price: {},
+        }),
+      }
+    case UPDATE_POTENTIAL_COURSE_BOOKING:
+      return {
+        ...state,
+        potentialBooking: Object.assign({}, state.potentialBooking, action.potentialBookingObject),
+      }
+    case DELETE_POTENTIAL_COURSE_BOOKING:
+      return {
+        ...state,
+        potentialBooking: {},
+        potentialBookingHelpers: {},
+      }
+    case CALCULATE_COURSE_PRICE_WITHIN_BOOKING:
+      return {
+        ...state,
+        potentialBookingHelpers: Object.assign({}, state.potentialBookingHelpers, {
+          price: {
+            loading: true,
+            loaded: false,
+          },
+        }),
+      }
+    case CALCULATE_COURSE_PRICE_WITHIN_BOOKING_SUCCESS:
+      return {
+        ...state,
+        potentialBookingHelpers: Object.assign({}, state.potentialBookingHelpers, {
+          price: {
+            loading: false,
+            loaded: true,
+            data: action.result,
+          },
+        }),
+      }
+    case CALCULATE_COURSE_PRICE_WITHIN_BOOKING_FAIL:
+      return {
+        ...state,
+        potentialBookingHelpers: Object.assign({}, state.potentialBookingHelpers, {
+          price: {
+            loading: false,
+            loaded: false,
+            error: action.error,
+          },
+        }),
+      }
     default:
       return state
   }
 }
 
-// This functionality does not exist yet via the API, but will in the future
+export function createPotentialCourseBooking(potentialBookingObject, potentialBookingHelpers) {
+  return async dispatch => dispatch({ type: CREATE_POTENTIAL_COURSE_BOOKING, potentialBookingObject, potentialBookingHelpers })
+}
+
+export function updatePotentialCourseBooking(potentialBookingObject) {
+  return async dispatch => dispatch({ type: UPDATE_POTENTIAL_COURSE_BOOKING, potentialBookingObject })
+}
+
+export function deletePotentialCourseBooking() {
+  return async dispatch => dispatch({ type: DELETE_POTENTIAL_COURSE_BOOKING })
+}
+
+
 export function createCourseBooking(jwt, bookingObject, callback) {
 
   const cb = typeof callback === 'function' ? callback : () => {}
@@ -144,4 +241,58 @@ export function cancelCourseBooking(jwt, bookingID) {
       dispatch({ type: CANCEL_COURSE_BOOKING_FAIL, err })
     }
   }
+}
+
+export function calculateCoursePriceWithinBooking(params) {
+
+  // Clean potential booking data for price calculation
+  const cleanedData = Object.assign({}, params)
+  delete cleanedData.level
+  delete cleanedData.paymentMethodId
+  delete cleanedData.studentName
+
+  return async dispatch => {
+
+    dispatch({ type: CALCULATE_COURSE_PRICE_WITHIN_BOOKING })
+
+    try {
+
+      // Validate request
+      if (moment().isAfter(moment(params.arrivalDate)) || moment().isAfter(moment(params.departureDate))) {
+        throw new Error('Date range is invalid')
+      }
+
+      const request = superagent.post(`${config.apiHost}/search/courses/id`)
+      request.send(cleanedData)
+
+      request.end((err, res) => {
+
+        if (err) {
+
+          dispatch({ type: CALCULATE_COURSE_PRICE_WITHIN_BOOKING_FAIL, err })
+
+        } else {
+
+          // Request was successful
+          const response = JSON.parse(res.text)
+
+          if (response.results && response.results.length > 0) {
+
+            dispatch({ type: CALCULATE_COURSE_PRICE_WITHIN_BOOKING_SUCCESS, result: response.results[0].totalPrice })
+
+          } else {
+
+            dispatch({ type: CALCULATE_COURSE_PRICE_WITHIN_BOOKING_FAIL })
+
+          }
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: CALCULATE_COURSE_PRICE_WITHIN_BOOKING_FAIL, err })
+    }
+  }
+
 }
