@@ -2,10 +2,8 @@ import { apiDate } from 'utils/dates'
 import config from 'config'
 import courseSearchParamsToAPIParams from 'utils/search/courseSearchParamsToAPIParams'
 import courseSearchParamsToUrl from 'utils/search/courseSearchParamsToUrl'
-import jwtDecode from 'jwt-decode'
 import moment from 'moment'
 import { REHYDRATE } from 'redux-persist/constants'
-import roundTo from 'round-to'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import superagent from 'superagent'
 
@@ -206,6 +204,31 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         languagesAvailable: action.result,
+      }
+    case CALCULATE_COURSE_PRICE:
+      return {
+        ...state,
+        price: {
+          loading: true,
+        },
+      }
+    case CALCULATE_COURSE_PRICE_SUCCESS:
+      return {
+        ...state,
+        price: {
+          loading: false,
+          loaded: true,
+          data: action.result,
+        },
+      }
+    case CALCULATE_COURSE_PRICE_FAIL:
+      return {
+        ...state,
+        price: {
+          loading: false,
+          loaded: false,
+          error: action.error,
+        },
       }
     default:
       return state
@@ -464,7 +487,7 @@ export function loadCourseLanguages() {
   }
 }
 
-export function calculateCoursePrice(jwt, params) {
+export function calculateCoursePrice(params) {
 
   return async dispatch => {
 
@@ -477,8 +500,7 @@ export function calculateCoursePrice(jwt, params) {
         throw new Error('Date range is invalid')
       }
 
-      const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/courseBookings/price`)
-      request.set({ Authorization: `Bearer ${(jwt)}` })
+      const request = superagent.post(`${config.apiHost}/search/courses/id`)
       request.send(params)
 
       request.end((err, res) => {
@@ -490,7 +512,7 @@ export function calculateCoursePrice(jwt, params) {
         } else {
 
           // Request was successful
-          dispatch({ type: CALCULATE_COURSE_PRICE_SUCCESS, result: (roundTo(JSON.parse(res.text), 2)).toFixed(2) })
+          dispatch({ type: CALCULATE_COURSE_PRICE_SUCCESS, result: JSON.parse(res.text) })
 
         }
 
