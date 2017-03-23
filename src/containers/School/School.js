@@ -291,10 +291,7 @@ export default class School extends Component {
                     <BookNow
                       courses={filteredCourses}
                       currencySymbol={currencySymbol}
-                      determineCalendarConflict={this.determineCalendarConflict}
-                      handleRoomDropdownChange={this.handleRoomDropdownChange}
-                      homeID={parseInt(this.props.params.homeID)}
-                      roomSelectionOpen={this.state.roomSelectionOpen}
+                      educatorID={parseInt(this.props.params.educatorID)}
                     />
                   </Panel>
                 </div>

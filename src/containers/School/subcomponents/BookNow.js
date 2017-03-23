@@ -2,13 +2,13 @@
 import React, { Component, PropTypes } from 'react'
 import { apiDate } from 'utils/dates'
 import { Button, Col, OverlayTrigger, Tooltip, Row } from 'react-bootstrap'
-// import { createPotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
+import { createPotentialCourseBooking } from 'redux/modules/privateData/bookings/courseBookings'
 import { connect } from 'react-redux'
 import { DateRangePicker, SpinLoader } from 'components'
 import moment from 'moment'
-// import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
-// import { openLoginModal, openVerifyEmailModal } from 'redux/modules/ui/modals'
-// import { push } from 'react-router-redux'
+import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
+import { openLoginModal, openVerifyEmailModal } from 'redux/modules/ui/modals'
+import { push } from 'react-router-redux'
 import { SimpleSelect as Select } from 'react-selectize'
 import { translate } from 'react-i18next'
 import { updateCourseSearchParams, updateActiveCourse } from 'redux/modules/ui/search/courseSearch'
@@ -57,68 +57,59 @@ export default class BookNow extends Component {
 
   handleBookNowClick = () => {
 
-    // const { immersionForPriceCalculation } = this.state
-    // const { auth, dispatch, homestay, courseSearch, uiCurrency, user, token } = this.props
-    //
-    // if (auth.jwt && auth.jwt && user.data) {
-    //
-    //   const processRequest = () => {
-    //     // ------------------------------------------------------------------------------------
-    //     // Create potential booking object and redirect into homestay booking flow
-    //     // First object is an actual booking object which will eventually be used in a POST
-    //     // Second object is a helper object
-    //     // ------------------------------------------------------------------------------------
-    //     const serviceNames = courseSearch.params.filters.filter(filter => HomeData.homeServices.MEAL_PLAN.includes(filter) || HomeData.homeServices.GENERAL.includes(filter))
-    //     const settingNames = courseSearch.params.filters.filter(filter => HomeData.homeServices.FOOD_OPTION.includes(filter))
-    //     dispatch(createPotentialHomestayBooking({
-    //       arrivalDate: courseSearch.params.arrival,
-    //       departureDate: courseSearch.params.departure,
-    //       guestCount: courseSearch.params.guests,
-    //       courseID: courseSearch.activeRoom,
-    //       stayId: homestay.data.immersions[immersionForPriceCalculation].id,
-    //       languageHostWillTeach: courseSearch.params.language && homestay.data.immersions[immersionForPriceCalculation].languagesOffered.indexOf(courseSearch.params.language) > -1 ? courseSearch.params.language : homestay.data.immersions[immersionForPriceCalculation].languagesOffered[0],
-    //       languageGuestWillTeach: immersionForPriceCalculation === 'tandem' ? homestay.data.immersions.tandem.languagesInterested[0].lang : null,
-    //       currency: uiCurrency,
-    //       serviceNames,
-    //       settingNames,
-    //       paymentMethodId: null,
-    //       weeklyHours: immersionForPriceCalculation === 'teacher' ? homestay.data.immersions.teacher.packages[0] : null,
-    //     }, {
-    //       createdAt: new Date(),
-    //       completionStep: 1,
-    //       educatorID: homestay.data.id,
-    //       homeLat: homestay.data.location.lat,
-    //       homeLng: homestay.data.location.lng,
-    //       immersionType: immersionForPriceCalculation,
-    //     }))
-    //     dispatch(push('/book-homestay'))
-    //   }
-    //
-    //   // Users must have email verifications
-    //   if (!user.data.verifications.email) {
-    //
-    //     dispatch(loadUserWithAuth(token, response => {
-    //
-    //       if (response && response.verifications && response.verifications.email) {
-    //         processRequest()
-    //       } else {
-    //         dispatch(openVerifyEmailModal())
-    //       }
-    //
-    //     }))
-    //
-    //   } else if (user.data.verifications.email) {
-    //
-    //     processRequest()
-    //
-    //   }
-    //
-    // } else {
-    //
-    //   // If the user is not logged in, open the login modal
-    //   dispatch(openLoginModal(() => dispatch(push('/book-homestay'))))
-    //
-    // }
+    const { auth, dispatch, educator, courseSearch, uiCurrency, user, token } = this.props
+
+    if (auth.jwt && auth.jwt && user.data) {
+
+      const processRequest = () => {
+        // ------------------------------------------------------------------------------------
+        // Create potential booking object and redirect into course booking flow
+        // First object is an actual booking object which will eventually be used in a POST
+        // Second object is a helper object
+        // ------------------------------------------------------------------------------------
+        dispatch(createPotentialCourseBooking({
+          courseId: courseSearch.activeCourse,
+          startDate: courseSearch.params.arrival,
+          endDate: courseSearch.params.departure,
+          level: courseSearch.params.level,
+          studentName: `${user.data.firstName} ${user.data.lastName}`,
+          currency: uiCurrency,
+          paymentMethodId: null,
+        }, {
+          createdAt: new Date(),
+          completionStep: 1,
+          educatorID: educator.id,
+          educatorLat: educator.address.lat,
+          educatorLng: educator.address.lng,
+        }))
+        dispatch(push('/book-course'))
+      }
+
+      // Users must have email verifications
+      if (!user.data.verifications.email) {
+
+        dispatch(loadUserWithAuth(token, response => {
+
+          if (response && response.verifications && response.verifications.email) {
+            processRequest()
+          } else {
+            dispatch(openVerifyEmailModal())
+          }
+
+        }))
+
+      } else if (user.data.verifications.email) {
+
+        processRequest()
+
+      }
+
+    } else {
+
+      // If the user is not logged in, open the login modal
+      dispatch(openLoginModal())
+
+    }
 
   }
 
@@ -183,6 +174,8 @@ export default class BookNow extends Component {
         return <option value={level} key={level}>{(level).toString()}</option>
       }
     }).filter(option => option)
+
+    console.log(this)
 
     return (
       <SpinLoader show={false}>
@@ -267,6 +260,7 @@ BookNow.propTypes = {
   courses: PropTypes.array,
   currencySymbol: PropTypes.string,
   dispatch: PropTypes.func,
+  educator: PropTypes.object,
   educatorID: PropTypes.number,
   courseSearch: PropTypes.object,
   uiCurrency: PropTypes.string,
