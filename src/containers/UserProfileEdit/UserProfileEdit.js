@@ -258,7 +258,7 @@ export default class UserProfileEdit extends Component {
                             type='text'
                             placeholder={t('users.edit_details_amazingfeat_placeholder')}
                             defaultValue={user.data.amazingFeat}
-                            maxLength={100}
+                            maxLength={45}
                             onChange={event => this.handleValueChange('amazingFeat', event.target.value)}
                           />
                         </CharacterCounter>
@@ -275,7 +275,7 @@ export default class UserProfileEdit extends Component {
                             type='text'
                             placeholder={t('users.edit_details_share_placeholder')}
                             defaultValue={user.data.canShare}
-                            maxLength={100}
+                            maxLength={45}
                             onChange={event => this.handleValueChange('canShare', event.target.value)}
                           />
                         </CharacterCounter>
