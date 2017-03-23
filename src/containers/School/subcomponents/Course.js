@@ -6,7 +6,6 @@ import FontAwesome from 'react-fontawesome'
 import { semanticDate, sortByDayOfWeek } from 'utils/dates'
 import { updateActiveCourse } from 'redux/modules/ui/search/courseSearch'
 import { translate } from 'react-i18next'
-import TextTruncate from 'react-text-truncate'
 import moment from 'moment'
 
 // Relative imports
@@ -108,19 +107,9 @@ export default class Course extends Component {
                 <h5 style={styles.courseName}>{result.name}</h5>
               </Col>
               <Col xs={12} sm={11}>
-                {expanded ?
-                  <p>
-                    {result.description}
-                  </p>
-                  :
-                  <div style={styles.truncatedDescription}>
-                    <TextTruncate
-                      ref={node => this.truncator = node}
-                      line={2}
-                      text={result.description}
-                    />
-                  </div>
-                }
+                <p>
+                  {result.description}
+                </p>
                 <p>{courseDateDescription}</p>
               </Col>
               <Collapse in={expanded}>

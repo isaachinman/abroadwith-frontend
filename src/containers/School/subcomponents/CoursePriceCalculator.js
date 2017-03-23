@@ -4,6 +4,8 @@ import { calculateCoursePrice } from 'redux/modules/ui/search/courseSearch'
 import { connect } from 'react-redux'
 import Currencies from 'data/constants/Currencies'
 import equal from 'deep-is'
+import { uiDate } from 'utils/dates'
+import { translate } from 'react-i18next'
 
 @connect(
   (state, ownProps) => ({
@@ -13,6 +15,7 @@ import equal from 'deep-is'
     uiCurrency: state.ui.currency.value,
   })
 )
+@translate()
 export default class HomestayPriceCalculator extends Component {
 
   componentDidMount = () => this.calculatePrice(this.props.immersionForPriceCalculation)
@@ -33,34 +36,52 @@ export default class HomestayPriceCalculator extends Component {
 
   calculatePrice = () => {
 
-    const { auth, dispatch, courseSearch, uiCurrency } = this.props
+    const { dispatch, courseSearch, uiCurrency } = this.props
 
-    const calculationObject = {
-      courseId: courseSearch.activeCourse,
-      startDate: courseSearch.params.arrival,
-      endDate: courseSearch.params.departure,
-      level: courseSearch.params.level,
-      currency: uiCurrency,
+    if (courseSearch.activeCourse && courseSearch.params.arrival && courseSearch.params.departure) {
+
+      const calculationObject = {
+        courseId: courseSearch.activeCourse,
+        startDate: courseSearch.params.arrival,
+        endDate: courseSearch.params.departure,
+        currency: uiCurrency,
+      }
+
+      dispatch(calculateCoursePrice(calculationObject))
+
     }
-
-    dispatch(calculateCoursePrice(auth.token, calculationObject))
-
   }
 
   render() {
 
-    const { courseSearch, uiCurrency } = this.props
+    const { courseSearch, t, uiCurrency } = this.props
+
+    let priceResult = null
+
+    if (courseSearch.price.loaded && courseSearch.price.data.results && courseSearch.price.data.results.length > 0) {
+      priceResult = courseSearch.price.data.results[0]
+    }
 
     return (
       <div>
         {!courseSearch.price.loading ?
           <div>
-            {courseSearch.price.loaded &&
-              <span>{Currencies[uiCurrency]}{courseSearch.price.data}*</span>
+            {priceResult &&
+              <div>
+                <div className='text-muted'>
+                  <small>{t('booking.result_start')}: <span className='pull-right'>{uiDate(priceResult.startDate)}</span></small>
+                </div>
+                <div className='text-muted'>
+                  <small>{t('booking.result_end')}: <span className='pull-right'>{uiDate(priceResult.endDate)}</span></small>
+                </div>
+                <p style={{ marginTop: 10 }}>
+                  {t('booking.total_price')}: <span className='pull-right'>{Currencies[uiCurrency]}{(priceResult.totalPrice).toFixed(2)}*</span>
+                </p>
+              </div>
             }
           </div>
           :
-          <div>
+          <div className='pull-right'>
             -
           </div>
         }
@@ -75,5 +96,6 @@ HomestayPriceCalculator.propTypes = {
   homestay: PropTypes.object,
   courseSearch: PropTypes.object,
   immersionForPriceCalculation: PropTypes.string,
+  t: PropTypes.func,
   uiCurrency: PropTypes.string,
 }

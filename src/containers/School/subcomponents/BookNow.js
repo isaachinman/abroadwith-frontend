@@ -40,6 +40,21 @@ const levelMap = {
 @translate()
 export default class BookNow extends Component {
 
+  componentWillMount = () => {
+    this.levels = {}
+  }
+
+  componentDidUpdate = () => {
+
+    const { courseSearch } = this.props
+
+    // Reset learning level if course was changed and is no longer possible
+    if (levelMap[courseSearch.params.level] < levelMap[this.levels.low] || levelMap[courseSearch.params.level] > levelMap[this.levels.high]) {
+      this.handleChangeLanguageLevel({ value: this.levels.low })
+    }
+
+  }
+
   handleBookNowClick = () => {
 
     // const { immersionForPriceCalculation } = this.state
@@ -145,26 +160,6 @@ export default class BookNow extends Component {
 
   }
 
-  determineLanguageLevels = () => {
-
-    const levels = {
-      low: 6,
-      high: 0,
-    }
-
-    this.props.courses.map(course => {
-      if (levelMap[course.startLevel] < levels.low) {
-        levels.low = course.startLevel
-      }
-      if (levelMap[course.endLevel] > levels.high) {
-        levels.high = course.endLevel
-      }
-    })
-
-    return levels
-
-  }
-
   render() {
 
     const { courses, courseSearch, t } = this.props
@@ -178,10 +173,13 @@ export default class BookNow extends Component {
       return x < y ? -1 : x > y ? 1 : 0 // eslint-disable-line
     }) : []
 
-    const levels = this.determineLanguageLevels()
+    if (courses.filter(course => course.id === activeCourse).length === 1) {
+      this.levels.low = courses.filter(course => course.id === activeCourse)[0].startLevel
+      this.levels.high = courses.filter(course => course.id === activeCourse)[0].endLevel
+    }
 
     const levelOptions = Object.keys(levelMap).map(level => {
-      if (level && levelMap[level] >= levelMap[levels.low] && levelMap[level] <= levelMap[levels.high]) {
+      if (level && levelMap[level] >= levelMap[this.levels.low] && levelMap[level] <= levelMap[this.levels.high]) {
         return <option value={level} key={level}>{(level).toString()}</option>
       }
     }).filter(option => option)
