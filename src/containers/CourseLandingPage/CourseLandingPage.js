@@ -122,11 +122,13 @@ export default class CourseLandingPage extends Component {
                 {popularCities.map(city => {
                   return (
                     <li key={city} style={styles.popularCityContainer}>
-                      <Panel style={styles.popularCityPanel} className='popular-city-panel-course-landing-page'>
-                        <div style={styles.popularCityImgMask} />
-                        <img src={`${config.img}/app/courses_popular_cities/${city}.jpg`} alt={city} style={styles.popularCityImg} />
-                        <h4 style={styles.popularCityTitle}>{t(`courses_landing_page.popular_cities.${city}.title`)}</h4>
-                      </Panel>
+                      <Link to={`/language-course/search?locationString=${city.charAt(0).toUpperCase() + city.slice(1)}`}>
+                        <Panel style={styles.popularCityPanel} className='popular-city-panel-course-landing-page'>
+                          <div style={styles.popularCityImgMask} />
+                          <img src={`${config.img}/app/courses_popular_cities/${city}.jpg`} alt={city} style={styles.popularCityImg} />
+                          <h4 style={styles.popularCityTitle}>{t(`courses_landing_page.popular_cities.${city}.title`)}</h4>
+                        </Panel>
+                      </Link>
                     </li>
                   )
                 })}
