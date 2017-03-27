@@ -144,6 +144,21 @@ export default function reducer(state = initialState, action = {}) {
           },
         }),
       }
+    case CREATE_COURSE_BOOKING:
+      return {
+        ...state,
+        loading: true,
+      }
+    case CREATE_COURSE_BOOKING_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      }
+    case CREATE_COURSE_BOOKING_FAIL:
+      return {
+        ...state,
+        loading: false,
+      }
     default:
       return state
   }
@@ -172,7 +187,7 @@ export function createCourseBooking(jwt, bookingObject, callback) {
 
     try {
 
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
 
         const request = superagent.post(`${config.apiHost}/users/${jwtDecode(jwt).rid}/courseBookings`)
         request.set({ Authorization: `Bearer ${(jwt)}` })
@@ -182,7 +197,7 @@ export function createCourseBooking(jwt, bookingObject, callback) {
 
           if (err) {
 
-            resolve(dispatch({ type: CREATE_COURSE_BOOKING_FAIL, err }))
+            reject(dispatch({ type: CREATE_COURSE_BOOKING_FAIL, err }))
 
           } else {
 
