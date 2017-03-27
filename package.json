@@ -11,7 +11,7 @@
   "main": "bin/server.js",
   "scripts": {
     "deploy": "better-npm-run deploy",
-    "setup": "mkdir build && mkdir build/locales && mkdir build/currency-rates && mkdir build/course-cities && npm i",
+    "setup": "mkdir build && mkdir build/locales && mkdir build/currency-rates && mkdir build/course-cities && mkdir build/course-data && npm i",
     "start-integration": "pm2 start ecosystem/integration.json",
     "start-production": "pm2 start ecosystem/production.json",
     "build": "better-npm-run build",

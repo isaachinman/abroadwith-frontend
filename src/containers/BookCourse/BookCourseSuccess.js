@@ -21,8 +21,8 @@ export default class BookHomestaySuccessPage extends Component {
         <Helmet title={t('booking.success_title')} />
         <Row style={{ marginTop: 50 }}>
           <Col xs={12} sm={8} smOffset={2} lg={6} lgOffset={3}>
-            <h1>{t('booking.success_title')}</h1>
-            <p>{t('booking.success_message')}</p>
+            <h1>{t('booking.course_success_title')}</h1>
+            <p>{t('booking.course_success_message')}</p>
             <Link to={`/user/${jwt.rid}`}>
               <Button bsSize='xsmall' bsStyle='success' style={{ marginTop: 15 }}>{t('common.navbar_profile')}</Button>
             </Link>

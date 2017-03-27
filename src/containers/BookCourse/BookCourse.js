@@ -1,7 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
-import { Button, Col, Collapse, ControlLabel, FormControl, FormGroup, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
+import { Button, Col, Collapse, ControlLabel, FormGroup, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
 import { calculateCoursePriceWithinBooking, createCourseBooking, deletePotentialCourseBooking, updatePotentialCourseBooking } from 'redux/modules/privateData/bookings/courseBookings'
 import Currencies from 'data/constants/Currencies'
 import config from 'config'
@@ -123,7 +123,7 @@ export default class BookCourse extends Component {
       }), token)))
     }
 
-    // Create actual homestay booking request (required)
+    // Create actual course booking request (required)
     checkoutActions.push(dispatch(createCourseBooking(token, Object.assign({}, potentialBooking, {
       paymentMethodId: user.paymentMethods[0].id,
     }))))
@@ -152,23 +152,23 @@ export default class BookCourse extends Component {
     const totalPrice = potentialBookingHelpers.price.data || 0
 
     // UI variables
-    const showFullSummary = activeStep === 2
+    const showFullSummary = activeStep === 1
     const stickied = typeof window !== 'undefined' ? window.innerWidth > 767 && !showFullSummary : !showFullSummary
 
     // By default, the entire process is submittable as long as a user has at least one payment method
     const isProcessable = user.paymentMethods.length > 0 && user.address && user.address.country
 
     return (
-      <div style={styles.grid} ref={node => this.containerNode = node} className='container' id='homestay-booking-flow-container'>
+      <div style={styles.grid} ref={node => this.containerNode = node} className='container' id='course-booking-flow-container'>
 
-        <Helmet title={t('booking.homestay_booking.title')} />
+        <Helmet title={t('booking.course_booking.title')} />
 
         <div style={styles.contentContainer}>
           <SpinLoader show={loading}>
             <div style={styles.minHeightContainer}>
               <div>
                 <Row>
-                  <Col xs={12}>
+                  <Col xs={12} md={6} mdOffset={3}>
                     <div style={styles.stepContainer}>
                       <Steps current={activeStep - 1/* No idea why, but antdesign zero indexed this component */}>
                         <Steps.Step title={t('booking.course_booking.step_1.title')} description={t('booking.course_booking.step_1.subtitle')} />
@@ -183,13 +183,13 @@ export default class BookCourse extends Component {
                       <Well bsSize='large' style={styles.well}>
                         <Row>
                           <Col xs={12} md={showFullSummary ? 7 : 8} lg={showFullSummary ? 8 : 9} style={styles.widthTransition}>
-                            <Tab.Container id='homestay-booking-flow' activeKey={activeStep} onSelect={() => {}}>
+                            <Tab.Container id='course-booking-flow' activeKey={activeStep} onSelect={() => {}}>
                               <Tab.Content>
 
                                 <Tab.Pane eventKey={1}>
                                   <Row>
                                     <Col xs={12}>
-                                      <h4>{t('booking.homestay_booking.step_3.title')}</h4>
+                                      <h4>{t('booking.course_booking.step_1.title')}</h4>
                                     </Col>
                                   </Row>
 
@@ -225,7 +225,7 @@ export default class BookCourse extends Component {
 
                                   <Row>
                                     <Col xs={12} sm={10}>
-                                      <p className='text-muted'>{t('booking.charged_notification')}</p>
+                                      <p className='text-muted'>{t('booking.charged_notification_course')}</p>
                                       <p className='text-muted'>
                                         <small>{t('booking.exchange_rate_disclaimer')}</small>
                                       </p>
@@ -241,22 +241,22 @@ export default class BookCourse extends Component {
                                     </Col>
                                   </Row>
                                   <Row>
-                                    <Col xs={12}>
-                                      <h6 className='header-green'>{t('booking.message_placeholder')}</h6>
-                                    </Col>
-                                    <Col xs={12} md={10}>
-                                      <FormGroup controlId='new-thread'>
-                                        <FormControl
-                                          componentClass='textarea'
-                                          placeholder={t('inbox.message_modal_placeholder')}
-                                          style={styles.textarea}
-                                          value={this.state.messageToBeSentToHost || ''}
-                                          onChange={this.handleMessageChange}
-                                        />
-                                      </FormGroup>
-                                    </Col>
+                                    <Col xs={12} sm={3}><strong>{t('booking.course')}</strong></Col>
+                                    <Col xs={12} sm={9}>{potentialBookingHelpers.courseName}</Col>
                                   </Row>
                                   <Row>
+                                    <Col xs={12} sm={3}><strong>{t('common.Language')}</strong></Col>
+                                    <Col xs={12} sm={9}>{t(`languages.${potentialBookingHelpers.language}`)} ({potentialBooking.level})</Col>
+                                  </Row>
+                                  <Row>
+                                    <Col xs={12} sm={3}><strong>{t('booking.result_dates')}</strong></Col>
+                                    <Col xs={12} sm={9}>{uiDate(potentialBooking.startDate)} &rarr; {uiDate(potentialBooking.endDate)}</Col>
+                                  </Row>
+                                  <Row>
+                                    <Col xs={12} sm={3}><strong>{t('schools.student_name')}</strong></Col>
+                                    <Col xs={12} sm={9}>{potentialBooking.studentName}</Col>
+                                  </Row>
+                                  <Row style={{ marginTop: 60 }}>
                                     <Col xs={12}>
                                       <Button onClick={this.processBookingRequest} bsSize='large' bsStyle='success'>{t('booking.request_booking')}</Button>
                                     </Col>
@@ -281,10 +281,10 @@ export default class BookCourse extends Component {
                                       <Col xs={12}>
                                         <div style={styles.borderBottom}>
                                           <p>
-                                            <span>{t('common.Immersion')}</span><span className='pull-right'>{t(`immersions.${potentialBookingHelpers.immersionType}`)}</span>
+                                            <span>{t('common.Language')}</span><span className='pull-right'>{t(`languages.${potentialBookingHelpers.language}`)} ({potentialBooking.level})</span>
                                           </p>
                                           <p>
-                                            <span className='hidden-xs'>{t('common.Dates')}</span><small className='pull-right'>{uiDate(potentialBooking.arrivalDate)} &rarr; {uiDate(potentialBooking.departureDate)}</small>
+                                            <span>{t('booking.result_dates')}</span><small className='pull-right'>{uiDate(potentialBooking.startDate)} &rarr; {uiDate(potentialBooking.endDate)}</small>
                                           </p>
                                         </div>
                                       </Col>
@@ -293,14 +293,12 @@ export default class BookCourse extends Component {
                                       <Col xs={12}>
                                         <div style={styles.borderBottom}>
                                           <p>
-                                            <span>{t('booking.room_name')}</span><span className='pull-right'>Course name</span>
-                                          </p>
-                                          <p>
-                                            <span>{t('common.Guests')}</span><span className='pull-right'>{potentialBooking.guestCount}</span>
+                                            <span>{t('booking.course')}</span><span className='pull-right'>{potentialBookingHelpers.courseName}</span>
                                           </p>
                                         </div>
                                       </Col>
                                     </Row>
+                                    <Row />
                                   </div>
                                 </Collapse>
                                 <Row>
@@ -333,15 +331,15 @@ export default class BookCourse extends Component {
                       disabled
                       next
                     >
-                      <div>{t(`booking.homestay_booking.step_${activeStep + 1}.title`)} &rarr;</div>
+                      <div>{t(`booking.course_booking.step_${activeStep + 1}.title`)} &rarr;</div>
                     </Pager.Item>
                       }
-                  {((activeStep === 1 && isProcessable) || activeStep > 1) &&
+                  {(activeStep === 1 && isProcessable) &&
                     <Pager.Item
                       eventKey={activeStep + 1}
                       next
                     >
-                      {t(`booking.homestay_booking.step_${activeStep + 1}.title`)} &rarr;
+                      {t(`booking.course_booking.step_${activeStep + 1}.title`)} &rarr;
                         </Pager.Item>
                       }
                 </Pager>
@@ -358,7 +356,6 @@ export default class BookCourse extends Component {
 BookCourse.propTypes = {
   dispatch: PropTypes.func,
   educator: PropTypes.object,
-  homestays: PropTypes.object,
   loading: PropTypes.bool,
   uiCurrency: PropTypes.string,
   user: PropTypes.object,

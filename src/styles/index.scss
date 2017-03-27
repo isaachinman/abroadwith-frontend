@@ -631,7 +631,7 @@ $homestay-popover-arrow-color: $darkBlue;
 .pager {
   user-select: none;
 }
-#homestay-booking-flow-container {
+#homestay-booking-flow-container, #course-booking-flow-container {
   ul.pager li.next {
     a {
       background: $freshGreen;

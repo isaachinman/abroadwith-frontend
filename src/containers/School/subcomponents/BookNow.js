@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { DateRangePicker, SpinLoader } from 'components'
 import moment from 'moment'
 import { load as loadUserWithAuth } from 'redux/modules/privateData/users/loadUserWithAuth'
+import notification from 'antd/lib/notification'
 import { openLoginModal, openVerifyEmailModal } from 'redux/modules/ui/modals'
 import { push } from 'react-router-redux'
 import { SimpleSelect as Select } from 'react-selectize'
@@ -44,13 +45,27 @@ export default class BookNow extends Component {
     this.levels = {}
   }
 
-  componentDidUpdate = () => {
+  componentDidUpdate = prevProps => {
 
     const { courseSearch } = this.props
 
     // Reset learning level if course was changed and is no longer possible
     if (levelMap[courseSearch.params.level] < levelMap[this.levels.low] || levelMap[courseSearch.params.level] > levelMap[this.levels.high]) {
       this.handleChangeLanguageLevel({ value: this.levels.low })
+    }
+
+    // Reset dates if course was changed and range is no longer possible
+    if (prevProps.courseSearch.price.loading && !courseSearch.price.loading && courseSearch.price.data.resultDetails.numberOfResults === 0) {
+
+      this.handleDatesChange({})
+
+      // Send feedback UI explaining why dates were cleared
+      notification.warning({
+        duration: 2000,
+        message: <strong>{this.props.t('schools.date_range_not_available')}</strong>,
+        description: this.props.t('schools.choose_new_dates'),
+      })
+
     }
 
   }
@@ -67,10 +82,14 @@ export default class BookNow extends Component {
         // First object is an actual booking object which will eventually be used in a POST
         // Second object is a helper object
         // ------------------------------------------------------------------------------------
+        const result = courseSearch.price.data.results.filter(courseResult => courseResult.courseId === courseSearch.activeCourse)[0]
+
+        console.log('result: ', result)
+
         dispatch(createPotentialCourseBooking({
           courseId: courseSearch.activeCourse,
-          startDate: courseSearch.params.arrival,
-          endDate: courseSearch.params.departure,
+          startDate: result.startDate,
+          endDate: result.endDate,
           level: courseSearch.params.level,
           studentName: `${user.data.firstName} ${user.data.lastName}`,
           currency: uiCurrency,
@@ -81,6 +100,8 @@ export default class BookNow extends Component {
           educatorID: educator.id,
           educatorLat: educator.address.lat,
           educatorLng: educator.address.lng,
+          language: result.language,
+          courseName: result.courseName,
         }))
         dispatch(push('/book-course'))
       }
@@ -129,8 +150,6 @@ export default class BookNow extends Component {
 
   handleChangeLanguageLevel = level => {
 
-    console.log(level)
-
     const { courseSearch, dispatch } = this.props
     const newParams = Object.assign({}, courseSearch.params, { level: level.value })
 
@@ -141,8 +160,6 @@ export default class BookNow extends Component {
   }
 
   handleCourseChange = newCourse => {
-
-    console.log(newCourse)
 
     const { dispatch } = this.props
     dispatch(updateActiveCourse(newCourse.value))
@@ -174,8 +191,6 @@ export default class BookNow extends Component {
         return <option value={level} key={level}>{(level).toString()}</option>
       }
     }).filter(option => option)
-
-    console.log(this)
 
     return (
       <SpinLoader show={false}>
