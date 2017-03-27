@@ -48,6 +48,14 @@ export default urlObject => {
 
   })
 
+  // Now validate for any missing paramters
+  if (!params.sort.parameter) {
+    params.sort = {
+      parameter: 'PRICE',
+      order: 'ASC',
+    }
+  }
+
   return params
 
 }
