@@ -24,6 +24,11 @@ export default class ContactUs extends Component {
             <ContactUsForm />
           </Col>
         </Row>
+        <Row>
+          <Col xs={12} sm={8} smOffset={2} lg={6} lgOffset={3}>
+            <div className='text-muted' dangerouslySetInnerHTML={{ __html: t('contact.content') }} />
+          </Col>
+        </Row>
       </Grid>
     )
   }
