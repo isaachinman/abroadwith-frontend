@@ -1,11 +1,12 @@
 // General
-1. Use Redux Devtools Extension to produce tests
+1. Use Redux Devtools Extension to produce tests (https://github.com/zalmoxisus/redux-devtools-test-generator)
 2. Webpack long-term caching not working correctly, hash names being generate erroneously (https://github.com/webpack/webpack/issues/1315)
 3. Refactor the signature of all actions to take an exact number of arguments, eg
     - Authorised requests: (token, data, options)
     - Unauthorised requests: (data, options)
 4. The layout of the homes and users reducers are unintuitive and could use refactoring, or renaming at the least
 5. There is a short period in the zero downtime (production) reload where brand new users who don't have cached assets will 404 on css and js resources
+    - Do something like this (https://gist.github.com/sungwoncho/9d3301d41a54c4643b85690e1266d373)
 
 // Homepage
 1. Title in hero jumps from top to center onload
