@@ -173,7 +173,7 @@ export default class UserProfileEdit extends Component {
                             componentClass='textarea'
                             style={{ minHeight: 160 }}
                             defaultValue={user.data.aboutMe}
-                            maxLength={510}
+                            maxLength={2000}
                             onChange={event => this.handleValueChange('aboutMe', event.target.value)}
                           />
                         </CharacterCounter>
