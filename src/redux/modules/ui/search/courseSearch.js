@@ -123,6 +123,7 @@ export default function reducer(state = initialState, action = {}) {
           }),
 
           // Do not rehydrate these things
+          activeCourse: state.activeCourse,
           citiesAvailable: state.citiesAvailable,
           languagesAvailable: state.languagesAvailable,
           loading: false,

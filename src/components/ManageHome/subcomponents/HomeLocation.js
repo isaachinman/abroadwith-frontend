@@ -109,7 +109,7 @@ export default class HomeLocation extends Component {
   render() {
 
     const { inProgress, home, t } = this.props
-    const { newLocation, gMapsRender } = this.state
+    const { newLocation } = this.state
 
     const loading = home.loading
 
@@ -186,7 +186,7 @@ export default class HomeLocation extends Component {
         <Row>
           <Col xs={12}>
             <span style={{ display: 'none' }}>{}</span>
-            <div style={styles.mapContainer} key={gMapsRender}>
+            <div style={styles.mapContainer}>
               {this.state.mapRender &&
                 <GoogleMap
                   center={hasGeolocation ? { lat: newLocation.lat, lng: newLocation.lng } : { lat: 51.5074, lng: 0.1278 }}
