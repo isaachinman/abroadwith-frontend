@@ -49,6 +49,10 @@ export default {
   borderBottom: {
     borderBottom: '1px solid #ddd',
   },
+  borderBottomPadded: {
+    borderBottom: '1px solid #ddd',
+    paddingBottom: 10,
+  },
   totalPriceLabel: {
     lineHeight: '32px',
   },

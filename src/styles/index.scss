@@ -659,6 +659,12 @@ $homestay-popover-arrow-color: $darkBlue;
   .simple-value {
     color: $bodyTextColor !important;
   }
+  .simple-option {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .react-selectize-placeholder {
     color: $bodyTextColor !important;
   }

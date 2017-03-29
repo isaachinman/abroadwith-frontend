@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { Button, Col, Collapse, Table, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import FontAwesome from 'react-fontawesome'
+import { generateRecurrenceEndDate } from 'utils/courses'
 import { semanticDate, sortByDayOfWeek } from 'utils/dates'
 import { updateActiveCourse } from 'redux/modules/ui/search/courseSearch'
 import { translate } from 'react-i18next'
@@ -35,19 +36,17 @@ export default class Course extends Component {
     expanded: false,
   }
 
-  // componentWillUpdate = nextProps => {
-  //
-  //   // Have to call truncate on animation complete because text might have previously been hidden
-  //   if (this.props.animationInProgress !== nextProps.animationInProgress) {
-  //     this.truncator.onResize()
-  //   }
-  //
-  //   // If a result is chosen and additional info is expanded, close it
-  //   if (nextProps.potentialBookingHelpers.upsellCourseBooking.courseId && nextProps.potentialBookingHelpers.upsellCourseBooking.courseId !== this.props.result.courseId && this.state.expanded) {
-  //     this.setState({ expanded: false })
-  //   }
-  //
-  // }
+  componentWillMount = () => {
+
+    // If the course is non-recurring, calculate the end date
+    // This can also be done for individual recurrences if desired
+    if (this.props.result.recurrenceType === null) {
+      const { result } = this.props
+      this.endDate = generateRecurrenceEndDate(result.startDate, result.numberOfWeeks, result.timeSlots)
+      console.log('endDate: ', this.endDate)
+    }
+
+  }
 
   addCourse = () => {
     this.props.dispatch(updateActiveCourse(this.props.result.id))
@@ -79,7 +78,7 @@ export default class Course extends Component {
 
     switch (result.recurrenceType) {
       case null:
-        courseDateDescription = t('schools.course_length_descriptors.non_recurring', { startDate: result.startDate, endDate: result.endDate })
+        courseDateDescription = t('schools.course_length_descriptors.non_recurring', { startDate: result.startDate, endDate: this.endDate })
         break
       case 'WEEKLY':
         courseDateDescription = t('schools.course_length_descriptors.weekly', { dayOfWeek: startDayOfWeek, weekCount: t(`schools.course_weekcounts.w${nthOfMonth}`) })

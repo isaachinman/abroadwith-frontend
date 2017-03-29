@@ -84,8 +84,6 @@ export default class BookNow extends Component {
         // ------------------------------------------------------------------------------------
         const result = courseSearch.price.data.results.filter(courseResult => courseResult.courseId === courseSearch.activeCourse)[0]
 
-        console.log('result: ', result)
-
         dispatch(createPotentialCourseBooking({
           courseId: courseSearch.activeCourse,
           startDate: result.startDate,
@@ -222,7 +220,6 @@ export default class BookNow extends Component {
             </Col>
             <Col xs={12} style={styles.alignLeft}>
               <Select
-                placeholder='Course'
                 theme='bootstrap3'
                 className='book-now-room-select'
                 value={activeCourse ? { value: activeCourse, label: courses.filter(course => course.id === activeCourse)[0].name } : {}}

@@ -20,6 +20,7 @@ import { SpinLoader } from 'components'
 import { uiDate } from 'utils/dates'
 import { update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
 import { scrollToTopOfPage } from 'utils/scrolling'
+import TextTruncate from 'react-text-truncate'
 import { translate } from 'react-i18next'
 import { push } from 'react-router-redux'
 
@@ -141,8 +142,6 @@ export default class BookCourse extends Component {
 
   render() {
 
-    console.log(this)
-
     const { activeStep, animationInProgress, needsCountry } = this.state
     const { educator, user, loading, t, token, potentialBooking, potentialBookingHelpers } = this.props
 
@@ -242,7 +241,12 @@ export default class BookCourse extends Component {
                                   </Row>
                                   <Row>
                                     <Col xs={12} sm={3}><strong>{t('booking.course')}</strong></Col>
-                                    <Col xs={12} sm={9}>{potentialBookingHelpers.courseName}</Col>
+                                    <Col xs={12} sm={9}>
+                                      <TextTruncate
+                                        text={potentialBookingHelpers.courseName}
+                                        line={1}
+                                      />
+                                    </Col>
                                   </Row>
                                   <Row>
                                     <Col xs={12} sm={3}><strong>{t('common.Language')}</strong></Col>
@@ -289,15 +293,12 @@ export default class BookCourse extends Component {
                                         </div>
                                       </Col>
                                     </Row>
-                                    <Row>
-                                      <Col xs={12}>
-                                        <div style={styles.borderBottom}>
-                                          <p>
-                                            <span>{t('booking.course')}</span><span className='pull-right'>{potentialBookingHelpers.courseName}</span>
-                                          </p>
-                                        </div>
-                                      </Col>
-                                    </Row>
+                                    <div style={styles.borderBottomPadded}>
+                                      <Row>
+                                        <Col xs={12} sm={3}>{t('booking.course')}</Col>
+                                        <Col xs={12} sm={9}>{potentialBookingHelpers.courseName}</Col>
+                                      </Row>
+                                    </div>
                                     <Row />
                                   </div>
                                 </Collapse>
