@@ -3,7 +3,7 @@
   "description": "A React/Redux isomorphic implementation for Abroadwith (2017).",
   "author": "Isaac Hinman <isaac@isaachinman.com> (github.com/isaachinman)",
   "license": "UNLICENSED",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/abroadwith/frontend"
