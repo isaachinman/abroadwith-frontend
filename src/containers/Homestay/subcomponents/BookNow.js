@@ -131,7 +131,7 @@ export default class BookNow extends Component {
     } else {
 
       // If the user is not logged in, open the login modal
-      dispatch(openLoginModal(() => dispatch(push('/book-homestay'))))
+      dispatch(openLoginModal())
 
     }
 

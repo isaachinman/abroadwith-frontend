@@ -120,8 +120,11 @@ export default class HomestayBooking extends Component {
     // const isDeclined = booking.status.indexOf('DECLINED') > -1
     const isPending = booking.status.indexOf('PENDING') > -1
 
+    // Defining today as 23:39 of yesterday takes care of edge cases where booking starts today
+    const today = moment().startOf('day').subtract(1, 'minutes')
+
     // Pending and Approved bookings in the future are actionable
-    const isActionable = (isApproved || isPending) && moment(booking.arrivalDate).isAfter(moment())
+    const isActionable = (isApproved || isPending) && moment(booking.arrivalDate).isAfter(today)
 
     // Only specific statuses have receipts
     const hasReceipt = isApproved || isCancelled
@@ -169,7 +172,7 @@ export default class HomestayBooking extends Component {
             <Row>
               <Col xs={12} md={6} style={styles.infoSectionTop}>
                 <h4 className='text-muted'>{t('trips.status')}</h4>
-                <strong>{t(`trips.status_codes.${booking.status}`)}</strong>
+                <p><strong>{t(`trips.status_codes.${booking.status}`)}</strong></p>
                 <p>{t('trips.created')}: {uiDate(booking.created)}</p>
                 {hasReceipt &&
                   <p><Link to={`/receipt/homestay/student/${booking.id}`}>{t('trips.view_receipt')}</Link></p>

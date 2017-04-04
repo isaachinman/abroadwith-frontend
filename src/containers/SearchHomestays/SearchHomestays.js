@@ -3,9 +3,11 @@ import React, { Component, PropTypes } from 'react'
 import shallowCompare from 'react-addons-shallow-compare'
 import Helmet from 'react-helmet'
 import abroadwithBoundsToGMAPBounds from 'utils/search/abroadwithBoundsToGMAPBounds'
+import { browserHistory } from 'react-router'
 import gmapBoundsToAbroadwithBounds from 'utils/search/gmapBoundsToAbroadwithBounds'
 import { connect } from 'react-redux'
 import { InlineSearchUnit } from 'components'
+import { getBoundsFromLocationString } from 'utils/locations'
 import { Grid, OverlayTrigger } from 'react-bootstrap'
 import homestaySearchUrlToParams from 'utils/search/homestaySearchUrlToParams'
 import MapBounds from 'data/constants/MapBounds'
@@ -45,6 +47,20 @@ export default class SearchHomestays extends Component {
     mapDimensions: {},
   }
 
+  componentDidMount = () => {
+
+    // Add listener for browser navigation (primarily to support backwards navigation)
+    this.navListener = browserHistory.listen(location => {
+
+      // Application-caused location changes are PUSH, while browser events are POP
+      if (location.action === 'POP') {
+        this.props.dispatch(performRoomSearch(homestaySearchUrlToParams(location.query)))
+      }
+
+    })
+
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
   }
@@ -61,40 +77,12 @@ export default class SearchHomestays extends Component {
       // In some cases, we link to this search page with a semantic location query
       if (routing.query.locationString && !routing.query.maxLat) {
 
-        // Instantiate the Google services we'll need
-        /* eslint-disable */
-        const autocompleter = new google.maps.places.AutocompleteService()
-        const geocoder = new google.maps.Geocoder
-        /* eslint-enable */
-
-        // Get a place suggestion from the locationString
-        autocompleter.getQueryPredictions({ input: routing.query.locationString }, (predictions, status) => {
-
-          // Geolocate the first result
-          if (status === 'OK' && predictions.length > 0) {
-
-            geocoder.geocode({ placeId: predictions[0].place_id }, (results, geocodeStatus) => {
-
-              if (geocodeStatus === 'OK' && results.length > 0) {
-
-                const viewport = results[0].geometry.bounds
-
-                dispatch(performRoomSearch(Object.assign({}, homestaySearchUrlToParams(this.props.routing.query), {
-                  mapData: {
-                    bounds: {
-                      maxLat: viewport.f.f,
-                      maxLng: viewport.b.b,
-                      minLat: viewport.f.b,
-                      minLng: viewport.b.f,
-                    },
-                  },
-                }), push))
-              }
-
-            })
-
-          }
-
+        getBoundsFromLocationString(routing.query.locationString).then(bounds => {
+          dispatch(performRoomSearch(Object.assign({}, homestaySearchUrlToParams(this.props.routing.query), {
+            mapData: {
+              bounds,
+            },
+          }), push))
         })
 
       } else if (!search.loaded && !search.params.mapData.bounds) {
@@ -134,6 +122,8 @@ export default class SearchHomestays extends Component {
     }
 
   }
+
+  componentWillUnmount = () => this.navListener()
 
   closeFiltersPanel = () => this.setState({ filtersPanelOpen: false })
   openFiltersPanel = () => this.setState({ filtersPanelOpen: true })
@@ -208,6 +198,8 @@ export default class SearchHomestays extends Component {
 
   render() {
 
+    console.log(this)
+
     const { filtersPanelOpen } = this.state
     const { uiCurrency, uiLanguage, t, search } = this.props
 
@@ -268,7 +260,7 @@ export default class SearchHomestays extends Component {
               </div>
             </div>
             <div style={styles.inlineSearchUnit}>
-              <InlineSearchUnit integrated />
+              <InlineSearchUnit type='homestay' integrated />
             </div>
           </div>
           <div style={styles.resultScrollList} id='homestay-search-result-list'>

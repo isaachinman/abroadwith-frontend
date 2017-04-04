@@ -1,6 +1,8 @@
 import { validateExists } from 'utils/validation'
 
-export default (password) => {
+export default (password, options) => {
+
+  console.log(options)
 
   let validationMessages = [] // eslint-disable-line
   let validity = true
@@ -15,6 +17,18 @@ export default (password) => {
       validationMessages.push('TOO_LONG')
     }
 
+    // This is very poorly thought out validation which is "legacy"
+    if (typeof options === 'object') {
+
+      if (password.indexOf(options.firstName) > -1) {
+        validationMessages.push('CONTAINS_FIRST_NAME')
+      }
+
+      if (password.indexOf(options.lastName) > -1) {
+        validationMessages.push('CONTAINS_LAST_NAME')
+      }
+
+    }
 
     let twoOfThreeConditions = 0
 

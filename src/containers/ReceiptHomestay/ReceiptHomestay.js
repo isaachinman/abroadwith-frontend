@@ -35,8 +35,12 @@ export default class ReceiptHomestay extends Component {
 
     const { t, reservation } = this.props
 
+    // Defining today as 23:39 of yesterday takes care of edge cases where booking starts today
     const today = moment().startOf('day').subtract(1, 'minutes')
+
     const bookingPhase = Object.keys(HomestayBookingStatusCodes).filter(statusCategory => HomestayBookingStatusCodes[statusCategory].indexOf(reservation.status) > -1)[0]
+
+    // Booking is actionable if it is pending or approved and is in the future
     const isActionable = ['pending', 'approved'].includes(bookingPhase) && moment(reservation.arrivalDate).isAfter(today)
 
     console.log(this)

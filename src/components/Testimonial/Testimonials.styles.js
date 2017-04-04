@@ -20,7 +20,8 @@ export default {
     },
   },
   img: {
-    maxWidth: '100%',
+    width: '100%',
+    maxWidth: 220,
     '@media (max-width: 767px)': {
       width: '50%',
       display: 'inline-block',

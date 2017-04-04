@@ -1,13 +1,14 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
+import { Button, Col, Fade, Grid, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Checkbox from 'antd/lib/checkbox'
-import { Button, Col, Fade, Grid, Row } from 'react-bootstrap'
+import { clearRoomSearchAdditionalFilters, performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
 import HomeData from 'data/constants/HomeData'
-import { performRoomSearch } from 'redux/modules/ui/search/homestaySearch'
 import Radium from 'radium'
 import { push } from 'react-router-redux'
 import Slider from 'rc-slider'
+import { sunsetOrange } from 'styles/colors'
 import { translate } from 'react-i18next'
 
 // Styles
@@ -58,6 +59,11 @@ const styles = {
   bottomRow: {
     marginTop: 50,
   },
+  clearAllFilters: {
+    display: 'inline-block',
+    verticalAlign: 'bottom',
+    margin: '5px 15px',
+  },
 }
 
 @connect(
@@ -80,6 +86,12 @@ export default class FiltersPanel extends Component {
     if (nextProps.homestaySearch.params.filters) {
       this.setState({ filters: nextProps.homestaySearch.params.filters })
     }
+  }
+
+  clearFilters = () => {
+    const { dispatch, homestaySearch } = this.props
+    dispatch(clearRoomSearchAdditionalFilters(homestaySearch.params, push))
+    this.props.handleClose()
   }
 
   handleSearch = () => {
@@ -262,6 +274,9 @@ export default class FiltersPanel extends Component {
                 <Row style={styles.bottomRow}>
                   <Col xs={12}>
                     <Button onClick={this.handleSearch} bsSize='large' bsStyle='primary'>{t('common.search')}</Button>
+                    <div style={styles.clearAllFilters}>
+                      {t('common.words.or')} <a onClick={this.clearFilters} style={{ color: sunsetOrange }}>{t('search.clear_all_filters')}</a>
+                    </div>
                   </Col>
                 </Row>
               </div>

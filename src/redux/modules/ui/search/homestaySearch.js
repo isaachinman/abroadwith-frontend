@@ -19,6 +19,9 @@ const CALCULATE_HOMESTAY_PRICE_FAIL = 'abroadwith/CALCULATE_HOMESTAY_PRICE_FAIL'
 // Update search params
 const UPDATE_ROOM_SEARCH_PARAMS = 'abroadwith/UPDATE_ROOM_SEARCH_PARAMS'
 
+// Clear all (additional) filters
+const CLEAR_ROOM_SEARCH_ADDITIONAL_FILTERS = 'abroadwith/CLEAR_ROOM_SEARCH_ADDITIONAL_FILTERS'
+
 // Update activeRoom
 const UPDATE_ACTIVE_ROOM = 'abroadwith/UPDATE_ACTIVE_ROOM'
 
@@ -64,7 +67,16 @@ export default function reducer(state = initialState, action = {}) {
     case REHYDRATE: {
       const incoming = action.payload.uiPersist
       if (incoming && incoming.homestaySearch && incoming.homestaySearch.rehydrate) {
+
+        const today = moment().startOf('day').subtract(1, 'minutes')
+
         return Object.assign({}, state, incoming.homestaySearch, {
+
+          // Conditionally accept rehydrated params
+          params: Object.assign({}, incoming.homestaySearch.params, {
+            arrival: incoming.homestaySearch.params.arrival && moment(incoming.homestaySearch.params.arrival).isAfter(today) ? incoming.homestaySearch.params.arrival : null,
+            departure: incoming.homestaySearch.params.departure && moment(incoming.homestaySearch.params.departure).isAfter(today) ? incoming.homestaySearch.params.departure : null,
+          }),
 
           // Do not rehydrate these things
           activeRoom: null,
@@ -236,5 +248,15 @@ export function calculateHomestayPrice(params) {
       dispatch({ type: CALCULATE_HOMESTAY_PRICE_FAIL, err })
     }
   }
+}
 
+export function clearRoomSearchAdditionalFilters(params, push) {
+  return async dispatch => {
+    const newParams = Object.assign({}, params, {
+      homeType: initialState.params.homeType,
+      filters: initialState.params.filters,
+    })
+    dispatch({ type: CLEAR_ROOM_SEARCH_ADDITIONAL_FILTERS })
+    dispatch(performRoomSearch(newParams, push))
+  }
 }

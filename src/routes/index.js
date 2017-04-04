@@ -12,11 +12,13 @@ import {
     About,
     App,
     ContactUs,
+    CourseLandingPage,
     Homestay,
     LoginPage,
     LoginSuccess,
     Main,
     PopularLanguages,
+    School,
     SearchCourses,
     SearchHomestays,
     SignupPage,
@@ -28,11 +30,9 @@ export default (store) => {
 
   // Hide and show footer based on route
   const noFooterEnter = liftedStore => {
-    console.log('Hide Footer')
     liftedStore.dispatch(hideFooter())
   }
   const noFooterLeave = liftedStore => {
-    console.log('Show Footer')
     liftedStore.dispatch(showFooter())
   }
 
@@ -86,6 +86,11 @@ export default (store) => {
   }
 
   // Require potential bookings on booking pages
+  const requirePotentialCourseBooking = (nextState, replace) => {
+    if (!store.getState().bookings.courseBookings.potentialBooking.courseId) {
+      replace('/')
+    }
+  }
   const requirePotentialHomestayBooking = (nextState, replace) => {
     if (!store.getState().bookings.homestayBookings.potentialBooking.stayId) {
       replace('/')
@@ -113,17 +118,33 @@ export default (store) => {
   // --------------------------------------------------------------------------------
   // Lazy loaded routes: some routes should only be loaded if needed
   // The third argument require.ensure takes is the name of the chunk
-  // This can probably be abstracted in some way instead of so much boilerplate
+  // ----------
+  // What you will see below is an absolute tonne of boilerplate
+  // Unfortunately, it's unavoidable. require and require.ensure must receive
+  // string literals, variables won't work. It must be known at compile time
+  // without program flow analysis. These getComponent functions only contain
+  // the require.ensure statement, so we are stuck writing them all explicitly.
   // --------------------------------------------------------------------------------
+
+  const getBookCourse = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/BookCourse/BookCourse'))
+    }, 'booking-course')
+  }
+  const getBookCourseSuccess = (nextState, cb) => {
+    require.ensure([], require => {
+      cb(null, require('../containers/BookCourse/BookCourseSuccess'))
+    }, 'booking-course')
+  }
   const getBookHomestay = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/BookHomestay/BookHomestay'))
-    }, 'booking')
+    }, 'booking-homestay')
   }
   const getBookHomestaySuccess = (nextState, cb) => {
     require.ensure([], require => {
       cb(null, require('../containers/BookHomestay/BookHomestaySuccess'))
-    }, 'booking')
+    }, 'booking-homestay')
   }
   const getEmailVerification = (nextState, cb) => {
     require.ensure([], require => {
@@ -272,6 +293,8 @@ export default (store) => {
             <Route path='host-international-students' component={AbroadwithForHosts} />
 
             <Route onEnter={requireLogin}>
+              <Route path='book-course' onEnter={requirePotentialCourseBooking} getComponent={getBookCourse} />
+              <Route path='book-course/success' getComponent={getBookCourseSuccess} />
               <Route path='book-homestay' onEnter={requirePotentialHomestayBooking} getComponent={getBookHomestay} />
               <Route path='book-homestay/success' getComponent={getBookHomestaySuccess} />
               <Route path='edit-profile' getComponent={getUserProfileEdit} />
@@ -307,7 +330,16 @@ export default (store) => {
               component={SearchHomestays}
             />
 
-            <Route path='language-program/search' component={SearchCourses} />
+            <Route path='language-course' component={CourseLandingPage} />
+            <Route
+              path='language-course/search'
+              onEnter={() => noFooterEnter(store)}
+              onChange={() => noFooterEnter(store)}
+              onLeave={() => noFooterLeave(store)}
+              component={SearchCourses}
+            />
+
+            <Route path='language-school/:educatorID' component={School} />
 
             <Route path='login' component={LoginPage} />
             <Route path='popular-languages-destinations' component={PopularLanguages} />

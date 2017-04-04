@@ -24,11 +24,8 @@ import imageUploadInstaller from 'utils/upload/ImageUploadInstaller'
 import UILanguages from 'data/constants/UILanguages'
 
 // Custom API imports
-import contactForm from 'helpers/api/contactForm'
-import errorHandler from 'helpers/api/errorHandler'
-import getRoomCalendar from 'helpers/api/getRoomCalendar'
-import logout from 'helpers/api/logout'
-import homestaySearch from 'helpers/api/homestaySearch'
+import { contactForm, errorHandler, getAllEducatorCourses, getClosestCity, getCourseCities, getCourseLanguages, getRoomCalendar, homestaySearch, logout } from 'helpers/api'
+
 import serverCache from 'helpers/serverCache'
 
 // Session invalidator
@@ -78,7 +75,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Install custom API endpoints
-const customApiEndpoints = [contactForm, errorHandler, getRoomCalendar, logout, homestaySearch]
+const customApiEndpoints = [contactForm, errorHandler, getAllEducatorCourses, getClosestCity, getCourseCities, getCourseLanguages, getRoomCalendar, logout, homestaySearch]
 customApiEndpoints.map(endpoint => {
   endpoint(app)
 })
@@ -123,7 +120,7 @@ app.use((req, res) => {
 
   // Uncomment these lines to set a test token
   /* eslint-disable */
-  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiX1d5RUZpeEo2VzVrTl9HYzNvc3ptZyIsImlhdCI6MTQ4ODUzNzE3NiwiZXhwIjoxNDg5MTQxOTc2LCJuYmYiOjE0ODg1MzcwNTYsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYWFjQGFicm9hZHdpdGguY29tIiwibmFtZSI6IklzYWFjIiwicmlkIjoxMDA1MzMsImNiayI6MCwid2hvc3QiOnRydWUsImltZyI6Ii91c2Vycy8xMDA1MzMvMTQ4NzUyNjc4NzYwMi5qcGciLCJoaWQiOjU2OH0.PQBcIjLUA6lf3a4pUoXghrRxE4QI7hdVVuk4q2MoceSr8Qv9ZyxVvQa2OnLFwyWNXxe0aGHuLPya1FJRI4me9CIsDYAgKQFd9AjQM9abw1tj0gJaVImMBve8CyKMxEsD5NURFTuewt2faDRa2dAy6w3bzizZA6ih1sgw61VUQKH9Sd0oSfVUfmrOK2CkJy0pNC-yaDmxmWgg3ko2b1ZAGuBMFf91LvhiqBNbbWLnZlVPfN7U_m1COrFAgbPT8_UaymFCwb3wG2xCZdLpANAs0EOe680TszhLL9ioQf-XPLi5Rr59Pqm2PPCyNK2JTxrFrb1HFmbzAWOE3sPeiDmLsA'
+  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiNlEwb0w1REZhSHNTSG5KLVVuOW4xQSIsImlhdCI6MTQ5MDEwOTUzOSwiZXhwIjoxNDkwNzE0MzM5LCJuYmYiOjE0OTAxMDk0MTksInN1YiI6IlVTRVIiLCJlbWFpbCI6Im4yNTEwODIyQG12cmh0LmNvbSIsIm5hbWUiOiJuMjUxMDgyMkBtdnJodC5jb20iLCJyaWQiOjEwMDYyNiwiY2JrIjozLCJ3aG9zdCI6ZmFsc2V9.Ugi1n629Xjp0-oH_eGelHlSjRQ8VwmF_wQkwQHWwcH9ZnzJDevOX2maTHTiGbykErQrCk3DSUARHvt_f1wCsMquTJawBLPhA2P97HSb8dt2NU47wWbYmgVkfGYnI8O5bOVpmzLE0uQNcJdQdfOqZchnd_MmWhupfVG5IekWvaZYcfWM-URUlrJh2bAL5AVw4wcm5lY5o6DwJ7ATgbc8hXpzNzV8hdqOQRiGCTAP3J_sohqvQSOUTk4t2eQjQfhnXUxA7fqUhmduZL8jvhp9Bv1eL7n8gaOcZl165G5D1AGuXQx8-6QykxexL-LQzazaG_sH0GCu6BenOcnXXvWIFgA'
   // const expiryDate = new Date()
   // expiryDate.setDate(expiryDate.getDate() + 30)
   // res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })

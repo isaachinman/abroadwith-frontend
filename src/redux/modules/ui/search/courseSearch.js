@@ -1,12 +1,76 @@
+import { apiDate } from 'utils/dates'
 import config from 'config'
+import courseSearchParamsToAPIParams from 'utils/search/courseSearchParamsToAPIParams'
+import courseSearchParamsToUrl from 'utils/search/courseSearchParamsToUrl'
+import moment from 'moment'
+import { REHYDRATE } from 'redux-persist/constants'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import superagent from 'superagent'
 
-// Perform search
+// Perform regular search
+const PERFORM_COURSE_SEARCH = 'abroadwith/PERFORM_COURSE_SEARCH'
+const PERFORM_COURSE_SEARCH_SUCCESS = 'abroadwith/PERFORM_COURSE_SEARCH_SUCCESS'
+const PERFORM_COURSE_SEARCH_FAIL = 'abroadwith/PERFORM_COURSE_SEARCH_FAIL'
+
+// Perform upsell search
 const PERFORM_COURSE_UPSELL_SEARCH = 'abroadwith/PERFORM_COURSE_UPSELL_SEARCH'
 const PERFORM_COURSE_UPSELL_SEARCH_SUCCESS = 'abroadwith/PERFORM_COURSE_UPSELL_SEARCH_SUCCESS'
 const PERFORM_COURSE_UPSELL_SEARCH_FAIL = 'abroadwith/PERFORM_COURSE_UPSELL_SEARCH_FAIL'
 
+// Get list of cities available
+const LOAD_COURSE_CITIES = 'abroadwith/LOAD_COURSE_CITIES'
+const LOAD_COURSE_CITIES_SUCCESS = 'abroadwith/LOAD_COURSE_CITIES_SUCCESS'
+const LOAD_COURSE_CITIES_FAIL = 'abroadwith/LOAD_COURSE_CITIES_FAIL'
+
+// Get list of languages available
+const LOAD_COURSE_LANGUAGES = 'abroadwith/LOAD_COURSE_LANGUAGES'
+const LOAD_COURSE_LANGUAGES_SUCCESS = 'abroadwith/LOAD_COURSE_LANGUAGES_SUCCESS'
+const LOAD_COURSE_LANGUAGES_FAIL = 'abroadwith/LOAD_COURSE_LANGUAGES_FAIL'
+
+// Calculate course price
+const CALCULATE_COURSE_PRICE = 'abroadwith/CALCULATE_COURSE_PRICE'
+const CALCULATE_COURSE_PRICE_SUCCESS = 'abroadwith/CALCULATE_COURSE_PRICE_SUCCESS'
+const CALCULATE_COURSE_PRICE_FAIL = 'abroadwith/CALCULATE_COURSE_PRICE_FAIL'
+
+// Update search params
+const UPDATE_COURSE_SEARCH_PARAMS = 'abroadwith/UPDATE_COURSE_SEARCH_PARAMS'
+
+// Update active course
+const UPDATE_ACTIVE_COURSE = 'abroadwith/UPDATE_ACTIVE_COURSE'
+
+// Erase history
+const ERASE_COURSE_SEARCH_HISTORY = 'abroadwith/ERASE_COURSE_SEARCH_HISTORY'
+
 const initialState = {
+  citiesAvailable: [],
+  languagesAvailable: [],
+  data: {
+    results: [],
+  },
+  activeCourse: null,
+  loaded: false,
+  loading: false,
+  rehydrate: true,
+  params: {
+    arrival: null,
+    categories: [],
+    currency: null,
+    departure: null,
+    language: null,
+    level: 'A1',
+    mapData: {},
+    maxWeeklyPrice: 1000,
+    pageOffset: 0,
+    pageSize: 5,
+    sort: {
+      parameter: 'PRICE',
+      order: 'ASC',
+    },
+  },
+  price: {
+    loading: false,
+    loaded: false,
+  },
   upsellSearch: {
     params: {
       categories: [],
@@ -24,8 +88,88 @@ const initialState = {
   },
 }
 
+// Erase search history
+export function eraseCourseSearchHistory() {
+  return async dispatch => dispatch({ type: ERASE_COURSE_SEARCH_HISTORY })
+}
+
+// Update params
+export function updateCourseSearchParams(params) {
+  return async dispatch => dispatch({ type: UPDATE_COURSE_SEARCH_PARAMS, params })
+}
+
+// Update active course
+export function updateActiveCourse(courseID) {
+  return async dispatch => dispatch({ type: UPDATE_ACTIVE_COURSE, courseID })
+}
+
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    // This is a rehydration (from localstore) case
+    case REHYDRATE: {
+
+      const incoming = action.payload.uiPersist
+
+      if (incoming && incoming.courseSearch && incoming.courseSearch.rehydrate) {
+
+        const today = moment().startOf('day').subtract(1, 'minutes')
+
+        return Object.assign({}, state, incoming.courseSearch, {
+
+          // Conditionally accept rehydrated params
+          params: Object.assign({}, incoming.courseSearch.params, {
+            arrival: incoming.courseSearch.params.arrival && moment(incoming.courseSearch.params.arrival).isAfter(today) ? incoming.courseSearch.params.arrival : null,
+            departure: incoming.courseSearch.params.departure && moment(incoming.courseSearch.params.departure).isAfter(today) ? incoming.courseSearch.params.departure : null,
+          }),
+
+          // Do not rehydrate these things
+          activeCourse: state.activeCourse,
+          citiesAvailable: state.citiesAvailable,
+          languagesAvailable: state.languagesAvailable,
+          loading: false,
+          price: {
+            loading: false,
+            loaded: false,
+          },
+
+        })
+      }
+      return state
+    }
+    // Used to erase history when it (because of rehydration),
+    // would cause weird behaviour
+    case ERASE_COURSE_SEARCH_HISTORY: {
+      return Object.assign({}, initialState, { rehydrate: false })
+    }
+    case UPDATE_COURSE_SEARCH_PARAMS:
+      return {
+        ...state,
+        params: Object.assign({}, state.params, action.params),
+      }
+    case UPDATE_ACTIVE_COURSE:
+      return {
+        ...state,
+        activeCourse: action.courseID,
+      }
+    case PERFORM_COURSE_SEARCH:
+      return {
+        ...state,
+        loading: true,
+      }
+    case PERFORM_COURSE_SEARCH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        data: action.result,
+      }
+    case PERFORM_COURSE_SEARCH_FAIL:
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error: action.error,
+      }
     case PERFORM_COURSE_UPSELL_SEARCH:
       return {
         ...state,
@@ -52,8 +196,106 @@ export default function reducer(state = initialState, action = {}) {
           error: action.error,
         }),
       }
+    case LOAD_COURSE_CITIES_SUCCESS:
+      return {
+        ...state,
+        citiesAvailable: action.result,
+      }
+    case LOAD_COURSE_LANGUAGES_SUCCESS:
+      return {
+        ...state,
+        languagesAvailable: action.result,
+      }
+    case CALCULATE_COURSE_PRICE:
+      return {
+        ...state,
+        price: {
+          loading: true,
+        },
+      }
+    case CALCULATE_COURSE_PRICE_SUCCESS:
+      return {
+        ...state,
+        price: {
+          loading: false,
+          loaded: true,
+          data: action.result,
+        },
+      }
+    case CALCULATE_COURSE_PRICE_FAIL:
+      return {
+        ...state,
+        price: {
+          loading: false,
+          loaded: false,
+          error: action.error,
+        },
+      }
     default:
       return state
+  }
+}
+
+export function performCourseSearch(immutableParams, push) {
+
+  const params = Object.assign({}, immutableParams)
+
+  return async dispatch => {
+
+    dispatch(showLoading())
+    dispatch({ type: PERFORM_COURSE_SEARCH })
+
+    // Here we must fill some values if they are not provided
+    // This is a temporary solution and will eventually be patched
+    if (!params.arrival) {
+      params.arrival = apiDate(moment())
+    }
+    if (!params.departure) {
+      params.departure = apiDate(moment().add(2, 'weeks'))
+    }
+    if (!params.level) {
+      params.level = 'A1'
+    }
+
+    // It's important to dispatch param update _after_ search.loading has been set
+    // to prevent the map from calling another search on bounds change
+    dispatch(updateCourseSearchParams(params))
+
+    try {
+
+      const query = courseSearchParamsToUrl(Object.assign({}, params))
+      const apiParams = courseSearchParamsToAPIParams(Object.assign({}, params))
+
+      const request = superagent.post(`${config.apiHost}/search/courses`)
+      request.send(apiParams)
+
+      request.end((err, res = {}) => {
+
+        if (err) {
+
+          dispatch({ type: PERFORM_COURSE_SEARCH_FAIL, err })
+          dispatch(hideLoading())
+
+        } else {
+
+          // GET was successful
+          dispatch({ type: PERFORM_COURSE_SEARCH_SUCCESS, result: JSON.parse(res.text) })
+          dispatch(hideLoading())
+
+          // By dispatching the push after results are already loaded, users will hit
+          // the search page with results already populated
+          if (typeof push === 'function') {
+            dispatch(push(`/language-course/search${query}`))
+          }
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: PERFORM_COURSE_SEARCH_FAIL, err })
+      dispatch(hideLoading())
+    }
   }
 }
 
@@ -88,4 +330,198 @@ export function performCourseUpsellSearch(jwt, params) {
       dispatch({ type: PERFORM_COURSE_UPSELL_SEARCH_FAIL, err })
     }
   }
+}
+
+// Currently, this function can only be called serverside due to CORS and insecure response issues from Solr
+export function loadCourseCities() {
+
+  return async dispatch => {
+
+    dispatch({ type: LOAD_COURSE_CITIES })
+
+    try {
+
+      return new Promise((resolve, reject) => {
+
+        // Behaviour is fundamentally different on server vs client
+        if (typeof window === 'undefined') {
+
+          const fs = require('fs') // eslint-disable-line
+
+          // If cities exist, and were fetched within the time limit, use them locally
+          if (fs.existsSync('build/course-data/cities.json') &&
+            fs.existsSync('build/course-data/cities.lock') &&
+            moment(fs.readFileSync('build/course-data/cities.lock', 'utf-8')).isAfter(moment())) {
+
+            resolve(dispatch({ type: LOAD_COURSE_CITIES_SUCCESS, result: JSON.parse(fs.readFileSync('build/course-data/cities.json', 'utf-8')) }))
+
+          } else {
+
+            // Sometimes new course cities are added by the business team
+            // This application refreshes them every day (async depending on actual use)
+            const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_cities/select?q=*&wt=json&fl=location_0_coordinate,location_1_coordinate,name&rows=1000`)
+            request.end((error, response = {}) => {
+
+              if (error) {
+
+                reject(dispatch({ type: LOAD_COURSE_CITIES_FAIL, error }))
+
+              } else {
+
+                // GET was successful
+                const data = JSON.parse(response.text).response.docs
+
+                fs.writeFile('build/course-data/cities.json', JSON.stringify(data))
+                fs.writeFile('build/course-data/cities.lock', moment().add(1, 'days').toString()) // Adjust cache life here
+                resolve(dispatch({ type: LOAD_COURSE_CITIES_SUCCESS, result: data }))
+
+              }
+
+            })
+
+          }
+
+        } else {
+
+          // Because of Solr's insecure/improper response, I've literally set up an endpoint that
+          // just runs the above action on the server and then returns it to client
+          const request = superagent.get('/public/course-cities')
+          request.end((error, response = {}) => {
+
+            if (error) {
+
+              reject(dispatch({ type: LOAD_COURSE_CITIES_FAIL, error }))
+
+            } else {
+
+              resolve(dispatch({ type: LOAD_COURSE_CITIES_SUCCESS, result: JSON.parse(response.text) }))
+
+            }
+
+          })
+
+        }
+
+      })
+
+    } catch (error) {
+      dispatch({ type: LOAD_COURSE_CITIES_FAIL, error })
+    }
+  }
+}
+
+// Currently, this function can only be called serverside due to CORS and insecure response issues from Solr
+export function loadCourseLanguages() {
+
+  return async dispatch => {
+
+    dispatch({ type: LOAD_COURSE_LANGUAGES })
+
+    try {
+
+      return new Promise((resolve, reject) => {
+
+        // Behaviour is fundamentally different on server vs client
+        if (typeof window === 'undefined') {
+
+          const fs = require('fs') // eslint-disable-line
+
+          // If cities exist, and were fetched within the time limit, use them locally
+          if (fs.existsSync('build/course-data/languages.json') &&
+            fs.existsSync('build/course-data/languages.lock') &&
+            moment(fs.readFileSync('build/course-data/languages.lock', 'utf-8')).isAfter(moment())) {
+
+            resolve(dispatch({ type: LOAD_COURSE_LANGUAGES_SUCCESS, result: JSON.parse(fs.readFileSync('build/course-data/languages.json', 'utf-8')) }))
+
+          } else {
+
+            // Sometimes new course languages are added by the business team
+            // This application refreshes them every day (async depending on actual use)
+            const request = superagent.get(`${config.solr.host}:${config.solr.port}/solr/abroadwith_courses/select?q=*&wt=json&fl=language&group=true&group.field=language&rows=1000`)
+            request.end((error, response = {}) => {
+
+              if (error) {
+
+                reject(dispatch({ type: LOAD_COURSE_LANGUAGES_FAIL, error }))
+
+              } else {
+
+                // GET was successful
+                const data = JSON.parse(response.text).grouped.language.groups.map(lang => lang.groupValue)
+
+                fs.writeFile('build/course-data/languages.json', JSON.stringify(data))
+                fs.writeFile('build/course-data/languages.lock', moment().add(1, 'days').toString()) // Adjust cache life here
+                resolve(dispatch({ type: LOAD_COURSE_LANGUAGES_SUCCESS, result: data }))
+
+              }
+
+            })
+
+          }
+
+        } else {
+
+          // Because of Solr's insecure/improper response, I've literally set up an endpoint that
+          // just runs the above action on the server and then returns it to client
+          const request = superagent.get('/public/course-languages')
+          request.end((error, response = {}) => {
+
+            if (error) {
+
+              reject(dispatch({ type: LOAD_COURSE_LANGUAGES_FAIL, error }))
+
+            } else {
+
+              resolve(dispatch({ type: LOAD_COURSE_LANGUAGES_SUCCESS, result: JSON.parse(response.text) }))
+
+            }
+
+          })
+
+        }
+
+      })
+
+    } catch (error) {
+      dispatch({ type: LOAD_COURSE_LANGUAGES_FAIL, error })
+    }
+  }
+}
+
+export function calculateCoursePrice(params) {
+
+  return async dispatch => {
+
+    dispatch({ type: CALCULATE_COURSE_PRICE })
+
+    try {
+
+      // Validate request
+      if (moment().isAfter(moment(params.arrivalDate)) || moment().isAfter(moment(params.departureDate))) {
+        throw new Error('Date range is invalid')
+      }
+
+      const request = superagent.post(`${config.apiHost}/search/courses/id`)
+      request.send(params)
+
+      request.end((err, res) => {
+
+        if (err) {
+
+          dispatch({ type: CALCULATE_COURSE_PRICE_FAIL, err })
+
+        } else {
+
+          // Request was successful
+          dispatch({ type: CALCULATE_COURSE_PRICE_SUCCESS, result: JSON.parse(res.text) })
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: CALCULATE_COURSE_PRICE_FAIL, err })
+    }
+  }
+
 }
