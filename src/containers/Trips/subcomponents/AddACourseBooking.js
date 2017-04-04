@@ -34,7 +34,7 @@ export default class CourseBooking extends Component {
           <Panel style={styles.panel}>
             <h4 className='header-green'>{t('trips.add_a_course_title')}</h4>
             <p style={styles.paragraph}>{t('trips.add_a_course_description')}</p>
-            <Link to='/language-program/search'>
+            <Link to='/language-course/search'>
               <Button bsStyle='primary' bsSize='xsmall'>{t('booking.add_course')}</Button>
             </Link>
           </Panel>

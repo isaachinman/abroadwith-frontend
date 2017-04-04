@@ -3,7 +3,7 @@
   "description": "A React/Redux isomorphic implementation for Abroadwith (2017).",
   "author": "Isaac Hinman <isaac@isaachinman.com> (github.com/isaachinman)",
   "license": "UNLICENSED",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/abroadwith/frontend"
@@ -11,7 +11,7 @@
   "main": "bin/server.js",
   "scripts": {
     "deploy": "better-npm-run deploy",
-    "setup": "mkdir build && mkdir build/locales && mkdir build/currency-rates && npm i",
+    "setup": "mkdir build && mkdir build/locales && mkdir build/currency-rates && mkdir build/course-cities && mkdir build/course-data && npm i",
     "start-integration": "pm2 start ecosystem/integration.json",
     "start-production": "pm2 start ecosystem/production.json",
     "build": "better-npm-run build",
@@ -121,6 +121,7 @@
     "react-image-crop": "^2.0.2",
     "react-images": "^0.5.2",
     "react-loader-advanced": "^1.4.1",
+    "react-masonry-component": "4.4.0",
     "react-measure": "^1.4.5",
     "react-redux": "^4.0.0",
     "react-redux-loading-bar": "^2.6.5",

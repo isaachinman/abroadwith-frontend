@@ -39,4 +39,9 @@ export default {
     fontSize: 12,
     marginTop: 20,
   },
+  subtitle: {
+    maxWidth: 440,
+    margin: '0 auto 15px auto',
+    lineHeight: '18px',
+  },
 }

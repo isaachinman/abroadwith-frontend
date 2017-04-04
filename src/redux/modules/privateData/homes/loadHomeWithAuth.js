@@ -139,7 +139,13 @@ export default function reducer(state = {}, action = {}) {
           }),
         }
       }
-      break
+      return {
+        ...state,
+        [action.homeID]: {
+          loading: true,
+          loaded: false,
+        },
+      }
     }
     case ADD_HOME_PHOTO: {
       return {
@@ -272,22 +278,26 @@ export function load(jwt, homeID, callback) {
 
     try {
 
-      const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes/${homeID}`)
-      request.set({ Authorization: `Bearer ${(jwt)}` })
+      return new Promise((resolve, reject) => {
 
-      request.end((err, { body } = {}) => {
+        const request = superagent.get(`${config.apiHost}/users/${jwtDecode(jwt).rid}/homes/${homeID}`)
+        request.set({ Authorization: `Bearer ${(jwt)}` })
 
-        if (err) {
+        request.end((err, { body } = {}) => {
 
-          dispatch({ type: LOAD_HOMESTAY_WITH_AUTH_FAIL, homeID, err })
+          if (err) {
 
-        } else {
+            reject(dispatch({ type: LOAD_HOMESTAY_WITH_AUTH_FAIL, homeID, err }))
 
-          // Login was successful
-          dispatch({ type: LOAD_HOMESTAY_WITH_AUTH_SUCCESS, homeID, result: body })
-          cb()
+          } else {
 
-        }
+            // Load was successful
+            resolve(dispatch({ type: LOAD_HOMESTAY_WITH_AUTH_SUCCESS, homeID, result: body }))
+            cb()
+
+          }
+
+        })
 
       })
 

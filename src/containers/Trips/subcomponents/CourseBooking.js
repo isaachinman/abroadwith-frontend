@@ -6,7 +6,7 @@ import config from 'config'
 import { connect } from 'react-redux'
 import { darkBlue } from 'styles/colors'
 import { Link } from 'react-router'
-// import moment from 'moment'
+import moment from 'moment'
 import PopConfirm from 'antd/lib/popconfirm'
 import Radium from 'radium'
 import { uiDate } from 'utils/dates'
@@ -117,11 +117,13 @@ export default class CourseBooking extends Component {
     const isApproved = booking.status.indexOf('APPROVED') > -1
     const isCancelled = booking.status.indexOf('CANCELLED') > -1
     // const isDeclined = booking.status.indexOf('DECLINED') > -1
-    // const isPending = booking.status.indexOf('PENDING') > -1
+    const isPending = booking.status.indexOf('PENDING') > -1
+
+    // Defining today as 23:39 of yesterday takes care of edge cases where booking starts today
+    const today = moment().startOf('day').subtract(1, 'minutes')
 
     // Pending and Approved bookings in the future are actionable
-    // const isActionable = (isApproved || isPending) && moment(booking.startDate).isAfter(moment())
-    const isActionable = false // Currently students cannot cancel course bookings
+    const isActionable = (isApproved || isPending) && moment(booking.startDate).isAfter(today)
 
     // Only specific statuses have receipts
     const hasReceipt = isApproved || isCancelled
@@ -166,7 +168,7 @@ export default class CourseBooking extends Component {
             <Row>
               <Col xs={12} md={6} style={styles.infoSectionTop}>
                 <h4 className='text-muted'>{t('trips.status')}</h4>
-                <strong>{t(`trips.status_codes.${booking.status}`)}</strong>
+                <p><strong>{t(`trips.status_codes.${booking.status}`)}</strong></p>
                 {hasReceipt &&
                   <p><Link to={`/receipt/course/student/${booking.id}`}>{t('trips.view_receipt')}</Link></p>
                 }

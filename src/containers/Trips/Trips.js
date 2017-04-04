@@ -60,7 +60,9 @@ export default class Trips extends Component {
 
   // Anytime bookings are reloaded, trips must be recompiled
   componentDidUpdate = prevProps => {
-    if (this.state.initialised && !this.props.homestayBookings.loading && prevProps.homestayBookings.loading) {
+    if (this.state.initialised &&
+        ((!this.props.homestayBookings.loading && prevProps.homestayBookings.loading) ||
+        (!this.props.courseBookings.loading && prevProps.courseBookings.loading))) {
       this.compileTrips()
     }
   }
@@ -248,7 +250,7 @@ export default class Trips extends Component {
                         <Button bsSize='xsmall' bsStyle='primary'>{t('common.find_host')}</Button>
                       </Link>
                       <div style={{ margin: '0 10px', display: 'inline-block' }}>{t('common.words.or')}</div>
-                      <Link to='language-program/search'>
+                      <Link to='language-course/search'>
                         <Button bsSize='xsmall' bsStyle='success'>{t('common.find_language_course')}</Button>
                       </Link>
                     </div>
