@@ -6,6 +6,7 @@
       "instances": 4,
       "exec_mode": "cluster",
       "min_uptime" : "120s",
+      "max_memory_restart": "600M",
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
