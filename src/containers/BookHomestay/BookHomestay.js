@@ -118,7 +118,9 @@ export default class BookHomestay extends Component {
 
   updateUserCountry = country => {
     const { dispatch, token, user } = this.props
-    const newObject = Object.assign({}, user, { address: { country } })
+    const newObject = { ...user, address: { country } }
+    delete newObject.canBook
+    delete newObject.wasHost
     dispatch(updateUser(jwtDecode(token).rid, newObject, token))
   }
 
@@ -216,6 +218,7 @@ export default class BookHomestay extends Component {
 
     // Update userType if required
     if (['HOST', 'MULTI_HOME_HOST'].includes(user.feUserType)) {
+      console.log('multi')
       checkoutActions.push(dispatch(updateUser(jwtDecode(token).rid, Object.assign({}, user, {
         feUserType: user.feUserType === 'HOST' ? 'STUDENT_AND_HOST' : 'STUDENT_AND_MULTI_HOME_HOST',
       }), token)))
