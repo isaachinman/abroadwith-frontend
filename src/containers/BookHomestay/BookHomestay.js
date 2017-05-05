@@ -221,7 +221,6 @@ export default class BookHomestay extends Component {
 
     // Update userType if required
     if (['HOST', 'MULTI_HOME_HOST'].includes(user.feUserType)) {
-      console.log('multi')
       checkoutActions.push(dispatch(updateUser(jwtDecode(token).rid, Object.assign({}, user, {
         feUserType: user.feUserType === 'HOST' ? 'STUDENT_AND_HOST' : 'STUDENT_AND_MULTI_HOME_HOST',
       }), token)))
