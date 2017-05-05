@@ -119,8 +119,6 @@ export default class BookHomestay extends Component {
   updateUserCountry = country => {
     const { dispatch, token, user } = this.props
     const newObject = { ...user, address: { country } }
-    delete newObject.canBook
-    delete newObject.wasHost
     dispatch(updateUser(jwtDecode(token).rid, newObject, token))
   }
 
@@ -142,6 +140,11 @@ export default class BookHomestay extends Component {
     const services = values.map(service => service.value)
     const newServices = this.props.potentialBooking.serviceNames.filter(service => !HomeData.homeServices.GENERAL.includes(service)).concat(services)
     this.updatePotentialHomestayBooking('serviceNames', newServices)
+    this.calculatePrice()
+  }
+
+  handleWeeklyHoursChange = value => {
+    this.updatePotentialHomestayBooking('weeklyHours', value)
     this.calculatePrice()
   }
 
@@ -454,7 +457,7 @@ export default class BookHomestay extends Component {
                                                   hideResetButton
                                                   theme='bootstrap3'
                                                   value={{ value: potentialBooking.weeklyHours, label: potentialBooking.weeklyHours }}
-                                                  onValueChange={value => this.updatePotentialHomestayBooking('weeklyHours', value.value)}
+                                                  onValueChange={value => this.handleWeeklyHoursChange(value.value)}
                                                 >
                                                   {homestay.data.immersions.teacher.packages.map(pkg => {
                                                     return (
