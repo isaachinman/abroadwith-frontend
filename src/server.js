@@ -81,7 +81,7 @@ customApiEndpoints.map(endpoint => {
 })
 
 // Use invalidator
-sessionInvalidator(app)
+// sessionInvalidator(app)
 
 // Install image upload endpoints
 imageUploadInstaller(app)
@@ -120,11 +120,11 @@ app.use((req, res) => {
 
   // Uncomment these lines to set a test token
   /* eslint-disable */
-  // const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiNlEwb0w1REZhSHNTSG5KLVVuOW4xQSIsImlhdCI6MTQ5MDEwOTUzOSwiZXhwIjoxNDkwNzE0MzM5LCJuYmYiOjE0OTAxMDk0MTksInN1YiI6IlVTRVIiLCJlbWFpbCI6Im4yNTEwODIyQG12cmh0LmNvbSIsIm5hbWUiOiJuMjUxMDgyMkBtdnJodC5jb20iLCJyaWQiOjEwMDYyNiwiY2JrIjozLCJ3aG9zdCI6ZmFsc2V9.Ugi1n629Xjp0-oH_eGelHlSjRQ8VwmF_wQkwQHWwcH9ZnzJDevOX2maTHTiGbykErQrCk3DSUARHvt_f1wCsMquTJawBLPhA2P97HSb8dt2NU47wWbYmgVkfGYnI8O5bOVpmzLE0uQNcJdQdfOqZchnd_MmWhupfVG5IekWvaZYcfWM-URUlrJh2bAL5AVw4wcm5lY5o6DwJ7ATgbc8hXpzNzV8hdqOQRiGCTAP3J_sohqvQSOUTk4t2eQjQfhnXUxA7fqUhmduZL8jvhp9Bv1eL7n8gaOcZl165G5D1AGuXQx8-6QykxexL-LQzazaG_sH0GCu6BenOcnXXvWIFgA'
-  // const expiryDate = new Date()
-  // expiryDate.setDate(expiryDate.getDate() + 30)
-  // res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
-  /* eslint-enable */
+   const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiY2hUcnpKVS1mZ01uTjU3WEhYUDI2QSIsImlhdCI6MTQ5NDAwMDg2NywiZXhwIjoxNDk0NjA1NjY3LCJuYmYiOjE0OTQwMDA3NDcsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYXF1ZUBhYnJvYWR3aXRoLmNvbSIsIm5hbWUiOiJJc2FxdWUiLCJyaWQiOjEwMDYzMCwiaGlkIjo2MjV9.oica3nUyqNhfRftIu7IXbY1zZDhjHToMmDRHTVIKWA6_951XmeRmUnslegjRQ9mqz8Vp34V_k88qujpyeS_geqP7DH5pJ0qA_PKcNZd7NO6_ExOs4qEAfPJa5zszM23R26VDLMCkKGNvWewqACq7tdjHbfB6guCjmWUcYi3c0Q5cZ-JGajxQISwrRVDvQpI3cmyqL2nCNI5ymvkcPzfaJvxu9fqwRaBVP9s35ScOlT2ocD4tD56HhNUsrYZwkFp45D4A8gnnBqyjrguAJ-8jz72OQoWE3xKe4h88QwIhrYt2ZEehVb6P5o7UQnRVDXazFE2drGVwJGyriWNOpNBlWA'
+  const expiryDate = new Date()
+  expiryDate.setDate(expiryDate.getDate() + 30)
+  res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
+  /* eslint-enablek */
 
   // Log requests in production to S3 bucket
   const loggedIn = typeof req.cookies.access_token === 'string'
