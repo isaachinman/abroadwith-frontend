@@ -583,7 +583,7 @@ export default class BookHomestay extends Component {
                                           errorFeedback='Hupsi! This coupon seems to be invalid'
                                           isValid={discountCode.isValid}
                                           value={this.state.discountCode.value}
-                                          onDebounce={debounce(this.addDiscount, 750)}
+                                          onDebounce={debounce(this.addDiscount, 1000)}
                                           onChange={({ event }) => this.handleDiscountChange(event.value)}
                                           loading={discountCode.loading}
                                           notRequired
