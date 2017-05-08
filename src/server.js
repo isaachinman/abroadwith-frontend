@@ -29,7 +29,7 @@ import { contactForm, errorHandler, getAllEducatorCourses, getClosestCity, getCo
 import serverCache from 'helpers/serverCache'
 
 // Session invalidator
-import sessionInvalidator from 'helpers/sessionInvalidator'
+// import sessionInvalidator from 'helpers/sessionInvalidator'
 
 // Relative imports
 import ApiClient from './helpers/ApiClient'
@@ -120,10 +120,10 @@ app.use((req, res) => {
 
   // Uncomment these lines to set a test token
   /* eslint-disable */
-   const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiY2hUcnpKVS1mZ01uTjU3WEhYUDI2QSIsImlhdCI6MTQ5NDAwMDg2NywiZXhwIjoxNDk0NjA1NjY3LCJuYmYiOjE0OTQwMDA3NDcsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYXF1ZUBhYnJvYWR3aXRoLmNvbSIsIm5hbWUiOiJJc2FxdWUiLCJyaWQiOjEwMDYzMCwiaGlkIjo2MjV9.oica3nUyqNhfRftIu7IXbY1zZDhjHToMmDRHTVIKWA6_951XmeRmUnslegjRQ9mqz8Vp34V_k88qujpyeS_geqP7DH5pJ0qA_PKcNZd7NO6_ExOs4qEAfPJa5zszM23R26VDLMCkKGNvWewqACq7tdjHbfB6guCjmWUcYi3c0Q5cZ-JGajxQISwrRVDvQpI3cmyqL2nCNI5ymvkcPzfaJvxu9fqwRaBVP9s35ScOlT2ocD4tD56HhNUsrYZwkFp45D4A8gnnBqyjrguAJ-8jz72OQoWE3xKe4h88QwIhrYt2ZEehVb6P5o7UQnRVDXazFE2drGVwJGyriWNOpNBlWA'
+   /*const JWT = 'eyJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJhYnJvYWR3aXRoIGFkbWluIHNlcnZlciIsImF1ZCI6ImFicm9hZHdpdGggYWRtaW4gYXBpIiwianRpIjoiY2hUcnpKVS1mZ01uTjU3WEhYUDI2QSIsImlhdCI6MTQ5NDAwMDg2NywiZXhwIjoxNDk0NjA1NjY3LCJuYmYiOjE0OTQwMDA3NDcsInN1YiI6IlVTRVIiLCJlbWFpbCI6ImlzYXF1ZUBhYnJvYWR3aXRoLmNvbSIsIm5hbWUiOiJJc2FxdWUiLCJyaWQiOjEwMDYzMCwiaGlkIjo2MjV9.oica3nUyqNhfRftIu7IXbY1zZDhjHToMmDRHTVIKWA6_951XmeRmUnslegjRQ9mqz8Vp34V_k88qujpyeS_geqP7DH5pJ0qA_PKcNZd7NO6_ExOs4qEAfPJa5zszM23R26VDLMCkKGNvWewqACq7tdjHbfB6guCjmWUcYi3c0Q5cZ-JGajxQISwrRVDvQpI3cmyqL2nCNI5ymvkcPzfaJvxu9fqwRaBVP9s35ScOlT2ocD4tD56HhNUsrYZwkFp45D4A8gnnBqyjrguAJ-8jz72OQoWE3xKe4h88QwIhrYt2ZEehVb6P5o7UQnRVDXazFE2drGVwJGyriWNOpNBlWA'
   const expiryDate = new Date()
   expiryDate.setDate(expiryDate.getDate() + 30)
-  res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })
+  res.cookie('access_token', JWT, { maxAge: 604800000, expires: expiryDate })*/
   /* eslint-enablek */
 
   // Log requests in production to S3 bucket
