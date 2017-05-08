@@ -2,7 +2,14 @@
 import React, { Component, PropTypes } from 'react'
 import { asyncConnect } from 'redux-connect'
 import { Button, Col, Collapse, ControlLabel, Fade, FormControl, FormGroup, Tab, Pager, Panel, Row, Well } from 'react-bootstrap'
-import { calculateHomestayPriceWithinBooking, createHomestayBooking, deletePotentialHomestayBooking, updatePotentialHomestayBooking } from 'redux/modules/privateData/bookings/homestayBookings'
+import {
+  calculateHomestayPriceWithinBooking,
+  createHomestayBooking,
+  deletePotentialHomestayBooking,
+  updatePotentialHomestayBooking,
+  addDiscountCode,
+  removeDiscountCode,
+} from 'redux/modules/privateData/bookings/homestayBookings'
 import { createCourseBooking } from 'redux/modules/privateData/bookings/courseBookings'
 import { createNewThreadWithHost } from 'redux/modules/privateData/messaging/messaging'
 import Currencies from 'data/constants/Currencies'
@@ -20,13 +27,14 @@ import { performCourseUpsellSearch } from 'redux/modules/ui/search/courseSearch'
 import PaymentMethods from 'components/PaymentMethods/PaymentMethods'
 import { SimpleSelect as Select, MultiSelect } from 'react-selectize'
 import { StickyContainer, Sticky } from 'react-sticky'
-import { SpinLoader } from 'components'
+import { SpinLoader, FormInput } from 'components'
 import { uiDate } from 'utils/dates'
 import { update as updateUser } from 'redux/modules/privateData/users/loadUserWithAuth'
 import UpsellCourseSearch from 'components/UpsellCourseSearch/UpsellCourseSearch'
 import { scrollToTopOfPage } from 'utils/scrolling'
 import { translate } from 'react-i18next'
 import { push } from 'react-router-redux'
+import debounce from 'debounce'
 
 // Relative imports
 import styles from './BookHomestay.styles'
@@ -50,6 +58,7 @@ import styles from './BookHomestay.styles'
     loading: state.bookings.homestayBookings.loading,
     potentialBooking: state.bookings.homestayBookings.potentialBooking,
     potentialBookingHelpers: state.bookings.homestayBookings.potentialBookingHelpers,
+    discountCode: state.bookings.homestayBookings.discountCode,
   })
 )
 @translate()
@@ -62,6 +71,11 @@ export default class BookHomestay extends Component {
     needsCountry: !this.props.user.address || !this.props.user.address.country,
     upsellSearchInitialised: false,
     messageToBeSentToHost: null,
+    discountCode: {
+      value: null,
+      isValid: null,
+      isLoading: false,
+    },
   }
 
   componentWillMount = () => this.calculatePrice()
@@ -155,6 +169,10 @@ export default class BookHomestay extends Component {
 
   handleMessageChange = event => this.setState({ messageToBeSentToHost: event.target.value })
 
+  handleDiscountChange = value => {
+    this.setState({ discountCode: { value } })
+  }
+
   updatePotentialHomestayBooking = (field, value) => {
     const { dispatch, potentialBooking } = this.props
     const newPotentialBooking = Object.assign({}, potentialBooking, { [field]: value })
@@ -242,10 +260,31 @@ export default class BookHomestay extends Component {
 
   }
 
+  addDiscount = (code) => {
+    const { dispatch, potentialBooking, potentialBookingHelpers } = this.props
+
+    if (code.value.length > 7) {
+      dispatch(addDiscountCode({ ...potentialBooking, partnerDiscountCode: code.value }, potentialBookingHelpers.price.data))
+    }
+  }
+
+  removeDiscount = () => {
+    const { dispatch, potentialBooking } = this.props
+    this.setState({
+      discountCode: {
+        value: null,
+        isValid: null,
+        isLoading: false,
+      },
+    })
+
+    dispatch(removeDiscountCode(potentialBooking))
+  }
+
   render() {
 
     const { activeStep, animationInProgress, needsCountry, upsellSearchInitialised } = this.state
-    const { user, upsellSearch, homestays, loading, t, token, potentialBooking, potentialBookingHelpers } = this.props
+    const { user, upsellSearch, homestays, loading, t, token, potentialBooking, potentialBookingHelpers, discountCode } = this.props
 
     const currencySymbol = Currencies[potentialBooking.currency]
     const homestay = homestays[potentialBookingHelpers.homeID] ? homestays[potentialBookingHelpers.homeID] : {}
@@ -528,6 +567,31 @@ export default class BookHomestay extends Component {
                                     }
 
                                     <Row>
+                                      { this.state.discountCode.value && discountCode.isValid ?
+                                        <Col sm={6} xs={12}>
+                                          <ControlLabel>You have a discount coupon</ControlLabel>
+                                          <div>
+                                            <span>#{this.state.discountCode.value} <span style={{ color: '#a94442', fontSize: 12 }}>(-{currencySymbol}{discountCode.value.toFixed(2)})</span></span>
+                                            <a style={{ marginLeft: 5, fontSize: 12 }} onClick={this.removeDiscount}>Remove</a>
+                                          </div>
+                                        </Col> :
+                                        <FormInput
+                                          colSm={5}
+                                          label='Do you have a discount coupon?'
+                                          placeholder='Enter here your coupon'
+                                          successFeedback='Wow! This coupon granted you €132 off on your booking'
+                                          errorFeedback='Hupsi! This coupon seems to be invalid'
+                                          isValid={discountCode.isValid}
+                                          value={this.state.discountCode.value}
+                                          onDebounce={debounce(this.addDiscount, 750)}
+                                          onChange={({ event }) => this.handleDiscountChange(event.value)}
+                                          loading={discountCode.loading}
+                                          notRequired
+                                        />
+                                      }
+                                    </Row>
+
+                                    <Row>
                                       <Col xs={12} sm={10}>
                                         <p className='text-muted'>{t('booking.charged_notification')}</p>
                                         <p className='text-muted'>
@@ -627,15 +691,24 @@ export default class BookHomestay extends Component {
                                               </div>
                                             </div>
                                           }
+
                                         </Col>
                                       </Row>
                                     </div>
                                   </Collapse>
                                   <Row>
                                     <Col xs={12}>
+                                      { this.state.discountCode.value && discountCode.isValid &&
+                                        <div style={[styles.extraCostsList, { borderBottom: '1px solid rgb(221, 221, 221)', paddingBottom: 10 }]}>
+                                          <span>Discount</span>
+                                          <div style={[styles.servicesListContainer, { color: '#a94442' }]} className='pull-right'>
+                                            -{currencySymbol}{discountCode.value.toFixed(2)}
+                                          </div>
+                                        </div>
+                                      }
                                       <div>
                                         <strong style={styles.totalPriceLabel}>{t('booking.total_price')}</strong>
-                                        {!potentialBookingHelpers.price.loading ? <span className='pull-right'>{currencySymbol}<span style={styles.totalPrice}>{(totalPrice).toFixed(2)}</span></span> : <span className='pull-right'>-</span>}
+                                        {!potentialBookingHelpers.price.loading ? <span className='pull-right'>{currencySymbol}<span style={styles.totalPrice}>{totalPrice && (totalPrice).toFixed(2)}</span></span> : <span className='pull-right'>-</span>}
                                       </div>
                                     </Col>
                                   </Row>
@@ -695,4 +768,5 @@ BookHomestay.propTypes = {
   token: PropTypes.string,
   potentialBooking: PropTypes.object,
   potentialBookingHelpers: PropTypes.object,
+  discountCode: PropTypes.object,
 }

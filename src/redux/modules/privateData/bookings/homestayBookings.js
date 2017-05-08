@@ -41,6 +41,11 @@ const LOAD_HOMESTAY_BOOKINGS = 'abroadwith/LOAD_HOMESTAY_BOOKINGS'
 const LOAD_HOMESTAY_BOOKINGS_SUCCESS = 'abroadwith/LOAD_HOMESTAY_BOOKINGS_SUCCESS'
 const LOAD_HOMESTAY_BOOKINGS_FAIL = 'abroadwith/LOAD_HOMESTAY_BOOKINGS_FAIL'
 
+const ADD_DISCOUNT_CODE = 'abroadwith/ADD_DISCOUNT_CODE'
+const ADD_DISCOUNT_CODE_SUCCESS = 'abroadwith/ADD_DISCOUNT_CODE_SUCCESS'
+const ADD_DISCOUNT_CODE_FAIL = 'abroadwith/ADD_DISCOUNT_CODE_FAIL'
+const REMOVE_DISCOUNT_CODE = 'abroadwith/REMOVE_DISCOUNT_CODE'
+
 const initialState = {
   bookings: {
     loaded: false,
@@ -51,6 +56,10 @@ const initialState = {
   potentialBookingHelpers: {
     price: {},
     upsellCourseBooking: {},
+  },
+  discountCode: {
+    loading: false,
+    isValid: null,
   },
 }
 
@@ -182,6 +191,46 @@ export default function reducer(state = initialState, action = {}) {
           errorMessage: action.error,
         },
       }
+    case ADD_DISCOUNT_CODE: {
+      return {
+        ...state,
+        discountCode: {
+          loading: true,
+        },
+      }
+    }
+    case ADD_DISCOUNT_CODE_FAIL: {
+      return {
+        ...state,
+        discountCode: {
+          loading: false,
+          isValid: false,
+        },
+      }
+    }
+    case ADD_DISCOUNT_CODE_SUCCESS: {
+      return {
+        ...state,
+        discountCode: {
+          loading: false,
+          isValid: true,
+          value: action.value,
+        },
+        potentialBookingHelpers: Object.assign({}, state.potentialBookingHelpers, {
+          price: {
+            loading: false,
+            loaded: true,
+            data: action.result,
+          },
+        }),
+      }
+    }
+    case REMOVE_DISCOUNT_CODE: {
+      return {
+        ...state,
+        discountCode: initialState.discountCode,
+      }
+    }
     default:
       return state
   }
@@ -248,6 +297,52 @@ export function calculateHomestayPriceWithinBooking(params) {
     }
   }
 
+}
+
+export function removeDiscountCode(params) {
+  // Clean the data
+  const cleanedParams = Object.assign({}, params)
+  delete cleanedParams.paymentMethodId
+
+  return async dispatch => {
+    dispatch({ type: REMOVE_DISCOUNT_CODE })
+    dispatch(calculateHomestayPriceWithinBooking(cleanedParams))
+  }
+}
+
+export function addDiscountCode(params, lastPrice) {
+  // Clean the data
+  const cleanedParams = Object.assign({}, params)
+  delete cleanedParams.paymentMethodId
+
+  return async dispatch => {
+
+    dispatch({ type: ADD_DISCOUNT_CODE })
+
+    try {
+
+      const request = superagent.post(`${config.apiHost}/public/bookings/price`)
+      request.send(cleanedParams)
+
+      request.end((err, res) => {
+
+        if (err) {
+
+          dispatch({ type: ADD_DISCOUNT_CODE_FAIL })
+
+        } else {
+          const newPrice = roundTo(JSON.parse(res.text), 2)
+          // Request was successful
+          dispatch({ type: ADD_DISCOUNT_CODE_SUCCESS, result: newPrice, value: lastPrice - newPrice })
+
+        }
+
+      })
+
+    } catch (err) {
+      dispatch({ type: ADD_DISCOUNT_CODE_FAIL })
+    }
+  }
 }
 
 export function createHomestayBooking(jwt, bookingObject, callback) {
