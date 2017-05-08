@@ -210,7 +210,7 @@ export default class BookHomestay extends Component {
     --------------------------------------------------------------------------*/
 
     const { messageToBeSentToHost } = this.state
-    const { dispatch, token, user, upsellSearch, potentialBooking, potentialBookingHelpers } = this.props
+    const { dispatch, token, user, upsellSearch, potentialBooking, potentialBookingHelpers, discountCode } = this.props
 
     const checkoutActions = []
 
@@ -247,6 +247,7 @@ export default class BookHomestay extends Component {
     // Create actual homestay booking request (required)
     checkoutActions.push(dispatch(createHomestayBooking(token, Object.assign({}, potentialBooking, {
       paymentMethodId: user.paymentMethods[0].id,
+      partnerDiscountCode: this.state.discountCode.value && discountCode.isValid ? this.state.discountCode.value : undefined,
     }))))
 
     // Execute all actions asynchronously
