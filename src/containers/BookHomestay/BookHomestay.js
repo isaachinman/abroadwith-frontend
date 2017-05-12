@@ -570,7 +570,7 @@ export default class BookHomestay extends Component {
                                     <Row>
                                       { this.state.discountCode.value && discountCode.isValid ?
                                         <Col sm={6} xs={12}>
-                                          <ControlLabel>You have a discount coupon</ControlLabel>
+                                          <ControlLabel>{t('booking.applied')}</ControlLabel>
                                           <div>
                                             <span>#{this.state.discountCode.value} <span style={{ color: '#a94442', fontSize: 12 }}>(-{currencySymbol}{discountCode.value.toFixed(2)})</span></span>
                                             <a style={{ marginLeft: 5, fontSize: 12 }} onClick={this.removeDiscount}>Remove</a>
@@ -701,7 +701,7 @@ export default class BookHomestay extends Component {
                                     <Col xs={12}>
                                       { this.state.discountCode.value && discountCode.isValid &&
                                         <div style={[styles.extraCostsList, { borderBottom: '1px solid rgb(221, 221, 221)', paddingBottom: 10 }]}>
-                                          <span>Discount</span>
+                                          <span>{t('booking.discount_cart')}</span>
                                           <div style={[styles.servicesListContainer, { color: '#a94442' }]} className='pull-right'>
                                             -{currencySymbol}{discountCode.value.toFixed(2)}
                                           </div>
