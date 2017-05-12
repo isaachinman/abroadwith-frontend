@@ -578,10 +578,10 @@ export default class BookHomestay extends Component {
                                         </Col> :
                                         <FormInput
                                           colSm={5}
-                                          label='Do you have a discount coupon?'
-                                          placeholder='Enter here your coupon'
-                                          successFeedback='Wow! This coupon granted you €132 off on your booking'
-                                          errorFeedback='Hupsi! This coupon seems to be invalid'
+                                          label={t('booking.discount_label')}
+                                          placeholder={t('booking.discount_placeholder')}
+                                          successFeedback={t('booking.discount_valid')}
+                                          errorFeedback={t('booking.discount_invalid')}
                                           isValid={discountCode.isValid}
                                           value={this.state.discountCode.value}
                                           onDebounce={debounce(this.addDiscount, 1000)}
