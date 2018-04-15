@@ -1,0 +1,22 @@
+{
+  "apps": [
+    {
+      "name": "main-platform",
+      "script": "./bin/server.js",
+      "instances": 4,
+      "exec_mode": "cluster",
+      "min_uptime": "2m",
+      "listen_timeout": 120000,
+      "max_memory_restart": "600M",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "production",
+        "PORT": 3000,
+        "IMG": "IMGIX",
+        "SOLR": "PROD",
+        "APIHOST": "https://api.abroadwith.com",
+        "APIPORT": 443
+      }
+    }
+  ]
+}

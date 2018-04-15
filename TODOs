@@ -1,0 +1,13 @@
+// General
+1. Use Redux Devtools Extension to produce tests
+2. Webpack long-term caching not working correctly, hash names being generate erroneously (https://github.com/webpack/webpack/issues/1315)
+3. Refactor all actions to take an exact number of arguments, eg
+    - Authorised requests: (token, data, options)
+    - Unauthorised requests: (data, options)
+4. The layout of the homes and users reducers are unintuitive and could use refactoring, or renaming at the least
+5. Refactoring getComponents in routes/index.js
+6. There is a short period in the zero downtime (production) reload where brand new users who don't have cached assets will 404 on css and js resources
+
+
+// Homepage
+1. Title in hero jumps from top to center onload

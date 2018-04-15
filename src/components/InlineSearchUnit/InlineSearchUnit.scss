@@ -1,0 +1,609 @@
+// ---------------------------------------------------------------------------
+// InlineSearchUnit
+// ---------------------------------------------------------------------------
+
+/*
+
+Dimensions:
+
+  Standalone: --------------------
+    XLarge (1100px+):
+      Language Input:    200px
+      Location Input:    190px
+      DateRange Input:   265px
+      Guest Input:       120px
+      Button:            140px
+      Total _____________915px
+    Large (800px-1100px):
+      Language Input:    180px
+      Location Input:    170px
+      DateRange Input:   225px
+      Guest Input:       80px
+      Button:            120px
+      Total _____________775px
+    Medium (500px-800px):
+      Language Input:    180px
+      Location Input:    170px
+      DateRange Input:   0
+      Guest Input:       0
+      Button:            120px
+      Total _____________470px
+    Small (<500px)
+      Language Input:    100%
+      Location Input:    100%
+      DateRange Input:   0
+      Guest Input:       0
+      Button:            100%
+      Total _____________n/a
+
+
+  Integrated: --------------------
+    XLarge (800px-1100px):
+      Language Input:    145px
+      Location Input:    142px
+      DateRange Input:   260px
+      Guest Input:       150px
+      Total _____________697px
+    Large (800px-1100px):
+      Language Input:    180px
+      Location Input:    170px
+      DateRange Input:   225px
+      Guest Input:       80px
+      Total _____________775px
+    Medium (500px-800px):
+      Language Input:    180px
+      Location Input:    170px
+      DateRange Input:   0
+      Guest Input:       0
+      Total _____________470px
+    Small (<500px)
+      Language Input:    100%
+      Location Input:    100%
+      DateRange Input:   0
+      Guest Input:       0
+      Total _____________n/a
+
+*/
+
+// Mixins for use throughout
+@mixin textOverflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@mixin focusedInput {
+  &:focus {
+    // Focused input styles
+    z-index: 2;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(111, 168, 239, 1);
+  }
+}
+
+.inline-search-unit {
+
+  // Basic styles
+  max-height: 60px;
+  display: inline-block;
+  border-radius: 5px;
+
+  // Inputs
+  input {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  // Language selection
+  .bootstrap-typeahead {
+    height: 60px;
+    background: white;
+    display: inline-block;
+    border-radius: 5px 0 0 5px;
+    &-input {
+      height: 60px;
+    }
+    &-menu {
+      max-height: 162px !important;
+      overflow: hidden !important;
+    }
+    // Dropdown items
+    li {
+      font-size: 14px;
+      a {
+        padding: 0 10px;
+        min-height: 50px;
+        line-height: 50px;
+      }
+    }
+    // Main language input
+    input {
+      @include textOverflow;
+      @include focusedInput;
+      font-size: 14px;
+      height: 60px;
+      border: none;
+      color: $bodyTextColor;
+      box-shadow: none;
+      border-radius: 5px 0 0 5px;
+      position: relative;
+    }
+
+    // Course city input
+    &.course-city {
+      border-radius: 0;
+      input {
+        border-radius: 0;
+      }
+    }
+
+  }
+
+  // Location search
+  input.location-search {
+    @include textOverflow;
+    @include focusedInput;
+    width: auto;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    height: 60px;
+    color: $bodyTextColor;
+    font-size: 14px;
+    position: relative;
+  }
+
+  // Date range picker
+  .daterangepicker-large {
+    @media (max-width: 799px) {
+      display: none !important;
+    }
+    .DateInput, .DateRangePickerInput {
+      border-radius: 0;
+    }
+  }
+
+  // Guest count picker
+  .react-selectize {
+    @media (max-width: 799px) {
+      display: none !important;
+    }
+    background: white;
+    display: inline-block;
+    vertical-align: top;
+    .react-selectize-search-field-and-selected-values {
+      width: 80px;
+      max-height: 60px;
+      line-height: 60px;
+      .value-wrapper {
+        max-width: calc(100% - 20px);
+        .simple-value {
+          max-width: 100%;
+          max-height: 100%;
+          span {
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+    .dropdown-menu {
+      margin-top: 2px !important;
+      font-family: "Karla";
+    }
+    .simple-option {
+      padding: 0 10px !important;
+      height: 50px !important;
+      line-height: 50px !important;
+    }
+    &.bootstrap3.root-node.open .react-selectize-control {
+      // Focused input styles
+      z-index: 108;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(111, 168, 239, 1);
+    }
+    &.root-node {
+      width: auto;
+    }
+    &-control {
+      border: none !important;
+      border-radius: 0 !important;
+    }
+    .option-wrapper.highlight {
+      background: #f5f5f5 !important;
+      .simple-option {
+        color: $bodyTextColor !important;
+      }
+    }
+    .simple-value {
+      font-size: 14px;
+      color: $bodyTextColor;
+    }
+    .resizable-input {
+      height: 60px;
+      min-width: 2px;
+      margin: 0 2px !important;
+    }
+    .react-selectize-reset-button-container {
+      display: none !important;
+    }
+    .react-selectize-toggle-button-container {
+      height: 60px !important;
+      width: 20.8px !important;
+      padding-right: 10px !important;
+    }
+
+    // Course level input
+    &.course-level {
+      width: 120px;
+      @media (min-width: 1100px) {
+        width: 130px;
+      }
+      .react-selectize-control {
+        padding: 0 30px;
+      }
+      .react-selectize-search-field-and-selected-values {
+        .simple-value {
+          margin: 0 2px;
+          height: 100%;
+          line-height: 60px;
+        }
+      }
+      .react-selectize-placeholder {
+        height: 100%;
+        line-height: 60px;
+        max-width: 100%;
+        color: #999 !important;
+        font-size: 14px;
+      }
+      .react-selectize.dropdown-menu {
+        font-size: 14px;
+        .simple-option {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+  }
+
+  // Search button
+  button.search-btn {
+    @include gradient-animation( #5A65DB, #6FA8EF, 0.25s );
+    @include textOverflow;
+    cursor: pointer;
+    vertical-align: top;
+    background: $babyBlue;
+    border: none;
+    width: 120px;
+    height: 60px;
+    border-radius: 0 4px 4px 0;
+    color: white;
+    font-size: 16px;
+    padding: 0 10px;
+    &:disabled {
+      opacity: 1;
+      cursor: not-allowed !important;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // MODIFIERS
+  // ---------------------------------------------------------------------------
+
+  &.shadow {
+    box-shadow: 5px 5px 13px 0 rgba(0,0,0,0.15);
+  }
+
+  // Standalone styles
+  &.standalone {
+
+    @media (max-width: 499px) {
+      margin: 0 15px;
+      height: auto;
+      max-height: none;
+    }
+
+    // Language input
+    .bootstrap-typeahead {
+      @media (max-width: 499px) {
+        width: 100%;
+        border-radius: 5px 5px 0 0;
+        .dropdown-menu {
+          width: 100%;
+        }
+      }
+      input {
+        width: 180px;
+        @media (min-width: 1100px) {
+          min-width: 200px;
+        }
+        @media (max-width: 499px) {
+          width: 100%;
+          border-radius: 5px 5px 0 0;
+        }
+      }
+
+      // Course language input
+      &.course-language {
+        input {
+          width: 160px;
+          @media (min-width: 1100px) {
+            min-width: 200px;
+          }
+          @media (max-width: 499px) {
+            width: 100%;
+            border-radius: 5px 5px 0 0;
+          }
+        }
+      }
+
+      // Course city input
+      &.course-city {
+        input {
+          width: 140px;
+          @media (min-width: 1100px) {
+            min-width: 170px;
+          }
+          @media (max-width: 499px) {
+            width: 100%;
+            border-radius: 0;
+          }
+        }
+      }
+
+    }
+
+    // Location input
+    input.location-search {
+      width: 170px;
+      @media (min-width: 1100px) {
+        min-width: 190px;
+      }
+      @media (max-width: 499px) {
+        width: 100%;
+      }
+    }
+
+    // Date input
+    @media (min-width: 1100px) {
+      .DateInput {
+        width: 120.5px;
+      }
+    }
+
+    // Guest input
+    @media (min-width: 1100px) {
+      .react-selectize-control {
+        padding: 0 0 0 10px;
+      }
+    }
+
+    // Search button
+    button.search-btn {
+      @media (min-width: 1100px) {
+        width: 140px;
+      }
+      @media (max-width: 499px) {
+        border-radius: 0 0 5px 5px;
+        width: 100%;
+      }
+    }
+
+  }
+
+  // Integrated styles
+  &.integrated {
+    box-sizing: border-box;
+    border: 5px solid #eee;
+    border-top: none;
+    border-right: none;
+    border-radius: 0;
+    background: white;
+    max-height: 70px;
+    @media (max-width: 1199px) {
+      text-align: center;
+      width: 100%;
+      border-right: 5px solid #eee;
+    }
+
+    // Language input
+    .bootstrap-typeahead {
+      width: 145px;
+      @media (max-width: 799px) {
+        width: 50%;
+      }
+      input {
+        border-radius: 0;
+      }
+
+      // Course language input
+      &.course-language {
+        width: 177px
+      }
+
+      // Course city input
+      &.course-city {
+        width: 155px;
+      }
+
+    }
+
+    // Location input
+    input.location-search {
+      width: 142px;
+      @media (max-width: 799px) {
+        width: 50%;
+      }
+    }
+
+    // Date input
+    .DateRangePicker {
+      padding: 0 10px;
+      .DateInput {
+        width: 108px;
+      }
+    }
+
+    // Guest input
+    .react-selectize {
+      min-width: 150px;
+      &-control {
+        padding: 0 14px;
+      }
+
+      // Course level
+      &.course-level {
+        min-width: 105px;
+        max-width: 105px;
+        .react-selectize-control {
+          padding: 0 20px;
+        }
+      }
+
+    }
+
+  }
+}
+
+// Google search results
+// Has to be global
+.pac-container {
+  padding: 5px 0;
+  border-radius: 5px;
+  min-width: 240px;
+  max-height: 162px !important;
+  margin-top: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+  .pac-item-query, .pac-matched {
+    color: $bodyTextColor;
+    font-size: 14px;
+    opacity: 1 !important;
+  }
+  .pac-item {
+    color: $bodyTextColor;
+    cursor: pointer;
+    font-family: "Karla";
+    font-size: 14px;
+    &:hover {
+      background: #f5f5f5;
+    }
+    span {
+      opacity: .5;
+    }
+    border-top: none;
+    min-height: 50px;
+    line-height: 50px;
+    padding: 0 10px;
+    .pac-icon {
+      display: none;
+    }
+  }
+  &:after {
+    display: none;
+  }
+}
+
+// Global datepicker styles
+.daterangepicker-large {
+  height: 60px;
+  vertical-align: top;
+  .DateRangePickerInput {
+    height: 60px;
+    border: none;
+  }
+  .DateInput {
+    padding: 18px 7.5px 17px 7.5px;
+    width: 100.5px;
+  }
+  .DateInput__input {
+    height: 60px;
+  }
+  .DateInput__display-text--focused {
+    background: $babyBlue;
+    color: white !important;
+  }
+  .DateInput__display-text {
+    font-size: 14px;
+    color: #999; // Placeholder text colour
+    &--has-input {
+      color: $bodyTextColor;
+    }
+    text-align: center;
+    padding: 1px 0 0 0;
+  }
+}
+
+// Datepicker for book now
+.book-now-panel {
+  .daterangepicker-large {
+    .DateInput {
+      padding: 18px 0;
+      .DateInput__display-text {
+        font-size: 16px;
+      }
+      &:first-child {
+        padding-right: 5px
+      }
+      &:last-child {
+        padding-left: 5px;
+      }
+    }
+  }
+}
+
+// Guest count picker for book now
+.react-selectize.book-now-room-select {
+  background: white;
+  vertical-align: top;
+  margin-bottom: 10px;
+  .dropdown-menu {
+    margin-top: 2px !important;
+    font-family: "Karla";
+  }
+  .simple-option {
+    padding: 0 10px !important;
+    height: 50px !important;
+    line-height: 50px !important;
+  }
+  .react-selectize-control {
+    border-color: #ddd !important;
+  }
+  &.bootstrap3.root-node.open .react-selectize-control {
+    // Focused input styles
+    z-index: 2;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(111, 168, 239, 1);
+  }
+  &.root-node {
+    width: auto;
+  }
+  &-control {
+    border: none !important;
+    border-radius: 0 !important;
+  }
+  .option-wrapper.highlight {
+    background: #f5f5f5 !important;
+    .simple-option {
+      color: $bodyTextColor !important;
+    }
+  }
+  .simple-value {
+    font-size: 14px;
+    color: $bodyTextColor;
+  }
+  .resizable-input {
+    height: 40px;
+    min-width: 2px;
+    margin: 0 2px !important;
+  }
+  .react-selectize-reset-button-container {
+    display: none !important;
+  }
+  .react-selectize-toggle-button-container {
+    height: 40px !important;
+    width: 20.8px !important;
+    padding-right: 10px !important;
+  }
+}

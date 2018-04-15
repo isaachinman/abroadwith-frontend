@@ -1,0 +1,21 @@
+{
+  "pending": [
+    "PENDING"
+  ],
+  "declined": [
+    "DECLINED_BY_GUEST",
+    "DECLINED_BY_HOST",
+    "DECLINED_AUTOMATICALLY"
+  ],
+  "cancelled": [
+    "CANCELLED_BY_GUEST",
+    "CANCELLED_BY_HOST"
+  ],
+  "approved": [
+    "APPROVED",
+    "PAID_OUT"
+  ],
+  "archived": [
+    "ARCHIVED"
+  ]
+}

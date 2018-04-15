@@ -1,0 +1,1 @@
+export googleTrack from './googleTrack'

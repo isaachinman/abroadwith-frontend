@@ -1,0 +1,107 @@
+{
+  "homeTypes": [
+    "FLAT",
+    "HOUSE",
+    "LOFT",
+    "CABIN",
+    "DORM",
+    "CHALET",
+    "OTHER"
+  ],
+  "homeServices": {
+    "MEAL_PLAN": [
+      "ONLY_BREAKFAST",
+      "HALF_BOARD",
+      "FULL_BOARD"
+    ],
+    "GENERAL": [
+      "CLEANING",
+      "EXTRA_GUEST",
+      "LAUNDRY",
+      "AIRPORT_PICKUP"
+    ],
+    "FOOD_OPTION": [
+      "VEGAN",
+      "VEGETARIAN",
+      "DIABETIC",
+      "GLUTEN_FREE",
+      "HALAL",
+      "KOSHER",
+      "LACTOSE_INTOLERANCE",
+      "NUT_ALLERGIES",
+      "FISH_AND_SHELLFISH_FREE",
+      "SOY_FREE"
+    ]
+  },
+  "homeSettings": {
+    "SAFETY": [
+      "FIRST_AID",
+      "FIRE_EXTINGUISHER",
+      "SAFETY_CARD"
+    ],
+    "AMENITIES": [
+      "TV",
+      "CABLE_TV",
+      "AIR_CONDITIONING",
+      "ESSENTIALS",
+      "HEATING",
+      "INTERNET",
+      "KITCHEN",
+      "WIFI"
+    ],
+    "EXTRAS": [
+      "DRYER",
+      "ELEVATOR_IN_BUILDING",
+      "FREE_PARKING_NEARBY",
+      "GYM",
+      "HOT_TUB",
+      "INDOOR_FIREPLACE",
+      "POOL",
+      "WASHER"
+    ],
+    "PREFERENCES": [
+      "FAMILY_FRIENDLY",
+      "PETS_ALLOWED",
+      "PETS_LIVE_IN_THE_HOUSE",
+      "SMOKING_ALLOWED",
+      "WHEELCHAIR_ACCESSIBLE"
+    ]
+  },
+  "filters": [
+    "AIR_CONDITIONING",
+    "CABLE_TV",
+    "ESSENTIALS",
+    "HEATING",
+    "INTERNET",
+    "KITCHEN",
+    "TV",
+    "WIFI",
+    "DRYER",
+    "ELEVATOR_IN_BUILDING",
+    "FREE_PARKING_NEARBY",
+    "GYM",
+    "HOT_TUB",
+    "INDOOR_FIREPLACE",
+    "POOL",
+    "WASHER",
+    "DIABETIC",
+    "FISH_AND_SHELLFISH_FREE",
+    "GLUTEN_FREE",
+    "HALAL",
+    "KOSHER",
+    "LACTOSE_INTOLERANCE",
+    "NUT_ALLERGIES",
+    "SOY_FREE",
+    "VEGAN",
+    "VEGETARIAN",
+    "FAMILY_FRIENDLY",
+    "LGBT_FRIENDLY",
+    "PETS_ALLOWED",
+    "PETS_LIVE_IN_THE_HOUSE",
+    "SMOKING_ALLOWED",
+    "WHEELCHAIR_ACCESSIBLE",
+    "FIRE_EXTINGUISHER",
+    "FIRST_AID",
+    "SAFETY_CARD"
+  ]
+}
