@@ -75,9 +75,9 @@ export default class Navbar extends Component {
             {!jwt &&
               <span style={styles.desktopNavbar}>
                 <Nav navbar pullRight>
-                  <NavItem onClick={() => this.props.dispatch(openHostSignupModal())}>{t('common.navbar_become_host')}</NavItem>
-                  <NavItem onClick={() => this.props.dispatch(openStudentSignupModal())}>{t('common.navbar_sign_up')}</NavItem>
-                  <NavItem onClick={() => this.props.dispatch(openLoginModal())}>{t('common.navbar_login')}</NavItem>
+                  <NavItem>{t('common.navbar_become_host')}</NavItem>
+                  <NavItem>{t('common.navbar_sign_up')}</NavItem>
+                  <NavItem>{t('common.navbar_login')}</NavItem>
                 </Nav>
               </span>
             }
@@ -135,9 +135,9 @@ export default class Navbar extends Component {
             {!jwt &&
               <span style={styles.mobileNavbar}>
                 <Nav>
-                  <NavItem onClick={() => this.props.dispatch(openHostSignupModal())}>{t('common.navbar_become_host')}</NavItem>
-                  <NavItem onClick={() => this.props.dispatch(openStudentSignupModal())}>{t('common.navbar_sign_up')}</NavItem>
-                  <NavItem onClick={() => this.props.dispatch(openLoginModal())}>{t('common.navbar_login')}</NavItem>
+                  <NavItem>{t('common.navbar_become_host')}</NavItem>
+                  <NavItem>{t('common.navbar_sign_up')}</NavItem>
+                  <NavItem>{t('common.navbar_login')}</NavItem>
                 </Nav>
               </span>
             }

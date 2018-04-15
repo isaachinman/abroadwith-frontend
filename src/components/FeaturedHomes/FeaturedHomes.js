@@ -32,7 +32,7 @@ export default class FeaturedHomes extends Component {
             return (
               <Col xs={12} md={4} key={`featured_home_${home}`}>
                 <div style={styles.container} className='featured-homestay'>
-                  <Link to={t(`featured_homes.homestays.featured_home_${home}.link_to_profile`)} style={styles.profileLink} />
+                  <Link style={styles.profileLink} />
                   <div style={Object.assign({}, styles.homePhoto, { backgroundImage: `url(${config.img}${t(`featured_homes.homestays.featured_home_${home}.home_image`)})` })} />
                   <h6 className='title' style={styles.title}>{t(`featured_homes.homestays.featured_home_${home}.title`)} <br /> <small>{t(`featured_homes.homestays.featured_home_${home}.location`)}</small></h6>
                   <h6 className='text-muted' style={styles.price}>{t(`featured_homes.homestays.featured_home_${home}.price`)}</h6>
