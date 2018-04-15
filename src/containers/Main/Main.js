@@ -1,7 +1,7 @@
 // Absolute imports
 import React, { Component, PropTypes } from 'react'
 import { babyBlue, freshGreen, warmPurple, saturatedPurple, headerBluePurple } from 'styles/colors'
-import { BackgroundColorBlock, FeaturedHomes, HowDoesItWork, InlineSearchUnit, Testimonial } from 'components'
+import { BackgroundColorBlock, DemoBanner, FeaturedHomes, HowDoesItWork, InlineSearchUnit, Testimonial } from 'components'
 import { Button, Col, Grid, Modal, Panel, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { createHomestay } from 'redux/modules/privateData/homes/homeManagement'
@@ -64,6 +64,8 @@ export default class Main extends Component {
     return (
       <div>
 
+        <DemoBanner />
+
         <Helmet
           title={t('main.title')}
           meta={[
@@ -104,27 +106,27 @@ export default class Main extends Component {
                 <Panel style={styles.immersionPanel}>
                   <h3 className='header-pink'>{t('common.Stay')}</h3>
                   <p style={styles.immersionDescription}>{t('common.stay_description')}</p>
-                  <Button onClick={() => this.redirectToSearchWithImmersionType('stay')} bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: warmPurple })}>{t('common.find_host')}</Button>
+                  <Button bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: warmPurple })}>{t('common.find_host')}</Button>
                 </Panel>
               </Col>
               <Col xs={12} md={4}>
                 <Panel style={styles.immersionPanel}>
                   <h3 className='header-blue'>{t('common.Tandem')}</h3>
                   <p style={styles.immersionDescription}>{t('common.tandem_description')}</p>
-                  <Button onClick={() => this.redirectToSearchWithImmersionType('tandem')} bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: saturatedPurple })} >{t('common.find_host')}</Button>
+                  <Button bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: saturatedPurple })} >{t('common.find_host')}</Button>
                 </Panel>
               </Col>
               <Col xs={12} md={4}>
                 <Panel style={styles.immersionPanel}>
                   <h3 className='header-green'>{t('common.Teacher')}</h3>
                   <p style={styles.immersionDescription}>{t('common.teacher_description')}</p>
-                  <Button onClick={() => this.redirectToSearchWithImmersionType('teacher')} bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: freshGreen })}>{t('common.find_host')}</Button>
+                  <Button bsSize='xsmall' style={Object.assign({}, styles.immersionBtn, { background: freshGreen })}>{t('common.find_host')}</Button>
                 </Panel>
               </Col>
             </Row>
             <Row>
               <Col xs={12} style={styles.hostBtnRow}>
-                <Button onClick={() => this.redirectToSearchWithImmersionType('stay')} bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: babyBlue })} >{t('common.see_all_hosts')}</Button>
+                <Button bsSize='xsmall' style={Object.assign({}, styles.hostBtn, { background: babyBlue })} >{t('common.see_all_hosts')}</Button>
                 {!jwt &&
                   <span>
                     {t('common.words.or')}
