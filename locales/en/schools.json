@@ -1,0 +1,37 @@
+{
+  "address": "Address",
+  "tabs": {
+    "school": "School",
+    "city": "City",
+    "reviews": "Reviews",
+    "courses": "Courses"
+  },
+  "school_size": "School size",
+  "sizes": {
+    "S": "Small",
+    "M": "Medium",
+    "L": "Large"
+  },
+  "website": "Website",
+  "languages_offered": "Languages offered",
+  "language": "The language",
+  "culture": "Culture",
+  "nightlife": "Nightlife",
+  "course_weekcounts": {
+    "w1": "first",
+    "w2": "second",
+    "w3": "third",
+    "w4": "fourth",
+    "w5": "fifth"
+  },
+  "course_length_descriptors": {
+    "non_recurring": "Course starting {{startDate}} and ending {{endDate}}",
+    "weekly": "Weekly course starting every {{dayOfWeek}}",
+    "monthly": "Monthly course starting the {{weekCount}} {{dayOfWeek}} of each month",
+    "quarterly": "Quarterly course starting the {{weekCount}} {{dayOfWeek}} of each quarter",
+    "biannual": "Bi-annual course starting the {{weekCount}} {{dayOfWeek}} of each half-year"
+  },
+  "date_range_not_available": "The selected course dates are not available.",
+  "choose_new_dates": "Please choose a new date range that includes at least one course length.",
+  "student_name": "Student name"
+}

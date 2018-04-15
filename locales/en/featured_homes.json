@@ -1,0 +1,29 @@
+{
+  "title": "Featured homestays",
+  "homestays": {
+    "featured_home_1": {
+      "home_image": "/app/featured_homes/generic_cities/madrid.jpg",
+      "host_image": "/users/100409/1472132167475.jpeg",
+      "title": "Lu & Borch's home",
+      "price": "€185/week",
+      "location": "Madrid",
+      "link_to_profile": "/homestay/1546"
+    },
+    "featured_home_2": {
+      "home_image": "/app/featured_homes/generic_cities/barcelona.jpg",
+      "host_image": "/users/389/1478783827571.jpg",
+      "title": "Alicia's home",
+      "price": "€129/week",
+      "location": "Barcelona",
+      "link_to_profile": "/homestay/114"
+    },
+    "featured_home_3": {
+      "home_image": "/app/featured_homes/generic_cities/berlin.jpg",
+      "host_image": "/users/389/1478783827571.jpg",
+      "title": "Maria's family home",
+      "price": "€200/week",
+      "location": "Berlin",
+      "link_to_profile": "/homestay/963"
+    }
+  }
+}

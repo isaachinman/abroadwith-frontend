@@ -1,0 +1,36 @@
+{
+  "title": "Meine Sprachgäste",
+  "subtitle": "Wen werden Sie als nächstes beherbergen?",
+  "confirm_modal_title": "Bestätigen",
+  "confirm_modal_body": "Sind Sie sicher, dass Sie Ihre Buchung stornieren wollen? Sie werden eventuell potenziellen Einnahmen verlieren.",
+  "actions": {
+    "cancel": "Abbrechen",
+    "decline": "Ablehnen"
+  },
+  "emergency_contact_not_provided": "Nicht vorhanden",
+  "reservation_details": "Reservierungseinzelheiten",
+  "sections": {
+    "guest": "Gast",
+    "status": "Status",
+    "location_details": "Termine und Lage",
+    "details": "Informationen"
+  },
+  "search_by_guest_name": "Suche per Gästenamen",
+  "status_codes": {
+    "PENDING": "Ausstehend",
+    "APPROVED": "Bestätigt",
+    "DECLINED": "Abgelehnt",
+    "DECLINED_AUTOMATICALLY": "Automatisch abgelehnt",
+    "DECLINED_BY_HOST": "Von dir abgelehnt",
+    "DECLINED_BY_GUEST": "Vom Gast abgelehnt",
+    "CANCELLED": "Storniert",
+    "DECLINED_BY_EDUCATOR": "Vom Lehrer abgelehnt",
+    "CANCELLED_BY_GUEST": "Vom Gast storniert",
+    "CANCELLED_BY_EDUCATOR": "Vom Lehrer storniert",
+    "CANCELLED_BY_HOST": "Von dir storniert",
+    "PAID_OUT": "Angenommen",
+    "ARCHIVED": "Vergangene Buchungen"
+  },
+  "cannot_approve_booking_title": "Die Buchung kann nicht durchgeführt werden",
+  "cannot_approve_booking_description": "Es gibt bereits eine genehmigte Buchung während dieser Zeit in diesem Zimmer."
+}

@@ -1,0 +1,431 @@
+{
+  "title": "Hilfe",
+  "content": "Hallo! Wie können wir Dir helfen? Bitte sende eine Email mit Deinen Fragen an <a href='mailto:support@abroadwith.com'>support@abroadwith.com</a>. Wir werden Dir so schnell wie möglich antworten.",
+  "general_section": {
+    "title": "Allgemein",
+    "what_is_abroadwith": {
+      "title": "Was ist Abroadwith?",
+      "first_platform": "Abroadwith ist die erste zentrale Plattform auf der Sprachschüler aus der ganzen Welt sich mit ihren idealen Gastgebern in Verbindung setzen können und dabei noch in einer nahegelegende Sprachschule Kurse buchen können.",
+      "hosts": "Gastgeber können ihre feien Zimmer kostenlos vorstellen indem sie ein “Zuhause” veröffentlichen. Zusätzlich können die Gastgeber aus drei einzigartigen Immersionsprogrammen wählen, die sie den Sprachschülern anbieten können. Sprachschüler können sich ebenfalls kostenlos auf der Website registrieren, indem sie ein persönliches “ Profil” erstellen, um dann nach ähnlichen Interessen bei mögichen zukünftigen Gastgebern zu suchen und zu finden.",
+      "allowing": "Durch Einsetzen einfacher Suchfilter finden sich Sprachschüler und Gastgeber. Abroadwith bringt Transparenz in eine bisher eher undurchsichtige Industrie,"
+    },
+    "how_does_it_work": {
+      "title": "Wie funktioniert Abroadwith?",
+      "simple": "Es geht ganz einfach. Wenn man eine Sprache im Ausland erlernen möchte, klickt man auf den button “Registrierung für Sprachschüler”. Wenn man Sprachschüler bei sich Zuhause aufnehmen möchte  und Gastgeber werden möchte dann klickt man auf den button “Gastgeber werden”.Schritt für Schritt leiten tool-kits durch das Programm um das Profil zu vervollständigen und das angebotene Zuhause in ein paar Minuten zu veröffentlichen.",
+      "how_to_guide": "Um eine Anleitung zur Registrierung zu sehen kann man hier klicken <a href='https://drive.google.com/open?id=0ByNHl9mFbFG2QUtOZlNkdzlFeDA'>here</a>"
+    },
+    "why_abroadwith": {
+      "title": "Wie unterscheidet sich Abroadwith von Austauschagenturen und anderen Plattformen?",
+      "founded": "Abroadwith wurde mit der Absicht von Transparenz und Fairness gegründet. Aus eigener Erfahrung als Sprachschüler wissen wir, dass Sprachschüler oft viel zu viel an Agenturen oder Dritte  bezahlen, um auch nur mit Gastgebern in Kontakt zu kommen. Auf der anderen Seite bekommen die Gastgeber nicht genug Geld für den Aufenthalt, weil die Agenturen eine ziemlich hohe Gebühr für die Vermittlung der beiden verlangen.Dadurch entsteht ein Mißverhältnis in den Erwartungen der Sprachschüler zu dem was die Gastgeber tatsächlich leisten können.",
+      "market_value": "Wohingegen der Gastgeber bei Abroadwith die Gelegenheit bekommt einen, aus seiner Sicht, fairen Preis zu nennen und der Sprachstudent  einen fairen marküblichen Wert bezahlt. Das ist eine win-win-Situation. Wir hoffen, dass dadurch viel mehr Sprachstudenten die Möglichkeit bekommen eine Sprache im Ausland zu erlernen, einfach, weil sie sich die sehr viel günstigeren Aufenthalten jetzt leisten können.",
+      "commission": "Abroadwith nimmt nur eine einmalige, kleine Kommission für die ganze Buchung (jeweils vom Studenten und vom Gastgeber), um die Kosten für Geldtransfer, Währungdifferenz und den Unterhalt der Plattform ausgleichen zu können."
+    },
+    "define_homestay_immersion": {
+      "title": "Was bedeutet Gastgeber Immersion?",
+      "accommodation_option": "Eine Gastgeber Immersion ist eine Unterkunftsmöglichkeit für einen Sprachschüler, der im Ausland leben und dort durch direkten Kontakt mit Einheimischen in die jeweilige neue Sprache und Kultur eintauchen möchte. Ein Gastgeberaufenthalt bedeutet, der Student lebt direkt in einer lokalen Familie oder Wohngemeinschaft. Das Zusammenleben mit Einheimischen ist für einen Sprachschüler das perfekte Gerüst  um sich selbst in die lokale Kultur zu integrieren und die eigenen Spracheigenschaften zu perfektionieren."
+    },
+    "minimum_user_age_abroadwith": {
+      "title": "Muss man ein bestimmtes Alter haben um Abroadwith nutzen zu können?",
+      "eighteen": "Wer 18 Jahre oder älter ist, ist auf der Abroadwith Plattform herzlich willkommen."
+    },
+    "sign_up_cost": {
+      "title": "Wieviel kostet es sich bei Abroadwith zu registrieren?",
+      "free": "Die Registrierung bei Abroadwith ist völlig kostenlos."
+    },
+    "abroadwith_fees": {
+      "title": "Wie wird Abroadwith bezahlt?",
+      "commission": "Abroadwith nimmt eine einmalige, ca. 3% Kommission vom Gastgeber für die ganze Buchung und eine Servicegebühr von den Sprachstudenten. Aus diesen kleinen Prozenten werden  die Kosten für den Geldtransfer, Währungsausgleich und der Pflege der Plattform gedeckt."
+    },
+    "when_was_abroadwith_founded": {
+      "title": "Wie lange besteht Abroadwith schon?",
+      "founded_in": "Abroadwith wurde im August 2015 gegründet."
+    },
+    "how_to_search_cities": {
+      "title": "Wie suche ich nach einem Aufenthalt in einer Stadt, die mich interessiert?",
+      "type_it_in": "Man schreibt den Namen der Stadt in das Feld “ Wähle einen Ort” und  klickt dann auf “Suchen”. Von dort aus gelangt man auf die Seite auf der alle, in der gewünschten Stadt oder In der Umgebung, bei Abroadwith registrierten Gastgeber angezeigt werden."
+    }
+  },
+  "student_section": {
+    "title": "Studenten",
+    "general_section": {
+      "title": "Allgemein",
+      "how_to_send_host_message": {
+        "title": "Wie sende ich einem Gastgeber, an dem ich interessiert bin, eine Nachricht?",
+        "click_the_button": "Um einen Gastgeber zu kontaktieren kann auf dessen Profil geklickt werden und dann unter “Details” der Button “Gastgeber kontaktieren” geklickt werden, Es öffnt sich ein Fenster, in das eine Nachricht an den Gastgeber geschrieben werden kann. Es muss das Datum der Anreise und Abreise eingegeben werden bevor die Nachricht gesendet werden kann,"
+      },
+      "how_to_book": {
+        "title": "Wie schicke ich eine Buchungsanfrage?",
+        "very_easy": "Eine Buchungsanfrage zu senden geht auf unserer Plattform ganz einfach. Wenn der  gewünschte Gastgeber gefunden wurde, geht man auf das Wohnungsprofil des Gastgebers und gibt unter “Buchung” (in der Mitte der Seite links) die Reisedaten ein. Danach klickt man auf den button “jetzt buchen” ( auf der Mitte rechts). Danach kann man seine Daten auf dem Buchungsformular eingeben."
+      },
+      "booking_confirmation": {
+        "title": "Wie wird meine Buchung bestätigt?",
+        "confirmation_notification": "Wenn die Buchungsanfrage geschickt ist, bekommt der Gastgeber eine Nachricht  und wird aufgefordert innerhalb von 48 Stunden díe Buchung zu bestätigen oder abzulehnen. Der Student bekommt per Email eine Information über die Antwort des Gastgebers."
+      },
+      "no_host_response": {
+        "title": "Was ist wenn ich keine Antwort vom Gastgeber bekomme?",
+        "forty_eight_hours": "Die Gastgeber sind aufgefordert innerhalb von 48 Stunden nach Eingang der Buchungsanfrage zu antworten. Nur wenn der Gastgeber die Buchung akzeptiert, ist sie auch bestätigt. Der Student bekommt aber auf jedem Fall per Email eine Antwort von Abroadwith, egal ob die Buchung bestätigt oder abgelehnt wurde. Wenn nach 48 Stunden keine Nachricht vom Gastgeber eingetroffen ist, gilt die Buchung als  abgelehnt. Auch in diesem Fall wird Abroadwith den Studenten auch per Email benachrichtigen."
+      },
+      "finding_desired_destination": {
+        "title": "Was ist wenn ich mein gewünschtes  Reiseziel nicht finden kann?",
+        "growing": "Abroadwith breitet sich rasant aus. Wenn man das gewünschte Ziel aber trotzdem nicht findet, kann man uns jederzeit unter support@abroadwith.com ansprechen und mitteilen wohin man reisen möchte. Wir können bestimmt etwaige Gastgeber in der Nähe des Reiseziels finden."
+      },
+      "knowing_host_availability": {
+        "title": "Wie finde ich heraus zu welcher Zeit beim Gastgeber ein Zimmer frei ist?",
+        "showcase": "Wenn die gewünschte Zeit eingegeben wird, erscheinen im Schaukasten nur die Gastgeber, die während dieser Zeit frei sind."
+      },
+      "how_to_pay": {
+        "title": "Wie bezahle ich?",
+        "payment_methods": "Sprachschüler können per Kreditkarte zahlen oder per paypal."
+      },
+      "how_to_cancel_bookings": {
+        "title": "Kann ich eine Buchung wieder stornieren?",
+        "cancellation": "Dem Sprachschüler steht es frei die Buchung vor Beginn des Programms zu stornieren. Allerdings gibt einige Stornierungsbedingungen, die zu beachten sind:",
+        "standard_cancellation": "Standard Stornierung: (14 oder mehr Tage vor Beginn des Aufenthaltes und/ oder Sprachkurses). Der Student zahlt die Buchungsgebühren",
+        "short_cancellation": "Kurzfristige Stornierung: (weniger als 14 Tage vor Beginn des Aufenthaltes und/ oder Sprachkurses). Der Student zahlt eine Strafgebühr von 15% der Buchung (einschließlich aller Gebühren)."
+      },
+      "when_host_cancels_booking": {
+        "title": "Was ist wenn der Gastgeber die Buchung storniert?",
+        "not_charged": "Der Sprachschüler wird sofort automatisch per Email benachrichtigt und bezahlt natürlich nichts."
+      },
+      "issues_with_bookings": {
+        "title": "Was ist wenn ich Probleme mit meiner Buchung habe bevor der Aufenthalt beginnt?",
+        "contact_us": "Abroadwith sollte sofort unter support@abroadwith.com kontaktiert werden. Vielleicht kommt eine  Standard oder kurzfristige Stornierung zur Anwendung."
+      },
+      "modifying_booking_dates": {
+        "title": "Was ist wenn ich meinen Aufenthalt abkürzen will?",
+        "contact_us": "Abroadwith sollte sofort unter support@abroadwith.com kontaktiert werden. Vielleicht kommt Standard oder kurzfristige Stornierung zur  Anwendung."
+      },
+      "writing_reviews": {
+        "title": "Kann ich eine Kritik über meine Erfahrung schreiben?",
+        "review_host": "Wir empfehlen es sogar, nach dem Aufenthalt eine Kritik über die Immersions-Erfahrung zu schreiben. Kritiken helfen den Gastgebern ihren Service zu verbessern und liefern anderen Studenten einen guten Einblick in ein empfehlenswertes Zuhause."
+      }
+    },
+    "pricing_section": {
+      "title": "Preisgestaltung",
+      "included_in_price": {
+        "basic_rate": "Die Basisrate beinhaltet den Raum und ein Frühstück. Für alle anderen Services und Extras muss der Student bezahlen. Die Preise hängen von den jeweiligen Gastgebern ab. Wir ermutigen alle Studenten die Preise zu vergleichen und sich darüber zu informieren was sie beinhalten, bevor sie sich auf den Weg zu ihrem neuen Reiseziel machen.",
+        "title": "Was beinhaltet der Preis?"
+      },
+      "asking_for_discounts": {
+        "title": "Kann ich den Gastgeber nach einem Rabatt fragen bevor ich buche?",
+        "no": "Leider nein. Die Preise die angezeigt werden, müssen auch so bezahlt werden. Wie es in unseren Geschäftsbedingungen Terms and Conditions, steht, müssen sich die Studenten strikt an die veröffentlichen Preíse halten, die von den Gastgebern festgesetzt werden, plus der Abroadwith Servicegebühr."
+      },
+      "paying_for_meals": {
+        "title": "Kann ich bei Abroadwith zusätzlich Mahlzeiten buchen ( z.B. Halbpension oder Abendessen)?",
+        "meal_plan": "Ja, aber das hängt vom jeweiligen Gastgeber ab, ob er Mahlzeiten anbietet oder nicht. Als Minimum verlangt Abroadwith von seinen Gastgebern, dass sie beim Basispreis ein Frühstück anbieten. Alle anderen Mahlzeiten kosten extra."
+      },
+      "are_towels_included": {
+        "title": "Sind Handtücker im Preis inbegriffen?",
+        "ask_host": "Jeder Gastgeber handhabt das anders. Am Besten erkundigt man sich beim Gastgeber vor Ankunft, ob man seine eigenen Handtücher mitbringen muss oder nicht."
+      },
+      "separate_charge_for_laundry": {
+        "title": "Muss man für die Reinigung extra bezahlen?",
+        "depends_on_host": "Ja, es gibt extra Reinigungskosten. Aber wie gesagt, die Kosten werden individuell vom Gastgeber festgelegt.Vielleicht muss der Student zu einem Waschsalon gehen, oder aber der Gastgeber stellt die eigene Waschmaschine gegen eine Gebühr zur Verfügung. Es wird empfohlen das Profil des Gastgebers genau zu lesen, um zu erfahren welcher  Zusatzservice angeboten wird , oder dem Gastgeber per Nachricht Fragen zu stellen, bevor man eine Buchungsanfrage los schickt."
+      }
+    },
+    "amenities_section": {
+      "title": "Ausstattung",
+      "do_homestays_have_wifi": {
+        "title": "Haben alle Zuhause Internet?",
+        "no": "Nein. Einige haben wlan, andere nicht. Auf dem Profil des Gastgebers kann man sich durch das Profil des Zuhauses klicken und dabei herausfinden wie es ausgestattet ist."
+      },
+      "bringing_pets": {
+        "title": "Kann ich mein Haustier mitbringen?",
+        "it_depends": "Das hängt von den Reisevorschriften des speziellen Landes ab und  ob der Gastgeber es akzeptiert oder nicht."
+      }
+    },
+    "insurance_visa_section": {
+      "title": "Versicherung und Visa",
+      "who_organizes_visa": {
+        "title": "Wer organisiert mein Visa?",
+        "student_is_responsible": "Jeder Sprachschüler ist selber für seine Visaformalitäten vor der Abreise verantwortlich. Man kann die  entsprechende Botschaft im eigenen Land besuchen oder sich auf deren Website informieren. Die Kosten für Visa werden vom Studenten direkt vor Ort  bei der Botschaft bezahlt."
+      },
+      "is_insurance_needed": {
+        "title": "Brauche ich eine Versicherung?",
+        "yes": "Ja, wie in unseren Geschäfftsbedingungen <a href='/terms'>Terms and Conditions</a> nachzulesen ist, muss jeder Student versichert sein. Zu empfehlen ist auf jedem Fall eine Krankenversicherung und auch eine Haftpflichtversicherung. Die Wahl der Versicherungsgesellschaft liegt beim Studenten."
+      },
+      "does_abroadwith_provide_insurance": {
+        "title": "Stellen Sie eine Versicherung zu Verfügung?",
+        "not_at_this_time": "Zur Zeit stellen wir noch keine Versicherung zur Verfügung. Es wird von den Studenten erwartet, dass sie eine Reiseversicherung abschließen, bevor sie reisen. Unter keinen Unständen übernimmt  Abroadwith irgendeine Verantwortung für persöniche und materielle Schäden, die der Student oder der Gastgeber verursacht.  Abroadwith ist weder eine Versicherung oder Makler, noch verantwortlich für Schäden, die durch Dritte verursacht wurden, außer für Schäden welche direkt durch Abroadwith oder deren Angestellten verursacht wurden. Mehr Informationen unter Terms and Conditions <a href='/terms'>Terms and Conditions</a>"
+      }
+    },
+    "trust_safety_section": {
+      "title": "Vertrauen und Sicherheit",
+      "abroadwith_trust_and_safety": {
+        "title": "Wie steht Abroadwith zu Vertrauen und Sicherheit?",
+        "hosts_are_vetted": "Abroadwith nimmt Datenschutz und Privatsphäre sehr ernst. Jeder Gastgeber wird durch Email, Telefon und Ausweis überprüft und verifiziert.Zusätzlich werden die Gastgeber noch von den Countrymanager angerufen. Nur qualifizierte und aktive Gastgeber finden auf unserer Plattform einen Platz."
+      },
+      "getting_verified": {
+        "title": "Wie werde ich verifiziert?",
+        "photo_id": "Nach der Registrierung folgt der Sprachschüler den Schritten der Bedienerführung, um sich per Email und Telefon überprüfen zu lassen. Es kann sich noch zusätzlich mit einem Ausweis, Pass oder  Führerschein verifiziert werden , wenn der Student es möchte. Nachsehen was bereits verifiziert ist, kann man unter “Profilname/Einstellungen/Überprüfung”"
+      },
+      "what_info_is_shared_with_host": {
+        "title": "Welche Informationen über mich geben Sie an den Gastgeber weiter?",
+        "public_data": "Alles was der Sprachstudent auf seinem Profil veröffentlicht hat kann der Gastgeber einsehen. Wir können dem Gastgeber auch noch einen Notfallkontakt freischalten, für den Fall, dass ein Unfall passiert und wir nicht auf eine persönliche Authorisation durch den Sprachschüler warten können."
+      },
+      "is_my_host_real": {
+        "title": "Woher weiß ich, dass es meinen Gastgeber auch tatsächlich gibt?",
+        "hosts_interviewed": "Jeder Gastgeber auf unserer Seite wird interviewt und verifiziert. Zusätzlich zu den Interviews, werden die Gastgeber per Email, Telefon und Ausweis überprüft. In den meisten großen Städten schicken wir noch zusätzlich Fotografen zum Gastgeber, um festzustellen, ob die angebotenen Zuhause mit der Realität übereinstimmen."
+      },
+      "when_a_problem_arises": {
+        "title": "Was sollte ich tun, wenn ich während meines Aufenthaltes Probleme habe?",
+        "contact_us": "Bei Problemen sollte sich der Student sofort mit Abroadwith unter support@abroadwith.com in Verbindung setzen. Bei tatsächlichen Notfällen sollte natürlich sofort die lokale Notfallnummer der Polizei und Feuerwehr angerufen werden."
+      }
+    },
+    "during_stay_section": {
+      "title": "Während  des Aufenthaltes",
+      "not_getting_along_with_host": {
+        "title": "Was ist wenn ich mit meinem Gastgeber nicht zurechtkomme?",
+        "contact_us": "Der Student sollte sich in diesem Falle direkt an Abroadwith support@abroadwith.com wenden, um eine Stornierung zu arrangieren. Unsere Firma wurde gegründet, weil wir an Fairness und Transparenz glauben.Wir verstehen, dass Gastgeber und Student sich in manchen Fällen doch nicht mögen und deshalb nicht miteinander auskommen. Abroadwith wird geeignete Maßnahmen ergreifen, um dem Studenten dabei zu helfen ein anderes Zuhause zu finden oder den gesamten Aufenthalt zu stornieren."
+      }
+    }
+  },
+  "host_section": {
+    "title": "Gastgeber",
+    "general_section": {
+      "title": "Allgemein",
+      "how_does_it_work": {
+        "title": "Wie funktioniert es?",
+        "overview": "Wenn man ein Zuhause veröffentlcht, erhält man die Möglichkeit  ein, zwei oder alle  drei Immersions Programme den Sprachstudenten anzubieten. Bekommt man Anfragen von Sprachstudenten kann man das Profil des anfragenden Studenten ansehen und dadurch mehr über den Studenten erfahren, bevor man sich entscheidet die Buchung anzunehmen oder abzulehnen. Zusätzlich kann über den Abroadwith Chat mit dem Studenten in direkten Kontakt treten, um noch zusätzlich etwas mehr über ihn zu erfahren. Man sollte aber bedenken, dass nur 48 Stunden für die Buchungsannahme zur Verfügung stehen. Danach wird die Buchungsanfrage automatisch gelöscht."
+      },
+      "why_host": {
+        "title": "Warum sollte ich übergaupt Abroadwith Gastgeber werden?",
+        "the_pitch": "Zum Ersten ist es ein völlig kostenloser Kanal um tausenden potentiellen Sprachschülern, die nach einem Sprachaufenthalt suchen,  ein Zuhause anzubieten.Zusätzlich gibt Abroadwith dem Gastgeber die volle Kontrolle über alle Aspekte des Aufenthaltes, von der Höhe des Zimmerpreises über  “Wer”  beherbergt werden soll, zu welcher Art von Mahlzeiten oder zusätzlichern Service (Bettwäsche, Reinigung oder Abholung vom Flugplatz/Bahnhof). Wir wollen, dass der Gastgeber nach eigenen Bedingungen und Verfügbarkeiten einen Aufenthalt anbietet."
+      },
+      "who_can_host": {
+        "title": "Kann jeder Gastgeber werden?",
+        "nearly_anyone": "Jeder, der älter als 18 Jahre ist, ist kann sich bei Abroadwith als Gastgeber registrieren.Solange man ein freies Zimmer zur Verfügug hat, ein einfaches Frühstück anbieten kann und eine Stunde am Tag Zeit hat, sich dem direkten Sprachaustausch mit dem Studenten widmen zu können. Zudem muss man bereit sein, sich durch email und Telefon verifizieren zu lassen."
+      },
+      "who_are_guests": {
+        "title": "Wer würden meine Gäse sein?",
+        "nearly_anyone": "Die Gäste wären Sprachstudenten die, die  Muttersprache oder die angegebene Sprache des Gastgebers erlernen möchten. Das Alter wäre 18 Jahre oder älter. Die genaue Auswahl liegt in der Hand des Gastgebers. Man sollte nur die Buchung von einem Sprachschüler akzeptieren von dem man glaubt, dass er gut zum eigenen Lebensstil passt und  von dem man sich vorstellen kann das eigene Zuhause für ein paar  Wochen zu teilen."
+      },
+      "length_of_stay": {
+        "title": "Wie lange soll der Aufenthalt eines Sprachstudenten dauern?",
+        "it_depends": "Das bestimmt jeder Gastgeber selber. Ein Student kann eine Anfrage für jede mögliche Aufenthaltsdauer schicken, aber der Gastgeber entscheidet,  wie lange er sein Zuhause zur Verfügung stellen möchte."
+      },
+      "how_to_get_students": {
+        "title": "Wird mir Abroadwith Sprachschüler schicken?",
+        "not_an_agency": "Abroadwith ist keine Austauschagentur im üblichen Sinne, sondern mehr eine Plattform auf der Studenten ihren eigenen Aufenthalt durch ausgesuchte Suchfilter zusammenstellen können. Wenn einem Studenten das Profil eines Gastgebers gut gefällt, stellt er eine Buchungsanfrage. Der Gastgeber wird durch eine Email von Abroadwith über die  Anfrage benachrichtigt. Deshalb ist es wichtig, das eigene Emailkonto täglich zu überprüfen, da die Buchungsanfrage nach 48 Stunden wieder gelöscht wird, wenn keine Reaktion des Gastgebers erfolgt."
+      },
+      "room_availability_when_traveling": {
+        "title": "Ich bin einen Monat auf Reisen und mein Zimmer wäre frei. Könnte ich diesen Raum bei Abroadwith anbieten?",
+        "no": "Nur wenn es noch weitere Mitbewohner gibt, die bereit wären einen Immersionsaufenthalt mitzutragen. Man muss mit dem Sprachstudenten im Zuhause zusammenleben, ist es doch eine Voraussetzung  mindestens eine Stunde jeden Tag mit dem Studenten zu kommunizieren. Dies erlaubt es dem Studenten sein Sprachvermögen zu verbessern und in die lokale Kultur einzutauchen."
+      },
+      "payments": {
+        "title": "Wie werde ich bezahlt?",
+        "fill_out_payment_section": "Man geht über den button “Einstellungen” in den Reiter “ Zahlungen”, im persönlichen Profil. Hier kann man sich für eine der Zahlungsmethoden entscheiden. Unter Zahlungsmethoden kann entweder ein Bankkonto oder ein Paypal Konto hinzugefügt werden.  Die Bezahlung erfolgt in der ersten Woche der Ankunft des Sprachstudenten entweder total oder monatlich für jeden angefangenen Monat. Abroadwith wird einmalig eine 3% Kommission auf den kompletten Betrag  der Buchung abziehen, der sich auf die Dauer des Aufenthaltes bezieht."
+      },
+      "deleting_account": {
+        "title": "Wie lösche ich mein Konto?",
+        "not_for_everyone": "Wir verstehen das Abroadwith nicht für jeden sein kann. Vielleicht ist jetzt nicht die richtige Zeit oder aber man ist in Zukunft vielleicht wieder daran interessiert einen Aufenthalt anzubieten. Jeder ist herzlich willkommen sich jederzeit wieder neu anzumelden.",
+        "two_possible_cases": "Um sein Konto bei Abroadwith wieder zu löschen, kann  man den 4 Schritten folgen, die weiter unten unter “Löschung des accounts” aufgelistet sind. Davor muss aber unbedingt geprüft werden, ob nicht eine der beiden Sachlagen  ( Fall1 oder Fall2) vorliegen. Wenn doch einer dieser Fälle Sachlagen  zutrifft,  bitte erst die Vorgehensweise durchlesen.",
+        "case_one": "Fall 1 : Wenn bereits Sprachstudenten im Heim aufgenommen sind, muss erst der Vertrag zwischen dem Sprachschüler und Gastgeber bis zum Ende erfüllt werden, bevor das Konto gelöscht werden kann.Das liegt daran, dass im Konto alle Zahlungsmethoden und Kontonummern hinterlegt sind, die durch das Löschen des Kontos verloren wären. Ein total anderer Fall wäre es, wenn es  zwischen dem Gastgeber und Sprachschüler zu einem Konflikt gekommen wäre. In diesem Fall sollte Abroadwith sofort benachrichtigt und als Mediator eingeschaltet werden, um den Konflikt zu beheben oder dem Studenten eine andere Gastfamilie oder andere Unterkunft zu vermitteln. In diesem Falle müsste dem Studenten die im voraus bezahlte und noch nicht in Anspruch genommene Zeit des Aufenthaltes zurückerstattet werden.",
+        "case_two": "Fall 2 : Wenn bereits eine Buchungsanfrage angenommen wurde, muss sie erst wieder storniert werden bevor das Konto gelöscht werden kann.  In diesem Falle klickt man auf den button “Meine Sprachgäste” der sich unter dem Profilnamen befindet. Dort klickt man auf Buchung löschen.",
+        "important": "Das Löschen des Kontos ist besonders wichtig wenn es sich um ein aktives Zuhause  handelt, da das Konto sonst noch für Studenten sichtbar bleibt.",
+        "deleting_your_account": "Löschen des Kontos:",
+        "step_1": "Bei Abroadwith einloggen",
+        "step_2": "Auf den eigenen Profilnamen klicken um die darunter liegenden Reiter zu sehen. Auf “Einstellungen” klicken und öffnen",
+        "step_3": "Button “Privatsphäre und Datenschutz” öffnen",
+        "step_4": "Auf “Konto löschen” klicken",
+        "more_info": "Zusätzliche Informationen zum Löschen eines Kontos können hier in englischer Sprache nachgelesen werden <a href='/terms#10'>Terms and Conditions here</a>."
+      },
+      "what_happens_when_conflict_arises": {
+        "title": "Was ist zu tun wenn es einen Konflikt zwischen Gastgeber und Studenten gibt?",
+        "we_mediate": "Wenn es zwischen dem Gastgeber und Sprachschüler zu einem Konflikt gekommen ist, sollte Abroadwith sofort benachrichtigt werden, so dass wir als Vermittler agieren können oder dem Studenten eine andere Gastfamilie oder andere Unterkunft vermitteln können. In diesem Falle müsste dem Studenten die im voraus bezahlte und noch nicht in Anspruch genommene Zeit des Aufenthaltes zurückerstattet werden."
+      }
+    },
+    "signing_up_section": {
+      "how_to_sign_up": {
+        "title": "Wie registriere ich mich als Gastgeber?",
+        "simple": "Die Registrierung ist einfach. Durch klicken des Button “ Gastgeber werden” kommt man auf die richtige Seite und folgt dann der Bedienerführung. Es kann auch dem Leitfaden gefolgt werden.  Zum Herunterladen des Dokuments kann  <a href='https://drive.google.com/open?id=0ByNHl9mFbFG2QUtOZlNkdzlFeDA'>hier</a> geklickt werden."
+      },
+      "title": "Registrierung",
+      "verifications": {
+        "title": "Wie werde ich als Gastgeber verifiziert?",
+        "personal_interview": "Wir nehmen die Sicherheit und Privatsphäre auf unserer Seite sehr ernst. Das bedeutet, wir verifizieren jeden Gastgeber durch Email, Telefon und Ausweisdokument (Personalausweis, Reisepass, Führerschein). Wir führen zusätzlich noch persönliche Interviews per Telefon oder Skype, um die Gastgeber besser kennenzulernen und evtl. Fragen sofort zu beantworten. Diese Interviews ermöglichen auch den Gastgebern uns besser kennenzulernen.",
+        "how_to": "Man kann die Schritte der Verifizierung durch klicken auf den Profilnamen , “Einstellungen” und “Überprüfung” nachverfolgen. Oder auf diesen link klicken <a href='/admin#verifications'>hier</a>."
+      },
+      "verifying_landline": {
+        "title": "Ich habe nur eine Festnetznummer. Kann ich mich trotzdem verifizieren?",
+        "not_at_this_time": "Im Moment können wir nur eine Verifizierung über eine Handynummer ermöglichen. Wir arbeiten aber daran unseren Gastgebern auch eine automatische Verifizierung mittels Festnetznummer zu ermöglichen. Sollte nur eine Festnetznummer zur Verifizierung vorhanden sein, kann gerne mit über support@abroadwith.com  in Kontakt getreten werden und wir werden uns freuen, die Verifizierung manuell direkt auf unserer Plattform vorzunehmen."
+      },
+      "id_verification": {
+        "title": "Anhand welchen Ausweises ist eine Verifizierung möglich?",
+        "government_id": "Es muss ein offizielles von einer Regierung ausgestelltes Dokument sein( Personalausweis, Reisepass oder Führerschein)."
+      },
+      "personal_home_verification": {
+        "title": "Kommt jemand von Abroadwith vorbei und überprüft mein Zuhause?",
+        "sometimes": "Die Verifizierung durch Email, Telefon und Ausweis zusammen mit den geführten Interviews sind für uns eine Notwendigkeit  zur Sicherung der persönlichen Identifikation. In großen Städten schickt Abroadwith gegebenenfalls auch einen Fotografen, um mit Fotos das Zuhause und eine Adresse zu verifizieren."
+      }
+    },
+    "create_profile_section": {
+      "title": "Wie legt man ein gutes Profil an?",
+      "info_provided_for_signup": {
+        "title": "Welche Informationen muss ich zur Verfügung stellen wenn ich mich registrieren möchte?",
+        "basic_info": "Wir benötigen Basisinformationen wie Name, Email und Telefonnummer, um einen Gastgeber verifizieren zu können. Dann wird eine Beschreibung und Fotos des Zuhauses benötigt, um es auf der Plattform bestens presentieren zu können. Der Registrierungsprozess ist einfach und unkompliziert mit einem leicht zu verstehenden  Nutzertool wird einem der Weg gewiesen.  Dieser link <a href='https://drive.google.com/open?id=0ByNHl9mFbFG2QUtOZlNkdzlFeDA'>hier</a> führt zum Leitfaden, wenn Hilfe bei der Registrierung benötigt wird."
+      },
+      "photos_to_upload": {
+        "title": "Was für Fotos sollte ich in mein Profil hochladen?",
+        "clean_and_clear": "Es werden deutliche, klare Fotos der üblichen Räume des Zuhauses benötigt, wie auch ein Foto des zur Verfügung stehenden Zimmers im Schaukasten des Zuhauseprofils. Man sollte auch ein Foto des Gastgebers im Profil veröffentlichen, so dass die Studenten genau wissen, bei wem sie wohnen werden."
+      },
+      "room_photos": {
+        "title": "Wie sollte der Raum auf den Fotos aussehen?",
+        "clutter_free": "Wir haben festgestellt, dass aufgeräumte Räume mehr Buchungsanfragen bekommen als Räume die auf den Fotos unordentlich aussehen. Horizontal aufgenommen Fotos wirken auf der Abroadwith Plattform besser, als vertikal aufgenommene Fotos."
+      },
+      "house_rules": {
+        "title": "Muss ich eine Hausordnung aufstellen?",
+        "its_your_house": "Ja, denn die Kontrolle über das Zuhause  liegt beim Gastgeber. Das bedeutet, es können viele oder wenige Regeln aufgestellt werden. Wir empfehlen Regeln bereits ins Zuhauseprofil zu schreiben, so dass die Studenten schon vor ihrer Ankunft wissen, was von ihnen erwartet wird."
+      },
+      "what_is_included_in_base_rate": {
+        "title": "Was sollte der Preis für eine Woche beinhalten?",
+        "bed_and_breakfast": "Die Basisrate für einen Raum sollte Übernachtung und Frühstück enthalten."
+      },
+      "what_to_charge": {
+        "title": "Wieviel kann ich berechnen?",
+        "ask_us": "Wir haben einige Marktforschungen in verschiedenen Gegenden betrieben. Wenn man bezüglich der Tarife  komplett im Dunkeln tappt, kann man sich jeder Zeit an den zuständigen Country Manager oder an unser support desk support@abroadwith.com wenden. Wir können eine Preisempfehlung basierend auf dem lokalen Durchschnitt abgeben, aber am Ende bestimmt jeder selbst was er benötigt. Es ist empfehlenswert, dass der Gastgeber selber sich ein bisschen auf dem Markt umhört, um eine Idee des besten Wochenpreises zu bekommen."
+      },
+      "duration_of_stay": {
+        "title": "Gibt es ein Minimum oder Maximum an Nächten die ein Sprachschüler bleiben kann?",
+        "no": "Nein, das hängt ganz davon ab wieviel die Sprachschüler anfragen und wieviel Nächte der Raum zur Verfügung steht."
+      },
+      "serving_breakfast": {
+        "title": "Muss ein Frühstück serviert werden oder kann ich es den Studenten selber überlassen?",
+        "either_way": "Wir verlangen nur, dass die Studenten überhaupt ein Frühstück bekommen. Das kann ein einfaches Frühstück ( Toast, Butter, Marmalade, Käse , Getränk) oder etwas in der Art sein. Aber der Gastgeber ist jederzeit herzlich willkommen dem Studenten ein großes Frühstück zuzubereiten, wenn es ihm beliebt. Aber verlangt wird das nicht."
+      },
+      "dinner_with_family": {
+        "title": "Erwarten die Gäste mit dem Gastgeber zu Abend zu essen?",
+        "either_way": "Wir erwarten dass die Studenten als Minimum ein Frühstück bekommen. Alle anderen Mahlzeiten können mit Extrakosten pro Woche angeboten werden."
+      },
+      "half_and_full_board": {
+        "title": "Wo ist der Unterschied zwischen Halb- und Vollpension?",
+        "explanation": "Vollpension beinhaltet Frühstück, Mittag und Abendessen. Wobei Halbpension nur Frühstück und Abend- essen beinhaltet."
+      }
+    },
+    "booking_section": {
+      "title": "Buchung",
+      "booking_process": {
+        "title": "Wie funktioniert der Buchungsprozess?",
+        "overview": "Wenn ein Student eine Buchungsanfrage stellt, erhält der Gastgeber automatisch eine Email von Abroadwith. Der Gastgeber muss innerhalb von 48 Stunden die Buchung annehmen oder ablehnen. Oder die Buchung wird automatisch gelöscht. Während dieser Zeit hat der Gastgeber die Möglichkeit das Profil des Sprachstudenten anzuschauen. Der Gastgeber kann sehen, ob der Student gut passen würde und ähnliche Interessen hat. Findet der Gastgeber den Studenten passend und die angefragte Zeit  steht zur Verfügung , kann der Gastgeber die Buchung akzeptieren. Von da an kann der Gastgeber direkt mit dem Studenten über das messenger portal bei Abroadwith in Kontakt treten, um den Aufenthalt zu arrangieren und weitere Details bezgl, Ankunft etc. zu besprechen und einander besser kennenzulernen."
+      },
+      "booking_expectations": {
+        "title": "Wie oft kann ich eine Buchung erwarten?",
+        "it_depends": "Die Antwort auf diese Frage hängt von verschiedenen Faktoren ab - Standort, Preis, Qualität der Fotos, angebotene Sprache, Gastgeber- und Zuhauseprofil. Dies sind die Variablen , die einen Effekt auf die Marktfähigkeit des Zuhauses haben.Abroadwith wächst schnell auf den verschiedensten Märkten. Wir wollen eine Möglichkeit offerieren das eigene Zuhause auf unserer Plattform anzubieten und so  die immer größer werdende Liste von Studenten zu erreichen, die sich ständig neu bei Abroadwith registrieren. Gastgeber sind immer herzlich willkommen sich mit ihrem Country Manager über das support desk support@abroadwith.com  in Verbindung zu setzen, um sich Tipps für ein verbessertes Profil abzuholen, damit sie mehr Buchungsanfragen bekommen."
+      },
+      "one_time_fee": {
+        "title": "Ist die ca. 3% Kommission eine einmalige Gebühr?",
+        "yes": "Ja und sie wird einmal für die ganze Buchung eingezogen."
+      },
+      "getting_paid": {
+        "title": "Werde ich auf einmal bezahlt oder in Raten?",
+        "commencement": "Immersion-Programmaufenthalt und Gebühren für einen Sprachkurs werden mit dem Beginn des Programms innerhalb einer Woche nach dem Startdatum überwiesen.Bei Aufenthalten, die länger als 2 Monate dauern, werden die Auszahlungen jeweils als laufende Monatszahlung geleistet.",
+        "delays": "Auszahlungen könnten sich durch Auszahlungspraktiken im Bereich  des Empfängers oder durch geographische Standorte verzögern. Aber Auszahlungen  werden nie später als fünf Tage nach dem Beginn eines Immersion-Programms oder Sprachkurses ausgeführt werden.",
+        "accurate_info": "Gastgeber sind dafür verantwortlich Abroadwith mit genauen Rechnungsinformationen zu versorgen, wie voller Name, Rechnungsadresse und Information über die Methode der Auszahlung."
+      },
+      "cancelling_bookings": {
+        "title": "Kann ich eine Buchung stornieren?",
+        "timeframe": "Ja man kann eine Buchung vor Ankunft des Studenten stornieren. Nachfolgend ist ein Zeitplan und  Gebüren für eine Stornierung aufgelistet. Um mehr über unsere Stornierungspolitik zu erfahren kann dieser link benutzt werden <a href='/terms#10'>hier</a>..",
+        "standard_cancellation": "Standard Stornierung ( 14 oder mehr Tage vor Beginn des Programms).  Volle Rückerstattung abzüglich der 3% Transaktionskosten",
+        "short_cancellation": "Kurzfristige Stornierung:( weniger als 14 Tage vor Beginn des Programms) Volle Rückerstattung abzüglich der 3% Transaktionskosten. Zusätzlich bekommt der Gastgeber eine Strafgebühr von 10%, die bei der nächsten Buchung abgezogen wird."
+      },
+      "messaging_guests": {
+        "title": "Wie kann ich messages von zukünftigen Gästen lesen und beantworten?",
+        "notification": "Der Gastgeber bekommt von Abroadwith eine Email, dass eine neue Nachricht des Gastes eingetroffen ist. In dieser Email befindet sich ein link , der direkt zum Abroadwith messaging portal führt, auf dem geantwortet werden kann.Man kann auch direkt auf das eigene Konto gehen und auf den Briefumschlag klicken, um direkt zu antworten."
+      },
+      "messaging_time_limit": {
+        "title": "Gibt es ein Zeitlimit in dem ich mit den Studenten in Verbindung treten muss?",
+        "not_for_messaging": "Es gibt kein Zeitlimit um mit dem Studenten zu korrespondieren, aber wenn eine Buchungsanfrage gestellt wurde, muss  sie innerhalb von 48 Stunden angenommen oder abgelehnt werden."
+      },
+      "communicating_with_student": {
+        "title": "Wie kann ich mich mit den Sprachschülern in Verbindung setzen?",
+        "break_the_ice": "Es kann über das Abroadwith messenger portal mit den Sprachschülern kommuniziert werden.  Aber wir ermutigen unsere Gastgeber und Studenten sich auch über Skype, Google hangouts, Whatsapp oder Telefon in Verbindung zu setzen. Das kann das Eis schon vorm ersten Tag der Ankunft im Ausland brechen und man kennt sich dann schon ein bisschen."
+      },
+      "booking_direct": {
+        "title": "Was ist wenn Gäste direkt bei mir reservieren oder buchen möchten?",
+        "against_toc": "Das ist leider nicht erlaubt und gegen unsere <a href='/terms'>Terms and Conditions</a>. Bei direkter Buchung gibt es weder eine Garantie der Bezahlung noch eine Hilfe bei evtl. auftretenden Konflikten."
+      },
+      "student_profile_photo": {
+        "title": "Bekomme ich ein Foto des Gastes vor seiner Ankunft?",
+        "yes": "Der Gastgeber kann das gesamte Profil des Sprachschülers vor seiner Ankunft ansehen. Tatsache ist, man bekommt Zugriff auf das Profil bevor eine Buchungsanfrage akzeptiert oder abgelehnt werden kann. Wir wollen, dass die Gastgeber genau wissen, wer da auf sie zukommen und mit ihm leben wird. Diese Transparenz erlaubt ein besseres Zusammenpassen der Hobbies, Interessen und Lebensweise, um aus dem Aufenthalt eine wirklich prositive Erfahrung für alle Beteiligten zu machen."
+      },
+      "paying_taxes": {
+        "title": "Muss ich Steuern zahlen?",
+        "it_depends": "Steuern werden überall anders erhoben. Wir können leider keine anderen Tipps in  Sachen Steuer anbieten, als die, sich beim lokalen Finanzamt zu erkundigen oder einen Steuerberater zu konsultieren. Für zusätzliche Informationen kann der link zu unseren Terms and Conditions <a href='/terms#12'>here</a> benutzt werden."
+      }
+    },
+    "after_arrival_section": {
+      "title": "Nach der Ankunft",
+      "preparing_to_host": {
+        "title": "Wie kann ich mich als Gastgeber vorbereiten?",
+        "contact_us": "Viele Gastfamilien unserer Plattform haben schon früher Studenten beherbergt. Wenn es aber für den Gastgeber das erste Mal ist, sind wir gerne bereit durch den Prozess durch zu helfen. Unsere Country Manager haben eine Menge Erfahrung und würden sich freuen, wenn sie  behilflich sein können. Über   support@abroadwith.com kann man jederzeit den persönlichen Country Manager erreichen."
+      },
+      "providing_house_key": {
+        "title": "Muß ich meinen Gästen einen Schlüssel geben?",
+        "it_depends": "Das kommt darauf an. Die meisten Gastgeber bieten ihren Gästen einen Extraschüssel für das Zuhause an. Aber vielleicht klappt es auch mit einem geheimen versteckten Schlüssel. Wir möchten nur, dass die Studenten in irgendeiner Weise das Haus betreten können."
+      },
+      "student_language_school": {
+        "title": "Muss ich den Studenten dabei helfen eine Sprachschule zu finden?",
+        "no": "Nein. Die Studenten sind selber dafür verantwortlich auf der Plattform eine eigene Sprachschule zu finden."
+      },
+      "conflict_resolution": {
+        "title": "Was ist wenn ein Konflikt auftritt?",
+        "contact_us": "Man kann Abroadwith immer über support@abroadwith.com erreichen oder aber den Country Manager direkt über Telefon anrufen, um im Falle eines Konflikts zu intervenieren. Sollte der Konflikt nicht zu lösen sein, wird Abroadwith innerhalb von 24 Stunden eine neue Unterkunft für den Studenten finden. Wir empfehlen unsere Richtlinien bezgl, Stornierung <a href='/terms#10'>hier</a>, sowie unsere Allgemeinen Geschäftsbedingungen <a href='/terms'>hier</a> in diesem Falle durchzulesen,"
+      },
+      "emergency_number": {
+        "title": "Gibt es eine Notfallnummer bei Abroadwith, die ich anrufen kann?",
+        "country_manager": "Der Country Manager kann während der Geschäftszeiten angerufen werden. Bei einem wirklichen Notfall muss natürlich die lokale Notrufzentrale angerufen werden."
+      },
+      "parent_contact_info": {
+        "title": "Was ist wenn etwas mit dem Studenten passiert. Habe ich  Informationen über Eltern und Verwandte?",
+        "yes": "Ja, der Gastgeber bekommt einen Notfallkontakt vom Studenten."
+      }
+    },
+    "trust_safety_section": {
+      "title": "Vertrauen und Sicherheit",
+      "meeting_prior_to_arrival": {
+        "title": "Kann ich den Sprachschüler vor der Ankunft  schon mal treffen?",
+        "not_in_person": "Gastgeber und Sprachschüler leben in verschiedenen Städten. Ein Treffen kann teuer und zeitraubend sein. Der Initialkontakt beider wird durch Email hergestellt. Nach diesem ersten Kontakt steht es Gastgeber und Student frei sich über Skype, Google Hangouts und/oder Telefon auszutauschen."
+      },
+      "student_background_checks": {
+        "title": "Werden Sprachschüler überprüft?",
+        "not_really": "Nur Sprachschüler, die ihre Identität überprüft haben lassen, besitzen die Möglichkeit Buchungungsanfragen auf unsere Plattfform zu stellen.Im Moment führen wir noch keine Leumundsprüfungen durch. Gastgeber können aber mit ihren Studenten gründliche Interviews führen, wenn sie die Buchung akzeptiert haben."
+      },
+      "liability_for_damages": {
+        "title": "Wer ist für Schäden im Haus verantwortlich, die durch Sprachschüler verursacht wurden?",
+        "not_us": "Gastgeber sollten über eine ausreichende Versicherung verfügen. Es liegt in der Verantwortung des Gastgebers festzustellen, welche Schäden durch Dritte (Studenten) im Haus durch ihre Hausratsversicherung gedeckt werden.In keinem Fall wird Abroadwith oder deren Versicherung für persönliche  oder materielle Schäden haften, die von Gastgebern oder Sprachschülern verursacht wurden. Weder ist Abroadwith ein Versicherungsanbieter oder Makler, noch verantwortlich für Schäden, die durch Dritte verursacht werden, außer Schäden die direkt durch Abroadwith oder deren Mitarbeiter verursacht werden."
+      },
+      "needing_insurance": {
+        "title": "Brauche ich eine spezielle Versicherung?",
+        "probably": "Wir empfehlen eine gute und ausreichende Hausratsversicherung, die Schäden im Haus, die während der gesamten Zeit des Programmes entstehen könnten, abdeckt ."
+      },
+      "security_of_private_info": {
+        "title": "Sind meine privaten Daten sicher?",
+        "yes_secure": "Ja, Abroadwith nimmt Datenschutz und Privatsphäre sehr ernst. Wie in unseren  <a href='/terms'>Terms and Conditions</a> beschrieben, erhalten die Studenten nur die Kontaktdaten der Gastgeber nach deren Annahme einer Buchung. Alle Daten bzgl, Zahlungen sind nur Abroadwith bekannt und werden nur von uns für die Auszahlungen an Gastgeber  benutzt."
+      },
+      "storing_payment_info": {
+        "title": "Wie verwalten Sie meine Bankdaten?",
+        "we_dont": "Wir verwalten die Bankdaten der Gastgeber nicht selber, sondern haben damit einen renommierten und vertrauenwürdigen Zahlungsverkehrsdienstleister beauftragt."
+      }
+    },
+    "troubleshooting_section": {
+      "title": "Fehlerbehebung",
+      "how_to_change_email": {
+        "title": "Wie ändere ich meine Emailadresse?",
+        "you_cannot": "Im Moment kann die Emailadresse auf der Abroadwith Plattform nicht geändert werden. Dieses wird absichtlich verwehrt, um Leute davon abzuhalten Fake-Konten bei uns einzurichten."
+      },
+      "how_to_update_phone": {
+        "title": "Wie ändere ich meine Telefonnummer?",
+        "you_cannot": "Im Moment kann die die Telefonnummer auf der Abroadwith Plattform nicht geändert werden. Dieses wird absichtlich verwehrt, um betrügerische Aktivitäten zu verhindern."
+      },
+      "editing_profile": {
+        "title": "Wie ändere ich mein Profil?",
+        "click_on_your_home": "Der Benutzer kann sein Profil jederzeit ändern indem er auf “Mein Zuhause” klickt und zur Sektion geht, die er ändern möchte. Es kann auch auf den Profilnamen geklickt werden und aus der Auswahlliste etwaige Punkte zur Änderung ausgewählt werden.",
+        "click_on_your_profile": "Es kann auch auf den Profilnamen geklickt werden und aus der Auswahlliste etwaige Punkte zur Änderung ausgewählt werden."
+      },
+      "changing_pricing": {
+        "title": "Ist mein Preis in Stein gemeißelt?",
+        "you_can_change": "Gastgeber können auch jederzeit die Raumpreise ändern, wenn es ihnen nötig erscheint, Einfach auf den Button “ Mein Zuhause” klicken  und die Preise ändern. Aber ist eine Buchung bereits angenommen, darf der Preis für diese Buchung nicht mehr geändert werden, sondern muss zu dem Preis zur Zeit der Buchung ausgeführt werden."
+      }
+    }
+  }
+}

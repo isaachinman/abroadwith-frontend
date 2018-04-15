@@ -1,0 +1,45 @@
+{
+  "Weekly_rate": "Weekly rate",
+  "Description": "Description",
+  "description_placeholder": "Tell guests about the room.",
+  "price_tooltip": "How much do you want to charge for the room? Remember, the price includes breakfast.",
+  "shared_label": "This is a shared room.",
+  "shared": {
+    "false": "No",
+    "true": "Yes"
+  },
+  "no_description": "The host hasn't written a description yet.",
+  "room_name_label": "Room name",
+  "room_name_placeholder": "Eg. 'Master bedroom'",
+  "vacancies_label": "Vacancies",
+  "vacancies_placeholder": "How many people?",
+  "bed_types_label": "Bed type",
+  "bed_types_placeholder": "Choose a bed type",
+  "bed_types": {
+    "SINGLE_BED": "Single bed",
+    "DOUBLE_BED": "Double bed",
+    "AIR_BED": "Air bed",
+    "FUTON": "Futon",
+    "PULLOUT_SOFA": "Pull-out-sofa",
+    "COUCH": "Couch"
+  },
+  "facilities_label": "Facilities",
+  "facilities_placeholder": "What facilities does the room have?",
+  "facilities": {
+    "AIR_CONDITIONING": "Air conditioning",
+    "BATHROOM": "Bathroom",
+    "BEDSIDE_LOCKER": "Bedside locker",
+    "DESK": "Desk",
+    "DRESSER": "Dresser",
+    "FRIDGE": "Fridge",
+    "HAIR_DRYER": "Hair dryer",
+    "HANGERS": "Hangers",
+    "HEATING": "Heating",
+    "IRON": "Iron",
+    "MIRROR": "Mirror",
+    "WARDROBE": "Wardrobe",
+    "DOOR_LOCK": "Door lock"
+  },
+  "choose_picture_button": "Choose picture",
+  "add_room_button": "Add room"
+}

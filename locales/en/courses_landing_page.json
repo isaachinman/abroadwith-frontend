@@ -1,0 +1,35 @@
+{
+  "title": "Find language courses abroad | Abroadwith",
+  "meta_description": "With Abroadwith courses find language courses and programs around the world and start your adventure.",
+  "h1": "Find your ideal language course",
+  "h2": "Compare hundreds of schools worldwide and book",
+  "popular_cities": {
+    "title": "Popular cities",
+    "subtitle": "Discover our most popular destinations for language travel",
+    "barcelona": {
+      "title": "Spanish in Barcelona"
+    },
+    "berlin": {
+      "title": "German in Berlin"
+    },
+    "dublin": {
+      "title": "English in Dublin"
+    },
+    "london": {
+      "title": "English in London"
+    },
+    "madrid": {
+      "title": "Spanish in Madrid"
+    },
+    "sevilla": {
+      "title": "Spanish in Sevilla"
+    },
+    "malaga": {
+      "title": "Spanish in Malaga"
+    }
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "subtitle": "Hear from our students all around the world."
+  }
+}

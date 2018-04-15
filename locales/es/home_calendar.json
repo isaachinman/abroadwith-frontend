@@ -1,0 +1,22 @@
+{
+  "title": "Calendario de disponibilidad",
+  "disable_dates_explanation": "Si tu hogar no está disponible durante un periodo determinado, clica en el día que quieres bloquear o arrastra para seleccionar un periodo.",
+  "selection_modal_title": "Actualizar calendario",
+  "all_rooms": "Todas las habitaciones",
+  "start_date": "Fecha de comienzo",
+  "end_date": "Fecha final",
+  "save_details": "Guardar detalles",
+  "availability": "Disponibilidad",
+  "unavailable": "No disponible",
+  "calendar_updated": "Calendario actualizado",
+  "was_unavailable": "No disponible (pasado)",
+  "is_unavailable": "Está disponible",
+  "unlisted": "No publicado",
+  "listed": "Publicado",
+  "availability_conflict_title": "Conflicto de disponibilidad",
+  "cannot_make_this_period_unavailable": "No puedes bloquear estas fechas ya que para este periodo tienes una reserva pendiente o aprobada.",
+  "please_go_to_reservations": "Por favor, dirígete a 0tus reservas0 para gestionar tus reservas.",
+  "pausing_explanation": "Activa o pausa tu hogar si no quieres que esté publicado.",
+  "period_blocked": "Periodo no disponible",
+  "manage_your_calendar": "Organiza tu calendario"
+}

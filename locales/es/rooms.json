@@ -1,0 +1,45 @@
+{
+  "Weekly_rate": "Precio semanal",
+  "Description": "Descripción",
+  "description_placeholder": "Describe tu habitación",
+  "shared_label": "Esta es una habitación compartida (con alguien de casa)",
+  "shared": {
+    "false": "No",
+    "true": "Si"
+  },
+  "no_description": "El anfitrión no ha escrito una descripción aun",
+  "room_name_label": "Nombre de la habitación",
+  "room_name_placeholder": "p. ej. Habitación doble",
+  "vacancies_label": "Sitio para",
+  "vacancies_placeholder": "¿Cuántas personas?",
+  "bed_types_label": "Tipo de cama",
+  "bed_types_placeholder": "Elige un tipo de cama",
+  "bed_types": {
+    "SINGLE_BED": "Cama individual",
+    "DOUBLE_BED": "Cama doble",
+    "AIR_BED": "Cama de aire",
+    "FUTON": "Futón",
+    "PULLOUT_SOFA": "Sofa-cama",
+    "COUCH": "Sofa"
+  },
+  "facilities_label": "Instalaciones",
+  "facilities_placeholder": "¿Qué instalaciones tiene la habitación?",
+  "facilities": {
+    "AIR_CONDITIONING": "Aire acondicionado",
+    "BATHROOM": "Baño",
+    "BEDSIDE_LOCKER": "Mesita de noche",
+    "DESK": "Escritorio",
+    "DRESSER": "Cómoda",
+    "FRIDGE": "Frigorífico",
+    "HAIR_DRYER": "Secador de pelo",
+    "HANGERS": "Perchas",
+    "HEATING": "Calefacción",
+    "IRON": "Plancha",
+    "MIRROR": "Espejo",
+    "DOOR_LOCK": "Cerrojo",
+    "WARDROBE": "Armario"
+  },
+  "choose_picture_button": "Sube una imagen",
+  "add_room_button": "Crea una habitación",
+  "price_tooltip": "¿Cuánto quieres cobrar por la habitación?"
+}

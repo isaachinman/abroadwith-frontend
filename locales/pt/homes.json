@@ -1,0 +1,47 @@
+{
+  "home_types_label": "Tipo de lar",
+  "home_types_placeholder": "Tipo de lar",
+  "home_types": {
+    "FLAT": "Apartamento",
+    "HOUSE": "Casa",
+    "LOFT": "Loft",
+    "CABIN": "Cabana",
+    "DORM": "Dormitório",
+    "CHALET": "Chalé",
+    "OTHER": "Outro"
+  },
+  "home_safety_label": "Segurança na casa",
+  "home_safety_placeholder": "Segurança na casa",
+  "home_safety": {
+    "FIRST_AID": "Primeiros socorros",
+    "FIRE_EXTINGUISHER": "Estintor de incêndio",
+    "SAFETY_CARD": "Cartão de segurança"
+  },
+  "amptities_label": "Comodidades",
+  "amptities_placeholder": "Comodidades",
+  "amptities": {
+    "TV": "TV",
+    "CABLE_TV": "TV a cabo",
+    "AIR_CONDITIONING": "Ar Condicionado",
+    "HEATING": "Aquecimento",
+    "INTERNET": "Internet",
+    "KITCHEN": "Cozinha compartilhada"
+  },
+  "amenities_label": "Comodidades",
+  "amenities_placeholder": "Comodidades",
+  "amenities": {
+    "TV": "TV",
+    "CABLE_TV": "TV a cabo",
+    "AIR_CONDITIONING": "Ar condicionado",
+    "HEATING": "Aquecimento",
+    "INTERNET": "Internet",
+    "KITCHEN": "Cozinha compartilhada",
+    "WIFI": "WiFi"
+  },
+  "facilities": {
+    "DESK": "Mesa",
+    "DRESSER": "Penteadeira",
+    "BEDSIDE_LOCKER": "Criado mudo",
+    "WARDROBE": "Armário"
+  }
+}
