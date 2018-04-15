@@ -150,9 +150,7 @@
     "validator": "^6.2.0",
     "warning": "^3.0.0",
     "webpack-isomorphic-tools": "^2.6.4",
-    "winston": "^2.3.1"
-  },
-  "devDependencies": {
+    "winston": "^2.3.1",
     "babel-eslint": "^6.1.2",
     "babel-plugin-react-transform": "^2.0.0",
     "babel-plugin-transform-imports": "^1.1.0",
@@ -192,6 +190,8 @@
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-hot-middleware": "^2.13.2"
+  },
+  "devDependencies": {
   },
   "eslintConfig": {
     "parser": "babel-eslint",
