@@ -18,7 +18,7 @@ export default (app) => {
     const content = new helper.Content('text/plain', supportRequest.message)
     const mail = new helper.Mail(from_email, subject, to_email, content)
 
-    const sg = require('sendgrid')('***REMOVED***')
+    const sg = require('sendgrid')(process.env.sendgrid.apiKey)
     const request = sg.emptyRequest({
       method: 'POST',
       path: '/v3/mail/send',
@@ -34,7 +34,7 @@ export default (app) => {
     // but do not let the success of this request impact overall status
     if (supportRequest.newContact) {
 
-      const hubspotRequest = superagent.post('https://api.hubapi.com/contacts/v1/contact/?hapikey=***REMOVED***')
+      const hubspotRequest = superagent.post('https://api.hubapi.com/contacts/v1/contact/?hapikey=' + process.env.hubspot.apiKey)
       hubspotRequest.send({
         properties: [
           {
