@@ -1,0 +1,16 @@
+<% macro translation(key, value='', language='en') %>
+<div class="translation-item input-field col s12">
+<input id="<$ key | replace('.en.','.'+language+'.') $>" type="text" class="validate" ng-model="<$ key | replace('.en.','.'+language+'.') $>">
+<label for="<$ key | replace('.en.','.'+language+'.') $>"><$ value $> (<$ key $>)</label>
+</div>
+<% endmacro %>
+
+<% macro setup(root,rootname,language) %>
+  <% for grandparent,child in root %>
+    <% if child == "[object Object]" %>
+      <$ setup(child,rootname+'.'+grandparent,language) $>
+    <% else %>
+      <$ translation(rootname+'.'+grandparent,child,language) $>
+    <% endif %>
+  <% endfor %>
+<% endmacro %>

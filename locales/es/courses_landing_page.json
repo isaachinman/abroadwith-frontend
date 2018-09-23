@@ -1,0 +1,35 @@
+{
+  "title": "Encuentra cursos de idiomas a tu medida",
+  "h1": "Encuentra el curso de idiomas que se adecue a tus necesidades",
+  "h2": "Compara cientos de escuelas por todo el mundo y reserva",
+  "meta_description": "Encuentra programas y cursos de idiomas en el extranjero y reserva con Abroadwith",
+  "popular_cities": {
+    "title": "Destinos destacados",
+    "subtitle": "Descubre nuestros destinos más populares para aprender idiomas",
+    "barcelona": {
+      "title": "Español en Barcelona"
+    },
+    "berlin": {
+      "title": "Alemán en Berlin"
+    },
+    "dublin": {
+      "title": "Inglés en Dublin"
+    },
+    "london": {
+      "title": "Inglés en Londres"
+    },
+    "madrid": {
+      "title": "Español en Madrid"
+    },
+    "sevilla": {
+      "title": "Español en Sevilla"
+    },
+    "malaga": {
+      "title": "Español en Málaga"
+    }
+  },
+  "testimonials": {
+    "title": "Opiniones",
+    "subtitle": "Descubre lo que opinan nuestros estudiantes por todo el mundo"
+  }
+}

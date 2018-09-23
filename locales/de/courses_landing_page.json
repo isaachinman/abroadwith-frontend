@@ -1,0 +1,35 @@
+{
+  "meta_description": "Wähle dein Sprachabenteuer. Finde deinen idealen Gastgeber und dein perfektes immersionsprogramm.",
+  "title": "Finde Sprachkurse im Ausland | Abroadwith",
+  "h1": "Finde deinen idealen Sprachkurs",
+  "h2": "Vergleiche hunderte Sprachschulen weltweit und buche.",
+  "popular_cities": {
+    "title": "Beliebte Städte",
+    "subtitle": "Entdecke unsere beliebtesten Ziele für Sprachreisen",
+    "barcelona": {
+      "title": "Spanisch in Barcelona"
+    },
+    "berlin": {
+      "title": "Deutsch in Berlin"
+    },
+    "dublin": {
+      "title": "Englisch in Dublin"
+    },
+    "london": {
+      "title": "Englisch in London"
+    },
+    "madrid": {
+      "title": "Spanisch in Madrid"
+    },
+    "sevilla": {
+      "title": "Spanisch in Sevilla"
+    },
+    "malaga": {
+      "title": "Spanisch in Malaga"
+    }
+  },
+  "testimonials": {
+    "title": "Empfehlungen",
+    "subtitle": "Erfahrungen von unseren Studenten aus aller Welt."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Hogares destacados",
+  "homestays": {
+    "featured_home_1": {
+      "home_image": "/app/featured_homes/featured_es/stefanie_2.jpg",
+      "title": "Hogar de Stefanie",
+      "price": "€331/semana",
+      "location": "Nueva York",
+      "link_to_profile": "/homestay/120"
+    },
+    "featured_home_2": {
+      "home_image": "/app/featured_homes/featured_es/cynthia_2.jpg",
+      "title": "Hogar de Cynthia",
+      "price": "€265/semana",
+      "location": "Boston",
+      "link_to_profile": "/homestay/40"
+    },
+    "featured_home_3": {
+      "home_image": "/app/featured_homes/featured_es/sonia_2.jpg",
+      "title": "Hogar de Monika",
+      "price": "€209/semana",
+      "location": "Londres",
+      "link_to_profile": "/homestay/100"
+    }
+  }
+}

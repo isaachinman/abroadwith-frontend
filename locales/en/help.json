@@ -1,0 +1,430 @@
+{
+  "title": "Frequently Asked Questions",
+  "general_section": {
+    "title": "General",
+    "what_is_abroadwith": {
+      "title": "What is Abroadwith?",
+      "first_platform": "Abroadwith is the first one-stop platform where language learners can connect with their ideal host anywhere in the world, find their preferred language course nearby, and book.",
+      "hosts": "Hosts can promote their homestays for free by creating a “home” profile. Here they can choose from three unique immersion programs they wish to offer students. Students can join the platform for free as well, creating a “personal” profile to find a match in common interests with their potential hosts.",
+      "allowing": "By allowing hosts and language students to find each other through just a few search filters, Abroadwith is bringing transparency to what was at once a very much opaque industry."
+    },
+    "how_does_it_work": {
+      "title": "How does it work?",
+      "simple": "How it works is simple. If you’re looking to learn a language abroad, you can sign up by clicking “Student sign up.” If you’re wanting to host language students in your home, you’ll register as a host by clicking “Become a host.” Steps and tools tips will guide you through to complete your profile and have it published and live on the platform in minutes.",
+      "how_to_guide": "For a how-to guide for registering as a host, click <a href='https://drive.google.com/open?id=0B0QU_l3mAoYxSHpDOF9NTFRLM3c'>here</a>"
+    },
+    "why_abroadwith": {
+      "title": "What differentiates Abroadwith from agencies and other platforms?",
+      "founded": "Abroadwith was founded on the principle of transparency and fairness. Having experienced first-hand as exchanges students ourselves, we know that students pay way too much to agencies and third parties only to connect them with a host family. On the contrary, host families don’t get paid enough see the because the agency takes rather high commissions for “connecting” the two. This ultimately causes a disconnect between student expectations of what the host can afford to provide the student.",
+      "market_value": "Whereas, with Abroadwith hosts get the chance to charge what they deem fair, and students pay fair-market value. It’s a win-win. Hopefully more students will have the opportunity to study abroad because they can now afford a much more reasonable price tag.",
+      "commission": "Abroadwith does take a one time, small commission of the entire booking (from both the host and student) to cover transaction fees, currency exchange and maintenance of the platform."
+    },
+    "define_homestay_immersion": {
+      "title": "What is a homestay?",
+      "accommodation_option": "A homestay immersion  is an accommodation option for students studying abroad wanting to live and immerse in a new language and culture with locals. A homestay means a student lives with a local family or shared apartment. Living with locals is the perfect setup for students wanting to fully immerse themselves in the local culture and perfect their language skills."
+    },
+    "minimum_user_age_abroadwith": {
+      "title": "Do you have to be a certain age to use Abroadwith?",
+      "eighteen": "If you are 18 years of age and older, you are welcome to use the Abroadwith platform."
+    },
+    "sign_up_cost": {
+      "title": "How much does it cost to sign up with Abroadwith?",
+      "free": "Signing up on Abroadwith is absolutely free."
+    },
+    "abroadwith_fees": {
+      "title": "How does Abroadwith get paid? How much?",
+      "commission": "Abroadwith takes a one time approximate 3% commission off the entire booking from the host family, and charges a service fee of the student. These small percentages cover credit card transactions fees, currency exchange rates, and maintenance of the platform."
+    },
+    "when_was_abroadwith_founded": {
+      "title": "How long has Abroadwith been around?",
+      "founded_in": "Abroadwith was founded in August 2015."
+    },
+    "how_to_search_cities": {
+      "title": "How to search for homestays in a city of my interest?",
+      "type_it_in": "Type in your town or city in the search field “Pick a place to learn it.”  Then, click the “Search” button. From here, you’ll be directed to the all the hosts registered on the Abroadwith platform in your area of interest."
+    }
+  },
+  "student_section": {
+    "title": "Students",
+    "general_section": {
+      "title": "General",
+      "how_to_send_host_message": {
+        "title": "How do I send a message to a host I’m interested in staying with?",
+        "click_the_button": "You can contact a host by going to the “Details” section on the host’s home profile, and clicking the “Contact Host” button. This will open a new text box where you can write a message to the host. You will have to input dates you’re interested in accommodating before you can send the message."
+      },
+      "how_to_book": {
+        "title": "How do I making a booking request?",
+        "very_easy": "Making a booking request on our platform is very easy. Once you find the homestay you’d like to request a booking for, just select the dates you’re interested in accommodating with that host family, and click the button “Book Now.” You will have to input your payment details first."
+      },
+      "booking_confirmation": {
+        "title": "How is my booking confirmed?",
+        "confirmation_notification": "Once you make a booking request, the host is sent a notification and is required to respond within 48 hours by confirming or declining the proposed dates. You will receive an email informing you of the host’s response."
+      },
+      "no_host_response": {
+        "title": "What if I don’t receive a reply from the host?",
+        "forty_eight_hours": "Host are required to respond to a booking request within 48 hours. Only when a host responds with an accept to the request can the booking be confirmed. You will receive an email confirmation or declination either way. After 48 hours has passed with no response from the host, the request will be an automatic decline. You will receive notice from Abroadwith in regards to this as well."
+      },
+      "finding_desired_destination": {
+        "title": "What if I can’t find the destination I want?",
+        "growing": "Abroadwith is growing rapidly. If you don’t find your desired destination, please reach out to support@abroadwith.com and let us know where it is you’d like to be. We can potentially find you your ideal host near where you want to be."
+      },
+      "knowing_host_availability": {
+        "title": "How can I figure out which time period the host is available?",
+        "showcase": "We only showcase homestays that have availability for the days you request on the platform."
+      },
+      "how_to_pay": {
+        "title": "How do I pay?",
+        "payment_methods": "You can pay with your credit card or paypal account."
+      },
+      "how_to_cancel_bookings": {
+        "title": "Can I cancel a booking?",
+        "cancellation": "You are free to cancel anytime before your immersion program takes place, but the cancellation terms are as follows:",
+        "standard_cancellation": "Standard cancellation (14 days or more before the immersion program or language course begins): Student pays the assign booking fees.",
+        "short_cancellation": "Short notice cancellation (less than 14 days to start date): Student is penalised with a fixed rate of 15% (including all fees)."
+      },
+      "when_host_cancels_booking": {
+        "title": "What if the host cancels my booking?",
+        "not_charged": "You will receive an automated email letting you know. You won’t be charged anything."
+      },
+      "issues_with_bookings": {
+        "title": "What do I do if I have an issue with my booking before it commences?",
+        "contact_us": "Contact support@abroadwith.com as soon as possible. Standard or short notice cancellation terms may apply."
+      },
+      "modifying_booking_dates": {
+        "title": "What should I do if I wish to shorten my stay?",
+        "contact_us": "Contact support@abroadwith.com as soon as you find out how long you want to stay. Standard or short notice cancellation terms may apply."
+      },
+      "writing_reviews": {
+        "title": "Can I write a review of my experience?",
+        "review_host": "After your stay, we recommend that you write a review of your immersion experience. Reviews help hosts improve their services and also provides insight for other students on which homestays are highly recommended."
+      }
+    },
+    "pricing_section": {
+      "title": "Pricing",
+      "included_in_price": {
+        "title": "What does the price include?",
+        "basic_rate": "The basic rate covers room and breakfast. For all other services and features, students need to pay extra. These payments depends on the individual host family you will be staying with. We encourage all students to know the prices and what is included before venturing abroad to their new destination."
+      },
+      "asking_for_discounts": {
+        "title": "Can I ask a host for a discount prior to booking?",
+        "no": "Unfortunately no. The price displayed at the time of booking is what you must pay. Per our <a href='/terms'>Terms and Conditions</a>, students must abide by the price disclosed publicly, set forth by the immersion host and the Abroadwith service fee."
+      },
+      "paying_for_meals": {
+        "title": "Can I book and pay for meals on Abroadwith (i.e. half board or evening meal)?",
+        "meal_plan": "Yes, but it depends on whether the host offers a meal plan or not. At minimum, host are required to offer breakfast under the basic pricing agreement. All other meals will cost extra to the student."
+      },
+      "are_towels_included": {
+        "title": "Are towels included in the price?",
+        "ask_host": "Every host is different. You can ask the host before your departure to know whether or not to pack your own towel."
+      },
+      "separate_charge_for_laundry": {
+        "title": "Is there a separate charge for laundry?",
+        "depends_on_host": "Yes, there is a separate charge for laundry. Again pricing depends on the individual host. This may not be an option at every host family. You may have to go to a laundromat yourself, or the host lets you do your own laundry at no cost. It is recommend that you write the host to find out more information before you send a booking request."
+      }
+    },
+    "amenities_section": {
+      "title": "Amenities",
+      "do_homestays_have_wifi": {
+        "title": "Do all homestays have wireless internet?",
+        "no": "No. Some host have wireless internet, and other host don’t. You can see if a host has Wifi service by going to their home profile and browsing through the “Home info” section to find out all the amenities they offer."
+      },
+      "bringing_pets": {
+        "title": "Can I bring my own pet?",
+        "it_depends": "This depends on the travel laws of the specific country you are visiting, and/or whether or not the host accept pets."
+      }
+    },
+    "insurance_visa_section": {
+      "title": "Insurance and Visa",
+      "who_organizes_visa": {
+        "title": "Who is responsible for organising my visa?",
+        "student_is_responsible": "You are responsible for obtaining all visa requirements before travel. You can visit the specific country embassy in your home country or search their website for more information. Separate visa fees may apply at the discretion of the embassy."
+      },
+      "is_insurance_needed": {
+        "title": "Do I need insurance?",
+        "yes": "Yes. Per our <a href='/terms'>Terms and Conditions</a>, you must be covered before your departure. The company you go with is up to you."
+      },
+      "does_abroadwith_provide_insurance": {
+        "title": "Do you provide any insurance?",
+        "not_at_this_time": "We do not provide any insurance at this time. Students are required to get travel insurance before they travel. In no circumstance, will Abroadwith take responsibility for personal or material damage by students or host. Abroadwith is in no way an insurance provider, nor responsible for third party damages other than damages undertaken directly by the company or our employees. See our <a href='/terms'>Terms and Conditions</a> for more info."
+      }
+    },
+    "trust_safety_section": {
+      "title": "Trust and safety",
+      "abroadwith_trust_and_safety": {
+        "title": "How does Abroadwith address trust and safety?",
+        "hosts_are_vetted": "We take safety and security very seriously. Every host on our platform is vetted and verified through email, phone and governmental ID verification. They are also go through a thorough interview process. Only qualified and active host are allowed to be on the platform."
+      },
+      "getting_verified": {
+        "title": "How do I get verified?",
+        "photo_id": "When you sign up, you will need to follow the steps to verify your email address and phone number. If you so choose, you can be additionally verified with your government issued photo ID. For this last verification, you can go to ACCOUNT SETTINGS>VERIFICATIONS."
+      },
+      "what_info_is_shared_with_host": {
+        "title": "Which information about me will be shared with a host?",
+        "public_data": "What’s on your personal public profile will be shared with the host. We may also release your emergency contact if there’s an accident and we cannot wait for your authorization."
+      },
+      "is_my_host_real": {
+        "title": "How do I know my host is real?",
+        "hosts_interviewed": "Every host on the platform is thoroughly interviewed and vetted. In addition to these interviews, hosts are verified via email, phone, and with their government issued photo identification. We also send photographers to most urban cities to photograph and “check out” out the homes."
+      },
+      "when_a_problem_arises": {
+        "title": "What should I do if I have a problem during my stay?",
+        "contact_us": "You should contact Abroadwith immediately at support@abroadwith.com. All emergency situations should be directed at the local police and emergency telephone lines."
+      }
+    },
+    "during_stay_section": {
+      "title": "During the stay",
+      "not_getting_along_with_host": {
+        "title": "What if I don’t get along with my host family?",
+        "contact_us": "You can contact Abroadwith to make arrangements for a cancellation. Our company was started because we believe in transparency and fairness. We understand that sometimes guest and host families may not get along. When this happens, Abroadwith will take the proper measures to help our guest find another host or cancel the stay all together."
+      }
+    }
+  },
+  "host_section": {
+    "title": "Hosts",
+    "general_section": {
+      "title": "General",
+      "how_does_it_work": {
+        "title": "How does it work?",
+        "overview": "When you publish your home on our platform, you will be given the opportunity to offer one, two, or all three of our immersion programs to students. When a student requests a booking with you, you’ll have the opportunity to view the student’s profile to learn more about them before making a decision to accept or decline the reservation. You can also connect with the student through Abroadwith’s messaging portal to get to know them even more. Keep in mind, though, you only have 48 hours to answer the the booking request, otherwise it will automatically be declined."
+      },
+      "why_host": {
+        "title": "Why should I become an Abroadwith host?",
+        "the_pitch": "For one, it’s a free channel to promote your homestay to thousands of exchange students looking to study in your city. And above all, Abroadwith gives you complete control of everything: from what price to charge, who to host, and what meal or other services to offer (i.e. laundry, cleaning, or airport pickup). We want you to host on your terms, based on your availability."
+      },
+      "who_can_host": {
+        "title": "Can anyone register to become a host?",
+        "nearly_anyone": "Anyone 18 years of age and older can register to become a host on the Abroadwith platform. As long as you have a spare bedroom available, can provide a simple breakfast offering, an hour a day to interact with the student in conversation, and have your account verified via email and phone verification, then you meet our criteria to host a student in your home."
+      },
+      "who_are_guests": {
+        "title": "Who would my guest(s) be?",
+        "nearly_anyone": "Your guest will be language learners of your native or proficient language, and aged 18 years of age or older. Exactly who you ultimately accept a reservation for is up to you. Make sure you accept booking requests of someone you think will fit in nicely with your lifestyle, as you will be sharing the same living space."
+      },
+      "length_of_stay": {
+        "title": "How long does the student stay with me?",
+        "it_depends": "It depends. A student can request any length of stay, but it’s up to you to decide what works best with your availability and that of the spare bedroom(s)."
+      },
+      "how_to_get_students": {
+        "title": "How will Abroadwith send me students?",
+        "not_an_agency": "Abroadwith is not your typical agency, sending you students, but rather students can find your homestay profile themselves, naturally through their preferred search filters. When a student finds your profile and likes it enough to make a booking request, you will receive a notification via email from Abroadwith letting you know. This is why it’s important to check the email associated with your Abroadwith account at least once a day, as you will only have 48 hours to accept or reject the request."
+      },
+      "room_availability_when_traveling": {
+        "title": "I am traveling and have a room available for a month. Can I offer the room on Abroadwith.com?",
+        "no": "No. You must be living in the home in order to host a student, be it is a requirement to interact with the student at least an hour a day. This allows for the student get better their language skills, and learn more about the local culture."
+      },
+      "payments": {
+        "title": "How do I get paid?",
+        "fill_out_payment_section": "You must fill out the “Payments” section in your Abroadwith account. Here you can decide how you prefer to receive payment (by PayPal or a direct deposit into your bank account). To get to this section you can go to your SETTINGS > PAYMENTS, or just click this link: <a href='/admin#payments'>Payments</a>. You will get paid the first week of the student’s arrival in full or in installments once a month. Abroadwith will take a one time approximate 3% commission off the entire booking. For more information, please read up on our <a href='/terms#8'>“Payment Terms”</a> in our Terms and Conditions. "
+      },
+      "deleting_account": {
+        "title": "How do I delete my account?",
+        "not_for_everyone": "We understand that Abroadwith isn’t for everyone. Maybe now's the not time, but perhaps in the future it will be. In that case, you're welcome to re-register at any time.",
+        "two_possible_cases": "In order to deactivate your account, follow the steps for “deleting your account” below. Before you do, make sure you aren’t one of the following cases (Case 1 or Case 2). If so, please follow these steps first before deactivating your account.",
+        "case_one": "<strong>Case 1:</strong> If you already have students in the home, you must finish out the contract established between you and the student before you can delete your account. This is because payment information is encrypted and stored in the platform to ensure timely payments. If there’s a conflict, however, this is completely separate issue. In this situation, you must reach out to Abroadwith so we can meditate and get the student in a new host family or other accommodation. In this case you will have to refund the payment to the student of the months he or she will no longer be living with you.",
+        "case_two": "<strong>Case 2:</strong> If you already accepted a booking of a student’s request, you will now have to cancel that booking before deactivating your account. To do this, you must go to “Reservations” (found in the dropdown upon clicking your name), and click on the booking(s) to cancel. Then you may follow the steps above.",
+        "important": "Deactivating your account is especially important if you have a “live” homestay as you would still appear as a viable option for students to book.",
+        "deleting_your_account": "Deleting your account:",
+        "step_1": "Log in to Abroadwith.",
+        "step_2": "Click on your name until you see the drop down “Settings”",
+        "step_3": "Click on “Privacy &amp; Security”",
+        "step_4": "Click on the red button “Delete your Account”",
+        "more_info": "For more information regarding cancellations, read up on it in our <a href='/terms#10'>Terms and Conditions here</a>."
+      },
+      "what_happens_when_conflict_arises": {
+        "title": "What to do if there’s a conflict between the host and student?",
+        "we_mediate": "If there’s a conflict, you must reach out to Abroadwith so we can meditate and get the student in a new host family or other accommodation. In this case you will have to refund the payment to the student of the months he or she will no longer be living with you."
+      }
+    },
+    "signing_up_section": {
+      "title": "Signing up",
+      "how_to_sign_up": {
+        "title": "How do I sign up as a host?",
+        "simple": "The signup process is simple. Just click <a href='/host-international-students'>“Become a Host”</a> on the right side of the navigation bar and follow the prompts. You can also follow <a href='https://drive.google.com/file/d/0B0QU_l3mAoYxSHpDOF9NTFRLM3c/view?usp=drive_web'>this how-to guide</a>. Download the document <a href='https://drive.google.com/open?id=0B0QU_l3mAoYxSHpDOF9NTFRLM3c'>here</a>."
+      },
+      "verifications": {
+        "title": "How do you verify me as a hosts?",
+        "personal_interview": "We take security and privacy very seriously. That said, we will verify you as a host through email, phone and governmental ID (i.e. passport or driver’s license) verification. We also hold thorough personal interviews via phone or Skype to get to know you better, answering any questions up front. These interviews are a way for you to get to know us, too.",
+        "how_to": "You can go through the steps to verify your identity by clicking on your name in the navigation bar. Then click SETTINGS>VERIFICATIONS. Or, just click this link <a href='/admin#verifications'>here</a>."
+      },
+      "verifying_landline": {
+        "title": "I have a landline? How do I verify that number?",
+        "not_at_this_time": "At this time, we only accept mobile numbers to verify their accounts. We are working very hard to bring the automated landline verification to our users. If you wish to use a landline, you can contact us at support@abroadwith.com, and we will be more than happy to verify you on the platform."
+      },
+      "id_verification": {
+        "title": "What's the ID verification?",
+        "government_id": "This must be a government issued piece of photo identification (i.e. passport or driver’s license)."
+      },
+      "personal_home_verification": {
+        "title": "Is someone from Abroadwith going come and check out my home?",
+        "sometimes": "The verification of email, phone, and governmental ID in conjunction with the interviews are our must for personal verification. In most urban cities, though, we send Abroadwith photographers to take pictures of your homestay and verify your home and address."
+      }
+    },
+    "create_profile_section": {
+      "title": "How to create a good profile",
+      "info_provided_for_signup": {
+        "title": "What information will I need to provide when signing up?",
+        "basic_info": "We need basic information like your name, email, and phone number in order to verify your identity. Then, you will need descriptions and pictures for your home to best market your homestay on the platform. The signup process is very simple and straightforward with a simple tool tips, guiding you along the way. Click <a href='https://drive.google.com/file/d/0B0QU_l3mAoYxSHpDOF9NTFRLM3c/view'>here</a> for a how-to guide to help you through the setup process."
+      },
+      "photos_to_upload": {
+        "title": "What photos should I upload to my profile?",
+        "clean_and_clear": "You will need a clean, clear photos of the common spaces in the home, as well as one room photo for each available room to showcase in the “home” profile. You will also need a photo of yourself for your user profile so that students can see exactly who they will be staying with."
+      },
+      "room_photos": {
+        "title": "How should the room photos appear?",
+        "clutter_free": "We have found that room photos that are clutter free receive more booking requests from guest than photos of untidy rooms. Horizontal photos also display better on the Abroadwith platform than vertical shots."
+      },
+      "house_rules": {
+        "title": "Do I have to set house rules?",
+        "its_your_house": "You are in complete control of your home. That said, you can set as many or as few rules as you see fit. We advise, though, that you write up the rules in your “home” profile so that students knows what to abide by before they arrive."
+      },
+      "what_is_included_in_base_rate": {
+        "title": "What does the base rate per week include?",
+        "bed_and_breakfast": "The base rate covers the room (accommodation) and breakfast."
+      },
+      "what_to_charge": {
+        "title": "How much should I charge?",
+        "ask_us": "We did some market research for several locations. If you are completely in the dark of what to charge, please reach out to your Country Manager, or our support desk at support@abroadwith.com. We can recommend a price point based on local averages,  but at the end of the day you are the one to choose a price. It is recommended that you, too, research your market to get a good idea of what to charge as a base rate per week."
+      },
+      "duration_of_stay": {
+        "title": "Is there a minimum or maximum number of nights a guest can stay?",
+        "no": "No, it depends on what the student request and what rooms are available."
+      },
+      "serving_breakfast": {
+        "title": "Do I need to serve breakfast to the guest(s) or can I leave it out for them?",
+        "either_way": "We only require that the student receive breakfast. This can be a simple DIY continental breakfast or something of the sorts. By all means, if you enjoy cooking, you are welcome to make the student breakfast in the mornings, but know this is not required."
+      },
+      "dinner_with_family": {
+        "title": "Do guests expect to eat dinner with their host family?",
+        "either_way": "We require that the student receive at minimum breakfast. All other meals are optional for the host to provide at an extra fee per week."
+      },
+      "half_and_full_board": {
+        "title": "What's the difference between half and full board?",
+        "explanation": "Full Board is a meal plan that includes breakfast, lunch, and dinner. Half Board, on the other hand, includes only breakfast and dinner."
+      }
+    },
+    "booking_section": {
+      "title": "Booking",
+      "booking_process": {
+        "title": "How does the booking process work?",
+        "overview": "When a student books with you, you will receive an automated email from Abroadwith. You will have to accept or reject the booking request within 48 hours or else it will automatically be declined. At this time, you will be able to view the student’s profile. You can see for yourself if they will be a good fit based on their similar interests to yours. Or course if you feel like it will be a good match, and the time requested works with your availability, you can accept their request. From here on out you can be in contact with the student through the Abroadwith messaging portal in order to arrange the finite details of their arrival, as well as get to know them better."
+      },
+      "booking_expectations": {
+        "title": "How often do you expect I’d receive a booking?",
+        "it_depends": "The answer to this question depends on several factors. Location, price, picture quality, languages offered, user profile, and “Home” profile. These are all variables that affect the marketability of your home. Abroadwith is rapidly growing across different markets. We want to offer you the opportunity to list your home on our platform so that you can reach the thriving list of students registering on the platform. You are more than welcome to contact your Country Manager or the support desk at support@abroadwith.com for tips on how you can improve your profile for more booking requests."
+      },
+      "one_time_fee": {
+        "title": "Is the around 3% commission a one time fee?",
+        "yes": "Yes, it happens once and is of the entire booking."
+      },
+      "getting_paid": {
+        "title": "Do I get paid all at once or in installments?",
+        "commencement": "Immersion program and language course balance will be paid to immersion hosts upon the commencement of the program within one week of the start date. For stays longer than two months, the payouts will be made recurrently as monthly installments.",
+        "delays": "Payout might experience delays depending on the receivers payout method and geographical location. Payouts will never be executed later than five days after an immersion programme or language course commences.",
+        "accurate_info": "Immersion hosts are responsible for accurately providing Abroadwith with required billing information such as full name, billing address and payment method information."
+      },
+      "cancelling_bookings": {
+        "title": "Can I cancel a booking?",
+        "timeframe": "Yes, you can cancel a booking before the arrival of the student. Below is the timeframe of cancellations and fees. We also advice you read our Cancellation Policy for more information <a href='/terms#10'>here</a>.",
+        "standard_cancellation": "Standard cancellation (14 days or more before the program commences): Full refund minus 3% transaction costs.",
+        "short_cancellation": "Short notice cancellation (less than 14 days before program begins): Full refund minus 3% transaction cost. Host is also penalized a fixed 10% rate deductible from their next booking."
+      },
+      "messaging_guests": {
+        "title": "How do I view and reply to messages from potential guests?",
+        "notification": "You will get a notification through email when you receive a new message from a user. In the email will be a link that will direct you to the Abroadwith messaging portal where you can respond. You can also go directly to your account yourself and click on the envelope icon to respond."
+      },
+      "messaging_time_limit": {
+        "title": "Is there a time limit I have in responding to messages?",
+        "not_for_messaging": "There is no time allowance for responding to messages, however, if it’s a booking request, you only have 48 hours to respond with an acceptance or declination message."
+      },
+      "communicating_with_student": {
+        "title": "How can I get in touch with the student?",
+        "break_the_ice": "Communication can be done through our messaging portal. However, you are and your guest are more than welcome to schedule meetings through Skype, Google Hangouts, or phone before their arrival. We actually encourage this interaction. Break the ice and get to know each other before their first day abroad."
+      },
+      "booking_direct": {
+        "title": "What if a potential guest wants to reserve dates or book directly with me?",
+        "against_toc": "This is forbidden and against our <a href='/terms'>Terms and Conditions</a>. In booking direct with the student, there is no guarantee you’ll get paid on time, nor would there be any conflict resolution mediation should a problem arise."
+      },
+      "student_profile_photo": {
+        "title": "Will I get a photo of the guest(s) before they arrive?",
+        "yes": "You will get an entire profile of your guest before they arrive. In fact, you will have access to view their profile before you even accept or decline their booking. We want you to know exactly who would be coming to live with you. This transparency allows for better matchmaking based on hobbies, interests and lifestyle, making a positive exchange experience for all."
+      },
+      "paying_taxes": {
+        "title": "Do I need to pay taxes?",
+        "it_depends": "Taxes are different everywhere. We cannot offer any tax-related advice other than that you must oblige by your local laws in regards to them. For more information, read up on taxes in our Terms and Conditions <a href='/terms#12'>here</a>."
+      }
+    },
+    "after_arrival_section": {
+      "title": "After arrival",
+      "preparing_to_host": {
+        "title": "How can I prepare myself as a host?",
+        "contact_us": "Many of the host families on our platform have hosted students before. But if you are a first time host, we are more than happy to help guide you through the process. Our Country Managers have a vast amount of experience and are happy to help. Just reach out to support@abroadwith.com and you will be redirected to your Country Manager."
+      },
+      "providing_house_key": {
+        "title": "Do I have to provide a key for my guest(s)?",
+        "it_depends": "It depends. Most hosts usually offer an extra key to their home, but perhaps you have a hide-away key. We just ask that the student has access to entering the home in some way."
+      },
+      "student_language_school": {
+        "title": "Do I need to help my guest to find a language school?",
+        "no": "No. Students are responsible for finding their own language schools through the platform."
+      },
+      "conflict_resolution": {
+        "title": "What if there's a conflict?",
+        "contact_us": "Always reach out to Abroadwith at support@abroadwith.com or your Country Manager’s direct phone so we can mediate the issue together. Abroadwith has 24 hours to find a new accommodation option for the student. We also advice you read our Cancellation Policy for more information <a href='/terms#10'>here</a> as well as our entire Terms and Conditions <a href='/terms'>here</a>."
+      },
+      "emergency_number": {
+        "title": "Is there an emergency Abroadwith number I can call?",
+        "country_manager": "You can call your Country Manager. Of course if it’s a dire emergency, call your local emergency line."
+      },
+      "parent_contact_info": {
+        "title": "What if something goes wrong with the student? Do I have their parent's contact info?",
+        "yes": "Yes, you have their emergency contact information."
+      }
+    },
+    "trust_safety_section": {
+      "title": "Trust and safety",
+      "meeting_prior_to_arrival": {
+        "title": "Can I meet the student beforehand?",
+        "not_in_person": "The student and the host live in different places. Making an arrangement for a live meeting can be expensive and time consuming. Initial contact between the parties will be through email. After this initial contact, both the host and student are free to use Skype, Google Hangouts, and/or phone to communicate with one another."
+      },
+      "student_background_checks": {
+        "title": "Are the students vetted/background checked?",
+        "not_really": "Only users who have verified their identities will be able to make bookings on our platform. At this time, we do not conduct background checks on students. Host are welcome to do their own thorough interviews of students after they accept bookings."
+      },
+      "liability_for_damages": {
+        "title": "Who is liable if the student is causing damage?",
+        "not_us": "Immersion host must have proper insurance during the entire duration of the immersion program. It is the immersion host’s responsibility to find out as to what extend damages by third parties (students) are covered by their current home insurance policy. In no circumstance will Abroadwith take responsibility for personal or material damages by students or hosts. Abroadwith is in no way an insurance provider, nor responsible for third party damage, except damages resulting directly from Abroadwith employees or by Abroadwith."
+      },
+      "needing_insurance": {
+        "title": "Do I need a special insurance?",
+        "probably": "We recommend that you have a proper home insurance policy to cover any damage that may result during the immersion program."
+      },
+      "security_of_private_info": {
+        "title": "Will my private details be secure?",
+        "yes_secure": "Yes, Abroadwith takes security and privacy very seriously. As described in our <a href='/terms'>Terms and Conditions</a>, students only have access to contact information after booking. Payment info is only handled by Abroadwith in order to payout the host for immersions."
+      },
+      "storing_payment_info": {
+        "title": "How do you store my payment details?",
+        "we_dont": "We do not store your payment details, but rather a secure payment provider does for us."
+      }
+    },
+    "troubleshooting_section": {
+      "title": "Troubleshooting",
+      "how_to_change_email": {
+        "title": "How do I change my email address?",
+        "you_cannot": "At this time users cannot change their default email address on the Abroadwith platform. This is done on purpose to prevent people from creating fake accounts."
+      },
+      "how_to_update_phone": {
+        "title": "How do I update my phone number?",
+        "you_cannot": "At this time, users cannot change their default phone numbers. This is done on purpose to maintain security, preventing fraudulent activity on accounts."
+      },
+      "editing_profile": {
+        "title": "How do I edit my profile?",
+        "click_on_your_home": "You can make changes to your home profile at any time. Just click on “Your home” and go to the section you want to make the change to.",
+        "click_on_your_profile": "You can also make changes to your user profile by clicking your name and “Your profile” on the drop down menu."
+      },
+      "changing_pricing": {
+        "title": "Is my pricing set in stone?",
+        "you_can_change": "Host can change pricing as necessary. Click on the “Your home” tab and go under pricing to adjust your prices. Remember once a booking is done, you have to honor the price published at the time of the booking."
+      }
+    }
+  }
+}

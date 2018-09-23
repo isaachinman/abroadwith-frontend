@@ -1,0 +1,42 @@
+{
+  "title": "Hinterlasse eine Bewertung",
+  "tell_us_about_experience": "Erzähle uns von deinen Erfahrungen mit",
+  "your_review_will_be_public": "Deine Bewertung wird auf s Profil veröffentlicht",
+  "textbox_placeholder": "Erzähle anderen User von deinen Erfahrungen",
+  "submit_btn": "Senden",
+  "please_give_star_rating": "Bitte gib deine Bewertung ab",
+  "review_success_modal_title": "Bewertung übermittelt",
+  "review_success_modal_body": "Vielen Dank für das Teilen Ihrer Erfahrungen. Wir und zukünftigen Nutzer schätzen Ihre Meinung.",
+  "written_review": "Schriftlicher Rückblick",
+  "go_to_homepage": "Zurück zur Homepage",
+  "review_home": {
+    "you_stayed_in": "Du hast im  Zuhause von gewohnt",
+    "help_other_guests": "Bitte helfe anderen Gästen, durch das Hinterlassen eines aussagefähigen Rückblicks, ihre am besten informierteste Entscheidung treffen zu können",
+    "stars_explanation": "Bitte gebe für deinen Gastgeber in verschiedenen Kategorien für deine Aufenthalt ein Rating ab.  Deine Vergabe der Sterne wird nur im Zusammenhang mit den Rückblicken der anderen Gästen benutzt. Dein Gastgeber wird deine genaue Sternevergabe nicht erfahren.",
+    "food_rating_title": "Essen",
+    "food_rating_explanation": "Hat die Qualität der  Mahlzeiten deinen Erwartungen entsprochen?",
+    "language_culture_rating_title": "Sprach- & Kultur- Bildung",
+    "language_culture_rating_explanation": "Wie hat dir dein Aufenthalt im Ganzen gefallen?",
+    "location_rating_title": "Lage",
+    "location_rating_explanation": "Wie attraktiv  ist die Nachbarschaft?",
+    "cleanliness_rating_title": "Sauberkeit",
+    "cleanliness_rating_explanation": "Hat die Sauberkeit deines Zimmers deinen Erwartungen entsprochen?",
+    "room_rating_title": "Zimmer",
+    "room_rating_explanation": "Wie hat der Raum deinen Bedürfnissen entsprochen"
+  },
+  "review_user": {
+    "stars_explanation": "Bitte beurteile deinen Gast aufgrund deiner Erfahrung mit ihm während des Aufenthaltes",
+    "you_hosted_guest": "Aufenthalt in deinem Zuhause"
+  },
+  "review_educator": {
+    "you_took_course": "Du hattest einen Kurs bei !",
+    "help_other_students": "Bitte helfe anderen Studenten, durch das Hinterlassen eines aussagefähigen Rückblicks, Ihre am besten informierteste Entscheidung  treffen zu können",
+    "stars_explanation": "Bitte gebe für deinen Lehrer in verschiedene Kategorien für deine Lehrerfahrung ein Rating ab. Deine Sternevergabe wird nur im Zusammenhang mit den Rückblicken der anderen Gästen benutzt. Dein Gastgeber wird deine genaue Sternevergabe nicht erfahren.",
+    "value_for_money_rating_title": "Preis/Leistungsverhältnis",
+    "value_for_money_rating_explanation": "Wie würdest du das Preis/Leistungsverhältnis des angebotenen Services benoten?",
+    "teaching_rating_title": "Unterricht",
+    "teaching_rating_explanation": "Hat die Qualität des Unterrichtes deinen Erwartungen entsprochen?",
+    "location_rating_title": "Lage",
+    "location_rating_explanation": "Hast du das Gefühl dass evtl. Fahrten zu und von deinem Lehrer im Rahmen waren?"
+  }
+}

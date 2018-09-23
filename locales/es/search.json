@@ -1,0 +1,52 @@
+{
+  "description": "This is the search page",
+  "results": "Resultados de búsqueda",
+  "title": "Búsqueda",
+  "your_tandem_language": "Tu idioma de tandem",
+  "add_language_course": "Quiero añadir un curso de idiomas",
+  "more_filters": "Más filtros",
+  "no_meal_preference": "Sin preferencias alimenticias",
+  "no_dietary_restrictions": "Sin restricciones en la dieta",
+  "nut_free": "Alérgico a las nueces",
+  "lactose_free": "Intolerante a la lactosa",
+  "gluten_free": "Sin glutén",
+  "sugar_free": "Diabético",
+  "essentials": "Servicios básicos",
+  "airport": "Recogida en el aeropuerto",
+  "all_house_types": "Todo tipo de casas",
+  "BREAKFAST_ONLY": "Desayuno",
+  "meal_choice": {
+    "HALF_BOARD": "Media pensión",
+    "FULL_BOARD": "Pensión completa",
+    "breakfast": "Desayuno",
+    "half_board": "Desayuno y cena",
+    "full_board": "Desayuno, comida y cena"
+  },
+  "amenities": {
+    "ESSENTIALS": "Servicios básicos",
+    "AC": "Aire acondicionado",
+    "AIRPORT_PICKUP": "Recogida en el aeropuerto"
+  },
+  "lifestyle": {
+    "SMOKING_ALLOWED": "Fumador",
+    "PETS_ALLOWED": "Mascotas permitidas",
+    "FAMILY_FRIENDLY": "Acogida de familias al completo",
+    "WHEELCHAIR_ACCESSIBLE": "Accesible en silla de ruedas",
+    "PETS_LIVE_IN_THE_HOUSE": "Hogar con mascotas"
+  },
+  "no_pets": "Hogar sin mascotas",
+  "language_to_learn": "¿Qué idioma quieres aprender?",
+  "language_to_teach": "¿Qué idioma quieres enseñar?",
+  "meta_description": "Elige qué idioma quieres aprender y dónde. Regístrate y escoge con quién te quedas a través de nuestra sencilla plataforma.",
+  "lifestyle_label": "Estilo de vida",
+  "map_input_placeholder": "¿Dónde quieres viajar?",
+  "language_to_learn_mobile": "Idioma",
+  "soy_free": "Sin soja",
+  "fish_and_shellfish_free": "Sin pescado y marisco",
+  "no_results_found": "Desafortunadamente no hay inmersiones disponibles de acuerdo con tus parámetros de búsqueda. Intenta actualizar tus preferencias para descubrir otras inmersiones.",
+  "per_week": "/semana",
+  "homestay_search_title": "Encuentra tu estancia",
+  "price_range": "Precio",
+  "filters_btn": "Filtros",
+  "number_of_results_found": "Resultados"
+}

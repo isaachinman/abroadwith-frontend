@@ -1,0 +1,17 @@
+{
+  "name": "abroadwith-languages",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.3",
+    "nunjucks": "^2.2.0"
+  },
+  "scripts": {},
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/abroadwith/locales.git"
+  },
+  "homepage": "https://bitbucket.org/abroadwith/locales#readme"
+}

@@ -1,0 +1,42 @@
+{
+  "title": "Leave a review",
+  "tell_us_about_experience": "Tell us about your experience with {{other_person}}",
+  "your_review_will_be_public": "Your review will be public on {{other_person}}'s profile page. Please keep in mind the review needs to be at least 20 characters long.",
+  "textbox_placeholder": "Let other users know about your experience",
+  "written_review": "Written Review",
+  "submit_btn": "Submit",
+  "please_give_star_rating": "Please give {{other_person}} a rating (1-5 stars)",
+  "review_success_modal_title": "Review submitted",
+  "review_success_modal_body": "Thank you for sharing your experience. We and future users appreciate your opinion.",
+  "go_to_homepage": "Back to homepage",
+  "review_home": {
+    "you_stayed_in": "You stayed in {{other_person}}'s home!",
+    "help_other_guests": "Please help other guests make the most informed decision possible by leaving a comprehensive review.",
+    "stars_explanation": "Please rate your host on several categories relating to your stay. Your star ratings will only be used in aggregate with other reviews left for this host. Your host will not know your exact star ratings.",
+    "food_rating_title": "Food",
+    "food_rating_explanation": "Did the overall quality of the food match your expectations?",
+    "language_culture_rating_title": "Language & Culture Learning",
+    "language_culture_rating_explanation": "How was your overall cultural-immersion experience?",
+    "location_rating_title": "Location",
+    "location_rating_explanation": "How appealing is the neighborhood (safety, convenience, desirability)?",
+    "cleanliness_rating_title": "Cleanliness",
+    "cleanliness_rating_explanation": "Did the cleanliness match your expectations of the space?",
+    "room_rating_title": "Room",
+    "room_rating_explanation": "How well did the room suit your needs?"
+  },
+  "review_user": {
+    "you_hosted_guest": "{{other_person}} stayed in your home!",
+    "stars_explanation": "Please rate your guest based on your experience with them over the course of the homestay."
+  },
+  "review_educator": {
+    "you_took_course": "You took a course with {{educator_name}}!",
+    "help_other_students": "Please help other students make the most informed decision possible by leaving a comprehensive review.",
+    "stars_explanation": "Please rate the educator on several categories relating to your educational experience. Your star ratings will only be used in aggregate with other reviews left for this educator. Your educator will not know your exact star ratings.",
+    "value_for_money_rating_title": "Value For Money",
+    "value_for_money_rating_explanation": "How would you rate the overall value of the service provided?",
+    "teaching_rating_title": "Teaching",
+    "teaching_rating_explanation": "Did the quality of the teaching match your expectations?",
+    "location_rating_title": "Location",
+    "location_rating_explanation": "Do you feel that any travel to and from your educator was within reason?"
+  }
+}

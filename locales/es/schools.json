@@ -1,0 +1,37 @@
+{
+  "address": "Dirección",
+  "tabs": {
+    "school": "Escuela",
+    "city": "Ciudad",
+    "reviews": "Opiniones",
+    "courses": "Cursos"
+  },
+  "school_size": "Tamaño de la escuela",
+  "sizes": {
+    "S": "Pequeña",
+    "M": "Mediana",
+    "L": "Grande"
+  },
+  "website": "Página web",
+  "languages_offered": "Idiomas ofrecidos",
+  "language": "Dialecto local",
+  "culture": "Cultura",
+  "nightlife": "Noche",
+  "course_weekcounts": {
+    "w1": "Primera",
+    "w2": "Segunda",
+    "w3": "Tercera",
+    "w4": "Cuarta",
+    "w5": "Quinta"
+  },
+  "course_length_descriptors": {
+    "non_recurring": "Fecha de comienzo y fin",
+    "weekly": "Curso semanal, comienza cada",
+    "monthly": "Curso mensual comenzando el de cada mes",
+    "quarterly": "Curso trimestral empezando en cada trimestre",
+    "biannual": "Curso semestral empezando el de cada medio año"
+  },
+  "date_range_not_available": "Los cursos seleccionados no están disponibles",
+  "choose_new_dates": "Por favor elige una nueva fecha para encontrar cursos",
+  "student_name": "Nombre del estudiante"
+}

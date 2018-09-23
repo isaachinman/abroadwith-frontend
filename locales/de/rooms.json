@@ -1,0 +1,45 @@
+{
+  "Weekly_rate": "Wochenpreis",
+  "Description": "Beschreibung",
+  "description_placeholder": "Bitte geben Sie Ihren Gästen einige Informationen über das Zimmer",
+  "shared_label": "Dieses Zimmer soll geteilt werden",
+  "shared": {
+    "false": "Nein",
+    "true": "Ja"
+  },
+  "no_description": "Der Gastgeber hat noch keine Beschreibung eingestellt!",
+  "room_name_label": "Name des Zimmers",
+  "room_name_placeholder": "z.B. großes Schlafzimmer mit Balkon",
+  "vacancies_label": "Anzahl der Schlafmöglichkeiten",
+  "vacancies_placeholder": "Wie viele Personen?",
+  "bed_types_label": "Art der Betten",
+  "bed_types_placeholder": "Bitte Art des Bettes auswählen",
+  "bed_types": {
+    "SINGLE_BED": "Einzelbett",
+    "DOUBLE_BED": "Doppelbett",
+    "AIR_BED": "Luftbett",
+    "FUTON": "Futon",
+    "PULLOUT_SOFA": "Ausziehbares Sofa",
+    "COUCH": "Couch"
+  },
+  "facilities_label": "Einrichtung",
+  "facilities_placeholder": "Wie ist das Zimmer eingerichtet?",
+  "facilities": {
+    "AIR_CONDITIONING": "Klimaanlage",
+    "BATHROOM": "Badezimmer",
+    "BEDSIDE_LOCKER": "Nachttisch",
+    "DESK": "Schreibtisch",
+    "DRESSER": "Kommode",
+    "FRIDGE": "Kühlschrank",
+    "HAIR_DRYER": "Haartrockner",
+    "HANGERS": "Kleiderbügel",
+    "HEATING": "Heizung",
+    "IRON": "Bügeleisen",
+    "MIRROR": "Spiegel",
+    "WARDROBE": "Schrank",
+    "DOOR_LOCK": "Türschloss"
+  },
+  "choose_picture_button": "Bitte Bild auswählen",
+  "add_room_button": "Dieses Zimmer hinzufügen",
+  "price_tooltip": "Wie viel wollen sie für das Zimmer inklusive Frühstück berechnen?"
+}

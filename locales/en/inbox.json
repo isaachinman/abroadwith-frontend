@@ -1,0 +1,22 @@
+{
+  "title": "Inbox",
+  "conversation_with": "Conversation with",
+  "no_messages_title": "You have no messages.",
+  "thread_will_be_here": "When someone messages you, this is where the thread will be.",
+  "no_messages": "No messages to display.",
+  "conversation_between": "This is a conversation between you and",
+  "intro_msg_stay": "would like to stay with",
+  "load_previous": "Load previous",
+  "input_placeholder": "Type a message.",
+  "this_is_a_conversation": "This is a conversation between you and",
+  "message_modal_title": "Send a message",
+  "message_modal_placeholder": "Tell your homestay hosts why you want to stay with them. What is interesting to you about their city/region?",
+  "message_modal_btn": "Send message",
+  "when_are_you_travelling": "When are you travelling?",
+  "thread_title": "{{guest}} would like to stay with {{host}}",
+  "You": "You",
+  "you": "you",
+  "guest": "Guest",
+  "host": "Host",
+  "user_will_receive_email_notification": "The user will receive a notification via email"
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Posteingang",
+  "no_messages_title": "Der Posteingang ist leer.",
+  "thread_will_be_here": "Neue Nachrichten erscheinen hier.",
+  "no_messages": "Keine Nachrichten vorhanden.",
+  "conversation_between": "Diese ist eine Unterhaltung zwischen mir und",
+  "intro_msg_stay": "Würde gerne wohnen bei (languages.en.inbox.intro_msg_stay) bleiben",
+  "load_previous": "Lade vorherige",
+  "input_placeholder": "Schreibe eine Nachricht",
+  "this_is_a_conversation": "Diese ist eine Unterhaltung zwischen mir und",
+  "message_modal_title": "Nachricht senden",
+  "message_modal_placeholder": "Nachricht schreiben",
+  "message_modal_btn": "Nachricht senden",
+  "when_are_you_travelling": "Wann wirst du Reisen?",
+  "thread_title": "würde gerne bei Ihnen wohnen",
+  "You": "you",
+  "you": "you",
+  "conversation_with": "Unterhaltung mit",
+  "guest": "Gast",
+  "host": "Gastgeber",
+  "user_will_receive_email_notification": "Der Benutzer erhält die Mitteilung per email"
+}
