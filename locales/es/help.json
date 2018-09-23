@@ -1,0 +1,431 @@
+{
+  "title": "Ayuda",
+  "content": "¡Hola! ¿Cómo podemos ayudarte? Por favor contacta con nosotros con la información relevante a través de <a href='mailto:support@abroadwith.com'>support@abroadwith.com</a>, y nos pondremos en contacto contigo tan pronto como nos sea posible. ¡Gracias!",
+  "general_section": {
+    "title": "General",
+    "what_is_abroadwith": {
+      "title": "¿Qué es Abroadwith?",
+      "first_platform": "Abroadwith es la primera plataforma donde los estudiantes de idiomas pueden encontrar a su anfitrión ideal y reservar un curso de idiomas acorde a sus necesidades.",
+      "hosts": "Los anfitriones pueden publicar su hogar de forma gratuita en la plataforma registrándose como anfitriones. Al registrarse, los anfitriones pueden elegir entre tres programas de inmersión únicos: estancia estándar, estancia tandem (intercambio de idiomas en casa) y estancia con profesor. Los estudiantes por su parte pueden registrarse en la plataforma y completar su perfil personal. La disponibilidad de información y transparencia ayuda a que estudiantes y anfitriones con los mismos intereses se encuentren fácilmente.",
+      "allowing": "Abroadwith ayuda a los estudiantes y anfitriones a encontrarse de una forma transparente y eficiente."
+    },
+    "how_does_it_work": {
+      "title": "¿Cómo funciona?",
+      "simple": "Si estás interesado en aprender un idioma en el extranjero, puedes registrarte clicando en Registro de estudiantes. Si quieres alojar estudiantes de todo el mundo en tu hogar, puedes registrarte clicando en conviertete en anfitrión y en cuestión de minutos tendrás tu casa registrada en la plataforma.",
+      "how_to_guide": "Para acceder a una guía completa sobre cómo convertirte en anfitrión puedes descargarla aquí <a href='https://drive.google.com/open?id=0B0QU_l3mAoYxSHpDOF9NTFRLM3c'>here</a>"
+    },
+    "why_abroadwith": {
+      "title": "¿Qué diferencia a Abroadwith de otras agencias y plataformas?",
+      "founded": "Abroadwith se establece bajo los principios de transparencia y equidad. Habiendo experimentado los problemas a los que se enfrentan los estudiantes de idiomas extranjeros sabemos que a menudo falta visibilidad y capacidad de decisión.",
+      "market_value": "En muchos casos las altas comisiones y pocas opciones suponen que muchos estudiantes no puedan permitirse la experiencia de estudiar idiomas en el extranjero. Con comisiones más bajas y opciones como tandem en Abroadwith esperamos que más gente pueda acceder a una experiencia tan gratificante como es el conocer y vivir una nueva cultura.",
+      "commission": "Abroadwith se lleva una comisión en cada reserva para cubrir costes de transacción, cambio de divisas y mantenimiento de la plataforma."
+    },
+    "define_homestay_immersion": {
+      "title": "¿Qué es una inmersión con familia anfitriona?",
+      "accommodation_option": "Una inmersión con familia anfitriona o piso compartido es la mejor opción para aprender un nuevo idioma y sumergirse en una nueva cultura. El estudiante vive con nativos del lugar bien en una familia o en un piso compartido. Se espera que durante el intercambio el estudiante  tenga una experiencia inmersiva formando parte de la vida contidiana de la familia o compañeros de piso."
+    },
+    "minimum_user_age_abroadwith": {
+      "title": "¿Cual es la edad mínima para usar Abroadwith?",
+      "eighteen": "Si eres mayor de edad (18) puedes usar todos los servicios de la plataforma."
+    },
+    "sign_up_cost": {
+      "title": "¿Cuánto cuesta usar Abroadwith?",
+      "free": "Darse de alta en Abroadwith es completamente gratuito."
+    },
+    "abroadwith_fees": {
+      "title": "¿Qué comisión se lleva Abroadwith?",
+      "commission": "Abroadwith se lleva una comisión única del anfitrión en cada reserva (en torno al 3%) y cobra una comisión por el servicio al estudiante (comisión variable dependiendo de la duración de la estancia). Estos pequeños porcentajes cubren los costes de transacción, cambio de divisas y el mantenimiento de la plataforma."
+    },
+    "when_was_abroadwith_founded": {
+      "title": "¿Cuanto tiempo lleva Abroadwith en activo?",
+      "founded_in": "Abroadwith lleva en activo desde Agosto de 2015."
+    },
+    "how_to_search_cities": {
+      "title": "¿Cómo puedo buscar una inmersión en una ciudad de mi interés?",
+      "type_it_in": "Dirígete a la página principal www.abroadwith.com/es, elige el idioma que desees aprender, un lugar para aprenderlo y las fechas de tu interés. Realiza una búsqueda y encontrarás todos los anfitriones disponibles en la zona durante tus fechas deseadas."
+    }
+  },
+  "student_section": {
+    "title": "Estudiantes",
+    "general_section": {
+      "title": "General",
+      "how_to_send_host_message": {
+        "title": "¿Cómo envío un mensaje a un anfitrión con el que estoy interesado en quedarme?",
+        "click_the_button": "Puedes contactar con un anfitrión accediendo a su hogar y clicando en contactar anfitrión. Al abrirse una ventana nueva debes especificar tus fechas de interés y podrás escribirle al anfitrión."
+      },
+      "how_to_book": {
+        "title": "¿Cómo hago una reserva?",
+        "very_easy": "Hacer una reserva en la plataforma es muy sencillo. Dirígete a la página principal www.abroadwith.com/es, al hacer una búsqueda verás los anfitriones de tu interés. Cuando encuentres a tu anfitrión ideal podrás añadir tu información de pago y solicitar una reserva."
+      },
+      "booking_confirmation": {
+        "title": "¿Cómo se confirma my reserva?",
+        "confirmation_notification": "Una vez que hagas una solicitud de reserva el anfitrión recibirá una notificación que debe responder en 48 horas. Recibirás un email con la decisión del anfitrión."
+      },
+      "no_host_response": {
+        "title": "¿Qué ocurre si no recibo una respuesta de mi anfitrión?",
+        "forty_eight_hours": "El anfitrión debe responder en 48 horas, en caso de no responder la reserva será rechazada automáticamente en 48 horas y recibirás un email con dicha información."
+      },
+      "finding_desired_destination": {
+        "title": "¿Qué ocurre si no puedo encontrar anfitriones en el destino que quiero?",
+        "growing": "Si no encuentras anfitriones disponibles en tu destino deseado puedes ponerte en contacto con nosotros a través de support@abroadwith.com"
+      },
+      "knowing_host_availability": {
+        "title": "¿Cómo puedo saber cual es la disponibilidad de los anfitriones?",
+        "showcase": "Al realizar una búsqueda solamente verás aquellos anfitriones que están disponibles para las fechas de tu interés."
+      },
+      "how_to_pay": {
+        "title": "¿Cómo pago?",
+        "payment_methods": "Puedes pagar con tarjeta de crédito o paypal."
+      },
+      "how_to_cancel_bookings": {
+        "title": "¿Puedo cancelar una reserva?",
+        "cancellation": "Puedes cancelar tu reserva en cualquier momento antes de que empiece tu programa de inmersión, pero debes tener en cuenta la política de cancelación:",
+        "standard_cancellation": "Cancelación estándar (14 días o antes del comienzo de la inmersión): El estudiante recibe un reembolso menos la comisión de servicio.",
+        "short_cancellation": "Cancelación a corto plazo (Menos de 14 días para el comienzo de la inmersión): El estudiante recibe un reembolso menos un 15% (incluyendo la comisión de servicio)."
+      },
+      "when_host_cancels_booking": {
+        "title": "¿Qué ocurre si el anfitrión cancela mi reserva?",
+        "not_charged": "Recibirás un email con la información pertinente. En este caso el estudiante recibe un reembolso completo."
+      },
+      "issues_with_bookings": {
+        "title": "¿Qué puedo hacer si tengo un problema o duda con mi inmersión antes de que comience?",
+        "contact_us": "Puedes contactarnos en todo momento en support@abroadwith.com."
+      },
+      "modifying_booking_dates": {
+        "title": "¿Qué ocurre si quiero acortar mi estancia?",
+        "contact_us": "Puedes contactarnos en todo momento en support@abroadwith.com en cuanto sepas cuanto tiempo deseas quedarte."
+      },
+      "writing_reviews": {
+        "title": "¿Puedo dejar una evaluación sobre mi experiencia?",
+        "review_host": "Una vez terminada tu inmersión recibirás un email para dejar una evaluación. Las evaluaciones son muy útiles para mejorar el servicio y ayudar a otros estudiantes en el futuro."
+      }
+    },
+    "pricing_section": {
+      "title": "Precio",
+      "included_in_price": {
+        "title": "¿Qué incluye el precio?",
+        "basic_rate": "El precio base incluye alojamiento, desayuno e inmersión lingüística en todos los casos. El resto de servicios son opcionales, puedes elegirlos durante la reserva y suponen un cargo extra."
+      },
+      "asking_for_discounts": {
+        "title": "¿Puedo solicitar un descuento a un anfitrión antes de reservar?",
+        "no": "No es posible, el precio detallado en la página es el precio elegido por el anfitrión."
+      },
+      "paying_for_meals": {
+        "title": "¿Puedo reservar y pagar planes de comida en Abroadwith?",
+        "meal_plan": "Si, la mayoría de nuestros anfitriones ofrecen planes de comida (media pensión o pensión completa). Puedes buscar únicamente anfitriones que ofrezcan media pensión o pensión completa. El desayuno siempre está incluido en el precio base, pero media pensión y pensión completa tienen un cargo extra que cada anfitrión específica en la reserva."
+      },
+      "are_towels_included": {
+        "title": "¿Están las toallas incluidas en el precio?",
+        "ask_host": "Cada anfitrión es distinto, puedes preguntar al anfitrión antes de viajar si ofrece toallas o no."
+      },
+      "separate_charge_for_laundry": {
+        "title": "¿Tiene el lavado de ropa un coste adicional?",
+        "depends_on_host": "Si, los anfitriones normalmente añaden una pequeña cantidad por el lavado de ropa que aparece en el precio final."
+      }
+    },
+    "amenities_section": {
+      "do_homestays_have_wifi": {
+        "title": "¿Tienen internet todos los anfitriones?",
+        "no": "No. Aunque la mayoría de anfitriones ofrecen internet no todos lo ofrecen. Puedes ver esta y otra información en la página del hogar del anfitrión."
+      },
+      "title": "Servicios en el hogar",
+      "bringing_pets": {
+        "title": "¿Puedo traer mi propia mascota?",
+        "it_depends": "Esto dependerá de las leyes específicas de cada país al que viajes y de si tu anfitrión acepta mascotas o no."
+      }
+    },
+    "insurance_visa_section": {
+      "title": "Seguro y visado",
+      "who_organizes_visa": {
+        "title": "¿Quién es el responsable de organizar mi visado?",
+        "student_is_responsible": "El estudiante es en todo caso responsable de gestionar su visado antes de viajar y los costes del mismo. Abroadwith puede expedir aquella documentación que sea necesaria por nuestra parte."
+      },
+      "is_insurance_needed": {
+        "title": "¿Necesito seguro?",
+        "yes": "Si, tal y como se especifica en nuestros Términos y condiciones debes de tener un seguro médico en regla, ni Abroadwith ni los anfitriones en ningún caso pueden hacerse responsables de los costes médicos del estudiante."
+      },
+      "does_abroadwith_provide_insurance": {
+        "title": "¿Ofrece Abroadwith algún seguro en concreto?",
+        "not_at_this_time": "Abroadwith no ofrece seguros de forma directa ni a través de intermediarios."
+      }
+    },
+    "trust_safety_section": {
+      "title": "Seguridad",
+      "abroadwith_trust_and_safety": {
+        "title": "¿Cómo gestiona Abroadwith la seguridad de todos los implicados en la plataforma?",
+        "hosts_are_vetted": "En Abroadwith nos tomamos la seguridad muy en serio. Cada anfitrión en nuestra plataforma es verificado a través de correo electrónico, teléfono y verificación a través de documento oficial. Además de las verificaciones los anfitriones tienen que pasar un proceso de entrevistas."
+      },
+      "getting_verified": {
+        "title": "¿Cómo puedo verificar mi identidad?",
+        "photo_id": "Cuando te inscribes en la plataforma necesitas seguir todos los pasos para verificar tu dirección correo electrónico y número de teléfono. Te recomendamos también que verifiques tu identidad con un documento oficial para dar mayor seguridad a los anfitriones. Puedes verificar tu identidad en AJUSTES>VERIFICACIONES."
+      },
+      "what_info_is_shared_with_host": {
+        "title": "¿Qué información personal se comparte con mi anfitrión?",
+        "public_data": "Únicamente tu información pública será compartida con tu anfitrión. En caso de emergencia compartiremos también la información de tu contacto de emergencia."
+      },
+      "is_my_host_real": {
+        "title": "¿Cómo sé que mi anfitrión es real?",
+        "hosts_interviewed": "Todos los anfitriones en la plataforma siguen un proceso de verificación y entrevistas. Igualmente en todas las grandes ciudades los hogares y las direcciones están verificadas por los fotógrafos de Abroadwith."
+      },
+      "when_a_problem_arises": {
+        "title": "¿Qué debería de hacer si tengo un problema durante mi estancia?",
+        "contact_us": "Puedes ponerte en contacto con Abroadwith lo antes posible support@abroadwith.com. Todas las situaciones de emergencia sanitaria deben de comunicarse con las autoridades y servicios sanitarios locales."
+      }
+    },
+    "during_stay_section": {
+      "title": "Durante la estancia",
+      "not_getting_along_with_host": {
+        "title": "¿Qué ocurre si no estoy satisfecho con mi familia?",
+        "contact_us": "Puedes contactar con Abroadwith (support@abroadwith.com) para ver las opciones de cancelación o intentar intermediar para solucionar posibles conflictos."
+      }
+    }
+  },
+  "host_section": {
+    "title": "Anfitriones",
+    "general_section": {
+      "title": "General",
+      "how_does_it_work": {
+        "title": "¿Cómo funciona?",
+        "overview": "Cuando publicas tu hogar en nuestra plataforma, tienes la opción de ofrecer uno, dos o tres programas de inmersión para alojar estudiantes."
+      },
+      "why_host": {
+        "title": "¿Porqué convertirme en anfitrión con Abroadwith?",
+        "the_pitch": "Con Abroadwith el mostrar tu hogar a miles de estudiantes extranjeros que vienen a tu ciudad es completamente gratuito. Además, Abroadwith te da control absoluto desde el precio que quieres cobrar por la estancia, hasta los servicios que quieres ofrecer. Nuestros anfitriones tienen control y capacidad de decisión además de disfrutar de una experiencia altamente gratificante conociendo estudiantes de todo el mundo."
+      },
+      "who_can_host": {
+        "title": "¿Puede cualquier solicitar el convertirse en anfitrión?",
+        "nearly_anyone": "Cualquiera siendo mayor de edad puede registrarse para convertirse en anfitrión en la plataforma. Siempre que tengas espacio disponible, hables el idioma local, puedas ofrecer los servicios mínimos (desayuno y conversación) y verifiques tu cuenta, podrás publicar tu hogar en la plataforma."
+      },
+      "who_are_guests": {
+        "title": "¿Qué tipo de estudiantes recibiré?",
+        "nearly_anyone": "Tus huéspedes serán principalmente estudiantes de idiomas mayores de edad, principalmente entre 18 y 30 años. Cada solicitud es distinta y podrás ver la edad e intereses de cada estudiante antes de aceptar o rechazar la solicitud."
+      },
+      "length_of_stay": {
+        "title": "¿Cuanto tiempo se queda cada estudiante?",
+        "it_depends": "Depende de cada caso. Algunos estudiantes toman cursos de un par de semanas y otros se quedan largos periodos."
+      },
+      "how_to_get_students": {
+        "title": "¿Cómo me encuentran los estudiantes?",
+        "not_an_agency": "Al registrarte en Abroadwith y publicar tu hogar, los estudiantes interesados en reservar una inmersión con curso de idiomas en tu zona verán tu casa. Una vez que soliciten una solicitud recibirás un email y debes de aprobar o rechazar la solicitud en 24 horas."
+      },
+      "room_availability_when_traveling": {
+        "title": "¿Puedo alquilar mi segunda vivienda o mi apartamento si está vacío?",
+        "no": "No, la esencia de Abroadwith es la inmersión lingüística y las casas vacías no son una opción para ofrecer en la plataforma."
+      },
+      "payments": {
+        "title": "¿Cómo recibo mis ganancias?",
+        "fill_out_payment_section": "Una vez que recibas una reserva debes dirigirte a la sección de PAGOS en AJUSTES o clicando en <a href='/admin#payments'>Payments</a>. Aquí podrás elegir tu método de pago favorito (Paypal o transferencia bancaria). Recibirás tus ganancias en el medio de tu preferencia durante la primera semana de la estancia."
+      },
+      "deleting_account": {
+        "title": "¿Cómo puedo eliminar mi cuenta?",
+        "not_for_everyone": "Puedes borrar tu cuenta en AJUSTES dentro de la sección PRIVACIDAD pero debes tener en cuenta lo siguiente:",
+        "case_one": "<strong>Caso 1:</strong> Si tienes estudiantes en casa debes de terminar la estancia antes de borrar tu cuenta. En caso de tener algún tipo de conflicto con el estudiante y querer cancelar la estancia con anterioridad puedes ponerte en contacto con nosotros a través de support@abroadwith.com",
+        "case_two": "<strong>Case 2:</strong> En caso de haber aceptado una solicitud por parte de algún estudiante, tendrás que cancelar la reserva antes de desactivar tu cuenta. Para ello, debes de dirigirte a 'TUS RESERVAS' y cancelar las solicitudes de reservas que tengas pendientes.",
+        "important": "Al desactivar tu cuenta asegúrate de que no tienes ningún hogar activo ni con reservas pendientes.",
+        "deleting_your_account": "Para borrar tu cuenta:",
+        "step_1": "Iniciar sesión en Abroadwith",
+        "step_2": "Clica en tu nombre arriba a la derecha y seguidamente clica AJUSTES",
+        "step_4": "Clica en el botón rojo BORRAR TU CUENTA",
+        "step_3": "Clica en PRIVACIDAD",
+        "more_info": "Para más información sobre cancelaciones puedes leer más en nuestros términos y condiciones <a href='/terms#10'>Terms and Conditions here</a>.",
+        "two_possible_cases": "Para desactivar tu cuenta, sigue los pasos para borrar tu cuenta que verás a continuación. Antes de ello asegúrate de que no tienes estudiantes en casa en el momento de borrar la cuenta ni solicitudes pendientes."
+      },
+      "what_happens_when_conflict_arises": {
+        "title": "¿Qué ocurre si hay un conflicto entre el anfitrión y el estudiante?",
+        "we_mediate": "Si hay algún conflicto puedes ponerte en contacto con Abroadwith e intentaremos intermediar para solucionar el conflicto, si en 24 no podemos solucionar el conflicto nos comprometemos a encontrar un nuevo alojamiento al estudiante. En este caso el anfitrión tiene que devolver el importe correspondiente al resto de la estancia que aún no ha pasado."
+      }
+    },
+    "signing_up_section": {
+      "title": "Registro",
+      "how_to_sign_up": {
+        "title": "¿Cómo registrarse como anfitrión?",
+        "simple": "El proceso de registro es simple. Clica en <a href='/es/host-international-students'>“Conviértete en anfitrión”</a> en la parte superior derecha de la página. Alternativamente puedes seguir <a href='https://drive.google.com/file/d/0B0QU_l3mAoYxSHpDOF9NTFRLM3c/view?usp=drive_web'>esta guía</a> Descarga el documento <a href='https://drive.google.com/open?id=0B0QU_l3mAoYxSHpDOF9NTFRLM3c'>aquí</a>."
+      },
+      "verifications": {
+        "title": "¿Cómo verificar mi identidad como anfitrión?",
+        "personal_interview": "Para empezar con el registro de tu hogar tienes que verificar tu email (clicando en el link de verificación que recibirás via email) y tu teléfono (confirmando el código que te llegará via SMS). Además después de publicar tu hogar tienes que verificar tu identidad con un documento de identidad (DNI o pasaporte). Más adelante concertaremos una entrevista contigo para saber más de ti y resolver cualquier duda que puedas tener.",
+        "how_to": "Puedes realizar todas las verificaciones en AJUSTES>VERIFICACIONES o clicando en <a href='/es/admin#verifications'>here</a>."
+      },
+      "verifying_landline": {
+        "title": "¿Puedo verificar mi teléfono si solamente tengo teléfono fijo?",
+        "not_at_this_time": "De momento no, únicamente puedes verificar tu teléfono con un teléfono móvil. En el futuro también será posible verificar tu teléfono fijo."
+      },
+      "id_verification": {
+        "title": "¿Qué documento oficial puedo usar para verificar mi identidad?",
+        "government_id": "Debe de ser un documento expedido por el estado donde residas o del que seas nacional (Documento de identidad, carnet de conducir o pasaporte)."
+      },
+      "personal_home_verification": {
+        "title": "¿Vendrá alguien de Abroadwith a visitar mi hogar?",
+        "sometimes": "En la mayoría de ciudades mandamos fotógrafos para mejorar las fotos de tu hogar que a su vez verifican tu dirección. Las verificaciones generales son por correo, teléfono y documento de identidad."
+      }
+    },
+    "create_profile_section": {
+      "title": "¿Cómo crear un buen perfil?",
+      "info_provided_for_signup": {
+        "title": "¿Qué información necesito al registrarme?",
+        "basic_info": "Necesitamos información básica tal como tu nombre completo, correo electrónico y teléfono móvil para verificar tu identidad.  Al publicar tu hogar necesitarás buenas fotos (a ser posible horizontales de tu hogar). Si tienes dudas puedes clicar <a href='https://drive.google.com/file/d/0B0QU_l3mAoYxSHpDOF9NTFRLM3c/view'>aquí</a> para descargar una guía sobre cómo convertirte en anfitrión."
+      },
+      "half_and_full_board": {
+        "title": "¿Cual es la diferencia entre media pensión y pensión completa?",
+        "explanation": "Pensión completa es un plan de comida que además de desayuno incluye también comida y cena. Media pensión incluye solamente desayuno y cena."
+      },
+      "photos_to_upload": {
+        "title": "¿Qué fotos debo de subir en mi perfil?",
+        "clean_and_clear": "Necesitaras fotos claras de las zonas comunes en tu hogar, así como una foto independiente de cada habitación que quieras ofrecer en el perfil de tu hogar. Es importante que la casa esté presentable y en buenas condiciones cuando saques las fotos. Igualmente es muy recomendable añadir una foto personal al perfil de usuario para dar mayor confianza al estudiante."
+      },
+      "room_photos": {
+        "title": "¿Cómo deben de ser las fotos de la casa y habitación?",
+        "clutter_free": "Las fotos son probablemente el punto más importante a la hora de construir tu perfil. Fotos de una casa ordenada, limpia y con buena resolución ayudan mucho a que los estudiantes se interesen por tu hogar. También es importante subir fotos horizontales que están mejor optimizadas para páginas webs."
+      },
+      "house_rules": {
+        "title": "¿Es necesario el fijar normas de casa?",
+        "its_your_house": "Cada anfitrión puede decidir las normas que quiere aplicar en su hogar, siempre que estén dentro de lo razonable y que se muestren públicamente en tu perfil en el momento de hacer la reserva-"
+      },
+      "what_is_included_in_base_rate": {
+        "title": "¿Qué incluye el precio base semanal?",
+        "bed_and_breakfast": "El precio base incluye el alojamiento más el desayuno."
+      },
+      "what_to_charge": {
+        "title": "¿Cuánto debo de cobrar?",
+        "ask_us": "Los precios medios en España por habitación con desayuno van de 110 hasta 200 euros por semana dependiendo de la zona, estado de la casa y servicios en el hogar entre otros. Por media pensión se suele añadir otros 25 euros y pensión completa se añaden unos 50 euros semanales. Si tienes dudas sobre el precio semanal puedes consultar con tu encargado de zona o en support@abroadwith.com Igualmente puedes ver lo que están cobrado otros anfitriones en Abroadwith en tu ciudad."
+      },
+      "duration_of_stay": {
+        "title": "¿Hay un número mínimo de noches de estancia?",
+        "no": "No, depende de los requisitos del estudiante y qué habitaciones están disponibles."
+      },
+      "serving_breakfast": {
+        "title": "¿Es necesario servir el desayuno al estudiante o puedo dejarlo listo para ellos?",
+        "either_way": "El anfitrión puede dejar el desayuno listo para que se lo prepare el estudiante. Lo más importante es pasar suficientes horas semanales con el estudiante para que practique el idioma."
+      },
+      "dinner_with_family": {
+        "title": "¿Esperan los estudiantes el comer la cena con la familia?",
+        "either_way": "La única comida obligatoria del día es el desayuno, el resto son opcionales. Sin embargo, si la familia ofrece cena o comida lo normal es que el estudiante cene con ellos."
+      }
+    },
+    "troubleshooting_section": {
+      "editing_profile": {
+        "title": "¿Cómo puedo editar mi hogar publicado?",
+        "click_on_your_home": "Puedes hacer cambios en tu hogar una vez publicado sin ningún problema. Tienes que clicar en TU HOGAR en la zona superior derecha de la página y hacer los cambios que necesites.",
+        "click_on_your_profile": "También puedes hacer cambios en todo momento en tu perfil personal al clicar en tu nombre y editar TU PERFIL en el menu desplegable."
+      },
+      "changing_pricing": {
+        "title": "¿Puedo cambiar mi precio una vez publicado mi hogar?",
+        "you_can_change": "El anfitrión puede cambiar el precio cuando sea necesario. Clica en TU HOGAR y en la sección de PRECIOS podrás modificar los servicios ofrecidos y ajustar el precio de los mismos. Recuerda que una vez que hayas aceptado una reserva, el precio de la misma es el que tienes en tu perfil en ese momento."
+      },
+      "how_to_update_phone": {
+        "you_cannot": "Por motivos de seguridad una vez verificado un teléfono, el usuario no puede cambiar el teléfono manualmente.",
+        "title": "¿Puedo modificar mi teléfono una vez ha sido verificado?"
+      },
+      "how_to_change_email": {
+        "title": "¿Puedo cambiar mi cuenta de correo?",
+        "you_cannot": "Una vez creada tu cuenta no se puede cambiar la dirección de correo electrónico. Esto es principalmente por motivos de seguridad, en caso de querer cambiar tu correo electrónico puedes contactarnos o crea una cuenta nueva."
+      },
+      "title": "Resolución de problemas"
+    },
+    "trust_safety_section": {
+      "storing_payment_info": {
+        "title": "¿Cómo se guardan mi información de pago?",
+        "we_dont": "Al hacer una reserva, tu información de pago se guarda a través de proveedores de pagos seguros, nosotros no almacenamos la información sensible de pago en ningún momento."
+      },
+      "security_of_private_info": {
+        "title": "¿Quién tiene acceso a mi información de contacto?",
+        "yes_secure": "Tal y como se establece en nuestros términos y condiciones, los estudiantes solamente tienen acceso a la información de contacto después de la reserva. La información de pago solamente se emplea por parte de Abroadwith para gestionar pagos a anfitriones."
+      },
+      "needing_insurance": {
+        "title": "¿Necesito un seguro especial?",
+        "probably": "Abroadwith recomienda a sus anfitriones que comprueben las pólizas del seguro de su hogar y que se aseguren de que posibles daños al alojar estudiantes están cubiertos en cualquier caso por su seguro."
+      },
+      "liability_for_damages": {
+        "not_us": "Los anfitriones deben de tener un seguro en regla durante la duración de la inmersión. Es la responsabilidad del anfitrión el tener un seguro de hogar que cubra cualquier eventualidad en casa. En ningún caso Abroadwith es responsable de daño material o personal por parte de los estudiantes o anfitriones.",
+        "title": "¿Quién es responsable si el estudiante causa algún daño?"
+      },
+      "student_background_checks": {
+        "not_really": "Solamente aquellos usuarios que estén verificados pueden reservar en Abroadwith.",
+        "title": "¿Hay un filtro formal para los estudiantes?"
+      },
+      "meeting_prior_to_arrival": {
+        "not_in_person": "El estudiante y el anfitrión suelen vivir en lugares distintos por lo que conocerse en persona antes de aceptar la reserva, por lo general, no es una posibilidad. Una vez aprobada la reserva el estudiante y el anfitrión pueden tener una videollamada o contacto telefónico.",
+        "title": "¿Puedo conocer a los estudiantes antes de reservar?"
+      },
+      "title": "Seguridad"
+    },
+    "after_arrival_section": {
+      "parent_contact_info": {
+        "title": "¿Qué ocurre en caso de emergencia? ¿Tendría algún contacto al que acudir?",
+        "yes": "En caso de emergencia puedes contactar con Abroadwith (support@abroadwith.com) o ponerte en contacto con el contacto de emergencia del estudiante."
+      },
+      "emergency_number": {
+        "title": "¿Hay algún número de emergencia de Abroadwith al que pueda llamar?",
+        "country_manager": "En caso de emergencia siempre puedes llamar al encargado de tu país en Abroadwith, en caso de una emergencia grave debes de llamar al número de emergencia local."
+      },
+      "conflict_resolution": {
+        "contact_us": "En caso de conflicto siempre puedes contactar con Abroadwith a través de support@abroadwith.com o con el encargado de tu zona a través de teléfono. Entonces se abrirá un proceso de intermediación. Si pasadas 24 horas de intermediación no se puede solucionar el conflicto, Abroadwith se compromete a buscarle un nuevo alojamiento al estudiante.",
+        "title": "¿Qué ocurre en caso de conflicto?"
+      },
+      "student_language_school": {
+        "title": "¿Necesito ayudar al estudiante a encontrar una escuela de idiomas?",
+        "no": "No, los estudiantes son encuentran y reservan los cursos de idiomas en la plataforma."
+      },
+      "providing_house_key": {
+        "title": "¿Dedo de darle una llave de casa al estudiante?",
+        "it_depends": "El estudiante tiene que tener acceso a la casa y a su habitación en todo momento. Si hay alguien siempre en casa o hay alguna otra forma de que pueda acceder no hay necesidad, pero por lo general recomendamos que el estudiante tenga llave para mayor comodidad."
+      },
+      "preparing_to_host": {
+        "contact_us": "Muchas de las familias anfitrionas en nuestra plataforma tienen experiencia alojando estudiantes internacionales por largos periodos. Para aquellos que alojan estudiantes extranjeros por primera vez y tienen dudas sobre cómo dar una buena bienvenida al anfitrión o cómo tener una buena convivencia pueden ponerse en contacto con nosotros a través de support@abroadwith.com",
+        "title": "¿Cómo puedo prepararme para ser un buen anfitrión?"
+      },
+      "title": "Después de la llegada"
+    },
+    "booking_section": {
+      "paying_taxes": {
+        "title": "¿Necesito pagar impuestos?",
+        "it_depends": "Los impuestos difieren en cada país, a veces en cada región. Abroadwith no ofrece asesoramiento fiscal de ningún tipo más que las ganancias generadas en nuestra plataforma deben de declarase a las autoridades correspondientes."
+      },
+      "student_profile_photo": {
+        "title": "¿Tengo acceso a una foto del estudiante antes de que llegue?",
+        "yes": "Recibirás un perfil completo del estudiante antes de que llegue. De hecho tienes acceso en todo momento a su perfil antes de aceptar la reserva, lo cual ayuda a tomar una decisión en base al estilo de vida de cada anfitrión y estudiante."
+      },
+      "booking_direct": {
+        "title": "¿Qué ocurre si un estudiante quiere guardar fechas o reservar directamente conmigo?",
+        "against_toc": "Además de ir en contra de la política de términos y condiciones, al reservar directamente con el estudiante, el anfitrión pierde toda garantía y seguridad de recibir su pago. El anfitrión también perdería el derecho a intermediación y a la relocalización del estudiante en caso de conflicto."
+      },
+      "communicating_with_student": {
+        "title": "¿Cómo puedo ponerme en contacto con el estudiante?",
+        "break_the_ice": "Puedes contactar con el estudiante a través de nuestro servicio de mensajes dentro de la plataforma. Una vez reservado es también posible contactar a través de teléfono o video llamada."
+      },
+      "messaging_time_limit": {
+        "title": "¿Tengo un tiempo límite para responder a los mensajes?",
+        "not_for_messaging": "Si se trata de una solicitud de reserva tendrás 48 horas para responder. No hay un límite de tiempo para poder responder a los mensajes de contacto, aunque obviamente, cuanto antes contestes más fácil será que el estudiante siga interesado en reservar."
+      },
+      "messaging_guests": {
+        "title": "¿Cómo puedo ver y responder los mensajes de estudiantes interesados?",
+        "notification": "Recibirás una notificación a través de tu email cuando recibas un nuevo mensaje de un estudiante. En el email verás un link directo para acceder al panel de mensajes de la plataforma."
+      },
+      "cancelling_bookings": {
+        "title": "¿Puedo cancelar una reserva?",
+        "timeframe": "Si, puedes cancelar una reserva antes de la llegada del estudiante. La política de cancelación es la siguiente:",
+        "standard_cancellation": "Cancelación estándar (14 días o antes de que comience la inmersión): Reembolso al estudiante, menos 3%.",
+        "short_cancellation": "Cancelación a corto plazo (Menos de 14 días para el comienzo de la inmersión): Reembolso al estudiante menos un 3%. El anfitrión será penalizado con un 10% de comisión extra en su siguiente reserva."
+      },
+      "getting_paid": {
+        "title": "¿Se me paga de una vez o en mensualidades?",
+        "commencement": "Las ganancias del programa de inmersión se transfiere a los anfitriones durante la primera semana de la estancia. Para estancias de una duración de más de dos meses los pagos se harán mensualmente.",
+        "delays": "Dependiendo de tu banco y proximidad geográfica los pagos pueden sufrir retrasos. Sin embargo, los pagos se ejecutan siempre durante los siete primeros días de comienzo de la inmersión.",
+        "accurate_info": "Los anfitriones son responsables de proveer información de pago completa y exacta tal y como: nombre completo, dirección postal y método de pago."
+      },
+      "booking_expectations": {
+        "title": "¿Cada cuanto he de esperar recibir solicitudes?",
+        "it_depends": "La respuesta depende de muchos factores. Demanda por parte de estudiantes en tu zona, precio, calidad de tu perfil, calidad de las fotos, idiomas ofrecidos, perfil de usuario completo etc. Si crees que estás recibiendo pocas solucitudes de inmersión puedes ponterte en contacto con nosotros (support@abroadwith.com) y  y te asesoraremos sobre cómo mejorar tu perfil."
+      },
+      "one_time_fee": {
+        "title": "¿La comisión del 3% para anfitriones ocurre solamente una vez?",
+        "yes": "Si, la comisión ocurre una única vez para el total de la reserva."
+      },
+      "booking_process": {
+        "overview": "Cuando un estudiante realiza una solicitud de reserva, recibirás un email con la notificación de la reserva. Desde ese momento tienes 48 horas para aceptar o rechazar la reserva, de lo contrario, a las 48 horas se cancelará automáticamente. Siempre puedes encontrar más información sobre el estudiante en su perdil de usuario antes de tomar tu decisión.",
+        "title": "¿Cómo funciona el proceso de reserva?"
+      },
+      "title": "Reserva"
+    }
+  }
+}

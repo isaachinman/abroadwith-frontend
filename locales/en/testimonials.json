@@ -1,0 +1,78 @@
+{
+  "title": "Testimonials",
+  "subtitle": "Hear from our students and hosts all around the world.",
+  "student_tab": "Students",
+  "host_tab": "Hosts",
+  "student_title": "Testimonials",
+  "student_testimonials": {
+    "daniel": {
+      "title": "<strong>Daniel</strong> - Boston, MA, USA",
+      "subtitle": "Studied Spanish with a Stay Immersion in Valencia",
+      "description": "It had been a few years since I took any Spanish, and I really wanted to revamp my conversational skills. So, I decided to take a two week vacation to Spain and stay with a local family I found on Abroadwith. Carolina and her family were more than hospitable teaching me everything about the rich Spanish culture; from gastronomy to participating in local festivals like the Fallas. In no time, my Spanish was back up to conversational par. Just like riding a bike."
+    },
+    "isabel": {
+      "title": "<strong>Isabel</strong> - Berlin, Germany",
+      "subtitle": "Studied Spanish with a Teacher Stay immersion in Madrid, Spain",
+      "description": "I wanted a program that could adapt to my needs. I love nature, and avoid the big cities when I can. However, I knew there were more options for language schools in the big cities. By wanting to live in the outskirts, I did not want to miss out on high quality language instruction and personalized teaching. Thanks to Abroadwith, I found a great teacher to host me in the stunning Sierra de Guadarrama, not far from Madrid (30 km). My Spanish went from basic to fluent in just four weeks. Javier and his family were delightful. He is a great cook and even better teacher."
+    },
+    "oliver": {
+      "title": "<strong>Oliver</strong> - Seoul, South Korea",
+      "subtitle": "Studied Spanish with a Tandem Immersion in Granada, Spain",
+      "description": "I found my language program in Granada, Spain on Abroadwith last summer (2016). Being a student, I could not afford to spend much money on my four week language trip, so I picked a Tandem immersion. I was able to find a Tandem host who wanted to learn Korean. We became close friends and got to improve both of our language skills. I would recommend Tandem to anyone wanting to study abroad at a very affordable price."
+    },
+    "marco": {
+      "title": "<strong>Marco</strong> - Milan, Italy",
+      "subtitle": "Studied Spanish with a Stay Immersion in Barcelona, Spain",
+      "description": "I knew as a native Italian speaker, learning Spanish would come easier than if I were to try German. Regardless, I wanted to have a supportive environment and find a good school. On the platform I was able to see very clearly the kind of family I would be staying with and photos of their house and my bedroom. From there, I could see all the great language school options close to the home. The flexibility that the product offers when learning languages abroad is great."
+    },
+    "sue": {
+      "title": "<strong>Sue</strong> - Seoul, South Korea",
+      "subtitle": "Studied German with a Stay Immersion in Berlin, Germany",
+      "description": "Learning German can be quite the process, especially if you want to become fluent in just a short bit of time. When I finally decided to make the move to live in Germany for a summer in order to improve my language skills, Abroadwith was a great tool in finding exactly what I needed in a host. In a matter of minutes, I was able to find a host that shared my same hobbies and cooked vegetarian meals."
+    },
+    "francois": {
+      "title": "<strong>François</strong> - Washington D.C., USA",
+      "subtitle": "Studied German with a Stay Immersion in Berlin",
+      "description": "It was always a goal of mine to study abroad, but I unfortunately never had a semester free in university. At 25 years old, I thought I had missed my opportunity to go abroad and learn German until I heard about Abroadwith. In just a few clicks I was able to find the perfect host in Berlin, who by the way, happened to be my exact age. Since my stay, I’ve kept in touch with my roommate and up with my German."
+    },
+    "brian": {
+      "title": "<strong>Brian Carter</strong> - Orlando, Florida, USA",
+      "subtitle": "Spanish course at Inhispania, Madrid",
+      "description": "When I moved to Spain, I signed up for a two-week fulltime course at Inhispania. What I loved about this was that the teacher spoke Spanish to us from the first minute – no English translating, no cheating. The class size was small, so there was enough personal attention, allowing us to learn fast. It's not only about learning Spanish, though: I had wonderful classmates from countries like France, Hungary, China, and the USA. We went out regularly, having a few laughs and enjoying the world-class nightlife."
+    },
+    "giulia": {
+      "title": "<strong>Giulia Bianchi</strong> - Rome, Italy",
+      "subtitle": "English course at Mayfair School, London",
+      "description": "Excellent staff and skilled Teachers. The thing I appreciated the most about Mayfair School is that everyone is prepared to listen to your point of view, understand your needs and take care of your learning progress. <br /><br />Thank you Jessica, Helen, Ilona, Marius and all the staff! See you for my next course!"
+    }
+  },
+  "host_title": "Testimonials",
+  "host_home_link": "View {{host}}'s home",
+  "host_testimonials": {
+    "esther": {
+      "title": "Esther - Madrid, Spain",
+      "subtitle": "Host at Abroadwith in Madrid, Spain",
+      "description": "As a host it is necessary to have ownership of your home. Being able to decide exactly what services to offer, when and who we decide to host, is something that has made our hosting experience of international students on Abroadwith convenient and most importantly, very enjoyable. Since my niece has been living with us this year, we have been hosting with the Tandem immersion option so she can be exposed to native English speakers. Her English has improved considerably having native speakers in the home."
+    },
+    "cathy": {
+      "title": "Cathy - Dublin, Ireland",
+      "subtitle": "Host at Abroadwith in Dublin, Ireland",
+      "description": "Before Abroadwith I wasn’t able to market myself the way I wanted to. I received student bookings through agencies and schools, but never had a say in who ultimately showed up at my doorstep. Since promoting my homestay on Abroadwith, I’ve had the best student roommates and experiences to date. I would definitely recommend Abroadwith to anyone eager to open their doors and minds to other cultures and languages."
+    },
+    "lola": {
+      "title": "Lola - Granada, Spain",
+      "subtitle": "Host at Abroadwith in Granada, Spain",
+      "description": "When my kids left my apartment more than 30 years ago I never thought I could get the family feeling back within my apartment. I have been hosting international students for over 5 years now and I can say that it has been a life changing experience. It is very rewarding to be able to connect with people from all around the world and to keep myself surrounded by them."
+    },
+    "julien": {
+      "title": "Julien - Berlin, Germany",
+      "subtitle": "Host at Abroadwith in Berlin, Germany",
+      "description": "When I needed to improve my Italian skills for work I found Abroadwith. I didn’t have the time to go abroad to improve it, so I decided to host Italian students at home with the Tandem immersion. In no time it proved to be a convenient way to improve my Italian skills. I’ve even learned more than I expected about the culture and political environment in Italy."
+    },
+    "jonathan": {
+      "title": "Jonathan - London, England, UK",
+      "subtitle": "Host at Abroadwith in London, England",
+      "description": "I always thought a host [family] had to be a married couple with young children. I was wrong. I’m a young 20 something living in a shared apartment, and through Abroadwith, my roommates and I have been able to keep the spare bedroom filled for months on end. In doing so we’ve met several nice exchange students from across the globe and learned a few languages along the way."
+    }
+  }
+}

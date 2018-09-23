@@ -407,7 +407,7 @@ export default class InlineSearchUnit extends Component {
         {standalone &&
         <Button
           disabled={searchLoading}
-          onMouseDown={this.handleGoToSearchPage}
+          onMouseDown={() => {}}
           bsSize='large'
           className='search-btn'
         >

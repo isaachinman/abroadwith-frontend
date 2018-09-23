@@ -1,0 +1,36 @@
+{
+  "title": "Tus reservas",
+  "subtitle": "¿A quién vas alojar próximamente?",
+  "confirm_modal_title": "Confirmar",
+  "confirm_modal_body": "¿Estás seguro de que quieres tu reserva con ? Perderás en ganancias potenciales.",
+  "actions": {
+    "cancel": "cancelar",
+    "decline": "rechazar"
+  },
+  "emergency_contact_not_provided": "No disponible",
+  "reservation_details": "Detalles de la reserva",
+  "sections": {
+    "guest": "Estudiante",
+    "status": "Estatus",
+    "location_details": "Fechas y ubicación",
+    "details": "Detalles"
+  },
+  "search_by_guest_name": "Búsqueda por nombre del estudiante",
+  "status_codes": {
+    "PENDING": "Pendiente",
+    "APPROVED": "Aprobado",
+    "DECLINED": "Rechazado",
+    "DECLINED_AUTOMATICALLY": "Rechazado",
+    "DECLINED_BY_HOST": "Rechazado por ti",
+    "DECLINED_BY_GUEST": "Rechazado por el estudiante",
+    "CANCELLED": "Cancelado",
+    "DECLINED_BY_EDUCATOR": "Rechazado por el educador",
+    "CANCELLED_BY_GUEST": "Cancelado por el estudiante",
+    "CANCELLED_BY_EDUCATOR": "Cancelado por el educador",
+    "CANCELLED_BY_HOST": "Cancelado por ti",
+    "PAID_OUT": "Aprobado",
+    "ARCHIVED": "Reserva pasada"
+  },
+  "cannot_approve_booking_title": "No puedes aprobar esta reserva",
+  "cannot_approve_booking_description": "Tienes ya una reserva para la habitación en estas fechas"
+}

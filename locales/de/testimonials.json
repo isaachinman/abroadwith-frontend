@@ -1,0 +1,78 @@
+{
+  "title": "Erfahrungsberichte",
+  "subtitle": "Lese Erfahrungen von unseren Studenten und Gastgeber aus der ganzen Welt",
+  "student_tab": "Studenten",
+  "host_tab": "Gastgeber",
+  "student_title": "Erfahrungsberichte",
+  "student_testimonials": {
+    "daniel": {
+      "title": "<strong>Daniel</strong> - Boston, MA, USA",
+      "subtitle": "Hatte einen spanischen Sprachaufenthalt in Valencia",
+      "description": "Es ist einige Jahre her, dass ich Spanisch gelernt hatte und ich wollte meine Sprachkenntnisse wieder auffrischen. Daher hatte ich mich entschlossen 2 Wochen Urlaub zu nehmen, um bei einer Familie, die ich auf der Abroadwith webseite fand, zu wohnen. Carolina und ihre Familie waren super gastfreundlich und zeigte mir viel ihrer reichen spanische Kultur, von der  Gastronomie bis zur Teilnahme an lokalen Festivals wie dem “Fallas”. In kürzester Zeit konnte ich mich wieder auf Spanisch unterhalten. Wie beim Fahrradfahren kam das Wissen zurück.."
+    },
+    "isabel": {
+      "title": "<strong>Isabel</strong> - Berlin, Germany",
+      "subtitle": "Hatte einen spanischen Sprachaufenthalt mit Lehrer in Madrid, Spanien",
+      "description": "Ich wollte ein Programm, das auf meine persönlichen Bedürfnisse zugeschnitten ist. Ich liebe die Natur und vermeide die großen Städte, wenn ich kann. Natürlich wusste ich, dass es in großen Städten eine größere Auswahl an Sprachschulen gibt. Trotz  meines Wunsches in einer ländlichen Umgebung zu wohnen, wollte ich aber nicht auf eine hochqualifizierte Sprachausbildung und einen  personalisierten Unterricht verzichten. Dank Abroadwith fand ich einen großartigen Lehrer  der mich in der der atemberaubenden Umgebung  der Sierra de Guadarrama, nicht weit von Madrid ( 30 km) bei sich zuhause aufnahm. Mein Spanisch  verbesserte sich von “Grundkenntnissen” zu “ fließend” innerhalb von nur  vier Wochen. Javier und seine Familie waren total entzückend, Er ist ein großartiger  Koch und ein noch besserer Lehrer."
+    },
+    "oliver": {
+      "description": "Ich fand mein Sprachprogramm in Granada, Spanien auf Abroadwith letzten Sommer ( 2016). Als Student stand mir nicht viel Geld für einen vierwöchigen Sprachaufenthalt zur Verfügung. Daher buchte ich eine Tandem Immersion Aufenthalt. Ich fand einen Tandem Gastgeber der gerne Koreanisch lernen wollte. Wir wurden gute Freunde und verbesserten beide unsere Sprachkenntnisse. Ich empfehle das Tandemprogramm jedem, der günstig im Ausland Sprachen lernen möchte.",
+      "title": "<strong>Oliver</strong> - Seoul, South Korea",
+      "subtitle": "Hatte einen spanischen Tandemaufenthalt in Granada, Spanien"
+    },
+    "marco": {
+      "description": "Ich wußte, als italienischer Muttersprachler, dass es für mich einfacher wäre Spanisch zu lernen als Deutsch. Zusätzlich wollte ich eine unterstützende Umgebung und eine gute Sprachschule finden.Auf der Abroadwith Plattform war ich in der Lage sehr genau zu sehen bei welcher Art von Familie ich wohnen würde. Ich sah schon im Vorfeld Fotos von dem Haus und Schlafzimmern. Dann konnte ich noch alle Sprachschulen in der Nähe finden. Die Flexibilität, die dieses Produkt liefert, wenn man Sprachen im Ausland lernen möchte, ist einfach nur großartig.",
+      "title": "<strong>Marco</strong> - Mailand, Italien",
+      "subtitle": "Hatte einen spanischen Sprachaufenthalt in Barcelona, Spanien"
+    },
+    "sue": {
+      "description": "Deutsch lernen kann ganz schön schwer sein, vor allem wenn du in kurzer Zeit fließend  sprechen möchtest. Als ich mich dann dafür entschied für einen Sommer in Deutschland zu leben, um meine Deutschkenntnisse zu verbessern, war Abroadwith ideal für mich. In ein paar Minuten war es mir möglich einen Gastgeber zu finden, der die gleichen Interessen wie ich hatte und sogar vegetarische Mahlzeiten anbot.",
+      "title": "<strong>Sue</strong> - Seoul, South Korea",
+      "subtitle": "Hatte einen deutschen Sprachaufenthalt in Berlin, Deutschland"
+    },
+    "francois": {
+      "description": "Es war immer ein Wunsch von mir im Ausland zu studieren, leider hatte ich während des Studium keine Zeit. Mit 25 dachte ich, ich hätte meine Chance ins Ausland zu gehen um Deutsch zu lernen, verpasst. Bis ich von Abroadwith hörte. Mit nur wenigen Klicks fand ich die perfekte Gastgeberin in Berlin, die übrigens auch noch genau in meinem Alter war. Seit meinem Aufenthalt blieb ich mit ihr und meinem Deutsch in ständigen Kontakt.",
+      "title": "<strong>François</strong> - Washington D.C., USA",
+      "subtitle": "Hatte einen deutschen Sprachaufenthalt in Berlin, Deutschland"
+    },
+    "brian": {
+      "title": "<strong>Brian Carter</strong> - Orlando, Florida, USA",
+      "subtitle": "Spanischkurs in Inhispania, Madrid",
+      "description": "Als ich nach Spanien zog schrieb ich mich bei Inhispania in einen 2 wöchigen Vollzeit-Spanischkurs ein. Am besten war, dass der Lehrer vom ersten Augenblick spanisch sprach. Keine englischen Übersetzungen kein Schummeln. Unsere Klasse war klein, so dass es wir durch intensive Betreuung schnell Fortschritte machen konnten. Aber es ging nicht nur ums Lernen. Ich hatte wundervolle Klassenkameraden aus Frankreich, Ungarn, China und den USA. Wir hatten viel Spaß und genossen das aufregende Nachtleben."
+    },
+    "giulia": {
+      "title": "<strong>Giulia Bianchi</strong> - Rome, Italy",
+      "subtitle": "Englischkurs bei der Mayfair School in London",
+      "description": "Exzellente Mitarbeiter, qualifizierte Lehrer. Was ich am meisten schätzte bei Mayfair School war, dass jeder auf deine Anschten eingeht, deine Bedürfnisse versteht und sich um deinen Lernfortschritt kümmert."
+    }
+  },
+  "host_testimonials": {
+    "esther": {
+      "description": "Als Gastgeber ist es mir wichtig die Kontrolle über mein Zuhause zu behalten. In der Lage zu sein, zu bestimmen was genau man anbietet, wer und wann bei mir wohnt, ist etwas, das die Beherbergung internationaler Studenten mit Abroadwith für uns zu einer bequemen und,am wichtigsten, unterhaltsamen Erfahrung gemacht hat. Da unsere Nichte dieses Jahr mit uns lebt, haben wir mit dem Tandem Programm viele englische Muttersprachler beherbergt, sodass sie Englisch lernen konnte. Auf diese Weise hat sich ihr Englisch sehr verbessert",
+      "title": "Esther - Madrid, Spain",
+      "subtitle": "Abroadwith Gastgeberin  in Madrid, Spanien"
+    },
+    "cathy": {
+      "description": "Vor Abroadwith war ich nicht in der Lage mich so zu präsentieren, wie ich wollte. Mir wurden Studenten von Agenturen und Sprachschulen gesandt, aber ich hatte nie mitzuentscheiden, wer wirklich zu mir kam. Seitdem ich mein Zuhause bei Abroadwith veröffentlicht habe, mache ich die besten Erfahrungen mit meinen Sprachstudenten.Ich empfehle Abroadwith jedem, der seine Türen und seinen Geist für andere Kulturen und Sprachen öffnen möchte.",
+      "title": "Cathy - Dublin, Ireland",
+      "subtitle": "Abroadwith Gastgeberin in Dublin, Irland"
+    },
+    "jonathan": {
+      "description": "Ich dachte immer eine Gastfamilie müsste ein verheiratetes Paar mit Kindern sein. Da lag ich falsch. Wir sind eine junge WG, alle so um die 20. Durch Abroadwith konnten meine Mitbewohner und ich unser leerstehende Zimmer immer wieder neu besetzen. Auf diese Weise haben konnten wir viele internationale Studenten kennenlernen. Und haben dabei noch ein paar neue Sprachen dazu gelernt.",
+      "title": "Jonathan - London, England",
+      "subtitle": "Gastgeber bei Abroadwith in London"
+    },
+    "lola": {
+      "title": "Lola - Granada, Spain",
+      "subtitle": "Gastgeberin bei Abroadwith in Granada, Spanien",
+      "description": "Als meine Kinder vor 30 Jahre ausgezogen sind, dachte ich, dass ich niemals wieder ein Familiengefühl haben würde. Seit 5 Jahre beherberge ich nun internationale Studenten und kann sagen, dass es eine tolle Erfahrung ist. Es ist sehr erfüllend sich mit Menschen aus der ganzen Welt zu vernetzen."
+    },
+    "julien": {
+      "title": "Julien - Berlin, Germany",
+      "subtitle": "Gastgeber bei Abroadwith in Berlin, Deutschland",
+      "description": "Als ich für die Arbeit meine Italienischkenntnisse  verbessern musste fand Ich Abroadwith. Ich hatte nicht  die Zeit ins Ausland zu gehen. Daher entschied ich mich dafür italienische Studenten mit dem Tandem Programm aufzunehmen. Auf diese Weise konnte ich schnell mein Italienisch verbessern. Ich lernte mehr als erwartet über die Kultur und das politische System in Italien."
+    }
+  },
+  "host_title": "Erfahrungsberichte",
+  "host_home_link": "Zeige s Zuhause an"
+}

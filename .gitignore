@@ -1,10 +1,10 @@
 .DS_Store
 build
 node_modules
-locales
 webpack-assets.json
 npm-debug.log
 static
 .happypack
 .vscode
 jsconfig.json
+*.log

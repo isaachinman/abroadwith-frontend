@@ -1,0 +1,41 @@
+{
+  "address": "Adresse",
+  "tabs": {
+    "school": "Schule",
+    "city": "Stadt",
+    "reviews": "Bewertungen",
+    "courses": "Kurse"
+  },
+  "school_size": "Schulgröße",
+  "sizes": {
+    "S": "Klein",
+    "M": "Medium",
+    "L": "Groß"
+  },
+  "website": "Webseite",
+  "languages_offered": "Angebotene Sprachen",
+  "language": "Die Sprache",
+  "culture": "Kultur",
+  "nightlife": "Nachtleben",
+  "course_weekcounts": {
+    "first": "erste",
+    "second": "zweite",
+    "third": "driite",
+    "fourth": "viertr",
+    "w1": "Erste",
+    "w2": "Zweite",
+    "w3": "Dritte",
+    "w4": "Vierte",
+    "w5": "Fünfte"
+  },
+  "course_length_descriptors": {
+    "non_recurring": "Kurse starten und enden",
+    "weekly": "Wöchentliche Kurse starten jeden",
+    "monthly": "Monatliche Kurse starten jeden Monats",
+    "quarterly": "Vierteljährige Kurse starten am alle Vierteljahre",
+    "biannual": "Halbjährige Kurse starten am alle halbe Jahre"
+  },
+  "date_range_not_available": "Der ausgewählte Zeitraum ist nicht verfügbar.",
+  "choose_new_dates": "Bitte wähle einen neuen Zeitraum der mindestens eine Kurslänge enthält.",
+  "student_name": "Name des Sprachschülers"
+}

@@ -1,0 +1,28 @@
+{
+  "title": "Vorgeschlagene Aufenthalte",
+  "homestays": {
+    "featured_home_1": {
+      "title": "Isas Zuhause",
+      "location": "Barcelona",
+      "price": "€155/Woche",
+      "home_image": "/app/featured_homes/featured_de/Isa.jpg",
+      "host_image": "",
+      "link_to_profile": "/homestay/1147"
+    },
+    "featured_home_2": {
+      "title": "Lucia & Borch Zuhause",
+      "location": "Madrid",
+      "price": "€150/Woche",
+      "home_image": "/app/featured_homes/featured_de/lucia.jpg",
+      "host_image": "",
+      "link_to_profile": "/homestay/220"
+    },
+    "featured_home_3": {
+      "title": "Cynthias Zuhause",
+      "location": "Boston",
+      "price": "€265/Woche",
+      "home_image": "/app/featured_homes/featured_de/cynthia_2.jpg",
+      "link_to_profile": "/homestay/40"
+    }
+  }
+}

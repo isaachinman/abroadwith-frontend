@@ -1,0 +1,22 @@
+{
+  "title": "Availability Calendar",
+  "disable_dates_explanation": "To make your home unavailable for a date or range of dates, either click on individual days, or click and drag to disable a date range.",
+  "selection_modal_title": "Update Calendar",
+  "all_rooms": "All rooms",
+  "start_date": "Start date",
+  "end_date": "End date",
+  "save_details": "Save details",
+  "availability": "Availability",
+  "unavailable": "Unavailable",
+  "period_blocked": "Period blocked",
+  "calendar_updated": "Calendar updated",
+  "was_unavailable": "was unavailable",
+  "is_unavailable": "is unavailable",
+  "unlisted": "Unlisted",
+  "listed": "Listed",
+  "availability_conflict_title": "Availability Conflict",
+  "cannot_make_this_period_unavailable": "Unfortunately you cannot make {{roomName}} unavailable for this time period because it has a pending or approved booking.",
+  "please_go_to_reservations": "Please go to {{- openLink}}your reservations{{- closeLink}} to manage pending and pre-existing bookings.",
+  "pausing_explanation": "Unlist your home to temporarily hide/remove it from search results.",
+  "manage_your_calendar": "Manage your calendar"
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Verfügbarkeitskalender",
+  "disable_dates_explanation": "Um die Verfügbarkeit Ihres Zuhauses für eine gewisse Zeit auszusetzen, klicken Sie entweder auf einzelne Tage oder wählen Sie einen ganzen Zeitraum aus.",
+  "selection_modal_title": "Kalender aktualiseren",
+  "all_rooms": "Alle Zimmer",
+  "start_date": "Anfangsdatum",
+  "end_date": "Enddatum",
+  "save_details": "Speichern",
+  "availability": "Verfügbarkeit",
+  "unavailable": "Nicht verfügbar",
+  "calendar_updated": "Kalender aktualisiert",
+  "was_unavailable": "war nicht verfügbar",
+  "is_unavailable": "ist nicht verfügbar",
+  "unlisted": "nicht gelisted",
+  "listed": "Gelisted",
+  "pausing_explanation": "Pausieren Sie Ihr Zuhause um es vorübergehend von den Suchergebnissen auszuschließen.",
+  "availability_conflict_title": "Verfügbarkeitskonflikt",
+  "cannot_make_this_period_unavailable": "Leider können Sie diesen Zeitraum nicht blockieren, da es eine ausstehende oder bestätigte Buchung gibt.",
+  "please_go_to_reservations": "Bitte gehen Sie zu 0meine Reservierungen0 um ausstehende und bereits bestehenden Buchungen zu bearbeiten.",
+  "period_blocked": "Zeit blockiert",
+  "manage_your_calendar": "Manage den Kalender"
+}

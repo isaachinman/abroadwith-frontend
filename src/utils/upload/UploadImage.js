@@ -5,13 +5,13 @@ import config from 'config'
 var lwip = require('lwip')
 var exif = require('exif-parser')
 
-var AWS = require('aws-sdk')
+// var AWS = require('aws-sdk')
 
-var s3 = new AWS.S3({
-  region:'eu-central-1',
-  accessKeyId: '***REMOVED***',
-  secretAccessKey: '***REMOVED***'
-})
+// var s3 = new AWS.S3({
+//   region:'eu-central-1',
+//   accessKeyId: process.env.aws.accessKeyId,
+//   secretAccessKey: process.env.aws.secretAccessKey,
+// })
 
 var uploadImage = function(image_file,image_key,options,callback){
   var type;
@@ -43,10 +43,10 @@ var uploadImage = function(image_file,image_key,options,callback){
       ContentType: image_file.mimetypem,
       CacheControl: 'max-age=1209600'
     }
-    s3.putObject(params, function(err, data) {
-        if(err) console.log(err);
-        if(callback) callback(err);
-    });
+    // s3.putObject(params, function(err, data) {
+    //     if(err) console.log(err);
+    //     if(callback) callback(err);
+    // });
   }
 
   if (type == "jpg") {
@@ -118,10 +118,10 @@ var uploadImage = function(image_file,image_key,options,callback){
                 ContentType: image_file.mimetypem,
                 CacheControl: 'max-age=1209600'
               }
-              s3.putObject(params, function(err, data) {
-                  if(err) console.log(err);
-                  if(callback) callback(err);
-              });
+              // s3.putObject(params, function(err, data) {
+              //     if(err) console.log(err);
+              //     if(callback) callback(err);
+              // });
             }
           });
 
@@ -142,10 +142,10 @@ var uploadImage = function(image_file,image_key,options,callback){
                 ContentType: image_file.mimetypem,
                 CacheControl: 'max-age=1209600'
               }
-              s3.putObject(params, function(err, data) {
-                  if(err) console.log(err);
-                  if(callback) callback(err);
-              });
+              // s3.putObject(params, function(err, data) {
+              //     if(err) console.log(err);
+              //     if(callback) callback(err);
+              // });
             }
           });
       }

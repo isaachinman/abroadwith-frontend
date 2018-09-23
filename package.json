@@ -10,10 +10,11 @@
   },
   "main": "bin/server.js",
   "scripts": {
+    "postinstall": "npm run setup",
     "deploy": "better-npm-run deploy",
-    "setup": "mkdir build && mkdir build/locales && mkdir build/currency-rates && mkdir build/course-cities && mkdir build/course-data && npm i",
+    "setup": "mkdir build && mkdir build/locales && mkdir build/currency-rates && mkdir build/course-cities && mkdir build/course-data && npm run build",
     "start-integration": "pm2 start ecosystem/integration.json",
-    "start-production": "pm2 start ecosystem/production.json",
+    "start": "NODE_PATH='./src' NODE_ENV=production IMG=S3 SOLR=PROD APIHOST='https://api.abroadwith.com' APIPORT=443 node ./bin/server.js",
     "build": "better-npm-run build",
     "lint": "eslint src --fix",
     "start-dev": "better-npm-run start-dev",
@@ -149,9 +150,7 @@
     "validator": "^6.2.0",
     "warning": "^3.0.0",
     "webpack-isomorphic-tools": "^2.6.4",
-    "winston": "^2.3.1"
-  },
-  "devDependencies": {
+    "winston": "^2.3.1",
     "babel-eslint": "^6.1.2",
     "babel-plugin-react-transform": "^2.0.0",
     "babel-plugin-transform-imports": "^1.1.0",
@@ -191,6 +190,8 @@
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-hot-middleware": "^2.13.2"
+  },
+  "devDependencies": {
   },
   "eslintConfig": {
     "parser": "babel-eslint",

@@ -1,0 +1,22 @@
+{
+  "title": "Bandeja de entrada",
+  "no_messages_title": "No tienes mensajes",
+  "thread_will_be_here": "Cuando alguien te escribe, aquí comienza el hilo de la conversación.",
+  "no_messages": "No hay mensajes que mostrar",
+  "conversation_between": "Esta es una conversación entre tu y",
+  "intro_msg_stay": "Me gustaría quedarme con",
+  "load_previous": "Cargar previos",
+  "input_placeholder": "Escribe un mensaje",
+  "this_is_a_conversation": "Esta es una conversación entre tu y",
+  "message_modal_title": "Nuevo mensaje",
+  "message_modal_placeholder": "Escribe tu mensaje..",
+  "message_modal_btn": "Enviar",
+  "when_are_you_travelling": "¿A dónde quieres viajar?",
+  "thread_title": "Me gustaría alojarme con",
+  "You": "Tu",
+  "you": "Tu",
+  "conversation_with": "Conversación con",
+  "guest": "Estudiante",
+  "host": "Anfitrión",
+  "user_will_receive_email_notification": "El usuario recibirá una notificación via email"
+}

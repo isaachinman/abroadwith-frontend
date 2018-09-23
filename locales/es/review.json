@@ -1,0 +1,42 @@
+{
+  "title": "Deja una evaluación",
+  "tell_us_about_experience": "Cuéntanos sobre tu experiencia con",
+  "your_review_will_be_public": "Tu evaluación será visible en tu página de perfil de usuario",
+  "submit_btn": "Enviar",
+  "please_give_star_rating": "Por favor, deja una evaluación:",
+  "textbox_placeholder": "Comparte tu experiencia con otros usuarios",
+  "review_success_modal_title": "Evaluación mandada",
+  "review_success_modal_body": "Gracias por compartir tu experiencia. Otros estudiantes lo apreciarán en el futuro.",
+  "go_to_homepage": "Vuelta a la página principal",
+  "review_home": {
+    "you_stayed_in": "Te quedaste en casa de",
+    "help_other_guests": "Ayuda a otros estudiantes informándoles sobre tu experiencia.",
+    "stars_explanation": "Por favor, evalúa a tu anfitrión y la experiencia. Tu evaluación se añadirá a las opiniones de otros estudiantes. Tu anfitrión no sabrá tu valoración individual por categoría.",
+    "food_rating_title": "Comida",
+    "food_rating_explanation": "¿Cómo fue la calidad de la comida en casa de tu anfitrión?",
+    "language_culture_rating_title": "Idioma e inmersión cultural",
+    "language_culture_rating_explanation": "¿Cómo fue la experiencia de inmersión cultural en casa?",
+    "location_rating_title": "Ubicación",
+    "location_rating_explanation": "¿Cómo de seguro y cómodo es el barrio de tu anfitrión?",
+    "cleanliness_rating_title": "Limpieza",
+    "cleanliness_rating_explanation": "¿Cual fue tu impresión sobre la limpieza del hogar?",
+    "room_rating_title": "Habitación",
+    "room_rating_explanation": "¿Cómo encontraste tu habitación?"
+  },
+  "review_user": {
+    "you_hosted_guest": "tuvo una inmersión contigo.",
+    "stars_explanation": "Deja una opinión sobre el estudiante en base a tu experiencia durante la inmersión"
+  },
+  "review_educator": {
+    "you_took_course": "Has dado un curso con",
+    "help_other_students": "Ayuda a otros estudiantes a tomar una decisión informada dejando una opinión sobre tu experiencia.",
+    "stars_explanation": "Por favor evalúa a tu educador en base a tu experiencia durante el curso. Tu evaluación se añadirá a las opiniones de otros estudiantes. El educador no sabrá tu valoración individual por categoría.",
+    "value_for_money_rating_title": "Relación calidad precio",
+    "value_for_money_rating_explanation": "¿Qué te pareció el curso a nivel general?",
+    "teaching_rating_title": "Aprendizaje",
+    "teaching_rating_explanation": "¿Qué te pareció los métodos de aprendizaje durante el curso?",
+    "location_rating_title": "Ubicación",
+    "location_rating_explanation": "¿Crees que la distancia entre tu escuela y tu alojamiento fue razonable?"
+  },
+  "written_review": "Opinión"
+}

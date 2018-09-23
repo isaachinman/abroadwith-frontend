@@ -1,0 +1,36 @@
+{
+  "title": "Your reservations",
+  "subtitle": "Who are you hosting next?",
+  "confirm_modal_title": "Confirm {{action}}",
+  "reservation_details": "Reservation details",
+  "confirm_modal_body": "Are you sure you want to {{action}} your booking with {{guest}}? You will lose {{earnings}} in potential earnings.",
+  "actions": {
+    "cancel": "cancel",
+    "decline": "decline"
+  },
+  "sections": {
+    "guest": "Guest",
+    "status": "Status",
+    "location_details": "Dates & Location",
+    "details": "Details"
+  },
+  "emergency_contact_not_provided": "Not provided",
+  "search_by_guest_name": "Search by guest name",
+  "status_codes": {
+    "PENDING": "Pending",
+    "APPROVED": "Approved",
+    "DECLINED": "Declined",
+    "DECLINED_AUTOMATICALLY": "Declined (automatically)",
+    "DECLINED_BY_HOST": "Declined by you",
+    "DECLINED_BY_GUEST": "Declined by guest",
+    "CANCELLED": "Cancelled",
+    "DECLINED_BY_EDUCATOR": "Declined by educator",
+    "CANCELLED_BY_GUEST": "Cancelled by guest",
+    "CANCELLED_BY_EDUCATOR": "Cancelled by educator",
+    "CANCELLED_BY_HOST": "Cancelled by you",
+    "PAID_OUT": "Approved",
+    "ARCHIVED": "Past booking"
+  },
+  "cannot_approve_booking_title": "Cannot approve booking",
+  "cannot_approve_booking_description": "There is already an approved booking during these dates in this room."
+}
